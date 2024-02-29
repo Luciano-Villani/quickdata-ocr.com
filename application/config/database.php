@@ -10,7 +10,7 @@ $query_builder = TRUE;
 // pass db /GaTGjBg7#bB
 
 switch ($_SERVER['REMOTE_ADDR']) {
-    case '127.0.0.1':
+    case '2222127.0.0.1':
 			$host = 'srv1073.hstgr.io';
 			$host = 'localhost';
 			$userdb ='root';
@@ -27,9 +27,7 @@ switch ($_SERVER['REMOTE_ADDR']) {
    
 		default:
 
-//server test
-			$host = 'localhost';
-			// $host = '34.123.36.213';
+			$host = '34.123.36.213';
 			$userdb ='u117285061_mvl_ocr_db';
 			$pass = '/GaTGjBg7#bB';
 			$base ='u117285061_mvl_ocr_db';
