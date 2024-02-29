@@ -27,7 +27,7 @@ switch ($_SERVER['REMOTE_ADDR']) {
    
 		default:
 
-			$host = '34.123.36.213';
+			$host = '34.125.217.72';
 			$userdb ='u117285061_mvl_ocr_db';
 			$pass = '/GaTGjBg7#bB';
 			$base ='u117285061_mvl_ocr_db';
