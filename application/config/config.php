@@ -26,16 +26,16 @@ B=MDQri(,t{c
 */
 
 switch ($_SERVER['REMOTE_ADDR']) {
-    case '127.0.0.1':
+    case 'otro_127.0.0.1':
         $config['base_url'] = 'http://mvl.local/';
         break;    
-        case '38.52.86.75':
-        $config['base_url'] = 'https://test.quickdata.com.ar/';
+        case '181.117.11.253':
+        $config['base_url'] = 'http://quickdata-ocr.com/';
         break;       
        
         break;
         default:
-        $config['base_url'] = 'https://test.quickdata.com.ar/';
+        $config['base_url'] = 'http://quickdata-ocr.com/';
         
     
 }
