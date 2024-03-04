@@ -49,7 +49,7 @@
 	}
 
 </style>
-<div class="card">
+<div class="card row tablas">
 <h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes </h5>
 
 	<div class=" card-header  ">
