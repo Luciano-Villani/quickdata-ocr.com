@@ -6121,22 +6121,11 @@ h6.panel-title,
   background-color: #113966 !important;
 }
 
-table {background-color: #FFDBA1 !important;
-  border-top-left-radius: 10px 10px;
-  border-top-right-radius: 10px 10px;
+table {
+  background-color: #C9D4E6 !important;
+  
 
 
-}
-
-div.mvl .card {
-  background-color: #FFEDCF !important;
-  border-top-left-radius: 10px 10px;
-  border-top-right-radius: 10px 10px;
-
-
-}
-.bg-titulo {
-  background-color: #FFDBA1 !important;
 }
 .btn-proye {
   width: 113px !important;
@@ -6148,19 +6137,14 @@ div.mvl .card {
 }
 
 .card-title {
-  border-top-left-radius: 10px 10px;
-  border-top-right-radius: 10px 10px;
-  box-shadow: 0 1px 0 rgba(255,255,255,1) inset,
-  0 3px 5px #113966;
+  background-color:#C9D4E6;
  
 }
 .btn-agregar {
   border-top-left-radius: 10px 10px;
   border-top-right-radius: 10px 10px;
   border-bottom-left-radius: 10px 10px;
-  box-shadow: 0 1px 0 rgba(255,255,255,.5) inset,
-  0 3px 2px #FFDBA1 ;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+  
 }
 
 .btn-save {
