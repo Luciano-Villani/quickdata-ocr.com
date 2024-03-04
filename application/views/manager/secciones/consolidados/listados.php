@@ -182,7 +182,7 @@
        
     }
 </style>
-<div class="card">
+<div class="card tablas">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas</h5>
 	<div class="card-header">
 
