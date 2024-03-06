@@ -36,20 +36,8 @@
 	.select2-search:after {
 		content: '' !important;
 	}
-	.card {
-		container {
- 		 padding-left: 0 !important;
- 		 padding-right: 0 !important;
-		  width: 100% !important;
-}
-	}
-	.tablas {
-		width: 1300px !important;
-		margin-left: -80px; !important;
-	}
-
 </style>
-<div class="card row tablas">
+<div class="card">
 <h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes </h5>
 
 	<div class=" card-header  ">
@@ -182,7 +170,7 @@
        
     }
 </style>
-<div class="card tablas">
+<div class="card">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas</h5>
 	<div class="card-header">
 
@@ -245,5 +233,6 @@
 </div>
 
 <script>
+
 
 </script>
