@@ -111,7 +111,7 @@ function initDatatable(search = false, type = 0) {
         [10, 25, 50, 100, -1],
         [10, 25, 50, 100, "All"],
       ],
-      pageLength: 20,
+      pageLength: 25,
       dom: "Blfrtip",
       scrollX: true,
       buttons: [
@@ -143,12 +143,12 @@ function initDatatable(search = false, type = 0) {
         },
         { width: "", orderable: false, targets: [7] },
         {
-          // targets: [4],
-          // render: function (data, type, full, meta) {
-          //   console.log('render 4')
-          //   console.log(data)
-          //   return data + " (" + full[1] + ")";
-          // },
+          targets: [4],
+          render: function (data, type, full, meta) {
+            console.log('render 4')
+            console.log(data)
+            return data + " (" + full[1] + ")";
+          },
         },
       ],
       language: {
@@ -260,7 +260,7 @@ $(document).ready(function () {
       content: 'Confirma eliminar el registro??',
       buttons: {
         confirm: {
-          text: "Borrar",
+          text: "Borra",
           btnClass: "btn-blue",
           action: function () {
             eliminarDatos(dato);
@@ -361,10 +361,7 @@ $(document).ready(function () {
             $.each(obj.proyectos, function (id, value) {
               $("#select_proyecto").append(
                 '<option value="' +
-                  value["id_interno"] +
-                  '">' +
-				  value["descripcion"].toUpperCase()+
-                  "</option>"
+                  value["id_interno"] +'">' + value["id_interno"] +'  '+ value["descripcion"].toUpperCase()+"</option>"
               );
             });
           } else {
@@ -382,10 +379,8 @@ $(document).ready(function () {
 
             $.each(obj.programas, function (id, value) {
               $("#select_programa").append(
-                '<option value="' +
-                  value["id_interno"] +
-                  '">' +
-				  value["descripcion"].toUpperCase() +
+                '<option value="' +value["id_interno"] +'">' +
+				 value['id_interno'] +'  '+ value["descripcion"].toUpperCase() +
                   "</option>"
               );
             });
