@@ -11,13 +11,14 @@ if(isset($_SERVER['HTTP_REFERER'])){
 
 
 <div class="card ">
-    <div class="card-header header-elements-inline">
-        <h5 class="card-title"><?= $this->data['page_title'] ?></h5>
-        <div class="header-elements">
-            <div class="list-icons">
-            <a href="<?= $retorno ?>" type="button" class="btn bg-teal-400 btn-labeled"><b><i class="icon-backward"></i></b> Volver</a>
-                <a class="list-icons-item" data-action="collapse"></a>
+<div class="list-icons ml-3 mt-3">
+            <a href="<?= $retorno ?>" type="button" class="btn btn-save bg-buton-blue "><b><i class="icon-backward mr-1"></i></b> Volver al lote</a>
+                <!-- <a class="list-icons-item" data-action="collapse"></a> -->
             </div>
+    <div class="card-header header-elements-inline">
+        <h5 class="card-title text-center">Factura leída</h5>
+        <div class="header-elements">
+            
         </div>
     </div>
 
