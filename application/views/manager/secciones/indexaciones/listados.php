@@ -20,7 +20,7 @@
 					</div>
 				</div>
 				<div class="col-md-2">
-					<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+					<div class="form-group form-group-feedback form-group-feedback-right">
 
 						<?php
 						$js = array(
@@ -39,13 +39,13 @@
 				</div>
 				<div class="col-md-2">
 					<div class="form-group form-group-feedback form-group-feedback-right">
-						<input type="text" class="form-control campo-agregar" placeholder="Nro de cuenta" name="nro_cuenta" value="<?php echo set_value('nro_cuenta', @$nro_cuenta); ?>">
+						<input type="text" class="form-control" placeholder="Nro de cuenta" name="nro_cuenta" value="<?php echo set_value('nro_cuenta', @$nro_cuenta); ?>">
 
 						<?php echo form_error('nro_cuenta', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+					<div class="form-group form-group-feedback form-group-feedback-right">
 
 						<?php
 						$js = array(
@@ -61,7 +61,7 @@
 				</div>
 
 				<div class="col-md-4">
-					<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+					<div class="form-group form-group-feedback form-group-feedback-right">
 
 						<?php
 						$js = array(
@@ -85,7 +85,7 @@
 
 			<div class="row">
 				<div class="col-md-3">
-					<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+					<div class="form-group form-group-feedback form-group-feedback-right">
 
 						<?php
 						$js = array(
@@ -101,7 +101,7 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+					<div class="form-group form-group-feedback form-group-feedback-right ">
 
 						<?php
 						$js = array(
@@ -120,14 +120,14 @@
 					</div>
 				</div>
 				<div class="col-md-2">
-					<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+					<div class="form-group form-group-feedback form-group-feedback-right">
 						<input type="text" class="form-control" placeholder="Exp" name="expediente" value="<?php echo set_value('expediente',@$indexador->expediente); ?>">
 
 						<?php echo form_error('expediente', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 					</div>
 				</div>
 				<div class="col-md-2">
-					<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+					<div class="form-group form-group-feedback form-group-feedback-right">
 
 						<?php
 						$js = array(
