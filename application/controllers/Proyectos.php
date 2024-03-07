@@ -43,6 +43,8 @@ class Proyectos extends backend_controller
 	public function list_dt()
 	{
 
+		
+
 		$data = $this->Proyectos_model->list_dt();
 
 		return $data;

@@ -102,11 +102,11 @@ function initDatatable(search = false, type = 0) {
       fixedHeader: {
         header: true,
         // footer: true
-    },
-    paging: false,
-    scrollCollapse: true,
-    scrollX: true,
-    scrollY: 300,
+      },
+      paging: false,
+      scrollCollapse: true,
+      scrollX: true,
+      scrollY: 300,
       lengthMenu: [
         [10, 25, 50, 100, -1],
         [10, 25, 50, 100, "All"],
@@ -132,71 +132,93 @@ function initDatatable(search = false, type = 0) {
           className: "",
         },
       ],
-      columnDefs: [],
       columnDefs: [
         {
-          targets: [0, 1, 2],
-          visible: false,
-        },
+          render:function(data, type, row)
+          {
+            console.log(row);
+           return "PROG " + data;
 
-
+          },
+        
+          targets: 5,
+        },       
         {
-          targets: [14, 15, 16, 17, 18],
-          //			className: 'dt-body-right',
-          bSortable: false,
-        },
-        { className: "dt-center dt-nowrap", targets: [] },
-        { targets: ["_all"], className: "dt-left dt-nowrap" },
-      ],      
-      columnDefs: [
-        {
-          targets: [0, 1, 2],
-          visible: false,
+          // render: (data, type, row) => data+"(" +row[15]+")",
+          // targets: 1,
         },
         {
-          targets: [4],
-          render: function (data, type, full, meta) {
-            console.log('render 4')
-            console.log(data)
-            return data + " (" + full[1] + ")";
-          },
-          targets: [8],
-          render: function (data, type, full, meta) {
-            // console.log('full');
-            // console.log(full);
-            punto = ".";
-            if (full[2] == "") {
-              // full[2] = "";
-              punto = "";
-            }else{
-              punto = + full[2]
-            }
-            return "PROG "+data+full[2];
-          },
-          targets: [9],
-          render: function (data, type, full, meta) {
-            
+          render: function (data, type, row) {
+            return data + "." + row[5];
           
-            punto = "";
-            if (full[8] != "") {
-           
-              punto = "."+full[8];
-            }else{
-              
-              punto = '';
-            }
-            return +data+punto;
           },
+          targets: 6,
         },
-
-        {
-          targets: [14, 15, 16, 17, 18],
-          //			className: 'dt-body-right',
-          bSortable: false,
-        },
-        { className: "dt-center dt-nowrap", targets: [] },
-        { targets: ["_all"], className: "dt-left dt-nowrap" },
       ],
+      // columnDefs: [
+      //   {
+      //     targets: [0, 1, 2],
+      //     visible: false,
+      //   },
+
+      //   {
+      //     targets: [14, 15, 16, 17, 18],
+      //     //			className: 'dt-body-right',
+      //     bSortable: false,
+      //   },
+      //   // { className: "dt-center dt-nowrap", targets: [] },
+      //   { targets: ["_all"], className: "dt-left dt-nowrap" },
+
+      //   {
+      //     targets: [0, 1, 2],
+      //     visible: false,
+      //   },
+      //   {targets: ["_all"], visible: true} ,
+      //   {
+      //     targets: ['_aññ'],
+      //     render: function (data, type, full, meta) {
+      //       console.log('prog');
+      //       console.log('render 4')
+      //       console.log(data)
+      //       return data + " a(" + full[1] + ")";
+      //     },
+      //     targets: [8],
+      //     render: function (data, type, full, meta) {
+      //       // console.log('full');
+      //       // console.log(full);
+      //       punto = ".";
+      //       if (full[2] == "") {
+
+      //         punto = "";
+      //       }else{
+      //         punto = + full[2]
+      //       }
+      //       return "PROG "+data+full[2];
+      //     },
+      //     targets: [9],
+      //     render: function (data, type, full, meta) {
+      //       console.log('progs');
+
+      //       punto = "";
+      //       if (full[8] != "") {
+
+      //         punto = "."+full[8];
+      //       }else{
+
+      //         punto = '';
+      //       }
+      //       return +data+punto;
+      //     },
+      //   },
+
+      //   {
+      //     targets: [14, 15, 16, 17, 18],
+      //     //			className: 'dt-body-right',
+      //     bSortable: false,
+      //   },
+      //   { className: "dt-center dt-nowrap", targets: [] },
+      //   { targets: ["_all"], className: "dt-left dt-nowrap" },
+      // ],
       language: {
         url: "/assets/manager/js/plugins/tables/translate/spanish.json",
       },
@@ -225,17 +247,14 @@ function initDatatable(search = false, type = 0) {
       initComplete: function () {
         this.api()
 
-          .columns([3]) // This is the hidden jurisdiction column index
+          .columns([4]) // This is the hidden jurisdiction column index
           .every(function () {
             var column = this;
-
             column
               .data()
               .unique()
               .sort()
               .each(function (d, j) {
-        
-
                 // if (
                 //   $("#periodo_contable").find("option[value='" + d + "']")
                 //     .length
@@ -257,7 +276,7 @@ $(document).ready(function () {
   var range = $('input[name="daterange2"]').daterangepicker(
     {
       startDate: "-1m",
-      endDate: '+1m',
+      endDate: "+1m",
       locale: {
         format: "DD/MM/YYYY",
         customRangeLabel: "Búsqueda avanzada",
@@ -276,18 +295,16 @@ $(document).ready(function () {
       // opens: 'left'
     },
     function (start, end, label) {
+      // $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 
-      var strSearchvar = new Array();
-      strSearchvar = start.format("YYYY-MM-DD") + "@" + end.format("YYYY-MM-DD");
-      console.log('strSearchvar');
-      console.log(strSearchvar);
-
-        // $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-
-   
       if (validarSeleccionFecha()) {
         var tipo_fecha = $('input[name="tipo_fecha"]:checked').val();
 
+        var strSearchvar = new Array();
+        strSearchvar =
+          start.format("YYYY-MM-DD") + "@" + end.format("YYYY-MM-DD");
+        console.log("strSearchvar");
+        console.log(strSearchvar);
         // console.log(start.format('YYYY-MM-DD'));
 
         //envio parametro true para que se selecciones todas los resultados
@@ -304,13 +321,11 @@ $(document).ready(function () {
   );
   range.on("cancel.daterangepicker", function () {});
   range.on("load.daterangepicker", function () {
- alert();
+    alert();
   });
-  var drp = $('input[name="daterange2"]').data('daterangepicker');
+  var drp = $('input[name="daterange2"]').data("daterangepicker");
   // var start = moment().subtract(29, 'days');
   // var end = moment();
-  
-
 
   // console.log(drp.startDate.format('DD-MM-YYYY'));
   // console.log(drp.endDate.format('DD-MM-YYYY'));
@@ -320,10 +335,10 @@ $(document).ready(function () {
   $("body").on("click", "#resetfilter", function (e) {
     e.preventDefault();
 
-    $("#id_proveedor").val('').trigger('change') ;
-    $("#id_tipo_pago").val('').trigger('change') ;
-    $("#periodo_contable").val('').trigger('change') ;
-    
+    $("#id_proveedor").val("").trigger("change");
+    $("#id_tipo_pago").val("").trigger("change");
+    $("#periodo_contable").val("").trigger("change");
+
     // $("#id_tipo_pago").prop("selectedIndex", 0);
     initDatatable();
   });
@@ -332,7 +347,10 @@ $(document).ready(function () {
     e.preventDefault();
 
     if (
-      $("#id_proveedor").val().length === 0 && $("#id_tipo_pago").val().length === 0 && $("#periodo_contable").val().length === 0) {
+      $("#id_proveedor").val().length === 0 &&
+      $("#id_tipo_pago").val().length === 0 &&
+      $("#periodo_contable").val().length === 0
+    ) {
       $.confirm({
         icon: "icon-alert",
         title: "Criterios de filtrado",
@@ -381,10 +399,6 @@ $(document).ready(function () {
       column.visible(!column.visible());
     });
   });
-
-
-
-
 
   function validarSeleccionFecha() {
     var accesorios = document.querySelectorAll(

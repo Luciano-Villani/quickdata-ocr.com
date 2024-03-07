@@ -57,16 +57,12 @@ class Consolidados extends backend_controller
 		// $data=array();
 		if ($this->input->is_ajax_request()) {
 
-			
 			$data = $row = array();
-			$_POST['search']['value'] = strtoupper($_POST['search']['value']);
-			$memData = $this->Manager_model->getRows($_POST);
-			foreach ($memData as $r) {
-				// // echo '<pre>';
-				// var_dump( $r ); 
-				// echo '</pre>';
-// die();
 			
+			$memData = $this->Manager_model->getRows($_POST);
+
+			foreach ($memData as $r) {
+
 				// $prov = $this->Manager_model->getWhere('_proveedores', 'nombre LIKE "%'.$r->proveedor.'%"');
 
 				// $data = array(
@@ -95,7 +91,7 @@ class Consolidados extends backend_controller
 
 					if(strlen($r->id_proyecto) == 1){
 						
-						$r->id_proyecto = ".0".strval($r->id_proyecto);
+						$r->id_proyecto = ".0".intval($r->id_proyecto);
 					}else{
 						$r->id_proyecto = ".".$r->id_proyecto;
 					}
@@ -103,14 +99,17 @@ class Consolidados extends backend_controller
 				}else{
 					$r->id_proyecto = '';
 				}
-
+	
 				$data[] = array(
-					strtoupper($r->periodo_contable),
-					$r->proveedora,
+					$r->id_consolidado,
+					$r->codigo_proveedor,
+					$r->id_proyecto,
+					$r->periodo_contable,
+					$r->proveedor .'('.$r->codigo_proveedor.')',
 					$r->expediente,
 					$r->secretaria,
 					$r->jurisdiccion,
-					$r->id_programa.$r->id_proyecto,
+					$r->id_programa,
 					$r->jurisdiccion,
 					$r->objeto,
 					$r->dependencia,

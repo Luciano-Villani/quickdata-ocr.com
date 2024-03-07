@@ -36,6 +36,7 @@
 	.select2-search:after {
 		content: '' !important;
 	}
+
 	.card {
 		container {
  		 padding-left: 0 !important;
@@ -48,9 +49,8 @@
 		margin-left: -80px; !important;
 
 	}
+	
 </style>
-
-
 
 <div class="card row tablas">
 <h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes </h5>
@@ -164,15 +164,14 @@
 		</div>
 	</div>
 </div>
+
+
 <style>
 	#consolidados_dt_filter,
 	#consolidados_dt_length {
 		/* float: left; */
 	}
 
-	.dataTables_filter input{
-		text-transform: uppercase;
-	}
 	div.dt-button-collection {
 		width: auto !important;
 
@@ -187,6 +186,7 @@
     /* width: 1200px !important; */
        
     }
+
 </style>
 <div class="card tablas">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas</h5>
@@ -196,7 +196,9 @@
 			<thead>
 				
 				<tr>
-				
+					<th>#</th>
+					<th>#</th>
+					<th>#</th>
 					<th>Período Cont</th>
 					<th>Proveedor</th>
 					<th>Expediente</th>

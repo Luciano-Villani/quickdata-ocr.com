@@ -101,7 +101,7 @@ class Consolidados_model extends CI_Model
 						'proveedor' => $proveedor->nombre,
 						'expediente' => $indexador->expediente,
 						'secretaria' => $secretaria->secretaria,
-						'jurisdiccion' => $secretaria->major,
+						'jurisdiccion' => $secretaria->rafam,
 						'programa' => $programa->descripcion,
 						'id_programa' => $programa->id_interno,
 						'id_proyecto' => $id_proyecto,
