@@ -1,5 +1,47 @@
 $(document).ready(function () {
+	initDatatable();
+
+	$("body").on("click", "a.borrar_dato", function (e) {
+		e.preventDefault();
 	
+		var dato = new FormData();
+		dato.append("id", $(this).data("id"));
+		$.confirm({
+		  autoClose: "cancel|10000",
+		  title: "Eliminar Datos",
+		  content: "Confirma eliminar datos ?",
+		  buttons: {
+			confirm: {
+			  text: "Borrar",
+			  btnClass: "btn-blue",
+			  action: function () {
+				$.ajax({
+				  type: "POST",
+				  contentType: false,
+				  dataType: "json",
+				  data: dato,
+				  processData: false,
+				  cache: false,
+				  beforeSend: function () {},
+				  url: $("body").data("base_url") + "Programas/delete",
+				  success: function (result) {
+					alertas(result);
+					table.ajax.reload( null, false );
+				  },
+				  error: function (xhr, errmsg, err) {
+					console.log(xhr.status + ": " + xhr.responseText);
+				  },
+				});
+			  },
+			},
+			cancel: {
+			  text: "Cancelar",
+			  btnClass: "btn-red",
+			  action: function () {},
+			},
+		  },
+		});
+	  });
 	$("form#form-validate-jquery").validate({
 		rules:{
 			id_secretaria:{
@@ -77,58 +119,50 @@ $(document).ready(function () {
 
 
 
-
-
-	$('#cars').select2({
-		placeholder: 'Selecsasasaasasion'
-	  });
-
 });
 
-$(document).ready(function () {
-
-	var base_url = $("body").data('base_url');
-	
-
-	var mytable = $('#usuarios_dt').DataTable({
-		dom: 'Bfrtip',
-		 columnDefs: [
-    {
-			targets: -1,
-//			className: 'dt-body-right',
-			bSortable: false,
+function initDatatable(search = false, type = 0) {
+var base_url = $("body").data("base_url");
+ table =  $("#programas_dt").DataTable({
+    fixedHeader: {
+      header: true,
+      // footer: true
     },
-	//{ visible: false, targets: [0,3,5] }
-  ],
-		language: {
-			url: base_url + 'assets/manager/js/plugins/tables/translate/spanish.json'
-		},
-		// scrollX: true,
-        responsive: true,
-		serverSide: true,
-		pageLength: 10,
-		processing: true,
-		type: "POST",
-	
-		ajax: {
-			url: base_url + 'Programas/list_dt',
-			type: 'POST',
-			error: function (jqXHR, textStatus, errorThrown) {
-				alert(jqXHR.status + textStatus + errorThrown);
-			}
-		},
-		initComplete: function(settings, json) {
-
-			this.find('thead th').css('width', 'auto');
-			this.api().rows().every(function() {
-  
-
-  
-			});
-  
-  
-		  },
-	}
-	
-	);
-});
+	order: [[1, 'desc']],
+    dom: "Blfrtip",
+    scrollX: true,
+    scrollY: 300,
+    scrollCollapse: true,
+    lengthMenu: [
+      [10, 25, 50, 100, -1],
+      [10, 25, 50, 100, "All"],
+    ],
+    pageLength: 25,
+    dom: "Blfrtip",
+    columnDefs: [
+        //   { visible: false, targets: [1] },
+        { width: "1%", className: "dt-left dt-nowrap", targets: "_all" },
+        { width: "1%", orderable: false, targets: [0,3] },
+        
+      ],
+    language: {
+      url: base_url + "assets/manager/js/plugins/tables/translate/spanish.json",
+    },
+    type: "POST",
+    processing: true,
+    serverSide: true,
+   
+    ajax: {
+      data: {
+        type: type,
+        table: "_programas",
+        data_search: search,
+      },
+      url: base_url + "Programas/list_dt",
+      type: "POST",
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert(jqXHR.status + textStatus + errorThrown);
+      },
+    },
+  });
+}

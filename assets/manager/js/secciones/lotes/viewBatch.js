@@ -181,7 +181,7 @@ $(document).ready(function () {
               success: function (result) {
                 alertas(result);
                console.log('mytablemytable');
-               $(".datatable-ajax").DataTable().ajax.reload()
+               $( ".datatable-ajax").DataTable().ajax.reload()
               },
               error: function (xhr, errmsg, err) {
                 console.log(xhr.status + ": " + xhr.responseText);

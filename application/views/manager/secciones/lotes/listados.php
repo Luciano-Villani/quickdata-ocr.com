@@ -63,6 +63,11 @@
 	</div>
 
 </div> -->
+<style>
+	.dataTables_filter input{
+		text-transform: uppercase;
+	}
+</style>
 <div class="card">
 	<div class="card-header header-elements-inline">
 		<h5 class="card-title">Datos en base</h5>

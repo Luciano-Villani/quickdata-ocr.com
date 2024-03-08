@@ -23,7 +23,6 @@ class Proyectos extends backend_controller
 
 			// $this->output->enable_profiler(TRUE);
 		}
-
 	}
 
 	public function index()
@@ -42,43 +41,101 @@ class Proyectos extends backend_controller
 	}
 	public function list_dt()
 	{
+		// $query = $this->db->select('*')->get('_programas');
 
+		// foreach ($query->result()  as $r) {
+
+		// 	$this->db->set('descripcion', strtoupper($r->descripcion));
+		//             $this->db->where('id', $r->id);
+		//             $this->db->update('_programas');
+		// }
+		$memData = $this->Manager_model->getRows($_POST);
+
+		$data = $row = array();
+//	<li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+
+		foreach ($memData as $r) {
+
+			$acciones = '<ul class="icons-list">
 		
+			<li class=" text-danger-600"><a class="borrar_dato" data-id="'.$r->id.'" href="#"><i class="icon-trash"></i></a></li>
+		</ul>';
 
-		$data = $this->Proyectos_model->list_dt();
+			$data[] = array(
 
-		return $data;
+				$r->p_id_interno,
+				$r->p_descripcion,
+				$r->prog_id_interno. ' ' .$r->prog_descripcion,
+				$r->id_secretaria. ' ' .$r->secretaria,
+				$acciones,
+			);
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->Manager_model->countAll(),
+			"recordsFiltered" => $this->Manager_model->countFiltered($_POST),
+			"data" => $data,
+		);
+		echo json_encode($output);
+		exit();
 	}
-	public function get_proyectos(){
 
+	public function delete()
+	{
+		try {
+			$this->db->where('id', $_REQUEST['id']);
+			$this->db->delete('_proyectos');
 
-		if($this->input->is_ajax_request())
-		{
+			$response = array(
+				'mensaje' => 'Datos borrados',
+				'title' => 'Proyectos',
+				'status' => 'success',
+			);
+		} catch (Exception $e) {
+			$response = array(
+				'mensaje' => 'Error: ' . $e->getMessage(),
+				'title' => 'Proyectos',
+				'status' => 'error',
+			);
+		}
+
+		// $grabar_datos_session = array(
+		// 	'seccion' => 'Lectura de Documentos',
+		// 	'mensaje' => 'El archivo ya existe - ' . $_POST['name'],
+		// 	'estado' => 'error',
+		// );
+
+		// $this->session->set_userdata('save_data', $grabar_datos_session);
+
+		echo json_encode($response);
+		exit();
+	}
+	public function get_proyectos()
+	{
+
+		if ($this->input->is_ajax_request()) {
 			$query = $this->db->select('id,id_interno, descripcion')
-			->where('id_programa',$this->input->post('id') )
-			->get('_proyectos');
-	
+				->where('id_programa', $this->input->post('id'))
+				->get('_proyectos');
+
 			if ($query->result() > 0) {
-	
+
 				$respuesta = array(
-					'data'=>$query->result()
+					'data' => $query->result()
 				);
 
-	
 				echo json_encode($respuesta);
-				
 			}
 		}
-	
-	
-		}
+	}
 	public function listados()
 	{
 
 		$script = array(
 			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
 			//			base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),
-//			base_url('assets/manager/js/plugins/tables/datatables/datatables_advanced.js'),
+			//			base_url('assets/manager/js/plugins/tables/datatables/datatables_advanced.js'),
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
 		);
@@ -107,9 +164,7 @@ class Proyectos extends backend_controller
 				);
 				$this->Manager_model->grabar_datos("_proyectos", $datos);
 				redirect(base_url('Admin/Proyectos'));
-
 			}
-
 		}
 
 
@@ -147,7 +202,6 @@ class Proyectos extends backend_controller
 			$this->load->view('manager/head', $this->data);
 			$this->load->view('manager/index', $this->data);
 			$this->load->view('manager/footer', $this->data);
-
 		} else {
 			$datos = array(
 				'id_secretaria' => $this->input->post('id_secretaria'),
@@ -158,16 +212,6 @@ class Proyectos extends backend_controller
 
 			$this->Proyectos_model->grabar_datos("_proyectos", $datos);
 			redirect(base_url('Admin/Proyectos'));
-
 		}
-
-
-
 	}
-
-
-
 }
-
-
-?>

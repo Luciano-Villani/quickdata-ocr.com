@@ -103,17 +103,17 @@ function initDatatable(search = false, type = 0) {
         header: true,
         // footer: true
       },
-      paging: false,
-      scrollCollapse: true,
+      dom: "Blfrtip",
       scrollX: true,
+      scrollCollapse: true,
       scrollY: 300,
+  
+      paging: false,
       lengthMenu: [
         [10, 25, 50, 100, -1],
         [10, 25, 50, 100, "All"],
       ],
-      pageLength: 100,
-      dom: "Blfrtip",
-      scrollX: true,
+      pageLength: 25,
       order: [0, "desc"],
       buttons: [
         {

@@ -61,14 +61,15 @@ class Indexaciones extends backend_controller
 				$accionesDelete = '<span data-id_="' . $r->id . '" class="borrar_ acciones" ><a title="Borrar " href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
+				//	<li class="text-primary-600"><a href="/Admin/Indexaciones/editar/' . $r->id . '"><i class="icon-pencil7"></i></a></li>
 				$acciones = '<ul class="icons-list">
-				<li class="text-primary-600"><a href="/Admin/Indexaciones/editar/' . $r->id . '"><i class="icon-pencil7"></i></a></li>
+			
 				<li  class=" text-danger-600"><a class="borrar_file" data-id="' . $r->id . '" href="#"><i class="icon-trash"></i></a></li>
 			</ul>';
 				$data[] = array(
 					$r->id_programa . ' ' . $r->id_proyecto,
 					$r->id,
-					$r->nro_cuenta . '  -' . $r->id,
+					$r->nro_cuenta,
 					$r->nombre_secretaria,
 					$r->nombre_dependencia,
 					$r->id_programa . " - " . $r->descr_programa,
@@ -104,6 +105,8 @@ class Indexaciones extends backend_controller
 
 	public function listados($id = NULL)
 	{
+
+		$this->data['collapse'] = 'collapse';
 		$script = array(
 			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
@@ -159,7 +162,7 @@ class Indexaciones extends backend_controller
 
 			$this->form_validation->set_rules('id_secretaria', 'Secretaria', 'trim|in_select[0]');
 			$this->form_validation->set_rules('id_proveedor', 'Proveedor', 'trim|in_select[0]');
-			$this->form_validation->set_rules('nro_cuenta', 'Nro de cuenta', 'trim|required');
+			$this->form_validation->set_rules('nro_cuenta', 'Nro de cuenta', 'trim|required|callback_check_nro_cuenta');
 			$this->form_validation->set_rules('expediente', 'Expediente', 'trim|required');
 			$this->form_validation->set_rules('tipo_pago', 'Tipo de pago', 'trim|required|in_select[0]');
 
@@ -200,6 +203,7 @@ class Indexaciones extends backend_controller
 				redirect(base_url('Admin/Indexaciones'));
 				// $this->BtnText = 'Agregar';
 			}
+			$this->data['collapse'] = '';
 		}
 		$this->data['content'] = $this->load->view('manager/secciones/indexaciones/' . $this->router->fetch_method(), $this->data, TRUE);
 		// $this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', 'Seleccionar Tipo Pago','tip_nombre','tip_id' );
@@ -230,10 +234,10 @@ class Indexaciones extends backend_controller
 		// $this->form_validation->set_rules('secretaria', 'secretaria', 'trim|greater_than[0]');
 		$this->form_validation->set_rules('id_secretaria', 'Secretaria', 'trim|in_select[0]');
 		$this->form_validation->set_rules('id_proveedor', 'Proveedor', 'trim|in_select[0]');
-		$this->form_validation->set_rules('nro_cuenta', 'Nro de cuenta', 'trim|required');
+		$this->form_validation->set_rules('nro_cuenta', 'Nro de cuenta', 'trim|required|callback_check_nro_cuenta');
 
-		// $this->form_validation->set_rules('id_dependencia', 'Dependencia', '');
-		// $this->form_validation->set_rules('id_programa', 'ID Programa', 'trim|in_select[0]');
+		// $this->form_validation->set_rules('id_dependencia', 'Dependencia', '');in_select
+		// $this->form_validation->set_rules('id_programa', 'ID Programa', 'trim|[0]');
 		// $this->form_validation->set_rules('id_interno', 'ID interno', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -258,6 +262,20 @@ class Indexaciones extends backend_controller
 	}
 
 
+	public function check_nro_cuenta($str){
+
+		if($data= $this->Manager_model->getwhere('_indexaciones','nro_cuenta =' .$str)){
+
+
+			$this->form_validation->set_message('check_nro_cuenta', 'El Nro de cuenta se encuentra registrado');
+			return FALSE;
+		}else{
+
+			echo $this->db->last_query();
+			die();
+	return true;
+		}
+	}
 	public function check_username($str)
 	{
 		if (!$this->ion_auth->username_check($str)) {

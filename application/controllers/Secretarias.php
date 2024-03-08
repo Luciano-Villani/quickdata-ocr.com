@@ -34,10 +34,31 @@ class Secretarias extends backend_controller
 	}
 	public function list_dt()
 	{
+		$memData = $this->Manager_model->getRows($_POST);
+		$data = $row = array();
 
-		$data = $this->Secretarias_model->list_dt();
+		foreach ($memData as $r) {
 
-		return $data;
+			$acciones = '<ul class="icons-list">
+			<li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+			<li class=" text-danger-600"><a class="borrar_dato" data-id="'. $r->id.'" href="#"><i class="icon-trash"></i></a></li>
+		</ul>';
+
+			$data[] = array(
+				$r->major,
+				$r->secretaria,
+				$acciones,
+			);
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->Manager_model->countAll(),
+			"recordsFiltered" => $this->Manager_model->countFiltered($_POST),
+			"data" => $data,
+		);
+		echo json_encode($output);
+		exit();;
 	}
 
 	public function listados()

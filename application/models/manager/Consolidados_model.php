@@ -27,7 +27,7 @@ class Consolidados_model extends CI_Model
 	}
 	public function consolidar_datos()
 	{
-
+		
 		if (isset($_REQUEST['id_file']) && $_POST['id_file'] != null) {
 			$data = $this->Manager_model->getwhere('_datos_api', 'id=' . $_POST['id_file']);
 			$files = array(
@@ -35,6 +35,8 @@ class Consolidados_model extends CI_Model
 			);
 		} else {
 			$files = $this->Lotes_model->getBatchFiles($_POST['code_lote']);
+			
+				
 		}
 
 		try {
@@ -126,67 +128,8 @@ class Consolidados_model extends CI_Model
 
 					);
 
-/*
- <pre>Consolidados modelarray(26) {
-  ["id_lectura_api"]=>
-  string(2) "29"
-  ["id_indexador"]=>
-  string(3) "227"
-  ["proveedor"]=>
-  string(7) "NATURGY"
-  ["expediente"]=>
-  string(3) "exp"
-  ["secretaria"]=>
-  string(32) "SECRETARIA DE SERVICIOS PUBLICOS"
-  ["jurisdiccion"]=>
-  string(10) "1110144000"
-  ["programa"]=>
-  string(25) "Subsecretaria De Transito"
-  ["id_programa"]=>
-  string(2) "16"
-  ["proyecto"]=>
-  string(1) "1"
-  ["objeto"]=>
-  string(5) "3.1.3"
-  ["dependencia"]=>
-  string(21) "DIRECCION DE TRANSITO"
-  ["direccion"]=>
-  string(21) "ROQUE SAENZ PE?A 1779"
-  ["nro_factura"]=>
-  string(13) "0004739012982"
-  ["codigo_proveedor"]=>
-  string(4) "4399"
-  ["tipo_pago"]=>
-  string(6) "DEBITO"
-  ["nro_cuenta"]=>
-  string(8) "984117/9"
-  ["periodo"]=>
-  string(4) "23/1"
-  ["periodo_del_consumo"]=>
-  string(4) "23/1"
-  ["fecha_vencimiento"]=>
-  string(10) "2024-01-09"
-  ["mes_vencimiento"]=>
-  string(2) "01"
-  ["importe"]=>
-  string(7) "3959.90"
-  ["periodo_contable"]=>
-  string(5) "Enero"
-  ["lote"]=>
-  string(5) "AjxTY"
-  ["user_consolidado"]=>
-  string(2) "76"
-  ["fecha_consolidado"]=>
-  string(19) "2024-01-30 02:06:49"
-  ["nombre_archivo"]=>
-  string(37) "uploader/files/4399/0984117-23-12.pdf"
-}
-</pre>
- */
-
-
 					$this->Manager_model->grabar_datos('_consolidados', $dataBatch);
-
+	
 					$data = array(
 						'consolidado' => 1,
 						'user_consolidado' => $this->user->id,
@@ -198,13 +141,7 @@ class Consolidados_model extends CI_Model
 
 					
 				} else {
-					$error = false;
-					
-					// $data = array(
-					// 	'consolidado' => 0
-					// );
-					// $this->db->update('_datos_api', $data, array('id' => $_POST['id_lectura_api']));
-					// $this->db->delete('_consolidados', array('id_lectura_api' => $_POST['id_lectura_api']));
+					$error = true;
 				}
 			}
 			if($error){

@@ -34,16 +34,7 @@ class Usuarios_model extends CI_Model
 
 		
 			$acciones = '<div class="list-icons">
-										<div class="dropdown">
-											<a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false">
-												<i class="icon-menu9"></i>
-											</a>
-
-											<div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(22px, 19px, 0px);">
-												<a href="Admin/usuarios/agregar/'.$r->id.'" class="dropdown-item"><i class="icon-file-pdf"></i>Editar</a>
 				
-											</div>
-										</div>
 									</div>';
 
 			$datos[] = array(
@@ -53,7 +44,6 @@ class Usuarios_model extends CI_Model
 				$r->username,
 				$r->rol = $roles,
 				$r->estado = $estado,
-				$r->acciones = $acciones,
 			);
 		}
 

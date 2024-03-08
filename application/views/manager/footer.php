@@ -26,8 +26,8 @@
             new PNotify({
                 title:$("#seccion").html(),
                 text: $("#mensaje").html(),
-                // icon: 'icon-checkmark3',
-                addclass: 'alert-styled-left',
+                icon: 'icon-checkmark3',
+                // saddclass: 'alert-styled-left',
                 type: $("#status").html()
             });
 

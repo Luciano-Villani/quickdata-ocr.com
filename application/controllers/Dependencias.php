@@ -56,6 +56,8 @@ class Dependencias extends backend_controller
 
 				$programas = $query->result();
 			}
+
+
 			$respuesta = array(
 				'dependencias' => $dependencias,
 				'proyectos' => $proyectos,
@@ -81,7 +83,6 @@ class Dependencias extends backend_controller
 
 			$memData = $this->Manager_model->getRows($_POST);
 
-
 			$estado = '<span class="acciones"><i class="text-success icon-check2 "></i></span>';
 			foreach ($memData as $r) {
 
@@ -93,19 +94,17 @@ class Dependencias extends backend_controller
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
 				$data[] = array(
-					// $r->id_dependencia,
 					$r->secretaria,
 					$r->dependencia,
 					$r->direccion,
-					// $r->last_name . ' ' . $r->first_name,
 					$accionesEdit
 				);
 			}
 
 			$output = array(
 				"draw" => $_POST['draw'],
-				"recordsTotal" => $this->Dependencias_model->countAll(),
-				"recordsFiltered" => $this->Dependencias_model->countFiltered($_POST),
+				"recordsTotal" => $this->Manager_model->countAll(),
+				"recordsFiltered" => $this->Manager_model->countFiltered($_POST),
 				"data" => $data,
 			);
 

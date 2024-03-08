@@ -1,5 +1,5 @@
 <?php if($this->ion_auth->is_super() || $this->ion_auth->is_admin()) { ?>
-	<div class="mia card">
+	<div class=" card">
 		<div class="card-header header-elements-inline">
 			<?php if ($this->BtnText == "Agregar") { ?>
 				<button type="button" data-toggle="collapse" data-target="#collapseExample" class="btn btn-agregar bg-buton-blue btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i>
@@ -19,7 +19,7 @@
 		<div class="row">
 		<div class="col-md-3">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input required type="text" class="form-control campo-agregar" placeholder="Nombre de proveedor" name="nombre" value="<?php echo set_value('nombre'); ?>">
+					<input required type="text" class="form-control  " placeholder="Nombre de proveedor" name="nombre" value="<?php echo set_value('nombre'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-pencil3 text-muted"></i>
 					</div>
@@ -29,7 +29,7 @@
 
 			<div class="col-md-2">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input required type="text" class="form-control campo-agregar" placeholder="Código de proveedor" name="codigo" value="<?php echo set_value('codigo'); ?>">
+					<input required type="text" class="form-control  " placeholder="Código de proveedor" name="codigo" value="<?php echo set_value('codigo'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-pencil3 text-muted"></i>
 					</div>
@@ -38,7 +38,7 @@
 			</div>
 			<div class="col-md-2">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input required type="text" class="form-control campo-agregar" placeholder="Objeto del gasto" name="objeto_gasto" value="<?php echo set_value('objeto_gasto'); ?>">
+					<input required type="text" class="form-control  " placeholder="Objeto del gasto" name="objeto_gasto" value="<?php echo set_value('objeto_gasto'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-pencil3 text-muted"></i>
 					</div>
@@ -47,7 +47,7 @@
 			</div>
 			<div class="col-md-4">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input required type="text" class="form-control campo-agregar" placeholder="Detalle del gasto" name="detalle_gasto" value="<?php echo set_value('detalle_gasto'); ?>">
+					<input required type="text" class="form-control  " placeholder="Detalle del gasto" name="detalle_gasto" value="<?php echo set_value('detalle_gasto'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-pencil3 text-muted"></i>
 					</div>
@@ -60,7 +60,7 @@
 
 			<div class="col-md-3">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input required type="text" class="form-control campo-agregar" placeholder="Unidad de Medida / Plan " name="unidad_medida" value="<?php echo set_value('unidad_medida'); ?>">
+					<input required type="text" class="form-control  " placeholder="Unidad de Medida / Plan " name="unidad_medida" value="<?php echo set_value('unidad_medida'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-pencil3 text-muted"></i>
 					</div>
@@ -69,7 +69,7 @@
 			</div>
 			<div class="col-md-7">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input required type="text" class="form-control campo-agregar" placeholder="URL API" name="urlapi" value="<?php echo set_value('urlapi'); ?>">
+					<input required type="text" class="form-control  " placeholder="URL API" name="urlapi" value="<?php echo set_value('urlapi'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-pencil3 text-muted"></i>
 					</div>

@@ -1,5 +1,5 @@
 <?php if ($this->ion_auth->is_super() || $this->ion_auth->is_admin()) { ?>
-	<div class="mia card">
+	<div class=" card">
 		<div class="card-header header-elements-inline">
 			<?php if ($this->BtnText == "Agregar") { ?>
 				<button type="button" data-toggle="collapse" data-target="#collapseExample" class="btn btn-agregar bg-buton-blue btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i>
@@ -23,7 +23,7 @@
 
 				<div class="col-md-2">
 					<div class="form-group form-group-feedback form-group-feedback-right">
-						<input required type="text" class="form-control campo-agregar" placeholder="Jurisdicción - Major" name="major" value="">
+						<input required type="text" class="form-control  " placeholder="Jurisdicción - Major" name="major" value="">
 						<div class="form-control-feedback">
 							<i class=" icon-pencil3 text-muted"></i>
 						</div>
@@ -35,7 +35,7 @@
 			
 				<div class="col-md-6">
 					<div class="form-group form-group-feedback form-group-feedback-right">
-						<input required type="text" class="form-control campo-agregar" placeholder="Jurisdicción - Descripción" name="secretaria" value="<?php echo set_value('secretaria');?>">
+						<input required type="text" class="form-control  " placeholder="Jurisdicción - Descripción" name="secretaria" value="<?php echo set_value('secretaria');?>">
 						<div class="form-control-feedback">
 							<i class=" icon-pencil3 text-muted"></i>
 						</div>
@@ -57,14 +57,13 @@
 <div class="card">
 <h5 class="card-title bg-titulo text-center text-dark"> Lista de <?= ucfirst($this->router->fetch_class()) ?></h5>
 
-<table id="usuarios_dt" class="table datatable-show-all dataTable no-footer">
+<table id="secretarias_dt" class="table-bordered table-hover datatable-highlight">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Jurisdicción - Rafam</th>
+			
 				<th>Jurisdicción - Major</th>
 				<th>Jurisdicción - Descripcion</th>
-				<th>Fecha de Alta</th>
+		
 				<th>Acciones</th>
 			</tr>
 		</thead>

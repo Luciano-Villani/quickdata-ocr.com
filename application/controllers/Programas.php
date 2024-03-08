@@ -17,48 +17,87 @@ class Programas extends backend_controller
 
 			// $this->output->enable_profiler(TRUE);
 		}
-
 	}
 
-	public function get_programas(){
+	public function get_programas()
+	{
 
-
-		if($this->input->is_ajax_request())
-		{
+		if ($this->input->is_ajax_request()) {
 			$query = $this->db->select('id,id_interno, descripcion')
-			->where('id_secretaria',$this->input->post('id') )
-			->get('_programas');
-	
+				->where('id_secretaria', $this->input->post('id'))
+				->get('_programas');
+
 			if ($query->result() > 0) {
-	
+
 				$respuesta = array(
-					'data'=>$query->result()
+					'data' => $query->result()
 				);
 
-	
+
 				echo json_encode($respuesta);
-				
 			}
 		}
-	
-	
+	}
+
+	public function delete()
+	{
+		try {
+			$this->db->where('id', $_REQUEST['id']);
+			$this->db->delete('_programas');
+
+			$response = array(
+				'mensaje' => 'Datos borrados',
+				'title' => 'Programas',
+				'status' => 'success',
+			);
+		} catch (Exception $e) {
+			$response = array(
+				'mensaje' => 'Error: ' . $e->getMessage(),
+				'title' => 'Programas',
+				'status' => 'error',
+			);
 		}
-	public function register()
-	{
-	}
-	public function list_profiles_dt()
-	{
 
-		$usuarios = $this->Usuarios_model->list_profiles_dt();
+		// $grabar_datos_session = array(
+		// 	'seccion' => 'Lectura de Documentos',
+		// 	'mensaje' => 'El archivo ya existe - ' . $_POST['name'],
+		// 	'estado' => 'error',
+		// );
 
-		return $usuarios;
+		// $this->session->set_userdata('save_data', $grabar_datos_session);
+
+		echo json_encode($response);
+		exit();
 	}
+
 	public function list_dt()
 	{
+		$memData = $this->Manager_model->getRows($_POST);
+		$data = $row = array();
 
-		$data = $this->Programas_model->list_dt();
+		foreach ($memData as $r) {
+//<li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+			$acciones = '<ul class="icons-list">
+			
+			<li class=" text-danger-600"><a class="borrar_dato" data-id="'. $r->id.'" href="#"><i class="icon-trash"></i></a></li>
+		</ul>';
 
-		return $data;
+			$data[] = array(
+				$r->prog_id_interno,
+				$r->prog_descripcion,
+				$r->secretaria,
+				$acciones,
+			);
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->Manager_model->countAll(),
+			"recordsFiltered" => $this->Manager_model->countFiltered($_POST),
+			"data" => $data,
+		);
+		echo json_encode($output);
+		exit();
 	}
 
 	public function listados()
@@ -67,7 +106,7 @@ class Programas extends backend_controller
 		$script = array(
 			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
 			//			base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),
-//			base_url('assets/manager/js/plugins/tables/datatables/datatables_advanced.js'),
+			//			base_url('assets/manager/js/plugins/tables/datatables/datatables_advanced.js'),
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
 		);
@@ -79,25 +118,25 @@ class Programas extends backend_controller
 		$this->data['script_common'] = $this->script_common;
 		$this->data['script'] = $script;
 
-		$this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA','secretaria','id ASC');
-        $this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias','SELECCIONE DEPENDENCIA','dependencia' ,'id ASC');
+		$this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA', 'secretaria', 'id ASC');
+		$this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias', 'SELECCIONE DEPENDENCIA', 'dependencia', 'id ASC');
 
-		if($_SERVER['REQUEST_METHOD'] === "POST"){
+		if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 			$this->form_validation->set_rules('secretaria', 'secretaría', 'trim|in_select[0]');
-//			$this->form_validation->set_rules('dependencia', 'Dependencia', 'trim|in_select[0]');
+			//			$this->form_validation->set_rules('dependencia', 'Dependencia', 'trim|in_select[0]');
 			$this->form_validation->set_rules('id_interno', 'ID interno', 'trim|required');
 
-	
+
 			if ($this->form_validation->run() != FALSE) {
 				$datos = array(
-					'id_secretaria'=> $this->input->post('id_secretaria') ,
-					'id_dependencia' => $this->input->post('id_dependencia') ,
-					'id_interno' => $this->input->post('id_interno') ,
-					'descripcion' => $this->input->post('descripcion') ,
+					'id_secretaria' => $this->input->post('id_secretaria'),
+					'id_dependencia' => $this->input->post('id_dependencia'),
+					'id_interno' => $this->input->post('id_interno'),
+					'descripcion' => $this->input->post('descripcion'),
 				);
-	
-				$this->Manager_model->grabar_datos("_programas",$datos); 
+
+				$this->Manager_model->grabar_datos("_programas", $datos);
 				redirect(base_url('Admin/Programas'));
 			}
 		}
@@ -109,7 +148,7 @@ class Programas extends backend_controller
 		$this->load->view('manager/footer', $this->data);
 	}
 
-	public function agregar($id=NULL)
+	public function agregar($id = NULL)
 	{
 
 		$this->data['css_common'] = $this->css_common;
@@ -124,8 +163,8 @@ class Programas extends backend_controller
 		$this->data['script_common'] = $this->script_common;
 		$this->data['script'] = $script;
 
-        $this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA','secretaria','id ASC');
-        $this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias','SELECCIONE DEPENDENCIA','dependencia' ,'id ASC');
+		$this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA', 'secretaria', 'id ASC');
+		$this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias', 'SELECCIONE DEPENDENCIA', 'dependencia', 'id ASC');
 
 		// $this->form_validation->set_rules('secretaria', 'secretaria', 'trim|greater_than[0]');
 		$this->form_validation->set_rules('secretaria', 'secretaria', 'trim|greater_than[0]');
@@ -140,16 +179,15 @@ class Programas extends backend_controller
 			$this->load->view('manager/head', $this->data);
 			$this->load->view('manager/index', $this->data);
 			$this->load->view('manager/footer', $this->data);
-
 		} else {
 			$datos = array(
-				'id_secretaria'=> $this->input->post('id_secretaria') ,
-				'id_dependencia' => $this->input->post('id_dependencia') ,
-				'id_interno' => $this->input->post('id_interno') ,
-				'descripcion' => $this->input->post('descripcion') ,
+				'id_secretaria' => $this->input->post('id_secretaria'),
+				'id_dependencia' => $this->input->post('id_dependencia'),
+				'id_interno' => $this->input->post('id_interno'),
+				'descripcion' => $this->input->post('descripcion'),
 			);
 
-			$this->Programas_model->grabar_datos("_programas",$this->input->post()); 
+			$this->Programas_model->grabar_datos("_programas", $this->input->post());
 			redirect(base_url('Admin/Programas'));
 		}
 	}
@@ -174,6 +212,3 @@ class Programas extends backend_controller
 		}
 	}
 }
-
-
-?>

@@ -14,7 +14,7 @@
 					<div class="row">
 
 						<div class="col-md-4">
-							<div class="campo-agregar form-group form-group-feedback form-group-feedback-right">
+							<div class="  form-group form-group-feedback form-group-feedback-right">
 
 								<?php
 								$js = array(
@@ -30,7 +30,7 @@
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
-								<input type="text" class="form-control campo-agregar" readonly="readonly" placeholder="Código de Proveedor" id="codeproveedor" value="">
+								<input type="text" class="form-control  " readonly="readonly" placeholder="Código de Proveedor" id="codeproveedor" value="">
 							</div>
 							<!-- <input type="text" readonly="readonly" id="codeproveedor" value=""> -->
 							<input  type="hidden" readonly="readonly" id="code" value="<?= $code ?>">

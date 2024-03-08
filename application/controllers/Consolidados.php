@@ -59,7 +59,7 @@ class Consolidados extends backend_controller
 
 			
 			$data = $row = array();
-			$_POST['search']['value'] = strtoupper($_POST['search']['value']);
+			
 			$memData = $this->Manager_model->getRows($_POST);
 			foreach ($memData as $r) {
 				// // echo '<pre>';
@@ -106,7 +106,7 @@ class Consolidados extends backend_controller
 
 				$data[] = array(
 					strtoupper($r->periodo_contable),
-					$r->proveedora,
+					$r->proveedor,
 					$r->expediente,
 					$r->secretaria,
 					$r->jurisdiccion,

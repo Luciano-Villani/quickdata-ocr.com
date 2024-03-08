@@ -11,6 +11,7 @@ class Manager_model extends CI_Model
 
     public function getRows($postData)
     {
+
         $this->_get_datatables_query($postData);
 
 
@@ -25,6 +26,9 @@ class Manager_model extends CI_Model
     {
         $this->_get_datatables_query($postData);
         $query = $this->db->get();
+        // echo $this->db->last_query();
+        // die();
+
         return $query->num_rows();
     }
     private function _get_datatables_query($postData)
@@ -32,23 +36,70 @@ class Manager_model extends CI_Model
 
         switch ($postData['table']) {
 
-            case '_consolidados':
-                $this->db->select(
-                    '_tipo_pago.*, CONCAT(_consolidados.proveedor," (", _consolidados.codigo_proveedor,")" ) as proveedora,CONCAT(_consolidados. jurisdiccion," ", _consolidados.id_programa ) as sumajuris,_consolidados.id as id_consolidado,LOWER(_consolidados.secretaria),LOWER(_consolidados.proveedor),_consolidados.*, CONCAT(users.first_name," ", users.last_name) as user_add'
+            case '_secretarias':
+                $this->db->select('*');
+
+                         
+                $my_column_order = array(
+                    '',
+                    '_secretarias.major',
+                    '_secretarias.secretaria',
+                );
+                $my_column_search = array(
+                    '_secretarias.major',
+                    '_secretarias.secretaria',
                 );
 
-                $this->db->join('users', 'users.id = _consolidados.user_add', '');
-                $this->db->join('_tipo_pago', '_tipo_pago.tip_nombre = _consolidados.tipo_pago', '');
+
+                break;            
+                case '_programas':
+                $this->db->select(
+                   '_programas.id_interno as prog_id_interno,
+                    _programas.id as id,
+                    _programas.descripcion as prog_descripcion,
+                    _secretarias.secretaria
+                    '
+                );
+
+                // $this->db->join('_dependencias', '_proyectos.id_dependencia = _dependencias.id', '');
+                $this->db->join('_secretarias', '_programas.id_secretaria = _secretarias.id ', '');
+              
+                $my_column_order = array(
+                    '',
+                    '_secretarias.secretaria',
+                    '_programas.descripcion',
+                );
+                $my_column_search = array(
+                    '_programas.id_interno',
+                    '_secretarias.secretaria',
+                    '_secretarias.secretaria',
+                    
+                );
+
+
+                break;
+
+            case '_consolidados':
+                $this->db->select(
+                    'CONCAT(_consolidados.proveedor,
+                    " (", _consolidados.codigo_proveedor,")" ) as proveedora,
+                    CONCAT(_consolidados. jurisdiccion," ",_consolidados.id_programa ) as sumajuris,
+                    _consolidados.id as id_consolidado,
+                    UPPER(_consolidados.secretaria),
+                    _consolidados.proveedor,_consolidados.*, 
+                 ',
+                );
+
+
+                // $this->db->join('_tipo_pago', '_consolidados.tipo_pago = _tipo_pago.tip_nombre', '');
 
                 $my_column_order = array(
-                    '_consolidados.id',
-                    '',
-                    '',
                     '_consolidados.periodo_contable',
-                    'proveedora',
+                    '_consolidados.proveedor',
                     '_consolidados.expediente',
                     '_consolidados.secretaria',
                     '_consolidados.jurisdiccion',
+                    '_consolidados.id_programa',
                     '_consolidados.programa',
                     'sumajuris',
                     '_consolidados.objeto',
@@ -64,18 +115,22 @@ class Manager_model extends CI_Model
                     '_consolidados.fecha_vencimiento',
                 );
                 $my_column_search = array(
-                    '_consolidados.nro_factura',
-                    '_consolidados.importe',
-                    '_consolidados.proveedor',
-                    '_consolidados.codigo_proveedor',
-                    '_consolidados.id_programa',
-                    '_consolidados.objeto',
-                    '_consolidados.jurisdiccion',
+                    '_consolidados.periodo_contable',
+                    'UPPER(_consolidados.proveedor)',
+                    'UPPER(_consolidados.expediente)',
                     '_consolidados.secretaria',
-                    '_consolidados.preventivas',
+                    '_consolidados.jurisdiccion',
+                    '_consolidados.programa',
+                    '_consolidados.objeto',
                     '_consolidados.dependencia',
                     '_consolidados.dependencia_direccion',
-                    '_consolidados.fecha_vencimiento'
+                    '_consolidados.tipo_pago',
+                    '_consolidados.nro_cuenta',
+                    '_consolidados.nro_factura',
+                    '_consolidados.id',
+                    '_consolidados.preventivas',
+                    '_consolidados.dependencia',
+                    '_consolidados.fecha_vencimiento',
                 );
 
                 $this->order = array('id_consolidado' => 'desc');
@@ -84,14 +139,14 @@ class Manager_model extends CI_Model
                 if ($postData['data_search'] != 'false' && (isset($postData['data_search']) && $postData['data_search'] != '')) {
 
                     //busca filtro fecha
-                    // $this->db->group_start();
+                    $this->db->group_start();
                     switch ($postData['type']) {
                         case 1:
                             $dates = explode('@', $postData['data_search']);
                             $this->db->where("_consolidados.fecha_consolidado >= '" . $dates[0] . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . $dates[1] . " 23:59:59'");
                             break;
                         case 2:
-                            $this->db->where("_consolidados.proveedor = '" . $postData['data_search'] . "'");
+                            $this->db->where("UPPER(_consolidados.proveedor) = '" . $postData['data_search'] . "'");
                             break;
                         case 3:
                             $this->db->where("_consolidados.tipo_pago = '" . $postData['data_search'] . "'");
@@ -100,7 +155,7 @@ class Manager_model extends CI_Model
                             $this->db->where("_consolidados.periodo_contable = '" . $postData['data_search'] . "'");
                             break;
                     }
-                    // $this->db->group_end();
+                    $this->db->group_end();
                 }
 
 
@@ -136,16 +191,97 @@ class Manager_model extends CI_Model
 
             case '_dependencias':
 
-                $this->db->select('_dependencias.*,_dependencias.id as id_dependencia , _secretarias.secretaria,users.*, CONCAT(users.first_name," ", users.last_name) as user_add');
+                $this->db->select('_dependencias.*,_dependencias.id as id_dependencia , _secretarias.secretaria');
                 $this->db->join('_secretarias', '_secretarias.id = _dependencias.id_secretaria', '');
-                $this->db->join('users', 'users.id = _dependencias.user_add', '');
 
-                $my_column_order = array('id_dependencia', '_dependencias.dependencia', '_dependencias.direccion', 'users.last_name', 'users.first_name');
-                $my_column_search = array('_secretarias.secretaria', '_dependencias.dependencia', '_dependencias.direccion', 'users.last_name', 'users.first_name');
+
+                $my_column_order = array(
+                    'id_dependencia',
+                    '_dependencias.dependencia',
+                    '_dependencias.direccion',
+                );
+                $my_column_search = array(
+                    '_secretarias.secretaria',
+                    '_dependencias.dependencia',
+                    '_dependencias.direccion',
+                );
+
+                if ($postData['data_search'] != 'false' && (isset($postData['data_search']) && $postData['data_search'] != '')) {
+                    //busca filtro secretaria
+                    $this->db->group_start();
+                    switch ($postData['type']) {
+
+                        case 4:
+                            $this->db->where("_secretarias.secretaria= '" . $postData['data_search'] . "'");
+                            break;
+                    }
+                    $this->db->group_end();
+                }
                 $my_order = array('id' => 'desc');
                 break;
-            case '_lotes':
 
+            case '_proyectos':
+
+                $this->db->select(
+                    '_proyectos.descripcion as p_descripcion, 
+                    _proyectos.id ,
+                    _proyectos.id_interno as p_id_interno,
+                    _programas.descripcion as prog_descripcion,
+                    _programas.id_interno as prog_id_interno,
+                    _secretarias.id as id_secretaria,
+                    _secretarias.secretaria
+                    '
+                );
+
+                // $this->db->join('_dependencias', '_proyectos.id_dependencia = _dependencias.id', '');
+                $this->db->join('_secretarias', '_proyectos.id_secretaria = _secretarias.id ', '');
+                $this->db->join('_programas', '_proyectos.id_programa = _programas.id_interno ', '');
+
+                // $this->db->select('
+                // _proyectos.*,
+                // UPPER(_proyectos.descripcion),
+                // UPPER(_proyectos.descripcion) as secretaria,
+                //  _secretarias.secretaria,
+                //  UPPER(_programas.descripcion) as programa'
+
+                // );
+                // $this->db->join('_secretarias', '_secretarias.id = _proyectos.id_secretaria', '');
+                // $this->db->join('_programas', '_programas.id_interno = _proyectos.id_programa', '');
+
+
+                $my_column_order = array(
+                    '_proyectos.id'
+                );
+                $my_column_search = array(
+                    '_proyectos.id_interno',
+                    '_secretarias.secretaria',
+                    '_proyectos.descripcion',
+                    '_programas.descripcion',
+                    // '_dependencias.dependencia', 
+                    // '_dependencias.direccion', 
+                );
+
+                if ($postData['data_search'] != 'false' && (isset($postData['data_search']) && $postData['data_search'] != '')) {
+
+                    die('acas');
+                    //busca filtro secretaria
+                    $this->db->group_start();
+                    switch ($postData['type']) {
+
+                        case 4:
+                            // $this->db->where("_secretarias.secretaria= '" . $postData['data_search'] . "'");
+                            break;
+                    }
+                    $this->db->group_end();
+                }
+
+                $this->db->group_by('_proyectos.id_interno');
+                $my_order = array('_proyectos.id' => 'desc');
+
+
+                break;
+
+            case '_lotes':
                 $this->db->select('_lotes.*,_lotes.id as id_lote , _proveedores.*,users.*');
                 $this->db->join('_proveedores', '_proveedores.id = _lotes.id_proveedor', '');
                 $this->db->join('users', 'users.id = _lotes.user_add', '');
@@ -154,44 +290,11 @@ class Manager_model extends CI_Model
                 $my_column_search = array('_proveedores.codigo', '_proveedores.nombre', '_lotes.consolidado', '_lotes.user_add', '_lotes.fecha_add');
                 $my_order = array('id_lote' => 'desc');
                 break;
+
             case '_indexaciones':
-
-                // $this->db->select('_indexaciones.*,');
-
                 $this->db->from($_POST['table']);
                 $query = $this->db->get();
                 $datos = $query->result();
-
-
-                // foreach ($datos as $r) {    
-
-
-                //     if (($r->id_dependencia == 0 || is_null($r->id_dependencia)) && ($r->direccion_dependencia != "" && $r->nombre_dependencia != "")) {
-                //         //die('no');
-                //         $this->db->select('_dependencias.*');
-                //         $this->db->like('_dependencias.dependencia', $r->nombre_dependencia);
-                //         $this->db->like('_dependencias.direccion', $r->direccion_dependencia);
-                //         $this->db->from('_dependencias');
-                //         $id = $this->db->get();
-
-                //         $id = $id->row()->id;
-
-                //         if ($id) {
-                //             $this->db->set('id_dependencia', $id);
-                //             $this->db->where('id', $r->id);
-                //             $this->db->update('_indexaciones');
-                //             $result = $this->db->affected_rows();
-                //         }
-                //     }
-                // };
-                /*
-_dependencias.dependencia as nombre_dependencia,
-                _programas.descripcion as descr_programa,
-                _proyectos.descripcion as descr_proyecto,
-                _obras.descripcion as descr_obra
-                ,_secretarias.secretaria as nombre_secretaria,
-                    _dependencias.dependencia as nombre_dependencia,
-*/
                 $this->db->select(
                     '_indexaciones.*
                     ,_secretarias.secretaria as nombre_secretaria,
@@ -319,8 +422,8 @@ _dependencias.dependencia as nombre_dependencia,
             if ($title) {
                 $my_array[0] = strtoupper($defTxt);
             }
-            foreach ($query->result_array() as $data) {
 
+            foreach ($query->result_array() as $data) {
                 switch ($tabla) {
                     case "_programas":
                     case "_proyectos":
@@ -336,7 +439,7 @@ _dependencias.dependencia as nombre_dependencia,
                         $my_array[$data['periodo_contable']] = strtoupper($data[$campo]);
                         break;
                     default:
-                        $my_array[$data['id']] = strtoupper($data['id'] . ' - ' . $data[$campo]);
+                        $my_array[$data['id']] = strtoupper($data[$campo]);
                 }
             }
 
@@ -445,22 +548,21 @@ _dependencias.dependencia as nombre_dependencia,
                     $this->db->set('cant', $totalFiles);
                     $this->db->where('id', $file->id_lote);
                     $this->db->update('_lotes');
-                }else{
+                } else {
                     $this->db->where('id', $file->id_lote);
                     $this->db->delete('_lotes');
                 }
-
             } else {
                 $this->db->where('id', $file->id);
                 $this->db->delete('_datos_api');
-                
+
                 $totalFiles = $this->Lotes_model->countFiles($file->code_lote);
 
                 if ($totalFiles > 0) {
                     $this->db->set('cant', $totalFiles);
                     $this->db->where('id', $file->id_lote);
                     $this->db->update('_lotes');
-                }else{
+                } else {
                     $this->db->where('id', $file->id_lote);
                     $this->db->delete('_lotes');
                 }

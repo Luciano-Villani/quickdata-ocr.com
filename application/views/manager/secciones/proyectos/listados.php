@@ -1,5 +1,5 @@
 <?php if ($this->ion_auth->is_super() || $this->ion_auth->is_admin()) { ?>
-	<div class="mia card">
+	<div class=" card">
 		<div class="card-header header-elements-inline">
 			<?php if ($this->BtnText == "Agregar") { ?>
 				<button type="button" data-toggle="collapse" data-target="#collapseExample" class="btn btn-agregar bg-buton-blue btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i>
@@ -17,7 +17,7 @@
 		<?php echo form_open(base_url('Admin/Proyectos'),array('id'=>'form-validate-jquery')); ?>
 		<div class="row">
 			<div class="col-md-3">
-				<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+				<div class="form-group form-group-feedback form-group-feedback-right  ">
 					
 					<?php
 					$js = array(
@@ -35,7 +35,7 @@
 
 
 			<div class="col-md-3">
-				<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+				<div class="form-group form-group-feedback form-group-feedback-right  ">
 					
 					<?php
 					$js = array(
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div class="col-md-1">
-				<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+				<div class="form-group form-group-feedback form-group-feedback-right  ">
 					<input required type="text" class="form-control" placeholder="Código" name="id_interno" value="<?php //echo set_value('rafam'); 
 																												?>">
 					<div class="form-control-feedback">
@@ -64,7 +64,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="form-group form-group-feedback form-group-feedback-right campo-agregar">
+				<div class="form-group form-group-feedback form-group-feedback-right  ">
 					<input required type="text" class="form-control" placeholder="Descripción Proyecto" name="descripcion" value="<?php //echo set_value('rafam'); 
 																													?>">
 					<div class="form-control-feedback">
@@ -107,13 +107,17 @@
 <div class="card">
 <h5 class="card-title bg-titulo text-center text-dark"> Lista de <?= ucfirst($this->router->fetch_class()) ?></h5>
 	
-		
+<style>
+		#indexaciones_dt {
+			text-transform: uppercase;
+		}
+	</style>	
 
-	<table id="usuarios_dt" class="table datatable-show-all dataTable no-footer">
+	<table id="proyectos_dt" class="table-bordered table-hover datatable-highlight no-footer dataTable">
 		<thead>
 			<tr>
-				<th># </th>
-				<th>Código proyecto</th>
+				<!-- <th># </th> -->
+				<th></th>
 				<th>Descripción</th>
 				<th>Programa</th>
 				<th>Secretaría</th>

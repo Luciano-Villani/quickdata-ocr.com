@@ -23,7 +23,7 @@ if(isset($usuario)){
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input type="text" class="form-control campo-agregar" placeholder=" username" name="username"  value="<?php echo set_value('username'); ?>">
+					<input type="text" class="form-control  " placeholder=" username" name="username"  value="<?php echo set_value('username'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-user-plus text-muted"></i>
 					</div>
@@ -33,7 +33,7 @@ if(isset($usuario)){
 
 			<div class="col-md-6">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input type="email" class="form-control campo-agregar" placeholder="email" name="email"  value="<?php echo set_value('email');  ?>">
+					<input type="email" class="form-control  " placeholder="email" name="email"  value="<?php echo set_value('email');  ?>">
 					<div class="form-control-feedback">
 						<i class="icon-mention text-muted"></i>
 					</div>
@@ -45,7 +45,7 @@ if(isset($usuario)){
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input type="text" class="form-control campo-agregar" placeholder="Nombre" name="first_name"  value="<?php echo set_value('first_name'); ?>">
+					<input type="text" class="form-control  " placeholder="Nombre" name="first_name"  value="<?php echo set_value('first_name'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-user-check text-muted"></i>
 					</div>
@@ -55,7 +55,7 @@ if(isset($usuario)){
 
 			<div class="col-md-6">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input type="text" class="form-control campo-agregar" placeholder="Apellido" name="last_name"  value="<?php echo set_value('last_name'); ?>">
+					<input type="text" class="form-control  " placeholder="Apellido" name="last_name"  value="<?php echo set_value('last_name'); ?>">
 					<div class="form-control-feedback">
 						<i class="icon-user-check text-muted"></i>
 					</div>
@@ -67,7 +67,7 @@ if(isset($usuario)){
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input type="password" class="form-control campo-agregar" placeholder="password" name="password">
+					<input type="password" class="form-control  " placeholder="password" name="password">
 					<div class="form-control-feedback">
 						<i class="icon-user-lock text-muted"></i>
 					</div>
@@ -77,7 +77,7 @@ if(isset($usuario)){
 
 			<div class="col-md-6">
 				<div class="form-group form-group-feedback form-group-feedback-right">
-					<input type="password" class="form-control campo-agregar" placeholder="Password Confirmación" name="password_2">
+					<input type="password" class="form-control  " placeholder="Password Confirmación" name="password_2">
 					<div class="form-control-feedback">
 						<i class="icon-user-lock text-muted"></i>
 					</div>
