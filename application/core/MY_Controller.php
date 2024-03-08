@@ -23,6 +23,10 @@ class MY_controller extends CI_Controller
 			// $this->output->enable_profiler(TRUE);
 		}
 		$this->lote = '';
+		if(isset($_POST['search']['value'])){
+			$_POST['search']['value'] = strtoupper($_POST['search']['value']);
+
+		}
 
 		/*
 		<!-- Global stylesheets -->
@@ -61,6 +65,7 @@ class MY_controller extends CI_Controller
 			// 'https://cdn.datatables.net/v/dt/dt-1.13.8/r-2.5.0/sl-1.7.0/datatables.min.js">',
 			base_url('assets/manager/js/plugins/tables/datatables/jquery.dataTables.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/dataTables.buttons.js'),
+			base_url('assets/manager/js/plugins/tables/datatables/extensions/fixed_columns.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/jszip/jszip.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js'),
