@@ -301,6 +301,8 @@ class Manager_model extends CI_Model
                     _dependencias.dependencia as nombre_dependencia,
                     _programas.descripcion as descr_programa,
                     _proyectos.descripcion as descr_proyecto,
+                    _proveedores.nombre,
+                    _proveedores.nombre as nom_proveedor,
                 '
                 );
 
@@ -309,12 +311,13 @@ class Manager_model extends CI_Model
                 $this->db->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia', 'left');
                 $this->db->join('_programas', '_programas.id_interno = _indexaciones.id_programa AND _programas.id_secretaria = _indexaciones.id_secretaria', 'left');
                 $this->db->join('_proyectos', '_proyectos.id_interno = _indexaciones.id_proyecto AND _proyectos.id_programa = _indexaciones.id_programa AND _proyectos.id_secretaria = _indexaciones.id_secretaria', 'LEFT');
+                $this->db->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor', '');
 
                 // $this->db->join('_programas a', 'a.id_secretaria = _indexaciones.id_secretaria', 'left');
                 // $this->db->join('users','users.id = _dependencias.user_add','');
                 $my_column_order = array(
                     '',
-                    '',
+                    '_proveedores.nombre',
                     '_indexaciones.id',
                     '_secretarias.secretaria',
                     '_dependencias.dependencia',
@@ -322,13 +325,14 @@ class Manager_model extends CI_Model
                     '_proyectos.descripcion'
                 );
                 $my_column_search = array(
+                    '_proveedores.nombre',
                     '_indexaciones.nro_cuenta',
                     '_secretarias.secretaria',
                     '_dependencias.dependencia',
                     '_programas.descripcion'
                 );
                 $my_order = array('_indexaciones.id' => 'desc');
-                //$this->db->group_by('_indexaciones.id');
+                $this->db->group_by('_indexaciones.id');
                 $this->order = array('id' => 'asc');
                 break;
         }
