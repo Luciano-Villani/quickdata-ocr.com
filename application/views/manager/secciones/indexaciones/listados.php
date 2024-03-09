@@ -167,14 +167,13 @@
 		<thead>
 			<tr>
 				<th></th>
-				<th>#</th>
+				<th></th>
+				<th>Proveedor</th>
 				<th>Nro de cuenta</th>
 				<th>Secretaria</th>
 				<th>Dependencia</th>
 				<th>Programa</th>
 				<th>Proyecto</th>
-				<!-- <th>proveedor</th>
-					<th>Tipo Pago</th> -->
 				<th></th>
 			</tr>
 		</thead>

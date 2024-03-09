@@ -53,6 +53,7 @@ class Indexaciones extends backend_controller
 
 			$memData = $this->Manager_model->getRows($_POST);
 
+
 			$estadoSucces = '<span class="acciones"><i class="text-success icon-check2 "></i></span>';
 			foreach ($memData as $r) {
 
@@ -69,6 +70,7 @@ class Indexaciones extends backend_controller
 				$data[] = array(
 					$r->id_programa . ' ' . $r->id_proyecto,
 					$r->id,
+					$r->nom_proveedor,
 					$r->nro_cuenta,
 					$r->nombre_secretaria,
 					$r->nombre_dependencia,
@@ -271,8 +273,6 @@ class Indexaciones extends backend_controller
 			return FALSE;
 		}else{
 
-			echo $this->db->last_query();
-			die();
 	return true;
 		}
 	}
