@@ -332,7 +332,7 @@ class Manager_model extends CI_Model
                     '_programas.descripcion'
                 );
                 $my_order = array('_indexaciones.id' => 'desc');
-                $this->db->group_by('_indexaciones.id');
+                //$this->db->group_by('_indexaciones.id');
                 $this->order = array('id' => 'asc');
                 break;
         }
