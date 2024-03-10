@@ -127,7 +127,7 @@ class Lecturas extends backend_controller
 				// Get data about the file
 				$uploadData = $this->upload->data();
 
-				sleep(2);
+				//sleep(2);
 				$data = apiRest($uploadData);
 
 				//  echo '<pre>DATA';
