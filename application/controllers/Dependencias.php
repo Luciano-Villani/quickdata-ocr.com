@@ -27,16 +27,15 @@ class Dependencias extends backend_controller
 		if ($this->input->is_ajax_request()) {
 
 			if ($this->input->post('id') != 0) {
-				$this->db->where('id_secretaria', $this->input->post('id'));
+				$this->db->where('id_secretaria', $this->input->post('id'))->order_by('dependencia ASC');
 			}
 			$query = $this->db->select('id,CONCAT(dependencia," -  ", direccion )as dependencia')->get('_dependencias');
 
 			if ($query->result() > 0) {
 
 				$dependencias = $query->result();
+			}
 
-			}		
-			
 			if ($this->input->post('id') != 0) {
 				$this->db->where('id_secretaria', $this->input->post('id'));
 			}
@@ -45,8 +44,8 @@ class Dependencias extends backend_controller
 			if ($query->result() > 0) {
 
 				$proyectos = $query->result();
-			}			
-			
+			}
+
 			if ($this->input->post('id') != 0) {
 				$this->db->where('id_secretaria', $this->input->post('id'));
 			}
@@ -93,11 +92,26 @@ class Dependencias extends backend_controller
 				$accionesDelete = '<span data-id_="' . $r->id . '" class="borrar_ acciones" ><a title="Borrar " href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
+				
+				$estado  = "0";  // para permitir borrar o no
+				$btnClass = 'text-success-600';
+				$index = $this->Manager_model->getWhere('_indexaciones','id_dependencia="'.$r->id_dependencia.'"');
+				if($index){
+					$estado  = 1; 
+					$btnClass = 'text-danger-600';
+				}
+
+
+				$acciones = '<ul class="icons-list">
+					<li class="text-primary-600"><a  href="/Admin/' . ucfirst($this->router->fetch_class()) . '/editar/' . $r->id_dependencia . '"><i class="icon-pencil7"></i></a></li>
+					<li class="'.$btnClass.'"><a data-estado="'.$estado.'" class="borrar_dato" data-id="' . $r->id . '" href="#"><i class="icon-trash"></i></a></li>
+				</ul>';
 				$data[] = array(
+					$r->id,
 					$r->secretaria,
 					$r->dependencia,
 					$r->direccion,
-					$accionesEdit
+					trim($acciones)
 				);
 			}
 

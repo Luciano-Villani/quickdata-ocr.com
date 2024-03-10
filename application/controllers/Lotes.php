@@ -108,11 +108,11 @@ class Lotes extends backend_controller
 					} else {
 						$vencimiento_del_pago = 'N/A';
 					}
-
-					// echo '<pre>';
-					// var_dump( $a->document->inference->pages[0]->prediction->nro_factura->values[0]->content ); 
-					// echo '</pre>';
-					// die();
+					if ($a->document->inference->pages[0]->prediction->consumo->values) {
+						$consumo = $a->document->inference->pages[0]->prediction->consumo->values[0]->content;
+					} else {
+						$consumo = 'N/A';
+					}
 
 					$dataUpdate = array(
 						'nro_cuenta' => trim($nro_cuenta),
@@ -123,7 +123,7 @@ class Lotes extends backend_controller
 						'vencimiento_del_pago' => trim($vencimiento_del_pago),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'total_vencido' => trim($a->document->inference->pages[0]->prediction->total_vencido->values[0]->content),
-						'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
+						'consumo' => trim($consumo),
 					);
 
 
@@ -240,9 +240,6 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
 					}
-					
-
-
 					
 					$dataUpdate = array(
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),

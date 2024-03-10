@@ -18,10 +18,10 @@ class Indexaciones extends backend_controller
 			$this->load->model('manager/Manager_model');
 
 			$this->data['select_proyectos'] = $this->Manager_model->obtener_contenido_select('_proyectos', 'SELECCIONE PROYECTO', 'descripcion', 'id ASC');
-			$this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA', 'secretaria', 'id ASC');
+			$this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA', 'secretaria', 'secretaria ASC');
 			$this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias', 'SELECCIONE DEPENDENCIA', 'dependencia', 'id ASC');
 			$this->data['select_programas'] = $this->Manager_model->obtener_contenido_select('_programas', 'SELECCIONE PROGRAMA', 'descripcion', '');
-			$this->data['select_proveedores'] = $this->Manager_model->obtener_contenido_select('_proveedores', 'SELECCIONE PROVEEDOR', 'nombre', 'id ASC');
+			$this->data['select_proveedores'] = $this->Manager_model->obtener_contenido_select('_proveedores', 'SELECCIONE PROVEEDOR', 'nombre', 'nombre ASC');
 			$this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', 'Seleccionar Tipo Pago', 'tip_nombre', 'tip_id');
 			$this->data['tabla'] = '_indexaciones';
 			$this->BtnText = 'Agregar';
@@ -53,9 +53,9 @@ class Indexaciones extends backend_controller
 
 			$memData = $this->Manager_model->getRows($_POST);
 
-
 			$estadoSucces = '<span class="acciones"><i class="text-success icon-check2 "></i></span>';
 			foreach ($memData as $r) {
+
 
 				$accionesVer = '<span class="acciones"><a title="ver archivo" href="/Admin/s/viewBatch/' . $r->id . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
 				$accionesEdit = '<span data-id_="' . $r->id . '" class="editar_ acciones" ><a title="Editar" href="/Admin/' . ucfirst($this->router->fetch_class()) . '/editar/' . $r->id_dependencia . '"  class=""><i class=" text-warningr  icon-pencil4 " title="Editar "></i> </a> </span>';
@@ -68,21 +68,14 @@ class Indexaciones extends backend_controller
 				<li  class=" text-danger-600"><a class="borrar_file" data-id="' . $r->id . '" href="#"><i class="icon-trash"></i></a></li>
 			</ul>';
 				$data[] = array(
-					$r->id_programa . ' ' . $r->id_proyecto,
+					$r->id_programa.' '.$r->id_proyecto,
 					$r->id,
 					$r->nom_proveedor,
 					$r->nro_cuenta,
 					$r->nombre_secretaria,
 					$r->nombre_dependencia,
-					$r->id_programa . " - " . $r->descr_programa,
-					$r->id_proyecto . " - " . $r->descr_proyecto,
-					// $r->id_secretaria,
-					// $r->id_dependencia,
-					// $r->descr_programa,
-					// $r->descr_proyecto,
-					// $r->descr_proyecto,
-					// $r->id_proveedor,
-					// $r->tipo_pago,
+					$r->id_programa . "  " . $r->descr_programa,
+					$r->id_proyecto . "  " . $r->descr_proyecto,
 					$acciones
 				);
 			}
@@ -102,7 +95,27 @@ class Indexaciones extends backend_controller
 
 	public function delete()
 	{
-		$this->Manager_model->delete();
+
+		try {
+
+			$this->db->where('id', $_REQUEST['id']);
+			$this->db->delete($_REQUEST['tabla']);
+
+			$response = array(
+				'mensaje' => 'Datos borrados',
+				'title' => str_replace('_', '', $_REQUEST['tabla']),
+				'status' => 'success',
+			);
+		} catch (Exception $e) {
+			$response = array(
+				'mensaje' => 'Error: ' . $e->getMessage(),
+				'title' => str_replace('_', '', $_REQUEST['tabla']),
+				'status' => 'error',
+			);
+		}
+
+		echo json_encode($response);
+		exit();
 	}
 
 	public function listados($id = NULL)
@@ -175,11 +188,11 @@ class Indexaciones extends backend_controller
 
 			if ($this->form_validation->run() != FALSE) {
 
-				
+
 				if (isset($_REQUEST['id_indexacion']) && $_REQUEST['id_indexacion'] != NULL) {
 					$indexacion = $_POST["id_indexacion"];
 					unset($_REQUEST["id_indexacion"]);
-				
+
 					$grabar_datos_array = array(
 						'seccion' => 'Actualización datos ' . $this->router->fetch_class(),
 						'mensaje' => 'Datos Actualizados ',
@@ -191,7 +204,7 @@ class Indexaciones extends backend_controller
 					$this->db->update($this->data['tabla'], $_REQUEST, array('id' => $indexacion));
 				} else {
 					unset($_REQUEST["id_indexacion"]);
-			
+
 					$this->Manager_model->grabar_datos($this->data['tabla'], $_REQUEST);
 					$grabar_datos_array = array(
 						'seccion' => 'Alta nuevas ' . $this->router->fetch_class(),
@@ -264,16 +277,17 @@ class Indexaciones extends backend_controller
 	}
 
 
-	public function check_nro_cuenta($str){
+	public function check_nro_cuenta($str)
+	{
 
-		if($data= $this->Manager_model->getwhere('_indexaciones','nro_cuenta =' .$str)){
+		if ($data = $this->Manager_model->getwhere('_indexaciones', 'nro_cuenta ="' . $str . '"')) {
 
 
 			$this->form_validation->set_message('check_nro_cuenta', 'El Nro de cuenta se encuentra registrado');
 			return FALSE;
-		}else{
+		} else {
 
-	return true;
+			return true;
 		}
 	}
 	public function check_username($str)

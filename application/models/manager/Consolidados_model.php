@@ -27,7 +27,6 @@ class Consolidados_model extends CI_Model
 	}
 	public function consolidar_datos()
 	{
-		
 		if (isset($_REQUEST['id_file']) && $_POST['id_file'] != null) {
 			$data = $this->Manager_model->getwhere('_datos_api', 'id=' . $_POST['id_file']);
 			$files = array(
@@ -36,7 +35,6 @@ class Consolidados_model extends CI_Model
 		} else {
 			$files = $this->Lotes_model->getBatchFiles($_POST['code_lote']);
 			
-				
 		}
 
 		try {
@@ -95,7 +93,6 @@ class Consolidados_model extends CI_Model
 					// <th>Pasar a Preventivas</th>
 					// <th>Importe factura</th>
 					
-					
 					$dataBatch = array(
 						'id_lectura_api' => $file->id,
 						'id_indexador' => $indexador->id,
@@ -125,7 +122,6 @@ class Consolidados_model extends CI_Model
 						'user_consolidado' => $this->user->id,
 						'fecha_consolidado' => $this->fecha_now,
 						'nombre_archivo' => $file->nombre_archivo,
-
 					);
 
 					$this->Manager_model->grabar_datos('_consolidados', $dataBatch);
@@ -173,6 +169,4 @@ class Consolidados_model extends CI_Model
 			var_dump($e->getMessage());
 		}
 	}
-
-
 }

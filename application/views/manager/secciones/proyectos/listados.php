@@ -16,6 +16,7 @@
 		<div class="card-body collapse" id="collapseExample">
 		<?php echo form_open(base_url('Admin/Proyectos'),array('id'=>'form-validate-jquery')); ?>
 		<div class="row">
+		
 			<div class="col-md-3">
 				<div class="form-group form-group-feedback form-group-feedback-right  ">
 					
@@ -50,17 +51,18 @@
 
 				</div>
 			</div>
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<div class="form-group form-group-feedback form-group-feedback-right  ">
-					<input required type="text" class="form-control" placeholder="Código" name="id_interno" value="<?php //echo set_value('rafam'); 
+					<input required type="text" class="form-control" placeholder="id interno" name="id_interno" value="<?php //echo set_value('rafam'); 
 																												?>">
-					<div class="form-control-feedback">
-						<i class=" icon-pencil3 text-muted"></i>
-					</div>
+					
 					<?php echo form_error('id_interno', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 				</div>
 			</div>
-			
+			<div class="col-md-1">
+				<input readonly="readonly" class="form-control" type="text" name="id">
+			</div>		
+
 		</div>
 		<div class="row">
 			<div class="col-md-6">

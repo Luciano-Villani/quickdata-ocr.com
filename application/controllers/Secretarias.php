@@ -15,22 +15,56 @@ class Secretarias extends backend_controller
 			$this->load->model('/Manager/Secretarias_model');
 			// $this->output->enable_profiler(TRUE);
 		}
-
+		$this->table = '_secretarias';
 	}
 
-	public function index()
-	{
-		die('index');
-	}
-	public function register()
-	{
-	}
-	public function list_profiles_dt()
-	{
 
-		$usuarios = $this->Usuarios_model->list_profiles_dt();
+	public function edit()
+	{
+		if ($this->input->is_ajax_request()) {
 
-		return $usuarios;
+			$data = $this->Manager_model->getWhere('_secretarias', 'id="' . $_REQUEST['id'] . '"');
+
+			if ($data) {
+				$response = array(
+					'mensaje' => $_REQUEST['id'],
+					'data' => $data,
+					'status' => 'success',
+				);
+			} else {
+				$response = array(
+					'mensaje' => $_REQUEST['id'],
+					'title' => 'EDITAR ' . $this->router->fetch_class() . ' - dato inexistente',
+					'status' => 'error',
+				);
+			}
+
+
+			echo json_encode($response);
+			exit();
+		}
+	}
+	public function delete()
+	{
+		try {
+			$this->db->where('id', $_REQUEST['id']);
+			$this->db->delete('_secretarias');
+
+			$response = array(
+				'mensaje' => 'Datos borrados',
+				'title' => 'Secretarias',
+				'status' => 'success',
+			);
+		} catch (Exception $e) {
+			$response = array(
+				'mensaje' => 'Error: ' . $e->getMessage(),
+				'title' => 'Programas',
+				'status' => 'error',
+			);
+		}
+
+		echo json_encode($response);
+		exit();
 	}
 	public function list_dt()
 	{
@@ -39,10 +73,23 @@ class Secretarias extends backend_controller
 
 		foreach ($memData as $r) {
 
+			$estado  = 0;  // para permitir borrar o no
+			$btnClass = 'text-success-600';
+			$index = $this->Manager_model->getWhere('_indexaciones','id_secretaria="'.$r->id.'"');
+
+			if($index){
+				$estado  = 1; 
+				$btnClass = "text-danger-600";
+			}
+
 			$acciones = '<ul class="icons-list">
-			<li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
-			<li class=" text-danger-600"><a class="borrar_dato" data-id="'. $r->id.'" href="#"><i class="icon-trash"></i></a></li>
-		</ul>';
+			<li class="text-primary-600">
+				<a class="edit_dato" data-id="' . $r->id . '" href="#"><i class="icon-pencil7"></i></a>
+			</li>
+			<li class="'.$btnClass.'">
+				<a data-estado="'. $estado.'" data-id="'. $r->id.'" href="#" class="borrar_dato"><i class="icon-trash"></i></a>
+			</li>
+			</ul>';
 
 			$data[] = array(
 				$r->major,
@@ -63,39 +110,70 @@ class Secretarias extends backend_controller
 
 	public function listados()
 	{
+
+
 		$grabar_datos_session = array(
 			'error_form' => '',
 			'cardCollapsed' => '',
 		);
 
-		if($_SERVER['REQUEST_METHOD'] === "POST"){
+		if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 			// $this->form_validation->set_rules('rafam', 'Jurisdiccion - Rafam', 'trim|required|callback_check_username');
 			$this->form_validation->set_rules('major', 'Jurisdiccion - Major', 'trim|required');
 			$this->form_validation->set_rules('secretaria', 'Jurisdiccion descripción', 'trim|required');
 
-				if ($this->form_validation->run() != FALSE) {
-					$datos = array(
-						// 'rafam'=> $this->input->post('rafam') ,
-						'major' => $this->input->post('major') ,
-						'secretaria' => $this->input->post('secretaria') ,
+			if ($this->form_validation->run() != FALSE) {
+				if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
+
+					$proy = $_REQUEST['id'];
+					unset($_REQUEST['id']);
+	
+					$grabar_datos_array = array(
+						'seccion' => 'Actualización datos ' . $this->router->fetch_class(),
+						'mensaje' => 'Datos Actualizados ',
+						'status' => 'success',
+						'estado' => 'success',
 					);
-		
-					$this->Manager_model->grabar_datos("_secretarias",$datos); 
-			
+	
+	
+					try {
+						$this->db->update($this->table, $_REQUEST, array('id' => $proy));
+					} catch (Exception $e) {
+						$grabar_datos_array['estado'] = 'error';
+						$grabar_datos_array['mensaje'] = $e->getMessage();
+					}
+					$this->session->set_userdata('save_data', $grabar_datos_array);
+					redirect(base_url('Admin/'.ucfirst($this->router->fetch_class())));
+				} else {
+
+					$grabar_datos_array = array(
+						'seccion' 	=> $this->router->fetch_class(),
+						'mensaje' => 'Datos Guardados ',
+						'status' => 'success',
+						'estado' => 'success',
+					);
+					$this->session->set_userdata('save_data', $grabar_datos_array);
+
+					$datos = array(
+						'major' => $this->input->post('major'),
+						'secretaria' => $this->input->post('secretaria'),
+					);
+	
+					$this->Manager_model->grabar_datos("_secretarias", $datos);
+	
 					redirect(base_url('Admin/Secretarias'));
-		
-				}else{
-					
-				} 
-				
+				}
+
+			} else {
 			}
-			
+		}
+
 		$script = array(
 			base_url('assets/manager/js/plugins/forms/styling/uniform.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
 			//			base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),
-//			base_url('assets/manager/js/plugins/tables/datatables/datatables_advanced.js'),
+			//			base_url('assets/manager/js/plugins/tables/datatables/datatables_advanced.js'),
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
 		);
@@ -114,11 +192,11 @@ class Secretarias extends backend_controller
 		$this->load->view('manager/footer', $this->data);
 	}
 
-	public function agregar($id=NULL)
+	public function agregar($id = NULL)
 	{
 		$this->data['css_common'] = $this->css_common;
 		$this->data['css'] = '';
-		
+
 		$script = array(
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 			base_url('assets/manager/js/plugins/forms/styling/uniform.min.js'),
@@ -127,16 +205,16 @@ class Secretarias extends backend_controller
 		);
 		$this->data['script_common'] = $this->script_common;
 		$this->data['script'] = $script;
-		
-		
+
+
 		$this->form_validation->set_rules('rafam', 'Jurisdiccion - Rafam', 'trim|required|callback_check_username');
 		$this->form_validation->set_rules('major', 'Jurisdiccion - Major', 'trim|required');
 		$this->form_validation->set_rules('secretaria', 'Jurisdiccion descripción', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
 
-			if($id){
-				if($this->data['usuario'] = $this->ion_auth->user($id)->result()){
+			if ($id) {
+				if ($this->data['usuario'] = $this->ion_auth->user($id)->result()) {
 				}
 			}
 
@@ -145,23 +223,45 @@ class Secretarias extends backend_controller
 			$this->load->view('manager/head', $this->data);
 			$this->load->view('manager/index', $this->data);
 			$this->load->view('manager/footer', $this->data);
-
 		} else {
-			$datos = array(
-				'rafam'=> $this->input->post('rafam') ,
-				'major' => $this->input->post('major') ,
-				'secretaria' => $this->input->post('secretaria') ,
-			);
+
+			if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
+
+				$proy = $_REQUEST['id'];
+				unset($_REQUEST['id']);
+
+				$grabar_datos_array = array(
+					'seccion' => 'Actualización datos ' . $this->router->fetch_class(),
+					'mensaje' => 'Datos Actualizados ',
+					'estado' => 'success',
+				);
 
 
+				try {
+					$this->db->update($this->table, $_REQUEST, array('id' => $proy));
+				} catch (Exception $e) {
+					$grabar_datos_array['estado'] = 'error';
+					$grabar_datos_array['mensaje'] = $e->getMessage();
+				}
+				$this->session->set_userdata('save_data', $grabar_datos_array);
+				redirect(base_url('Admin/'.$this->router->fetch_class()));
+			} else {
 
-			$this->Secretarias_model->grabar_datos("_secretarias",$datos); 
-			redirect(base_url('Admin/Secretarias'));
-
+				$grabar_datos_array = array(
+					'seccion' => $this->router->fetch_class(),
+					'mensaje' => 'Datos Guardados ',
+					'estado' => 'success',
+				);
+				$this->session->set_userdata('save_data', $grabar_datos_array);
+				$datos = array(
+					'rafam' => $this->input->post('rafam'),
+					'major' => $this->input->post('major'),
+					'secretaria' => $this->input->post('secretaria'),
+				);
+				$this->Secretarias_model->grabar_datos("_secretarias", $datos);
+				redirect(base_url('Admin/Secretarias'));
+			}
 		}
-
-
-
 	}
 
 
@@ -184,6 +284,3 @@ class Secretarias extends backend_controller
 		}
 	}
 }
-
-
-?>

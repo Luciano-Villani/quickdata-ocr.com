@@ -57,30 +57,10 @@ class Consolidados extends backend_controller
 		// $data=array();
 		if ($this->input->is_ajax_request()) {
 
-			
 			$data = $row = array();
-			
 			$memData = $this->Manager_model->getRows($_POST);
+
 			foreach ($memData as $r) {
-				// // echo '<pre>';
-				// var_dump( $r ); 
-				// echo '</pre>';
-// die();
-			
-				// $prov = $this->Manager_model->getWhere('_proveedores', 'nombre LIKE "%'.$r->proveedor.'%"');
-
-				// $data = array(
-				// 	'periodo_contable'=> fecha_es($r->fecha_consolidado,'F a', false)
-				// );
-				// $this->db->where('id', $r->id);
-				// $this->db->update('_consolidados', $data);
-				// echo $this->db->last_query();
-				// die();
-				// echo '<pre>';
-				// var_dump( $prov->id ); 
-				// echo '</pre>';
-				// die();
-
 				$indexador = $this->Manager_model->getWhere('_indexaciones', 'nro_cuenta="'. $r->nro_cuenta . '"');
 				//$r->expediente = $indexador->expediente;
 
@@ -208,11 +188,7 @@ class Consolidados extends backend_controller
 		$this->data['script'] = $script;
 
 
-
-
-
 		if ($this->form_validation->run() == FALSE) {
-
 
 			$this->data['content'] = $this->load->view('manager/secciones/proyectos/' . $this->router->fetch_method(), $this->data, TRUE);
 

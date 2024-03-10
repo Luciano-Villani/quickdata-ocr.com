@@ -96,20 +96,14 @@
 	<table id="dependencias_dt" class="table-bordered table-hover datatable-highlight " style="width: 100%">
 		<thead>
 			<tr>
+				<th></th>
 				<th>Secretaría</th>
 				<th>Dependencia</th>
 				<th>Dirección</th>
 				<th></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<th>Secretaría</th>
-				<th>Dependencia</th>
-				<th>Dirección</th>
-				<th></th>
-			</tr>
-		</tfoot>
+		
 
 	</table>
 

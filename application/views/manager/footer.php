@@ -1,12 +1,9 @@
-
-
-
 <?php
         if (isset($_SESSION['save_data'])) {
 
 
         ?>
-<div class="">
+<div class="d-none">
     <div id="mensaje"><?= $_SESSION['save_data']["mensaje"]?></div>
     <div id="seccion"><?= $_SESSION['save_data']["seccion"]?></div>
     <div id="esatdo"><?= $_SESSION['save_data']["estado"]?></div>
@@ -17,7 +14,6 @@
 ?>
 <script>
 
-
     $(function() {
         <?php
         if (isset($_SESSION['save_data'])) {
@@ -27,7 +23,7 @@
                 title:$("#seccion").html(),
                 text: $("#mensaje").html(),
                 icon: 'icon-checkmark3',
-                // saddclass: 'alert-styled-left',
+                saddclass: 'alert-styled-left',
                 type: $("#status").html()
             });
 

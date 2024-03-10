@@ -42,6 +42,9 @@
 						<?php echo form_error('secretaria', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 					</div>
 				</div>
+				<div class="col-md-1">
+				<input readonly="readonly" class="form-control" type="text" name="id">
+			</div>	
 				<div class="col-md-2">
 			    <button type="submit" class="btn btn-filtrar"><b><i class="icon-upload"></i></b> Guardar</button>
 			     <?= form_close(); ?>
@@ -53,6 +56,7 @@
 	</div>
 <?php } ?>
 
+<a class="borrarsecretaria" href="#">Ver aca</a>
 
 <div class="card">
 <h5 class="card-title bg-titulo text-center text-dark"> Lista de <?= ucfirst($this->router->fetch_class()) ?></h5>

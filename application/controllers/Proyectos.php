@@ -21,24 +21,12 @@ class Proyectos extends backend_controller
 			$this->data['select_programas'] = $this->Manager_model->obtener_contenido_select('_programas', 'SELECCIONE PROGRAMA', 'descripcion', 'id ASC');
 			$this->data['select_proyectos'] = $this->Manager_model->obtener_contenido_select('_proyectos', 'SELECCIONE PROYECTO', 'descripcion', 'id ASC');
 
+			$this->table = "_proyectos";
 			// $this->output->enable_profiler(TRUE);
 		}
 	}
 
-	public function index()
-	{
-		die('index');
-	}
-	public function register()
-	{
-	}
-	public function list_profiles_dt()
-	{
 
-		$usuarios = $this->Usuarios_model->list_profiles_dt();
-
-		return $usuarios;
-	}
 	public function list_dt()
 	{
 		// $query = $this->db->select('*')->get('_programas');
@@ -46,27 +34,45 @@ class Proyectos extends backend_controller
 		// foreach ($query->result()  as $r) {
 
 		// 	$this->db->set('descripcion', strtoupper($r->descripcion));
-		//             $this->db->where('id', $r->id);
-		//             $this->db->update('_programas');
+		// 	$this->db->where('id', $r->id);
+		// 	$this->db->update('_programas');
 		// }
-		$memData = $this->Manager_model->getRows($_POST);
 
+		// $query = $this->db->select('*')->get('_proyectos');
+
+		// foreach ($query->result()  as $r) {
+		// 	$this->db->set('descripcion', strtoupper($r->descripcion));
+		// 	$this->db->where('id', $r->id);
+		// 	$this->db->update('_proyectos');
+		// }
+
+		$memData = $this->Manager_model->getRows($_POST);
+		// echo $this->db->last_query();
+		// die();
 		$data = $row = array();
-//	<li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
+		//	<li class="text-primary-600"><a href="#"><i class="icon-pencil7"></i></a></li>
 
 		foreach ($memData as $r) {
 
+			$estado  = 0;  // para permitir borrar o no
+			$btnClass = 'text-success-600';
+			$index = $this->Manager_model->getWhere('_indexaciones', 'id_proyecto="' . $r->p_id_interno . '"');
+			if ($index) {
+				$estado  = 1;
+				$btnClass = 'text-danger-600';
+			}
+
 			$acciones = '<ul class="icons-list">
-		
-			<li class=" text-danger-600"><a class="borrar_dato" data-id="'.$r->id.'" href="#"><i class="icon-trash"></i></a></li>
+			<li class="text-primary-600"><a class="edit_dato" data-id="' . $r->id . '" href="#"><i class="icon-pencil7"></i></a></li>
+			<li class="' . $btnClass . '"><a data-estado="' . $estado . '" class="borrar_dato" data-id="' . $r->id . '" href="#"><i class="icon-trash"></i></a></li>
 		</ul>';
 
 			$data[] = array(
 
 				$r->p_id_interno,
-				$r->p_descripcion,
-				$r->prog_id_interno. ' ' .$r->prog_descripcion,
-				$r->id_secretaria. ' ' .$r->secretaria,
+				$r->p_id_interno . ' ' . $r->p_descripcion,
+				$r->prog_id_interno . ' ' . $r->prog_descripcion,
+				$r->id_secretaria . ' ' . $r->secretaria,
 				$acciones,
 			);
 		}
@@ -80,7 +86,31 @@ class Proyectos extends backend_controller
 		echo json_encode($output);
 		exit();
 	}
+	public function edit()
+	{
+		if ($this->input->is_ajax_request()) {
 
+			$data = $this->Manager_model->getWhere('_proyectos', 'id="' . $_REQUEST['id'] . '"');
+
+			if ($data) {
+				$response = array(
+					'mensaje' => $_REQUEST['id'],
+					'data' => $data,
+					'status' => 'success',
+				);
+			} else {
+				$response = array(
+					'mensaje' => $_REQUEST['id'],
+					'title' => 'EDITAR Proyectos - dato inexistente',
+					'status' => 'error',
+				);
+			}
+
+
+			echo json_encode($response);
+			exit();
+		}
+	}
 	public function delete()
 	{
 		try {
@@ -111,6 +141,7 @@ class Proyectos extends backend_controller
 		echo json_encode($response);
 		exit();
 	}
+
 	public function get_proyectos()
 	{
 
@@ -132,6 +163,7 @@ class Proyectos extends backend_controller
 	public function listados()
 	{
 
+
 		$script = array(
 			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
 			//			base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),
@@ -148,6 +180,9 @@ class Proyectos extends backend_controller
 		$this->data['script'] = $script;
 
 		if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
+
+
 			// $this->form_validation->set_rules('secretaria', 'secretaria', 'trim|greater_than[0]');
 			$this->form_validation->set_rules('id_secretaria', 'Secretaria', 'trim|in_select[0]');
 			$this->form_validation->set_rules('id_dependencia', 'Dependencia', '');
@@ -156,14 +191,38 @@ class Proyectos extends backend_controller
 			$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|required');
 
 			if ($this->form_validation->run() != FALSE) {
-				$datos = array(
-					'id_secretaria' => $this->input->post('id_secretaria'),
-					'id_programa' => $this->input->post('id_programa'),
-					'id_interno' => $this->input->post('id_interno'),
-					'descripcion' => $this->input->post('descripcion'),
-				);
-				$this->Manager_model->grabar_datos("_proyectos", $datos);
-				redirect(base_url('Admin/Proyectos'));
+
+				if (isset($_REQUEST['id']) && $_REQUEST['id'] !='') {
+
+					$proy = $_REQUEST['id'];
+					unset($_REQUEST['id']);
+
+					$grabar_datos_array = array(
+						'seccion' => 'Actualización datos ' . $this->router->fetch_class(),
+						'mensaje' => 'Datos Actualizados ',
+						'estado' => 'success',
+					);
+
+					
+					try {
+						$this->db->update($this->table, $_REQUEST, array('id' => $proy));
+						
+					} catch (Exception $e) {
+						$grabar_datos_array['estado'] = 'error'; 
+						$grabar_datos_array['mensaje'] = $e->getMessage(); 
+					}
+					$this->session->set_userdata('save_data', $grabar_datos_array);
+					redirect(base_url('Admin/Proyectos'));
+				} else {
+					$datos = array(
+						'id_secretaria' => $this->input->post('id_secretaria'),
+						'id_programa' => $this->input->post('id_programa'),
+						'id_interno' => $this->input->post('id_interno'),
+						'descripcion' => $this->input->post('descripcion'),
+					);
+					$this->Manager_model->grabar_datos("_proyectos", $datos);
+					redirect(base_url('Admin/Proyectos'));
+				}
 			}
 		}
 

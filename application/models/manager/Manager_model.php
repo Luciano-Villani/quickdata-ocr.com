@@ -7,6 +7,7 @@ class Manager_model extends CI_Model
     function __construct()
     {
         parent::__construct();
+        // $this->order='';
     }
 
     public function getRows($postData)
@@ -50,14 +51,17 @@ class Manager_model extends CI_Model
                     '_secretarias.secretaria',
                 );
 
-
+                
+                $this->order = array('_secretarias.id' => 'desc');
                 break;            
-                case '_programas':
+            case '_programas':
                 $this->db->select(
-                   '_programas.id_interno as prog_id_interno,
-                    _programas.id as id,
-                    _programas.descripcion as prog_descripcion,
-                    _secretarias.secretaria
+                   '_programas.descripcion,
+                   _secretarias.secretaria,
+                   _programas.id_interno as prog_id_interno,
+                    _programas.id as id_programa,
+                    UPPER(_programas.descripcion) as prog_descripcion,
+                    UPPER(_secretarias.secretaria) as secretaria
                     '
                 );
 
@@ -65,18 +69,17 @@ class Manager_model extends CI_Model
                 $this->db->join('_secretarias', '_programas.id_secretaria = _secretarias.id ', '');
               
                 $my_column_order = array(
-                    '',
+                    '_programas.id_interno',
                     '_secretarias.secretaria',
                     '_programas.descripcion',
                 );
                 $my_column_search = array(
                     '_programas.id_interno',
+                    '_programas.descripcion',
                     '_secretarias.secretaria',
-                    '_secretarias.secretaria',
-                    
                 );
 
-
+                $this->order = array('_programas.id' => 'desc');
                 break;
 
             case '_consolidados':
@@ -197,6 +200,7 @@ class Manager_model extends CI_Model
 
                 $my_column_order = array(
                     'id_dependencia',
+                    '_dependencias.id',
                     '_dependencias.dependencia',
                     '_dependencias.direccion',
                 );
@@ -222,20 +226,23 @@ class Manager_model extends CI_Model
 
             case '_proyectos':
 
+                // id actualizacion id de tabla
                 $this->db->select(
                     '_proyectos.descripcion as p_descripcion, 
                     _proyectos.id ,
                     _proyectos.id_interno as p_id_interno,
-                    _programas.descripcion as prog_descripcion,
-                    _programas.id_interno as prog_id_interno,
-                    _secretarias.id as id_secretaria,
-                    _secretarias.secretaria
+                     _secretarias.id as id_secretaria,
+                     _secretarias.secretaria,
+                     _programas.descripcion as prog_descripcion,
+                     _programas.id_interno as prog_id_interno,
+         
+                   
                     '
                 );
-
+             
                 // $this->db->join('_dependencias', '_proyectos.id_dependencia = _dependencias.id', '');
-                $this->db->join('_secretarias', '_proyectos.id_secretaria = _secretarias.id ', '');
-                $this->db->join('_programas', '_proyectos.id_programa = _programas.id_interno ', '');
+                 $this->db->join('_secretarias', '_proyectos.id_secretaria = _secretarias.id ', '');
+                 $this->db->join('_programas', '_programas.id = _proyectos.id_programa ', '');
 
                 // $this->db->select('
                 // _proyectos.*,
@@ -250,7 +257,10 @@ class Manager_model extends CI_Model
 
 
                 $my_column_order = array(
-                    '_proyectos.id'
+                    '',
+                    '_proyectos.descripcion',
+                    '_programas.descripcion',
+                    '_secretarias.secretaria',
                 );
                 $my_column_search = array(
                     '_proyectos.id_interno',
@@ -275,10 +285,10 @@ class Manager_model extends CI_Model
                     $this->db->group_end();
                 }
 
-                $this->db->group_by('_proyectos.id_interno');
-                $my_order = array('_proyectos.id' => 'desc');
+                // $this->db->group_by('_proyectos.id_interno');
+                // $my_order = array('_proyectos.id' => 'desc');
 
-
+                $this->order = array('_proyectos.id' => 'desc');
                 break;
 
             case '_lotes':
@@ -299,26 +309,31 @@ class Manager_model extends CI_Model
                     '_indexaciones.*
                     ,_secretarias.secretaria as nombre_secretaria,
                     _dependencias.dependencia as nombre_dependencia,
+                    _proveedores.nombre as nom_proveedor,
                     _programas.descripcion as descr_programa,
                     _proyectos.descripcion as descr_proyecto,
-                    _proveedores.nombre,
-                    _proveedores.nombre as nom_proveedor,
-                '
+                    '
                 );
+                /*
+                _proyectos.descripcion as descr_proyecto,
+                 _proveedores.nombre as nom_proveedor,
+                    _proveedores.nombre,
+                  
+                */
 
                 // $this->db->select('_indexaciones.*,_dependencias.direccion as dire_depe,_dependencias.id as id_dependencia , _secretarias.secretaria,users.*, CONCAT(users.first_name," ", users.last_name) as user_add');
                 $this->db->join('_secretarias', '_secretarias.id = _indexaciones.id_secretaria', 'rigth', true);
-                $this->db->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia', 'left');
-                $this->db->join('_programas', '_programas.id_interno = _indexaciones.id_programa AND _programas.id_secretaria = _indexaciones.id_secretaria', 'left');
-                $this->db->join('_proyectos', '_proyectos.id_interno = _indexaciones.id_proyecto AND _proyectos.id_programa = _indexaciones.id_programa AND _proyectos.id_secretaria = _indexaciones.id_secretaria', 'LEFT');
                 $this->db->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor', '');
+                $this->db->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia', 'left');
+                $this->db->join('_programas', ' _indexaciones.id_programa = _programas.id_interno AND _programas.id_secretaria = _indexaciones.id_secretaria', 'left');
+                $this->db->join('_proyectos', '_indexaciones.id_proyecto = _proyectos.id', 'left');
 
                 // $this->db->join('_programas a', 'a.id_secretaria = _indexaciones.id_secretaria', 'left');
                 // $this->db->join('users','users.id = _dependencias.user_add','');
                 $my_column_order = array(
+                    '_indexaciones.id',
                     '',
                     '_proveedores.nombre',
-                    '_indexaciones.id',
                     '_secretarias.secretaria',
                     '_dependencias.dependencia',
                     '_programas.descripcion',
@@ -331,9 +346,10 @@ class Manager_model extends CI_Model
                     '_dependencias.dependencia',
                     '_programas.descripcion'
                 );
-                $my_order = array('_indexaciones.id' => 'desc');
-               // $this->db->group_by('_indexaciones.id');
-                $this->order = array('id' => 'asc');
+
+                 $my_order = array('_indexaciones.id' => 'desc');
+       
+                $this->order = array('0' => 'desc');
                 break;
         }
 
@@ -364,7 +380,7 @@ class Manager_model extends CI_Model
             $this->db->order_by($my_column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
         } else if (isset($this->order)) {
 
-            die($this->order);
+            // die($this->order);
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);
         }
@@ -431,7 +447,7 @@ class Manager_model extends CI_Model
                 switch ($tabla) {
                     case "_programas":
                     case "_proyectos":
-                        $my_array[$data['id_interno']] = $data['id_interno'] . ' - ' . strtoupper($data[$campo]);
+                        $my_array[$data['id_interno']] = $data['id_interno'] . ' - * ' . strtoupper($data[$campo]);
                         break;
                     case "_secretarias":
                         $my_array[$data['id']] = $data['rafam'] . '  -  ' . strtoupper($data[$campo]);
