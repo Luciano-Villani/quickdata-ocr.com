@@ -1,44 +1,100 @@
 $(document).ready(function () {
+  $("body").on("click", "a.edit_dato", function (e) {
+    e.preventDefault();
+
+    var dato = new FormData();
+    dato.append("id", $(this).data("id"));
+    $.ajax({
+      type: "POST",
+      contentType: false,
+      dataType: "json",
+      data: dato,
+      processData: false,
+      cache: false,
+      beforeSend: function () {},
+      url: $("body").data("base_url") + "Proyectos/edit",
+      success: function (result) {
+        if (result.status == "success") {
+      
+          $("div#collapseExample").addClass("show");
+          $("input[name='id']").val(result.data.id);
+          $("input[name='id_interno']").val(result.data.id_interno);
+          $("input[name='descripcion']").val(result.data.descripcion);
+          $("select#select_secretaria").val(result.data.id_secretaria).trigger('change');
+          $("select#select_programa").removeAttr('disabled');
+
+          setTimeout( function() { 
+          $("select#select_programa").val(result.data.id_programa).trigger('change');
+        }, 1000);
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+        } else {
+          alertas(result);
+        }
+        // table.ajax.reload(null, false);
+      },
+      error: function (xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+      },
+    });
+  });
   $("body").on("click", "a.borrar_dato", function (e) {
     e.preventDefault();
 
     var dato = new FormData();
     dato.append("id", $(this).data("id"));
-    $.confirm({
-      autoClose: "cancel|10000",
-      title: "Eliminar Datos",
-      content: "Confirma eliminar datos ?",
-      buttons: {
-        confirm: {
-          text: "Borrar",
-          btnClass: "btn-blue",
-          action: function () {
-            $.ajax({
-              type: "POST",
-              contentType: false,
-              dataType: "json",
-              data: dato,
-              processData: false,
-              cache: false,
-              beforeSend: function () {},
-              url: $("body").data("base_url") + "Proyectos/delete",
-              success: function (result) {
-                alertas(result);
-                table.ajax.reload( null, false );
-              },
-              error: function (xhr, errmsg, err) {
-                console.log(xhr.status + ": " + xhr.responseText);
-              },
-            });
+
+    if ($(this).data("estado") != 1) {
+      $.confirm({
+        autoClose: "cancel|10000",
+        title: "Eliminar Datos",
+        content: "Confirma eliminar datos ?",
+        buttons: {
+          confirm: {
+            text: "Borrar",
+            btnClass: "btn-blue",
+            action: function () {
+              $.ajax({
+                type: "POST",
+                contentType: false,
+                dataType: "json",
+                data: dato,
+                processData: false,
+                cache: false,
+                beforeSend: function () {},
+                url: $("body").data("base_url") + "Proyectos/delete",
+                success: function (result) {
+                  alertas(result);
+                  table.ajax.reload(null, false);
+                },
+                error: function (xhr, errmsg, err) {
+                  console.log(xhr.status + ": " + xhr.responseText);
+                },
+              });
+            },
+          },
+          cancel: {
+            text: "Cancelar",
+            btnClass: "btn-red",
+            action: function () {},
           },
         },
-        cancel: {
-          text: "Cancelar",
-          btnClass: "btn-red",
-          action: function () {},
+      });
+    } else {
+      $.confirm({
+        title: "Borrar Proyecto",
+        content: "El Proyecto posee una indexación",
+        buttons: {
+          cancel: {
+            text: "Cancelar",
+            btnClass: "btn-red",
+            action: function () {
+              return;
+            },
+          },
         },
-      },
-    });
+      });
+    }
   });
   $("#select_programa").attr("disabled", "disabled");
   $("#form-validate-jquery").on(
@@ -122,8 +178,8 @@ $(document).ready(function () {
   });
 });
 function initDatatable(search = false, type = 0) {
-	var base_url = $("body").data("base_url");
- table =  $("#proyectos_dt").DataTable({
+  var base_url = $("body").data("base_url");
+  table = $("#proyectos_dt").DataTable({
     fixedHeader: {
       header: true,
       // footer: true
@@ -139,15 +195,18 @@ function initDatatable(search = false, type = 0) {
     pageLength: 25,
     dom: "Blfrtip",
     columnDefs: [
-		{ width: "1%", className: "dt-left dt-nowrap", targets: "_all" },
-    { width: "1%", orderable: false, targets: [0,4] },
+      { width: "1%", className: "dt-left dt-nowrap", targets: "_all" },
+      { width: "1%", orderable: false, targets: [0, 4] },
+      // { visible: false, targets: [0] },
     ],
+    order: false,
     language: {
       url: base_url + "assets/manager/js/plugins/tables/translate/spanish.json",
     },
     type: "POST",
     processing: true,
     serverSide: true,
+
     ajax: {
       data: {
         type: type,
@@ -164,7 +223,7 @@ function initDatatable(search = false, type = 0) {
 }
 
 $(document).ready(function () {
-	initDatatable();
+  initDatatable();
   $("#select_dependencia").attr("disabled", "disabled");
 
   $("#988myProgramForm").on("change", "select#select_secretaria", function () {

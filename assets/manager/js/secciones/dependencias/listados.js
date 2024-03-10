@@ -5,9 +5,68 @@ $(document).ready(function () {
   var base_url = $("body").data("base_url");
 
 
-  if ($("body").data("data_action") == "Editar") {
-    $(".collapse").collapse("toggle");
-  }
+
+
+
+  $("body").on("click", "a.borrar_dato", function (e) {
+    e.preventDefault();
+
+    var dato = new FormData();
+    dato.append("id", $(this).data("id"));
+    if($(this).data('estado')!= 1){
+      $.confirm({
+        autoClose: "cancel|10000",
+        title: "Eliminar Datos",
+        content: "Confirma eliminar datos ?",
+        buttons: {
+          confirm: {
+            text: "Borrar",
+            btnClass: "btn-blue",
+            action: function () {
+              $.ajax({
+                type: "POST",
+                contentType: false,
+                dataType: "json",
+                data: dato,
+                processData: false,
+                cache: false,
+                beforeSend: function () {},
+                url: $("body").data("base_url") + "Proyectos/delete",
+                success: function (result) {
+                  alertas(result);
+                  table.ajax.reload( null, false );
+                },
+                error: function (xhr, errmsg, err) {
+                  console.log(xhr.status + ": " + xhr.responseText);
+                },
+              });
+            },
+          },
+          cancel: {
+            text: "Cancelar",
+            btnClass: "btn-red",
+            action: function () {},
+          },
+        },
+      });
+    }else{
+      $.confirm({
+        title: "Borrar Dependencia",
+        content:
+          "La dependencia posee una indexación",
+        buttons: {
+          cancel: {
+            text: "Cancelar",
+            btnClass: "btn-red",
+            action: function () {
+              return;
+            },
+          },
+        },
+      });
+    }
+
+  });
   $("form#form-validate-jquery").validate({
     rules: {
       id_secretaria: {
@@ -37,7 +96,7 @@ $(document).ready(function () {
 
 function initDatatable(search = false, type = 0){
   $("#dependencias_dt").DataTable().destroy();
-   $("#dependencias_dt").DataTable({
+  table =  $("#dependencias_dt").DataTable({
     lengthMenu: [
       [10, 25, 50, 100, -1],
       [10, 25, 50, 100, "All"],
@@ -47,10 +106,11 @@ function initDatatable(search = false, type = 0){
      buttons: [
        //   'copy','colvis'
       ],
+      order: [0, "desc"],
       columnDefs: [
-        //   { visible: false, targets: [1] },
-        { width: "1%", className: "dt-center dt-nowrap", targets: "_all" },
-        { width: "1%", orderable: false, targets: [3] },
+        { width: "1%", className: "dt-left dt-nowrap", targets: "_all" },
+        { width: "1%", orderable: false, targets: [0,4] },
+        { visible: false, targets: [0,1] },
         
       ],
       language: {
@@ -60,7 +120,7 @@ function initDatatable(search = false, type = 0){
  
       processing: true,
       serverSide: true,
-      responsive: true,
+      // responsive: true,
       ajax: {
         data: {
           type: type,

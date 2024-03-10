@@ -85,20 +85,130 @@ function initDatatable(search = false, type = 0) {
   var prove = false;
   var tipo_pago = false;
   var periodo_contable = false;
+  var table = $("#indexaciones_dt").DataTable({
+    fixedHeader: {
+      header: true,
+    },
+    autoWidth: false,
+    paging: true,
+    scrollCollapse: true,
+    scrollX: true,
+    scrollY: 300,
+    lengthMenu: [
+      [10, 25, 50, 100, -1],
+      [10, 25, 50, 100, "All"],
+    ],
+    pageLength: 25,
+    dom: "Blfrtip",
+    scrollX: true,
+    buttons: [
+      {
+        extend: "excelHtml5",
+        exportOptions: {
+          columns: ":visible",
+        },
+        text: "Excel",
+        titleAttr: "Excel",
+        action: newexportaction,
+        className: "d-none",
+      },
+      {
+        extend: "colvis",
+        text: "Ver / Ocultar",
+        className: "",
+      },
+    ],
 
-  // desde los filtros 4
-  // if (type == 4) {
-  //   prove = $("#id_proveedor").val();
-  //   tipo_pago = $("#id_tipo_pago").val();
-  //   periodo_contable = $("#periodo_contable").val();
-  // }
+    columnDefs: [
+      {
+        targets: ["_all"],
+        className: "dt-left",
+      },
+      {
+        targets: [0, 1],
+        visible: false,
+      },
+      { width: "", orderable: false, targets: [7] },
+      {
+        targets: [4],
+        render: function (data, type, full, meta) {
+          console.log("render 4");
+          console.log(data);
+          return data + " (" + full[1] + ")";
+        },
+      },
+    ],
+    language: {
+      url: "/assets/manager/js/plugins/tables/translate/spanish.json",
+    },
+    processing: true,
+    serverSide: true,
+    // responsive: true,
+    type: "POST",
+    order: [2, "desc"],
+    dataSrc: "",
+    ajax: {
+      data: {
+        type: type,
+        table: "_indexaciones",
+        data_search: search,
+        id_proveedor: prove,
+        tipo_pago: tipo_pago,
+        periodo_contable: periodo_contable,
+      },
+      url: "/Indexaciones/list_dt",
+      type: "POST",
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert(jqXHR.status + textStatus + errorThrown);
+      },
+    },
 
-  $("#indexaciones_dt").DataTable().destroy();
-  var table = $("#indexaciones_dt")
-    .on("xhr.dt", function (e, settings, json, xhr) {
-      // console.log(json.data);
-    })
-    .DataTable({
+    initComplete: function () {
+      this.api()
+
+        .columns([3]) // This is the hidden jurisdiction column index
+        .every(function () {
+          var column = this;
+
+          column
+            .data()
+            .unique()
+            .sort()
+            .each(function (d, j) {
+              // if (
+              //   $("#periodo_contable").find("option[value='" + d + "']")
+              //     .length
+              // ) {
+              //   $("#periodo_contable").val("").trigger("change");
+              // } else {
+              //   // Create the DOM option that is pre-selected by default
+              //   var newState = new Option(d, d);
+              //   // Append it to the select
+              //   $("#periodo_contable").append(newState).trigger("change");
+              // }
+            });
+        });
+    },
+  });
+}
+
+$(document).ready(function () {
+  var base_url = $("body").data("base_url");
+  var action = $("body").data("data_action");
+
+  disabled = 'disabled=""';
+  if (action == "xxx") {
+    var disabled = 'disabled="disabled"';
+    $(".collapse").collapse("toggle");
+  }
+});
+
+$(document).ready(function () {
+  function initDatatable(search = false, type = 0) {
+    prove = false;
+    tipo_pago = false;
+    periodo_contable = false;
+    table = $("#indexaciones_dt").DataTable({
       fixedHeader: {
         header: true,
       },
@@ -145,8 +255,7 @@ function initDatatable(search = false, type = 0) {
         {
           targets: [4],
           render: function (data, type, full, meta) {
-            console.log('render 4')
-            console.log(data)
+      
             return data + " (" + full[1] + ")";
           },
         },
@@ -203,24 +312,14 @@ function initDatatable(search = false, type = 0) {
           });
       },
     });
-}
-
-$(document).ready(function () {
-	var base_url = $("body").data("base_url");
-	var action = $("body").data("data_action");
-	
-  disabled = 'disabled=""';
-  if (action == "xxx") {
-    var disabled = 'disabled="disabled"';
-	$(".collapse").collapse("toggle");
   }
-});
-
-$(document).ready(function () {
+  initDatatable();
   if ($("body").data("data_action") == "Editar") {
     $(".collapse").collapse("toggle");
 
-    $("#tipo_pago,#select_programa,#select_dependencia, #select_proyecto").removeAttr("disabled");
+    $(
+      "#tipo_pago,#select_programa,#select_dependencia, #select_proyecto"
+    ).removeAttr("disabled");
   } else {
   }
 
@@ -241,8 +340,6 @@ $(document).ready(function () {
     },
   });
 
-  initDatatable();
-
   // $('#select_dependencia').attr('disabled','disabled');
   $("body").on("click", "a.borrar_file", function (e) {
     e.preventDefault();
@@ -257,23 +354,23 @@ $(document).ready(function () {
     $.confirm({
       autoClose: "cancel|10000",
       title: "Eliminar Datos",
-      content: 'Confirma eliminar el registro??',
+      content: "Confirma eliminar el registro??",
       buttons: {
         confirm: {
-          text: "Borra",
+          text: "Borrar",
           btnClass: "btn-blue",
           action: function () {
             eliminarDatos(dato);
           },
         },
-      //   somethingElse: {
-      //     text: 'Archivos y datos',
-      //     btnClass: 'btn-blue',
-      //     action: function(){
-      //       dato.append("deletefile", false);
-      //       eliminarDatos(dato);
-      //     }
-      // },
+        //   somethingElse: {
+        //     text: 'Archivos y datos',
+        //     btnClass: 'btn-blue',
+        //     action: function(){
+        //       dato.append("deletefile", false);
+        //       eliminarDatos(dato);
+        //     }
+        // },
         cancel: {
           text: "Cancelar",
           btnClass: "btn-red",
@@ -283,7 +380,7 @@ $(document).ready(function () {
     });
   });
 
-  function eliminarDatos(dato){
+  function eliminarDatos(dato) {
     $.ajax({
       type: "POST",
       contentType: false,
@@ -295,21 +392,26 @@ $(document).ready(function () {
       url: $("body").data("base_url") + "Indexaciones/delete",
       success: function (result) {
         alertas(result);
-        initDatatable();
+        table.ajax.reload(null, false);
       },
       error: function (xhr, errmsg, err) {
         console.log(xhr.status + ": " + xhr.responseText);
       },
     });
   }
-  $("#form-validate-jquery").on("change","select#select_secretaria",function () {
+  $("#form-validate-jquery").on(
+    "change",
+    "select#select_secretaria",
+    function () {
       $("#tipo_pago").removeAttr("disabled");
       var dato = new FormData();
       dato.append("id", $(this).val());
-	if($(this).val() == 0){
-		$("#tipo_pago,#select_programa,#select_dependencia, #select_proyecto").attr("disabled","disabled");
-		return;
-	}
+      if ($(this).val() == 0) {
+        $(
+          "#tipo_pago,#select_programa,#select_dependencia, #select_proyecto"
+        ).attr("disabled", "disabled");
+        return;
+      }
       $.ajax({
         type: "POST",
         contentType: false,
@@ -341,7 +443,7 @@ $(document).ready(function () {
                 '<option value="' +
                   value["id"] +
                   '">' +
-                  value["dependencia"].toUpperCase()+
+                  value["dependencia"].toUpperCase() +
                   "</option>"
               );
             });
@@ -361,7 +463,12 @@ $(document).ready(function () {
             $.each(obj.proyectos, function (id, value) {
               $("#select_proyecto").append(
                 '<option value="' +
-                  value["id_interno"] +'">' + value["id_interno"] +'  '+ value["descripcion"].toUpperCase()+"</option>"
+                  value["id_interno"] +
+                  '">' +
+                  value["id_interno"] +
+                  "  " +
+                  value["descripcion"].toUpperCase() +
+                  "</option>"
               );
             });
           } else {
@@ -379,8 +486,12 @@ $(document).ready(function () {
 
             $.each(obj.programas, function (id, value) {
               $("#select_programa").append(
-                '<option value="' +value["id_interno"] +'">' +
-				 value['id_interno'] +'  '+ value["descripcion"].toUpperCase() +
+                '<option value="' +
+                  value["id_interno"] +
+                  '">' +
+                  value["id_interno"] +
+                  "  " +
+                  value["descripcion"].toUpperCase() +
                   "</option>"
               );
             });

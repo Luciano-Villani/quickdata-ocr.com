@@ -29,6 +29,11 @@ function blockui() {
   });
 }
 $(document).ready(function () {
+  
+  if ($("body").data("data_action") == "Editar") {
+    $(".collapse").collapse("toggle");
+  }
+
   $(".acciones").on("click", function () {});
   var normalize = (function () {
     var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
