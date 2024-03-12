@@ -326,7 +326,7 @@ class Manager_model extends CI_Model
                 $this->db->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor', '');
                 $this->db->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia', 'left');
                 $this->db->join('_programas', ' _indexaciones.id_programa = _programas.id_interno AND _programas.id_secretaria = _indexaciones.id_secretaria', 'left');
-                $this->db->join('_proyectos', '_indexaciones.id_proyecto = _proyectos.id', 'left');
+                $this->db->join('_proyectos', '_proyectos.id_interno = _indexaciones.id_proyecto AND _proyectos.id_programa = _indexaciones.id_programa AND _proyectos.id_secretaria = _indexaciones.id_secretaria', 'LEFT');
 
                 // $this->db->join('_programas a', 'a.id_secretaria = _indexaciones.id_secretaria', 'left');
                 // $this->db->join('users','users.id = _dependencias.user_add','');
