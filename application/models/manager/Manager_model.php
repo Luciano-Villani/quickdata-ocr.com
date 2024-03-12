@@ -53,14 +53,12 @@ class Manager_model extends CI_Model
 
                 
                 $this->order = array('_secretarias.id' => 'desc');
-                break;   
-                
-                //cambien linea 63 Luciano
+                break;            
             case '_programas':
                 $this->db->select(
                    '_programas.descripcion,
                    _secretarias.secretaria,
-                   _programas.id_interno as prog_id_interno, 
+                   _programas.id_interno as prog_id_interno,
                     _programas.id as id_programa,
                     UPPER(_programas.descripcion) as prog_descripcion,
                     UPPER(_secretarias.secretaria) as secretaria
@@ -244,7 +242,7 @@ class Manager_model extends CI_Model
              
                 // $this->db->join('_dependencias', '_proyectos.id_dependencia = _dependencias.id', '');
                  $this->db->join('_secretarias', '_proyectos.id_secretaria = _secretarias.id ', '');
-                $this->db->join('_programas', '_programas.id = _proyectos.id_programa ', '');
+                 $this->db->join('_programas', '_programas.id = _proyectos.id_programa ', '');
 
                 // $this->db->select('
                 // _proyectos.*,
@@ -327,8 +325,8 @@ class Manager_model extends CI_Model
                 $this->db->join('_secretarias', '_secretarias.id = _indexaciones.id_secretaria', 'rigth', true);
                 $this->db->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor', '');
                 $this->db->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia', 'left');
-                $this->db->join('_programas', '_programas.id_interno = _indexaciones.id_programa AND _programas.id_secretaria = _indexaciones.id_secretaria', 'left');
-                $this->db->join('_proyectos', '_proyectos.id_interno = _indexaciones.id_proyecto AND _proyectos.id_programa = _indexaciones.id_programa AND _proyectos.id_secretaria = _indexaciones.id_secretaria', 'LEFT');
+                $this->db->join('_programas', ' _indexaciones.id_programa = _programas.id_interno AND _programas.id_secretaria = _indexaciones.id_secretaria', 'left');
+                $this->db->join('_proyectos', '_indexaciones.id_proyecto = _proyectos.id', 'left');
 
                 // $this->db->join('_programas a', 'a.id_secretaria = _indexaciones.id_secretaria', 'left');
                 // $this->db->join('users','users.id = _dependencias.user_add','');
