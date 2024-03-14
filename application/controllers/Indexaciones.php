@@ -53,6 +53,9 @@ class Indexaciones extends backend_controller
 
 			$memData = $this->Manager_model->getRows($_POST);
 
+
+			// echo $this->db->last_query();
+			// die();
 			$estadoSucces = '<span class="acciones"><i class="text-success icon-check2 "></i></span>';
 			foreach ($memData as $r) {
 
@@ -62,20 +65,21 @@ class Indexaciones extends backend_controller
 				$accionesDelete = '<span data-id_="' . $r->id . '" class="borrar_ acciones" ><a title="Borrar " href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
-				//	<li class="text-primary-600"><a href="/Admin/Indexaciones/editar/' . $r->id . '"><i class="icon-pencil7"></i></a></li>
+				//	
 				$acciones = '<ul class="icons-list">
-			
+				<li class="text-primary-600"><a class="edit_dato" data_id="'.$r->id.'" href="#"><i class="icon-pencil7"></i></a></li>
 				<li  class=" text-danger-600"><a class="borrar_file" data-id="' . $r->id . '" href="#"><i class="icon-trash"></i></a></li>
 			</ul>';
 				$data[] = array(
 					$r->id_programa.' '.$r->id_proyecto,
 					$r->id,
 					$r->nom_proveedor,
+					$r->expediente,
 					$r->nro_cuenta,
 					$r->nombre_secretaria,
+					$r->prog_id_interno. "  " . $r->descr_programa,
+					$r->proy_id_interno . "  " . $r->descr_proyecto,
 					$r->nombre_dependencia,
-					$r->id_programa . "  " . $r->descr_programa,
-					$r->id_proyecto . "  " . $r->descr_proyecto,
 					$acciones
 				);
 			}
@@ -203,8 +207,16 @@ class Indexaciones extends backend_controller
 					$_REQUEST['user_mod'] = $this->user->id;
 					$this->db->update($this->data['tabla'], $_REQUEST, array('id' => $indexacion));
 				} else {
+
 					unset($_REQUEST["id_indexacion"]);
 
+
+
+					if($this->Manager_model->grabar_datos($this->data['tabla'], $_REQUEST)){
+						die('dsa');
+					}else{
+						die('no graba	');
+					}
 					$this->Manager_model->grabar_datos($this->data['tabla'], $_REQUEST);
 					$grabar_datos_array = array(
 						'seccion' => 'Alta nuevas ' . $this->router->fetch_class(),

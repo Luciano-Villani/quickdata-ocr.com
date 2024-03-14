@@ -96,11 +96,11 @@ class Proveedores extends backend_controller
 			if ($this->form_validation->run() != FALSE) {
 				$datos = array(
 					'codigo' => $this->input->post('codigo'),
-					'nombre' => $this->input->post('nombre'),
+					'nombre' => strtoupper($this->input->post('nombre')),
 					'objeto_gasto' => $this->input->post('objeto_gasto'),
-					'detalle_gasto' => $this->input->post('detalle_gasto'),
+					'detalle_gasto' => strtoupper($this->input->post('detalle_gasto')),
 					'urlapi' => $this->input->post('urlapi'),
-					'unidad_medida' => $this->input->post('unidad_medida'),
+					'unidad_medida' => strtoupper($this->input->post('unidad_medida')),
 					
 				);
 				$this->Manager_model->grabar_datos("_proveedores", $datos);

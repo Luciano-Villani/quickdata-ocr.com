@@ -4161,1792 +4161,2962 @@ INFO - 2024-03-10 16:51:28 --> Form Validation Class Initialized
 INFO - 2024-03-10 16:51:28 --> Model "Ion_auth_model" initialized
 INFO - 2024-03-10 16:51:28 --> Model "Dependencias_model" initialized
 INFO - 2024-03-10 16:51:28 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:33:28 --> Config Class Initialized
-INFO - 2024-03-10 18:33:28 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:28 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:28 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:28 --> URI Class Initialized
-DEBUG - 2024-03-10 18:33:28 --> No URI present. Default controller set.
-INFO - 2024-03-10 18:33:28 --> Router Class Initialized
-INFO - 2024-03-10 18:33:28 --> Output Class Initialized
-INFO - 2024-03-10 18:33:28 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:28 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:28 --> Input Class Initialized
-INFO - 2024-03-10 18:33:28 --> Language Class Initialized
-INFO - 2024-03-10 18:33:28 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:28 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:28 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:28 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:28 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:28 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:28 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:28 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:28 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:29 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:29 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:29 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:29 --> Email Class Initialized
-INFO - 2024-03-10 18:33:29 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:29 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:29 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:29 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:29 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:29 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:29 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:29 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:29 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:29 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:29 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:29 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:29 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:29 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:29 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:29 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:29 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:29 --> Controller Class Initialized
-ERROR - 2024-03-10 18:33:29 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
-ERROR - 2024-03-10 18:33:29 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
-ERROR - 2024-03-10 18:33:29 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
-INFO - 2024-03-10 18:33:29 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:29 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-DEBUG - 2024-03-10 18:33:29 --> Ion_auth class already loaded. Second attempt ignored.
-INFO - 2024-03-10 18:33:29 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:29 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:29 --> Language file loaded: language/spanish/auth_lang.php
-INFO - 2024-03-10 18:33:29 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 18:33:29 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
-INFO - 2024-03-10 18:33:29 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 18:33:29 --> Final output sent to browser
-DEBUG - 2024-03-10 18:33:29 --> Total execution time: 0.1570
-INFO - 2024-03-10 18:33:36 --> Config Class Initialized
-INFO - 2024-03-10 18:33:36 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:36 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:36 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:36 --> URI Class Initialized
-INFO - 2024-03-10 18:33:36 --> Router Class Initialized
-INFO - 2024-03-10 18:33:36 --> Output Class Initialized
-INFO - 2024-03-10 18:33:36 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:36 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:36 --> Input Class Initialized
-INFO - 2024-03-10 18:33:36 --> Language Class Initialized
-INFO - 2024-03-10 18:33:36 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:36 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:36 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:36 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:36 --> Email Class Initialized
-INFO - 2024-03-10 18:33:36 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:36 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:36 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:36 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:36 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:36 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:36 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:36 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:36 --> Controller Class Initialized
-ERROR - 2024-03-10 18:33:36 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
-ERROR - 2024-03-10 18:33:36 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
-ERROR - 2024-03-10 18:33:36 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
-INFO - 2024-03-10 18:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-DEBUG - 2024-03-10 18:33:36 --> Ion_auth class already loaded. Second attempt ignored.
-INFO - 2024-03-10 18:33:36 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:36 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:36 --> Language file loaded: language/spanish/auth_lang.php
-INFO - 2024-03-10 18:33:36 --> Language file loaded: language/spanish/form_validation_lang.php
-INFO - 2024-03-10 18:33:36 --> Helper loaded: date_helper
-INFO - 2024-03-10 18:33:36 --> Config Class Initialized
-INFO - 2024-03-10 18:33:36 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:36 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:36 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:36 --> URI Class Initialized
-INFO - 2024-03-10 18:33:36 --> Router Class Initialized
-INFO - 2024-03-10 18:33:36 --> Output Class Initialized
-INFO - 2024-03-10 18:33:36 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:36 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:36 --> Input Class Initialized
-INFO - 2024-03-10 18:33:36 --> Language Class Initialized
-INFO - 2024-03-10 18:33:36 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:36 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:36 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:36 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:36 --> Email Class Initialized
-INFO - 2024-03-10 18:33:36 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:36 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:36 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:36 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:36 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:36 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:36 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:36 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:36 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:36 --> Controller Class Initialized
-INFO - 2024-03-10 18:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:33:36 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:36 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:36 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:36 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:33:36 --> Model "Obras_model" initialized
-INFO - 2024-03-10 18:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
-INFO - 2024-03-10 18:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 18:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 18:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 18:33:36 --> Final output sent to browser
-DEBUG - 2024-03-10 18:33:36 --> Total execution time: 0.1168
-INFO - 2024-03-10 18:33:37 --> Config Class Initialized
-INFO - 2024-03-10 18:33:37 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:37 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:37 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:37 --> URI Class Initialized
-INFO - 2024-03-10 18:33:37 --> Router Class Initialized
-INFO - 2024-03-10 18:33:37 --> Output Class Initialized
-INFO - 2024-03-10 18:33:37 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:37 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:37 --> Input Class Initialized
-INFO - 2024-03-10 18:33:37 --> Language Class Initialized
-INFO - 2024-03-10 18:33:37 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:37 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:37 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:37 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:37 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:37 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:37 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:37 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:37 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:37 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:37 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:37 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:37 --> Email Class Initialized
-INFO - 2024-03-10 18:33:37 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:37 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:37 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:37 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:37 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:37 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:37 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:37 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:37 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:37 --> Controller Class Initialized
-INFO - 2024-03-10 18:33:37 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:37 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:33:37 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:37 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:37 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:37 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:33:37 --> Model "Obras_model" initialized
-INFO - 2024-03-10 18:33:38 --> Final output sent to browser
-DEBUG - 2024-03-10 18:33:38 --> Total execution time: 0.5685
-INFO - 2024-03-10 18:33:43 --> Config Class Initialized
-INFO - 2024-03-10 18:33:43 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:43 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:43 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:43 --> URI Class Initialized
-INFO - 2024-03-10 18:33:43 --> Router Class Initialized
-INFO - 2024-03-10 18:33:43 --> Output Class Initialized
-INFO - 2024-03-10 18:33:43 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:43 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:43 --> Input Class Initialized
-INFO - 2024-03-10 18:33:43 --> Language Class Initialized
-INFO - 2024-03-10 18:33:43 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:43 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:43 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:43 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:43 --> Email Class Initialized
-INFO - 2024-03-10 18:33:43 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:43 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:43 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:43 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:43 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:43 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:43 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:43 --> Controller Class Initialized
-INFO - 2024-03-10 18:33:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:33:43 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:43 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:43 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:43 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:33:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/dependencias/listados.php
-INFO - 2024-03-10 18:33:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 18:33:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 18:33:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 18:33:43 --> Final output sent to browser
-DEBUG - 2024-03-10 18:33:43 --> Total execution time: 0.1026
-INFO - 2024-03-10 18:33:43 --> Config Class Initialized
-INFO - 2024-03-10 18:33:43 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:43 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:43 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:43 --> URI Class Initialized
-INFO - 2024-03-10 18:33:43 --> Router Class Initialized
-INFO - 2024-03-10 18:33:43 --> Output Class Initialized
-INFO - 2024-03-10 18:33:43 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:43 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:43 --> Input Class Initialized
-INFO - 2024-03-10 18:33:43 --> Language Class Initialized
-INFO - 2024-03-10 18:33:43 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:43 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:43 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:43 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:43 --> Email Class Initialized
-INFO - 2024-03-10 18:33:43 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:43 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:43 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:43 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:43 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:43 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:43 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:43 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:43 --> Controller Class Initialized
-INFO - 2024-03-10 18:33:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:33:43 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:43 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:43 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:43 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:33:43 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:33:50 --> Config Class Initialized
-INFO - 2024-03-10 18:33:50 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:50 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:50 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:50 --> URI Class Initialized
-INFO - 2024-03-10 18:33:50 --> Router Class Initialized
-INFO - 2024-03-10 18:33:50 --> Output Class Initialized
-INFO - 2024-03-10 18:33:50 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:50 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:50 --> Input Class Initialized
-INFO - 2024-03-10 18:33:50 --> Language Class Initialized
-INFO - 2024-03-10 18:33:51 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:51 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:51 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:51 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:51 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:51 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:51 --> Email Class Initialized
-INFO - 2024-03-10 18:33:51 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:51 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:51 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:51 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:51 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:51 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:51 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:51 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:51 --> Controller Class Initialized
-INFO - 2024-03-10 18:33:51 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:51 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:33:51 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:51 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:51 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:51 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:33:51 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/indexaciones/listados.php
-INFO - 2024-03-10 18:33:51 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 18:33:51 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 18:33:51 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 18:33:51 --> Final output sent to browser
-DEBUG - 2024-03-10 18:33:51 --> Total execution time: 0.0888
-INFO - 2024-03-10 18:33:51 --> Config Class Initialized
-INFO - 2024-03-10 18:33:51 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:51 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:51 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:51 --> URI Class Initialized
-INFO - 2024-03-10 18:33:51 --> Router Class Initialized
-INFO - 2024-03-10 18:33:51 --> Output Class Initialized
-INFO - 2024-03-10 18:33:51 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:51 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:51 --> Input Class Initialized
-INFO - 2024-03-10 18:33:51 --> Language Class Initialized
-INFO - 2024-03-10 18:33:51 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:51 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:51 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:51 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:51 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:51 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:51 --> Email Class Initialized
-INFO - 2024-03-10 18:33:51 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:51 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:51 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:51 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:51 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:51 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:51 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:51 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:51 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:51 --> Controller Class Initialized
-INFO - 2024-03-10 18:33:51 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:51 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:33:51 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:51 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:51 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:51 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:33:51 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:33:59 --> Config Class Initialized
-INFO - 2024-03-10 18:33:59 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:33:59 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:33:59 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:33:59 --> URI Class Initialized
-INFO - 2024-03-10 18:33:59 --> Router Class Initialized
-INFO - 2024-03-10 18:33:59 --> Output Class Initialized
-INFO - 2024-03-10 18:33:59 --> Security Class Initialized
-DEBUG - 2024-03-10 18:33:59 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:33:59 --> Input Class Initialized
-INFO - 2024-03-10 18:33:59 --> Language Class Initialized
-INFO - 2024-03-10 18:33:59 --> Loader Class Initialized
-INFO - 2024-03-10 18:33:59 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:33:59 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:33:59 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:33:59 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:33:59 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:33:59 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:33:59 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:33:59 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:33:59 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:33:59 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:33:59 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:33:59 --> Email Class Initialized
-INFO - 2024-03-10 18:33:59 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:33:59 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:33:59 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:33:59 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:33:59 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:33:59 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:33:59 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:33:59 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:33:59 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:33:59 --> Controller Class Initialized
-INFO - 2024-03-10 18:33:59 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:33:59 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:33:59 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:33:59 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:33:59 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:33:59 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:33:59 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:33:59 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/proyectos/listados.php
-INFO - 2024-03-10 18:33:59 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 18:33:59 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 18:33:59 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 18:33:59 --> Final output sent to browser
-DEBUG - 2024-03-10 18:33:59 --> Total execution time: 0.1057
-INFO - 2024-03-10 18:34:00 --> Config Class Initialized
-INFO - 2024-03-10 18:34:00 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:34:00 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:34:00 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:34:00 --> URI Class Initialized
-INFO - 2024-03-10 18:34:00 --> Router Class Initialized
-INFO - 2024-03-10 18:34:00 --> Output Class Initialized
-INFO - 2024-03-10 18:34:00 --> Security Class Initialized
-DEBUG - 2024-03-10 18:34:00 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:34:00 --> Input Class Initialized
-INFO - 2024-03-10 18:34:00 --> Language Class Initialized
-INFO - 2024-03-10 18:34:00 --> Loader Class Initialized
-INFO - 2024-03-10 18:34:00 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:34:00 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:34:00 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:34:00 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:34:00 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:34:00 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:34:00 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:34:00 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:34:00 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:34:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:34:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:34:00 --> Email Class Initialized
-INFO - 2024-03-10 18:34:00 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:34:00 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:34:00 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:34:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:34:00 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:34:00 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:34:00 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:34:00 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:34:00 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:34:00 --> Controller Class Initialized
-INFO - 2024-03-10 18:34:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:34:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:34:00 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:34:00 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:00 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:34:00 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:34:00 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:34:03 --> Config Class Initialized
-INFO - 2024-03-10 18:34:03 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:34:03 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:34:03 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:34:03 --> URI Class Initialized
-INFO - 2024-03-10 18:34:03 --> Router Class Initialized
-INFO - 2024-03-10 18:34:03 --> Output Class Initialized
-INFO - 2024-03-10 18:34:03 --> Security Class Initialized
-DEBUG - 2024-03-10 18:34:03 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:34:03 --> Input Class Initialized
-INFO - 2024-03-10 18:34:03 --> Language Class Initialized
-INFO - 2024-03-10 18:34:03 --> Loader Class Initialized
-INFO - 2024-03-10 18:34:03 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:34:03 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:34:03 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:34:03 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:34:03 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:34:03 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:34:03 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:34:03 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:34:03 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:34:03 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:34:03 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:34:03 --> Email Class Initialized
-INFO - 2024-03-10 18:34:03 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:34:03 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:34:03 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:34:03 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:34:03 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:34:03 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:34:03 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:34:03 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:34:03 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:34:03 --> Controller Class Initialized
-INFO - 2024-03-10 18:34:03 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:34:03 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:34:03 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:34:03 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:03 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:34:03 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:34:03 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:34:03 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/programas/listados.php
-INFO - 2024-03-10 18:34:03 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 18:34:03 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 18:34:03 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 18:34:03 --> Final output sent to browser
-DEBUG - 2024-03-10 18:34:03 --> Total execution time: 0.0764
-INFO - 2024-03-10 18:34:04 --> Config Class Initialized
-INFO - 2024-03-10 18:34:04 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:34:04 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:34:04 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:34:04 --> URI Class Initialized
-INFO - 2024-03-10 18:34:04 --> Router Class Initialized
-INFO - 2024-03-10 18:34:04 --> Output Class Initialized
-INFO - 2024-03-10 18:34:04 --> Security Class Initialized
-DEBUG - 2024-03-10 18:34:04 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:34:04 --> Input Class Initialized
-INFO - 2024-03-10 18:34:04 --> Language Class Initialized
-INFO - 2024-03-10 18:34:04 --> Loader Class Initialized
-INFO - 2024-03-10 18:34:04 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:34:04 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:34:04 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:34:04 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:34:04 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:34:04 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:34:04 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:34:04 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:34:04 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:34:04 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:34:04 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:34:04 --> Email Class Initialized
-INFO - 2024-03-10 18:34:04 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:34:04 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:34:04 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:34:04 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:34:04 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:34:04 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:34:04 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:34:04 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:34:04 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:34:04 --> Controller Class Initialized
-INFO - 2024-03-10 18:34:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:34:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:34:04 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:34:04 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:04 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:34:04 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:34:04 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:34:20 --> Config Class Initialized
-INFO - 2024-03-10 18:34:20 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:34:20 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:34:20 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:34:20 --> URI Class Initialized
-INFO - 2024-03-10 18:34:20 --> Router Class Initialized
-INFO - 2024-03-10 18:34:20 --> Output Class Initialized
-INFO - 2024-03-10 18:34:20 --> Security Class Initialized
-DEBUG - 2024-03-10 18:34:20 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:34:20 --> Input Class Initialized
-INFO - 2024-03-10 18:34:20 --> Language Class Initialized
-INFO - 2024-03-10 18:34:20 --> Loader Class Initialized
-INFO - 2024-03-10 18:34:20 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:34:20 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:34:20 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:34:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:34:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:34:20 --> Email Class Initialized
-INFO - 2024-03-10 18:34:20 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:34:20 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:34:20 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:34:20 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:34:20 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:34:20 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:34:20 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:34:20 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:34:20 --> Controller Class Initialized
-INFO - 2024-03-10 18:34:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:34:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:34:20 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:34:20 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:20 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:34:20 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:34:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/proyectos/listados.php
-INFO - 2024-03-10 18:34:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 18:34:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 18:34:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 18:34:20 --> Final output sent to browser
-DEBUG - 2024-03-10 18:34:20 --> Total execution time: 0.1069
-INFO - 2024-03-10 18:34:20 --> Config Class Initialized
-INFO - 2024-03-10 18:34:20 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:34:20 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:34:20 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:34:20 --> URI Class Initialized
-INFO - 2024-03-10 18:34:20 --> Router Class Initialized
-INFO - 2024-03-10 18:34:20 --> Output Class Initialized
-INFO - 2024-03-10 18:34:20 --> Security Class Initialized
-DEBUG - 2024-03-10 18:34:20 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:34:20 --> Input Class Initialized
-INFO - 2024-03-10 18:34:20 --> Language Class Initialized
-INFO - 2024-03-10 18:34:20 --> Loader Class Initialized
-INFO - 2024-03-10 18:34:20 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:34:20 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:34:20 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:34:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:34:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:34:20 --> Email Class Initialized
-INFO - 2024-03-10 18:34:20 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:34:20 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:34:20 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:34:20 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:34:20 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:34:20 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:34:20 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:34:20 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:34:20 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:34:20 --> Controller Class Initialized
-INFO - 2024-03-10 18:34:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:34:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:34:20 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:34:20 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:20 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:34:20 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:34:20 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 18:34:24 --> Config Class Initialized
-INFO - 2024-03-10 18:34:24 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:34:24 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:34:24 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:34:24 --> URI Class Initialized
-INFO - 2024-03-10 18:34:24 --> Router Class Initialized
-INFO - 2024-03-10 18:34:24 --> Output Class Initialized
-INFO - 2024-03-10 18:34:24 --> Security Class Initialized
-DEBUG - 2024-03-10 18:34:24 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:34:24 --> Input Class Initialized
-INFO - 2024-03-10 18:34:24 --> Language Class Initialized
-INFO - 2024-03-10 18:34:24 --> Loader Class Initialized
-INFO - 2024-03-10 18:34:24 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:34:24 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:34:24 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:34:24 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:34:24 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:34:24 --> Email Class Initialized
-INFO - 2024-03-10 18:34:24 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:34:24 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:34:24 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:34:24 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:34:24 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:34:24 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:34:24 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:34:24 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:34:24 --> Controller Class Initialized
-INFO - 2024-03-10 18:34:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:34:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:34:24 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:34:24 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:24 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:34:24 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 18:34:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/programas/listados.php
-INFO - 2024-03-10 18:34:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 18:34:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 18:34:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 18:34:24 --> Final output sent to browser
-DEBUG - 2024-03-10 18:34:24 --> Total execution time: 0.0717
-INFO - 2024-03-10 18:34:24 --> Config Class Initialized
-INFO - 2024-03-10 18:34:24 --> Hooks Class Initialized
-DEBUG - 2024-03-10 18:34:24 --> UTF-8 Support Enabled
-INFO - 2024-03-10 18:34:24 --> Utf8 Class Initialized
-INFO - 2024-03-10 18:34:24 --> URI Class Initialized
-INFO - 2024-03-10 18:34:24 --> Router Class Initialized
-INFO - 2024-03-10 18:34:24 --> Output Class Initialized
-INFO - 2024-03-10 18:34:24 --> Security Class Initialized
-DEBUG - 2024-03-10 18:34:24 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 18:34:24 --> Input Class Initialized
-INFO - 2024-03-10 18:34:24 --> Language Class Initialized
-INFO - 2024-03-10 18:34:24 --> Loader Class Initialized
-INFO - 2024-03-10 18:34:24 --> Helper loaded: directory_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: global_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: url_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: text_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: file_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: api_helper
-INFO - 2024-03-10 18:34:24 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 18:34:24 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 18:34:24 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 18:34:24 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 18:34:24 --> Email Class Initialized
-INFO - 2024-03-10 18:34:24 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 18:34:24 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 18:34:24 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 18:34:24 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 18:34:24 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 18:34:24 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 18:34:24 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 18:34:24 --> Encrypt Class Initialized
-INFO - 2024-03-10 18:34:24 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Programas_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 18:34:24 --> Controller Class Initialized
-INFO - 2024-03-10 18:34:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 18:34:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 18:34:24 --> Helper loaded: form_helper
-INFO - 2024-03-10 18:34:24 --> Model "Manager_model" initialized
-INFO - 2024-03-10 18:34:24 --> Form Validation Class Initialized
-INFO - 2024-03-10 18:34:24 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 18:34:24 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:21:30 --> Config Class Initialized
-INFO - 2024-03-10 20:21:30 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:30 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:30 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:30 --> URI Class Initialized
-INFO - 2024-03-10 20:21:30 --> Router Class Initialized
-INFO - 2024-03-10 20:21:30 --> Output Class Initialized
-INFO - 2024-03-10 20:21:30 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:30 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:30 --> Input Class Initialized
-INFO - 2024-03-10 20:21:30 --> Language Class Initialized
-INFO - 2024-03-10 20:21:30 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:30 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:30 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:30 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:30 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:30 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:30 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:30 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:30 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:30 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:30 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:30 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:30 --> Email Class Initialized
-INFO - 2024-03-10 20:21:30 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:30 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:30 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:30 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:30 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:30 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:30 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:30 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:30 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:30 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:30 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:30 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:30 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:30 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:30 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:30 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:21:30 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:21:30 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/dependencias/listados.php
-INFO - 2024-03-10 20:21:30 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 20:21:30 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 20:21:30 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 20:21:30 --> Final output sent to browser
-DEBUG - 2024-03-10 20:21:30 --> Total execution time: 0.2278
-INFO - 2024-03-10 20:21:31 --> Config Class Initialized
-INFO - 2024-03-10 20:21:31 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:31 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:31 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:31 --> URI Class Initialized
-INFO - 2024-03-10 20:21:31 --> Router Class Initialized
-INFO - 2024-03-10 20:21:31 --> Output Class Initialized
-INFO - 2024-03-10 20:21:31 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:31 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:31 --> Input Class Initialized
-INFO - 2024-03-10 20:21:31 --> Language Class Initialized
-INFO - 2024-03-10 20:21:31 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:31 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:31 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:31 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:31 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:31 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:31 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:31 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:31 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:31 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:31 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:31 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:31 --> Email Class Initialized
-INFO - 2024-03-10 20:21:31 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:31 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:31 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:31 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:31 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:31 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:31 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:31 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:31 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:31 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:31 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:31 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:31 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:31 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:31 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:31 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:21:31 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:21:35 --> Config Class Initialized
-INFO - 2024-03-10 20:21:35 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:35 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:35 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:35 --> URI Class Initialized
-INFO - 2024-03-10 20:21:35 --> Router Class Initialized
-INFO - 2024-03-10 20:21:35 --> Output Class Initialized
-INFO - 2024-03-10 20:21:35 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:35 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:35 --> Input Class Initialized
-INFO - 2024-03-10 20:21:35 --> Language Class Initialized
-INFO - 2024-03-10 20:21:35 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:35 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:35 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:35 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:35 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:35 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:35 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:35 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:35 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:35 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:35 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:35 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:35 --> Email Class Initialized
-INFO - 2024-03-10 20:21:35 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:35 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:35 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:35 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:35 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:35 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:35 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:35 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:35 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:35 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:35 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:35 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:35 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:35 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:21:35 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:21:38 --> Config Class Initialized
-INFO - 2024-03-10 20:21:38 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:38 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:38 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:38 --> URI Class Initialized
-INFO - 2024-03-10 20:21:38 --> Router Class Initialized
-INFO - 2024-03-10 20:21:38 --> Output Class Initialized
-INFO - 2024-03-10 20:21:38 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:38 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:38 --> Input Class Initialized
-INFO - 2024-03-10 20:21:38 --> Language Class Initialized
-INFO - 2024-03-10 20:21:38 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:38 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:38 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:38 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:38 --> Email Class Initialized
-INFO - 2024-03-10 20:21:38 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:38 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:38 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:38 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:38 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:38 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:38 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:38 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:38 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:38 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:38 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:38 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:38 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 20:21:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/proyectos/listados.php
-INFO - 2024-03-10 20:21:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 20:21:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 20:21:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 20:21:38 --> Final output sent to browser
-DEBUG - 2024-03-10 20:21:38 --> Total execution time: 0.0927
-INFO - 2024-03-10 20:21:38 --> Config Class Initialized
-INFO - 2024-03-10 20:21:38 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:38 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:38 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:38 --> URI Class Initialized
-INFO - 2024-03-10 20:21:38 --> Router Class Initialized
-INFO - 2024-03-10 20:21:38 --> Output Class Initialized
-INFO - 2024-03-10 20:21:38 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:38 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:38 --> Input Class Initialized
-INFO - 2024-03-10 20:21:38 --> Language Class Initialized
-INFO - 2024-03-10 20:21:38 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:38 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:38 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:38 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:38 --> Email Class Initialized
-INFO - 2024-03-10 20:21:38 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:38 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:38 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:38 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:38 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:38 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:38 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:38 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:38 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:38 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:38 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:39 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:39 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:39 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:39 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:39 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:39 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:21:39 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:21:39 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 20:21:47 --> Config Class Initialized
-INFO - 2024-03-10 20:21:47 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:47 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:47 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:47 --> URI Class Initialized
-INFO - 2024-03-10 20:21:47 --> Router Class Initialized
-INFO - 2024-03-10 20:21:47 --> Output Class Initialized
-INFO - 2024-03-10 20:21:47 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:47 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:47 --> Input Class Initialized
-INFO - 2024-03-10 20:21:47 --> Language Class Initialized
-INFO - 2024-03-10 20:21:47 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:47 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:47 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:47 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:47 --> Email Class Initialized
-INFO - 2024-03-10 20:21:47 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:47 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:47 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:47 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:47 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:47 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:47 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:47 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:47 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:47 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:47 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:47 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:47 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:21:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/programas/listados.php
-INFO - 2024-03-10 20:21:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 20:21:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 20:21:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 20:21:47 --> Final output sent to browser
-DEBUG - 2024-03-10 20:21:47 --> Total execution time: 0.0959
-INFO - 2024-03-10 20:21:47 --> Config Class Initialized
-INFO - 2024-03-10 20:21:47 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:47 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:47 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:47 --> URI Class Initialized
-INFO - 2024-03-10 20:21:47 --> Router Class Initialized
-INFO - 2024-03-10 20:21:47 --> Output Class Initialized
-INFO - 2024-03-10 20:21:47 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:47 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:47 --> Input Class Initialized
-INFO - 2024-03-10 20:21:47 --> Language Class Initialized
-INFO - 2024-03-10 20:21:47 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:47 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:47 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:47 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:47 --> Email Class Initialized
-INFO - 2024-03-10 20:21:47 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:47 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:47 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:47 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:47 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:47 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:47 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:47 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:47 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:47 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:47 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:47 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:47 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:47 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:21:47 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:21:56 --> Config Class Initialized
-INFO - 2024-03-10 20:21:56 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:56 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:56 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:56 --> URI Class Initialized
-INFO - 2024-03-10 20:21:56 --> Router Class Initialized
-INFO - 2024-03-10 20:21:56 --> Output Class Initialized
-INFO - 2024-03-10 20:21:56 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:56 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:56 --> Input Class Initialized
-INFO - 2024-03-10 20:21:56 --> Language Class Initialized
-INFO - 2024-03-10 20:21:56 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:56 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:56 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:56 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:56 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:56 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:56 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:56 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:56 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:56 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:56 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:56 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:56 --> Email Class Initialized
-INFO - 2024-03-10 20:21:56 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:56 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:56 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:56 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:56 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:56 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:56 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:56 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:56 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:56 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:56 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:56 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:56 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:56 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:56 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:56 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:56 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:56 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:56 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:56 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:56 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:56 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:21:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/secretarias/listados.php
-INFO - 2024-03-10 20:21:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 20:21:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 20:21:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 20:21:56 --> Final output sent to browser
-DEBUG - 2024-03-10 20:21:56 --> Total execution time: 0.1147
-INFO - 2024-03-10 20:21:57 --> Config Class Initialized
-INFO - 2024-03-10 20:21:57 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:21:57 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:21:57 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:21:57 --> URI Class Initialized
-INFO - 2024-03-10 20:21:57 --> Router Class Initialized
-INFO - 2024-03-10 20:21:57 --> Output Class Initialized
-INFO - 2024-03-10 20:21:57 --> Security Class Initialized
-DEBUG - 2024-03-10 20:21:57 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:21:57 --> Input Class Initialized
-INFO - 2024-03-10 20:21:57 --> Language Class Initialized
-INFO - 2024-03-10 20:21:57 --> Loader Class Initialized
-INFO - 2024-03-10 20:21:57 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:21:57 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:21:57 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:21:57 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:21:57 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:21:57 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:21:57 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:21:57 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:21:57 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:21:57 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:21:57 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:21:57 --> Email Class Initialized
-INFO - 2024-03-10 20:21:57 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:21:57 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:21:57 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:21:57 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:21:57 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:21:57 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:21:57 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:21:57 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:21:57 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:57 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:21:57 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:21:57 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:21:57 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:21:57 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:21:57 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:57 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:21:57 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:21:57 --> Controller Class Initialized
-INFO - 2024-03-10 20:21:57 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:21:57 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:21:57 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:21:57 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:21:57 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:21:57 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:22:00 --> Config Class Initialized
-INFO - 2024-03-10 20:22:00 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:22:00 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:00 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:00 --> URI Class Initialized
-INFO - 2024-03-10 20:22:00 --> Router Class Initialized
-INFO - 2024-03-10 20:22:00 --> Output Class Initialized
-INFO - 2024-03-10 20:22:00 --> Security Class Initialized
-DEBUG - 2024-03-10 20:22:00 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:00 --> Input Class Initialized
-INFO - 2024-03-10 20:22:00 --> Language Class Initialized
-INFO - 2024-03-10 20:22:00 --> Loader Class Initialized
-INFO - 2024-03-10 20:22:00 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:00 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:22:00 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:22:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:22:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:22:00 --> Email Class Initialized
-INFO - 2024-03-10 20:22:00 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:00 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:22:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:22:00 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:00 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:00 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:00 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:00 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:00 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:00 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:00 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:00 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:00 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 20:22:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/indexaciones/listados.php
-INFO - 2024-03-10 20:22:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 20:22:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 20:22:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 20:22:00 --> Final output sent to browser
-DEBUG - 2024-03-10 20:22:00 --> Total execution time: 0.0922
-INFO - 2024-03-10 20:22:00 --> Config Class Initialized
-INFO - 2024-03-10 20:22:00 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:22:00 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:00 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:00 --> URI Class Initialized
-INFO - 2024-03-10 20:22:00 --> Router Class Initialized
-INFO - 2024-03-10 20:22:00 --> Output Class Initialized
-INFO - 2024-03-10 20:22:00 --> Security Class Initialized
-DEBUG - 2024-03-10 20:22:00 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:00 --> Input Class Initialized
-INFO - 2024-03-10 20:22:00 --> Language Class Initialized
-INFO - 2024-03-10 20:22:00 --> Loader Class Initialized
-INFO - 2024-03-10 20:22:00 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:00 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:22:00 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:22:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:22:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:22:00 --> Email Class Initialized
-INFO - 2024-03-10 20:22:00 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:00 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:22:00 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:22:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:22:00 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:00 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:00 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:00 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:00 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:00 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:00 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:00 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:00 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:00 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Dependencias_model" initialized
-INFO - 2024-03-10 20:22:00 --> Model "Proyectos_model" initialized
-INFO - 2024-03-10 20:22:06 --> Config Class Initialized
-INFO - 2024-03-10 20:22:06 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:22:06 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:06 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:06 --> URI Class Initialized
-INFO - 2024-03-10 20:22:06 --> Router Class Initialized
-INFO - 2024-03-10 20:22:06 --> Output Class Initialized
-INFO - 2024-03-10 20:22:06 --> Security Class Initialized
-DEBUG - 2024-03-10 20:22:06 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:06 --> Input Class Initialized
-INFO - 2024-03-10 20:22:06 --> Language Class Initialized
-INFO - 2024-03-10 20:22:06 --> Loader Class Initialized
-INFO - 2024-03-10 20:22:06 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:06 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:06 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:06 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:06 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:06 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:06 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:06 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:22:06 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:22:06 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:22:06 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:22:06 --> Email Class Initialized
-INFO - 2024-03-10 20:22:06 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:06 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:22:06 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:22:06 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:22:06 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:06 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:06 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:06 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:06 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:06 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:06 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:06 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:06 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:06 --> Model "Lecturas_model" initialized
-INFO - 2024-03-10 20:22:06 --> Model "Uploader_model" initialized
-ERROR - 2024-03-10 20:22:06 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
-ERROR - 2024-03-10 20:22:06 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
-INFO - 2024-03-10 20:22:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
-INFO - 2024-03-10 20:22:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
-INFO - 2024-03-10 20:22:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 20:22:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 20:22:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 20:22:06 --> Final output sent to browser
-DEBUG - 2024-03-10 20:22:06 --> Total execution time: 0.1021
-INFO - 2024-03-10 20:22:07 --> Config Class Initialized
-INFO - 2024-03-10 20:22:07 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:22:07 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:07 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:07 --> URI Class Initialized
-INFO - 2024-03-10 20:22:07 --> Router Class Initialized
-INFO - 2024-03-10 20:22:07 --> Config Class Initialized
-INFO - 2024-03-10 20:22:07 --> Hooks Class Initialized
-INFO - 2024-03-10 20:22:07 --> Output Class Initialized
-INFO - 2024-03-10 20:22:07 --> Security Class Initialized
-DEBUG - 2024-03-10 20:22:07 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:07 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:07 --> URI Class Initialized
-DEBUG - 2024-03-10 20:22:07 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:07 --> Input Class Initialized
-INFO - 2024-03-10 20:22:07 --> Language Class Initialized
-INFO - 2024-03-10 20:22:07 --> Router Class Initialized
-INFO - 2024-03-10 20:22:07 --> Output Class Initialized
-INFO - 2024-03-10 20:22:07 --> Security Class Initialized
-INFO - 2024-03-10 20:22:07 --> Loader Class Initialized
-DEBUG - 2024-03-10 20:22:07 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:07 --> Input Class Initialized
-INFO - 2024-03-10 20:22:07 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:07 --> Language Class Initialized
-INFO - 2024-03-10 20:22:07 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:07 --> Loader Class Initialized
-INFO - 2024-03-10 20:22:07 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:07 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:22:07 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:22:07 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:22:07 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:22:07 --> Database Driver Class Initialized
-INFO - 2024-03-10 20:22:07 --> Email Class Initialized
-DEBUG - 2024-03-10 20:22:07 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:07 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:07 --> Helper loaded: cookie_helper
-DEBUG - 2024-03-10 20:22:07 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-INFO - 2024-03-10 20:22:07 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:22:07 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-DEBUG - 2024-03-10 20:22:07 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:22:07 --> Email Class Initialized
-INFO - 2024-03-10 20:22:07 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:07 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:07 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:22:07 --> Helper loaded: language_helper
-INFO - 2024-03-10 20:22:07 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:07 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:07 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-DEBUG - 2024-03-10 20:22:07 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:07 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:07 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:07 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:07 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:07 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:07 --> Model "Lecturas_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Uploader_model" initialized
-INFO - 2024-03-10 20:22:07 --> Final output sent to browser
-DEBUG - 2024-03-10 20:22:07 --> Total execution time: 0.1476
-INFO - 2024-03-10 20:22:07 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:07 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:07 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:07 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:07 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:07 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:07 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:07 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:07 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:07 --> Model "Lecturas_model" initialized
-INFO - 2024-03-10 20:22:07 --> Model "Uploader_model" initialized
-INFO - 2024-03-10 20:22:07 --> Final output sent to browser
-DEBUG - 2024-03-10 20:22:07 --> Total execution time: 0.2164
-INFO - 2024-03-10 20:22:17 --> Config Class Initialized
-INFO - 2024-03-10 20:22:17 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:22:17 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:17 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:17 --> URI Class Initialized
-INFO - 2024-03-10 20:22:17 --> Router Class Initialized
-INFO - 2024-03-10 20:22:17 --> Output Class Initialized
-INFO - 2024-03-10 20:22:17 --> Security Class Initialized
-DEBUG - 2024-03-10 20:22:17 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:17 --> Input Class Initialized
-INFO - 2024-03-10 20:22:17 --> Language Class Initialized
-INFO - 2024-03-10 20:22:17 --> Loader Class Initialized
-INFO - 2024-03-10 20:22:17 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:17 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:17 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:17 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:17 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:17 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:17 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:17 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:22:17 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:22:17 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:22:17 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:22:17 --> Email Class Initialized
-INFO - 2024-03-10 20:22:17 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:17 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:22:17 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:22:17 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:22:17 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:17 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:17 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:17 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:17 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:17 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:17 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:17 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:17 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:17 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:22:17 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:17 --> Final output sent to browser
-DEBUG - 2024-03-10 20:22:17 --> Total execution time: 0.0638
-INFO - 2024-03-10 20:22:30 --> Config Class Initialized
-INFO - 2024-03-10 20:22:30 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:22:30 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:30 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:30 --> URI Class Initialized
-INFO - 2024-03-10 20:22:30 --> Router Class Initialized
-INFO - 2024-03-10 20:22:30 --> Output Class Initialized
-INFO - 2024-03-10 20:22:30 --> Security Class Initialized
-DEBUG - 2024-03-10 20:22:30 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:30 --> Input Class Initialized
-INFO - 2024-03-10 20:22:30 --> Language Class Initialized
-INFO - 2024-03-10 20:22:30 --> Loader Class Initialized
-INFO - 2024-03-10 20:22:30 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:30 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:30 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:30 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:30 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:30 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:30 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:30 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:22:30 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:22:30 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:22:30 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:22:30 --> Email Class Initialized
-INFO - 2024-03-10 20:22:30 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:30 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:22:30 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:22:30 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:22:30 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:30 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:30 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:30 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:30 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:30 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:30 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:30 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:30 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:30 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:30 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:30 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:22:30 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:30 --> Final output sent to browser
-DEBUG - 2024-03-10 20:22:30 --> Total execution time: 0.0591
-INFO - 2024-03-10 20:22:35 --> Config Class Initialized
-INFO - 2024-03-10 20:22:35 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:22:35 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:35 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:35 --> URI Class Initialized
-INFO - 2024-03-10 20:22:35 --> Router Class Initialized
-INFO - 2024-03-10 20:22:35 --> Output Class Initialized
-INFO - 2024-03-10 20:22:35 --> Security Class Initialized
-DEBUG - 2024-03-10 20:22:35 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:35 --> Input Class Initialized
-INFO - 2024-03-10 20:22:35 --> Language Class Initialized
-INFO - 2024-03-10 20:22:35 --> Loader Class Initialized
-INFO - 2024-03-10 20:22:35 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:35 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:22:35 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:22:35 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:22:35 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:22:35 --> Email Class Initialized
-INFO - 2024-03-10 20:22:35 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:35 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:22:35 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:22:35 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:35 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:35 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:35 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:35 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:35 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:35 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:35 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:35 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:35 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/proveedores/listados.php
-INFO - 2024-03-10 20:22:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
-INFO - 2024-03-10 20:22:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
-INFO - 2024-03-10 20:22:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
-INFO - 2024-03-10 20:22:35 --> Final output sent to browser
-DEBUG - 2024-03-10 20:22:35 --> Total execution time: 0.0923
-INFO - 2024-03-10 20:22:35 --> Config Class Initialized
-INFO - 2024-03-10 20:22:35 --> Hooks Class Initialized
-DEBUG - 2024-03-10 20:22:35 --> UTF-8 Support Enabled
-INFO - 2024-03-10 20:22:35 --> Utf8 Class Initialized
-INFO - 2024-03-10 20:22:35 --> URI Class Initialized
-INFO - 2024-03-10 20:22:35 --> Router Class Initialized
-INFO - 2024-03-10 20:22:35 --> Output Class Initialized
-INFO - 2024-03-10 20:22:35 --> Security Class Initialized
-DEBUG - 2024-03-10 20:22:35 --> Global POST, GET and COOKIE data sanitized
-INFO - 2024-03-10 20:22:35 --> Input Class Initialized
-INFO - 2024-03-10 20:22:35 --> Language Class Initialized
-INFO - 2024-03-10 20:22:35 --> Loader Class Initialized
-INFO - 2024-03-10 20:22:35 --> Helper loaded: directory_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: global_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: fechaes_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: url_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: text_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: file_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: api_helper
-INFO - 2024-03-10 20:22:35 --> Database Driver Class Initialized
-DEBUG - 2024-03-10 20:22:35 --> Encrypt Class Initialized
-DEBUG - 2024-03-10 20:22:35 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
-DEBUG - 2024-03-10 20:22:35 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
-INFO - 2024-03-10 20:22:35 --> Email Class Initialized
-INFO - 2024-03-10 20:22:35 --> Language file loaded: language/spanish/ion_auth_lang.php
-INFO - 2024-03-10 20:22:35 --> Helper loaded: cookie_helper
-INFO - 2024-03-10 20:22:35 --> Helper loaded: language_helper
-DEBUG - 2024-03-10 20:22:35 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
-INFO - 2024-03-10 20:22:35 --> Session: Class initialized using 'files' driver.
-INFO - 2024-03-10 20:22:35 --> Model "Ion_auth_model" initialized
-DEBUG - 2024-03-10 20:22:35 --> Email class already loaded. Second attempt ignored.
-DEBUG - 2024-03-10 20:22:35 --> Encrypt Class Initialized
-INFO - 2024-03-10 20:22:35 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Usuarios_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Secretarias_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Programas_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Indexaciones_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Lotes_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Consolidados_model" initialized
-INFO - 2024-03-10 20:22:35 --> Controller Class Initialized
-INFO - 2024-03-10 20:22:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
-INFO - 2024-03-10 20:22:35 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
-INFO - 2024-03-10 20:22:35 --> Helper loaded: form_helper
-INFO - 2024-03-10 20:22:35 --> Model "Manager_model" initialized
-INFO - 2024-03-10 20:22:35 --> Form Validation Class Initialized
-INFO - 2024-03-10 20:22:35 --> Model "Ion_auth_model" initialized
-INFO - 2024-03-10 20:22:35 --> Model "Proveedores_model" initialized
-INFO - 2024-03-10 20:22:35 --> Final output sent to browser
-DEBUG - 2024-03-10 20:22:35 --> Total execution time: 0.0796
+INFO - 2024-03-10 17:34:40 --> Config Class Initialized
+INFO - 2024-03-10 17:34:40 --> Hooks Class Initialized
+DEBUG - 2024-03-10 17:34:40 --> UTF-8 Support Enabled
+INFO - 2024-03-10 17:34:40 --> Utf8 Class Initialized
+INFO - 2024-03-10 17:34:40 --> URI Class Initialized
+DEBUG - 2024-03-10 17:34:40 --> No URI present. Default controller set.
+INFO - 2024-03-10 17:34:40 --> Router Class Initialized
+INFO - 2024-03-10 17:34:40 --> Output Class Initialized
+INFO - 2024-03-10 17:34:40 --> Security Class Initialized
+DEBUG - 2024-03-10 17:34:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 17:34:40 --> Input Class Initialized
+INFO - 2024-03-10 17:34:40 --> Language Class Initialized
+INFO - 2024-03-10 17:34:40 --> Loader Class Initialized
+INFO - 2024-03-10 17:34:40 --> Helper loaded: directory_helper
+INFO - 2024-03-10 17:34:40 --> Helper loaded: global_helper
+INFO - 2024-03-10 17:34:40 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 17:34:40 --> Helper loaded: url_helper
+INFO - 2024-03-10 17:34:40 --> Helper loaded: text_helper
+INFO - 2024-03-10 17:34:40 --> Helper loaded: file_helper
+INFO - 2024-03-10 17:34:40 --> Helper loaded: api_helper
+INFO - 2024-03-10 17:34:40 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 17:34:40 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 17:34:40 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 17:34:40 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 17:34:40 --> Email Class Initialized
+INFO - 2024-03-10 17:34:40 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 17:34:40 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 17:34:40 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 17:34:40 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 17:34:40 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 17:34:40 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 17:34:40 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 17:34:40 --> Encrypt Class Initialized
+INFO - 2024-03-10 17:34:40 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:40 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 17:34:40 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 17:34:40 --> Model "Programas_model" initialized
+INFO - 2024-03-10 17:34:40 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 17:34:40 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 17:34:40 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:40 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:40 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 17:34:40 --> Controller Class Initialized
+INFO - 2024-03-10 17:34:40 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 17:34:40 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+DEBUG - 2024-03-10 17:34:40 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-03-10 17:34:41 --> Helper loaded: form_helper
+INFO - 2024-03-10 17:34:41 --> Form Validation Class Initialized
+INFO - 2024-03-10 17:34:41 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-03-10 17:34:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 17:34:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/auth/login.php
+INFO - 2024-03-10 17:34:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 17:34:41 --> Final output sent to browser
+DEBUG - 2024-03-10 17:34:41 --> Total execution time: 0.0459
+INFO - 2024-03-10 17:34:44 --> Config Class Initialized
+INFO - 2024-03-10 17:34:44 --> Hooks Class Initialized
+DEBUG - 2024-03-10 17:34:44 --> UTF-8 Support Enabled
+INFO - 2024-03-10 17:34:44 --> Utf8 Class Initialized
+INFO - 2024-03-10 17:34:44 --> URI Class Initialized
+INFO - 2024-03-10 17:34:44 --> Router Class Initialized
+INFO - 2024-03-10 17:34:44 --> Output Class Initialized
+INFO - 2024-03-10 17:34:44 --> Security Class Initialized
+DEBUG - 2024-03-10 17:34:44 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 17:34:44 --> Input Class Initialized
+INFO - 2024-03-10 17:34:44 --> Language Class Initialized
+INFO - 2024-03-10 17:34:44 --> Loader Class Initialized
+INFO - 2024-03-10 17:34:44 --> Helper loaded: directory_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: global_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: url_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: text_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: file_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: api_helper
+INFO - 2024-03-10 17:34:44 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 17:34:44 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 17:34:44 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 17:34:44 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 17:34:44 --> Email Class Initialized
+INFO - 2024-03-10 17:34:44 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 17:34:44 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 17:34:44 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 17:34:44 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 17:34:44 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 17:34:44 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 17:34:44 --> Encrypt Class Initialized
+INFO - 2024-03-10 17:34:44 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Programas_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 17:34:44 --> Controller Class Initialized
+INFO - 2024-03-10 17:34:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 17:34:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+DEBUG - 2024-03-10 17:34:44 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-03-10 17:34:44 --> Helper loaded: form_helper
+INFO - 2024-03-10 17:34:44 --> Form Validation Class Initialized
+INFO - 2024-03-10 17:34:44 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-03-10 17:34:44 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-03-10 17:34:44 --> Helper loaded: date_helper
+INFO - 2024-03-10 17:34:44 --> Config Class Initialized
+INFO - 2024-03-10 17:34:44 --> Hooks Class Initialized
+DEBUG - 2024-03-10 17:34:44 --> UTF-8 Support Enabled
+INFO - 2024-03-10 17:34:44 --> Utf8 Class Initialized
+INFO - 2024-03-10 17:34:44 --> URI Class Initialized
+INFO - 2024-03-10 17:34:44 --> Router Class Initialized
+INFO - 2024-03-10 17:34:44 --> Output Class Initialized
+INFO - 2024-03-10 17:34:44 --> Security Class Initialized
+DEBUG - 2024-03-10 17:34:44 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 17:34:44 --> Input Class Initialized
+INFO - 2024-03-10 17:34:44 --> Language Class Initialized
+INFO - 2024-03-10 17:34:44 --> Loader Class Initialized
+INFO - 2024-03-10 17:34:44 --> Helper loaded: directory_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: global_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: url_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: text_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: file_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: api_helper
+INFO - 2024-03-10 17:34:44 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 17:34:44 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 17:34:44 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 17:34:44 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 17:34:44 --> Email Class Initialized
+INFO - 2024-03-10 17:34:44 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 17:34:44 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 17:34:44 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 17:34:44 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 17:34:44 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 17:34:44 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 17:34:44 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 17:34:44 --> Encrypt Class Initialized
+INFO - 2024-03-10 17:34:44 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Programas_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 17:34:44 --> Controller Class Initialized
+INFO - 2024-03-10 17:34:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 17:34:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 17:34:44 --> Helper loaded: form_helper
+INFO - 2024-03-10 17:34:44 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:44 --> Form Validation Class Initialized
+INFO - 2024-03-10 17:34:44 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Dependencias_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Proyectos_model" initialized
+INFO - 2024-03-10 17:34:44 --> Model "Obras_model" initialized
+INFO - 2024-03-10 17:34:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/consolidados/listados.php
+INFO - 2024-03-10 17:34:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 17:34:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 17:34:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 17:34:44 --> Final output sent to browser
+DEBUG - 2024-03-10 17:34:44 --> Total execution time: 0.0235
+INFO - 2024-03-10 17:34:45 --> Config Class Initialized
+INFO - 2024-03-10 17:34:45 --> Hooks Class Initialized
+DEBUG - 2024-03-10 17:34:45 --> UTF-8 Support Enabled
+INFO - 2024-03-10 17:34:45 --> Utf8 Class Initialized
+INFO - 2024-03-10 17:34:45 --> URI Class Initialized
+INFO - 2024-03-10 17:34:45 --> Router Class Initialized
+INFO - 2024-03-10 17:34:45 --> Output Class Initialized
+INFO - 2024-03-10 17:34:45 --> Security Class Initialized
+DEBUG - 2024-03-10 17:34:45 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 17:34:45 --> Input Class Initialized
+INFO - 2024-03-10 17:34:45 --> Language Class Initialized
+INFO - 2024-03-10 17:34:45 --> Loader Class Initialized
+INFO - 2024-03-10 17:34:45 --> Helper loaded: directory_helper
+INFO - 2024-03-10 17:34:45 --> Helper loaded: global_helper
+INFO - 2024-03-10 17:34:45 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 17:34:45 --> Helper loaded: url_helper
+INFO - 2024-03-10 17:34:45 --> Helper loaded: text_helper
+INFO - 2024-03-10 17:34:45 --> Helper loaded: file_helper
+INFO - 2024-03-10 17:34:45 --> Helper loaded: api_helper
+INFO - 2024-03-10 17:34:45 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 17:34:45 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 17:34:45 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 17:34:45 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 17:34:45 --> Email Class Initialized
+INFO - 2024-03-10 17:34:45 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 17:34:45 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 17:34:45 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 17:34:45 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 17:34:45 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 17:34:45 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 17:34:45 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 17:34:45 --> Encrypt Class Initialized
+INFO - 2024-03-10 17:34:45 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Programas_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 17:34:45 --> Controller Class Initialized
+INFO - 2024-03-10 17:34:45 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 17:34:45 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 17:34:45 --> Helper loaded: form_helper
+INFO - 2024-03-10 17:34:45 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:45 --> Form Validation Class Initialized
+INFO - 2024-03-10 17:34:45 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Dependencias_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Proyectos_model" initialized
+INFO - 2024-03-10 17:34:45 --> Model "Obras_model" initialized
+INFO - 2024-03-10 17:34:46 --> Final output sent to browser
+DEBUG - 2024-03-10 17:34:46 --> Total execution time: 0.6839
+INFO - 2024-03-10 17:34:48 --> Config Class Initialized
+INFO - 2024-03-10 17:34:48 --> Hooks Class Initialized
+DEBUG - 2024-03-10 17:34:48 --> UTF-8 Support Enabled
+INFO - 2024-03-10 17:34:48 --> Utf8 Class Initialized
+INFO - 2024-03-10 17:34:48 --> URI Class Initialized
+INFO - 2024-03-10 17:34:48 --> Router Class Initialized
+INFO - 2024-03-10 17:34:48 --> Output Class Initialized
+INFO - 2024-03-10 17:34:48 --> Security Class Initialized
+DEBUG - 2024-03-10 17:34:48 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 17:34:48 --> Input Class Initialized
+INFO - 2024-03-10 17:34:48 --> Language Class Initialized
+INFO - 2024-03-10 17:34:48 --> Loader Class Initialized
+INFO - 2024-03-10 17:34:48 --> Helper loaded: directory_helper
+INFO - 2024-03-10 17:34:48 --> Helper loaded: global_helper
+INFO - 2024-03-10 17:34:48 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 17:34:48 --> Helper loaded: url_helper
+INFO - 2024-03-10 17:34:48 --> Helper loaded: text_helper
+INFO - 2024-03-10 17:34:48 --> Helper loaded: file_helper
+INFO - 2024-03-10 17:34:48 --> Helper loaded: api_helper
+INFO - 2024-03-10 17:34:48 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 17:34:48 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 17:34:48 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 17:34:48 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 17:34:48 --> Email Class Initialized
+INFO - 2024-03-10 17:34:48 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 17:34:48 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 17:34:48 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 17:34:48 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 17:34:48 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 17:34:48 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 17:34:48 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 17:34:48 --> Encrypt Class Initialized
+INFO - 2024-03-10 17:34:48 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Programas_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 17:34:48 --> Controller Class Initialized
+INFO - 2024-03-10 17:34:48 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 17:34:48 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 17:34:48 --> Helper loaded: form_helper
+INFO - 2024-03-10 17:34:48 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:48 --> Form Validation Class Initialized
+INFO - 2024-03-10 17:34:48 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-10 17:34:48 --> Model "Dependencias_model" initialized
+INFO - 2024-03-10 17:34:48 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/programas/listados.php
+INFO - 2024-03-10 17:34:48 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 17:34:48 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 17:34:48 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 17:34:48 --> Final output sent to browser
+DEBUG - 2024-03-10 17:34:48 --> Total execution time: 0.0088
+INFO - 2024-03-10 17:34:49 --> Config Class Initialized
+INFO - 2024-03-10 17:34:49 --> Hooks Class Initialized
+DEBUG - 2024-03-10 17:34:49 --> UTF-8 Support Enabled
+INFO - 2024-03-10 17:34:49 --> Utf8 Class Initialized
+INFO - 2024-03-10 17:34:49 --> URI Class Initialized
+INFO - 2024-03-10 17:34:49 --> Router Class Initialized
+INFO - 2024-03-10 17:34:49 --> Output Class Initialized
+INFO - 2024-03-10 17:34:49 --> Security Class Initialized
+DEBUG - 2024-03-10 17:34:49 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 17:34:49 --> Input Class Initialized
+INFO - 2024-03-10 17:34:49 --> Language Class Initialized
+INFO - 2024-03-10 17:34:49 --> Loader Class Initialized
+INFO - 2024-03-10 17:34:49 --> Helper loaded: directory_helper
+INFO - 2024-03-10 17:34:49 --> Helper loaded: global_helper
+INFO - 2024-03-10 17:34:49 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 17:34:49 --> Helper loaded: url_helper
+INFO - 2024-03-10 17:34:49 --> Helper loaded: text_helper
+INFO - 2024-03-10 17:34:49 --> Helper loaded: file_helper
+INFO - 2024-03-10 17:34:49 --> Helper loaded: api_helper
+INFO - 2024-03-10 17:34:49 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 17:34:49 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 17:34:49 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 17:34:49 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 17:34:49 --> Email Class Initialized
+INFO - 2024-03-10 17:34:49 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 17:34:49 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 17:34:49 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 17:34:49 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 17:34:49 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 17:34:49 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 17:34:49 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 17:34:49 --> Encrypt Class Initialized
+INFO - 2024-03-10 17:34:49 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Programas_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 17:34:49 --> Controller Class Initialized
+INFO - 2024-03-10 17:34:49 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 17:34:49 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 17:34:49 --> Helper loaded: form_helper
+INFO - 2024-03-10 17:34:49 --> Model "Manager_model" initialized
+INFO - 2024-03-10 17:34:49 --> Form Validation Class Initialized
+INFO - 2024-03-10 17:34:49 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-10 17:34:49 --> Model "Dependencias_model" initialized
+INFO - 2024-03-10 20:39:36 --> Config Class Initialized
+INFO - 2024-03-10 20:39:36 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:39:36 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:39:36 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:39:36 --> URI Class Initialized
+DEBUG - 2024-03-10 20:39:36 --> No URI present. Default controller set.
+INFO - 2024-03-10 20:39:36 --> Router Class Initialized
+INFO - 2024-03-10 20:39:36 --> Output Class Initialized
+INFO - 2024-03-10 20:39:36 --> Security Class Initialized
+DEBUG - 2024-03-10 20:39:36 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:39:36 --> Input Class Initialized
+INFO - 2024-03-10 20:39:36 --> Language Class Initialized
+INFO - 2024-03-10 20:39:36 --> Loader Class Initialized
+INFO - 2024-03-10 20:39:36 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:39:36 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:39:36 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:39:36 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:39:36 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:39:36 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:39:36 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:39:36 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:39:36 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:39:36 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:39:36 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:39:36 --> Email Class Initialized
+INFO - 2024-03-10 20:39:36 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:39:36 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:39:36 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:39:36 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:39:36 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:39:36 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:39:36 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:39:36 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:39:36 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:36 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:39:36 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:39:36 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:39:36 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:39:36 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:39:36 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:36 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:36 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:39:36 --> Controller Class Initialized
+ERROR - 2024-03-10 20:39:36 --> Severity: Notice --> Trying to get property 'first_name' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php 46
+ERROR - 2024-03-10 20:39:36 --> Severity: Notice --> Trying to get property 'first_name' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php 104
+ERROR - 2024-03-10 20:39:36 --> Severity: Notice --> Trying to get property 'last_name' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php 104
+INFO - 2024-03-10 20:39:36 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:39:36 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+DEBUG - 2024-03-10 20:39:36 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-03-10 20:39:36 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:39:36 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:39:36 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-03-10 20:39:36 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 20:39:36 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/auth/login.php
+INFO - 2024-03-10 20:39:36 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 20:39:36 --> Final output sent to browser
+DEBUG - 2024-03-10 20:39:36 --> Total execution time: 0.0450
+INFO - 2024-03-10 20:39:39 --> Config Class Initialized
+INFO - 2024-03-10 20:39:39 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:39:39 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:39:39 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:39:39 --> URI Class Initialized
+INFO - 2024-03-10 20:39:39 --> Router Class Initialized
+INFO - 2024-03-10 20:39:39 --> Output Class Initialized
+INFO - 2024-03-10 20:39:39 --> Security Class Initialized
+DEBUG - 2024-03-10 20:39:39 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:39:39 --> Input Class Initialized
+INFO - 2024-03-10 20:39:39 --> Language Class Initialized
+INFO - 2024-03-10 20:39:39 --> Loader Class Initialized
+INFO - 2024-03-10 20:39:39 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:39:39 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:39:39 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:39:39 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:39:39 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:39:39 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:39:39 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:39:39 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:39:39 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:39:39 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:39:39 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:39:39 --> Email Class Initialized
+INFO - 2024-03-10 20:39:39 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:39:39 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:39:39 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:39:39 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:39:39 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:39:39 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:39:39 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:39:39 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:39:39 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:39 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:39:39 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:39:39 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:39:39 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:39:39 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:39:39 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:39 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:39 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:39:39 --> Controller Class Initialized
+ERROR - 2024-03-10 20:39:39 --> Severity: Notice --> Trying to get property 'first_name' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php 46
+ERROR - 2024-03-10 20:39:39 --> Severity: Notice --> Trying to get property 'first_name' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php 104
+ERROR - 2024-03-10 20:39:39 --> Severity: Notice --> Trying to get property 'last_name' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php 104
+INFO - 2024-03-10 20:39:39 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:39:39 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+DEBUG - 2024-03-10 20:39:39 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-03-10 20:39:39 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:39:39 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:39:39 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-03-10 20:39:39 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-03-10 20:39:40 --> Helper loaded: date_helper
+INFO - 2024-03-10 20:39:40 --> Config Class Initialized
+INFO - 2024-03-10 20:39:40 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:39:40 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:39:40 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:39:40 --> URI Class Initialized
+INFO - 2024-03-10 20:39:40 --> Router Class Initialized
+INFO - 2024-03-10 20:39:40 --> Output Class Initialized
+INFO - 2024-03-10 20:39:40 --> Security Class Initialized
+DEBUG - 2024-03-10 20:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:39:40 --> Input Class Initialized
+INFO - 2024-03-10 20:39:40 --> Language Class Initialized
+INFO - 2024-03-10 20:39:40 --> Loader Class Initialized
+INFO - 2024-03-10 20:39:40 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:39:40 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:39:40 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:39:40 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:39:40 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:39:40 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:39:40 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:39:40 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:39:40 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:39:40 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:39:40 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:39:40 --> Email Class Initialized
+INFO - 2024-03-10 20:39:40 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:39:40 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:39:40 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:39:40 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:39:40 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:39:40 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:39:40 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:39:40 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:39:40 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:39:40 --> Controller Class Initialized
+INFO - 2024-03-10 20:39:40 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:39:40 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:39:40 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:39:40 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:40 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:39:40 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Dependencias_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Proyectos_model" initialized
+INFO - 2024-03-10 20:39:40 --> Model "Obras_model" initialized
+INFO - 2024-03-10 20:39:40 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/consolidados/listados.php
+INFO - 2024-03-10 20:39:40 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 20:39:40 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 20:39:40 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 20:39:40 --> Final output sent to browser
+DEBUG - 2024-03-10 20:39:40 --> Total execution time: 0.0224
+INFO - 2024-03-10 20:39:42 --> Config Class Initialized
+INFO - 2024-03-10 20:39:42 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:39:42 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:39:42 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:39:42 --> URI Class Initialized
+INFO - 2024-03-10 20:39:42 --> Router Class Initialized
+INFO - 2024-03-10 20:39:42 --> Output Class Initialized
+INFO - 2024-03-10 20:39:42 --> Security Class Initialized
+DEBUG - 2024-03-10 20:39:42 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:39:42 --> Input Class Initialized
+INFO - 2024-03-10 20:39:42 --> Language Class Initialized
+INFO - 2024-03-10 20:39:42 --> Loader Class Initialized
+INFO - 2024-03-10 20:39:42 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:39:42 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:39:42 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:39:42 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:39:42 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:39:42 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:39:42 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:39:42 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:39:42 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:39:42 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:39:42 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:39:42 --> Email Class Initialized
+INFO - 2024-03-10 20:39:42 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:39:42 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:39:42 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:39:42 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:39:42 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:39:42 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:39:42 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:39:42 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:39:42 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:39:42 --> Controller Class Initialized
+INFO - 2024-03-10 20:39:42 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:39:42 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:39:42 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:39:42 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:42 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:39:42 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Dependencias_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Proyectos_model" initialized
+INFO - 2024-03-10 20:39:42 --> Model "Obras_model" initialized
+INFO - 2024-03-10 20:39:43 --> Final output sent to browser
+DEBUG - 2024-03-10 20:39:43 --> Total execution time: 1.3616
+INFO - 2024-03-10 20:39:44 --> Config Class Initialized
+INFO - 2024-03-10 20:39:44 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:39:44 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:39:44 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:39:44 --> URI Class Initialized
+INFO - 2024-03-10 20:39:44 --> Router Class Initialized
+INFO - 2024-03-10 20:39:44 --> Output Class Initialized
+INFO - 2024-03-10 20:39:44 --> Security Class Initialized
+DEBUG - 2024-03-10 20:39:44 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:39:44 --> Input Class Initialized
+INFO - 2024-03-10 20:39:44 --> Language Class Initialized
+INFO - 2024-03-10 20:39:44 --> Loader Class Initialized
+INFO - 2024-03-10 20:39:44 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:39:44 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:39:44 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:39:44 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:39:44 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:39:44 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:39:44 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:39:44 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:39:44 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:39:44 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:39:44 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:39:44 --> Email Class Initialized
+INFO - 2024-03-10 20:39:44 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:39:44 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:39:44 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:39:44 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:39:44 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:39:44 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:39:44 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:39:44 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:39:44 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:39:44 --> Controller Class Initialized
+INFO - 2024-03-10 20:39:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:39:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:39:44 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:39:44 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:44 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:39:44 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:39:44 --> Model "Uploader_model" initialized
+ERROR - 2024-03-10 20:39:44 --> Severity: Notice --> Undefined variable: proveedor /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+ERROR - 2024-03-10 20:39:44 --> Severity: Notice --> Trying to get property 'id' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+INFO - 2024-03-10 20:39:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php
+INFO - 2024-03-10 20:39:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/lecturas/listados.php
+INFO - 2024-03-10 20:39:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 20:39:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 20:39:44 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 20:39:44 --> Final output sent to browser
+DEBUG - 2024-03-10 20:39:44 --> Total execution time: 0.0097
+INFO - 2024-03-10 20:39:45 --> Config Class Initialized
+INFO - 2024-03-10 20:39:45 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:39:45 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:39:45 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:39:45 --> URI Class Initialized
+INFO - 2024-03-10 20:39:45 --> Router Class Initialized
+INFO - 2024-03-10 20:39:45 --> Output Class Initialized
+INFO - 2024-03-10 20:39:45 --> Security Class Initialized
+DEBUG - 2024-03-10 20:39:45 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:39:45 --> Input Class Initialized
+INFO - 2024-03-10 20:39:45 --> Language Class Initialized
+INFO - 2024-03-10 20:39:45 --> Loader Class Initialized
+INFO - 2024-03-10 20:39:45 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:39:45 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:39:45 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:39:45 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:39:45 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:39:45 --> Email Class Initialized
+INFO - 2024-03-10 20:39:45 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:39:45 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:39:45 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:39:45 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:39:45 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:39:45 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:39:45 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:39:45 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:39:45 --> Controller Class Initialized
+INFO - 2024-03-10 20:39:45 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:39:45 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:39:45 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:39:45 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:45 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:39:45 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:39:45 --> Config Class Initialized
+INFO - 2024-03-10 20:39:45 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:39:45 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:39:45 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:39:45 --> URI Class Initialized
+INFO - 2024-03-10 20:39:45 --> Router Class Initialized
+INFO - 2024-03-10 20:39:45 --> Output Class Initialized
+INFO - 2024-03-10 20:39:45 --> Security Class Initialized
+DEBUG - 2024-03-10 20:39:45 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:39:45 --> Input Class Initialized
+INFO - 2024-03-10 20:39:45 --> Language Class Initialized
+INFO - 2024-03-10 20:39:45 --> Loader Class Initialized
+INFO - 2024-03-10 20:39:45 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:39:45 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:39:45 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:39:45 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:39:45 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:39:45 --> Email Class Initialized
+INFO - 2024-03-10 20:39:45 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:39:45 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:39:45 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:39:45 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:39:45 --> Final output sent to browser
+DEBUG - 2024-03-10 20:39:45 --> Total execution time: 0.0541
+INFO - 2024-03-10 20:39:45 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:39:45 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:39:45 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:39:45 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:39:45 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:39:45 --> Controller Class Initialized
+INFO - 2024-03-10 20:39:45 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:39:45 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:39:45 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:39:45 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:45 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:39:45 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:39:45 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:39:45 --> Final output sent to browser
+DEBUG - 2024-03-10 20:39:45 --> Total execution time: 0.1260
+INFO - 2024-03-10 20:39:51 --> Config Class Initialized
+INFO - 2024-03-10 20:39:51 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:39:51 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:39:51 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:39:51 --> URI Class Initialized
+INFO - 2024-03-10 20:39:51 --> Router Class Initialized
+INFO - 2024-03-10 20:39:51 --> Output Class Initialized
+INFO - 2024-03-10 20:39:51 --> Security Class Initialized
+DEBUG - 2024-03-10 20:39:51 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:39:51 --> Input Class Initialized
+INFO - 2024-03-10 20:39:51 --> Language Class Initialized
+INFO - 2024-03-10 20:39:51 --> Loader Class Initialized
+INFO - 2024-03-10 20:39:51 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:39:51 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:39:51 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:39:51 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:39:51 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:39:51 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:39:51 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:39:51 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:39:51 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:39:51 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:39:51 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:39:51 --> Email Class Initialized
+INFO - 2024-03-10 20:39:51 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:39:51 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:39:51 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:39:51 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:39:51 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:39:51 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:39:51 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:39:51 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:39:51 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:39:51 --> Controller Class Initialized
+INFO - 2024-03-10 20:39:51 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:39:51 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:39:51 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:39:51 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:39:51 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:39:51 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-10 20:39:51 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:39:51 --> Final output sent to browser
+DEBUG - 2024-03-10 20:39:51 --> Total execution time: 0.0077
+INFO - 2024-03-10 20:40:00 --> Config Class Initialized
+INFO - 2024-03-10 20:40:00 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:40:00 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:40:00 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:40:00 --> URI Class Initialized
+INFO - 2024-03-10 20:40:00 --> Router Class Initialized
+INFO - 2024-03-10 20:40:00 --> Output Class Initialized
+INFO - 2024-03-10 20:40:00 --> Security Class Initialized
+DEBUG - 2024-03-10 20:40:00 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:40:00 --> Input Class Initialized
+INFO - 2024-03-10 20:40:00 --> Language Class Initialized
+INFO - 2024-03-10 20:40:00 --> Loader Class Initialized
+INFO - 2024-03-10 20:40:00 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:40:00 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:40:00 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:40:00 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:40:00 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:40:00 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:40:00 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:40:00 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:40:00 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:40:00 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:40:00 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:40:00 --> Email Class Initialized
+INFO - 2024-03-10 20:40:00 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:40:00 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:40:00 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:40:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:40:00 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:40:00 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:40:00 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:40:00 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:40:00 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:40:00 --> Controller Class Initialized
+INFO - 2024-03-10 20:40:00 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:40:00 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:40:00 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:40:00 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:00 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:40:00 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:40:00 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:40:00 --> Final output sent to browser
+DEBUG - 2024-03-10 20:40:00 --> Total execution time: 0.0091
+INFO - 2024-03-10 20:40:10 --> Config Class Initialized
+INFO - 2024-03-10 20:40:10 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:40:10 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:40:10 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:40:10 --> URI Class Initialized
+INFO - 2024-03-10 20:40:10 --> Router Class Initialized
+INFO - 2024-03-10 20:40:10 --> Output Class Initialized
+INFO - 2024-03-10 20:40:10 --> Security Class Initialized
+DEBUG - 2024-03-10 20:40:10 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:40:10 --> Input Class Initialized
+INFO - 2024-03-10 20:40:10 --> Language Class Initialized
+INFO - 2024-03-10 20:40:10 --> Loader Class Initialized
+INFO - 2024-03-10 20:40:10 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:40:10 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:40:10 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:40:10 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:40:10 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:40:10 --> Email Class Initialized
+INFO - 2024-03-10 20:40:10 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:40:10 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:40:10 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:40:10 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:40:10 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:40:10 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:40:10 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:40:10 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:40:10 --> Controller Class Initialized
+INFO - 2024-03-10 20:40:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:40:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:40:10 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:40:10 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:10 --> Form Validation Class Initialized
+ERROR - 2024-03-10 20:40:10 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Admin' does not have a method 'Consolidados' /home/u117285061/domains/quickdata.com.ar/public_html/test/system/core/CodeIgniter.php 532
+INFO - 2024-03-10 20:40:10 --> Final output sent to browser
+DEBUG - 2024-03-10 20:40:10 --> Total execution time: 0.0091
+INFO - 2024-03-10 20:40:10 --> Config Class Initialized
+INFO - 2024-03-10 20:40:10 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:40:10 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:40:10 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:40:10 --> URI Class Initialized
+INFO - 2024-03-10 20:40:10 --> Router Class Initialized
+INFO - 2024-03-10 20:40:10 --> Output Class Initialized
+INFO - 2024-03-10 20:40:10 --> Security Class Initialized
+DEBUG - 2024-03-10 20:40:10 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:40:10 --> Input Class Initialized
+INFO - 2024-03-10 20:40:10 --> Language Class Initialized
+INFO - 2024-03-10 20:40:10 --> Loader Class Initialized
+INFO - 2024-03-10 20:40:10 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:40:10 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:40:10 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:40:10 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:40:10 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:40:10 --> Email Class Initialized
+INFO - 2024-03-10 20:40:10 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:40:10 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:40:10 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:40:10 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:40:10 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:40:10 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:40:10 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:40:10 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:40:10 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:10 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:40:10 --> Controller Class Initialized
+INFO - 2024-03-10 20:40:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:40:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:40:10 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:40:10 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:10 --> Form Validation Class Initialized
+ERROR - 2024-03-10 20:40:10 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Admin' does not have a method 'Consolidados' /home/u117285061/domains/quickdata.com.ar/public_html/test/system/core/CodeIgniter.php 532
+INFO - 2024-03-10 20:40:10 --> Final output sent to browser
+DEBUG - 2024-03-10 20:40:10 --> Total execution time: 0.0086
+INFO - 2024-03-10 20:40:13 --> Config Class Initialized
+INFO - 2024-03-10 20:40:13 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:40:13 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:40:13 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:40:13 --> URI Class Initialized
+INFO - 2024-03-10 20:40:13 --> Router Class Initialized
+INFO - 2024-03-10 20:40:13 --> Output Class Initialized
+INFO - 2024-03-10 20:40:13 --> Security Class Initialized
+DEBUG - 2024-03-10 20:40:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:40:13 --> Input Class Initialized
+INFO - 2024-03-10 20:40:13 --> Language Class Initialized
+INFO - 2024-03-10 20:40:13 --> Loader Class Initialized
+INFO - 2024-03-10 20:40:13 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:40:13 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:40:13 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:40:13 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:40:13 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:40:13 --> Email Class Initialized
+INFO - 2024-03-10 20:40:13 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:40:13 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:40:13 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:40:13 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:40:13 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:40:13 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:40:13 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:40:13 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:40:13 --> Controller Class Initialized
+INFO - 2024-03-10 20:40:13 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:40:13 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:40:13 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:40:13 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:13 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:40:13 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:40:13 --> Upload Class Initialized
+INFO - 2024-03-10 20:40:13 --> Config Class Initialized
+INFO - 2024-03-10 20:40:13 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:40:13 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:40:13 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:40:13 --> URI Class Initialized
+INFO - 2024-03-10 20:40:13 --> Router Class Initialized
+INFO - 2024-03-10 20:40:13 --> Output Class Initialized
+INFO - 2024-03-10 20:40:13 --> Security Class Initialized
+DEBUG - 2024-03-10 20:40:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:40:13 --> Input Class Initialized
+INFO - 2024-03-10 20:40:13 --> Language Class Initialized
+INFO - 2024-03-10 20:40:13 --> Loader Class Initialized
+INFO - 2024-03-10 20:40:13 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:40:13 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:40:13 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:40:13 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:40:13 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:40:13 --> Email Class Initialized
+INFO - 2024-03-10 20:40:13 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:40:13 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:40:13 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:40:13 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:40:13 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:40:13 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:40:13 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:40:13 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:40:13 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:40:13 --> Controller Class Initialized
+INFO - 2024-03-10 20:40:13 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:40:13 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:40:13 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:40:13 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:13 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:40:13 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:40:13 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:40:13 --> Final output sent to browser
+DEBUG - 2024-03-10 20:40:13 --> Total execution time: 0.0356
+INFO - 2024-03-10 20:40:17 --> Config Class Initialized
+INFO - 2024-03-10 20:40:17 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:40:17 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:40:17 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:40:17 --> URI Class Initialized
+INFO - 2024-03-10 20:40:17 --> Router Class Initialized
+INFO - 2024-03-10 20:40:17 --> Output Class Initialized
+INFO - 2024-03-10 20:40:17 --> Security Class Initialized
+DEBUG - 2024-03-10 20:40:17 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:40:17 --> Input Class Initialized
+INFO - 2024-03-10 20:40:17 --> Language Class Initialized
+INFO - 2024-03-10 20:40:17 --> Loader Class Initialized
+INFO - 2024-03-10 20:40:17 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:40:17 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:40:17 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:40:17 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:40:17 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:40:17 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:40:17 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:40:17 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:40:17 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:40:17 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:40:17 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:40:17 --> Email Class Initialized
+INFO - 2024-03-10 20:40:17 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:40:17 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:40:17 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:40:17 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:40:17 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:40:17 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:40:17 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:40:17 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:40:17 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:40:17 --> Controller Class Initialized
+INFO - 2024-03-10 20:40:17 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:40:17 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:40:17 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:40:17 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:40:17 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:40:17 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:40:17 --> Model "Uploader_model" initialized
+ERROR - 2024-03-10 20:40:24 --> Severity: Notice --> Undefined offset: 0 /home/u117285061/domains/quickdata.com.ar/public_html/test/application/controllers/Lotes.php 371
+ERROR - 2024-03-10 20:40:24 --> Severity: Notice --> Trying to get property 'content' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/controllers/Lotes.php 371
+INFO - 2024-03-10 20:41:30 --> Config Class Initialized
+INFO - 2024-03-10 20:41:30 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:41:30 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:41:30 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:41:30 --> URI Class Initialized
+INFO - 2024-03-10 20:41:30 --> Router Class Initialized
+INFO - 2024-03-10 20:41:30 --> Output Class Initialized
+INFO - 2024-03-10 20:41:30 --> Security Class Initialized
+DEBUG - 2024-03-10 20:41:30 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:41:30 --> Input Class Initialized
+INFO - 2024-03-10 20:41:30 --> Language Class Initialized
+INFO - 2024-03-10 20:41:30 --> Loader Class Initialized
+INFO - 2024-03-10 20:41:30 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:41:30 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:41:30 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:41:30 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:41:30 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:41:30 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:41:30 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:41:30 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:41:30 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:41:30 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:41:30 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:41:30 --> Email Class Initialized
+INFO - 2024-03-10 20:41:30 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:41:30 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:41:30 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:41:30 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:41:30 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:41:30 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:41:30 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:41:30 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:41:30 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:41:30 --> Controller Class Initialized
+INFO - 2024-03-10 20:41:30 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:41:30 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:41:30 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:41:30 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:30 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:41:30 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:41:30 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:41:30 --> Final output sent to browser
+DEBUG - 2024-03-10 20:41:30 --> Total execution time: 0.0107
+INFO - 2024-03-10 20:41:37 --> Config Class Initialized
+INFO - 2024-03-10 20:41:37 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:41:37 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:41:37 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:41:37 --> URI Class Initialized
+INFO - 2024-03-10 20:41:37 --> Router Class Initialized
+INFO - 2024-03-10 20:41:37 --> Output Class Initialized
+INFO - 2024-03-10 20:41:37 --> Security Class Initialized
+DEBUG - 2024-03-10 20:41:37 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:41:37 --> Input Class Initialized
+INFO - 2024-03-10 20:41:37 --> Language Class Initialized
+INFO - 2024-03-10 20:41:37 --> Loader Class Initialized
+INFO - 2024-03-10 20:41:37 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:41:37 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:41:37 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:41:37 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:41:37 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:41:37 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:41:37 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:41:37 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:41:37 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:41:37 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:41:37 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:41:37 --> Email Class Initialized
+INFO - 2024-03-10 20:41:37 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:41:37 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:41:37 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:41:37 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:41:37 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:41:37 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:41:37 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:41:37 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:41:37 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:41:37 --> Controller Class Initialized
+INFO - 2024-03-10 20:41:37 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:41:37 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:41:37 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:41:37 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:37 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:41:37 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:41:37 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:41:37 --> Final output sent to browser
+DEBUG - 2024-03-10 20:41:37 --> Total execution time: 0.0076
+INFO - 2024-03-10 20:41:41 --> Config Class Initialized
+INFO - 2024-03-10 20:41:41 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:41:41 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:41:41 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:41:41 --> URI Class Initialized
+INFO - 2024-03-10 20:41:41 --> Router Class Initialized
+INFO - 2024-03-10 20:41:41 --> Output Class Initialized
+INFO - 2024-03-10 20:41:41 --> Security Class Initialized
+DEBUG - 2024-03-10 20:41:41 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:41:41 --> Input Class Initialized
+INFO - 2024-03-10 20:41:41 --> Language Class Initialized
+INFO - 2024-03-10 20:41:41 --> Loader Class Initialized
+INFO - 2024-03-10 20:41:41 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:41:41 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:41:41 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:41:41 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:41:41 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:41:41 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:41:41 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:41:41 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:41:41 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:41:41 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:41:41 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:41:41 --> Email Class Initialized
+INFO - 2024-03-10 20:41:41 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:41:41 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:41:41 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:41:41 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:41:41 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:41:41 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:41:41 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:41:41 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:41:41 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:41:41 --> Controller Class Initialized
+INFO - 2024-03-10 20:41:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:41:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:41:41 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:41:41 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:41 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:41:41 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:41:41 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:41:41 --> Upload Class Initialized
+INFO - 2024-03-10 20:41:42 --> Config Class Initialized
+INFO - 2024-03-10 20:41:42 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:41:42 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:41:42 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:41:42 --> URI Class Initialized
+INFO - 2024-03-10 20:41:42 --> Router Class Initialized
+INFO - 2024-03-10 20:41:42 --> Output Class Initialized
+INFO - 2024-03-10 20:41:42 --> Security Class Initialized
+DEBUG - 2024-03-10 20:41:42 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:41:42 --> Input Class Initialized
+INFO - 2024-03-10 20:41:42 --> Language Class Initialized
+INFO - 2024-03-10 20:41:42 --> Loader Class Initialized
+INFO - 2024-03-10 20:41:42 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:41:42 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:41:42 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:41:42 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:41:42 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:41:42 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:41:42 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:41:42 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:41:42 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:41:42 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:41:42 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:41:42 --> Email Class Initialized
+INFO - 2024-03-10 20:41:42 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:41:42 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:41:42 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:41:42 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:41:42 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:41:42 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:41:42 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:41:42 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:41:42 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:41:42 --> Controller Class Initialized
+INFO - 2024-03-10 20:41:42 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:41:42 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:41:42 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:41:42 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:42 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:41:42 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:41:42 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:41:42 --> Final output sent to browser
+DEBUG - 2024-03-10 20:41:42 --> Total execution time: 0.0353
+INFO - 2024-03-10 20:41:47 --> Config Class Initialized
+INFO - 2024-03-10 20:41:47 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:41:47 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:41:47 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:41:47 --> URI Class Initialized
+INFO - 2024-03-10 20:41:47 --> Router Class Initialized
+INFO - 2024-03-10 20:41:47 --> Output Class Initialized
+INFO - 2024-03-10 20:41:47 --> Security Class Initialized
+DEBUG - 2024-03-10 20:41:47 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:41:47 --> Input Class Initialized
+INFO - 2024-03-10 20:41:47 --> Language Class Initialized
+INFO - 2024-03-10 20:41:47 --> Loader Class Initialized
+INFO - 2024-03-10 20:41:47 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:41:47 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:41:47 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:41:47 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:41:47 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:41:47 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:41:47 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:41:47 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:41:47 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:41:47 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:41:47 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:41:47 --> Email Class Initialized
+INFO - 2024-03-10 20:41:47 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:41:47 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:41:47 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:41:47 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:41:47 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:41:47 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:41:47 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:41:47 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:41:47 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:41:47 --> Controller Class Initialized
+INFO - 2024-03-10 20:41:47 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:41:47 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:41:47 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:41:47 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:47 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:41:47 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:41:47 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:41:56 --> Config Class Initialized
+INFO - 2024-03-10 20:41:56 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:41:56 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:41:56 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:41:56 --> URI Class Initialized
+INFO - 2024-03-10 20:41:56 --> Router Class Initialized
+INFO - 2024-03-10 20:41:56 --> Output Class Initialized
+INFO - 2024-03-10 20:41:56 --> Security Class Initialized
+DEBUG - 2024-03-10 20:41:56 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:41:56 --> Input Class Initialized
+INFO - 2024-03-10 20:41:56 --> Language Class Initialized
+INFO - 2024-03-10 20:41:56 --> Loader Class Initialized
+INFO - 2024-03-10 20:41:56 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:41:56 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:41:56 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:41:56 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:41:56 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:41:56 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:41:56 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:41:56 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:41:56 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:41:56 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:41:56 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:41:56 --> Email Class Initialized
+INFO - 2024-03-10 20:41:56 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:41:56 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:41:56 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:41:56 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:41:56 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:41:56 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:41:56 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:41:56 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:41:56 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:41:56 --> Controller Class Initialized
+INFO - 2024-03-10 20:41:56 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:41:56 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:41:56 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:41:56 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:41:56 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:41:56 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:41:56 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:41:56 --> Final output sent to browser
+DEBUG - 2024-03-10 20:41:56 --> Total execution time: 0.0428
+INFO - 2024-03-10 20:42:16 --> Config Class Initialized
+INFO - 2024-03-10 20:42:16 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:42:16 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:42:16 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:42:16 --> URI Class Initialized
+INFO - 2024-03-10 20:42:16 --> Router Class Initialized
+INFO - 2024-03-10 20:42:16 --> Output Class Initialized
+INFO - 2024-03-10 20:42:16 --> Security Class Initialized
+DEBUG - 2024-03-10 20:42:16 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:42:16 --> Input Class Initialized
+INFO - 2024-03-10 20:42:16 --> Language Class Initialized
+INFO - 2024-03-10 20:42:16 --> Loader Class Initialized
+INFO - 2024-03-10 20:42:16 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:42:16 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:42:16 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:42:16 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:42:16 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:42:16 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:42:16 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:42:16 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:42:16 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:42:16 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:42:16 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:42:16 --> Email Class Initialized
+INFO - 2024-03-10 20:42:16 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:42:16 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:42:16 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:42:16 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:42:16 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:42:16 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:42:16 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:42:16 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:42:16 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:42:16 --> Controller Class Initialized
+INFO - 2024-03-10 20:42:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:42:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:42:16 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:42:16 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:42:16 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:42:16 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:42:16 --> Model "Uploader_model" initialized
+ERROR - 2024-03-10 20:42:16 --> Severity: Notice --> Undefined variable: proveedor /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+ERROR - 2024-03-10 20:42:16 --> Severity: Notice --> Trying to get property 'id' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+INFO - 2024-03-10 20:42:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php
+INFO - 2024-03-10 20:42:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/lotes/viewBatch.php
+INFO - 2024-03-10 20:42:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 20:42:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 20:42:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 20:42:16 --> Final output sent to browser
+DEBUG - 2024-03-10 20:42:16 --> Total execution time: 0.0103
+INFO - 2024-03-10 20:42:18 --> Config Class Initialized
+INFO - 2024-03-10 20:42:18 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:42:18 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:42:18 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:42:18 --> URI Class Initialized
+INFO - 2024-03-10 20:42:18 --> Router Class Initialized
+INFO - 2024-03-10 20:42:18 --> Output Class Initialized
+INFO - 2024-03-10 20:42:18 --> Security Class Initialized
+DEBUG - 2024-03-10 20:42:18 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:42:18 --> Input Class Initialized
+INFO - 2024-03-10 20:42:18 --> Language Class Initialized
+INFO - 2024-03-10 20:42:18 --> Loader Class Initialized
+INFO - 2024-03-10 20:42:18 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:42:18 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:42:18 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:42:18 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:42:18 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:42:18 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:42:18 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:42:18 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:42:18 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:42:18 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:42:18 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:42:18 --> Email Class Initialized
+INFO - 2024-03-10 20:42:18 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:42:18 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:42:18 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:42:18 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:42:18 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:42:18 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:42:18 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:42:18 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:42:18 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:42:18 --> Controller Class Initialized
+INFO - 2024-03-10 20:42:18 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:42:18 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:42:18 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:42:18 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:42:18 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:42:18 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:42:18 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:42:46 --> Config Class Initialized
+INFO - 2024-03-10 20:42:46 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:42:46 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:42:46 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:42:46 --> URI Class Initialized
+INFO - 2024-03-10 20:42:46 --> Router Class Initialized
+INFO - 2024-03-10 20:42:46 --> Output Class Initialized
+INFO - 2024-03-10 20:42:46 --> Security Class Initialized
+DEBUG - 2024-03-10 20:42:46 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:42:46 --> Input Class Initialized
+INFO - 2024-03-10 20:42:46 --> Language Class Initialized
+INFO - 2024-03-10 20:42:46 --> Loader Class Initialized
+INFO - 2024-03-10 20:42:46 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:42:46 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:42:46 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:42:46 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:42:46 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:42:46 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:42:46 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:42:46 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:42:46 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:42:46 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:42:46 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:42:46 --> Email Class Initialized
+INFO - 2024-03-10 20:42:46 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:42:46 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:42:46 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:42:46 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:42:46 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:42:46 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:42:46 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:42:46 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:42:46 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:42:46 --> Controller Class Initialized
+INFO - 2024-03-10 20:42:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:42:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:42:46 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:42:46 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:42:46 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:42:46 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:42:46 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:42:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/lecturas/views.php
+INFO - 2024-03-10 20:42:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 20:42:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 20:42:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 20:42:46 --> Final output sent to browser
+DEBUG - 2024-03-10 20:42:46 --> Total execution time: 0.0147
+INFO - 2024-03-10 20:42:47 --> Config Class Initialized
+INFO - 2024-03-10 20:42:47 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:42:47 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:42:47 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:42:47 --> URI Class Initialized
+INFO - 2024-03-10 20:42:47 --> Router Class Initialized
+INFO - 2024-03-10 20:42:47 --> Output Class Initialized
+INFO - 2024-03-10 20:42:47 --> Security Class Initialized
+DEBUG - 2024-03-10 20:42:47 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:42:47 --> Input Class Initialized
+INFO - 2024-03-10 20:42:47 --> Language Class Initialized
+INFO - 2024-03-10 20:42:47 --> Loader Class Initialized
+INFO - 2024-03-10 20:42:47 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:42:47 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:42:47 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:42:47 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:42:47 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:42:47 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:42:47 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:42:47 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:42:47 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:42:47 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:42:47 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:42:47 --> Email Class Initialized
+INFO - 2024-03-10 20:42:47 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:42:47 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:42:47 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:42:47 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:42:47 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:42:47 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:42:47 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:42:47 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:42:47 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:42:47 --> Controller Class Initialized
+INFO - 2024-03-10 20:42:47 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:42:47 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:42:47 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:42:47 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:42:47 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:42:47 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:42:47 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:42:47 --> Final output sent to browser
+DEBUG - 2024-03-10 20:42:47 --> Total execution time: 0.0092
+INFO - 2024-03-10 20:43:10 --> Config Class Initialized
+INFO - 2024-03-10 20:43:10 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:10 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:10 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:10 --> URI Class Initialized
+INFO - 2024-03-10 20:43:10 --> Router Class Initialized
+INFO - 2024-03-10 20:43:10 --> Output Class Initialized
+INFO - 2024-03-10 20:43:10 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:10 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:10 --> Input Class Initialized
+INFO - 2024-03-10 20:43:10 --> Language Class Initialized
+INFO - 2024-03-10 20:43:10 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:10 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:10 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:10 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:10 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:10 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:10 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:10 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:10 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:10 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:10 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:10 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:10 --> Email Class Initialized
+INFO - 2024-03-10 20:43:10 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:10 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:10 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:10 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:10 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:10 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:10 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:10 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:10 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:10 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:10 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:10 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:10 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:10 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:10 --> Model "Uploader_model" initialized
+ERROR - 2024-03-10 20:43:10 --> Severity: Notice --> Undefined variable: proveedor /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+ERROR - 2024-03-10 20:43:10 --> Severity: Notice --> Trying to get property 'id' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+INFO - 2024-03-10 20:43:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php
+INFO - 2024-03-10 20:43:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/lecturas/listados.php
+INFO - 2024-03-10 20:43:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 20:43:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 20:43:10 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 20:43:10 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:10 --> Total execution time: 0.0108
+INFO - 2024-03-10 20:43:11 --> Config Class Initialized
+INFO - 2024-03-10 20:43:11 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:11 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:11 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:11 --> URI Class Initialized
+INFO - 2024-03-10 20:43:11 --> Router Class Initialized
+INFO - 2024-03-10 20:43:11 --> Output Class Initialized
+INFO - 2024-03-10 20:43:11 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:11 --> Input Class Initialized
+INFO - 2024-03-10 20:43:11 --> Language Class Initialized
+INFO - 2024-03-10 20:43:11 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:11 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:11 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:11 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:11 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:11 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:11 --> Email Class Initialized
+INFO - 2024-03-10 20:43:11 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:11 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:11 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:11 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:11 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:11 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:11 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:11 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:11 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:11 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:11 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:11 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:11 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:11 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:43:11 --> Config Class Initialized
+INFO - 2024-03-10 20:43:11 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:11 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:11 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:11 --> URI Class Initialized
+INFO - 2024-03-10 20:43:11 --> Router Class Initialized
+INFO - 2024-03-10 20:43:11 --> Output Class Initialized
+INFO - 2024-03-10 20:43:11 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:11 --> Input Class Initialized
+INFO - 2024-03-10 20:43:11 --> Language Class Initialized
+INFO - 2024-03-10 20:43:11 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:11 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:11 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:11 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:11 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:11 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:11 --> Email Class Initialized
+INFO - 2024-03-10 20:43:11 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:11 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:11 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:11 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:11 --> Total execution time: 0.0370
+INFO - 2024-03-10 20:43:11 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:11 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:11 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:11 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:11 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:11 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:11 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:11 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:11 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:11 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:11 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:11 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:11 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:43:12 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:12 --> Total execution time: 0.1217
+INFO - 2024-03-10 20:43:16 --> Config Class Initialized
+INFO - 2024-03-10 20:43:16 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:16 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:16 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:16 --> URI Class Initialized
+INFO - 2024-03-10 20:43:16 --> Router Class Initialized
+INFO - 2024-03-10 20:43:16 --> Output Class Initialized
+INFO - 2024-03-10 20:43:16 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:16 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:16 --> Input Class Initialized
+INFO - 2024-03-10 20:43:16 --> Language Class Initialized
+INFO - 2024-03-10 20:43:16 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:16 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:16 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:16 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:16 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:16 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:16 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:16 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:16 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:16 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:16 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:16 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:16 --> Email Class Initialized
+INFO - 2024-03-10 20:43:16 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:16 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:16 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:16 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:16 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:16 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:16 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:16 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:16 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:16 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:16 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:16 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:16 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:16 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:16 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:16 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:43:16 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:16 --> Total execution time: 0.0123
+INFO - 2024-03-10 20:43:17 --> Config Class Initialized
+INFO - 2024-03-10 20:43:17 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:17 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:17 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:17 --> URI Class Initialized
+INFO - 2024-03-10 20:43:17 --> Router Class Initialized
+INFO - 2024-03-10 20:43:17 --> Output Class Initialized
+INFO - 2024-03-10 20:43:17 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:17 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:17 --> Input Class Initialized
+INFO - 2024-03-10 20:43:17 --> Language Class Initialized
+INFO - 2024-03-10 20:43:17 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:17 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:17 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:17 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:17 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:17 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:17 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:17 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:17 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:17 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:17 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:17 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:17 --> Email Class Initialized
+INFO - 2024-03-10 20:43:17 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:17 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:17 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:17 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:17 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:17 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:17 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:17 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:17 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:17 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:17 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:17 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:17 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:17 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:17 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:17 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:17 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:43:17 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:17 --> Total execution time: 0.0394
+INFO - 2024-03-10 20:43:24 --> Config Class Initialized
+INFO - 2024-03-10 20:43:24 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:24 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:24 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:24 --> URI Class Initialized
+INFO - 2024-03-10 20:43:24 --> Router Class Initialized
+INFO - 2024-03-10 20:43:24 --> Output Class Initialized
+INFO - 2024-03-10 20:43:24 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:24 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:24 --> Input Class Initialized
+INFO - 2024-03-10 20:43:24 --> Language Class Initialized
+INFO - 2024-03-10 20:43:24 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:24 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:24 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:24 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:24 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:24 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:24 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:24 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:24 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:24 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:24 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:24 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:24 --> Email Class Initialized
+INFO - 2024-03-10 20:43:24 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:24 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:24 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:24 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:24 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:24 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:24 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:24 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:24 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:24 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:24 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:24 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:24 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:24 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:24 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:24 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-10 20:43:24 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:24 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:24 --> Total execution time: 0.0098
+INFO - 2024-03-10 20:43:35 --> Config Class Initialized
+INFO - 2024-03-10 20:43:35 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:35 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:35 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:35 --> URI Class Initialized
+INFO - 2024-03-10 20:43:35 --> Router Class Initialized
+INFO - 2024-03-10 20:43:35 --> Output Class Initialized
+INFO - 2024-03-10 20:43:35 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:35 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:35 --> Input Class Initialized
+INFO - 2024-03-10 20:43:35 --> Language Class Initialized
+INFO - 2024-03-10 20:43:35 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:35 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:35 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:35 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:35 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:35 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:35 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:35 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:35 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:35 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:35 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:35 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:35 --> Email Class Initialized
+INFO - 2024-03-10 20:43:35 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:35 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:35 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:35 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:35 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:35 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:35 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:35 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:35 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:35 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:35 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:35 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:35 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:35 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:35 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:35 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:35 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:43:35 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:35 --> Total execution time: 0.0097
+INFO - 2024-03-10 20:43:43 --> Config Class Initialized
+INFO - 2024-03-10 20:43:43 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:43 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:43 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:43 --> URI Class Initialized
+INFO - 2024-03-10 20:43:43 --> Router Class Initialized
+INFO - 2024-03-10 20:43:43 --> Output Class Initialized
+INFO - 2024-03-10 20:43:43 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:43 --> Input Class Initialized
+INFO - 2024-03-10 20:43:43 --> Language Class Initialized
+INFO - 2024-03-10 20:43:43 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:43 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:43 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:43 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:43 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:43 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:43 --> Email Class Initialized
+INFO - 2024-03-10 20:43:43 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:43 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:43 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:43 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:43 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:43 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:43 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:43 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:43 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:43 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:43 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:43 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:43 --> Form Validation Class Initialized
+ERROR - 2024-03-10 20:43:43 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Admin' does not have a method 'Consolidados' /home/u117285061/domains/quickdata.com.ar/public_html/test/system/core/CodeIgniter.php 532
+INFO - 2024-03-10 20:43:43 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:43 --> Total execution time: 0.0071
+INFO - 2024-03-10 20:43:43 --> Config Class Initialized
+INFO - 2024-03-10 20:43:43 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:43 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:43 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:43 --> URI Class Initialized
+INFO - 2024-03-10 20:43:43 --> Router Class Initialized
+INFO - 2024-03-10 20:43:43 --> Output Class Initialized
+INFO - 2024-03-10 20:43:43 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:43 --> Input Class Initialized
+INFO - 2024-03-10 20:43:43 --> Language Class Initialized
+INFO - 2024-03-10 20:43:43 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:43 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:43 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:43 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:43 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:43 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:43 --> Email Class Initialized
+INFO - 2024-03-10 20:43:43 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:43 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:43 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:43 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:43 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:43 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:43 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:43 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:43 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:43 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:43 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:43 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:43 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:43 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:43 --> Form Validation Class Initialized
+ERROR - 2024-03-10 20:43:43 --> Severity: Warning --> call_user_func_array() expects parameter 1 to be a valid callback, class 'Admin' does not have a method 'Consolidados' /home/u117285061/domains/quickdata.com.ar/public_html/test/system/core/CodeIgniter.php 532
+INFO - 2024-03-10 20:43:43 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:43 --> Total execution time: 0.0088
+INFO - 2024-03-10 20:43:46 --> Config Class Initialized
+INFO - 2024-03-10 20:43:46 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:46 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:46 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:46 --> URI Class Initialized
+INFO - 2024-03-10 20:43:46 --> Router Class Initialized
+INFO - 2024-03-10 20:43:46 --> Output Class Initialized
+INFO - 2024-03-10 20:43:46 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:46 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:46 --> Input Class Initialized
+INFO - 2024-03-10 20:43:46 --> Language Class Initialized
+INFO - 2024-03-10 20:43:46 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:46 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:46 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:46 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:46 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:46 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:46 --> Email Class Initialized
+INFO - 2024-03-10 20:43:46 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:46 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:46 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:46 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:46 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:46 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:46 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:46 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:46 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:46 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:46 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:46 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:46 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:43:46 --> Upload Class Initialized
+INFO - 2024-03-10 20:43:46 --> Config Class Initialized
+INFO - 2024-03-10 20:43:46 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:46 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:46 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:46 --> URI Class Initialized
+INFO - 2024-03-10 20:43:46 --> Router Class Initialized
+INFO - 2024-03-10 20:43:46 --> Output Class Initialized
+INFO - 2024-03-10 20:43:46 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:46 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:46 --> Input Class Initialized
+INFO - 2024-03-10 20:43:46 --> Language Class Initialized
+INFO - 2024-03-10 20:43:46 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:46 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:46 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:46 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:46 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:46 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:46 --> Email Class Initialized
+INFO - 2024-03-10 20:43:46 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:46 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:46 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:46 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:46 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:46 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:46 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:46 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:46 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:46 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:46 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:46 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:46 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:46 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:46 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:46 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:43:46 --> Final output sent to browser
+DEBUG - 2024-03-10 20:43:46 --> Total execution time: 0.0461
+INFO - 2024-03-10 20:43:50 --> Config Class Initialized
+INFO - 2024-03-10 20:43:50 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:43:50 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:43:50 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:43:50 --> URI Class Initialized
+INFO - 2024-03-10 20:43:50 --> Router Class Initialized
+INFO - 2024-03-10 20:43:50 --> Output Class Initialized
+INFO - 2024-03-10 20:43:50 --> Security Class Initialized
+DEBUG - 2024-03-10 20:43:50 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:43:50 --> Input Class Initialized
+INFO - 2024-03-10 20:43:50 --> Language Class Initialized
+INFO - 2024-03-10 20:43:50 --> Loader Class Initialized
+INFO - 2024-03-10 20:43:50 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:43:50 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:43:50 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:43:50 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:43:50 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:43:50 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:43:50 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:43:50 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:43:50 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:43:50 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:43:50 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:43:50 --> Email Class Initialized
+INFO - 2024-03-10 20:43:50 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:43:50 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:43:50 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:43:50 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:43:50 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:43:50 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:43:50 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:43:50 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:43:50 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:43:50 --> Controller Class Initialized
+INFO - 2024-03-10 20:43:50 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:43:50 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:43:50 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:43:50 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:43:50 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:43:50 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:43:50 --> Model "Uploader_model" initialized
+ERROR - 2024-03-10 20:43:58 --> Severity: Notice --> Undefined offset: 0 /home/u117285061/domains/quickdata.com.ar/public_html/test/application/controllers/Lotes.php 371
+ERROR - 2024-03-10 20:43:58 --> Severity: Notice --> Trying to get property 'content' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/controllers/Lotes.php 371
+ERROR - 2024-03-10 20:43:58 --> Severity: Notice --> Undefined offset: 0 /home/u117285061/domains/quickdata.com.ar/public_html/test/application/controllers/Lotes.php 377
+ERROR - 2024-03-10 20:43:58 --> Severity: Notice --> Trying to get property 'content' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/controllers/Lotes.php 377
+INFO - 2024-03-10 20:44:41 --> Config Class Initialized
+INFO - 2024-03-10 20:44:41 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:44:41 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:44:41 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:44:41 --> URI Class Initialized
+INFO - 2024-03-10 20:44:41 --> Router Class Initialized
+INFO - 2024-03-10 20:44:41 --> Output Class Initialized
+INFO - 2024-03-10 20:44:41 --> Security Class Initialized
+DEBUG - 2024-03-10 20:44:41 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:44:41 --> Input Class Initialized
+INFO - 2024-03-10 20:44:41 --> Language Class Initialized
+INFO - 2024-03-10 20:44:41 --> Loader Class Initialized
+INFO - 2024-03-10 20:44:41 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:44:41 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:44:41 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:44:41 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:44:41 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:44:41 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:44:41 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:44:41 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:44:41 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:44:41 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:44:41 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:44:41 --> Email Class Initialized
+INFO - 2024-03-10 20:44:41 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:44:41 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:44:41 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:44:41 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:44:41 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:44:41 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:44:41 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:44:41 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:44:41 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:44:41 --> Controller Class Initialized
+INFO - 2024-03-10 20:44:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:44:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:44:41 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:44:41 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:44:41 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:44:41 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:44:41 --> Model "Uploader_model" initialized
+ERROR - 2024-03-10 20:44:41 --> Severity: Notice --> Undefined variable: proveedor /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+ERROR - 2024-03-10 20:44:41 --> Severity: Notice --> Trying to get property 'id' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+INFO - 2024-03-10 20:44:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php
+INFO - 2024-03-10 20:44:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/lotes/viewBatch.php
+INFO - 2024-03-10 20:44:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 20:44:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 20:44:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 20:44:41 --> Final output sent to browser
+DEBUG - 2024-03-10 20:44:41 --> Total execution time: 0.0104
+INFO - 2024-03-10 20:44:42 --> Config Class Initialized
+INFO - 2024-03-10 20:44:42 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:44:42 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:44:42 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:44:42 --> URI Class Initialized
+INFO - 2024-03-10 20:44:42 --> Router Class Initialized
+INFO - 2024-03-10 20:44:42 --> Output Class Initialized
+INFO - 2024-03-10 20:44:42 --> Security Class Initialized
+DEBUG - 2024-03-10 20:44:42 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:44:42 --> Input Class Initialized
+INFO - 2024-03-10 20:44:42 --> Language Class Initialized
+INFO - 2024-03-10 20:44:42 --> Loader Class Initialized
+INFO - 2024-03-10 20:44:42 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:44:42 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:44:42 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:44:42 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:44:42 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:44:42 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:44:42 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:44:42 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:44:42 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:44:42 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:44:42 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:44:42 --> Email Class Initialized
+INFO - 2024-03-10 20:44:42 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:44:42 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:44:42 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:44:42 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:44:42 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:44:42 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:44:42 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:44:42 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:44:42 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:44:42 --> Controller Class Initialized
+INFO - 2024-03-10 20:44:42 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:44:42 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:44:42 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:44:42 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:44:42 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:44:42 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:44:42 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:45:00 --> Config Class Initialized
+INFO - 2024-03-10 20:45:00 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:45:00 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:45:00 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:45:00 --> URI Class Initialized
+INFO - 2024-03-10 20:45:00 --> Router Class Initialized
+INFO - 2024-03-10 20:45:00 --> Output Class Initialized
+INFO - 2024-03-10 20:45:00 --> Security Class Initialized
+DEBUG - 2024-03-10 20:45:00 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:45:00 --> Input Class Initialized
+INFO - 2024-03-10 20:45:00 --> Language Class Initialized
+INFO - 2024-03-10 20:45:00 --> Loader Class Initialized
+INFO - 2024-03-10 20:45:00 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:45:00 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:45:00 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:45:00 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:45:00 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:45:00 --> Email Class Initialized
+INFO - 2024-03-10 20:45:00 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:45:00 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:45:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:45:00 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:45:00 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:45:00 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:45:00 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:45:00 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:45:00 --> Controller Class Initialized
+INFO - 2024-03-10 20:45:00 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:45:00 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:45:00 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:45:00 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:45:00 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:45:00 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:45:00 --> Config Class Initialized
+INFO - 2024-03-10 20:45:00 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:45:00 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:45:00 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:45:00 --> URI Class Initialized
+INFO - 2024-03-10 20:45:00 --> Router Class Initialized
+INFO - 2024-03-10 20:45:00 --> Output Class Initialized
+INFO - 2024-03-10 20:45:00 --> Security Class Initialized
+DEBUG - 2024-03-10 20:45:00 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:45:00 --> Input Class Initialized
+INFO - 2024-03-10 20:45:00 --> Language Class Initialized
+INFO - 2024-03-10 20:45:00 --> Loader Class Initialized
+INFO - 2024-03-10 20:45:00 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:45:00 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:45:00 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:45:00 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:45:00 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:45:00 --> Email Class Initialized
+INFO - 2024-03-10 20:45:00 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:45:00 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:45:00 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:45:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:45:00 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:45:00 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:45:00 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:45:00 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:45:00 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:45:00 --> Controller Class Initialized
+INFO - 2024-03-10 20:45:00 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:45:00 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:45:00 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:45:00 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:45:00 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:45:00 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:45:00 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:26 --> Config Class Initialized
+INFO - 2024-03-10 20:47:26 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:26 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:26 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:26 --> URI Class Initialized
+INFO - 2024-03-10 20:47:26 --> Router Class Initialized
+INFO - 2024-03-10 20:47:26 --> Output Class Initialized
+INFO - 2024-03-10 20:47:26 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:26 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:26 --> Input Class Initialized
+INFO - 2024-03-10 20:47:26 --> Language Class Initialized
+INFO - 2024-03-10 20:47:26 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:26 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:26 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:26 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:26 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:26 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:26 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:26 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:26 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:26 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:26 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:26 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:26 --> Email Class Initialized
+INFO - 2024-03-10 20:47:26 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:26 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:26 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:26 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:26 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:26 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:26 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:26 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:26 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:26 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:26 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:26 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:26 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:26 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:26 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:26 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:26 --> Model "Uploader_model" initialized
+ERROR - 2024-03-10 20:47:26 --> Severity: Notice --> Undefined variable: proveedor /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+ERROR - 2024-03-10 20:47:26 --> Severity: Notice --> Trying to get property 'id' of non-object /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php 6
+INFO - 2024-03-10 20:47:26 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/dropzone.php
+INFO - 2024-03-10 20:47:26 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/secciones/lecturas/listados.php
+INFO - 2024-03-10 20:47:26 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/head.php
+INFO - 2024-03-10 20:47:26 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/index.php
+INFO - 2024-03-10 20:47:26 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/footer.php
+INFO - 2024-03-10 20:47:26 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:26 --> Total execution time: 0.0102
+INFO - 2024-03-10 20:47:28 --> Config Class Initialized
+INFO - 2024-03-10 20:47:28 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:28 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:28 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:28 --> URI Class Initialized
+INFO - 2024-03-10 20:47:28 --> Router Class Initialized
+INFO - 2024-03-10 20:47:28 --> Output Class Initialized
+INFO - 2024-03-10 20:47:28 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:28 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:28 --> Input Class Initialized
+INFO - 2024-03-10 20:47:28 --> Language Class Initialized
+INFO - 2024-03-10 20:47:28 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:28 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:28 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:28 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:28 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:28 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:28 --> Email Class Initialized
+INFO - 2024-03-10 20:47:28 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:28 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:28 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:28 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:28 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:28 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:28 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:28 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:28 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:28 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:28 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:28 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:28 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:28 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:28 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:28 --> Config Class Initialized
+INFO - 2024-03-10 20:47:28 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:28 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:28 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:28 --> URI Class Initialized
+INFO - 2024-03-10 20:47:28 --> Router Class Initialized
+INFO - 2024-03-10 20:47:28 --> Output Class Initialized
+INFO - 2024-03-10 20:47:28 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:28 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:28 --> Input Class Initialized
+INFO - 2024-03-10 20:47:28 --> Language Class Initialized
+INFO - 2024-03-10 20:47:28 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:28 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:28 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:28 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:28 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:28 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:28 --> Email Class Initialized
+INFO - 2024-03-10 20:47:28 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:28 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:28 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:28 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:28 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:28 --> Total execution time: 0.0405
+INFO - 2024-03-10 20:47:28 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:28 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:28 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:28 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:28 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:28 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:28 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:28 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:28 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:28 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:28 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:28 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:28 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:28 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:28 --> Total execution time: 0.1160
+INFO - 2024-03-10 20:47:37 --> Config Class Initialized
+INFO - 2024-03-10 20:47:37 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:37 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:37 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:37 --> URI Class Initialized
+INFO - 2024-03-10 20:47:37 --> Router Class Initialized
+INFO - 2024-03-10 20:47:37 --> Output Class Initialized
+INFO - 2024-03-10 20:47:37 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:37 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:37 --> Input Class Initialized
+INFO - 2024-03-10 20:47:37 --> Language Class Initialized
+INFO - 2024-03-10 20:47:37 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:37 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:37 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:37 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:37 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:37 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:37 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:37 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:37 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:37 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:37 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:37 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:37 --> Email Class Initialized
+INFO - 2024-03-10 20:47:37 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:37 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:37 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:37 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:37 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:37 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:37 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:37 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:37 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:37 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:37 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:37 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:37 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:37 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:37 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:37 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:37 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:37 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:37 --> Total execution time: 0.0659
+INFO - 2024-03-10 20:47:38 --> Config Class Initialized
+INFO - 2024-03-10 20:47:38 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:38 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:38 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:38 --> URI Class Initialized
+INFO - 2024-03-10 20:47:38 --> Router Class Initialized
+INFO - 2024-03-10 20:47:38 --> Output Class Initialized
+INFO - 2024-03-10 20:47:38 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:38 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:38 --> Input Class Initialized
+INFO - 2024-03-10 20:47:38 --> Language Class Initialized
+INFO - 2024-03-10 20:47:38 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:38 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:38 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:38 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:38 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:38 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:38 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:38 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:38 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:38 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:38 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:38 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:38 --> Email Class Initialized
+INFO - 2024-03-10 20:47:38 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:38 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:38 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:38 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:38 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:38 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:38 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:38 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:38 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:38 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:38 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:38 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:38 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:38 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:38 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:38 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:38 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:38 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:38 --> Total execution time: 0.0099
+INFO - 2024-03-10 20:47:39 --> Config Class Initialized
+INFO - 2024-03-10 20:47:39 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:39 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:39 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:39 --> URI Class Initialized
+INFO - 2024-03-10 20:47:39 --> Router Class Initialized
+INFO - 2024-03-10 20:47:39 --> Output Class Initialized
+INFO - 2024-03-10 20:47:39 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:39 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:39 --> Input Class Initialized
+INFO - 2024-03-10 20:47:39 --> Language Class Initialized
+INFO - 2024-03-10 20:47:39 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:39 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:39 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:39 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:39 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:39 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:39 --> Email Class Initialized
+INFO - 2024-03-10 20:47:39 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:39 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:39 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:39 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:39 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:39 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:39 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:39 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:39 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:39 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:39 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:39 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:39 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:39 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:39 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:39 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:39 --> Total execution time: 0.0084
+INFO - 2024-03-10 20:47:39 --> Config Class Initialized
+INFO - 2024-03-10 20:47:39 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:39 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:39 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:39 --> URI Class Initialized
+INFO - 2024-03-10 20:47:39 --> Router Class Initialized
+INFO - 2024-03-10 20:47:39 --> Output Class Initialized
+INFO - 2024-03-10 20:47:39 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:39 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:39 --> Input Class Initialized
+INFO - 2024-03-10 20:47:39 --> Language Class Initialized
+INFO - 2024-03-10 20:47:39 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:39 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:39 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:39 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:39 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:39 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:39 --> Email Class Initialized
+INFO - 2024-03-10 20:47:39 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:39 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:39 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:39 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:39 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:39 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:39 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:39 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:39 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:39 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:39 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:39 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:39 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:39 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:39 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:39 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:39 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:39 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:39 --> Total execution time: 0.0079
+INFO - 2024-03-10 20:47:41 --> Config Class Initialized
+INFO - 2024-03-10 20:47:41 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:41 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:41 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:41 --> URI Class Initialized
+INFO - 2024-03-10 20:47:41 --> Router Class Initialized
+INFO - 2024-03-10 20:47:41 --> Output Class Initialized
+INFO - 2024-03-10 20:47:41 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:41 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:41 --> Input Class Initialized
+INFO - 2024-03-10 20:47:41 --> Language Class Initialized
+INFO - 2024-03-10 20:47:41 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:41 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:41 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:41 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:41 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:41 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:41 --> Email Class Initialized
+INFO - 2024-03-10 20:47:41 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:41 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:41 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:41 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:41 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:41 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:41 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:41 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:41 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:41 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:41 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:41 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:41 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:41 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:41 --> Total execution time: 0.0096
+INFO - 2024-03-10 20:47:41 --> Config Class Initialized
+INFO - 2024-03-10 20:47:41 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:41 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:41 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:41 --> URI Class Initialized
+INFO - 2024-03-10 20:47:41 --> Router Class Initialized
+INFO - 2024-03-10 20:47:41 --> Output Class Initialized
+INFO - 2024-03-10 20:47:41 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:41 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:41 --> Input Class Initialized
+INFO - 2024-03-10 20:47:41 --> Language Class Initialized
+INFO - 2024-03-10 20:47:41 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:41 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:41 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:41 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:41 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:41 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:41 --> Email Class Initialized
+INFO - 2024-03-10 20:47:41 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:41 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:41 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:41 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:41 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:41 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:41 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:41 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:41 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:41 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:41 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:41 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:41 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:41 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:41 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:41 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:41 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:41 --> Total execution time: 0.0082
+INFO - 2024-03-10 20:47:42 --> Config Class Initialized
+INFO - 2024-03-10 20:47:42 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:42 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:42 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:42 --> URI Class Initialized
+INFO - 2024-03-10 20:47:42 --> Router Class Initialized
+INFO - 2024-03-10 20:47:42 --> Output Class Initialized
+INFO - 2024-03-10 20:47:42 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:42 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:42 --> Input Class Initialized
+INFO - 2024-03-10 20:47:42 --> Language Class Initialized
+INFO - 2024-03-10 20:47:42 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:42 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:42 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:42 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:42 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:42 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:42 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:42 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:42 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:42 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:42 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:42 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:42 --> Email Class Initialized
+INFO - 2024-03-10 20:47:42 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:42 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:42 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:42 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:42 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:42 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:42 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:42 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:42 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:42 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:42 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:42 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:42 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:42 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:42 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:42 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:42 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:42 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:42 --> Total execution time: 0.0669
+INFO - 2024-03-10 20:47:43 --> Config Class Initialized
+INFO - 2024-03-10 20:47:43 --> Hooks Class Initialized
+DEBUG - 2024-03-10 20:47:43 --> UTF-8 Support Enabled
+INFO - 2024-03-10 20:47:43 --> Utf8 Class Initialized
+INFO - 2024-03-10 20:47:43 --> URI Class Initialized
+INFO - 2024-03-10 20:47:43 --> Router Class Initialized
+INFO - 2024-03-10 20:47:43 --> Output Class Initialized
+INFO - 2024-03-10 20:47:43 --> Security Class Initialized
+DEBUG - 2024-03-10 20:47:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-10 20:47:43 --> Input Class Initialized
+INFO - 2024-03-10 20:47:43 --> Language Class Initialized
+INFO - 2024-03-10 20:47:43 --> Loader Class Initialized
+INFO - 2024-03-10 20:47:43 --> Helper loaded: directory_helper
+INFO - 2024-03-10 20:47:43 --> Helper loaded: global_helper
+INFO - 2024-03-10 20:47:43 --> Helper loaded: fechaes_helper
+INFO - 2024-03-10 20:47:43 --> Helper loaded: url_helper
+INFO - 2024-03-10 20:47:43 --> Helper loaded: text_helper
+INFO - 2024-03-10 20:47:43 --> Helper loaded: file_helper
+INFO - 2024-03-10 20:47:43 --> Helper loaded: api_helper
+INFO - 2024-03-10 20:47:43 --> Database Driver Class Initialized
+DEBUG - 2024-03-10 20:47:43 --> Encrypt Class Initialized
+DEBUG - 2024-03-10 20:47:43 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/email.php
+DEBUG - 2024-03-10 20:47:43 --> Config file loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/config/ion_auth.php
+INFO - 2024-03-10 20:47:43 --> Email Class Initialized
+INFO - 2024-03-10 20:47:43 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-10 20:47:43 --> Helper loaded: cookie_helper
+INFO - 2024-03-10 20:47:43 --> Helper loaded: language_helper
+DEBUG - 2024-03-10 20:47:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-10 20:47:43 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-10 20:47:43 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-10 20:47:43 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-10 20:47:43 --> Encrypt Class Initialized
+INFO - 2024-03-10 20:47:43 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Usuarios_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Secretarias_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Programas_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Lotes_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Proveedores_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Consolidados_model" initialized
+INFO - 2024-03-10 20:47:43 --> Controller Class Initialized
+INFO - 2024-03-10 20:47:43 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/nav2.php
+INFO - 2024-03-10 20:47:43 --> File loaded: /home/u117285061/domains/quickdata.com.ar/public_html/test/application/views/manager/etiquetas/footer.php
+INFO - 2024-03-10 20:47:43 --> Helper loaded: form_helper
+INFO - 2024-03-10 20:47:43 --> Model "Manager_model" initialized
+INFO - 2024-03-10 20:47:43 --> Form Validation Class Initialized
+INFO - 2024-03-10 20:47:43 --> Model "Lecturas_model" initialized
+INFO - 2024-03-10 20:47:43 --> Model "Uploader_model" initialized
+INFO - 2024-03-10 20:47:43 --> Final output sent to browser
+DEBUG - 2024-03-10 20:47:43 --> Total execution time: 0.0410

@@ -60,7 +60,9 @@ class Consolidados extends backend_controller
 			$data = $row = array();
 			$memData = $this->Manager_model->getRows($_POST);
 
+
 			foreach ($memData as $r) {
+
 				$indexador = $this->Manager_model->getWhere('_indexaciones', 'nro_cuenta="'. $r->nro_cuenta . '"');
 				//$r->expediente = $indexador->expediente;
 
@@ -68,29 +70,29 @@ class Consolidados extends backend_controller
 				$accionesDelete = '<span class="borrar_dato acciones" data-lote="' . $r->lote . '" data-file="' . $r->nombre_archivo . '"><a title="Borrar lote" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar Datos"></i> </a> </span>';
 				$punto =".";
 		
-				if(strlen($r->id_programa) == 1){
-					$r->id_programa = '0'.$r->id_programa;
+				if(strlen($r->id_interno_programa) == 1){
+					$r->id_interno_programa = '0'.$r->id_interno_programa;
 				}
-				if($r->id_proyecto != '0' ){
+				if($r->id_interno_proyecto != '0' ){
 
-					if(strlen($r->id_proyecto) == 1){
+					if(strlen($r->id_interno_proyecto) == 1){
 						
-						$r->id_proyecto = ".0".strval($r->id_proyecto);
+						$r->id_interno_proyecto = ".0".strval($r->id_interno_proyecto);
 					}else{
-						$r->id_proyecto = ".".$r->id_proyecto;
+						$r->id_interno_proyecto = ".".$r->id_interno_proyecto;
 					}
 					
 				}else{
-					$r->id_proyecto = '';
+					$r->id_interno_proyecto = '';
 				}
 
 				$data[] = array(
 					strtoupper($r->periodo_contable),
-					$r->proveedor,
+					$r->proveedora,
 					$r->expediente,
 					$r->secretaria,
 					$r->jurisdiccion,
-					$r->id_programa.$r->id_proyecto,
+					$r->id_interno_programa.$r->id_interno_proyecto,
 					$r->jurisdiccion,
 					$r->objeto,
 					$r->dependencia,

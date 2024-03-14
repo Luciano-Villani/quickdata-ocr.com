@@ -26,7 +26,36 @@ class Proyectos extends backend_controller
 		}
 	}
 
+	public function list_select()
+	{
 
+
+		// envia tambien los proyectos
+		if ($this->input->is_ajax_request()) {
+
+
+			if ($this->input->post('id') != 0) {
+				$this->db->where('id_programa', $this->input->post('id'));
+				
+			}
+			$query = $this->db->select('id, id_interno,descripcion')->get('_proyectos');
+
+		
+
+			if ($query->result() > 0) {
+
+				$proyectos = $query->result();
+			}
+
+			$respuesta = array(
+				'proyectos' => $proyectos,
+
+			);
+
+
+			echo json_encode($respuesta);
+		}
+	}
 	public function list_dt()
 	{
 		// $query = $this->db->select('*')->get('_programas');
@@ -218,7 +247,7 @@ class Proyectos extends backend_controller
 						'id_secretaria' => $this->input->post('id_secretaria'),
 						'id_programa' => $this->input->post('id_programa'),
 						'id_interno' => $this->input->post('id_interno'),
-						'descripcion' => $this->input->post('descripcion'),
+						'descripcion' => strtoupper($this->input->post('descripcion')),
 					);
 					$this->Manager_model->grabar_datos("_proyectos", $datos);
 					redirect(base_url('Admin/Proyectos'));

@@ -27,6 +27,7 @@ class Consolidados_model extends CI_Model
 	}
 	public function consolidar_datos()
 	{
+
 		if (isset($_REQUEST['id_file']) && $_POST['id_file'] != null) {
 			$data = $this->Manager_model->getwhere('_datos_api', 'id=' . $_POST['id_file']);
 			$files = array(
@@ -49,8 +50,12 @@ class Consolidados_model extends CI_Model
 
 					$dependencia = '';
 					$id_proyecto = '';
-					$obra = '';
+					$id_programa = '';
+					$programa_descripcion = '';
 					$proyecto_descripcion = '';
+					$id_interno_programa = '';
+					$id_interno_proyecto = '';
+
 					$dependencia_dependencia = '';
 					$dependencia_direccion = '';
 					$indexador = $this->Manager_model->getWhere('_indexaciones', 'nro_cuenta="' . $file->nro_cuenta . '"');
@@ -63,12 +68,15 @@ class Consolidados_model extends CI_Model
 						$dependencia_direccion = $dependencia->direccion;
 					}
 
-					if (!$programa = $this->Manager_model->getWhere('_programas','id_interno="' . $indexador->id_programa . '" AND _programas.id_secretaria = "'.$indexador->id_secretaria.'"' )) {
-						
+					if ($programa = $this->Manager_model->getWhere('_programas','id="' . $indexador->id_programa .'"' )) {
+						$id_programa = $programa->id;
+						$programa_descripcion = $programa->descripcion;
+						$id_interno_programa = $programa->id_interno;
 					}
-					if ($proyecto = $this->Manager_model->getWhere('_proyectos','id_interno="' . $indexador->id_proyecto.'" AND _proyectos.id_secretaria = "'.$indexador->id_secretaria.'" AND _proyectos.id_programa = "'.$indexador->id_programa.'"')) {
-						$id_proyecto = $proyecto->id_interno;
-						$proyecto_descripcion = $proyecto->id_interno;
+					if ($proyecto = $this->Manager_model->getWhere('_proyectos','id="' . $indexador->id_proyecto.'"')) {
+						$id_proyecto = $proyecto->id;
+						$proyecto_descripcion = $proyecto->descripcion;
+						$id_interno_proyecto = $proyecto->id_interno;
 					}
 					// if ($obra = $this->Manager_model->get_data('_obras', $indexador->id_obra != null)) {
 					// 	$obra = $obra->descripcion;
@@ -101,9 +109,11 @@ class Consolidados_model extends CI_Model
 						'expediente' => $indexador->expediente,
 						'secretaria' => $secretaria->secretaria,
 						'jurisdiccion' => $secretaria->major,
-						'programa' => $programa->descripcion,
-						'id_programa' => $programa->id_interno,
+						'programa' => $programa_descripcion,
+						'id_interno_programa' => $id_interno_programa,
+						'id_programa' => $id_programa,
 						'id_proyecto' => $id_proyecto,
+						'id_interno_proyecto' => $id_interno_proyecto,
 						'proyecto' => $proyecto_descripcion,
 						'objeto' => $proveedor->objeto_gasto,
 						'dependencia' =>  $dependencia_dependencia,
@@ -146,7 +156,7 @@ class Consolidados_model extends CI_Model
 					'title' => 'CONSOLIDACIONES',
 					'mensaje' => 'Archivos anteriormente Consolidados'
 				);
-				 return $response;
+				echo json_encode($response);die();
 			}else{
 				$response = array(
 					'status' => 'succes',

@@ -169,11 +169,12 @@
 				<th></th>
 				<th></th>
 				<th>Proveedor</th>
+				<th>Exp</th>
 				<th>Nro de cuenta</th>
 				<th>Secretaria</th>
-				<th>Dependencia</th>
 				<th>Programa</th>
 				<th>Proyecto</th>
+				<th>Dependencia</th>
 				<th></th>
 			</tr>
 		</thead>

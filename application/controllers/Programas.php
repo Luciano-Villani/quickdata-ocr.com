@@ -14,7 +14,7 @@ class Programas extends backend_controller
 			$this->load->model('manager/Usuarios_model');
 			$this->load->model('manager/Secretarias_model');
 			$this->load->model('manager/Dependencias_model');
-			$this->table ='_programas';
+			$this->table = '_programas';
 
 			// $this->output->enable_profiler(TRUE);
 		}
@@ -80,17 +80,16 @@ class Programas extends backend_controller
 
 			$estado  = 0;  // para permitir borrar o no
 			$btnClass = 'text-success-600';
-			$index = $this->Manager_model->getWhere('_indexaciones','id_programa="'.$r->id_programa.'"');
-			if($index){
-				$estado  = 1; 
+			$index = $this->Manager_model->getWhere('_indexaciones', 'id_programa="' . $r->id_programa . '"');
+
+			if ($index) {
+				$estado  = 1;
 				$btnClass = 'text-danger-600';
 			}
 
-
 			$acciones = '<ul class="icons-list">
-			
-			<li class="text-primary-600"><a data-id="'. $r->id_programa.'" class="edit_dato" href="#"><i class="icon-pencil7"></i></a></li>
-			<li class="'.$btnClass.'"><a class="borrar_dato" data-estado="'. $estado.'" data-id="'. $r->id_programa.'" href="#"><i class="icon-trash"></i></a></li>
+			<li class="text-primary-600"><a data-id="' . $r->id_programa . '" class="edit_dato" href="#"><i class="icon-pencil7"></i></a></li>
+			<li class="' . $btnClass . '"><a class="borrar_dato" data-estado="' . $estado . '" data-id="' . $r->id_programa . '" href="#"><i class="icon-trash"></i></a></li>
 		</ul>';
 
 			$data[] = array(
@@ -126,7 +125,7 @@ class Programas extends backend_controller
 			} else {
 				$response = array(
 					'mensaje' => $_REQUEST['id'],
-					'title' => 'EDITAR '.$this->router->fetch_class() .' - dato inexistente',
+					'title' => 'EDITAR ' . $this->router->fetch_class() . ' - dato inexistente',
 					'status' => 'error',
 				);
 			}
@@ -143,8 +142,7 @@ class Programas extends backend_controller
 		// $this->BtnText = 'Editar';
 		$script = array(
 			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
-			//			base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),
-			//			base_url('assets/manager/js/plugins/tables/datatables/datatables_advanced.js'),
+
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
 		);
@@ -161,7 +159,7 @@ class Programas extends backend_controller
 
 		if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-		
+
 
 			$this->form_validation->set_rules('secretaria', 'secretaría', 'trim|in_select[0]');
 			//			$this->form_validation->set_rules('dependencia', 'Dependencia', 'trim|in_select[0]');
@@ -170,7 +168,7 @@ class Programas extends backend_controller
 
 			if ($this->form_validation->run() != FALSE) {
 
-				if (isset($_REQUEST['id']) && $_REQUEST['id'] !='') {
+				if (isset($_REQUEST['id']) && $_REQUEST['id'] != '') {
 
 					$proy = $_REQUEST['id'];
 					unset($_REQUEST['id']);
@@ -181,13 +179,12 @@ class Programas extends backend_controller
 						'estado' => 'success',
 					);
 
-					
+
 					try {
-						$this->db->update($this->table, $_REQUEST, array('id' => $proy));
-						
+						$this->db->update($this->table, strtoupper($_REQUEST), array('id' => $proy));
 					} catch (Exception $e) {
-						$grabar_datos_array['estado'] = 'error'; 
-						$grabar_datos_array['mensaje'] = $e->getMessage(); 
+						$grabar_datos_array['estado'] = 'error';
+						$grabar_datos_array['mensaje'] = $e->getMessage();
 					}
 					$this->session->set_userdata('save_data', $grabar_datos_array);
 					redirect(base_url('Admin/Programas'));
@@ -196,12 +193,11 @@ class Programas extends backend_controller
 						'id_secretaria' => $this->input->post('id_secretaria'),
 						'id_dependencia' => $this->input->post('id_dependencia'),
 						'id_interno' => $this->input->post('id_interno'),
-						'descripcion' => $this->input->post('descripcion'),
+						'descripcion' => strtoupper($this->input->post('descripcion')),
 					);
 					$this->Manager_model->grabar_datos($this->table, $datos);
 					redirect(base_url('Admin/Programas'));
 				}
-				
 			}
 		}
 

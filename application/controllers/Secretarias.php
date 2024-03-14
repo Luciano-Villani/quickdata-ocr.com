@@ -138,7 +138,7 @@ class Secretarias extends backend_controller
 	
 	
 					try {
-						$this->db->update($this->table, $_REQUEST, array('id' => $proy));
+						$this->db->update($this->table, strtoupper($_REQUEST), array('id' => $proy));
 					} catch (Exception $e) {
 						$grabar_datos_array['estado'] = 'error';
 						$grabar_datos_array['mensaje'] = $e->getMessage();
@@ -157,7 +157,7 @@ class Secretarias extends backend_controller
 
 					$datos = array(
 						'major' => $this->input->post('major'),
-						'secretaria' => $this->input->post('secretaria'),
+						'secretaria' => strtoupper($this->input->post('secretaria')),
 					);
 	
 					$this->Manager_model->grabar_datos("_secretarias", $datos);

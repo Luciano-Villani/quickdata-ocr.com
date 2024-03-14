@@ -145,7 +145,7 @@ function initDatatable(search = false, type = 0) {
     serverSide: true,
     // responsive: true,
     type: "POST",
-    order: [2, "desc"],
+    order: [1, "desc"],
     dataSrc: "",
     ajax: {
       data: {
@@ -201,6 +201,112 @@ $(document).ready(function () {
     var disabled = 'disabled="disabled"';
     $(".collapse").collapse("toggle");
   }
+
+
+  
+  $("body").on("change", "select#select_programa", function (e) {
+
+
+    var dato = new FormData();
+    dato.append("id", $(this).val());
+    dato.append("id_secretaria", $("#select_secretaria").val());
+    
+    $.ajax({
+      type: "POST",
+      contentType: false,
+      //    				dataType: 'json',
+      data: dato,
+      processData: false,
+      cache: false,
+      beforeSend: function () {
+      
+        $("#select_proyecto").empty();
+      
+      },
+      url: $("body").data("base_url") + "Proyectos/list_select",
+      success: function (result) {
+        var obj = jQuery.parseJSON(result);
+        console.log("result data");
+        console.log(result);
+
+
+        if (Object.keys(obj.proyectos).length > 0) {
+          $("#select_proyecto").removeAttr("disabled");
+          $("#select_proyecto").append(
+            '<option selected value="0">SELECCIONE PROYECTO</option>'
+          );
+
+            $.each(obj.proyectos, function (id, value) {
+              $("#select_proyecto").append(
+                '<option value="' +
+                  value["id"] +
+                  '">' +
+                  value["id_interno"] +
+                  "  " +
+                  value["descripcion"].toUpperCase() +
+                  "</option>"
+              );
+            });
+        } else {
+          $("#select_proyecto").append(
+            '<option selected value="">SIN PROYECTOS</option>'
+          );
+        }
+
+
+        //    					toastr.success('Registro Editado correctamente!', 'Categorías');
+      },
+      error: function (xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+      },
+    });
+
+
+
+
+  });
+
+
+
+  $("body").on("click", "a.edit_dato", function (e) {
+    e.preventDefault();
+    var dato = new FormData();
+    dato.append("id", $(this).data("id"));
+    $.ajax({
+      type: "POST",
+      contentType: false,
+      dataType: "json",
+      data: dato,
+      processData: false,
+      cache: false,
+      beforeSend: function () {},
+      url: $("body").data("base_url") + "Indedxaciones/edit",
+      success: function (result) {
+        if (result.status == "success") {
+       
+          $("div#collapseExample").addClass("show");
+          // $("input[name='id']").val(result.data.id);
+          // $("input[name='id_interno']").val(result.data.id_interno);
+          // $("input[name='descripcion']").val(result.data.descripcion);
+          // $("select#select_secretaria").val(result.data.id_secretaria).trigger('change');
+          // $("select#select_programa").removeAttr('disabled');
+		  $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+        //   setTimeout( function() { 
+        
+        // }, 1000);
+        
+
+        } else {
+          alertas(result);
+        }
+        // table.ajax.reload(null, false);
+      },
+      error: function (xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+      },
+    });
+  });
 });
 
 $(document).ready(function () {
@@ -248,15 +354,15 @@ $(document).ready(function () {
           className: "dt-left",
         },
         {
-          targets: [0, 1],
+          targets: [0, 1,3],
           visible: false,
         },
         { width: "", orderable: false, targets: [7] },
         {
-          targets: [4],
+          targets: [2],
           render: function (data, type, full, meta) {
       
-            return data + " (" + full[1] + ")";
+            return data;
           },
         },
       ],
@@ -322,6 +428,8 @@ $(document).ready(function () {
     ).removeAttr("disabled");
   } else {
   }
+
+  
 
   $("form#form-validate-jquery").validate({
     rules: {
@@ -460,17 +568,17 @@ $(document).ready(function () {
               '<option selected value="0">SELECCIONE PROYECTO</option>'
             );
 
-            $.each(obj.proyectos, function (id, value) {
-              $("#select_proyecto").append(
-                '<option value="' +
-                  value["id_interno"] +
-                  '">' +
-                  value["id_interno"] +
-                  "  " +
-                  value["descripcion"].toUpperCase() +
-                  "</option>"
-              );
-            });
+            // $.each(obj.proyectos, function (id, value) {
+            //   $("#select_proyecto").append(
+            //     '<option value="' +
+            //       value["id"] +
+            //       '">' +
+            //       value["id_interno"] +
+            //       "  " +
+            //       value["descripcion"].toUpperCase() +
+            //       "</option>"
+            //   );
+            // });
           } else {
             $("#select_proyecto").append(
               '<option selected value="">SIN PROYECTOS</option>'
@@ -487,7 +595,7 @@ $(document).ready(function () {
             $.each(obj.programas, function (id, value) {
               $("#select_programa").append(
                 '<option value="' +
-                  value["id_interno"] +
+                  value["id"] +
                   '">' +
                   value["id_interno"] +
                   "  " +

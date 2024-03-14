@@ -108,7 +108,7 @@ function initDatatable(search = false, type = 0) {
       scrollCollapse: true,
       scrollY: 300,
   
-      // paging: false,
+      paging: false,
       lengthMenu: [
         [10, 25, 50, 100, -1],
         [10, 25, 50, 100, "All"],
@@ -136,7 +136,6 @@ function initDatatable(search = false, type = 0) {
         {
           render:function(data, type, row)
           {
-
             console.log(row);
            return "PROG " + data;
 
@@ -227,7 +226,7 @@ function initDatatable(search = false, type = 0) {
       serverSide: true,
       // responsive: true,
       type: "POST",
-      order:false,
+      order: [[0, "desc"]],
       dataSrc: "",
       ajax: {
         data: {

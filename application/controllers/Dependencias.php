@@ -39,7 +39,7 @@ class Dependencias extends backend_controller
 			if ($this->input->post('id') != 0) {
 				$this->db->where('id_secretaria', $this->input->post('id'));
 			}
-			$query = $this->db->select('id_interno,descripcion')->get('_proyectos');
+			$query = $this->db->select('id, id_interno,descripcion')->get('_proyectos');
 
 			if ($query->result() > 0) {
 
@@ -49,7 +49,7 @@ class Dependencias extends backend_controller
 			if ($this->input->post('id') != 0) {
 				$this->db->where('id_secretaria', $this->input->post('id'));
 			}
-			$query = $this->db->select('id_interno,descripcion')->get('_programas');
+			$query = $this->db->select('id, id_interno,descripcion')->get('_programas');
 
 			if ($query->result() > 0) {
 
@@ -184,12 +184,12 @@ class Dependencias extends backend_controller
 
 					$this->session->set_userdata('save_data', $grabar_datos_array);
 
-					$this->db->update($this->table, $_REQUEST, array('id' => $depend));
+					$this->db->update($this->table, strtoupper($_REQUEST), array('id' => $depend));
 
 					redirect(base_url('Admin/Dependencias'));
 				}
 
-				$this->Manager_model->grabar_datos($this->table, $datos);
+				$this->Manager_model->grabar_datos($this->table, strtoupper($datos));
 				redirect(base_url('Admin/Dependencias'));
 			}
 		}
