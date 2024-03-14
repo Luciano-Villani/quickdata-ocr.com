@@ -45,7 +45,7 @@
 	}
 	}
 	.tablas {
-		width: 1300px !important;
+		width: 1200px !important;
 		margin-left: -80px; !important;
 
 	}
