@@ -45,8 +45,8 @@
 	}
 	}
 	.tablas {
-		width: 1200px !important;
-		margin-left: -80px; !important;
+		width: 1250px !important;
+		margin-left: -75px; !important;
 
 	}
 </style>
