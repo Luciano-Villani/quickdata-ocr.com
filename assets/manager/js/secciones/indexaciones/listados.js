@@ -81,7 +81,8 @@ function newexportaction(e, dt, button, config) {
   // Requery the server with the new one-time export settings
   dt.ajax.reload();
 }
-function initDatatable(search = false, type = 0) {
+function initDatatablex(search = false, type = 0) {
+  alert();
   var prove = false;
   var tipo_pago = false;
   var periodo_contable = false;
@@ -125,7 +126,7 @@ function initDatatable(search = false, type = 0) {
         className: "dt-left",
       },
       {
-        targets: [0, 1],
+        targets: [0],
         visible: false,
       },
       { width: "", orderable: false, targets: [7] },
@@ -145,8 +146,8 @@ function initDatatable(search = false, type = 0) {
     serverSide: true,
     // responsive: true,
     type: "POST",
-    order: [1, "desc"],
-    dataSrc: "",
+    order: [1,'desc'],
+    ordering:false,
     ajax: {
       data: {
         type: type,
@@ -354,7 +355,7 @@ $(document).ready(function () {
           className: "dt-left",
         },
         {
-          targets: [0, 1,3],
+          targets: [0,1,3],
           visible: false,
         },
         { width: "", orderable: false, targets: [7] },
@@ -373,8 +374,7 @@ $(document).ready(function () {
       serverSide: true,
       // responsive: true,
       type: "POST",
-      order: [2, "desc"],
-      dataSrc: "",
+      order: [1, "desc"],
       ajax: {
         data: {
           type: type,

@@ -35,9 +35,9 @@ var nro_cuenta = $("body").data("nro_cuenta");
 
   console.log("data");
 
-
   var dato = new FormData();
   dato.append("nro_cuenta", nro_cuenta);
+  
 var tabla_index = $('#indexaciones_dt').DataTable({
     dom: "frtip",
     "pageLength": 50,

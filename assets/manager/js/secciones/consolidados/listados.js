@@ -91,6 +91,13 @@ function initDatatable(search = false, type = 0) {
     prove = $("#id_proveedor").val();
     tipo_pago = $("#id_tipo_pago").val();
     periodo_contable = $("#periodo_contable").val();
+
+    var $select = $("#id_tipo_pago");
+    var value = $select.val();
+    var data = [];
+    value.forEach(function (valor, indice, array) {
+      data[indice] = $select.find("option[value=" + valor + "]").text();
+    });
   }
 
   $("#consolidados_dt").DataTable().destroy();
@@ -107,14 +114,14 @@ function initDatatable(search = false, type = 0) {
       scrollX: true,
       scrollCollapse: true,
       scrollY: 300,
-  
+
       // paging: false,
       lengthMenu: [
         [10, 25, 50, 100, -1],
         [10, 25, 50, 100, "All"],
       ],
       pageLength: 25,
-      order: [0, "desc"],
+      // order: [1, "desc"],
       buttons: [
         {
           extend: "excelHtml5",
@@ -134,24 +141,16 @@ function initDatatable(search = false, type = 0) {
       ],
       columnDefs: [
         {
-          render:function(data, type, row)
-          {
-
-            console.log(row);
-           return "PROG " + data;
-
+          render: function (data, type, row) {
+            // console.log(row);
+            return "PROG " + data;
           },
-        
+
           targets: 5,
-        },       
-        {
-          // render: (data, type, row) => data+"(" +row[15]+")",
-          // targets: 1,
         },
         {
           render: function (data, type, row) {
             return data + "." + row[5];
-          
           },
           targets: 6,
         },
@@ -227,15 +226,15 @@ function initDatatable(search = false, type = 0) {
       serverSide: true,
       // responsive: true,
       type: "POST",
-      order:false,
-      dataSrc: "",
+      order: false,
+      // ordering:false,
       ajax: {
         data: {
           type: type,
           table: "_consolidados",
           data_search: search,
           id_proveedor: prove,
-          tipo_pago: tipo_pago,
+          tipo_pago: data,
           periodo_contable: periodo_contable,
         },
         url: "/Consolidados/list_dt",
@@ -304,9 +303,6 @@ $(document).ready(function () {
         var strSearchvar = new Array();
         strSearchvar =
           start.format("YYYY-MM-DD") + "@" + end.format("YYYY-MM-DD");
-        console.log("strSearchvar");
-        console.log(strSearchvar);
-        // console.log(start.format('YYYY-MM-DD'));
 
         //envio parametro true para que se selecciones todas los resultados
         var parametrosUrl =
@@ -321,9 +317,7 @@ $(document).ready(function () {
     }
   );
   range.on("cancel.daterangepicker", function () {});
-  range.on("load.daterangepicker", function () {
-    alert();
-  });
+  range.on("load.daterangepicker", function () {});
   var drp = $('input[name="daterange2"]').data("daterangepicker");
   // var start = moment().subtract(29, 'days');
   // var end = moment();
@@ -370,9 +364,6 @@ $(document).ready(function () {
       return false;
     }
     initDatatable(false, 4);
-
-    console.log($("#id_proveedor").val());
-    console.log($("#id_tipo_pago").val());
   });
 
   $("body").on("click", "#descarga-exell", function (e) {
