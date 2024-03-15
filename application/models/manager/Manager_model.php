@@ -94,7 +94,6 @@ class Manager_model extends CI_Model
                  ',
                 );
 
-
                 // $this->db->join('_tipo_pago', '_consolidados.tipo_pago = _tipo_pago.tip_nombre', '');
 
                 $my_column_order = array(
@@ -141,10 +140,9 @@ class Manager_model extends CI_Model
                     '_consolidados.id' => 'desc'
                 );
 
-
                 if ($postData['data_search'] != "false" && (isset($postData['data_search']) && $postData['data_search'] != '')) {
 
-                    $this->db->group_start();
+                   $this->db->group_start();
                     switch ($postData['type']) {
                         case 1:
                             $dates = explode('@', $postData['data_search']);
@@ -163,7 +161,6 @@ class Manager_model extends CI_Model
                     $this->db->group_end();
                 }
 
-
                 if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
                     $this->db->group_start();
                     foreach ($postData['id_proveedor'] as $prove) {
@@ -174,10 +171,11 @@ class Manager_model extends CI_Model
                 }
                 if ((isset($postData['tipo_pago']) && $postData['tipo_pago'] != 'false' &&  $postData['tipo_pago'] != '')) {
 
+
                     $this->db->group_start();
                     foreach ($postData['tipo_pago'] as $tipo) {
 
-                        $this->db->or_where('_tipo_pago.tip_id', $tipo);
+                        $this->db->or_where('_consolidados.tipo_pago', $tipo);
                     }
                     $this->db->group_end();
                 }
@@ -305,7 +303,6 @@ class Manager_model extends CI_Model
 
             case '_indexaciones':
 
-   
                 $this->db->from($_POST['table']);
                 $query = $this->db->get();
                 // $datos = $query->result();
@@ -321,35 +318,27 @@ class Manager_model extends CI_Model
                     _proyectos.descripcion as descr_proyecto,
                     '
                 );
-                /*
-                _proyectos.descripcion as descr_proyecto,
-                 _proveedores.nombre as nom_proveedor,
-                    _proveedores.nombre,
-                  
-                */
 
-                // $this->db->select('_indexaciones.*,_dependencias.direccion as dire_depe,_dependencias.id as id_dependencia , _secretarias.secretaria,users.*, CONCAT(users.first_name," ", users.last_name) as user_add');
                 $this->db->join('_secretarias', '_secretarias.id = _indexaciones.id_secretaria', 'rigth', true);
                 $this->db->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor', '');
                 $this->db->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia', 'left');
-                $this->db->join('_programas', ' _indexaciones.id_programa = _programas.id', '');
+                $this->db->join('_programas', ' _indexaciones.id_programa = _programas.id', 'LEFT');
                 $this->db->join('_proyectos', '_indexaciones.id_proyecto = _proyectos.id', 'left');
 
-
-                // $this->db->join('_programas a', 'a.id_secretaria = _indexaciones.id_secretaria', 'left');
-                // $this->db->join('users','users.id = _dependencias.user_add','');
                 $my_column_order = array(
-                    '_indexaciones.id',
                     '',
+                    '_indexaciones.id',
                     '_proveedores.nombre',
+                    '',
                     '_secretarias.secretaria',
                     '_dependencias.dependencia',
                     '_indexaciones.expediente',
                     '_programas.descripcion',
                     '_proyectos.descripcion'
                 );
+
                 $my_column_search = array(
-                    'UPPER(_proveedores.nombre)',
+                    '_proveedores.nombre',
                     '_indexaciones.nro_cuenta',
                     '_secretarias.secretaria',
                     '_dependencias.dependencia',
@@ -357,7 +346,9 @@ class Manager_model extends CI_Model
                     'UPPER(_proyectos.descripcion)',
                     '_indexaciones.expediente',
                 );
-
+                $this->order = array(
+                    '_indexaciones.id' => 'desc'
+                );
        
                 break;
         }
@@ -387,10 +378,10 @@ class Manager_model extends CI_Model
         }
 
         if (isset($postData['order'])) {
+
             $this->db->order_by($my_column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
         } else if (isset($this->order)) {
 
-    
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);
         }

@@ -27,32 +27,40 @@ class Indexaciones_model extends CI_Model
 		$dependencia  ='';
         $programa  ='';
 		
-		
-		$query = $this->db->select("*")
-		->where('nro_cuenta',$nro_cuenta)
-		->get('_indexaciones');
-		$datos = [];
+		$this->db->select(
+		'_indexaciones.id as id_index,
+		_indexaciones.*,
+		_programas.id_interno as prog_id_interno,
+		_proyectos.id_interno as proy_id_interno,
+		_secretarias.secretaria as secretaria,
+		_dependencias.dependencia as dependencia,
+		_proveedores.nombre as proveedor,
+		_tipo_pago.tip_nombre as tipo_pago
+		');
+		$this->db->where('nro_cuenta', $nro_cuenta);
+		$this->db->join('_programas', '_programas.id = _indexaciones.id_programa');
+		$this->db->join('_proyectos', '_proyectos.id = _indexaciones.id_proyecto','LEFT');
+		$this->db->join('_secretarias', '_secretarias.id = _indexaciones.id_secretaria','');
+		$this->db->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia','');
+		$this->db->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor','');
+		$this->db->join('_tipo_pago', '_tipo_pago.tip_id = _indexaciones.tipo_pago','');
+		$this->db->from('_indexaciones');
+
+		// $datos = [];
 
 		$acciones = 'acciones';
-		foreach ($query->result() as $r) {
+		foreach ($result = $this->db->get()->result() as $r) {
 
-			$secretaria = $this->Manager_model->get_data('_secretarias',$r->id_secretaria);
-			if($dependencia = $this->Manager_model->get_data('_dependencias',$r->id_dependencia)){
-                $dependencia =  $dependencia->dependencia;
-            }
-			$proveedor = $this->Manager_model->get_data('_proveedores',$r->id_proveedor);
-			// if($programa = $this->Manager_model->get_data('_programas',$r->id_programa)){
-			// 	$programa = $programa->descripcion;
-			// }
+
 			$datos[] = array(
 				$r->expediente,
 				$r->nro_cuenta,
-				$secretaria->secretaria,
-				$dependencia,
-				$r->id_programa,
-				$r->id_proyecto,
-				$proveedor->nombre,
-				get_tipoPago($r->tipo_pago),
+				$r->secretaria,
+				$r->dependencia,
+				$r->prog_id_interno,
+				$r->proy_id_interno,
+				$r->proveedor,
+				$r->tipo_pago,
 			
 			);
 			
@@ -60,8 +68,8 @@ class Indexaciones_model extends CI_Model
 
 		$result = array(
 			"draw" => $draw,
-			"recordsTotal" => $query->num_rows(),
-			"recordsFiltered" => $query->num_rows(),
+			"recordsTotal" => count($result),
+			"recordsFiltered" =>  count($result),
 			"data" => $datos
 		);
 

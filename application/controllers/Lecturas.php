@@ -226,6 +226,8 @@ class Lecturas extends backend_controller
 
 		if ($registro_api) {
 			$this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($registro_api->nro_cuenta);
+
+	
 		}
 
 

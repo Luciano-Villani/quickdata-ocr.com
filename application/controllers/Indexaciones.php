@@ -210,14 +210,8 @@ class Indexaciones extends backend_controller
 
 					unset($_REQUEST["id_indexacion"]);
 
-
-
-					if($this->Manager_model->grabar_datos($this->data['tabla'], $_REQUEST)){
-						die('dsa');
-					}else{
-						die('no graba	');
-					}
 					$this->Manager_model->grabar_datos($this->data['tabla'], $_REQUEST);
+					
 					$grabar_datos_array = array(
 						'seccion' => 'Alta nuevas ' . $this->router->fetch_class(),
 						'mensaje' => 'Datos Grabados ',

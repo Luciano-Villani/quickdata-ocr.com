@@ -223,15 +223,6 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 						'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
 					);
 					break;	
-					
-					// vencimiento_del_pago
-					// periodo_del_consumo —> son 3 datos: fecha al fecha
-					// nro_cuenta
-					// numero_de_factura
-					// fecha_emision
-					// proximo_vencimiento
-					// total_importe 
-					
 
 					case 5: //3480 PERSONAL
 
@@ -252,7 +243,12 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 						// 'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
 					);
 					break;
-				case 6:
+				case 6: // 6198 CLARO ARGENTINA
+					$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
+					$nro_cuenta = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
+					}
 					$periodo_del_consumo = '';
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
@@ -270,10 +266,9 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 						$total_vencido .= $a->document->inference->pages[0]->prediction->total_vencido->values[$paso]->content;
 					}
 
-
 					$dataUpdate = array(
 						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
+						'nro_cuenta' => trim($nro_cuenta),
 						'nro_medidor' => trim('N/A'),
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
 						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
@@ -373,6 +368,7 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
 						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+						'periodo_del_consumo' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 						'total_vencido' => trim($total_vencido),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'consumo' => trim($consumo),
