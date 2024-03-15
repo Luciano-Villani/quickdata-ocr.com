@@ -756,3 +756,56 @@ INFO - 2024-03-15 12:48:37 --> Model "Proyectos_model" initialized
 INFO - 2024-03-15 12:48:37 --> Model "Obras_model" initialized
 INFO - 2024-03-15 12:48:37 --> Final output sent to browser
 DEBUG - 2024-03-15 12:48:37 --> Total execution time: 0.1468
+INFO - 2024-03-15 13:00:03 --> Config Class Initialized
+INFO - 2024-03-15 13:00:03 --> Hooks Class Initialized
+DEBUG - 2024-03-15 13:00:03 --> UTF-8 Support Enabled
+INFO - 2024-03-15 13:00:03 --> Utf8 Class Initialized
+INFO - 2024-03-15 13:00:03 --> URI Class Initialized
+INFO - 2024-03-15 13:00:03 --> Router Class Initialized
+INFO - 2024-03-15 13:00:03 --> Output Class Initialized
+INFO - 2024-03-15 13:00:03 --> Security Class Initialized
+DEBUG - 2024-03-15 13:00:03 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-03-15 13:00:03 --> Input Class Initialized
+INFO - 2024-03-15 13:00:03 --> Language Class Initialized
+INFO - 2024-03-15 13:00:03 --> Loader Class Initialized
+INFO - 2024-03-15 13:00:03 --> Helper loaded: directory_helper
+INFO - 2024-03-15 13:00:03 --> Helper loaded: global_helper
+INFO - 2024-03-15 13:00:03 --> Helper loaded: fechaes_helper
+INFO - 2024-03-15 13:00:03 --> Helper loaded: url_helper
+INFO - 2024-03-15 13:00:03 --> Helper loaded: text_helper
+INFO - 2024-03-15 13:00:03 --> Helper loaded: file_helper
+INFO - 2024-03-15 13:00:03 --> Helper loaded: api_helper
+INFO - 2024-03-15 13:00:03 --> Database Driver Class Initialized
+DEBUG - 2024-03-15 13:00:03 --> Encrypt Class Initialized
+DEBUG - 2024-03-15 13:00:03 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-03-15 13:00:03 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-03-15 13:00:03 --> Email Class Initialized
+INFO - 2024-03-15 13:00:03 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-03-15 13:00:03 --> Helper loaded: cookie_helper
+INFO - 2024-03-15 13:00:03 --> Helper loaded: language_helper
+DEBUG - 2024-03-15 13:00:03 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-03-15 13:00:03 --> Session: Class initialized using 'files' driver.
+INFO - 2024-03-15 13:00:03 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-03-15 13:00:03 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-03-15 13:00:03 --> Encrypt Class Initialized
+INFO - 2024-03-15 13:00:04 --> Model "Manager_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Usuarios_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Secretarias_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Programas_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Indexaciones_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Lotes_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Proveedores_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Proveedores_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Consolidados_model" initialized
+INFO - 2024-03-15 13:00:04 --> Controller Class Initialized
+INFO - 2024-03-15 13:00:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-03-15 13:00:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-03-15 13:00:04 --> Helper loaded: form_helper
+INFO - 2024-03-15 13:00:04 --> Model "Manager_model" initialized
+INFO - 2024-03-15 13:00:04 --> Form Validation Class Initialized
+INFO - 2024-03-15 13:00:04 --> Model "Ion_auth_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Dependencias_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Proyectos_model" initialized
+INFO - 2024-03-15 13:00:04 --> Model "Obras_model" initialized
+INFO - 2024-03-15 13:00:04 --> Final output sent to browser
+DEBUG - 2024-03-15 13:00:04 --> Total execution time: 0.1504
