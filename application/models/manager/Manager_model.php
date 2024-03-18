@@ -37,10 +37,33 @@ class Manager_model extends CI_Model
 
         switch ($postData['table']) {
 
+            case '_proveedores':
+                $this->db->select('*');
+
+
+                $my_column_order = array(
+                    '_proveedores.id',
+                    '_proveedores.codigo',
+                    '_proveedores.detalle_gasto',
+                    '_proveedores.objeto_gasto',
+                    '_proveedores.nombre',
+                    '_proveedores.fecha_alta',
+                );
+                $my_column_search = array(
+                    '_proveedores.codigo',
+                    '_proveedores.detalle_gasto',
+                    '_proveedores.objeto_gasto',
+                    '_proveedores.nombre',
+                );
+
+
+                $this->order = array('_proveedores.id' => 'desc');
+                break;
+
             case '_secretarias':
                 $this->db->select('*');
 
-                         
+
                 $my_column_order = array(
                     '',
                     '_secretarias.major',
@@ -51,12 +74,12 @@ class Manager_model extends CI_Model
                     '_secretarias.secretaria',
                 );
 
-                
+
                 $this->order = array('_secretarias.id' => 'desc');
-                break;            
+                break;
             case '_programas':
                 $this->db->select(
-                   '_programas.descripcion,
+                    '_programas.descripcion,
                    _secretarias.secretaria,
                    _programas.id_interno as prog_id_interno,
                     _programas.id as id_programa,
@@ -67,7 +90,7 @@ class Manager_model extends CI_Model
 
                 // $this->db->join('_dependencias', '_proyectos.id_dependencia = _dependencias.id', '');
                 $this->db->join('_secretarias', '_programas.id_secretaria = _secretarias.id ', '');
-              
+
                 $my_column_order = array(
                     '_programas.id_interno',
                     '_secretarias.secretaria',
@@ -142,7 +165,7 @@ class Manager_model extends CI_Model
 
                 if ($postData['data_search'] != "false" && (isset($postData['data_search']) && $postData['data_search'] != '')) {
 
-                   $this->db->group_start();
+                    $this->db->group_start();
                     switch ($postData['type']) {
                         case 1:
                             $dates = explode('@', $postData['data_search']);
@@ -239,10 +262,10 @@ class Manager_model extends CI_Model
                    
                     '
                 );
-             
+
                 // $this->db->join('_dependencias', '_proyectos.id_dependencia = _dependencias.id', '');
-                 $this->db->join('_secretarias', '_proyectos.id_secretaria = _secretarias.id ', '');
-                 $this->db->join('_programas', '_programas.id = _proyectos.id_programa ', '');
+                $this->db->join('_secretarias', '_proyectos.id_secretaria = _secretarias.id ', '');
+                $this->db->join('_programas', '_programas.id = _proyectos.id_programa ', '');
 
                 // $this->db->select('
                 // _proyectos.*,
@@ -292,12 +315,37 @@ class Manager_model extends CI_Model
                 break;
 
             case '_lotes':
-                $this->db->select('_lotes.*,_lotes.id as id_lote , _proveedores.*,users.*');
+                $this->db->select(
+                    '_lotes.*,
+                    _lotes.id as id_lote ,
+                     _proveedores.nombre,
+                     _proveedores.codigo as codigo,
+                     users.*,
+                    _datos_api.nro_cuenta'
+                    );
                 $this->db->join('_proveedores', '_proveedores.id = _lotes.id_proveedor', '');
                 $this->db->join('users', 'users.id = _lotes.user_add', '');
-
-                $my_column_order = array('_lotes.id', '_proveedores.codigo', '_proveedores.nombre', '_lotes.fecha_add', '', '', '_lotes.consolidado', '_lotes.user_add');
-                $my_column_search = array('_proveedores.codigo', '_proveedores.nombre', '_lotes.consolidado', '_lotes.user_add', '_lotes.fecha_add');
+                $this->db->join('_datos_api', '_datos_api.code_lote = _lotes.code', 'RIGHT', false);
+                $this->db->group_by('_lotes.id','desc');
+                $my_column_order = array(
+                    '_lotes.id', '_proveedores.codigo', 
+                    '_proveedores.nombre', 
+                    '_lotes.fecha_add', 
+                    '', 
+                    '', 
+                    '_lotes.consolidado', 
+                    '_lotes.user_add'
+                );
+                $my_column_search = array(
+                    '_proveedores.codigo', 
+                    '_proveedores.nombre', 
+                    '_lotes.consolidado', 
+                    '_lotes.user_add', 
+                    '_datos_api.nro_cuenta', 
+                    '_datos_api.nro_factura', 
+                    '_datos_api.nro_medidor', 
+                    '_lotes.fecha_add'
+                );
                 $my_order = array('id_lote' => 'desc');
                 break;
 
@@ -349,7 +397,7 @@ class Manager_model extends CI_Model
                 $this->order = array(
                     '_indexaciones.id' => 'desc'
                 );
-       
+
                 break;
         }
 
@@ -358,7 +406,7 @@ class Manager_model extends CI_Model
 
         foreach ($my_column_search as $item) {
 
-            if (isset($postData['search']['value']) &&  $postData['search']['value'] !='') {
+            if (isset($postData['search']['value']) &&  $postData['search']['value'] != '') {
                 // first loop
                 if ($i === 0) {
                     // open bracket
