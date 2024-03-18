@@ -376,6 +376,31 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 
 
 					break;
+
+					// De aca para abajo lo agrego Luciano
+					case 20: //  AUTOPISTAS DEL OESTE 2854
+
+
+						$periodo_del_consumo = '';
+						$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+						}
+					
+	
+	
+						$dataUpdate = array(
+							'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
+							'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+							'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
+							'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
+							'periodo_del_consumo' => trim($periodo_del_consumo),
+							'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+							// 'nro_medidor' => trim('N/A'),
+							// 'total_vencido' => trim($total_vencido),
+							// 'consumo' => trim($consumo),
+						);
+						break;
 			}
 
 			$this->db->where('id', $mires[0]->id);
