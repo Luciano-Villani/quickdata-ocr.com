@@ -8,6 +8,8 @@ class Manager_model extends CI_Model
     {
         parent::__construct();
         // $this->order='';
+        $sql = "SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));";
+    $this->db->query($sql );
     }
 
     public function getRows($postData)
