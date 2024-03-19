@@ -46,7 +46,7 @@ class Indexaciones_model extends CI_Model
 		$this->db->join('_tipo_pago', '_tipo_pago.tip_id = _indexaciones.tipo_pago','');
 		$this->db->from('_indexaciones');
 
-		// $datos = [];
+		$datos = [];
 
 		$acciones = 'acciones';
 		foreach ($result = $this->db->get()->result() as $r) {
