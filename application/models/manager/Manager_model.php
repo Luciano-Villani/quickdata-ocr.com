@@ -346,7 +346,7 @@ class Manager_model extends CI_Model
                     '_datos_api.nro_medidor', 
                     '_lotes.fecha_add'
                 );
-                $my_order = array('_lotes.id_lote' => 'desc');
+                
                 break;
 
             case '_indexaciones':
