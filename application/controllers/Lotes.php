@@ -299,7 +299,7 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 						'periodo_del_consumo' => trim($periodo_del_consumo),
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 						// 'nro_medidor' => trim('N/A'),
-						// 'total_vencido' => trim($total_vencido),
+						'total_vencido' => trim($total_vencido),
 						// 'consumo' => trim($consumo),
 					);
 
@@ -398,7 +398,7 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 							'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 							// 'nro_medidor' => trim('N/A'),
 							// 'total_vencido' => trim($total_vencido),
-							// 'consumo' => trim($consumo),
+							'consumo' => trim('S/D'),
 						);
 						break;
 			}
