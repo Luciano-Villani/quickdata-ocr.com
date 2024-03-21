@@ -8,8 +8,8 @@
 	}
 	}
 	.tablas2 {
-		width: 1650px !important;
-		margin-left: -270px !important;
+		width: 1250px !important;
+		margin-left: -80px !important;
 
 	}
 </style>
