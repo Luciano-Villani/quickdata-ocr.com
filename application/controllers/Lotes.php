@@ -32,10 +32,6 @@ class Lotes extends backend_controller
 		$resultado = $this->db->query($query, array($valor_escapado));
 		$mires = $resultado->result();
 
-		// echo '<pre>';
-		// var_dump( $mires ); 
-		// echo '</pre>';
-		// die();
 		// Procesar el resultado
 		if ($resultado) {
 
@@ -43,18 +39,34 @@ class Lotes extends backend_controller
 
 			switch ($id_proveedor) {
 				case 1: // ASYSA 3232
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+					$fecha_emision = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$fecha_emision .= trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
+					}
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+					$vencimiento_del_pago = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$vencimiento_del_pago .= trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content);
+					}
+					// echo '<pre>';
+					// echo $fecha_emision;
+					// echo '<pre>';
+					// echo fecha_es($fecha_emision,'Y-m-d'); 
+					// echo '</pre>';
+					// // die();
 					$nro_cuenta = '';
 					//calculo indices para el periodo
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
 					$periodo_del_consumo = '';
 					$monto_subsidio = '';
 					$consumo = '';
-					$vencimiento_del_pago = '';
+
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
 					}
-
-
 
 					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
 						$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
@@ -76,8 +88,8 @@ class Lotes extends backend_controller
 						'nro_medidor' => trim($medidor),
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content),
 						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+						'fecha_emision' => trim($fecha_emision),
+						'vencimiento_del_pago' => trim($vencimiento_del_pago),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'total_vencido' => trim($a->document->inference->pages[0]->prediction->total_vencido->values[0]->content),
 						'monto_subsidio' => trim($monto_subsidio),
@@ -132,8 +144,6 @@ class Lotes extends backend_controller
 
 				case 3: //FLOW 3480
 
-
-
 					$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
 					$nro_cuenta = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
@@ -173,17 +183,6 @@ class Lotes extends backend_controller
 					}
 
 
-				
-					/*
-nro_cuenta
-numero_de_factura
-fecha_emision
-total_importe
-vencimiento_del_pago
-periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
-					 
-					 */
-
 					$dataUpdate = array(
 						'nro_cuenta' => trim($nro_cuenta),
 						'nro_factura' => trim($numero_de_factura),
@@ -222,16 +221,16 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
 					);
-					break;	
+					break;
 
-					case 5: //3480 PERSONAL
+				case 5: //3480 PERSONAL
 
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
 					$periodo_del_consumo = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
 					}
-					
+
 					$dataUpdate = array(
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 						'periodo_del_consumo' => trim($periodo_del_consumo),
@@ -279,34 +278,47 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 					);
 
 
-					break;				
-					case 7: //  TELECENTRO 3959
+					break;
+				case 7: //  TELECENTRO 3959
 
+					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+					$fecha_emision = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$fecha_emision .= trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
+					}
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+					$vencimiento_del_pago = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$vencimiento_del_pago .= trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content);
+					}
 
 					$periodo_del_consumo = '';
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+					}			
+					
+					$numero_de_factura = '';
+					$totalIndices = count($a->document->inference->pages[0]->prediction->numero_de_factura->values);
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$numero_de_factura .=$a->document->inference->pages[0]->prediction->numero_de_factura->values[$paso]->content;
 					}
-				
-
 
 					$dataUpdate = array(
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+						'fecha_emision' => trim($fecha_emision),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+						'nro_factura' => trim($numero_de_factura),
+						'periodo_del_consumo' => str_replace(':','',trim($periodo_del_consumo)),
+						'vencimiento_del_pago' => trim($vencimiento_del_pago),
 						'nro_medidor' => trim('N/A'),
-						'total_vencido' => trim($a->document->inference->pages[0]->prediction->total_vencido->values[0]->content),
-						'consumo' => trim('Tel/Int Pyme corp.'),
+						// 'total_vencido' => trim($total_vencido),
+						'consumo' =>'Tel/Int Pyme corp.',
 					);
-
 
 					break;
 				case 8: //3480 TELECOM INTERNET - DIGITAL
-
 
 					$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
 					$nro_cuenta = '';
@@ -346,10 +358,6 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 					break;
 				case 10: //3480 TELECOM TELEFONIA FIJA
 
-					// echo '<pre> ';
-					// var_dump( $a->document->inference->pages[0]->prediction->consumo); 
-					// echo '</pre>';
-
 					$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
 					$consumo = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
@@ -360,8 +368,16 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$total_vencido .= ' ' . $a->document->inference->pages[0]->prediction->total_vencido->values[$paso]->content;
 					}
+					
+					
+					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+					$vencimiento_del_pago = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$vencimiento_del_pago .=$a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
+					}
 
 
+			
 					$dataUpdate = array(
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
 						'nro_medidor' => trim('N/A'),
@@ -374,33 +390,7 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 						'consumo' => trim($consumo),
 					);
 
-
 					break;
-
-					// De aca para abajo lo agrego Luciano
-					case 20: //  AUTOPISTAS DEL OESTE 2854
-
-
-						$periodo_del_consumo = '';
-						$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-						for ($paso = 0; $paso < $totalIndices; $paso++) {
-							$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-						}
-					
-	
-	
-						$dataUpdate = array(
-							'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-							'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-							'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-							'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-							'periodo_del_consumo' => trim($periodo_del_consumo),
-							'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-							// 'nro_medidor' => trim('N/A'),
-							// 'total_vencido' => trim($total_vencido),
-							'consumo' => trim('S/D'),
-						);
-						break;
 			}
 
 			$this->db->where('id', $mires[0]->id);
@@ -430,7 +420,7 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 		$this->db->delete('_lotes');
 
 		$response = array(
-			'mensaje' =>"Archivos borrados",
+			'mensaje' => "Archivos borrados",
 			'title' => 'LOTES ',
 			'status' => 'success'
 		);
@@ -485,8 +475,13 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 			'full_path' => $_POST['file']
 		);
 
-		sleep(3);
+		// sleep(3);
 		$dataApi = apiRest($request, $proveedor->urlapi);
+
+		// echo '<pre>';
+		// var_dump( $dataApi ); 
+		// echo '</pre>';
+		// die();
 
 		// // Escapar los valores de los datos actualizados
 		// $datos_actualizados_escapados = array();
@@ -512,7 +507,7 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 		$updateData = array(
 			'dato_api' => json_encode($dataApi),
 		);
-		sleep(1);
+		// sleep(1);
 
 		// $this->db->where("nombre_archivo LIKE '%uploader/files/".$proveedor->codigo. "/". $dataApi['document']['name']  . "%' ESCAPE '!'");
 		$this->db->where("nombre_archivo", "uploader/files/" . $proveedor->codigo . "/" . $dataApi['document']['name']);
@@ -948,8 +943,10 @@ periodo_del_consumo —> vienen 2 datos: Año y mes escrito ej: 2024 Enero
 					$r->nro_medidor,
 					$r->nro_factura,
 					$r->periodo_del_consumo,
-					fecha_es($r->fecha_emision, 'd/m/a', false),
-					fecha_es($r->vencimiento_del_pago, 'd/m/a', false),
+					$r->fecha_emision,
+					// fecha_es($r->fecha_emision, 'd/m/a', false),
+					// fecha_es($r->vencimiento_del_pago, 'd/m/a', false),
+					$r->vencimiento_del_pago,
 					$r->total_importe,
 					$r->total_vencido,
 					$r->consumo,

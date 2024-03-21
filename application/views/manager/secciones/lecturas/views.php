@@ -4,9 +4,20 @@ if(isset($_SERVER['HTTP_REFERER'])){
 }else{
     $retorno = "/Admin";
 }
-   
-   
-    
+
+
+
+$file = $this->Manager_model->getWhere('_datos_api','id='.$result->id);
+$a=json_decode($file->dato_api);
+$totalIndices = count($a->document->inference->pages[0]->prediction->fecha_emision->values);
+$fecha_emision = '';
+for ($paso = 0; $paso < $totalIndices; $paso++) {
+    $fecha_emision .= '' . trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
+}
+echo '<pre>';
+var_dump(fecha_es($fecha_emision,'Y-m-d')); 
+echo '</pre>';
+
 ?>
 
 
@@ -110,7 +121,7 @@ if($result){
                     </div>
                     <script>
 
-                    $("#fecha_emision").AnyTime_picker({
+                    $("#fecha_emision_no").AnyTime_picker({
                         format: "%d/%m/%Z"
                     });
                     
@@ -130,7 +141,7 @@ if($result){
                     </div>
                     <script>
 
-$("#vencimiento_del_pago").AnyTime_picker({
+$("#vencimiento_del_pago_no").AnyTime_picker({
     format: "%d/%m/%Z"
 });
 
@@ -223,3 +234,10 @@ $("#vencimiento_del_pago").AnyTime_picker({
 }
     
 ?>
+
+
+<script>
+
+
+
+</script>
