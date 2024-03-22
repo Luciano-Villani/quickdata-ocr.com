@@ -233,13 +233,15 @@ class Lotes extends backend_controller
 
 					$dataUpdate = array(
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+						'nro_medidor' => trim('N/A'),
 						'periodo_del_consumo' => trim($periodo_del_consumo),
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						// 'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
-						// 'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
+						'consumo' => trim('S/D'),
+						'total_vencido' => trim('S/D'),
 					);
 					break;
 				case 6: // 6198 CLARO ARGENTINA
