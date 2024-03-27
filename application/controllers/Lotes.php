@@ -268,7 +268,7 @@ class Lotes extends backend_controller
 					}
 
 					$dataUpdate = array(
-						'periodo_del_consumo' => trim($periodo_del_consumo),
+						'periodo_del_consumo' => str_replace('desde','',trim($periodo_del_consumo)),
 						'nro_cuenta' => trim($nro_cuenta),
 						'nro_medidor' => trim('N/A'),
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),

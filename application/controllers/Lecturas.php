@@ -181,16 +181,18 @@ class Lecturas extends backend_controller
 
 		if ($id == 0 && $_SERVER['REQUEST_METHOD'] === "POST") {
 
+			
+			
+			// // $_POST['fecha_emision']  = date(trim('Y-m-d',$_POST['fecha_emision']));
+			// $_POST['fecha_emision']  = fecha_es(trim($_POST['fecha_emision']), 'Y-m-d', false);
+			// $_POST['vencimiento_del_pago']  = fecha_es(trim($_POST['vencimiento_del_pago']), 'Y-m-d', false);
 
-
-			// $_POST['fecha_emision']  = date(trim('Y-m-d',$_POST['fecha_emision']));
-			$_POST['fecha_emision']  = fecha_es(trim($_POST['fecha_emision']), 'Y-m-d', false);
-			$_POST['vencimiento_del_pago']  = fecha_es(trim($_POST['vencimiento_del_pago']), 'Y-m-d', false);
 
 			$myDato = $_POST['id'];
 			$this->form_validation->set_rules('proveedor', 'Proveedor', 'trim|in_select[0]');
 			$this->form_validation->set_rules('nro_cuenta', 'Cuenta', 'trim|required');
-			$this->form_validation->set_rules('nro_medidor', 'Medidor', 'trim|required');
+
+			//$this->form_validation->set_rules('nro_medidor', 'Medidor', 'trim|required');
 			$this->form_validation->set_rules('nro_factura', 'Factura', 'trim|required');
 			// $this->form_validation->set_rules('periodo_del_consumo', 'Período', 'trim|required');
 			$this->form_validation->set_rules('fecha_emision', 'Fecha emisión', 'trim|required');
@@ -199,6 +201,27 @@ class Lecturas extends backend_controller
 			if ($this->form_validation->run() != FALSE) {
 				$id = $_REQUEST['id'];
 				unset($_REQUEST['id']);
+
+				//campo fecha vencimiento
+
+				// $timestamp = strtotime(trim($_REQUEST['vencimiento_del_pago']) );
+
+				if (($timestamp = strtotime($_REQUEST['vencimiento_del_pago'])) === false) {
+					$_REQUEST['vencimiento_del_pago']='error de lectura';
+					
+				} else {
+					$_REQUEST['vencimiento_del_pago']= date('Y-m-d', $timestamp);
+				}
+
+				//campo fecha_emision
+				// $timestamp = strtotime(trim($_REQUEST['fecha_emision']) );
+				if (($timestamp = strtotime($_REQUEST['fecha_emision'])) === false) {
+					$_REQUEST['fecha_emision']='error de lectura';
+					
+				} else {
+					$_REQUEST['fecha_emision']= date('Y-m-d', $timestamp);
+				}
+
 				if ($this->db->update('_datos_api', $_REQUEST, array('id' => $_POST['id']))) {
 
 
@@ -209,6 +232,7 @@ class Lecturas extends backend_controller
 
 
 		$registro_api = $this->Manager_model->get_data_api('_datos_api', $myDato);
+
 
 		$script = array(
 			base_url('assets/manager/js/secciones/lecturas/views.js?ver=' . time()),
@@ -221,15 +245,11 @@ class Lecturas extends backend_controller
 		$this->data['script'] = $script;
 		$this->data['result'] = $registro_api;
 
-
 		// $this->data['nro_cuenta'] = $resultData->nro_cuenta;
 
 		if ($registro_api) {
 			$this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($registro_api->nro_cuenta);
-
-	
 		}
-
 
 		$this->data['content'] = $this->load->view('manager/secciones/' . strtolower($this->router->fetch_class()) . '/' . $this->router->fetch_method(), $this->data, TRUE);
 

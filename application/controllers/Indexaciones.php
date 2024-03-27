@@ -29,19 +29,33 @@ class Indexaciones extends backend_controller
 		}
 	}
 
-	public function index()
-	{
-		die('index');
-	}
-	public function register()
-	{
-	}
-	public function list_profiles_dt()
+	public function edit()
 	{
 
-		$usuarios = $this->Usuarios_model->list_profiles_dt();
+		if ($this->input->is_ajax_request()) {
 
-		return $usuarios;
+			$data = $this->Manager_model->getWhere('_indexaciones', 'id="' . $_REQUEST['id'] . '"');
+
+
+
+			if ($data) {
+				$response = array(
+					'mensaje' => $_REQUEST['id'],
+					'data' => $data,
+					'status' => 'success',
+				);
+			} else {
+				$response = array(
+					'mensaje' => $_REQUEST['id'],
+					'title' => 'EDITAR ' . $this->router->fetch_class() . ' - dato inexistente',
+					'status' => 'error',
+				);
+			}
+
+
+			echo json_encode($response);
+			exit();
+		}
 	}
 	public function list_dt($id = null)
 	{
@@ -61,13 +75,13 @@ class Indexaciones extends backend_controller
 
 
 				$accionesVer = '<span class="acciones"><a title="ver archivo" href="/Admin/s/viewBatch/' . $r->id . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
-				$accionesEdit = '<span data-id_="' . $r->id . '" class="editar_ acciones" ><a title="Editar" href="/Admin/' . ucfirst($this->router->fetch_class()) . '/editar/' . $r->id_dependencia . '"  class=""><i class=" text-warningr  icon-pencil4 " title="Editar "></i> </a> </span>';
+				$accionesEdit = '<span data-id="' . $r->id . '" class="editar_ acciones" ><a title="Editar" href="/Admin/' . ucfirst($this->router->fetch_class()) . '/editar/' . $r->id_dependencia . '"  class=""><i class=" text-warningr  icon-pencil4 " title="Editar "></i> </a> </span>';
 				$accionesDelete = '<span data-id_="' . $r->id . '" class="borrar_ acciones" ><a title="Borrar " href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
 				//	
 				$acciones = '<ul class="icons-list">
-				<li class="text-primary-600"><a class="edit_dato" data_id="'.$r->id.'" href="#"><i class="icon-pencil7"></i></a></li>
+				<li class="text-primary-600"><a class="edit_dato" data-id="'.$r->id.'" href="#"><i class="icon-pencil7"></i></a></li>
 				<li  class=" text-danger-600"><a class="borrar_file" data-id="' . $r->id . '" href="#"><i class="icon-trash"></i></a></li>
 			</ul>';
 				$data[] = array(
@@ -80,7 +94,7 @@ class Indexaciones extends backend_controller
 					$r->prog_id_interno. "  " . $r->descr_programa,
 					$r->proy_id_interno . "  " . $r->descr_proyecto,
 					$r->nombre_dependencia,
-					$acciones
+					$acciones,
 				);
 			}
 
@@ -181,7 +195,9 @@ class Indexaciones extends backend_controller
 
 			$this->form_validation->set_rules('id_secretaria', 'Secretaria', 'trim|in_select[0]');
 			$this->form_validation->set_rules('id_proveedor', 'Proveedor', 'trim|in_select[0]');
-			$this->form_validation->set_rules('nro_cuenta', 'Nro de cuenta', 'trim|required|callback_check_nro_cuenta');
+			if (!isset($_REQUEST['id_indexacion']) && $_REQUEST['id_indexacion'] == NULL) {
+				$this->form_validation->set_rules('nro_cuenta', 'Nro de cuenta', 'trim|required|callback_check_nro_cuenta');
+			}
 			$this->form_validation->set_rules('expediente', 'Expediente', 'trim|required');
 			$this->form_validation->set_rules('tipo_pago', 'Tipo de pago', 'trim|required|in_select[0]');
 
@@ -189,7 +205,7 @@ class Indexaciones extends backend_controller
 			// $this->form_validation->set_rules('id_dependencia', 'Dependencia', '');
 			// $this->form_validation->set_rules('id_programa', 'ID Programa', 'trim|in_select[0]');
 			// $this->form_validation->set_rules('id_interno', 'ID interno', 'trim|required');
-
+			
 			if ($this->form_validation->run() != FALSE) {
 
 
@@ -282,17 +298,12 @@ class Indexaciones extends backend_controller
 		}
 	}
 
-
 	public function check_nro_cuenta($str)
 	{
-
 		if ($data = $this->Manager_model->getwhere('_indexaciones', 'nro_cuenta ="' . $str . '"')) {
-
-
 			$this->form_validation->set_message('check_nro_cuenta', 'El Nro de cuenta se encuentra registrado');
 			return FALSE;
 		} else {
-
 			return true;
 		}
 	}

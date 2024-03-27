@@ -18,26 +18,50 @@ class Proveedores extends backend_controller
 
 	}
 
-	public function index()
-	{
-		
-	}
-	public function register()
-	{
-	}
-	public function list_profiles_dt()
-	{
-
-		$usuarios = $this->Usuarios_model->list_profiles_dt();
-
-		return $usuarios;
-	}
 	public function list_proveedores_dt()
 	{
 
-		$proveedores = $this->Proveedores_model->list_proveedores_dt();
+		// $query = $this->db->select('*')->get('_proveedores');
 
-		return $proveedores;
+		// foreach ($query->result()  as $r) {
+
+		// 	$this->db->set('detalle_gasto', strtoupper($r->detalle_gasto));
+		// 	$this->db->where('id', $r->id);
+		// 	$this->db->update('_proveedores');
+		// }
+
+		$memData = $this->Manager_model->getRows($_POST);
+
+		$data = $row = array();
+
+        foreach ($memData as $r) {
+            if ($r->activo == '1' && $r->urlapi != '') {
+                $estado = '<span class="badge badge-success">activo</span>';
+            } else {
+                $estado = '<span class="badge badge-danger">inactivo</span>';
+            }
+
+            $fecha_alta = fecha_es($r->fecha_alta, TRUE);
+
+            $data[] = array(
+                $r->id,
+                $r->codigo,
+                $r->nombre,
+                $r->objeto_gasto,
+                $r->detalle_gasto,
+                $fecha_alta,
+                $estado,
+            );
+        }
+
+        $output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->Manager_model->countAll(),
+			"recordsFiltered" => $this->Manager_model->countFiltered($_POST),
+			"data" => $data,
+		);
+
+        echo json_encode($output);
 	}
 
 	public function profiles()
@@ -69,7 +93,7 @@ class Proveedores extends backend_controller
 	public function listados()
 	{
 
-		//$this->data['page_title'] = 'Secretarias';
+		$this->data['page_title'] = 'Proveedores';
 		$script = array(
 			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
 			//			base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),

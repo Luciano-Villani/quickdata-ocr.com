@@ -7,6 +7,7 @@ class Consolidados extends backend_controller
 	{
 		parent::__construct();
 
+
 		if (!$this->ion_auth->logged_in()) {
 			redirect('Login');
 		} else {
@@ -16,7 +17,6 @@ class Consolidados extends backend_controller
 			$this->load->model('manager/Dependencias_model');
 			$this->load->model('manager/Proyectos_model');
 			$this->load->model('manager/Obras_model');
-
 
 			$this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA', 'secretaria', 'id ASC');
 			$this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias', 'SELECCIONE DEPENDENCIA', 'dependencia', 'id ASC');
@@ -61,7 +61,20 @@ class Consolidados extends backend_controller
 			$memData = $this->Manager_model->getRows($_POST);
 
 
+
 			foreach ($memData as $r) {
+
+				// $file = $this->Manager_model->getWhere('_datos_api','id='.$r->id_lectura_api);
+				// $a=json_decode($file->dato_api);
+				// $totalIndices = count($a->document->inference->pages[0]->prediction->fecha_emision->values);
+				// $fecha_emision = '';
+				// for ($paso = 0; $paso < $totalIndices; $paso++) {
+				// 	$fecha_emision .= '' . trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
+				// }
+				// echo '<pre>';
+				// var_dump(fecha_es($fecha_emision,'Y-m-d')); 
+				// echo '</pre>';
+				// die();
 
 				$indexador = $this->Manager_model->getWhere('_indexaciones', 'nro_cuenta="'. $r->nro_cuenta . '"');
 				//$r->expediente = $indexador->expediente;
@@ -101,8 +114,8 @@ class Consolidados extends backend_controller
 					$r->nro_cuenta,
 					$r->nro_factura,
 					$r->periodo_del_consumo,
-					fecha_es($r->fecha_vencimiento, 'd/m/a', false),
-					fecha_es($r->preventivas, 'd/m/a', false),
+					fecha_es($r->fecha_vencimiento,'d-m-a', false),
+					fecha_es($r->preventivas,'d-m-a', false),
 					$r->importe,
 					$accionesVer . $accionesDelete
 				);
