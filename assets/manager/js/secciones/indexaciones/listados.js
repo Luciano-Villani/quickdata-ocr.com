@@ -90,11 +90,11 @@ function initDatatablex(search = false, type = 0) {
     fixedHeader: {
       header: true,
     },
-    autoWidth: false,
+    autoWidth: true,
     paging: true,
     scrollCollapse: true,
-    scrollX: true,
-    scrollY: 300,
+    // scrollX: true,
+    scrollY: 600,
     lengthMenu: [
       [10, 25, 50, 100, -1],
       [10, 25, 50, 100, "All"],
@@ -133,8 +133,6 @@ function initDatatablex(search = false, type = 0) {
       {
         targets: [4],
         render: function (data, type, full, meta) {
-          console.log("render 4");
-          console.log(data);
           return data + " (" + full[1] + ")";
         },
       },
@@ -227,8 +225,6 @@ $(document).ready(function () {
       url: $("body").data("base_url") + "Proyectos/list_select",
       success: function (result) {
         var obj = jQuery.parseJSON(result);
-        console.log("result data");
-        console.log(result);
 
 
         if (Object.keys(obj.proyectos).length > 0) {
@@ -270,6 +266,7 @@ $(document).ready(function () {
 
 
   $("body").on("click", "a.edit_dato", function (e) {
+   
     e.preventDefault();
     var dato = new FormData();
     dato.append("id", $(this).data("id"));
@@ -280,24 +277,37 @@ $(document).ready(function () {
       data: dato,
       processData: false,
       cache: false,
-      beforeSend: function () {},
-      url: $("body").data("base_url") + "Indedxaciones/edit",
+      beforeSend: function () {
+        $.blockUI();
+
+      },
+      url: $("body").data("base_url")+"Indexaciones/edit",
       success: function (result) {
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+console.log(result);
         if (result.status == "success") {
-       
-          $("div#collapseExample").addClass("show");
-          // $("input[name='id']").val(result.data.id);
-          // $("input[name='id_interno']").val(result.data.id_interno);
-          // $("input[name='descripcion']").val(result.data.descripcion);
-          // $("select#select_secretaria").val(result.data.id_secretaria).trigger('change');
-          // $("select#select_programa").removeAttr('disabled');
-		  $('html, body').animate({ scrollTop: 0 }, 'fast');
+          $("div#formulario1").addClass("show");
+          $("select#id_proveedor").val(result.data.id_proveedor).trigger('change');
+          $("input[name='id']").val(result.data.id);
+          $("input[name='expediente']").val(result.data.expediente);
+          $("input[name='nro_cuenta']").val(result.data.nro_cuenta);
+          $("input[name='nro_cuenta']").attr('disabled','disabled');
+          $("input[name='id_indexacion']").val(result.data.id);
+          $("select#tipo_pago").val(result.data.tipo_pago).trigger('change');
+          $("select#select_secretaria").val(result.data.id_secretaria).trigger('change');
+          
+          
+          setTimeout( function() { 
+            $("select#select_dependencia").val(result.data.id_dependencia ).trigger('change');
+            $("select#select_programa").val(result.data.id_programa).trigger('change');
+            $("select#select_programa").removeAttr('disabled');
+          }, 1000);
 
-        //   setTimeout( function() { 
-        
-        // }, 1000);
-        
-
+          setTimeout( function() { 
+            $("select#select_proyecto").removeAttr('disabled');
+          $("select#select_proyecto").val(result.data.id_proyecto);
+          $.unblockUI();
+        },2000);
         } else {
           alertas(result);
         }
@@ -317,8 +327,12 @@ $(document).ready(function () {
     periodo_contable = false;
     table = $("#indexaciones_dt").DataTable({
       fixedHeader: {
-        header: true,
+        // header: true,
       },
+      colReorder: {
+        // realtime: true
+    },
+      // colReorder: true,
       autoWidth: false,
       paging: true,
       scrollCollapse: true,
@@ -420,6 +434,10 @@ $(document).ready(function () {
     });
   }
   initDatatable();
+
+  $('#indexaciones_dt').on('column-reorder', function (e, settings, details) {
+    alert('column changed')
+});
   if ($("body").data("data_action") == "Editar") {
     $(".collapse").collapse("toggle");
 
@@ -536,9 +554,6 @@ $(document).ready(function () {
         url: $("body").data("base_url") + "Admin/Dependencias/get_dependencias",
         success: function (result) {
           var obj = jQuery.parseJSON(result);
-          console.log("resultwwwww");
-          console.log(Object.keys(obj.dependencias).length);
-          console.log(result);
 
           if (Object.keys(obj.dependencias).length > 0) {
             $("#select_dependencia").removeAttr("disabled");

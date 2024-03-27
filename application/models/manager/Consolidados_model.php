@@ -62,7 +62,6 @@ class Consolidados_model extends CI_Model
 					$proveedor = $this->proveedores->get_proveedor($indexador->id_proveedor);
 					$secretaria = $this->Manager_model->get_data('_secretarias', $indexador->id_secretaria);
 
-
 					if ($dependencia = $this->Manager_model->getWhere('_dependencias', '_dependencias.id="'.$indexador->id_dependencia .'" AND _dependencias.id_secretaria = "'.$indexador->id_secretaria.'"')) {
 						$dependencia_dependencia =  $dependencia->dependencia;
 						$dependencia_direccion = $dependencia->direccion;
@@ -81,25 +80,12 @@ class Consolidados_model extends CI_Model
 					// if ($obra = $this->Manager_model->get_data('_obras', $indexador->id_obra != null)) {
 					// 	$obra = $obra->descripcion;
 					// }
-					$fechaVencimeinto = fecha_es($file->vencimiento_del_pago, 'd-m-a', false);
+					$fechaVencimeinto =$file->vencimiento_del_pago;
 
 					$mesVencimiento = explode('-', $fechaVencimeinto);
 					$indicePeriodoContable = str_replace('0', '', $mesVencimiento[1]);
 
-					// <th>Empresa</th>
-					// <th>Expediente</th>
-					// <th>Secretaría</th>
-					// <th>Juridicción</th>
-					// <th>Programa</th>
-					// <th>Programa + jurisdicción</th>
-					// <th>Objeto del gasto</th>
-					// <th>Dependencia</th>
-					// <th>Direccion</th>
-					// <th>Nro factura</th>
-					// <th>Período</th>
-					// <th>Vencimiento del pago</th>
-					// <th>Pasar a Preventivas</th>
-					// <th>Importe factura</th>
+
 					
 					$dataBatch = array(
 						'id_lectura_api' => $file->id,

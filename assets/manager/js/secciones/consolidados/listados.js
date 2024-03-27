@@ -141,12 +141,16 @@ function initDatatable(search = false, type = 0) {
       ],
       columnDefs: [
         {
-          render: function (data, type, row) {
-            // console.log(row);
-            return "PROG " + data;
-          },
+          targets: [6],
+          visible: false,
+        },
+        {
+          // render: function (data, type, row) {
+          //   // console.log(row);
+          //   return "PROG " + data;
+          // },
 
-          targets: 5,
+          // targets: 5,
         },
         {
           render: function (data, type, row) {
