@@ -71,10 +71,10 @@
 				<th>Proveedor</th>
 				<th>Código</th>
 				<th>Fecha</th>
-				<th>Files</th>
-				<th>Errores</th>
+				<th>Facturas</th>
+				<th>Sin Index</th>
 				<th>Consolidado</th>
-				<th>usuario</th>
+				<th>Usuario</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>

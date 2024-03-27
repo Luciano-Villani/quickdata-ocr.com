@@ -2,13 +2,13 @@
 	<div class=" card">
 		<div class="card-header header-elements-inline">
 			<?php if ($this->BtnText == "Agregar") { ?>
-				<button type="button" data-toggle="collapse" data-target="#collapseExample" class="btn btn-agregar bg-buton-blue btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i>
+				<button type="button" data-toggle="collapse" data-target="#formulario1" class="btn btn-agregar bg-buton-blue btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i>
 					</b>Agregar <?= ucfirst($this->router->fetch_class()) ?> </button>
 			<?php } ?>
 
 		</div>
 
-		<div class="card-body <?= $collapse?>" id="collapseExample">
+		<div class="card-body <?= $collapse?>" id="formulario1">
 			<?php echo form_open(base_url('Admin/Indexaciones'), array('id' => 'form-validate-jquery')); ?>
 			<div class="row">
 
@@ -19,6 +19,9 @@
 						<?php echo form_error('id_indexacion', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 					</div>
 				</div>
+				<div class="col-md-1">
+				<input readonly="readonly" class="form-control" type="text" name="id">
+			</div>	
 				<div class="col-md-2">
 					<div class="form-group form-group-feedback form-group-feedback-right  ">
 

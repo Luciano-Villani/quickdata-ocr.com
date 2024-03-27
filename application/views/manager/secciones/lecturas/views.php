@@ -5,30 +5,30 @@ if(isset($_SERVER['HTTP_REFERER'])){
     $retorno = "/Admin";
 }
 
-
-
-$file = $this->Manager_model->getWhere('_datos_api','id='.$result->id);
-$a=json_decode($file->dato_api);
-$totalIndices = count($a->document->inference->pages[0]->prediction->fecha_emision->values);
-$fecha_emision = '';
-for ($paso = 0; $paso < $totalIndices; $paso++) {
-    $fecha_emision .= '' . trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
-}
-echo '<pre>';
-var_dump(fecha_es($fecha_emision,'Y-m-d')); 
-echo '</pre>';
+// $file = $this->Manager_model->getWhere('_datos_api','id='.$result->id);
+// $a=json_decode($file->dato_api);
+// $totalIndices = count($a->document->inference->pages[0]->prediction->fecha_emision->values);
+// $fecha_emision = '';
+// for ($paso = 0; $paso < $totalIndices; $paso++) {
+//     $fecha_emision .= '' . trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
+// }
+// echo '<pre>';
+// var_dump(fecha_es($fecha_emision,'Y-m-d')); 
+// echo '</pre>';
 
 ?>
 
 
 <div class="card ">
     <div class="card-header header-elements-inline">
-        <h5 class="card-title"><?= $this->data['page_title'] ?></h5>
+        <h5 class="card-title bg-titulo text-center text-dark">Factura PDF subida / datos leídos del modelo</h5>
         <div class="header-elements">
             <div class="list-icons">
-            <a href="<?= $retorno ?>" type="button" class="btn bg-teal-400 btn-labeled"><b><i class="icon-backward"></i></b> Volver</a>
-                <a class="list-icons-item" data-action="collapse"></a>
+            <a href="<?= $retorno ?>" type="button" class="mt-3 btn-agregar bg-buton-blue btn"><b><i class="icon-backward"></i></b> Volver</a>
+               <!-- <a class="list-icons-item" data-action="collapse"></a> -->
             </div>
+            
+
         </div>
     </div>
 
@@ -53,7 +53,7 @@ if($result){
 
 <div class="card">
     <div class="card-header ">
-        <h5 class="mb-0">Datos del modelo #<?= $result->id ?></h5>
+        <h5 class="mb-0">Datos leídos del modelo #<?= $result->id ?></h5>
 
     </div>
     <?php
@@ -116,13 +116,13 @@ if($result){
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Fecha de emisión:</label>
-                        <input id="fecha_emision" name="fecha_emision" type="text" class="form-control" placeholder="Fecha de emisión:" value="<?php echo fecha_es($result->fecha_emision, 'd-m-a', false) ?>">
+                        <input id="fecha_emision" name="fecha_emision" type="date" class="form-control" placeholder="Fecha de emisión:" value="<?php echo  $result->fecha_emision ?>">
                         <?php echo form_error('fecha_emision', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>                    
                     </div>
                     <script>
 
-                    $("#fecha_emision_no").AnyTime_picker({
-                        format: "%d/%m/%Z"
+                    $("#fecha_emision_NO").AnyTime_picker({
+                        format: "%d-%m-%Z"
                     });
                     
                     </script>
@@ -135,14 +135,14 @@ if($result){
 
                 <div class="row mb-3">
                 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label class="form-label">Vencimiento:</label>
-                        <input id="vencimiento_del_pago" name="vencimiento_del_pago" type="text" class="form-control" placeholder="Vencimiento" value="<?php echo fecha_es( $result->vencimiento_del_pago, 'd-m-a', false) ?>">
+                        <input id="vencimiento_del_pago" name="vencimiento_del_pago" type="date" class="form-control" placeholder="Vencimiento" value="<?php echo $result->vencimiento_del_pago ?>">
                     </div>
                     <script>
 
-$("#vencimiento_del_pago_no").AnyTime_picker({
-    format: "%d/%m/%Z"
+$("#vencimiento_del_pago_NO").AnyTime_picker({
+    format: "%d-%m-%Z"
 });
 
 </script>
@@ -179,7 +179,7 @@ $("#vencimiento_del_pago_no").AnyTime_picker({
             <?php if($this->ion_auth->is_super() || $this->ion_auth->is_admin()){ ?>
             <div class="col-md-3">
                 <div class="col mb-3">
-                    <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i></b>Modificar datos</button>
+                    <button type="submit" class="btn btn-agregar bg-buton-blue btn-labeled btn-labeled-right"><b><i class="icon-floppy-disk"></i></b>Guardar datos modificados</button>
                 </div>
                 <div class="col mb-3">
                     <!-- <button type="submit" class="btn btn-danger btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i></b>Elimimar datos</button> -->
