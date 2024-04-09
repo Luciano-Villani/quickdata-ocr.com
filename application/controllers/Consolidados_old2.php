@@ -54,15 +54,13 @@ class Consolidados extends backend_controller
 	}
 	public function list_dt($tipo = null, $tabla = null, $search = '')
 	{
-
 		// $data=array();
 		if ($this->input->is_ajax_request()) {
 
 			$data = $row = array();
 			$memData = $this->Manager_model->getRows($_POST);
 
-// echo $this->db->last_query();
-// die();
+
 
 			foreach ($memData as $r) {
 
@@ -118,7 +116,6 @@ class Consolidados extends backend_controller
 					$r->periodo_del_consumo,
 					fecha_es($r->fecha_vencimiento,'d-m-a', false),
 					fecha_es($r->preventivas,'d-m-a', false),
-					// $r->preventivas,
 					$r->importe,
 					$accionesVer . $accionesDelete
 				);

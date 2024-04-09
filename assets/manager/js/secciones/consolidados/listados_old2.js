@@ -92,8 +92,7 @@ function initDatatable(search = false, type = 0) {
     tipo_pago = $("#id_tipo_pago").val();
     periodo_contable = $("#periodo_contable").val();
 
-    var fecha =  $("#daterange2").val();
-        var $select = $("#id_tipo_pago");
+    var $select = $("#id_tipo_pago");
     var value = $select.val();
     var data = [];
     value.forEach(function (valor, indice, array) {
@@ -241,7 +240,6 @@ function initDatatable(search = false, type = 0) {
           id_proveedor: prove,
           tipo_pago: data,
           periodo_contable: periodo_contable,
-          fecha: fecha,
         },
         url: "/Consolidados/list_dt",
         type: "POST",
@@ -279,35 +277,10 @@ function initDatatable(search = false, type = 0) {
 }
 
 $(document).ready(function () {
-
-  $('input[name="daterange2"]').daterangepicker({
-    "showDropdowns": true,
-    locale:{
-      applyLabel: "Aplicar",
-      cancelLabel: "Cancelar",
-      format: "DD/MM/YYYY",
-      customRangeLabel: "Búsqueda avanzada",
-    },
-    ranges: {
-        'Hoy': [moment(), moment()],
-        'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Ultimos 7 días': [moment().subtract(6, 'days'), moment()],
-        'Ultimos 30 días': [moment().subtract(29, 'days'), moment()],
-        'Este mes': [moment().startOf('month'), moment().endOf('month')],
-        'Mes pasado': [moment().subtract(1, 'month').startOf('month'), 
-        moment().subtract(1, 'month').endOf('month')
-      ]
-    },
-
-}, function(start, end, label) {
-  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-});
-  var range = $('input[name="daterange2d"]').daterangepicker(
+  var range = $('input[name="daterange2"]').daterangepicker(
     {
-      "showDropdowns": true,
-      // startDate: "-1m",
-      // endDate: "+1m",
-      showCustomRangeLabel:true,
+      startDate: "-1m",
+      endDate: "+1m",
       locale: {
         format: "DD/MM/YYYY",
         customRangeLabel: "Búsqueda avanzada",
@@ -342,7 +315,7 @@ $(document).ready(function () {
           "&filtro=1&buscarFechas=" +
           strSearchvar;
 
-        // initDatatable(strSearchvar, 1);
+        initDatatable(strSearchvar, 1);
         // $('#consolidados_dt').DataTable().search('<searchstring>');
       }
     }
@@ -365,9 +338,6 @@ $(document).ready(function () {
     $("#id_tipo_pago").val("").trigger("change");
     $("#periodo_contable").val("").trigger("change");
 
-    $('#daterange2').data('daterangepicker').setEndDate(new Date);
-    $('#daterange2').data('daterangepicker').setStartDate(new Date);
-
     // $("#id_tipo_pago").prop("selectedIndex", 0);
     initDatatable();
   });
@@ -375,28 +345,28 @@ $(document).ready(function () {
   $("body").on("click", "#applyfilter", function (e) {
     e.preventDefault();
 
-    // if (
-    //   $("#id_proveedor").val().length === 0 &&
-    //   $("#id_tipo_pago").val().length === 0 &&
-    //   $("#periodo_contable").val().length === 0
-    // ) {
-    //   $.confirm({
-    //     icon: "icon-alert",
-    //     title: "Criterios de filtrado",
-    //     content: "Seleccione opciones de filtrado",
-    //     buttons: {
-    //       cancel: {
-    //         text: "Aceptar",
-    //         btnClass: "btn-prymary",
-    //         action: function () {
-    //           return;
-    //         },
-    //       },
-    //     },
-    //   });
+    if (
+      $("#id_proveedor").val().length === 0 &&
+      $("#id_tipo_pago").val().length === 0 &&
+      $("#periodo_contable").val().length === 0
+    ) {
+      $.confirm({
+        icon: "icon-alert",
+        title: "Criterios de filtrado",
+        content: "Seleccione opciones de filtrado",
+        buttons: {
+          cancel: {
+            text: "Aceptar",
+            btnClass: "btn-prymary",
+            action: function () {
+              return;
+            },
+          },
+        },
+      });
 
-    //   return false;
-    // }
+      return false;
+    }
     initDatatable(false, 4);
   });
 
