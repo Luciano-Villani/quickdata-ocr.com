@@ -233,15 +233,13 @@ class Lotes extends backend_controller
 
 					$dataUpdate = array(
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'nro_medidor' => trim('N/A'),
 						'periodo_del_consumo' => trim($periodo_del_consumo),
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+						// 'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->cargos_del_mes->values[0]->content),
 						'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
-						'consumo' => trim('S/D'),
-						'total_vencido' => trim('S/D'),
+						// 'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
 					);
 					break;
 				case 6: // 6198 CLARO ARGENTINA
@@ -268,7 +266,7 @@ class Lotes extends backend_controller
 					}
 
 					$dataUpdate = array(
-						'periodo_del_consumo' => str_replace('desde','',trim($periodo_del_consumo)),
+						'periodo_del_consumo' => trim($periodo_del_consumo),
 						'nro_cuenta' => trim($nro_cuenta),
 						'nro_medidor' => trim('N/A'),
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
@@ -527,9 +525,6 @@ class Lotes extends backend_controller
 		exit();
 	}
 
-
-
-
 	public function upload($id = null)
 	{
 
@@ -558,7 +553,7 @@ class Lotes extends backend_controller
 				$config['upload_path'] = $uploadPath;
 				//    $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
 				$config['allowed_types'] = '*';
-				$config['max_size'] = '2024'; // max_size in kb 
+				$config['max_size'] = '10000'; // max_size in kb 
 				$config['file_name'] = $nombre_archivodb;
 
 				// Load upload library 

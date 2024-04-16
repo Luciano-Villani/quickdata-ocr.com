@@ -165,10 +165,12 @@ class Dependencias extends backend_controller
 
 			if ($this->form_validation->run() != FALSE) {
 
+
+
 				$datos = array(
 					'id_secretaria' => $this->input->post('id_secretaria'),
-					'dependencia' => $this->input->post('dependencia'),
-					'direccion' => $this->input->post('direccion'),
+					'dependencia' =>strtoupper( $this->input->post('dependencia')),
+					'direccion' => strtoupper($this->input->post('direccion')),
 				);
 
 				// preparo para editar
@@ -189,7 +191,7 @@ class Dependencias extends backend_controller
 					redirect(base_url('Admin/Dependencias'));
 				}
 
-				$this->Manager_model->grabar_datos($this->table, strtoupper($datos));
+				$this->Manager_model->grabar_datos($this->table, $datos);
 				redirect(base_url('Admin/Dependencias'));
 			}
 		}

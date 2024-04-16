@@ -521,7 +521,7 @@ $(function () {
     parallelUploads:10,
     autoProcessQueue: false,
     maxFiles: 10,
-    maxFilesize: 2054,
+    maxFilesize: 10000,
     timeout: 1000000,
     acceptedFiles: ".pdf",
     addRemoveLinks: true,
