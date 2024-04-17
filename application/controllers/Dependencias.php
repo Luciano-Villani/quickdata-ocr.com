@@ -205,6 +205,28 @@ class Dependencias extends backend_controller
 		$this->load->view('manager/footer', $this->data);
 	}
 
+	public function delete()
+	{
+		try {
+			$this->db->where('id', $_REQUEST['id']);
+			$this->db->delete('_dependencias');
+
+			$response = array(
+				'mensaje' => 'Datos borrados',
+				'title' => 'Dependencias',
+				'status' => 'success',
+			);
+		} catch (Exception $e) {
+			$response = array(
+				'mensaje' => 'Error: ' . $e->getMessage(),
+				'title' => 'Proyectos',
+				'status' => 'error',
+			);
+		}
+
+		echo json_encode($response);
+		exit();
+	}
 	public function agregar($id = NULL)
 	{
 

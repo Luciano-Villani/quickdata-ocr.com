@@ -31,7 +31,7 @@ $(document).ready(function () {
                 processData: false,
                 cache: false,
                 beforeSend: function () {},
-                url: $("body").data("base_url") + "Proyectos/delete",
+                url: $("body").data("base_url") + "Dependencias/delete",
                 success: function (result) {
                   alertas(result);
                   table.ajax.reload( null, false );
