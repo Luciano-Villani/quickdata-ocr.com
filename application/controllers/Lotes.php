@@ -240,6 +240,7 @@ class Lotes extends backend_controller
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->cargos_del_mes->values[0]->content),
 						'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
 						'nro_medidor' => trim('N/A'),
+						'total_vencido' => trim('S/D'),
 						// 'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
 					);
 					break;
