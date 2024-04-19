@@ -236,7 +236,7 @@ class Lotes extends backend_controller
 						'periodo_del_consumo' => trim($periodo_del_consumo),
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						// 'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->cargos_del_mes->values[0]->content),
 						'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
 						// 'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
