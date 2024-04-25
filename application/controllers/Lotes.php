@@ -356,6 +356,7 @@ class Lotes extends backend_controller
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'consumo' => trim($detalle_de_servicio),
+						'total_vencido' => trim('S/D'),
 					);
 					break;
 				case 10: //3480 TELECOM TELEFONIA FIJA
