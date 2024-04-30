@@ -91,6 +91,14 @@ function initDatatable(search = false, type = 0) {
     prove = $("#id_proveedor").val();
     tipo_pago = $("#id_tipo_pago").val();
     periodo_contable = $("#periodo_contable").val();
+
+    var fecha =  $("#daterange2").val();
+        var $select = $("#id_tipo_pago");
+    var value = $select.val();
+    var data = [];
+    value.forEach(function (valor, indice, array) {
+      data[indice] = $select.find("option[value=" + valor + "]").text();
+    });
   }
 
   $("#consolidados_dt").DataTable().destroy();
@@ -107,14 +115,14 @@ function initDatatable(search = false, type = 0) {
       scrollX: true,
       scrollCollapse: true,
       scrollY: 300,
-  
-      paging: false,
+
+      // paging: false,
       lengthMenu: [
         [10, 25, 50, 100, -1],
         [10, 25, 50, 100, "All"],
       ],
       pageLength: 25,
-      order: [0, "desc"],
+      // order: [1, "desc"],
       buttons: [
         {
           extend: "excelHtml5",
@@ -134,23 +142,20 @@ function initDatatable(search = false, type = 0) {
       ],
       columnDefs: [
         {
-          render:function(data, type, row)
-          {
-            console.log(row);
-           return "PROG " + data;
-
-          },
-        
-          targets: 5,
-        },       
+          targets: [6],
+          visible: false,
+        },
         {
-          // render: (data, type, row) => data+"(" +row[15]+")",
-          // targets: 1,
+          // render: function (data, type, row) {
+          //   // console.log(row);
+          //   return "PROG " + data;
+          // },
+
+          // targets: 5,
         },
         {
           render: function (data, type, row) {
             return data + "." + row[5];
-          
           },
           targets: 6,
         },
@@ -226,16 +231,17 @@ function initDatatable(search = false, type = 0) {
       serverSide: true,
       // responsive: true,
       type: "POST",
-      order: [[0, "desc"]],
-      dataSrc: "",
+      order: false,
+      // ordering:false,
       ajax: {
         data: {
           type: type,
           table: "_consolidados",
           data_search: search,
           id_proveedor: prove,
-          tipo_pago: tipo_pago,
+          tipo_pago: data,
           periodo_contable: periodo_contable,
+          fecha: fecha,
         },
         url: "/Consolidados/list_dt",
         type: "POST",
@@ -273,10 +279,35 @@ function initDatatable(search = false, type = 0) {
 }
 
 $(document).ready(function () {
-  var range = $('input[name="daterange2"]').daterangepicker(
+
+  $('input[name="daterange2"]').daterangepicker({
+    "showDropdowns": true,
+    locale:{
+      applyLabel: "Aplicar",
+      cancelLabel: "Cancelar",
+      format: "DD/MM/YYYY",
+      customRangeLabel: "Búsqueda avanzada",
+    },
+    ranges: {
+        'Hoy': [moment(), moment()],
+        'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Ultimos 7 días': [moment().subtract(6, 'days'), moment()],
+        'Ultimos 30 días': [moment().subtract(29, 'days'), moment()],
+        'Este mes': [moment().startOf('month'), moment().endOf('month')],
+        'Mes pasado': [moment().subtract(1, 'month').startOf('month'), 
+        moment().subtract(1, 'month').endOf('month')
+      ]
+    },
+
+}, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+});
+  var range = $('input[name="daterange2d"]').daterangepicker(
     {
-      startDate: "-1m",
-      endDate: "+1m",
+      "showDropdowns": true,
+      // startDate: "-1m",
+      // endDate: "+1m",
+      showCustomRangeLabel:true,
       locale: {
         format: "DD/MM/YYYY",
         customRangeLabel: "Búsqueda avanzada",
@@ -303,9 +334,6 @@ $(document).ready(function () {
         var strSearchvar = new Array();
         strSearchvar =
           start.format("YYYY-MM-DD") + "@" + end.format("YYYY-MM-DD");
-        console.log("strSearchvar");
-        console.log(strSearchvar);
-        // console.log(start.format('YYYY-MM-DD'));
 
         //envio parametro true para que se selecciones todas los resultados
         var parametrosUrl =
@@ -314,15 +342,13 @@ $(document).ready(function () {
           "&filtro=1&buscarFechas=" +
           strSearchvar;
 
-        initDatatable(strSearchvar, 1);
+        // initDatatable(strSearchvar, 1);
         // $('#consolidados_dt').DataTable().search('<searchstring>');
       }
     }
   );
   range.on("cancel.daterangepicker", function () {});
-  range.on("load.daterangepicker", function () {
-    alert();
-  });
+  range.on("load.daterangepicker", function () {});
   var drp = $('input[name="daterange2"]').data("daterangepicker");
   // var start = moment().subtract(29, 'days');
   // var end = moment();
@@ -339,6 +365,9 @@ $(document).ready(function () {
     $("#id_tipo_pago").val("").trigger("change");
     $("#periodo_contable").val("").trigger("change");
 
+    $('#daterange2').data('daterangepicker').setEndDate(new Date);
+    $('#daterange2').data('daterangepicker').setStartDate(new Date);
+
     // $("#id_tipo_pago").prop("selectedIndex", 0);
     initDatatable();
   });
@@ -346,32 +375,29 @@ $(document).ready(function () {
   $("body").on("click", "#applyfilter", function (e) {
     e.preventDefault();
 
-    if (
-      $("#id_proveedor").val().length === 0 &&
-      $("#id_tipo_pago").val().length === 0 &&
-      $("#periodo_contable").val().length === 0
-    ) {
-      $.confirm({
-        icon: "icon-alert",
-        title: "Criterios de filtrado",
-        content: "Seleccione opciones de filtrado",
-        buttons: {
-          cancel: {
-            text: "Aceptar",
-            btnClass: "btn-prymary",
-            action: function () {
-              return;
-            },
-          },
-        },
-      });
+    // if (
+    //   $("#id_proveedor").val().length === 0 &&
+    //   $("#id_tipo_pago").val().length === 0 &&
+    //   $("#periodo_contable").val().length === 0
+    // ) {
+    //   $.confirm({
+    //     icon: "icon-alert",
+    //     title: "Criterios de filtrado",
+    //     content: "Seleccione opciones de filtrado",
+    //     buttons: {
+    //       cancel: {
+    //         text: "Aceptar",
+    //         btnClass: "btn-prymary",
+    //         action: function () {
+    //           return;
+    //         },
+    //       },
+    //     },
+    //   });
 
-      return false;
-    }
+    //   return false;
+    // }
     initDatatable(false, 4);
-
-    console.log($("#id_proveedor").val());
-    console.log($("#id_tipo_pago").val());
   });
 
   $("body").on("click", "#descarga-exell", function (e) {

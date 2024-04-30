@@ -22,7 +22,7 @@ class Lotes extends backend_controller
 		// $dato = $this->Manager_model->getWhere('_datos_api', 'nombre_archivo="' . $id . '"');
 		// $this->db->where("nombre_archivo LIKE '%" . $file . "%' ESCAPE '!'");
 
-		$query = "SELECT id, dato_api FROM _datos_api WHERE nombre_archivo_temp = '" . $file . "'";
+		$query = "SELECT id, dato_api FROM _datos_api WHERE nombre_archivo = '" . $file . "'";
 		$valor = $file;
 
 		// Escapar el valor usando escape() de la clase db
@@ -230,18 +230,12 @@ class Lotes extends backend_controller
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
 					}
-					$totalIndices = count($a->document->inference->pages[0]->prediction->numero_de_factura->values);
-					$numero_de_factura = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$numero_de_factura .= ' ' . $a->document->inference->pages[0]->prediction->numero_de_factura->values[$paso]->content;
-					}
 
 					$dataUpdate = array(
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 						'periodo_del_consumo' => trim($periodo_del_consumo),
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-						// 'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						'nro_factura' => trim($numero_de_factura),
+						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
 						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->cargos_del_mes->values[0]->content),
 						'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
@@ -362,6 +356,7 @@ class Lotes extends backend_controller
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'consumo' => trim($detalle_de_servicio),
+						'total_vencido' => trim('S/D'),
 					);
 					break;
 				case 10: //3480 TELECOM TELEFONIA FIJA
@@ -486,11 +481,30 @@ class Lotes extends backend_controller
 		// sleep(3);
 		$dataApi = apiRest($request, $proveedor->urlapi);
 
+		// echo '<pre>';
+		// var_dump( $dataApi ); 
+		// echo '</pre>';
+		// die();
 
-		if (is_file($_POST['file'])) {
-			if (unlink($_POST['file'])) {
-			}
-		}
+		// // Escapar los valores de los datos actualizados
+		// $datos_actualizados_escapados = array();
+		// foreach ($datos_actualizados as $columna => $valor) {
+		// 	$datos_actualizados_escapados[$columna] = $this->db->escape($valor);
+		// }
+
+		// // Construir la consulta UPDATE
+		// $this->db->set($datos_actualizados_escapados);
+		// $this->db->where('condicion_columna', 'valor_condicion');
+
+		// // Ejecutar la consulta UPDATE
+		// $this->db->update('tabla');
+
+		// // Verificar si la consulta se ejecutó correctamente
+		// if ($this->db->affected_rows() > 0) {
+		// 	// La consulta se ejecutó correctamente
+		// } else {
+		// 	// La consulta no se ejecutó o no afectó filas
+		// }
 
 
 		$updateData = array(
@@ -499,8 +513,7 @@ class Lotes extends backend_controller
 		// sleep(1);
 
 		// $this->db->where("nombre_archivo LIKE '%uploader/files/".$proveedor->codigo. "/". $dataApi['document']['name']  . "%' ESCAPE '!'");
-		// $this->db->where("nombre_archivo", "uploader/files/" . $proveedor->codigo . "/" . $dataApi['document']['name']);
-		$this->db->where("nombre_archivo_temp",  $_POST['file']);
+		$this->db->where("nombre_archivo", "uploader/files/" . $proveedor->codigo . "/" . $dataApi['document']['name']);
 		$this->db->update('_datos_api', $updateData);
 
 		$this->getDato("uploader/files/" . $proveedor->codigo . "/" . $dataApi['document']['name'], $proveedor->id);
@@ -557,14 +570,7 @@ class Lotes extends backend_controller
 				);
 				// File upload
 				if ($this->upload->do_upload('file')) {
-					$nombre_archivo_temp = $nuevoNOmbre . '_splitter.' . $arc[1];
-
-					$destino = $nombre_fichero  . "/" . $nombre_archivo_temp;
-
-					$this->load->library('pdf_lib');
-
-					$pdf = $this->pdf_lib->test($this->upload->data('full_path'), $destino);
-
+					// Get data about the file
 
 					try {
 						//actrualizo tabla lotes cantidad de archivos
@@ -625,7 +631,6 @@ class Lotes extends backend_controller
 						// 'nombre_proveedor' => $data['document']['inference']['pages'][0]['prediction']['nombre_proveedor']['values'][0]['content'],
 						// 'dato_api' => json_encode($data),
 						'nombre_archivo' => $nombre_archivodb,
-						'nombre_archivo_temp' => $destino,
 					);
 
 					if ($this->Manager_model->grabar_datos("_datos_api", $saveData)) {
@@ -639,7 +644,6 @@ class Lotes extends backend_controller
 							'status' => 'success',
 							'file' => $filename,
 							'path' => $fullpath,
-							'pathw' => $destino,
 						);
 						echo json_encode($response);
 						exit();

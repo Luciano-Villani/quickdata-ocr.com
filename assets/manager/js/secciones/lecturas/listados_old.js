@@ -160,6 +160,54 @@ $(document).ready(function () {
       }
   })
 
+//   $.confirm({
+        
+//     title: 'Archivos subidos',
+//     content: 'Obtener datos de OCR del lote '+ $("#code").val()+'?',
+//     buttons: {
+//         confirm: function () {
+           
+//           // busqueda de datos API
+//           var postdata = new FormData();
+//           postdata.append("id_proveedor", $("#id_proveedor").val());
+//           postdata.append("code_lote", $("#code").val());
+
+//           $.ajax({
+//             type: "POST",
+//             contentType: false,
+//             dataType: "json",
+//             data: postdata,
+//             processData: false,
+//             cache: false,
+//             beforeSend: function () { },
+//             url: $("body").data("base_url") + "Lotes/leerApi/"+ $("#code").val()+'/'+$("#id_proveedor").val(),
+//             success: function (result) {
+//               console.log("RESULT");
+//               console.log(result);
+ 
+//             },
+//             error: function (xhr, errmsg, err) {
+//               console.log(xhr.status + ": " + xhr.responseText);
+//             },
+//           });
+
+
+//         },
+//         cancel: function () {
+//             $.alert('Cancelado !');
+//         }
+//         ,
+//     somethingElse: {
+//         text: 'Something else',
+//         btnClass: 'btn-blue',
+//         disable:true,
+//         keys: ['enter', 'shift'],
+//         action: function(){
+//             $.alert('Something else?');
+//         }
+//     }
+//     }
+// });
 
   function DestroyDropzones() {
     $(".dropzone").each(function () {
@@ -472,7 +520,7 @@ $(function () {
     url: "/Lotes/upload",
     parallelUploads:10,
     autoProcessQueue: false,
-    maxFiles: null,
+    maxFiles: 10,
     maxFilesize: 10000,
     timeout: 1000000,
     acceptedFiles: ".pdf",
@@ -517,7 +565,7 @@ $(function () {
           data.title = 'Carga de archivos';
           data.mensaje = mensaje.mensaje;
           var archivo = mensaje.file;
-          $("#tabla_archivos").prepend( "<tr data-archivo='"+mensaje.pathw+"'><td data-archivo='"+mensaje.pathw+"'>"+archivo+"</td><td><span data-archivo='"+mensaje.pathw+"' class='label bg-warning-400'>Pendiente</span></td></tr>");
+          $("#tabla_archivos").prepend( "<tr data-archivo='"+mensaje.path+"'><td data-archivo='"+mensaje.path+"'>"+archivo+"</td><td><span data-archivo='"+mensaje.path+"' class='label bg-warning-400'>Pendiente</span></td></tr>");
   
           alertas(data);
        

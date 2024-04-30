@@ -36,8 +36,21 @@
 	.select2-search:after {
 		content: '' !important;
 	}
+
+	.card {
+		container {
+ 		 padding-left: 0 !important;
+ 		 padding-right: 0 !important;
+		  width: 100% !important;
+	}
+	}
+	.tablas {
+		width: 1300px !important;
+		margin-left: -80px; !important;
+
+	}
 </style>
-<div class="card">
+<div class="card tablas">
 <h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes </h5>
 
 	<div class=" card-header  ">
@@ -123,8 +136,21 @@
 
 		</div>
 		<div class="container row mt-3">
-		
-			<div class="col-md-auto">
+			
+			
+			
+			<div class="col-md-12 ">
+				<label class="">
+					<input type="radio" class="radio" checked value="1" name="tipo_fecha" />
+					<span data-popup="tooltip">Fecha de Consolidación</span>
+				</label>
+				<div class="col-md-4 ">
+					<input type="text" name="daterange2" id="daterange2" class="form-control ">
+				</div>
+			</div>
+		</div>
+		<div class="container row mt-3">
+		<div class="col-md-auto">
 				<button id="applyfilter" type="button" class="btn-filtrar text-dark btn btn-outline-success"><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
 				
 			</div>			
@@ -136,17 +162,7 @@
 					<div class="col-md-auto">
 						<button id="descarga-exell" type="button" class=" btn-save btn bg-teal-400"><b><i class="icon-file-excel"></i></b> DESCARGAR ARCHIVO</button>
 					</div>
-				
-			<div class="col-md-12 ">
-				<label class="">
-					<input type="radio" class="radio" checked value="1" name="tipo_fecha" />
-					<span data-popup="tooltip">Fecha de Consolidación</span>
-				</label>
-				<div class="col-md-4 ">
-					<input type="text" name="daterange2" id="daterange2" class="form-control ">
-				</div>
-			</div>
-		</div>
+	</div>
 	</div>
 </div>
 <style>
@@ -155,6 +171,9 @@
 		/* float: left; */
 	}
 
+	.dataTables_filter input{
+		text-transform: uppercase;
+	}
 	div.dt-button-collection {
 		width: auto !important;
 
@@ -170,17 +189,15 @@
        
     }
 </style>
-<div class="card">
+<div class="card tablas">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas</h5>
 	<div class="card-header">
 
-		<table id="consolidados_dt" class="datatable-ajax table-bordered table-hover datatable-highlight" style="width: 100%">
+		<table id="consolidados_dt" class="datatable-ajax table-bordered table-hover datatable-highlight" style="width: auto">
 			<thead>
 				
 				<tr>
-					<th>#</th>
-					<th>#</th>
-					<th>#</th>
+				
 					<th>Período Cont</th>
 					<th>Proveedor</th>
 					<th>Expediente</th>

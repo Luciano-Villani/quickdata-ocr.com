@@ -141,7 +141,7 @@
 			
 			<div class="col-md-12 ">
 				<label class="">
-					<input type="radio" class="radio" checked value="1" name="tipo_fecha" />
+					<input type="checkbox" class="radio"  value="1" id="tipo-fecha" name="tipo_fecha" />
 					<span data-popup="tooltip">Fecha de Consolidación</span>
 				</label>
 				<div class="col-md-4 ">
