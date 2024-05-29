@@ -198,7 +198,7 @@
 				
 				<tr>
 				
-					<th>Período Cont</th>
+					<th>Período cont</th>
 					<th>Proveedor</th>
 					<th>Expediente</th>
 					<th>Secretaría</th>
@@ -208,12 +208,12 @@
 					<th>O del gasto</th>
 					<th>Dependencia</th>
 					<th>Direccion</th>
-					<th>Tipo Pago</th>
+					<th>Tipo pago</th>
 					<th>Nro Cuenta</th>
 					<th>Nro factura</th>
 					<th>Período</th>
 					<th>Vencimiento</th>
-					<th>Pasar a Prev.</th>
+					<th>Fecha de pago</th>
 					<th>Importe factura</th>
 					<th></th>
 				</tr>
