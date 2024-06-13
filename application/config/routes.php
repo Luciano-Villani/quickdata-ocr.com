@@ -1,66 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/user_guide/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
-*/
-// $route['Manager/(:any)/(:any)'] = 'manager/$1/$2';
 $route['Admin/uploader'] = 'Lecturas/upload';
 
 $route['Uploader/demo'] = 'Lecturas/demo';
 
 
-
+$route['Chart/Proveedores'] = 'Admin/Proveedores';
 $route['Admin/dashboard'] = 'manager/dashboard';
 
 $route['Admin/Consolidados'] = 'Consolidados/listados';
 $route['Consolidados/list_dt/(:any)/(:any)/(:any)'] = 'Consolidados/list_dt/$1/$2/$3';
-
 
 
 $route['Admin/Lecturas'] = 'Lecturas/listados';
@@ -102,11 +52,9 @@ $route['Admin/Obras/editar/(:any)'] = 'Obras/listados/$1';
 
 $route['Admin/Indexaciones/editar/(:any)'] = 'Indexaciones/listados/$1';
 $route['Admin/Indexaciones'] = 'Indexaciones/listados';
-// $route['Admin/Indexaciones/agregar'] = 'Indexaciones/agregar';
 
 
 $route['Admin/Proveedores'] = 'proveedores/listados';
-$route['Admin/Proveedores/agregar'] = 'proveedores/agregar';
 
 $route['Admin/Usuarios'] = 'Usuarios/listados';
 
@@ -116,9 +64,42 @@ $route['Admin/usuarios/agregar/?(:num)?'] = 'usuarios/agregar/$1';
 $route['Admin/usuarios/listados'] = 'usuarios/listados';
 
 
+// ELECTROMECANICA
+$route['Electromecanica'] = 'electromecanicax/Electromecanica';
+$route['Electromecanica/Lecturas/upload'] = 'electromecanicax/Electromecanica/Lecturas/upload';
+$route['Electromecanica/Lecturas'] = 'electromecanicax/Lecturas';
+$route['Electromecanica/Lecturas/lotes_dt'] = 'electromecanicax/Lecturas/lotes_dt';
+$route['Electromecanica/Lecturas/upload'] = 'electromecanicax/Lecturas/upload';
+$route['Electromecanica/Lecturas/checkFile'] = 'electromecanicax/Lecturas/checkfile';
+$route['Electromecanica/Lecturas/delete_lote'] = 'electromecanicax/Lecturas/delete_lote';
+$route['Electromecanica/Lecturas/indexaciones_dt'] = 'electromecanicax/Lecturas/indexaciones_dt';
+$route['Electromecanica/Lecturas/indexaciones_cuenta'] = 'electromecanicax/Lecturas/indexaciones_cuenta';
+
+$route['Electromecanica/Lecturas/viewBatch/?(:any)?'] = 'electromecanicax/Lecturas/viewBatch/$1';
+$route['Electromecanica/Lecturas/Views/?(:any)?'] = 'electromecanicax/Lecturas/views/$1';
+$route['Electromecanica/Lecturas/leerApi'] = 'electromecanicax/Lecturas/leerApi';
+
+$route['Electromecanica/Indexaciones'] = 'electromecanicax/Indexaciones';
+$route['Electromecanica/Indexaciones/list_dt'] = 'electromecanicax/Indexaciones/list_dt';
+$route['Electromecanica/Indexaciones/edit'] = 'electromecanicax/Indexaciones/edit';
+
+$route['Electromecanica/Dependencias'] = 'electromecanicax/Dependencias/index';
+$route['Electromecanica/Dependencias/list_dt'] = 'electromecanicax/Dependencias/list_dt';
+$route['Electromecanica/Dependencias/delete'] = 'electromecanicax/Electromecanica/delete';
+$route['Electromecanica/Dependencias/get_dependencias'] = 'electromecanicax/Dependencias/get_dependencias';
+$route['Electromecanica/Dependencias/editar/?(:num)?'] = 'electromecanicax/Dependencias/index/$1';
+
+$route['Electromecanica/Proveedores'] = 'electromecanicax/Proveedores/index';
+$route['Electromecanica/Proveedores/list_dt'] = 'electromecanicax/Proveedores/list_dt';
+$route['Electromecanica/Proveedores/checkApiUrl'] = 'electromecanicax/Proveedores/checkApiUrl';
+$route['Electromecanica/Proveedores/delete'] = 'electromecanicax/Electromecanica/delete';
+$route['Electromecanica/Proveedores/edit'] = 'electromecanicax/Electromecanica/get_edit';
+
+// ELECTROMECANICA
+
 $route['Admin'] = 'admin';
 $route['Login'] = 'auth/login';
 $route['Logout'] = 'auth/logout';
 $route['default_controller'] = 'auth/login';
-$route['404_override'] = 'Admin/Consolidados';
+$route['404_override'] = 'Error/error_404';
 $route['translate_uri_dashes'] = FALSE;

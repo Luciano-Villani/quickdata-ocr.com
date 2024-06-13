@@ -35,15 +35,12 @@ class Consolidados_model extends CI_Model
 			);
 		} else {
 			$files = $this->Lotes_model->getBatchFiles($_POST['code_lote']);
-			
 		}
 
 		try {
 
 			$error = true;
-
 			foreach ($files as $file) {
-
 
 				if (checkConsolidar($file->id)) {
 					$error = false;
@@ -61,6 +58,9 @@ class Consolidados_model extends CI_Model
 					$indexador = $this->Manager_model->getWhere('_indexaciones', 'nro_cuenta="' . $file->nro_cuenta . '"');
 					$proveedor = $this->proveedores->get_proveedor($indexador->id_proveedor);
 					$secretaria = $this->Manager_model->get_data('_secretarias', $indexador->id_secretaria);
+
+
+	
 
 					if ($dependencia = $this->Manager_model->getWhere('_dependencias', '_dependencias.id="'.$indexador->id_dependencia .'" AND _dependencias.id_secretaria = "'.$indexador->id_secretaria.'"')) {
 						$dependencia_dependencia =  $dependencia->dependencia;
@@ -94,6 +94,7 @@ class Consolidados_model extends CI_Model
 						'proveedor' => $proveedor->nombre,
 						'expediente' => $indexador->expediente,
 						'secretaria' => $secretaria->secretaria,
+						'id_secretaria' => $secretaria->id,
 						'jurisdiccion' => $secretaria->major,
 						'programa' => $programa_descripcion,
 						'id_interno_programa' => $id_interno_programa,
@@ -113,11 +114,13 @@ class Consolidados_model extends CI_Model
 						'mes_vencimiento' => $mesVencimiento[1],
 						'preventivas' => date("Y-m-d H:i:s"),
 						'importe' => $file->total_importe,
-						'periodo_contable' => fecha_es(date("Y-m-d H:i:s"), 'F a', false),
+						'periodo_contable' => strtoupper(fecha_es(date("Y-m-d H:i:s"), 'F a', false)),
 						'lote' => $_POST['code_lote'],
 						'user_consolidado' => $this->user->id,
 						'fecha_consolidado' => $this->fecha_now,
 						'nombre_archivo' => $file->nombre_archivo,
+						'importe_1' => $file->total_importe,
+						'acuerdo_pago' => $indexador->acuerdo_pago,
 					);
 
 					$this->Manager_model->grabar_datos('_consolidados', $dataBatch);

@@ -1,4 +1,4 @@
-<?php if ($this->ion_auth->is_super() || $this->ion_auth->is_admin()) { ?>
+<?php if ($this->ion_auth->is_electro() || $this->ion_auth->is_super() || $this->ion_auth->is_admin()) { ?>
 	<div class=" card">
 		<div class="card-header header-elements-inline">
 			<?php if ($this->BtnText == "Agregar") { ?>
@@ -8,8 +8,8 @@
 
 		</div>
 
-		<div class="card-body <?= $collapse ?>" id="formulario1">
-			<?php echo form_open(base_url('Admin/Indexaciones'), array('id' => 'form-validate-jquery')); ?>
+		<div class="card-body <?= $collapse?>" id="formulario1">
+			<?php echo form_open(base_url('Electromecanica/Indexaciones'), array('id' => 'form-validate-jquery')); ?>
 			<div class="row">
 
 				<div class="col-md-1 d-none">
@@ -20,8 +20,8 @@
 					</div>
 				</div>
 				<div class="col-md-1">
-					<input readonly="readonly" class="form-control" type="text" name="id">
-				</div>
+				<input readonly="readonly" class="form-control" type="text" name="id">
+			</div>	
 				<div class="col-md-2">
 					<div class="form-group form-group-feedback form-group-feedback-right  ">
 
@@ -42,7 +42,7 @@
 				</div>
 				<div class="col-md-2">
 					<div class="form-group form-group-feedback form-group-feedback-right">
-						<input type="text" class="form-control  " placeholder="Nro de cuenta" name="nro_cuenta" value="<?php echo set_value('nro_cuenta', @$nro_cuenta); ?>">
+						<input type="text" class="form-control  " placeholder="Nro de cuenta" name="nro_cuenta" value="<?php echo set_value('nro_cuenta', @trim($nro_cuenta)); ?>">
 
 						<?php echo form_error('nro_cuenta', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 					</div>
@@ -117,58 +117,36 @@
 
 
 
-						<?= form_dropdown('id_dependencia', $select_dependencias, set_value('id_dependencia', @$id_dependencia), $js); ?>
+						<?= form_dropdown('id_dependencia', $select_dependencias, set_value('id_dependencia', @$id_dependencia),$js); ?>
 						<?php echo form_error('id_dependencia', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 
 					</div>
 				</div>
 				<div class="col-md-2">
 					<div class="form-group form-group-feedback form-group-feedback-right  ">
-						<input type="text" class="form-control" placeholder="Exp" name="expediente" value="<?php echo set_value('expediente', @$indexador->expediente); ?>">
+						<input type="text" class="form-control" placeholder="Exp" name="expediente" value="<?php echo set_value('expediente',@$indexador->expediente); ?>">
 
 						<?php echo form_error('expediente', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 					</div>
 				</div>
-				<div class="container row">
-					<div class="col-md-2">
-						<div class="form-group form-group-feedback form-group-feedback-right  ">
+				<div class="col-md-2">
+					<div class="form-group form-group-feedback form-group-feedback-right  ">
 
-							<?php
-							$js = array(
-								'required' => 'required',
-								'id' => 'tipo_pago',
+						<?php
+						$js = array(
+							'required' => 'required',
+							'id' => 'tipo_pago',
+							
+							'class' => ' select2 form-control custom-select ',
+						);
+						?>
 
-								'class' => ' select2 form-control custom-select ',
-							);
-							?>
+						<?= form_dropdown('tipo_pago', $select_tipo_pago, set_value('tipo_pago', @$tipo_pago), $js); ?>
+						<?php echo form_error('tipo_pago', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 
-							<?= form_dropdown('tipo_pago', $select_tipo_pago, set_value('tipo_pago', @$tipo_pago), $js); ?>
-							<?php echo form_error('tipo_pago', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
-
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="form-group form-group-feedback form-group-feedback-right  ">
-
-							<?php
-							$js = array(
-								'required' => 'required',
-								'id' => 'acuerdo_pago',
-								
-								'class' => '  form-control ',
-							);
-							?>
-
-							<input type="text"  class="form-control" placeholder="Acuerdo de pago" id="acuerdo_pago"name="acuerdo_pago" value="<?php echo @$acuerdo_pago; ?>">
-
-							<?php echo form_error('acuerdo_pago', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
-
-						</div>
 					</div>
 				</div>
-
-				<div class="row col-md-2">
+				<div class="col-md-2">
 					<button type="submit" class=" <?= $this->BtnText ?> btn btn-filtrar"><b><i class="icon-upload"></i></b><?= $this->BtnText ?></button>
 					<?= form_close(); ?>
 				</div>

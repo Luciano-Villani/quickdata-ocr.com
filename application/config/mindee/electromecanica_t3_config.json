@@ -1,0 +1,135 @@
+{
+  "classificator": { "features": [] },
+  "selector": {
+    "features": [
+      {
+        "name": "nombre_proveedor",
+        "public_name": "nombre_proveedor",
+        "semantics": "Word"
+      },
+      {
+        "name": "nro_factura",
+        "public_name": "nro_factura",
+        "semantics": "Word"
+      },
+      {
+        "name": "fecha_emision",
+        "public_name": "fecha_emision",
+        "semantics": "Date"
+      },
+      {
+        "name": "nro_cuenta",
+        "public_name": "nro_cuenta",
+        "semantics": "Amount"
+      },
+      {
+        "name": "periodo_del_consumo",
+        "public_name": "periodo_del_consumo",
+        "semantics": "Word"
+      },
+      {
+        "name": "tipo_de_tarifa",
+        "public_name": "Tipo_de_tarifa",
+        "semantics": "Word"
+      },
+      {
+        "name": "vencimiento_del_pago",
+        "public_name": "vencimiento_del_pago",
+        "semantics": "Date"
+      },
+      {
+        "name": "nombre_cliente",
+        "public_name": "nombre_cliente",
+        "semantics": "Word"
+      },
+      {
+        "name": "domicilio_de_consumo",
+        "public_name": "domicilio_de_consumo",
+        "semantics": "Word"
+      },
+      {
+        "name": "p_contratada",
+        "public_name": "p_contratada",
+        "semantics": "Word"
+      },
+      {
+        "name": "p_registrada",
+        "public_name": "p_registrada",
+        "semantics": "Word"
+      },
+      {
+        "name": "p_excedida",
+        "public_name": "p_excedida",
+        "semantics": "Word"
+      },
+      {
+        "name": "nro_medidor",
+        "public_name": "nro_medidor",
+        "semantics": "Amount"
+      },
+      {
+        "name": "e_reactiva",
+        "public_name": "e_reactiva",
+        "semantics": "Amount"
+      },
+      { "name": "tgfi", "public_name": "tgfi", "semantics": "Amount" },
+      {
+        "name": "consumo_pico_ant",
+        "public_name": "consumo_pico_ant",
+        "semantics": "Word"
+      },
+      {
+        "name": "consumo_pico_vig",
+        "public_name": "consumo_pico_vig",
+        "semantics": "Word"
+      },
+      {
+        "name": "cargo_pico",
+        "public_name": "cargo_pico",
+        "semantics": "Amount"
+      },
+      {
+        "name": "consumo_resto_ant",
+        "public_name": "consumo_resto_ant",
+        "semantics": "Word"
+      },
+      {
+        "name": "consumo_resto_vig",
+        "public_name": "consumo_resto_vig",
+        "semantics": "Word"
+      },
+      {
+        "name": "cargo_resto",
+        "public_name": "cargo_resto",
+        "semantics": "Amount"
+      },
+      {
+        "name": "consumo_valle_ant",
+        "public_name": "consumo_valle_ant",
+        "semantics": "Word"
+      },
+      {
+        "name": "consumo_valle_vig",
+        "public_name": "consumo_valle_vig",
+        "semantics": "Word"
+      },
+      {
+        "name": "cargo_valle",
+        "public_name": "cargo_valle",
+        "semantics": "Amount"
+      },
+      { "name": "subsidio", "public_name": "subsidio", "semantics": "Amount" },
+      { "name": "e_actual", "public_name": "e_actual", "semantics": "Amount" },
+      {
+        "name": "total_importe",
+        "public_name": "total_importe",
+        "semantics": "Amount"
+      },
+      {
+        "name": "energia_inyectada",
+        "public_name": "energia_inyectada",
+        "semantics": "Word"
+      }
+    ]
+  }
+}

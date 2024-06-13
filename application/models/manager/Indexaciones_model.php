@@ -50,6 +50,7 @@ class Indexaciones_model extends CI_Model
 
 		$acciones = 'acciones';
 		foreach ($result = $this->db->get()->result() as $r) {
+
 			$datos[] = array(
 				$r->expediente,
 				$r->nro_cuenta,

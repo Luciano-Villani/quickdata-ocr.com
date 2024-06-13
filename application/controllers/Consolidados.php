@@ -7,8 +7,8 @@ class Consolidados extends backend_controller
 	{
 		parent::__construct();
 
-
-		if (!$this->ion_auth->logged_in()) {
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+	
 			redirect('Login');
 		} else {
 			$this->load->model('Ion_auth_model');

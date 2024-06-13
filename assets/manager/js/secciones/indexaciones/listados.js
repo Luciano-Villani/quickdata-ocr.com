@@ -144,8 +144,8 @@ function initDatatablex(search = false, type = 0) {
     serverSide: true,
     // responsive: true,
     type: "POST",
-    order: [1,'desc'],
-    ordering:false,
+    order: [1, "desc"],
+    ordering: false,
     ajax: {
       data: {
         type: type,
@@ -201,15 +201,11 @@ $(document).ready(function () {
     $(".collapse").collapse("toggle");
   }
 
-
-  
   $("body").on("change", "select#select_programa", function (e) {
-
-
     var dato = new FormData();
     dato.append("id", $(this).val());
     dato.append("id_secretaria", $("#select_secretaria").val());
-    
+
     $.ajax({
       type: "POST",
       contentType: false,
@@ -218,14 +214,11 @@ $(document).ready(function () {
       processData: false,
       cache: false,
       beforeSend: function () {
-      
         $("#select_proyecto").empty();
-      
       },
       url: $("body").data("base_url") + "Proyectos/list_select",
       success: function (result) {
         var obj = jQuery.parseJSON(result);
-
 
         if (Object.keys(obj.proyectos).length > 0) {
           $("#select_proyecto").removeAttr("disabled");
@@ -233,23 +226,22 @@ $(document).ready(function () {
             '<option selected value="0">SELECCIONE PROYECTO</option>'
           );
 
-            $.each(obj.proyectos, function (id, value) {
-              $("#select_proyecto").append(
-                '<option value="' +
-                  value["id"] +
-                  '">' +
-                  value["id_interno"] +
-                  "  " +
-                  value["descripcion"].toUpperCase() +
-                  "</option>"
-              );
-            });
+          $.each(obj.proyectos, function (id, value) {
+            $("#select_proyecto").append(
+              '<option value="' +
+                value["id"] +
+                '">' +
+                value["id_interno"] +
+                "  " +
+                value["descripcion"].toUpperCase() +
+                "</option>"
+            );
+          });
         } else {
           $("#select_proyecto").append(
             '<option selected value="">SIN PROYECTOS</option>'
           );
         }
-
 
         //    					toastr.success('Registro Editado correctamente!', 'Categorías');
       },
@@ -257,16 +249,9 @@ $(document).ready(function () {
         console.log(xhr.status + ": " + xhr.responseText);
       },
     });
-
-
-
-
   });
 
-
-
   $("body").on("click", "a.edit_dato", function (e) {
-   
     e.preventDefault();
     var dato = new FormData();
     dato.append("id", $(this).data("id"));
@@ -279,35 +264,42 @@ $(document).ready(function () {
       cache: false,
       beforeSend: function () {
         $.blockUI();
-
       },
-      url: $("body").data("base_url")+"Indexaciones/edit",
+      url: $("body").data("base_url") + "Indexaciones/edit",
       success: function (result) {
-        $('html, body').animate({ scrollTop: 0 }, 'fast');
-console.log(result);
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+        console.log(result);
         if (result.status == "success") {
           $("div#formulario1").addClass("show");
-          $("select#id_proveedor").val(result.data.id_proveedor).trigger('change');
+          $("select#id_proveedor")
+            .val(result.data.id_proveedor)
+            .trigger("change");
           $("input[name='id']").val(result.data.id);
           $("input[name='expediente']").val(result.data.expediente);
           $("input[name='nro_cuenta']").val(result.data.nro_cuenta);
-          $("input[name='nro_cuenta']").attr('disabled','disabled');
+          $("input[name='nro_cuenta']").attr("disabled", "disabled");
           $("input[name='id_indexacion']").val(result.data.id);
-          $("select#tipo_pago").val(result.data.tipo_pago).trigger('change');
-          $("select#select_secretaria").val(result.data.id_secretaria).trigger('change');
-          
-          
-          setTimeout( function() { 
-            $("select#select_dependencia").val(result.data.id_dependencia ).trigger('change');
-            $("select#select_programa").val(result.data.id_programa).trigger('change');
-            $("select#select_programa").removeAttr('disabled');
+          $("select#tipo_pago").val(result.data.tipo_pago).trigger("change");
+          $("#acuerdo_pago").val(result.data.acuerdo_pago);
+          $("select#select_secretaria")
+            .val(result.data.id_secretaria)
+            .trigger("change");
+
+          setTimeout(function () {
+            $("select#select_dependencia")
+              .val(result.data.id_dependencia)
+              .trigger("change");
+            $("select#select_programa")
+              .val(result.data.id_programa)
+              .trigger("change");
+            $("select#select_programa").removeAttr("disabled");
           }, 1000);
 
-          setTimeout( function() { 
-            $("select#select_proyecto").removeAttr('disabled');
-          $("select#select_proyecto").val(result.data.id_proyecto);
-          $.unblockUI();
-        },2000);
+          setTimeout(function () {
+            $("select#select_proyecto").removeAttr("disabled");
+            $("select#select_proyecto").val(result.data.id_proyecto);
+            $.unblockUI();
+          }, 2000);
         } else {
           alertas(result);
         }
@@ -331,7 +323,7 @@ $(document).ready(function () {
       },
       colReorder: {
         // realtime: true
-    },
+      },
       // colReorder: true,
       autoWidth: false,
       paging: true,
@@ -369,14 +361,13 @@ $(document).ready(function () {
           className: "dt-left",
         },
         {
-          targets: [0,1,3],
+          targets: [0, 1, 3],
           visible: false,
         },
         { width: "", orderable: false, targets: [7] },
         {
           targets: [2],
           render: function (data, type, full, meta) {
-      
             return data;
           },
         },
@@ -435,9 +426,9 @@ $(document).ready(function () {
   }
   initDatatable();
 
-  $('#indexaciones_dt').on('column-reorder', function (e, settings, details) {
-    alert('column changed')
-});
+  $("#indexaciones_dt").on("column-reorder", function (e, settings, details) {
+    alert("column changed");
+  });
   if ($("body").data("data_action") == "Editar") {
     $(".collapse").collapse("toggle");
 
@@ -447,13 +438,12 @@ $(document).ready(function () {
   } else {
   }
 
-  
-
   $("form#form-validate-jquery").validate({
     rules: {
       id_secretaria: { required: true, min: 1 },
       nro_cuenta: "required",
       expediente: "required",
+      // acuerdo_pago: "required",
       id_proveedor: { required: true, min: 1 },
       tipo_pago: { required: true, min: 1 },
     },
@@ -463,6 +453,7 @@ $(document).ready(function () {
       nro_cuenta: "requerido",
       tipo_pago: "requerido",
       expediente: "requerido",
+      // acuerdo_pago: "requerido",
     },
   });
 

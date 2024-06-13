@@ -8,6 +8,10 @@ class MY_controller extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+
+		// if (!$this->ion_auth->logged_in()) {
+        //     redirect(base_url());
+        // }
 		// $this->output->enable_profiler(TRUE);
 		$this->page_title = '';
 		$this->page_datail = 'escturctura base';
@@ -28,19 +32,9 @@ class MY_controller extends CI_Controller
 
 		}
 
-		/*
-		<!-- Global stylesheets -->
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-		<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-		<link href="assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
-		<link href="assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
-		<link href="assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
-		<link href="assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
-	
-	*/
-
 
 		$this->css_common = array(
+		
 			base_url('assets/manager/css/icons/icomoon/styles.min.css'),
 			base_url('assets/manager/css/bootstrap.min.css'),
 			base_url('assets/manager/css/bootstrap_limitless.css'),
@@ -50,10 +44,9 @@ class MY_controller extends CI_Controller
 			base_url('assets/manager/css/core.css'),
 			base_url('assets/manager/css/animate.min.css'),
 			base_url('assets/manager/js/plugins/dropzone.min.css'),
-			// base_url('assets/manager/js/plugins/tables/datatables/jquery.dataTables.min.css'),
+			'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css',
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/buttons.dataTables.css'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/responsive.dataTables.css'),
-			'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
 			base_url('assets/manager/js/plugins/notifications/jquery-confirm.css'),
 			base_url('assets/css/icons/fontawesome/styles.min.css'),
 
@@ -62,11 +55,10 @@ class MY_controller extends CI_Controller
 		// script de particulares de cada hoja
 		$this->script = array();
 		$this->script_common = array(
-			// base_url('assets/manager/js/jquery.min.js'),
-			// 'https://cdn.datatables.net/v/dt/dt-1.13.8/r-2.5.0/sl-1.7.0/datatables.min.js">',
+			base_url('assets/manager/js/plugins/daterange-picker/moment.min.js'),
+			base_url('assets/manager/js/plugins/daterange-picker/daterangepicker.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/jquery.dataTables.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/dataTables.buttons.js'),
-			// base_url('assets/manager/js/plugins/tables/datatables/extensions/col_reorder.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/fixed_columns.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/jszip/jszip.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js'),
@@ -79,9 +71,7 @@ class MY_controller extends CI_Controller
 			base_url('assets/manager/js/plugins/forms/styling/uniform.min.js'),
 			base_url('assets/manager/js/plugins/forms/validation/validate.min.js'),
 			base_url('assets/manager/js/plugins/pickers/anytime.min.js'),
-			// base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
-			'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-			//base_url('assets/manager/js/plugins/notifications/sweet_alert.min.js'),
+			'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js',
 			base_url('assets/manager/js/bootstrap.bundle.min.js'),
 			base_url('assets/manager/js/session_timeout.min.js'),
 			base_url('assets/manager/js/plugins/notifications/pnotify.min.js'),
@@ -89,14 +79,16 @@ class MY_controller extends CI_Controller
 			base_url('assets/manager/js/plugins/dropzone.min.js'),
 			base_url('assets/manager/js/app.js'),
 			base_url('assets/manager/js/confirm.js'),
+			// base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 
 		);
 
+
+		$this->data['css_common'] = $this->css_common;
+        $this->data['script_common'] = $this->script_common;
 		/*BARRA DE NAVEGACION Y FOOTER GLOBAL*/
 
 		$menu_act = $this->uri->segment(3);
-
-
 
 		$data = array(
 			'proveedores' => $this->Manager_model->getProveedores(),
@@ -107,8 +99,11 @@ class MY_controller extends CI_Controller
 			'method_act' => $this->router->fetch_method(),
 		);
 
-
-		$this->nav = $this->load->view('manager/etiquetas/nav2', $data, TRUE);
+		if ($this->ion_auth->is_electro()){
+			$this->nav = $this->load->view('manager/etiquetas/nav_electro', $data, TRUE);
+		}else{
+			$this->nav = $this->load->view('manager/etiquetas/nav2', $data, TRUE);
+		}
 
 		$this->footer = $this->load->view('manager/etiquetas/footer', $data, TRUE);
 	}

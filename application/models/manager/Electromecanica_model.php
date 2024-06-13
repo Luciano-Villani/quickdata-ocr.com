@@ -2,20 +2,95 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Manager_model extends CI_Model
+class Electromecanica_model extends CI_Model
 {
     function __construct()
     {
         parent::__construct();
         // $this->order='';
-            
+
     }
 
+
+    public function get_indexaciones($_dataREQUEST)
+    {
+          // $this->db->from($_POST['table']);
+
+          $this->db->select(
+            '_indexaciones_canon.*
+            ,_secretarias.secretaria as nombre_secretaria,
+            _dependencias_canon.dependencia as nombre_dependencia,
+            _proveedores_canon.nombre as nom_proveedor,
+            _programas.descripcion as descr_programa,
+            _proyectos.id as id_proyecto,
+            _programas.id_interno as prog_id_interno,
+            _proyectos.id_interno as proy_id_interno,
+            _proyectos.descripcion as descr_proyecto,
+            '
+        );
+
+        $this->db->join('_secretarias', '_secretarias.id = _indexaciones_canon.id_secretaria', 'rigth', true);
+        $this->db->join('_proveedores_canon', '_proveedores_canon.id = _indexaciones_canon.id_proveedor', '');
+        $this->db->join('_dependencias_canon', '_dependencias_canon.id = _indexaciones_canon.id_dependencia', 'left');
+        $this->db->join('_programas', ' _indexaciones_canon.id_programa = _programas.id', '');
+        $this->db->join('_proyectos', '_indexaciones_canon.id_proyecto = _proyectos.id', '');
+
+        $my_column_order = array(
+            '',
+            '_indexaciones_canon.id',
+            '_proveedores_canon.nombre',
+            '',
+            '_secretarias.secretaria',
+            '_dependencias_canon.dependencia',
+            '_indexaciones_canon.expediente',
+            '_programas.descripcion',
+            '_proyectos.descripcion'
+        );
+
+        $my_column_search = array(
+            '_proveedores_canon.nombre',
+            '_indexaciones_canon.nro_cuenta',
+            '_secretarias.secretaria',
+            '_dependencias_canon.dependencia',
+            '_programas.descripcion',
+            'UPPER(_proyectos.descripcion)',
+            '_indexaciones_canon.expediente',
+        );
+
+
+           $query =  $this->db->where('nro_cuenta', $_dataREQUEST['nro_cuenta'])->get('_indexaciones_canon');
+
+    
+        return $query->result();
+    }
+
+    public function get_dato_api_blanco($id_lote)
+    {
+        $this->db->select('_datos_api_canon.*,_datos_api_canon.id as id_file');
+        $this->db->where('id_lote', $id_lote);
+        $this->db->where('dato_api ','');
+        $this->db->from('_datos_api_canon');
+        return  $this->db->get()->result();
+       
+    }
+    public function getBatchFilesbyId($id_lote)
+    {
+        $this->db->select('_datos_api_canon.*,_datos_api_canon.id as id_file');
+        $this->db->where('id_lote', $id_lote);
+        $this->db->from('_datos_api_canon');
+        return  $this->db->get()->result();
+    }
+
+    public function getBatchFiles($codeLote)
+    {
+        $this->db->select('_datos_api_canon.*,_datos_api_canon.id as id_file');
+        $this->db->like('code_lote', $codeLote);
+        $this->db->from('_datos_api_canon');
+        return  $this->db->get()->result();
+    }
     public function getRows($postData)
     {
-
         $this->_get_datatables_query($postData);
-
 
         if ($postData['length'] != -1) {
             $this->db->limit($postData['length'], $postData['start']);
@@ -35,30 +110,49 @@ class Manager_model extends CI_Model
     }
     private function _get_datatables_query($postData)
     {
-
         switch ($postData['table']) {
 
-            case '_proveedores':
+            case '_datos_api_canon':
+
+
                 $this->db->select('*');
 
-
                 $my_column_order = array(
-                    '_proveedores.id',
-                    '_proveedores.codigo',
-                    '_proveedores.detalle_gasto',
-                    '_proveedores.objeto_gasto',
-                    '_proveedores.nombre',
-                    '_proveedores.fecha_alta',
+                    '_datos_api_canon.id',
+                    '_datos_api_canon.nro_cuenta',
+                    '_datos_api_canon.code_lote',
                 );
                 $my_column_search = array(
-                    '_proveedores.codigo',
-                    '_proveedores.detalle_gasto',
-                    '_proveedores.objeto_gasto',
-                    '_proveedores.nombre',
+                    '_datos_api_canon.nro_cuenta',
+                    '_datos_api_canon.id',
+                    '_datos_api_canon.code_lote',
+
                 );
 
+                    
 
-                $this->order = array('_proveedores.id' => 'desc');
+                $this->order = array('_datos_api_canon.id' => 'desc');
+                break;
+            case '_proveedores_canon':
+                $this->db->select('*');
+
+                $my_column_order = array(
+                    '_proveedores_canon.id',
+                    '_proveedores_canon.codigo',
+                    '_proveedores_canon.detalle_gasto',
+                    '_proveedores_canon.objeto_gasto',
+                    '_proveedores_canon.nombre',
+                    '_proveedores_canon.fecha_alta',
+                );
+                $my_column_search = array(
+                    '_proveedores_canon.id ',
+                    '_proveedores_canon.codigo',
+                    '_proveedores_canon.detalle_gasto',
+                    '_proveedores_canon.objeto_gasto',
+                    '_proveedores_canon.nombre',
+                );
+
+                $this->order = array('_proveedores_canon.id' => 'desc');
                 break;
 
             case '_secretarias':
@@ -164,7 +258,30 @@ class Manager_model extends CI_Model
                     '_consolidados.id' => 'desc'
                 );
 
+                // echo '<pre>';
+                // var_dump( $_REQUEST ); 
+                // echo '</pre>';
+                // die();
+                //         if ($postData['data_search'] != "false" && (isset($postData['data_search']) && $postData['data_search'] != '')) {
 
+                //             $this->db->group_start();
+                //             switch ($postData['type']) {
+                //                 case 1:
+                //                     $dates = explode('@', $postData['data_search']);
+                //                     $this->db->where("_consolidados.fecha_consolidado >= '" . $dates[0] . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . $dates[1] . " 23:59:59'");
+                //                     break;
+                //                 case 2:
+                //                     $this->db->where("UPPER(_consolidados.proveedor) = '" . $postData['data_search'] . "'");
+                //                     break;
+                //                 case 3:
+                //                     $this->db->where("_consolidados.tipo_pago = '" . $postData['data_search'] . "'");
+                //                     break;
+                //                 case 4:
+                //                     $this->db->where("_consolidados.periodo_contable = '" . $postData['data_search'] . "'");
+                //                     break;
+                //             }
+                //             $this->db->group_end();
+                //         }
 
                 if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
                     $this->db->group_start();
@@ -186,39 +303,39 @@ class Manager_model extends CI_Model
                 }
 
                 if ((isset($postData['periodo_contable']) && $postData['periodo_contable'] != 'false' &&  $postData['periodo_contable'] != '')) {
-                    
+
                     $this->db->group_start();
                     foreach ($postData['periodo_contable'] as $peri) {
-                        
+
                         $this->db->or_where('_consolidados.periodo_contable', $peri);
                     }
                     $this->db->group_end();
                 }
-                
+
                 if ((isset($postData['fecha']) && $postData['fecha'] != 'false' &&  $postData['fecha'] != '')) {
                     $dates = explode('-', $postData['fecha']);
 
-                    $this->db->where("_consolidados.fecha_consolidado >= '" . fecha_es(trim(str_replace('/','-',$dates[0])),"Y-m-d", false) . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . fecha_es(trim(str_replace('/','-',$dates[1])),"Y-m-d", false) . " 23:59:59'");
+                    $this->db->where("_consolidados.fecha_consolidado >= '" . fecha_es(trim(str_replace('/', '-', $dates[0])), "Y-m-d", false) . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . fecha_es(trim(str_replace('/', '-', $dates[1])), "Y-m-d", false) . " 23:59:59'");
                 }
                 break;
 
 
-            case '_dependencias':
+            case '_dependencias_canon':
 
-                $this->db->select('_dependencias.*,_dependencias.id as id_dependencia , _secretarias.secretaria');
-                $this->db->join('_secretarias', '_secretarias.id = _dependencias.id_secretaria', '');
+                $this->db->select('_dependencias_canon.*,_dependencias_canon.id as id_dependencia , _secretarias.secretaria');
+                $this->db->join('_secretarias', '_secretarias.id = _dependencias_canon.id_secretaria', '');
 
 
                 $my_column_order = array(
                     'id_dependencia',
-                    '_dependencias.id',
-                    '_dependencias.dependencia',
-                    '_dependencias.direccion',
+                    '_dependencias_canon.id',
+                    '_dependencias_canon.dependencia',
+                    '_dependencias_canon.direccion',
                 );
                 $my_column_search = array(
                     '_secretarias.secretaria',
-                    '_dependencias.dependencia',
-                    '_dependencias.direccion',
+                    '_dependencias_canon.dependencia',
+                    '_dependencias_canon.direccion',
                 );
 
                 if ($postData['data_search'] != 'false' && (isset($postData['data_search']) && $postData['data_search'] != '')) {
@@ -232,7 +349,7 @@ class Manager_model extends CI_Model
                     }
                     $this->db->group_end();
                 }
-                $my_order = array('id' => 'desc');
+                $my_order = array('_dependencias_canon.id' => 'desc');
                 break;
 
             case '_proyectos':
@@ -302,51 +419,51 @@ class Manager_model extends CI_Model
                 $this->order = array('_proyectos.id' => 'desc');
                 break;
 
-            case '_lotes':
+            case '_lotes_canon':
                 $this->db->select(
-                    '_lotes.*,
-                    _lotes.id as id_lote ,
-                     _proveedores.nombre,
-                     _proveedores.codigo as codigo,
+                    '_lotes_canon.*,
+                    _lotes_canon.id as id_lote ,
+                     _proveedores_canon.nombre,
+                     _proveedores_canon.codigo as codigo,
                      users.*,
-                    _datos_api.nro_cuenta'
-                    );
-                $this->db->join('_proveedores', '_proveedores.id = _lotes.id_proveedor', '');
-                $this->db->join('users', 'users.id = _lotes.user_add', '');
-                $this->db->join('_datos_api', '_datos_api.code_lote = _lotes.code', 'RIGHT', false);
-                $this->db->group_by('_lotes.id','desc');
+                    _datos_api_canon.nro_cuenta'
+                );
+                $this->db->join('_proveedores_canon', '_proveedores_canon.id = _lotes_canon.id_proveedor', '');
+                $this->db->join('users', 'users.id = _lotes_canon.user_add', '');
+                $this->db->join('_datos_api_canon', '_datos_api_canon.code_lote = _lotes_canon.code', 'RIGHT', false);
+                $this->db->group_by('_lotes_canon.id', 'desc');
                 $my_column_order = array(
-                    '_lotes.id', '_proveedores.codigo', 
-                    '_proveedores.nombre', 
-                    '_lotes.fecha_add', 
-                    '', 
-                    '', 
-                    '_lotes.consolidado', 
-                    '_lotes.user_add'
+                    '_lotes_canon.id',
+                    '_proveedores_canon.codigo',
+                    '_proveedores_canon.nombre',
+                    '_lotes_canon.fecha_add',
+                    '',
+                    '',
+                    '_lotes_canon.consolidado',
+                    '_lotes_canon.user_add'
                 );
                 $my_column_search = array(
-                    '_proveedores.codigo', 
-                    '_proveedores.nombre', 
-                    '_lotes.consolidado', 
-                    '_lotes.user_add', 
-                    '_datos_api.nro_cuenta', 
-                    '_datos_api.nro_factura', 
-                    '_datos_api.nro_medidor', 
-                    '_lotes.fecha_add'
+                    '_proveedores_canon.codigo',
+                    '_proveedores_canon.nombre',
+                    '_lotes_canon.consolidado',
+                    '_lotes_canon.user_add',
+                    '_datos_api_canon.nro_cuenta',
+                    '_datos_api_canon.nro_factura',
+                    '_datos_api_canon.nro_medidor',
+                    '_lotes_canon.fecha_add'
                 );
-                $my_order = array('_lotes.id' => 'desc');
+                $my_order = array('_lotes_canon.id' => 'desc');
                 break;
 
-            case '_indexaciones':
+            case '_indexaciones_canon':
 
-                $this->db->from($_POST['table']);
-                $query = $this->db->get();
-                // $datos = $query->result();
+                // $this->db->from($_POST['table']);
+
                 $this->db->select(
-                    '_indexaciones.*
+                    '_indexaciones_canon.*
                     ,_secretarias.secretaria as nombre_secretaria,
-                    _dependencias.dependencia as nombre_dependencia,
-                    _proveedores.nombre as nom_proveedor,
+                    _dependencias_canon.dependencia as nombre_dependencia,
+                    _proveedores_canon.nombre as nom_proveedor,
                     _programas.descripcion as descr_programa,
                     _proyectos.id as id_proyecto,
                     _programas.id_interno as prog_id_interno,
@@ -355,35 +472,46 @@ class Manager_model extends CI_Model
                     '
                 );
 
-                $this->db->join('_secretarias', '_secretarias.id = _indexaciones.id_secretaria', 'rigth', true);
-                $this->db->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor', '');
-                $this->db->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia', 'left');
-                $this->db->join('_programas', ' _indexaciones.id_programa = _programas.id', 'LEFT');
-                $this->db->join('_proyectos', '_indexaciones.id_proyecto = _proyectos.id', 'left');
+                $this->db->join('_secretarias', '_secretarias.id = _indexaciones_canon.id_secretaria', 'rigth', true);
+                $this->db->join('_proveedores_canon', '_proveedores_canon.id = _indexaciones_canon.id_proveedor', '');
+                $this->db->join('_dependencias_canon', '_dependencias_canon.id = _indexaciones_canon.id_dependencia', 'left');
+                $this->db->join('_programas', ' _indexaciones_canon.id_programa = _programas.id', '');
+                $this->db->join('_proyectos', '_indexaciones_canon.id_proyecto = _proyectos.id', '');
 
                 $my_column_order = array(
                     '',
-                    '_indexaciones.id',
-                    '_proveedores.nombre',
+                    '_indexaciones_canon.id',
+                    '_proveedores_canon.nombre',
                     '',
                     '_secretarias.secretaria',
-                    '_dependencias.dependencia',
-                    '_indexaciones.expediente',
+                    '_dependencias_canon.dependencia',
+                    '_indexaciones_canon.expediente',
                     '_programas.descripcion',
                     '_proyectos.descripcion'
                 );
 
                 $my_column_search = array(
-                    '_proveedores.nombre',
-                    '_indexaciones.nro_cuenta',
+                    '_proveedores_canon.nombre',
+                    '_indexaciones_canon.nro_cuenta',
                     '_secretarias.secretaria',
-                    '_dependencias.dependencia',
+                    '_dependencias_canon.dependencia',
                     '_programas.descripcion',
                     'UPPER(_proyectos.descripcion)',
-                    '_indexaciones.expediente',
+                    '_indexaciones_canon.expediente',
                 );
+                if (isset($postData['data_search'])){
+                
+                    if ($postData['data_search'] != 'false' && (isset($postData['data_search']) && $postData['data_search'] != '')) {
+                        
+                        $this->db->group_start();
+                        
+                        $this->db->where("_indexaciones_canon.nro_cuenta= '" . $postData['data_search'] . "'");
+                        
+                        $this->db->group_end();
+                    }
+                    }
                 $this->order = array(
-                    '_indexaciones.id' => 'desc'
+                    '_indexaciones_canon.id' => 'desc'
                 );
 
                 break;
@@ -412,9 +540,7 @@ class Manager_model extends CI_Model
             }
             $i++;
         }
-
         if (isset($postData['order'])) {
-
             $this->db->order_by($my_column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
         } else if (isset($this->order)) {
 
@@ -442,11 +568,54 @@ class Manager_model extends CI_Model
         $this->db->where('id', $_POST['id_lote']);
         $this->db->update('_lotes', $data);
     }
-
-
-    public function grabar_datos($tabla, $data)
+    public function crearLote()
     {
+
         $data['user_add'] = $this->user->id;
+        $data['id_proveedor'] = $_POST['id_proveedor'];
+        $data['cant'] = $_POST['cant'];
+        $data['code'] = $_POST['code_lote'];
+
+        try {
+
+            $query = $this->db->get_where('_lotes_canon', array('code' => $_POST['code_lote']));
+            $currLote = $query->result();
+
+            if ($currLote) {
+                //urrLote->cant ++;
+
+            } else {
+                $this->db->insert('_lotes_canon', $data);
+                $insertId = $this->db->insert_id();
+                $query = $this->db->get_where('_lotes_canon', array('id' => $insertId));
+                $currLote = $query->result();
+            }
+
+            $this->db->where('code_lote', $_POST['code_lote']);
+            $this->db->from('_datos_api_canon');
+            $totalFiles =  $this->db->count_all_results();
+
+            $this->db->set('cant', $totalFiles);
+            $this->db->where('code', $_POST['code_lote']);
+            $this->db->update('_lotes_canon');
+
+
+            $query = $this->db->get_where('_lotes_canon', array('code' => $_POST['code_lote']));
+            $currLote = $query->result();
+
+            return $currLote;
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+        }
+    }
+
+    public function grabar_datos($tabla, $data, $electro = false)
+    {
+        if ($electro) {
+            $data['user_add' . $tabla] = $this->user->id;
+        } else {
+            $data['user_add'] = $this->user->id;
+        }
 
         try {
             $this->db->insert($tabla, $data);
@@ -522,18 +691,19 @@ class Manager_model extends CI_Model
 
         return false;
     }
-    public function get_alldata($tabla, $where=false){
-       $this->db->select('*');
-       if($where){
-           $this->db->where($where);
-       }
-       $query = $this->db->get($tabla);
-       return $query->result();
-
-    if ($query->result() > 0) {
+    public function getalldata($tabla, $where = false)
+    {
+        $this->db->select('*');
+        if ($where) {
+            $this->db->where($where);
+        }
+        $query = $this->db->get($tabla);
         return $query->result();
-    }
-    return false;
+
+        if ($query->result() > 0) {
+            return $query->result();
+        }
+        return false;
     }
     public function get_data($tabla, $id)
     {
@@ -577,6 +747,13 @@ class Manager_model extends CI_Model
             ->where('nro_cuenta', $nro_cuenta)
             ->get($tabla);
         return $query->num_rows();
+    }
+    public function checkProveedor($id)
+    {
+        $query = $this->db->select('*')
+            ->where('id_proveedor', $id)
+            ->get('_indexaciones_canon');
+        return $query->result();
     }
     public function get_indexacion($tabla, $nro_cuenta)
     {

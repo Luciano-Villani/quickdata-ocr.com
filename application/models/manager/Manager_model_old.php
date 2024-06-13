@@ -8,8 +8,7 @@ class Manager_model extends CI_Model
     {
         parent::__construct();
         // $this->order='';
-        $sql = "SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));";
-    $this->db->query($sql );
+            
     }
 
     public function getRows($postData)
@@ -165,26 +164,32 @@ class Manager_model extends CI_Model
                     '_consolidados.id' => 'desc'
                 );
 
-                if ($postData['data_search'] != "false" && (isset($postData['data_search']) && $postData['data_search'] != '')) {
 
-                    $this->db->group_start();
-                    switch ($postData['type']) {
-                        case 1:
-                            $dates = explode('@', $postData['data_search']);
-                            $this->db->where("_consolidados.fecha_consolidado >= '" . $dates[0] . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . $dates[1] . " 23:59:59'");
-                            break;
-                        case 2:
-                            $this->db->where("UPPER(_consolidados.proveedor) = '" . $postData['data_search'] . "'");
-                            break;
-                        case 3:
-                            $this->db->where("_consolidados.tipo_pago = '" . $postData['data_search'] . "'");
-                            break;
-                        case 4:
-                            $this->db->where("_consolidados.periodo_contable = '" . $postData['data_search'] . "'");
-                            break;
-                    }
-                    $this->db->group_end();
-                }
+                
+		// echo '<pre>';
+		// var_dump( $_REQUEST ); 
+		// echo '</pre>';
+		// die();
+        //         if ($postData['data_search'] != "false" && (isset($postData['data_search']) && $postData['data_search'] != '')) {
+
+        //             $this->db->group_start();
+        //             switch ($postData['type']) {
+        //                 case 1:
+        //                     $dates = explode('@', $postData['data_search']);
+        //                     $this->db->where("_consolidados.fecha_consolidado >= '" . $dates[0] . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . $dates[1] . " 23:59:59'");
+        //                     break;
+        //                 case 2:
+        //                     $this->db->where("UPPER(_consolidados.proveedor) = '" . $postData['data_search'] . "'");
+        //                     break;
+        //                 case 3:
+        //                     $this->db->where("_consolidados.tipo_pago = '" . $postData['data_search'] . "'");
+        //                     break;
+        //                 case 4:
+        //                     $this->db->where("_consolidados.periodo_contable = '" . $postData['data_search'] . "'");
+        //                     break;
+        //             }
+        //             $this->db->group_end();
+        //         }
 
                 if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
                     $this->db->group_start();
@@ -206,13 +211,27 @@ class Manager_model extends CI_Model
                 }
 
                 if ((isset($postData['periodo_contable']) && $postData['periodo_contable'] != 'false' &&  $postData['periodo_contable'] != '')) {
-
+                    
                     $this->db->group_start();
                     foreach ($postData['periodo_contable'] as $peri) {
-
+                        
                         $this->db->or_where('_consolidados.periodo_contable', $peri);
                     }
                     $this->db->group_end();
+                }
+                
+                if ((isset($postData['fecha']) && $postData['fecha'] != 'false' &&  $postData['fecha'] != '')) {
+                    $dates = explode('-', $postData['fecha']);
+
+                    // echo '<pre>';
+                    // var_dump( $dates ); 
+                    // echo '</pre>';
+                    
+                    // echo fecha_es(trim(str_replace('/','-',$dates[0])),"Y-m-d", false);
+                    // echo '<br>';
+                    // echo fecha_es(trim(str_replace('/','-',$dates[1])),"Y-m-d", false);
+                    // die();
+                    $this->db->where("_consolidados.fecha_consolidado >= '" . fecha_es(trim(str_replace('/','-',$dates[0])),"Y-m-d", false) . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . fecha_es(trim(str_replace('/','-',$dates[1])),"Y-m-d", false) . " 23:59:59'");
                 }
                 break;
 
@@ -348,7 +367,7 @@ class Manager_model extends CI_Model
                     '_datos_api.nro_medidor', 
                     '_lotes.fecha_add'
                 );
-                
+                $my_order = array('_lotes.id' => 'desc');
                 break;
 
             case '_indexaciones':
@@ -498,7 +517,7 @@ class Manager_model extends CI_Model
                 switch ($tabla) {
                     case "_programas":
                     case "_proyectos":
-                        $my_array[$data['id']] = $data['id_interno'] . ' - * ' . strtoupper($data[$campo]);
+                        $my_array[$data['id']] = $data['id'] . ' - * ' . strtoupper($data[$campo]);
                         break;
                     case "_secretarias":
                         $my_array[$data['id']] = $data['rafam'] . '  -  ' . strtoupper($data[$campo]);

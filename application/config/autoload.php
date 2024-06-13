@@ -60,7 +60,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('code','ion_auth', 'database', 'email','encrypt');
+$autoload['libraries'] = array( 'code','ion_auth', 'database', 'email','encrypt');
 
 /*
 | -------------------------------------------------------------------
@@ -91,7 +91,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('directory','global', 'fechaes', 'url', 'text','file','api');
+$autoload['helper'] = array('form','directory','global', 'fechaes', 'url', 'text','file','api');
 
 /*
 | -------------------------------------------------------------------
@@ -143,7 +143,9 @@ $autoload['model'] = array(
   'manager/Indexaciones_model',
   'manager/Lotes_model',
   'manager/proveedores_model',
-  'manager/Consolidados_model');
+  'manager/Graph_model',
+  'manager/Consolidados_model',
+  'manager/Electromecanica_model');
 
 
 

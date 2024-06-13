@@ -2,13 +2,13 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Manager_model extends CI_Model
+class Graph_model extends Manager_model
 {
     function __construct()
     {
         parent::__construct();
+        $this->load->model('manager/Manager_model');
         // $this->order='';
-            
     }
 
     public function getRows($postData)
@@ -28,8 +28,7 @@ class Manager_model extends CI_Model
     {
         $this->_get_datatables_query($postData);
         $query = $this->db->get();
-        // echo $this->db->last_query();
-        // die();
+
 
         return $query->num_rows();
     }
@@ -106,17 +105,117 @@ class Manager_model extends CI_Model
                 $this->order = array('_programas.id' => 'desc');
                 break;
 
-            case '_consolidados':
+            case '_consolidadosGr':
 
                 $this->db->select(
-                    'CONCAT(_consolidados.proveedor,
-                    " (", _consolidados.codigo_proveedor,")" ) as proveedora,
-                    CONCAT(_consolidados. jurisdiccion," ",_consolidados.id_programa ) as sumajuris,
-                    _consolidados.id as id_consolidado,
-                    UPPER(_consolidados.secretaria),
-                    _consolidados.proveedor,_consolidados.*, 
-                 ',
+                    'SUM(_consolidados.importe_1) as total, 
+                     proveedor, 
+                     periodo_contable'
+
                 );
+
+       
+
+                if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
+                    $this->db->group_start();
+                    foreach ($postData['id_proveedor'] as $prove) {
+
+                        $this->db->or_where('id_proveedor', $prove);
+                    }
+                    $this->db->group_end();
+                }
+
+                if ((isset($postData['secretaria'])) && $postData['secretaria'] != 'false' && (isset($postData['secretaria']) && $postData['secretaria'] != '')) {
+                   
+                   $title = $postData['secretaria'];
+                   
+                    $this->db->group_start();
+                                            $this->db->or_where('secretaria',$postData['secretaria']);
+                  
+                    $this->db->group_end();
+                }
+
+                $this->db->group_by('UPPER(periodo_contable), proveedor');
+                $my_column_order = array(
+                    '_consolidados.id',
+                    '_consolidados.periodo_contable',
+                    '_consolidados.proveedor',
+                    '_consolidados.importe',
+
+                );
+                $my_column_search = array(
+                    'UPPER(_consolidados.proveedor)',
+                    '_consolidados.periodo_contable',
+                    '_consolidados.importe',
+                );
+                break;
+            case '_consolidados':
+
+
+                // $dataACT = $this->Manager_model->get_alldata('_consolidados');
+                // /*
+                // ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `proximo_vencimiento`, ADD `importe_1` DECIMAL(10,2) NOT NULL AFTER `nombre_archivo_temp`;
+                // */
+
+                // foreach($dataACT as $reg){
+
+
+
+                // // modificacion campo importe_1 pasa de string total_importe a double 10.2
+                //                 switch($reg->id_proveedor){
+                //                 	 case 1: //AYSA
+                //                 	case 4: //EDENOR
+                //                 		$importe = trim($reg->importe);
+
+                //                 		$importe = str_replace(',','.',str_replace('.','',$importe));
+                //                 		$numero_decimal = number_format($importe,2,'.','');
+                //                 		 die();
+                //                 		break;
+
+                //                 	case 8: //TELECOM INTER
+                //                 	case 6: //TELECOM INTER
+
+
+                //                 		$importe =  floatval(trim($reg->importe));
+                //                 		$numero_decimal = number_format($importe,2,'.','');
+                //                 		 die();
+                //                 		break;
+                //                 	default:
+
+
+                //                 	$numero_decimal = trim($reg->importe);
+
+                //                 	}
+                //                 	if($numero_decimal =="")
+                //                 		$numero_decimal = 99.99;
+
+                // $dataUpdate['periodo_contable'] = strtoupper($reg->periodo_contable);
+
+                // $this->db->where('id', $reg->id);
+                // $this->db->update('_consolidados', $dataUpdate);
+                // echo $this->db->last_query();
+                // die();
+                // }
+
+                $this->db->select(
+                    'SUM(_consolidados.importe_1) as total, 
+                     proveedor, periodo_contable,id as registro'
+
+                );
+
+                $this->db->group_by('proveedor,periodo_contable');
+                //  $this->db->order_by('_consolidados.id', 'desc');
+
+
+                // $this->db->select(
+                //     'CONCAT(_consolidados.proveedor,
+                //     " (", _consolidados.codigo_proveedor,")" ) as proveedora,
+                //     CONCAT(_consolidados. jurisdiccion," ",_consolidados.id_programa ) as sumajuris,
+                //     _consolidados.id as id_consolidado,
+                //     UPPER(_consolidados.secretaria),
+                //     _consolidados.proveedor,_consolidados.*, 
+                //  ',
+                // );
 
                 // $this->db->join('_tipo_pago', '_consolidados.tipo_pago = _tipo_pago.tip_nombre', '');
 
@@ -124,47 +223,36 @@ class Manager_model extends CI_Model
                     '_consolidados.id',
                     '_consolidados.periodo_contable',
                     '_consolidados.proveedor',
-                    '_consolidados.expediente',
-                    '_consolidados.secretaria',
-                    '_consolidados.jurisdiccion',
-                    '_consolidados.id_programa',
-                    '_consolidados.programa',
-                    'sumajuris',
-                    '_consolidados.objeto',
-                    '_consolidados.dependencia',
-                    '_consolidados.dependencia_direccion',
-                    '_consolidados.tipo_pago',
-                    '_consolidados.nro_cuenta',
-                    '_consolidados.nro_factura',
-                    '_consolidados.preventivas',
-                    '_consolidados.preventivas',
-                    '_consolidados.dependencia',
-                    '_consolidados.fecha_vencimiento',
+                    '_consolidados.importe',
+
                 );
                 $my_column_search = array(
-                    '_consolidados.periodo_contable',
                     'UPPER(_consolidados.proveedor)',
-                    'UPPER(_consolidados.expediente)',
-                    '_consolidados.secretaria',
-                    '_consolidados.jurisdiccion',
-                    '_consolidados.programa',
-                    '_consolidados.objeto',
-                    '_consolidados.dependencia',
-                    '_consolidados.dependencia_direccion',
-                    '_consolidados.tipo_pago',
-                    '_consolidados.nro_cuenta',
-                    '_consolidados.nro_factura',
-                    '_consolidados.id',
-                    '_consolidados.preventivas',
-                    '_consolidados.dependencia',
-                    '_consolidados.fecha_vencimiento',
-                );
-
-                $this->order = array(
-                    '_consolidados.id' => 'desc'
+                    '_consolidados.periodo_contable',
+                    '_consolidados.importe',
                 );
 
 
+                if ($postData['data_search'] != "false" && (isset($postData['data_search']) && $postData['data_search'] != '')) {
+
+                    $this->db->group_start();
+                    switch ($postData['type']) {
+                        case 1:
+                            $dates = explode('@', $postData['data_search']);
+                            $this->db->where("_consolidados.fecha_consolidado >= '" . $dates[0] . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . $dates[1] . " 23:59:59'");
+                            break;
+                        case 2:
+                            $this->db->where("UPPER(_consolidados.proveedor) = '" . $postData['data_search'] . "'");
+                            break;
+                        case 3:
+                            $this->db->where("_consolidados.tipo_pago = '" . $postData['data_search'] . "'");
+                            break;
+                        case 4:
+                            $this->db->where("_consolidados.periodo_contable = '" . $postData['data_search'] . "'");
+                            break;
+                    }
+                    $this->db->group_end();
+                }
 
                 if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
                     $this->db->group_start();
@@ -186,19 +274,13 @@ class Manager_model extends CI_Model
                 }
 
                 if ((isset($postData['periodo_contable']) && $postData['periodo_contable'] != 'false' &&  $postData['periodo_contable'] != '')) {
-                    
+
                     $this->db->group_start();
                     foreach ($postData['periodo_contable'] as $peri) {
-                        
+
                         $this->db->or_where('_consolidados.periodo_contable', $peri);
                     }
                     $this->db->group_end();
-                }
-                
-                if ((isset($postData['fecha']) && $postData['fecha'] != 'false' &&  $postData['fecha'] != '')) {
-                    $dates = explode('-', $postData['fecha']);
-
-                    $this->db->where("_consolidados.fecha_consolidado >= '" . fecha_es(trim(str_replace('/','-',$dates[0])),"Y-m-d", false) . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . fecha_es(trim(str_replace('/','-',$dates[1])),"Y-m-d", false) . " 23:59:59'");
                 }
                 break;
 
@@ -310,36 +392,52 @@ class Manager_model extends CI_Model
                      _proveedores.codigo as codigo,
                      users.*,
                     _datos_api.nro_cuenta'
-                    );
+                );
                 $this->db->join('_proveedores', '_proveedores.id = _lotes.id_proveedor', '');
                 $this->db->join('users', 'users.id = _lotes.user_add', '');
                 $this->db->join('_datos_api', '_datos_api.code_lote = _lotes.code', 'RIGHT', false);
-                $this->db->group_by('_lotes.id','desc');
+                $this->db->group_by('_lotes.id', 'desc');
                 $my_column_order = array(
-                    '_lotes.id', '_proveedores.codigo', 
-                    '_proveedores.nombre', 
-                    '_lotes.fecha_add', 
-                    '', 
-                    '', 
-                    '_lotes.consolidado', 
+                    '_lotes.id', '_proveedores.codigo',
+                    '_proveedores.nombre',
+                    '_lotes.fecha_add',
+                    '',
+                    '',
+                    '_lotes.consolidado',
                     '_lotes.user_add'
                 );
                 $my_column_search = array(
-                    '_proveedores.codigo', 
-                    '_proveedores.nombre', 
-                    '_lotes.consolidado', 
-                    '_lotes.user_add', 
-                    '_datos_api.nro_cuenta', 
-                    '_datos_api.nro_factura', 
-                    '_datos_api.nro_medidor', 
+                    '_proveedores.codigo',
+                    '_proveedores.nombre',
+                    '_lotes.consolidado',
+                    '_lotes.user_add',
+                    '_datos_api.nro_cuenta',
+                    '_datos_api.nro_factura',
+                    '_datos_api.nro_medidor',
                     '_lotes.fecha_add'
                 );
-                $my_order = array('_lotes.id' => 'desc');
+                $my_order = array('id_lote' => 'desc');
+                break;
+            case '_graph_api':
+
+                // CAST(old_latitude AS DECIM AL(10,6))
+                $this->db->select(
+                    'SUM(_consolidados.importe_1) as total,
+                     proveedor,periodo_contable'
+                );
+                $this->db->group_by('proveedor');
+                $my_column_order = array(
+                    'periodo_contable',
+                );
+                $my_column_search = array();
+                $this->order = array(
+                    'periodo_contable' => 'desc'
+                );
                 break;
 
             case '_indexaciones':
 
-                $this->db->from($_POST['table']);
+                $this->db->from($_REQUEST['table']);
                 $query = $this->db->get();
                 // $datos = $query->result();
                 $this->db->select(
@@ -422,24 +520,32 @@ class Manager_model extends CI_Model
             $this->db->order_by(key($order), $order[key($order)]);
         }
 
-        // $this->db->from($_POST['table']);
-        $this->db->from($_POST['table']);
+        // $this->db->from($_REQUEST['table']);
+        if ($_REQUEST['table'] == '_consolidadosGr') {
+            $this->db->from('_consolidados');
+        } else {
+            $this->db->from($_REQUEST['table']);
+        }
     }
     public function countAll()
     {
-        $this->db->from($_POST['table']);
+        if ($_REQUEST['table'] == '_graph_api') {
+            $this->db->from('_consolidados');
+        } else {
+            $this->db->from($_REQUEST['table']);
+        }
         return $this->db->count_all_results();
     }
     public function cerrarLote()
     {
 
         $data = array(
-            'cant' => $_POST['cant'],
-            'code' => $_POST['code_lote'],
+            'cant' => $_REQUEST['cant'],
+            'code' => $_REQUEST['code_lote'],
 
         );
 
-        $this->db->where('id', $_POST['id_lote']);
+        $this->db->where('id', $_REQUEST['id_lote']);
         $this->db->update('_lotes', $data);
     }
 
@@ -447,6 +553,8 @@ class Manager_model extends CI_Model
     public function grabar_datos($tabla, $data)
     {
         $data['user_add'] = $this->user->id;
+
+
 
         try {
             $this->db->insert($tabla, $data);
@@ -482,10 +590,10 @@ class Manager_model extends CI_Model
                 switch ($tabla) {
                     case "_programas":
                     case "_proyectos":
-                        $my_array[$data['id']] = $data['id'] . ' - * ' . strtoupper($data[$campo]);
+                        $my_array[$data['id']] = $data['id_interno'] . ' - * ' . strtoupper($data[$campo]);
                         break;
                     case "_secretarias":
-                        $my_array[$data['id']] = $data['rafam'] . '  -  ' . strtoupper($data[$campo]);
+                        $my_array[$data['id']] = strtoupper($data[$campo]);
                         break;
                     case "_tipo_pago":
                         $my_array[$data['tip_id']] = strtoupper($data[$campo]);
@@ -521,19 +629,6 @@ class Manager_model extends CI_Model
         }
 
         return false;
-    }
-    public function get_alldata($tabla, $where=false){
-       $this->db->select('*');
-       if($where){
-           $this->db->where($where);
-       }
-       $query = $this->db->get($tabla);
-       return $query->result();
-
-    if ($query->result() > 0) {
-        return $query->result();
-    }
-    return false;
     }
     public function get_data($tabla, $id)
     {

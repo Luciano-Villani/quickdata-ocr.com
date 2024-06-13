@@ -6,13 +6,10 @@ class Lecturas extends backend_controller
 	function __construct()
 	{
 		parent::__construct();
-
-
-		$this->load->helper('file');
-		if (!$this->ion_auth->logged_in()) {
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_super() ) {
 			redirect('Login');
 		} else {
-
+			$this->load->helper('file');
 			$this->load->model('manager/Lecturas_model');
 			$this->load->model('manager/Uploader_model');
 		}
@@ -92,13 +89,10 @@ class Lecturas extends backend_controller
 
 	public function list_dt($id = null)
 	{
-
 		$this->Lecturas_model->list_dt($id);
 	}
 	public function lotes_dt($id = null)
 	{
-
-
 		if ($this->input->is_ajax_request()) {
 			$this->Lecturas_model->lotes_dt($id);
 		}
@@ -306,14 +300,48 @@ class Lecturas extends backend_controller
 			die();
 		}
 	}
+	
+	function split_pdf($filename, $dir = false) {
+		require_once(APPPATH.'third_party/pdf2/fpdf.php');
+		require_once(APPPATH.'third_party/pdf2/fpdi.php');
+
+		$data = $this->Manager_model->getWhere('_datos_api',"id=315");
+
+				
+		$dir = $dir ? $dir : './';
+		$filename = base_url($data->nombre_archivo);
+
+		$pdf = new FPDI();
+		$pagecount = $pdf->setSourceFile($filename);
+
+		
+		echo '<pre>';
+		var_dump( $pagecount ); 
+		echo '</pre>';
+		die();
+		
+		// Split each page into a new PDF
+		for ($i = 1; $i <= $pagecount; $i++) {
+		   $new_pdf = new FPDI();
+		   $new_pdf->AddPage();
+		   $new_pdf->setSourceFile($filename);
+		   $new_pdf->useTemplate($new_pdf->importPage($i));		
+		   try {
+			  $new_filename = $dir.str_replace('.pdf','', $filename).'_'.$i.".pdf";
+			  $new_pdf->Output($new_filename, "F");
+			  echo "Page ".$i." split into ".$new_filename."<br />\n";
+		   } catch (Exception $e) {
+			  echo 'Caught exception: ',  $e->getMessage(), "\n";
+		   }
+		}
+	}
 	public function listados()
 	{
-
-
 		$script = array(
-
+			base_url('assets\manager\js\plugins\tables\datatables\extensions/select.min.js'),
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
+			// base_url('assets\manager\js\secciones\electromecanica\lecturas\index.js'),
 		);
 
 

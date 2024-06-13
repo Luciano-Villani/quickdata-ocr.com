@@ -7,7 +7,7 @@ class Indexaciones extends backend_controller
 	{
 		parent::__construct();
 
-		if (!$this->ion_auth->logged_in()) {
+        if (!$this->ion_auth->logged_in() && (!$this->ion_auth->is_admin() || !$this->ion_auth->is_electro())) {
 			redirect('Login');
 		} else {
 			$this->load->model('Ion_auth_model');
@@ -15,15 +15,15 @@ class Indexaciones extends backend_controller
 			$this->load->model('manager/Secretarias_model');
 			$this->load->model('manager/Dependencias_model');
 			$this->load->model('manager/Proyectos_model');
-			$this->load->model('manager/Manager_model');
+			$this->load->model('manager/Electromecanica_model');
 
 			$this->data['select_proyectos'] = $this->Manager_model->obtener_contenido_select('_proyectos', 'SELECCIONE PROYECTO', 'descripcion', 'id ASC');
 			$this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA', 'secretaria', 'secretaria ASC');
-			$this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias', 'SELECCIONE DEPENDENCIA', 'dependencia', 'id ASC');
+			$this->data['select_dependencias'] = $this->Electromecanica_model->obtener_contenido_select('_dependencias_canon', 'SELECCIONE DEPENDENCIA', 'dependencia', 'id ASC');
 			$this->data['select_programas'] = $this->Manager_model->obtener_contenido_select('_programas', 'SELECCIONE PROGRAMA', 'descripcion', '');
-			$this->data['select_proveedores'] = $this->Manager_model->obtener_contenido_select('_proveedores', 'SELECCIONE PROVEEDOR', 'nombre', 'nombre ASC');
+			$this->data['select_proveedores'] = $this->Electromecanica_model->obtener_contenido_select('_proveedores_canon', 'SELECCIONE PROVEEDOR', 'nombre', 'nombre ASC');
 			$this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', 'Seleccionar Tipo Pago', 'tip_nombre', 'tip_id');
-			$this->data['tabla'] = '_indexaciones';
+			$this->data['tabla'] = '_indexaciones_canon';
 			$this->BtnText = 'Agregar';
 			// $this->output->enable_profiler(TRUE);
 		}
@@ -32,9 +32,10 @@ class Indexaciones extends backend_controller
 	public function edit()
 	{
 
+
 		if ($this->input->is_ajax_request()) {
 
-			$data = $this->Manager_model->getWhere('_indexaciones', 'id="' . $_REQUEST['id'] . '"');
+			$data = $this->Electromecanica_model->getWhere('_indexaciones_canon', 'id="' . $_REQUEST['id'] . '"');
 
 
 
@@ -60,16 +61,18 @@ class Indexaciones extends backend_controller
 	public function list_dt($id = null)
 	{
 
+
 		if ($this->input->is_ajax_request()) {
 
 
 			$data = $row = array();
 
-			$memData = $this->Manager_model->getRows($_POST);
+	
 
+			$memData = $this->Electromecanica_model->getRows($_POST);
 
-			// echo $this->db->last_query();
-			// die();
+// echo $this->db->last_query();
+// die();
 			$estadoSucces = '<span class="acciones"><i class="text-success icon-check2 "></i></span>';
 			foreach ($memData as $r) {
 
@@ -100,8 +103,8 @@ class Indexaciones extends backend_controller
 
 			$output = array(
 				"draw" => $_POST['draw'],
-				"recordsTotal" => $this->Manager_model->countAll(),
-				"recordsFiltered" => $this->Manager_model->countFiltered($_POST),
+				"recordsTotal" => $this->Electromecanica_model->countAll(),
+				"recordsFiltered" => $this->Electromecanica_model->countFiltered($_POST),
 				"data" => $data,
 			);
 
@@ -136,14 +139,15 @@ class Indexaciones extends backend_controller
 		exit();
 	}
 
-	public function listados($id = NULL)
+	public function index($id = NULL)
 	{
 
+   
 		$this->data['collapse'] = 'collapse';
 		$script = array(
 			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
-			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
+			base_url('assets/manager/js/secciones/electromecanica/'.$this->router->fetch_class().'.js'),
 		);
 		$this->data['css_common'] = $this->css_common;
 		$this->data['css'] = '';
@@ -164,20 +168,17 @@ class Indexaciones extends backend_controller
 		};
 		$this->data['programas_id_interno'] = $newdata;
 
-
 		if ($id && $id != NULL) {
 
 			$this->BtnText = 'Editar';
-			$editData = $this->Manager_model->get_data('_indexaciones', $id);
+			$editData = $this->Electromecanica_model->get_data('_indexaciones_canon', $id);
 
 			// $program = $this->Manager_model->getWhere('_programas', "id_secretaria = " . $editData->id_secretaria . " AND id_interno=" . $editData->id_programa);
 			$program = 0;
-			if ($program = $this->Manager_model->getWhere('_programas', "id_secretaria = " . $editData->id_secretaria . " AND id_interno=" . $editData->id_programa)) {
+			if ($program = $this->Electromecanica_model->getWhere('_programas', "id_secretaria = " . $editData->id_secretaria . " AND id_interno=" . $editData->id_programa)) {
 
 				$program = $program->id;
 			};
-
-
 			$this->data['indexador'] = $editData;
 			$this->data['id_proveedor'] = $editData->id_proveedor;
 			$this->data['nro_cuenta'] = $editData->nro_cuenta;
@@ -226,7 +227,7 @@ class Indexaciones extends backend_controller
 
 					unset($_REQUEST["id_indexacion"]);
 
-					$this->Manager_model->grabar_datos($this->data['tabla'], $_REQUEST);
+					$this->Electromecanica_model->grabar_datos($this->data['tabla'], $_REQUEST);
 					
 					$grabar_datos_array = array(
 						'seccion' => 'Alta nuevas ' . $this->router->fetch_class(),
@@ -237,12 +238,12 @@ class Indexaciones extends backend_controller
 					$this->session->set_userdata('save_data', $grabar_datos_array);
 				}
 
-				redirect(base_url('Admin/Indexaciones'));
+				redirect(base_url('Electromecanica/Indexaciones'));
 				// $this->BtnText = 'Agregar';
 			}
 			$this->data['collapse'] = '';
 		}
-		$this->data['content'] = $this->load->view('manager/secciones/indexaciones/' . $this->router->fetch_method(), $this->data, TRUE);
+		$this->data['content'] = $this->load->view('manager/secciones/electromecanica/' . $this->router->fetch_class(), $this->data, TRUE);
 		// $this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', 'Seleccionar Tipo Pago','tip_nombre','tip_id' );
 
 		$this->load->view('manager/head', $this->data);
@@ -261,7 +262,7 @@ class Indexaciones extends backend_controller
 		$script = array(
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 			base_url('assets/manager/js/plugins/forms/styling/uniform.min.js'),
-			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
+			base_url('assets/manager/js/secciones/Electromecanica/' . $this->router->fetch_class() . '.js'),
 			// base_url('assets/manager/js/secciones/'.$this->router->fetch_class().'.js'),
 		);
 		$this->data['script_common'] = $this->script_common;
@@ -280,26 +281,27 @@ class Indexaciones extends backend_controller
 		if ($this->form_validation->run() == FALSE) {
 
 
-			$this->data['content'] = $this->load->view('manager/secciones/indexaciones/' . $this->router->fetch_method(), $this->data, TRUE);
+			// $this->data['content'] = $this->load->view('manager/secciones/electromecanica/' . $this->router->fetch_class(), $this->data, TRUE);
 
 			$this->load->view('manager/head', $this->data);
 			$this->load->view('manager/index', $this->data);
 			$this->load->view('manager/footer', $this->data);
 		} else {
 			$datos = array(
+				'id_secretaria' => $this->input->post('id_secretaria'),
 				'id_programa' => $this->input->post('id_programa'),
 				'id_interno' => $this->input->post('id_interno'),
 				'descripcion' => $this->input->post('descripcion'),
 			);
 
-			$this->Proyectos_model->grabar_datos("_indexaciones", $_POST);
-			redirect(base_url('Admin/Indexaciones'));
+			$this->Proyectos_model->grabar_datos("_indexaciones_canon", $_POST);
+			redirect(base_url('Electromecanica/Indexaciones'));
 		}
 	}
 
 	public function check_nro_cuenta($str)
 	{
-		if ($data = $this->Manager_model->getwhere('_indexaciones', 'nro_cuenta ="' . $str . '"')) {
+		if ($data = $this->Electromecanica_model->getwhere('_indexaciones_canon', 'nro_cuenta ="' . $str . '"')) {
 			$this->form_validation->set_message('check_nro_cuenta', 'El Nro de cuenta se encuentra registrado');
 			return FALSE;
 		} else {
