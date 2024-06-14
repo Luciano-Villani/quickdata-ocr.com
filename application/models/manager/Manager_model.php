@@ -7,9 +7,10 @@ class Manager_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        // $this->order='';
         $sql = "SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));";
         $this->db->query($sql );
+        // $this->order='';
+            
     }
 
     public function getRows($postData)
@@ -114,7 +115,7 @@ class Manager_model extends CI_Model
                     " (", _consolidados.codigo_proveedor,")" ) as proveedora,
                     CONCAT(_consolidados. jurisdiccion," ",_consolidados.id_programa ) as sumajuris,
                     _consolidados.id as id_consolidado,
-                    UPPER(_consolidados.secretaria),
+                    UPPER(_consolidados.secretaria), UPPER(_consolidados.acuerdo_pago),
                     _consolidados.proveedor,_consolidados.*, 
                  ',
                 );
@@ -135,6 +136,7 @@ class Manager_model extends CI_Model
                     '_consolidados.dependencia',
                     '_consolidados.dependencia_direccion',
                     '_consolidados.tipo_pago',
+                    'UPPER(_consolidados.acuerdo_pago)',
                     '_consolidados.nro_cuenta',
                     '_consolidados.nro_factura',
                     '_consolidados.preventivas',
@@ -153,6 +155,7 @@ class Manager_model extends CI_Model
                     '_consolidados.dependencia',
                     '_consolidados.dependencia_direccion',
                     '_consolidados.tipo_pago',
+                    'UPPER(_consolidados.acuerdo_pago)',
                     '_consolidados.nro_cuenta',
                     '_consolidados.nro_factura',
                     '_consolidados.id',
