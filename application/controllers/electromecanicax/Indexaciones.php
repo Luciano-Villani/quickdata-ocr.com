@@ -71,8 +71,8 @@ class Indexaciones extends backend_controller
 
 			$memData = $this->Electromecanica_model->getRows($_POST);
 
-// echo $this->db->last_query();
-// die();
+        	echo $this->db->last_query();
+			die();
 			$estadoSucces = '<span class="acciones"><i class="text-success icon-check2 "></i></span>';
 			foreach ($memData as $r) {
 
