@@ -218,6 +218,7 @@
 					<th>Direccion</th>
 					<th>Tipo Pago</th>
 					<th>Acuerdo</th>
+					<th>Nro cuenta</th>
 					<th>Nro factura</th>
 					<th>Período</th>
 					<th>Vencimiento</th>
