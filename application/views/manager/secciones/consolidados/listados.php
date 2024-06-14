@@ -55,9 +55,9 @@
 <h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes </h5>
 
 	<div class=" card-header  ">
-		<div class="container row">
+		<div class="row">
 
-			<label class="col-3" for="id_proveedor">
+			<label class="col-2" for="id_proveedor">
 
 				<?php
 				$js = array(
@@ -89,7 +89,7 @@
 				</script>
 			</label>
 		
-			<label class="col-3" for="id_tipo_pago">
+			<label class="col-2" for="id_tipo_pago">
 				<?php
 				$js = array(
 					'id' => 'id_tipo_pago',
@@ -101,7 +101,7 @@
 
 				<script>
 					$('#id_tipo_pago').select2({
-						placeholder: 'TIPO de PAGO',
+						placeholder: 'TIPO DE PAGO',
 						minimumResultsForSearch: "-1",
 						width: '100%',
 						closeOnSelect: false,
@@ -110,7 +110,7 @@
 					})
 				</script>
 			</label>
-			<label class="col-3" for="periodo_contable">
+			<label class="col-md-2" for="periodo_contable">
 				<?php
 				$js = array(
 					'id' => 'periodo_contable',
@@ -133,29 +133,27 @@
 				</script>
 				
 			</label>
-		
-
-		</div>
-		<div class="container row mt-3">
-			
-			
-		<div class="col-md-6 ">
+			<div class="col-2 ">
 				<label class="">
 					<input type="checkbox"  class="radio"  value="1" name="tipo_fecha"  id="tipo-fecha" />
 					<span data-popup="tooltip">Fecha de Consolidación</span>
 				</label>
-				<div class="col-md-4 ">
+				<div class="col" style = "margin: -10px";>
 					<input type="text" name="daterange2" id="daterange2" class="form-control ">
 				</div>
 			</div>
-			<div class="col-md-6 ">
+			<div class="col-2 ">
 				<label class="">
-					<input type="checkbox"  class="radio"  value="1" name="totalizador"  id="totalizador" />
-					<span data-popup="tooltip">Generar Totalizador</span>
+					<input type="checkbox"  class="radio"  value="1" name="totalizador"  id="totalizador"/>
+					<span data-popup="tooltip" style="color: lightgray">Totales Agrupados Juris/Prog</span>
 				</label>
 	
 			</div>
+
 		</div>
+
+		
+		
 		<div class="container row mt-3">
 		<div class="col-md-auto">
 				<button id="applyfilter" type="button" class="btn-filtrar text-dark btn btn-outline-success"><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
