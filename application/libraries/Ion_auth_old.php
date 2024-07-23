@@ -486,23 +486,6 @@ class Ion_auth
 		$super_group = $this->config->item('super_group', 'ion_auth');
 
 		return $this->ion_auth_model->in_group($super_group, $id);
-	}		
-	public function is_members($id = FALSE)
-	{
-		$this->ion_auth_model->trigger_events('is_members');
-
-		$members_group = $this->config->item('members_group', 'ion_auth');
-
-		return $this->ion_auth_model->in_group($members_group, $id);
-	}	
-	
-	public function is_electro($id = FALSE)
-	{
-		$this->ion_auth_model->trigger_events('is_electro');
-
-		$electro_group = $this->config->item('electro_group', 'ion_auth');
-
-		return $this->ion_auth_model->in_group($electro_group, $id);
 	}
 
 	/**

@@ -20,7 +20,7 @@ class PHPMailer_Lib
 
     public function load(){
         // Include PHPMailer library files
-        require_once APPPATH.'third_party/PHPMailer/src/Exception.php';
+        require_once APPPATH.'thired_party/PHPMailer/src/Exception.php';
         require_once APPPATH.'third_party/PHPMailer/src/PHPMailer.php';
         require_once APPPATH.'third_party/PHPMailer/src/SMTP.php';
         
