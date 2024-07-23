@@ -3,7 +3,12 @@
 	<div class="mia  <?= $_SESSION['session_data']['cardCollapsed'] = 'card-collapsed' ?> card">
 
 
+<style>
 
+.dropzone {
+   
+ }
+</style>
 
 
 		<div class="card-header header-elements-inline">
@@ -68,13 +73,14 @@
 	<table class="table-bordered table-hover datatable-highlight datatable-ajax" style="width: 100%">
 		<thead>
 			<tr>
+			<th><input type="checkbox" id="selectAllPost" class="select-checkbox" data-tabla="dataTable_publicaciones"></th>
 				<th>Proveedor</th>
 				<th>Código</th>
 				<th>Fecha</th>
-				<th>Facturas</th>
-				<th>Sin Index</th>
+				<th>Files</th>
+				<th>Errores</th>
 				<th>Consolidado</th>
-				<th>Usuario</th>
+				<th>usuario</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -121,7 +127,7 @@
 	</div>
 
 </div> -->
-<div class="card ">
+<div class="card d-none">
 	<h5 class="card-title bg-titulo text-center text-dark"> Datos leídos</h5>
 
 	<table id="lecturas_dt" class=" datatable-highlight" style="width: 100%">
@@ -157,8 +163,11 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h5 class="modal-title">Proveedor: <span id="modal_proveedor"></span> </h5>
 			</div>
-
+			
 			<div class="modal-body">
+				<div class="progress" style="display: none;">
+		<div class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+		</div>
 				<table id="tabla_archivos" class="table " style="background-color: #fff!important;">
 					<thead>
 						<tr>
@@ -182,6 +191,7 @@
 	</div>
 </div>
 <!-- /disabled backdrop -->
+
 
 <script>
 
