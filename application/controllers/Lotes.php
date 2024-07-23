@@ -1,4 +1,9 @@
 <?php
+
+use function PHPSTORM_META\type;
+// <!-- {"api_request":{"error":[],"resources":["document"],"status":"success","status_code":201,"url":"https:\/\/api.mindee.net\/v1\/products\/quickdata-mvl\/claro_argentina\/v1\/predict"},"document":{"id":"ad449a29-234b-4406-ad1e-ad94137b43c0","inference":{"extras":[],"finished_at":"2024-03-07T18:31:45.237748","is_rotation_applied":true,"pages":[{"extras":[],"id":0,"orientation":{"value":0},"prediction":{"consumo":{"confidence":0.99,"values":[{"confidence":0.99,"content":"18","polygon":[[0.459,0.248],[0.472,0.248],[0.472,0.255],[0.459,0.255]]}]},"fecha_emision":{"confidence":1,"values":[{"confidence":1,"content":"2024-02-22","polygon":[[0.889,0.047],[0.951,0.047],[0.951,0.054],[0.889,0.054]]}]},"nombre_proveedor":{"confidence":1,"values":[{"confidence":1,"content":"Claro-","polygon":[[0.042,0.052],[0.121,0.051],[0.122,0.068],[0.043,0.069]]}]},"nro_cuenta":{"confidence":0.77,"values":[{"confidence":0.77,"content":"2\/1192806055","polygon":[[0.432,0.229],[0.508,0.229],[0.508,0.236],[0.432,0.236]]}]},"nro_de_cliente":{"confidence":1,"values":[{"confidence":1,"content":"23259917","polygon":[[0.431,0.239],[0.483,0.239],[0.483,0.246],[0.431,0.246]]}]},"numero_de_factura":{"confidence":1,"values":[{"confidence":1,"content":"1326-19529184","polygon":[[0.868,0.037],[0.951,0.037],[0.951,0.044],[0.868,0.044]]}]},"periodo_del_consumo":{"confidence":1,"values":[{"confidence":1,"content":"23\/01\/2024","polygon":[[0.716,0.205],[0.777,0.205],[0.777,0.212],[0.716,0.212]]},{"confidence":0.99,"content":"hasta","polygon":[[0.78,0.205],[0.809,0.205],[0.809,0.212],[0.78,0.212]]},{"confidence":1,"content":"22\/02\/2024","polygon":[[0.812,0.205],[0.873,0.205],[0.873,0.212],[0.812,0.212]]}]},"proximo_vencimiento":{"confidence":1,"values":[{"confidence":1,"content":"2024-04-15","polygon":[[0.731,0.182],[0.809,0.182],[0.809,0.191],[0.731,0.191]]}]},"total_importe":{"confidence":0,"values":[]},"total_vencido":{"confidence":0.99,"values":[{"confidence":0.99,"content":"39.276,55","polygon":[[0.88,0.293],[0.938,0.294],[0.938,0.303],[0.88,0.302]]}]},"vencimiento_del_pago":{"confidence":1,"values":[{"confidence":1,"content":"2024-03-15","polygon":[[0.677,0.169],[0.755,0.169],[0.755,0.177],[0.677,0.177]]}]}}},{"extras":[],"id":1,"orientation":{"value":0},"prediction":{"consumo":{"confidence":0,"values":[]},"fecha_emision":{"confidence":0,"values":[]},"nombre_proveedor":{"confidence":0,"values":[]},"nro_cuenta":{"confidence":0,"values":[]},"nro_de_cliente":{"confidence":0,"values":[]},"numero_de_factura":{"confidence":0,"values":[]},"periodo_del_consumo":{"confidence":0,"values":[]},"proximo_vencimiento":{"confidence":0,"values":[]},"total_importe":{"confidence":0,"values":[]},"total_vencido":{"confidence":0,"values":[]},"vencimiento_del_pago":{"confidence":0,"values":[]}}},{"extras":[],"id":2,"orientation":{"value":0},"prediction":{"consumo":{"confidence":0,"values":[]},"fecha_emision":{"confidence":0,"values":[]},"nombre_proveedor":{"confidence":0,"values":[]},"nro_cuenta":{"confidence":0,"values":[]},"nro_de_cliente":{"confidence":0,"values":[]},"numero_de_factura":{"confidence":0,"values":[]},"periodo_del_consumo":{"confidence":0,"values":[]},"proximo_vencimiento":{"confidence":0,"values":[]},"total_importe":{"confidence":0,"values":[]},"total_vencido":{"confidence":0,"values":[]},"vencimiento_del_pago":{"confidence":0,"values":[]}}}],"prediction":{"consumo":{"confidence":0.99,"values":[{"confidence":0.99,"content":"18","page_id":0,"polygon":[[0.459,0.248],[0.472,0.248],[0.472,0.255],[0.459,0.255]]}]},"fecha_emision":{"confidence":1,"values":[{"confidence":1,"content":"2024-02-22","page_id":0,"polygon":[[0.889,0.047],[0.951,0.047],[0.951,0.054],[0.889,0.054]]}]},"nombre_proveedor":{"confidence":1,"values":[{"confidence":1,"content":"Claro-","page_id":0,"polygon":[[0.042,0.052],[0.121,0.051],[0.122,0.068],[0.043,0.069]]}]},"nro_cuenta":{"confidence":0.77,"values":[{"confidence":0.77,"content":"2\/1192806055","page_id":0,"polygon":[[0.432,0.229],[0.508,0.229],[0.508,0.236],[0.432,0.236]]}]},"nro_de_cliente":{"confidence":1,"values":[{"confidence":1,"content":"23259917","page_id":0,"polygon":[[0.431,0.239],[0.483,0.239],[0.483,0.246],[0.431,0.246]]}]},"numero_de_factura":{"confidence":1,"values":[{"confidence":1,"content":"1326-19529184","page_id":0,"polygon":[[0.868,0.037],[0.951,0.037],[0.951,0.044],[0.868,0.044]]}]},"periodo_del_consumo":{"confidence":1,"values":[{"confidence":1,"content":"23\/01\/2024","page_id":0,"polygon":[[0.716,0.205],[0.777,0.205],[0.777,0.212],[0.716,0.212]]},{"confidence":0.99,"content":"hasta","page_id":0,"polygon":[[0.78,0.205],[0.809,0.205],[0.809,0.212],[0.78,0.212]]},{"confidence":1,"content":"22\/02\/2024","page_id":0,"polygon":[[0.812,0.205],[0.873,0.205],[0.873,0.212],[0.812,0.212]]}]},"proximo_vencimiento":{"confidence":1,"values":[{"confidence":1,"content":"2024-04-15","page_id":0,"polygon":[[0.731,0.182],[0.809,0.182],[0.809,0.191],[0.731,0.191]]}]},"total_importe":{"confidence":0,"values":[]},"total_vencido":{"confidence":0.99,"values":[{"confidence":0.99,"content":"39.276,55","page_id":0,"polygon":[[0.88,0.293],[0.938,0.294],[0.938,0.303],[0.88,0.302]]}]},"vencimiento_del_pago":{"confidence":1,"values":[{"confidence":1,"content":"2024-03-15","page_id":0,"polygon":[[0.677,0.169],[0.755,0.169],[0.755,0.177],[0.677,0.177]]}]}},"processing_time":3.536,"product":{"features":["consumo","fecha_emision","nombre_proveedor","nro_cuenta","nro_de_cliente","numero_de_factura","periodo_del_consumo","proximo_vencimiento","total_importe","total_vencido","vencimiento_del_pago"],"name":"quickdata-mvl\/claro_argentina","type":"constructed","version":"1.1"},"started_at":"2024-03-07T18:31:41.701367"},"n_pages":3,"name":"bill_2.pdf"}} -->
+
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Lotes extends backend_controller
@@ -6,8 +11,8 @@ class Lotes extends backend_controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('file');
-		if (!$this->ion_auth->logged_in()) {
+
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() || !$this->ion_auth->is_super())) {
 			redirect('Login');
 		} else {
 
@@ -16,23 +21,68 @@ class Lotes extends backend_controller
 		}
 	}
 
-	public function getDato($file, $id_proveedor)
+	public function getDato($file = '', $id_proveedor = '')
 	{
+		$dataACT = $this->Manager_model->get_alldata('_consolidados');
+		/*
+ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `proximo_vencimiento`, ADD `importe_1` DECIMAL(10,2) NOT NULL AFTER `nombre_archivo_temp`;
+*/
 
-		// $dato = $this->Manager_model->getWhere('_datos_api', 'nombre_archivo="' . $id . '"');
-		// $this->db->where("nombre_archivo LIKE '%" . $file . "%' ESCAPE '!'");
+		foreach ($dataACT as $reg) {
+
+
+
+			// modificacion campo importe_1 pasa de string total_importe a double 10.2
+			// switch($reg->id_proveedor){
+			// 	// case 1: //AYSA
+			// 	case 4: //EDENOR
+			// 		$importe = trim($reg->importe);
+
+			// 		$importe = str_replace(',','.',str_replace('.','',$importe));
+			// 		$numero_decimal = number_format($importe,2,'.','');
+			// 		// die();
+			// 		break;
+
+			// 	case 8: //TELECOM INTER
+			// 	case 6: //TELECOM INTER
+
+
+			// 		$importe =  floatval(trim($reg->importe));
+			// 		$numero_decimal = number_format($importe,2,'.','');
+			// 		// die();
+			// 		break;
+			// 	default:
+
+
+			// 	$numero_decimal = trim($reg->importe);
+
+			// 	}
+			// 	if($numero_decimal =="")
+			// 		$numero_decimal = 99.99;
+
+			// $dataUpdate['importe_1'] = $numero_decimal;
+
+			// $this->db->where('id', $reg->id);
+			// $this->db->update('_consolidados', $dataUpdate);
+
+
+		}
+
+
+		if ($this->input->is_ajax_request()) {
+			$file = $_REQUEST['file'];
+			$id_proveedor = $_REQUEST['id_proveedor'];
+		}
 
 		$query = "SELECT id, dato_api FROM _datos_api WHERE nombre_archivo_temp = '" . $file . "'";
 		$valor = $file;
 
-		// Escapar el valor usando escape() de la clase db
 		$valor_escapado = $valor;
 
-		// Ejecutar la consulta con el valor escapado
 		$resultado = $this->db->query($query, array($valor_escapado));
 		$mires = $resultado->result();
 
-		// Procesar el resultado
+
 		if ($resultado) {
 
 			$a = json_decode($mires[0]->dato_api);
@@ -198,7 +248,20 @@ class Lotes extends backend_controller
 
 					break;
 
-				case 4: //3857 EDENOR
+				case 4: //3857 EDENOR 
+
+					$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+	
+			
+					$importe = str_replace(',', '.', str_replace('.', '', $importe));
+		
+					// die();
+				
+					// echo $importe; die();
+					// echo $valor_float_de_var = floatval($importe);
+
+				
+					$numero_decimal = number_format($importe, 2, '.', '');
 
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
 					$periodo_del_consumo = '';
@@ -218,7 +281,8 @@ class Lotes extends backend_controller
 						'periodo_del_consumo' => trim($periodo_del_consumo),
 						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
+						'total_importe' => $numero_decimal,
+						'importe_1' => $numero_decimal,
 						'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
 					);
 					break;
@@ -240,13 +304,11 @@ class Lotes extends backend_controller
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 						'periodo_del_consumo' => trim($periodo_del_consumo),
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-						// 'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
 						'nro_factura' => trim($numero_de_factura),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+						// 'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
+						// 'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->cargos_del_mes->values[0]->content),
 						'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
-						'nro_medidor' => trim('N/A'),
-						'total_vencido' => trim('S/D'),
 						// 'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
 					);
 					break;
@@ -305,12 +367,12 @@ class Lotes extends backend_controller
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}			
-					
+					}
+
 					$numero_de_factura = '';
 					$totalIndices = count($a->document->inference->pages[0]->prediction->numero_de_factura->values);
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$numero_de_factura .=$a->document->inference->pages[0]->prediction->numero_de_factura->values[$paso]->content;
+						$numero_de_factura .= $a->document->inference->pages[0]->prediction->numero_de_factura->values[$paso]->content;
 					}
 
 					$dataUpdate = array(
@@ -318,11 +380,11 @@ class Lotes extends backend_controller
 						'fecha_emision' => trim($fecha_emision),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'nro_factura' => trim($numero_de_factura),
-						'periodo_del_consumo' => str_replace(':','',trim($periodo_del_consumo)),
+						'periodo_del_consumo' => str_replace(':', '', trim($periodo_del_consumo)),
 						'vencimiento_del_pago' => trim($vencimiento_del_pago),
 						'nro_medidor' => trim('N/A'),
 						// 'total_vencido' => trim($total_vencido),
-						'consumo' =>'Tel/Int Pyme corp.',
+						'consumo' => 'Tel/Int Pyme corp.',
 					);
 
 					break;
@@ -366,37 +428,83 @@ class Lotes extends backend_controller
 					break;
 				case 10: //3480 TELECOM TELEFONIA FIJA
 
+					
 					$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
 					$consumo = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$consumo .= ' ' . $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
+
 					}
-					$totalIndices = count($a->document->inference->pages[0]->prediction->total_vencido->values);
-					$total_vencido = '';
+					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_facturado->values);
+					$periodo_facturado = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$total_vencido .= ' ' . $a->document->inference->pages[0]->prediction->total_vencido->values[$paso]->content;
+						$periodo_facturado .= ' ' . $a->document->inference->pages[0]->prediction->periodo_facturado->values[$paso]->content;
 					}
-					
-					
+
+
+
 					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
 					$vencimiento_del_pago = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$vencimiento_del_pago .=$a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
+						$vencimiento_del_pago .= $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
 					}
+					$cuenta = "N/A";
+					if (count($a->document->inference->pages[0]->prediction->nro_cuenta->values) > 0) {
+						$cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
+					}
+					
 
 
-			
 					$dataUpdate = array(
-						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
+						'nro_cuenta' => $cuenta,
 						'nro_medidor' => trim('N/A'),
 						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
 						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'periodo_del_consumo' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'total_vencido' => trim($total_vencido),
+						'periodo_del_consumo' => trim($periodo_facturado),
+						'total_vencido' => trim('N/A'),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'consumo' => trim($consumo),
 					);
+
+
+					// TELECOM TELEFONIA FIJA MODELO VIEJO
+					//$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
+					//$consumo = '';
+					//for ($paso = 0; $paso < $totalIndices; $paso++) {
+					//	$consumo .= ' ' . $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
+					//}
+					//$totalIndices = count($a->document->inference->pages[0]->prediction->total_vencido->values);
+					//$total_vencido = '';
+					//for ($paso = 0; $paso < $totalIndices; $paso++) {
+					//	$total_vencido .= ' ' . $a->document->inference->pages[0]->prediction->total_vencido->values[$paso]->content;
+					//}
+
+
+					//$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+					//$vencimiento_del_pago = '';
+					//for ($paso = 0; $paso < $totalIndices; $paso++) {
+					//	$vencimiento_del_pago .= $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
+					//}
+					//$cuenta = "N/A";
+
+					//if (count($a->document->inference->pages[0]->prediction->nro_cuenta->values) > 0) {
+					//	$cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
+					//}
+
+
+
+					//$dataUpdate = array(
+					//	'nro_cuenta' => $cuenta,
+					//	'nro_medidor' => trim('N/A'),
+					//	'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
+					//	'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+					//	'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+					//	'periodo_del_consumo' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+					//	'total_vencido' => trim($total_vencido),
+					//	'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
+					//	'consumo' => trim($consumo),
+					//);
 
 					break;
 			}
@@ -475,40 +583,40 @@ class Lotes extends backend_controller
 	public function leerApi()
 	{
 
+
 		$file = str_replace(base_url(), '', $_POST['file']);
 
 		$proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $_POST['id_proveedor'] . '"');
+
 
 		$request = array(
 			'full_path' => $_POST['file']
 		);
 
-		// sleep(3);
+
 		$dataApi = apiRest($request, $proveedor->urlapi);
-
-
-		if (is_file($_POST['file'])) {
-			if (unlink($_POST['file'])) {
-			}
-		}
 
 
 		$updateData = array(
 			'dato_api' => json_encode($dataApi),
 		);
-		// sleep(1);
+
 
 		// $this->db->where("nombre_archivo LIKE '%uploader/files/".$proveedor->codigo. "/". $dataApi['document']['name']  . "%' ESCAPE '!'");
 		// $this->db->where("nombre_archivo", "uploader/files/" . $proveedor->codigo . "/" . $dataApi['document']['name']);
 		$this->db->where("nombre_archivo_temp",  $_POST['file']);
 		$this->db->update('_datos_api', $updateData);
 
-		$this->getDato("uploader/files/" . $proveedor->codigo . "/" . $dataApi['document']['name'], $proveedor->id);
+		$this->getDato($_POST['file'], $proveedor->id);
 
+		if (is_file($_POST['file'])) {
+			if (unlink($_POST['file'])) {
+			}
+		}
 
 		$response = array(
 			'mensaje' => $_POST['file'],
-			'title' => 'LOTES 242',
+			'title' => 'LOTES521',
 			'status' => 'success',
 		);
 		echo json_encode($response);
@@ -518,9 +626,7 @@ class Lotes extends backend_controller
 	public function upload($id = null)
 	{
 
-
 		if ($this->input->is_ajax_request()) {
-
 
 			if (!empty($_FILES['file']['name']) && !empty($_POST['id_proveedor'])) {
 
@@ -546,17 +652,16 @@ class Lotes extends backend_controller
 				$config['max_size'] = '10000'; // max_size in kb 
 				$config['file_name'] = $nombre_archivodb;
 
-				// Load upload library 
 				$this->load->library('upload', $config);
 
-
 				$response = array(
-					'mensaje' => 'inicoi',
-					'title' => 'LOTES 301',
+					'mensaje' => 'inico',
+					'title' => 'LOTES 562',
 					'status' => 'error',
 				);
-				// File upload
+
 				if ($this->upload->do_upload('file')) {
+
 					$nombre_archivo_temp = $nuevoNOmbre . '_splitter.' . $arc[1];
 
 					$destino = $nombre_fichero  . "/" . $nombre_archivo_temp;
@@ -565,7 +670,8 @@ class Lotes extends backend_controller
 
 					$pdf = $this->pdf_lib->test($this->upload->data('full_path'), $destino);
 
-
+					if (!file_exists(strtolower($nombre_fichero . '/' . $nuevoNOmbre))) {
+					}
 					try {
 						//actrualizo tabla lotes cantidad de archivos
 						if (isset($_REQUEST['id_lote'])) {
@@ -595,24 +701,7 @@ class Lotes extends backend_controller
 					$filename = $uploadData['file_name'];
 					$fullpath = $uploadData['full_path'];
 
-
-
 					$nombre_archivodb = $config['upload_path'] . '/' . $config['file_name'];
-
-
-					// $data = apiRest($uploadData, $proveedor->urlapi);
-
-
-					// if ($data['api_request']['error']) {
-					// 	$response = array(
-					// 		'mensaje' => '<strongs>' . $proveedor->nombre . '</strong><br>' . $data['api_request']['error']['code'] . '<br> ' . $data['api_request']['error']['message'],
-					// 		'title' => 'Consulta API',
-					// 		'status' => 'error',
-					// 	);
-					// 	echo json_encode($response);
-					// 	exit();
-					// }
-
 
 					$lote = $this->Lotes_model->crearLote();
 
@@ -622,21 +711,18 @@ class Lotes extends backend_controller
 						'code_lote' => $lote[0]->code,
 						'id_proveedor' => $proveedor->id,
 						'nombre_proveedor' => $proveedor->nombre,
-						// 'nombre_proveedor' => $data['document']['inference']['pages'][0]['prediction']['nombre_proveedor']['values'][0]['content'],
-						// 'dato_api' => json_encode($data),
 						'nombre_archivo' => $nombre_archivodb,
 						'nombre_archivo_temp' => $destino,
 					);
 
 					if ($this->Manager_model->grabar_datos("_datos_api", $saveData)) {
 
-						// ESTA FUNCION ES LA QUE ACTUALIZA LA TABLA CON LOS DATOS RECIBIDOS DESDE LA API
-						// 	$this->getDato($this->db->insert_id(), $proveedor->id);
 
 						$response = array(
 							'mensaje' => 'Archivo: ' . $filename . ' Lote: ' . $lote[0]->code,
 							'title' => 'Grabar Archivos',
 							'status' => 'success',
+							// 'file' => $filename,
 							'file' => $filename,
 							'path' => $fullpath,
 							'pathw' => $destino,
@@ -667,7 +753,7 @@ class Lotes extends backend_controller
 			} else {
 				$response = array(
 					'mensaje' => 'Archivo: vacio',
-					'title' => 'Grabar dsdsdsdsdsdsd',
+					'title' => 'Grabar ',
 					'status' => 'error',
 				);
 
@@ -812,6 +898,7 @@ class Lotes extends backend_controller
 
 				foreach ($archivos as $dato) {
 
+
 					if (!$this->Manager_model->get_indexacion('_indexaciones', $dato->nro_cuenta)) {
 
 						$error++;
@@ -832,10 +919,6 @@ class Lotes extends backend_controller
 					$classTextMerge = 'text-info';
 					// $consolidado = 'OK';
 				}
-				// echo '<pre>';
-				// var_dump( $archivos ); 
-				// echo '</pre>';
-				// die();
 
 
 				$i++;
@@ -849,7 +932,7 @@ class Lotes extends backend_controller
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
 				$data[] = array(
-					// $r->id,
+					'<input id="' . $r->id_lote . '" class="checkbox" type="checkbox">',
 					$r->nombre,
 					$r->codigo,
 					fecha_es($r->fecha_add, 'd/m/a', false),
@@ -858,7 +941,8 @@ class Lotes extends backend_controller
 					// $estado,
 					$consolidado,
 					$r->last_name . ' ' . $r->first_name,
-					$accionesVer . $accionesMerge . $accionesEdit . $accionesDelete
+					$accionesVer . $accionesMerge . $accionesEdit . $accionesDelete,
+					$r->id
 				);
 			}
 
@@ -893,19 +977,6 @@ class Lotes extends backend_controller
 
 			foreach ($LotesData as $r) {
 
-				// echo '<pre>';
-				// var_dump( $ ); 
-				// echo '</pre>';
-				// die();
-
-				// $arr = json_decode($r->dato_api);
-
-				// echo '<pre>';
-				// var_dump($arr->document ); 
-				// echo '</pre>';
-				// die();
-
-
 				$classAccionMerge = 'mergefile';
 				$archivo = explode('/', $r->nombre_archivo);
 				if ($indexador = $this->Manager_model->getWhere('_indexaciones', 'nro_cuenta="' . $r->nro_cuenta . '"')) {
@@ -913,7 +984,6 @@ class Lotes extends backend_controller
 				} else {
 					$indexador = '0';
 				}
-
 
 				$iconTextMerge = '';
 
@@ -929,12 +999,14 @@ class Lotes extends backend_controller
 					$iconTextMerge = 'text-defautl';
 				}
 
-				$accionesVer = '<span class="acciones"><a title="ver archivo" href="/Admin/Lecturas/Views/' . $r->id . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
+				$accionesVer = '<span class="acciones"><a  title="ver archivo" href="/Admin/Lecturas/Views/' . $r->id . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
+				$accionesCopy = '<span class="acciones"><a data-copy="' . $archivo[3] . '" title="copiar archivo" href="/Admin/Lecturas/Copy/' . $r->id . '"  class=""><i class="icon-copy" title="Copiar archivo"></i> </a></span> ';
 				$accionesMerge = '<span data-file="' . $archivo[3] . '" data-consolidado="' . $r->consolidado . '"  data-indexador="' . $indexador . '" data-code="' . $r->code_lote . '" data-id_file="' . $r->id . '" class="' . $classAccionMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $iconTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
-				$accionesEdit = '<span data-id_lote="' . $r->id . '" data-code="' . $r->code_lote . '"class="editar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Editar lote" href="#"  class=""><i class=" text-warningr  icon-pencil4 " title="Editar "></i> </a> </span>';
+				$accionesReload = '<span data-id_proveedor="' . $r->id_proveedor . '"data-file="' . $r->nombre_archivo_temp . '"data-id_lote="' . $r->id . '" data-code="' . $r->code_lote . '"class="reload-lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
 				$accionesDelete = '<span data-tabla="_datos_api" data-id_file="' . $r->id . '" class="borrar-file acciones" ><a title="Borrar file" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 
 				$data[] = array(
+					'',
 					$r->nro_cuenta,
 					$r->nro_medidor,
 					$r->nro_factura,
@@ -948,7 +1020,8 @@ class Lotes extends backend_controller
 					$r->consumo,
 					$indexador,
 					$archivo[3],
-					$accionesVer . $accionesMerge . $accionesDelete
+					$accionesVer . $accionesCopy . $accionesMerge . $accionesDelete,
+					$r->id
 				);
 			}
 
@@ -969,7 +1042,10 @@ class Lotes extends backend_controller
 
 
 			$script = array(
+				base_url('assets\manager\js\plugins\tables\datatables\extensions/select.min.js'),
+				base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 				base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
+				base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/modulo.js'),
 			);
 
 
