@@ -1,30 +1,39 @@
+
 <style>
-	
-	.card {
-		container {
- 		 padding-left: 0 !important;
- 		 padding-right: 0 !important;
-		  width: 100% !important;
-	}
-	}
-	.tablas2 {
+.tabla_view {
 		width: 1250px !important;
 		margin-left: -80px !important;
 
+	
 	}
 </style>
-<div class="container-fuid card tablas2 px-2">
-	<div class="card-header header-elements-inline ">
-		<h5 class="card-title text-center ">Lecturas de facturas - Archivos</h5>
-		<p>Datos del lote.</p>
+
+
+
+<div class="container-fuid card tabla_view">
+	<div class="card-header header-elements-inline">
+		<h5 class="card-title">Datos en base - Lotes</h5>
+		<p>mostrar datos del lote.</p>
 	</div>
-	<table class="datatable-ajax display table-bordered table-hover datatable-highlight no-footer">
+
+	<style>
+
+.datatable-ajax tr :first-child {
+
+ 
+  padding: 5px;
+}
+	</style>
+	<table class="datatable-ajax display table-bordered table-hover datatable-highlight no-footer  " style="width: auto">
 		<thead>
         <tr>
+		<th>
+			<input type="checkbox" id="selectAllPost" class="select-checkbox" data-tabla="dataTable_lecturas">
+		</th>
 					<th>Cuenta</th>
 					<th>Medidor</th>
 					<th>Nro de factura</th>
-					<th>Período</th>
+					<th>Pedríodo</th>
 					<th>Fecha emision</th>
 					<th>Vencimiento</th>
 					<th>Total importe</th>
