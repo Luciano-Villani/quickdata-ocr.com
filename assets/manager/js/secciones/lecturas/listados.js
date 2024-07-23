@@ -4,37 +4,60 @@ function dt() {
   var mytable = $(".datatable-ajax").dataTable({
     pageLength: 10,
     language: {
+      select: {
+        rows: " %d Registros seleccionados",
+      },
       url: base_url + "assets/manager/js/plugins/tables/translate/spanish.json",
     },
     order: [[0, "desc"]],
     columnDefs: [
       { className: "dt-center", targets: "_all" },
       { className: "dt-nowrap", targets: [7] },
+      {
+        targets: 0,
+        visible: false,
+        checkboxes: {
+          selectRow: true,
+        },
+        // render:function(data, type, row, meta){
+        //   console.log(data);
+
+        // },
+      },
       // { width: "1%", visible: false, targets: [0] },
-      { width: "1%", orderable: false, targets: [3, 4] },
+      { width: "1%", orderable: false, targets: [0, 3, 4] },
     ],
     processing: true,
     serverSide: true,
-    responsive: true,
+    select: {
+      style: "multi",
+      selector: "td:first-child",
+    },
+
+    createdRow: function (row, data, dataIndex) {
+      // agrego el atributo id al td 0
+      // console.log("data");
+      // console.log(data);
+      // console.log(row);
+      $(row).attr("id", data[0]);
+      $(row).find("td:eq(0)").attr("id", data[0]);
+    },
     ajax: {
       data: { table: "_lotes" },
       url: "/Admin/Lotes/lotes_dt/",
       type: "POST",
       error: function (jqXHR, textStatus, errorThrown) {
-        alert('line 24'+jqXHR.status + textStatus + errorThrown);
+        alert("line 24" + jqXHR.status + textStatus + errorThrown);
       },
     },
     initComplete: function (a, v) {
-
       table = this;
       this.api()
         .columns([0, 1, 2, 6])
-        .every(function () {
-        });
-      this.api().columns([0, 1]).every(function () {
-
-      })
-
+        .every(function () {});
+      this.api()
+        .columns([0, 1])
+        .every(function () {});
     },
   });
 }
@@ -87,79 +110,160 @@ function checkFile(file) {
 
 $(document).ready(function () {
 
+  // $("#modal_backdrop").modal("show");
   $("body").on("click", "button#cerrar_modal", function (e) {
-    $('#tabla_archivos tbody').html('');
-    $('#button#enviar_archivos').attr('disabled','disabled');
-
+    $("#tabla_archivos tbody").html("");
+    $("button#enviar_archivos").attr("disabled", "disabled");
   });
   $("body").on("click", "button#enviar_archivos", function (e) {
-
-    var filas = $('#tabla_archivos tbody tr');
-
-    $('#tabla_archivos tbody tr').each(function(index){
-
-      console.log('asdasd');
-      console.log($(this).data('archivo'));
-      var nombre = $(this).data('archivo');
-      
-      var datos = {
-        nombre: nombre,
-        // apellido: apellido
-      };
-      console.log('inicia');
-     
-
+    $("button#enviar_archivos").attr("disabled", "disabled");
+    var filas = $("#tabla_archivos tbody tr");
+    var count = 0;
+    $("#tabla_archivos tbody tr").each(function (index) {
+      count++;
+      var nombre = $(this).data("archivo");
 
       var postdata = new FormData();
-                postdata.append("file",nombre);
-                postdata.append("id_proveedor",$("#id_proveedor").val());
-                setTimeout(function(){
-                $.ajax({
-                  type: "POST",
-                  contentType: false,
-                  dataType: "json",
-                  data: postdata,
-                  processData: false,
-                  cache: false,
-                  beforeSend: function () {
-                    console.log("SALE");
-                    $("#tabla_archivos tbody").find("span[data-archivo='"+nombre+"']").removeClass('bg-warning-400').addClass('bg-info-400').text('procesando');
-                   },
-                  url: $("body").data("base_url") + "Lotes/leerApi",
-                  success: function (result) {
-                    console.log("VOLVIO");
-                    console.log(result);
-                    $("#tabla_archivos tbody").find("span[data-archivo='"+result.mensaje+"']").removeClass(['bg-info-400 bg-warning-400']).addClass('bg-success-400').text('Procesado');
-                    var data = [];
-                    data.status = result.status;
-                    data.title = result.title;
-                    data.mensaje = result.mensaje;
-                    // alertas(result);
-                  
-                    $(".datatable-ajax").DataTable().ajax.reload();
-                  },
-                  error: function (xhr, errmsg, err) {
-                    console.log(xhr.status + ": " + xhr.responseText);
-                  },
-                });
+      postdata.append("file", nombre);
+      postdata.append("id_proveedor", $("#id_proveedor").val());
+      setTimeout(function () {
+        $.ajax({
+          xhr: function () {
+            var xhr = new window.XMLHttpRequest();
+            //Upload progress
+            xhr.upload.addEventListener(
+              "progress",
+              function (evt) {
+                if (evt.lengthComputable) {
+                  var percentComplete = evt.loaded / evt.total;
+                  //Do something with upload progress
+                  console.log("percentComplete");
+                  console.log(percentComplete);
 
- }, 2000);
+                  $(".progress-bar").css("width", percentComplete + "%");
+                  $(".progress-bar").html(percentComplete + " %" + count);
+                }
+              },
+              false
+            );
+            return xhr;
+          },
+          type: "POST",
+          contentType: false,
+          cache: false,
+          processData: false,
+          dataType: "json",
+          data: postdata,
+          beforeSend: function () {
+            var xhr = new window.XMLHttpRequest();
+            //Upload progress
+            xhr.upload.addEventListener(
+              "progress",
+              function (evt) {
+                if (evt.lengthComputable) {
+                  var percentComplete = evt.loaded / evt.total;
+                  //Do something with upload progress
+                  console.log("percentComplete");
+                  console.log(percentComplete);
 
-      
+                  $(".progress-bar").css("width", percentComplete + "%");
+                  $(".progress-bar").html(percentComplete + " %" + count);
+                }
+              },
+              false
+            );
+            $(".progress").show();
+            $(".progress-bar").css("width", "0%");
+            $(".progress-bar").html("0%");
+            console.log("SALE");
+            $("#tabla_archivos tbody")
+              .find("span[data-archivo='" + nombre + "']")
+              .removeClass("bg-warning-400 ")
+              .addClass("bg-info-400")
+              .text("procesando");
+          },
+          url: $("body").data("base_url") + "Lotes/leerApi",
+          success: function (result) {
+            console.log("VOLVIO");
 
-      })
+            $("#tabla_archivos tbody")
+              .find("span[data-archivo='" + result.mensaje + "']")
+              .removeClass(["bg-info-400"])
+              .removeClass(["bg-warning-400"])
+              .addClass("bg-success-400")
+              .text("Procesado");
+            var data = [];
+            data.status = result.status;
+            data.title = result.title;
+            data.mensaje = result.mensaje;
+            // alertas(result);
 
-      function sleep(milliseconds) {
-   
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-          if ((new Date().getTime() - start) > milliseconds){
-            break;
-          }
+            $(".datatable-ajax").DataTable().ajax.reload();
+          },
+          error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ": " + xhr.responseText);
+          },
+        });
+      }, 0);
+    });
+
+    function sleep(milliseconds) {
+      var start = new Date().getTime();
+      for (var i = 0; i < 1e7; i++) {
+        if (new Date().getTime() - start > milliseconds) {
+          break;
         }
       }
-  })
+    }
+  });
 
+  //   $.confirm({
+
+  //     title: 'Archivos subidos',
+  //     content: 'Obtener datos de OCR del lote '+ $("#code").val()+'?',
+  //     buttons: {
+  //         confirm: function () {
+
+  //           // busqueda de datos API
+  //           var postdata = new FormData();
+  //           postdata.append("id_proveedor", $("#id_proveedor").val());
+  //           postdata.append("code_lote", $("#code").val());
+
+  //           $.ajax({
+  //             type: "POST",
+  //             contentType: false,
+  //             dataType: "json",
+  //             data: postdata,
+  //             processData: false,
+  //             cache: false,
+  //             beforeSend: function () { },
+  //             url: $("body").data("base_url") + "Lotes/leerApi/"+ $("#code").val()+'/'+$("#id_proveedor").val(),
+  //             success: function (result) {
+  //               console.log("RESULT");
+  //               console.log(result);
+
+  //             },
+  //             error: function (xhr, errmsg, err) {
+  //               console.log(xhr.status + ": " + xhr.responseText);
+  //             },
+  //           });
+
+  //         },
+  //         cancel: function () {
+  //             $.alert('Cancelado !');
+  //         }
+  //         ,
+  //     somethingElse: {
+  //         text: 'Something else',
+  //         btnClass: 'btn-blue',
+  //         disable:true,
+  //         keys: ['enter', 'shift'],
+  //         action: function(){
+  //             $.alert('Something else?');
+  //         }
+  //     }
+  //     }
+  // });
 
   function DestroyDropzones() {
     $(".dropzone").each(function () {
@@ -173,42 +277,35 @@ $(document).ready(function () {
   Dropzone.autoDiscover = false;
   DestroyDropzones();
   dt();
-  var mytable = $("#lwecturas_dt").DataTable({
-    responsive:true,
-    serverSide: true,
-    ajax: {
-      url: $("body").data("base_url") + "lecturas/list_dt",
-      type: "POST",
-    },
-  });
-  var mytable = $("#lecturas_dt").DataTable({
-    dom: "frtip",
-    responsive:true,
-    serverSide: true,
-    columnDefs: [
-      {
-        targets: ['_all'],
-        			className: 'dt-body-left',
-        bSortable: false,
-      },
-      { visible: false, targets: [] },
-    ],
-    language: {
-      url:
-        $("body").data("base_url") +
-        "assets/manager/js/plugins/tables/translate/spanish.json",
-    },
-    // dataType: 'json',
-    serverSide: true,
-    ajax: {
-      data: { time: "time" },
-      url: $("body").data("base_url") + "lecturas/list_dt",
-      type: "POST",
-      error: function (jqXHR, textStatus, errorThrown) {
-        alert(jqXHR.status + textStatus + errorThrown);
-      },
-    },
-  });
+
+  // var mytable = $("#lecturas_dt").DataTable({
+  //   dom: "frtip",
+  //   responsive: true,
+  //   serverSide: true,
+  //   columnDefs: [
+  //     {
+  //       targets: ["_all"],
+  //       className: "dt-body-left",
+  //       bSortable: false,
+  //     },
+  //     { visible: false, targets: [] },
+  //   ],
+  //   language: {
+  //     url:
+  //       $("body").data("base_url") +
+  //       "assets/manager/js/plugins/tables/translate/spanish.json",
+  //   },
+  //   // dataType: 'json',
+  //   serverSide: true,
+  //   ajax: {
+  //     data: { time: "time" },
+  //     url: $("body").data("base_url") + "lecturas/list_dt",
+  //     type: "POST",
+  //     error: function (jqXHR, textStatus, errorThrown) {
+  //       alert(jqXHR.status + textStatus + errorThrown);
+  //     },
+  //   },
+  // });
 
   $("body").on("click", "span.mergelote", function (e) {
     var code = $(this).data("code");
@@ -233,8 +330,7 @@ $(document).ready(function () {
         },
       });
     } else {
-
-      if (consolidado != '0') {
+      if (consolidado != "0") {
         $.confirm({
           title: "CONSOLIDAR LOTE",
           content:
@@ -255,7 +351,10 @@ $(document).ready(function () {
         $.confirm({
           autoClose: "cancel|10000",
           title: "CONSOLIDAR LOTE",
-          content: "Confirma la consolidación del lote : <strong>" + $(this).data("code") + "</strong> ???",
+          content:
+            "Confirma la consolidación del lote : <strong>" +
+            $(this).data("code") +
+            "</strong> ???",
           buttons: {
             confirm: {
               text: "Confirmar",
@@ -293,7 +392,7 @@ $(document).ready(function () {
             cancel: {
               text: "Cancelar",
               btnClass: "btn-red",
-              action: function () { },
+              action: function () {},
             },
           },
         });
@@ -326,7 +425,7 @@ $(document).ready(function () {
               data: dato,
               processData: false,
               cache: false,
-              beforeSend: function () { },
+              beforeSend: function () {},
               url: $("body").data("base_url") + "Lotes/delete_lote",
               success: function (result) {
                 console.log("result");
@@ -343,7 +442,7 @@ $(document).ready(function () {
         cancel: {
           text: "Cancelar",
           btnClass: "btn-red",
-          action: function () { },
+          action: function () {},
         },
       },
     });
@@ -371,7 +470,7 @@ $(document).ready(function () {
               data: dato,
               processData: false,
               cache: false,
-              beforeSend: function () { },
+              beforeSend: function () {},
               url: $("body").data("base_url") + "Lecturas/" + action,
               success: function (result) {
                 console.log("result");
@@ -385,31 +484,30 @@ $(document).ready(function () {
         cancel: {
           text: "Cancelar",
           btnClass: "btn-red",
-          action: function () { },
+          action: function () {},
         },
       },
     });
   });
   function generarRandom(num) {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
     let result = "";
-      for (let i = 0; i < num; i++) {
-          result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      }
-  
+    for (let i = 0; i < num; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
     return result;
   }
   var base_url = $("body").data("base_url");
 
   $("body").on("change", "select#id_proveedor", function () {
-
-    
     if ($(this).val() > 0) {
       var dato = new FormData();
       dato.append("id_proveedor", $(this).val());
-     var code =  generarRandom(5);
-     $("input#code").val(code);
+      var code = generarRandom(5);
+      $("input#code").val(code);
       $.ajax({
         type: "POST",
         contentType: false,
@@ -417,7 +515,7 @@ $(document).ready(function () {
         data: dato,
         processData: false,
         cache: false,
-        beforeSend: function () { },
+        beforeSend: function () {},
         url: $("body").data("base_url") + "Proveedores/checkApiUrl",
         success: function (result) {
           console.log("RESULT");
@@ -430,14 +528,14 @@ $(document).ready(function () {
                 cancel: {
                   text: "Cancelar",
                   btnClass: "btn-red",
-                  action: function () { },
+                  action: function () {},
                 },
               },
             });
             $("#mydropzone").addClass("d-none");
             $("input#proveedor").val("");
             $("selct#id_proveedor").val(0);
-            $("input#codeproveedor").val('');
+            $("input#codeproveedor").val("");
           } else {
             $("#mydropzone").removeClass("d-none");
             $("input#proveedor").val(result.proveedor.id);
@@ -470,7 +568,8 @@ $(document).ready(function () {
 $(function () {
   var myFileUploadDropZone = new Dropzone(".dropzone", {
     url: "/Lotes/upload",
-    parallelUploads:10,
+
+    parallelUploads: 10,
     autoProcessQueue: false,
     maxFiles: null,
     maxFilesize: 10000,
@@ -489,44 +588,49 @@ $(function () {
     init: function () {
       var myDropzone = this;
       $("#procesar_lote").click(function (e) {
-
-
         e.preventDefault();
         $.blockUI();
         myDropzone.processQueue();
-      }), this.on("error", function (file, response) {
-        var data = [];
-        data.status = 'error';
-        data.title = 'Carga de archivos';
-        data.mensaje = response;
-        alertas(data);
-        return;
-
       }),
-       
+        this.on("error", function (file, response) {
+          var data = [];
+          data.status = "error";
+          data.title = "Carga de archivos";
+          data.mensaje = response;
+          alertas(data);
+          return;
+        }),
         this.on("success", function (file, response) {
-
-              
-
           var data = [];
           // aa = JSON.stringify(response);
           json = JSON.parse(JSON.stringify(response));
           mensaje = JSON.parse(json);
-        
+
+          console.log("llega dfesde upload");
+          console.log(mensaje);
           data.status = mensaje.status;
-          data.title = 'Carga de archivos';
+          data.title = "Carga de archivos";
           data.mensaje = mensaje.mensaje;
           var archivo = mensaje.file;
-          $("#tabla_archivos").prepend( "<tr data-archivo='"+mensaje.pathw+"'><td data-archivo='"+mensaje.pathw+"'>"+archivo+"</td><td><span data-archivo='"+mensaje.pathw+"' class='label bg-warning-400'>Pendiente</span></td></tr>");
-  
-          alertas(data);
-       
+          $("#tabla_archivos").prepend(
+            "<tr data-archivo='" +
+              mensaje.pathw +
+              "'><td data-archivo='" +
+              mensaje.pathw +
+              "'>" +
+              archivo +
+              "</td><td><span data-archivo='" +
+              mensaje.pathw +
+              "' class='label bg-warning-400'>Pendiente</span></td></tr>"
+          );
+
+          // alert(data);
         }),
         this.on("addedfile", (file) => {
           this.options.autoProcessQueue = false;
           checkFile(file);
           if (this.files.length) {
-            $("body #procesar_lote").removeAttr('disabled');
+            $("body #procesar_lote").removeAttr("disabled");
             var _i, _len;
             for (
               _i = 0, _len = this.files.length;
@@ -537,7 +641,7 @@ $(function () {
                 this.files[_i].name === file.name &&
                 this.files[_i].size === file.size &&
                 this.files[_i].lastModifiedDate.toString() ===
-                file.lastModifiedDate.toString()
+                  file.lastModifiedDate.toString()
               ) {
                 this.removeFile(file);
               }
@@ -545,15 +649,13 @@ $(function () {
               // console.log(this.files[_i]["name"]);
             }
           } else {
-            $("body #procesar_lote").attr('disabled', 'disabled');
+            $("body #procesar_lote").attr("disabled", "disabled");
           }
         });
 
       this.on("complete", function (file) {
-        console.log('file');
+        console.log("complete ");
         console.log(file);
-      
-              
 
         if (
           this.getUploadingFiles().length === 0 &&
@@ -564,23 +666,25 @@ $(function () {
         this.removeFile(file);
       });
       this.on("processing", function () {
-        
         this.options.autoProcessQueue = true;
       });
     },
     removedfile: function (file) {
       file.previewElement.remove();
       if (!this.files.length) {
-        $("body #procesar_lote").attr('disabled', 'disabled');
+        $("body #procesar_lote").attr("disabled", "disabled");
       }
     },
-
 
     sending: function (file, xhr, formData) {
       $.blockUI();
       myDropzone = Dropzone.forElement(".dropzone");
       // alert( myDropzone.getAcceptedFiles().length);
       console.log("sending");
+      console.log(file);
+      console.log("xhr");
+      console.log(xhr);
+
       formData.append("id_proveedor", $("#id_proveedor").val());
       formData.append("code_lote", $("#code").val());
       // myDropzone.getQueuedFiles().length
@@ -589,68 +693,12 @@ $(function () {
     queuecomplete: function (file, xhr, formData) {
       $.unblockUI();
       console.log("queuecomplete function");
-      $("body #procesar_lote").attr('disabled', 'disabled');
+      $("body #procesar_lote").attr("disabled", "disabled");
       this.removeAllFiles(true);
-      $('#modal_backdrop').modal('show');
-      $('button#enviar_archivos').removeAttr('disabled');
-      
-     
+      $("#modal_backdrop").modal("show");
+      $("button#enviar_archivos").removeAttr("disabled");
+
       $(".datatable-ajax").DataTable().ajax.reload();
-   
-    //   $.confirm({
-        
-    //     title: 'Archivos subidos',
-    //     content: 'Obtener datos de OCR del lote '+ $("#code").val()+'?',
-    //     buttons: {
-    //         confirm: function () {
-               
-    //           // busqueda de datos API
-    //           var postdata = new FormData();
-    //           postdata.append("id_proveedor", $("#id_proveedor").val());
-    //           postdata.append("code_lote", $("#code").val());
-
-    //           $.ajax({
-    //             type: "POST",
-    //             contentType: false,
-    //             dataType: "json",
-    //             data: postdata,
-    //             processData: false,
-    //             cache: false,
-    //             beforeSend: function () { },
-    //             url: $("body").data("base_url") + "Lotes/leerApi/"+ $("#code").val()+'/'+$("#id_proveedor").val(),
-    //             success: function (result) {
-    //               // console.log("RESULT");
-    //               // console.log(result);
-     
-    //             },
-    //             error: function (xhr, errmsg, err) {
-    //               console.log(xhr.status + ": " + xhr.responseText);
-    //             },
-    //           });
-
-
-    //         },
-    //         cancel: function () {
-    //             $.alert('Cancelado !');
-    //         }
-    //         ,
-    //     somethingElse: {
-    //         text: 'Something else',
-    //         btnClass: 'btn-blue',
-    //         disable:true,
-    //         keys: ['enter', 'shift'],
-    //         action: function(){
-    //             $.alert('Something else?');
-    //         }
-    //     }
-    //     }
-    // });
- 
-
-
-
-
-
     },
   });
 });
