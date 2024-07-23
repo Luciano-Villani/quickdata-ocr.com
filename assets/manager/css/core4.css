@@ -6138,6 +6138,10 @@ div.mvl .card {
 .bg-titulo {
   background-color: #FFDBA1 !important;
 }
+.bg-filtro {
+  background-color: #3207bf11 !important;
+}
+
 .btn-proye {
   width: 113px !important;
 }
