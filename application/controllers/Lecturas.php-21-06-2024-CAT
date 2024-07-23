@@ -5,14 +5,14 @@ class Lecturas extends backend_controller
 {
 	function __construct()
 	{
+
 		parent::__construct();
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_super() || $this->ion_auth->is_members()) {
+		if (!$this->ion_auth->logged_in()   ) {
 			redirect('Login');
 		} else {
 			$this->load->helper('file');
 			$this->load->model('manager/Lecturas_model');
 			$this->load->model('manager/Uploader_model');
-			$this->load->model('manager/Manager_model');
 		}
 	}
 
@@ -90,11 +90,10 @@ class Lecturas extends backend_controller
 
 	public function list_dt($id = null)
 	{
-		// $this->Lecturas_model->list_dt($id);
+		$this->Lecturas_model->list_dt($id);
 	}
 	public function lotes_dt($id = null)
 	{
-
 		if ($this->input->is_ajax_request()) {
 			$this->Lecturas_model->lotes_dt($id);
 		}
@@ -168,178 +167,17 @@ class Lecturas extends backend_controller
 
 		echo $datps;
 	}
-
-	public function copy($id = 0)
-	{
-		$myDato = $id;
-		$datoleido = $this->Manager_model->get_data_api('_datos_api', $myDato, true);
-		
-		$importe_total = 0;
-		
-		$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="' . $myDato . '"');
-		if (count($datoTotalesMultiple) > 0)
-			$importe_total = $datoTotalesMultiple[0]->total_importe;
-
-		if ($this->input->is_ajax_request()) {
-			$update = false;
-			$datoleido = $this->Manager_model->get_data_api('_datos_api', trim($_REQUEST['id_registro']), true);
-			$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="'. trim($_REQUEST['id_registro']) .'"');
-			$error = "OK";
-			$this->db->trans_start();
-
-			if (count((array)$datoTotalesMultiple)  == 0) {
-				$insertData = array(
-					'id_datos_api' => $datoleido->id,
-					'total_importe' => $datoleido->total_importe
-				);
-
-
-				if (!$this->db->insert('_datos_multiple', $insertData)) {
-					$error = $this->db->error()["message"];
-				}
-				$uploadDataPost = array(
-					'total_importe' => $_REQUEST['total'],
-					'nro_cuenta' => $_REQUEST['nro_cuenta']
-				);
-				$this->db->where('id',  trim($_REQUEST['id_registro']));
-				$this->db->update('_datos_api', $uploadDataPost);
-
-			}else{
-				$update = true;
-			}
-
-
-			if ($update) {
-
-				unset($datoleido->id);
-				$datoleido->nro_cuenta = $_REQUEST['nro_cuenta'];
-				$datoleido->total_importe = $_REQUEST['total'];
-				if (!$this->db->insert('_datos_api', (array)$datoleido)) {
-					$error = $this->db->error()["message"];
-				}
-
-				
-			}
-
-			// $uploadDataPost = array(
-			// 	'total_importe'=> $_REQUEST['total']
-			// );
-			// $this->db->where('id',  $_REQUEST['id_registro']);
-			// $this->db->update('_datos_api', $uploadDataPost);
-
-
-
-			$lasId = $this->db->insert_id();
-			$this->db->trans_complete();
-
-			$resultd = array(
-				'result' => $error,
-				'lasId' => $lasId,
-				'importe_total' => $importe_total
-			);
-			echo json_encode($resultd);
-			die();
-			// die();
-			// if($this->Manager_model->grabar_datos('_datos_api', (array)$dato))
-			// die('pujdi');
-
-		}
-		if ($id == 0 && $_SERVER['REQUEST_METHOD'] === "POST") {
-
-			// // $_POST['fecha_emision']  = date(trim('Y-m-d',$_POST['fecha_emision']));
-			// $_POST['fecha_emision']  = fecha_es(trim($_POST['fecha_emision']), 'Y-m-d', false);
-			// $_POST['vencimiento_del_pago']  = fecha_es(trim($_POST['vencimiento_del_pago']), 'Y-m-d', false);
-
-			$myDato = $_POST['id'];
-			$this->form_validation->set_rules('proveedor', 'Proveedor', 'trim|in_select[0]');
-			$this->form_validation->set_rules('nro_cuenta', 'Cuenta', 'trim|required');
-
-			//$this->form_validation->set_rules('nro_medidor', 'Medidor', 'trim|required');
-			$this->form_validation->set_rules('nro_factura', 'Factura', 'trim|required');
-			// $this->form_validation->set_rules('periodo_del_consumo', 'Período', 'trim|required');
-			$this->form_validation->set_rules('fecha_emision', 'Fecha emisión', 'trim|required');
-			$this->form_validation->set_rules('total_importe', 'Importe', 'trim|required');
-
-			if ($this->form_validation->run() != FALSE) {
-				$id = $_REQUEST['id'];
-				unset($_REQUEST['id']);
-
-				//campo fecha vencimiento
-
-				// $timestamp = strtotime(trim($_REQUEST['vencimiento_del_pago']) );
-
-				if (($timestamp = strtotime($_REQUEST['vencimiento_del_pago'])) === false) {
-					$_REQUEST['vencimiento_del_pago'] = 'error de lectura';
-				} else {
-					$_REQUEST['vencimiento_del_pago'] = date('Y-m-d', $timestamp);
-				}
-
-				//campo fecha_emision
-				// $timestamp = strtotime(trim($_REQUEST['fecha_emision']) );
-				if (($timestamp = strtotime($_REQUEST['fecha_emision'])) === false) {
-					$_REQUEST['fecha_emision'] = 'error de lectura';
-				} else {
-					$_REQUEST['fecha_emision'] = date('Y-m-d', $timestamp);
-				}
-
-				if ($this->db->update('_datos_api', $_REQUEST, array('id' => $_POST['id']))) {
-
-
-					redirect('Admin/Lecturas/copy/' . $id);
-				};
-			}
-		}
-
-		$registro_api = $this->Manager_model->get_data_api('_datos_api', $myDato);
-
-		$registro_factura = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "' . $registro_api->nro_factura . '"');
-
-		$script = array(
-			base_url('assets/manager/js/secciones/lecturas/copy.js?ver=' . time()),
-		);
-		$this->data['css_common'] = $this->css_common;
-		$this->data['css'] = '';
-
-		$this->data['script_common'] = $this->script_common;
-		$this->data['script'] = $script;
-		$this->data['result'] = $registro_api;
-
-		$datos['lineas'] = $registro_factura;
-		$datos['result'] = $registro_api;
-		$datos['resultMulti'] = $importe_total;
-
-		$total = 0;
-		foreach ($registro_factura as $reg) {
-
-			$total += $reg->total_importe;
-		}
-
-		$datos['resultIngresado'] = $total;
-
-		$this->data['lineas'] = $this->load->view('manager/etiquetas/lineas', $datos, TRUE);
-		$this->data['importe_total'] = $importe_total;
-		// $this->data['nro_cuenta'] = $resultData->nro_cuenta;
-
-		if ($registro_api) {
-			$this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($registro_api->nro_cuenta);
-		}
-
-		$this->data['content'] = $this->load->view('manager/secciones/' . strtolower($this->router->fetch_class()) . '/' . $this->router->fetch_method(), $this->data, TRUE);
-
-		$this->load->view('manager/head', $this->data);
-		$this->load->view('manager/index', $this->data);
-		$this->load->view('manager/footer', $this->data);
-	}
-
 	public function views($id = 0)
 	{
+
+
 		// $myDato = $this->encrypt->decode(urldecode($id));
 		$myDato = $id;
 
 		if ($id == 0 && $_SERVER['REQUEST_METHOD'] === "POST") {
 
-
-
+			
+			
 			// // $_POST['fecha_emision']  = date(trim('Y-m-d',$_POST['fecha_emision']));
 			// $_POST['fecha_emision']  = fecha_es(trim($_POST['fecha_emision']), 'Y-m-d', false);
 			// $_POST['vencimiento_del_pago']  = fecha_es(trim($_POST['vencimiento_del_pago']), 'Y-m-d', false);
@@ -364,23 +202,25 @@ class Lecturas extends backend_controller
 				// $timestamp = strtotime(trim($_REQUEST['vencimiento_del_pago']) );
 
 				if (($timestamp = strtotime($_REQUEST['vencimiento_del_pago'])) === false) {
-					$_REQUEST['vencimiento_del_pago'] = 'error de lectura';
+					$_REQUEST['vencimiento_del_pago']='error de lectura';
+					
 				} else {
-					$_REQUEST['vencimiento_del_pago'] = date('Y-m-d', $timestamp);
+					$_REQUEST['vencimiento_del_pago']= date('Y-m-d', $timestamp);
 				}
 
 				//campo fecha_emision
 				// $timestamp = strtotime(trim($_REQUEST['fecha_emision']) );
 				if (($timestamp = strtotime($_REQUEST['fecha_emision'])) === false) {
-					$_REQUEST['fecha_emision'] = 'error de lectura';
+					$_REQUEST['fecha_emision']='error de lectura';
+					
 				} else {
-					$_REQUEST['fecha_emision'] = date('Y-m-d', $timestamp);
+					$_REQUEST['fecha_emision']= date('Y-m-d', $timestamp);
 				}
 
 				if ($this->db->update('_datos_api', $_REQUEST, array('id' => $_POST['id']))) {
 
 
-					redirect('Admin/Lecturas/Views/' . $id);
+					redirect('Admin/Lecturas/Views/'.$id);
 				};
 			}
 		}
@@ -461,40 +301,39 @@ class Lecturas extends backend_controller
 			die();
 		}
 	}
+	
+	function split_pdf($filename, $dir = false) {
+		require_once(APPPATH.'third_party/pdf2/fpdf.php');
+		require_once(APPPATH.'third_party/pdf2/fpdi.php');
 
-	function split_pdf($filename, $dir = false)
-	{
-		require_once(APPPATH . 'third_party/pdf2/fpdf.php');
-		require_once(APPPATH . 'third_party/pdf2/fpdi.php');
+		$data = $this->Manager_model->getWhere('_datos_api',"id=315");
 
-		$data = $this->Manager_model->getWhere('_datos_api', "id=315");
-
-
+				
 		$dir = $dir ? $dir : './';
 		$filename = base_url($data->nombre_archivo);
 
 		$pdf = new FPDI();
 		$pagecount = $pdf->setSourceFile($filename);
 
-
+		
 		echo '<pre>';
-		var_dump($pagecount);
+		var_dump( $pagecount ); 
 		echo '</pre>';
 		die();
-
+		
 		// Split each page into a new PDF
 		for ($i = 1; $i <= $pagecount; $i++) {
-			$new_pdf = new FPDI();
-			$new_pdf->AddPage();
-			$new_pdf->setSourceFile($filename);
-			$new_pdf->useTemplate($new_pdf->importPage($i));
-			try {
-				$new_filename = $dir . str_replace('.pdf', '', $filename) . '_' . $i . ".pdf";
-				$new_pdf->Output($new_filename, "F");
-				echo "Page " . $i . " split into " . $new_filename . "<br />\n";
-			} catch (Exception $e) {
-				echo 'Caught exception: ',  $e->getMessage(), "\n";
-			}
+		   $new_pdf = new FPDI();
+		   $new_pdf->AddPage();
+		   $new_pdf->setSourceFile($filename);
+		   $new_pdf->useTemplate($new_pdf->importPage($i));		
+		   try {
+			  $new_filename = $dir.str_replace('.pdf','', $filename).'_'.$i.".pdf";
+			  $new_pdf->Output($new_filename, "F");
+			  echo "Page ".$i." split into ".$new_filename."<br />\n";
+		   } catch (Exception $e) {
+			  echo 'Caught exception: ',  $e->getMessage(), "\n";
+		   }
 		}
 	}
 	public function listados()
@@ -503,6 +342,7 @@ class Lecturas extends backend_controller
 			base_url('assets\manager\js\plugins\tables\datatables\extensions/select.min.js'),
 			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
+			// base_url('assets\manager\js\secciones\electromecanica\lecturas\index.js'),
 		);
 
 

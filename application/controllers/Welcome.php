@@ -4,6 +4,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Welcome extends front_controller
 {
 
+	public function perimayus(){
+		$dataACT = $this->Manager_model->get_alldata('_consolidados');
+		// echo '<pre>';
+		// var_dump( $dataACT ); 
+		// echo '</pre>';
+		// die();
+		
+		foreach ($dataACT as $reg) {
+
+
+			$dataUpdate['periodo_contable'] = strtoupper( $reg->periodo_contable);
+
+			$this->db->where('id', $reg->id);
+			$this->db->update('_consolidados', $dataUpdate);
+		}
+
+	}
+	
 	public function importes()
 	{
 
@@ -44,12 +62,31 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 				$numero_decimal = 99.99;
 
 			$dataUpdate['importe_1'] = $numero_decimal;
+			$dataUpdate['importe'] = $numero_decimal;
 
 			$this->db->where('id', $reg->id);
 			$this->db->update('_consolidados', $dataUpdate);
 		}
 	}
 
+	public function periodos()
+	{
+
+		$dataACT = $this->Manager_model->get_alldata('_consolidados');
+		/*
+ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `proximo_vencimiento`, ADD `importe_1` DECIMAL(10,2) NOT NULL AFTER `nombre_archivo_temp`;
+*/
+
+		foreach ($dataACT as $reg) {
+
+
+			$dataUpdate['periodo_contable'] = strtoupper($reg->periodo_contable);
+			
+
+			$this->db->where('id', $reg->id);
+			$this->db->update('_consolidados', $dataUpdate);
+		}
+	}
 
 	public function id_secretaria()
 	{

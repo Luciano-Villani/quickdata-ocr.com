@@ -18,22 +18,24 @@ class Admin extends backend_controller
 		$query = $this->db->query('SELECT periodo_contable FROM u117285061_mvl_ocr_db._consolidados group by periodo_contable  order by id desc');
 		$this->miimporte = [];
 		$this->gperiodos = [];
+		$this->gelementos = [];
+
 		if ($query->result() > 0) {
 			foreach ($query->result_array() as $key => $reg) {
-				$this->gperiodos[$key] = array($reg['periodo_contable']);
+				array_push($this->gperiodos, $reg['periodo_contable']);
 			};
+		}
+
+		// quito periodos contables con datos erroneos, enero, febreo, marzo
+		$this->peri = array_slice($this->gperiodos, -3, 3, true);
+		foreach ($this->peri as $key => $val) {
+			unset($this->gperiodos[$key]);
 		}
 	}
 
 	public function mindee()
 	{
 		$mindeeClient = new Client("f4b6ebe406cdb615674ae37aabc48929");
-
-
-		echo '<pre>';
-		var_dump($mindeeClient);
-		echo '</pre>';
-		die();
 	}
 
 	function agruparPorTrimestre($datos)
@@ -55,32 +57,280 @@ class Admin extends backend_controller
 
 		$memData = $this->Graph_model->getRows($_POST);
 	}
-	public function Graphs()
+
+
+	/*
+  $elementos = array(
+				'name' => $proveedor_grafico,
+				'type' => 'bar',
+				'emphasis' => array(
+					'focus' => 'series'
+				),
+				'data' => $valores
+
+			);
+ */
+
+	function cube($d)
 	{
 
+		$previoNombre  = [];
+		$previoimporte  = [];
+
+		$claveProveedor = array_search($d->proveedor, $this->gelementos);
+
+		if ($claveProveedor) {
+			if (!array_key_exists($d->proveedor, $this->gelementos)) {
+				$this->gelementos[$d->proveedor] = [];
+			}
+			array_push($this->gelementos[$d->proveedor], $d->total);
+		} else {
+
+
+			if (!array_key_exists($d->proveedor, $this->gelementos)) {
+				$this->gelementos[$d->proveedor] = [];
+			}
+
+			array_push($this->gelementos[$d->proveedor], $d->total);
+
+			if (array_key_exists($d->proveedor, $this->gelementos)) {
+				// array_push($this->gelementos[$d->proveedor], '444444');
+				// echo '<pre>'.$d->proveedor;
+				// var_dump($this->gelementos ); 
+				// echo '</pre>';
+				// die('si existe');
+			} else {
+
+				// die('no es');
+			}
+		}
+
+		// if ($claveProveedor && is_int($claveProveedor)) {
+
+		// 	// die('si');
+
+		// 	if (array_search($claveProveedor, $this->gelementos)) {
+		// 		array_push($this->gelementos[$claveProveedor], $d->total);
+
+
+		// 	}else{
+		// 		// $this->gelementos[$claveProveedor]=[];
+		// 		array_push($this->gelementos[$claveProveedor], $d->total);
+		// 		// $this->gelementos[$claveProveedor]=[$d->proveedor];
+		// 	}
+
+
+		// 	// array_push($this->gelementos[$claveProveedor], $d->total);
+
+
+		// 	// var_dump( $this->gelementos ); 
+		// 	// echo '</pre>';
+		// 	// die();
+		// 	// if(array_search($d->proveedor,array_column($this->proveedoresdb, 'proveedor'))){
+
+		// 	// 	echo 'si';
+		// 	// 	echo '<pre>';
+
+		// 	// 	var_dump( $this->gelementos ); 
+		// 	// 	echo '</pre>';
+
+		// 	// }else{
+		// 	// 	echo 'no'.$d->proveedor;
+		// 	// 	$this->gelementos['nombre']=[$d->proveedor];
+		// 	// 	array_push($this->gelementos,$d->total);
+
+		// 	// }
+		// 	// array_push($this->gelementos[$claveProveedor], $d->total);
+		// } else {
+
+
+
+
+		// 	// array_push($this->gelementos[$d->proveedor],$d->total);
+		// 	// $this->gelementos[$claveProveedor] = $d->proveedor;
+		// 	//  var_dump( $this->gelementos ); 
+
+
+		// }
+
+		// echo '<pre>final->';
+		// var_dump($this->gelementos);
+		// echo '</pre>';
+		// // die();
+		// // die();
+		return $this->gelementos;
+	}
+
+
+	public function setPeriodos($e)
+	{
+
+		// echo '<pre>mando';
+		// var_dump( $e ); 
+		// echo '</pre>';
+		$peroi = $this->gperiodos;
+
+
+		echo '<pre>';
+		var_dump( $peroi ); 
+		echo '</pre>';
+		die();
+		foreach ($e as $i => $val) {
+			$found_key = array_search($val['periodo'], $peroi);
+			// echo '<br>clave->' . $found_key;
+			// echo $i['periodo'];
+
+			if (is_int($found_key)) {
+				// echo '<br>Eliminara'.$peroi[$found_key];
+				// unset($peroi[$found_key]);
+			}
+		}
+
+
+
+		// echo '<pre>--->';
+		// // var_dump( $e ); 
+		// var_dump($peroi);
+		// echo '</pre>';
+		// die();
+
+		foreach ($peroi as $i => $val) {
+			// echo '<br>' . $i;
+			// echo '<br>' . $val;
+
+			// die();
+			array_push($e[$i], array('periodo' => $val, 'total' => 0));
+		}
+
+
+		return $e;
+	}
+
+	public function Graphs()
+	{
 
 		$totalesPorServicio[] = [];
 		$periodos_contables = [];
 		$gperiodos = [];
 		$series = [];
+		$this->proveedoresdb = $this->Graph_model->getProveedores(true);
+
 		if ($this->input->is_ajax_request()) {
 
-
-
-			
+			$_POST['periodos'] = $this->gperiodos;
 			$memData = $this->Graph_model->getRows($_POST);
+
+
+			foreach ($memData as $x) {
+				// echo trim($x->periodo_contable);
+				// if(in_array($x->periodo_contable,$this->gperiodos)){
+				// 	$key = array_key_exists(trim($x->proveedor),$this->gelementos);
+
+				// 	unset($this->gperiodos[$key]);
+				// 	echo '<pre>';
+				// 	var_dump( $this->gperiodos ); 
+				// 	echo '</pre>';
+				// 	die();
+				// }else{
+				// 	die('jifdjaspofdoakfdo');
+				// }
+				// 			if($claveProveedor =  in_array($x->periodo_contable,$this->gperiodos) && is_int(in_array($x->periodo_contable,$this->gperiodos))){
+
+
+				// 				die('si'.$claveProveedor);
+				// 				unset($this->gperiodos[$claveProveedor]);
+				// 			}else{
+				// 				die('no'.$claveProveedor	);
+				// 			}
+				// 			echo '<pre>';
+				// 			var_dump( $this->gperiodos );
+				// 			echo '</pre>';
+				// die();
+
+
+
+				// echo '<pre>elementos';
+				// var_dump( $this->gelementos ); 
+				// echo '</pre>';
+				// die();
+				if (array_key_exists(trim($x->proveedor), $this->gelementos)) {
+
+					$found_key = array_search($x->periodo_contable, array_column($this->gelementos[trim($x->proveedor)], 'periodo'));
+
+					if (is_int($found_key)) {
+						$this->gelementos[trim($x->proveedor)][$found_key]['total'] = $x->total;
+					}
+					// echo '<pre>found'.$x->periodo_contable;
+
+				} else {
+
+					foreach ($this->gperiodos as $key => $val) {
+						if (!array_key_exists($key, $this->gelementos)) {
+							$this->gelementos[trim($x->proveedor)][$key] = array('periodo' => $val, 'total' => 00.00);
+						}
+					}
+
+					$found_key = array_search($x->periodo_contable, array_column($this->gelementos[trim($x->proveedor)], 'periodo'));
+					if (is_int($found_key)) {
+						$this->gelementos[trim($x->proveedor)][$found_key]['total'] = $x->total;
+					}
+
+					// echo 'no existwe PROveedore<br>';
+					// die();
+				}
+			}
+
+
+			$finales = [];
+			foreach ($this->gelementos as $key => $val) {
+
+				$misvalores = [];
+				foreach ($this->gelementos[$key] as $r) {
+					$misvalores[] = floatval($r['total']);
+				}
+
+				$data = array(
+					'name' => $key,
+					'type' => 'bar',
+					'emphasis' => array(
+						'focus' => 'series'
+					),
+					'barWidth' => '10%',
+					'data' => $misvalores,
+					// 'label'=>array(
+					// 	'show'=>true,
+					// 	'position'=>'inside',
+					// 	'rotate'=> 90,	
+					// )
+				);
+
+
+				array_push($finales, $data);
+			};
+
+			// echo '<pre>es el finales';
+			// var_dump($finales);
+			// echo '</pre>';
+
+			// var_dump(array_map(array($this, 'setPeriodos'), $this->gelementos));
+
+
+			// var_dump(array_map(array($this, 'setPeriodos'), $this->gelementos));
+			// echo '</pre>';
+			// die();
 
 			$datos = [];
 
-
 			$title = '';
 			$proveedor_grafico = '';
-			$data_datatable=[];
+			$data_datatable = [];
 			if ((isset($_POST['secretaria'])) && $_POST['secretaria'] != 'false' && (isset($_POST['secretaria']) && $_POST['secretaria'] != '')) {
-                   
+
 				$title = $_POST['secretaria'];
 			}
-			
+
+
+
 			$dataz = $row = array();
 			$valores = array();
 			foreach ($memData as $r) {
@@ -134,26 +384,20 @@ class Admin extends backend_controller
 					}
 				};
 			};
-
-
+			$dataaaa = array(
+				1423, 2432, 3432
+			);
 			$elementos = array(
 				'name' => $proveedor_grafico,
 				'type' => 'bar',
 				'emphasis' => array(
 					'focus' => 'series'
 				),
-				'data' => $valores
+				'data' => $dataaaa
 
 			);
-			// {
-			// 	name: 'Video Ads',
-			// 	type: 'bar',
-			// 	stack: 'Ad',
-			// 	emphasis: {
-			// 	  focus: 'series'
-			// 	},
-			// 	data: [150000, 2320000, 2010000, 1540000, 1900000]
-			//   }
+
+
 
 
 
@@ -167,6 +411,7 @@ class Admin extends backend_controller
 				'Gseries' => $series,
 				'test' => $newPeri,
 				'elementos' => $elementos,
+				'finales' => $finales,
 				'title' => $title,
 
 			);
@@ -180,6 +425,7 @@ class Admin extends backend_controller
 		if ($this->input->is_ajax_request()) {
 			$data = $row = array();
 			$memData = $this->Graph_model->getRows($_POST);
+
 
 			foreach ($memData as $r) {
 
@@ -283,11 +529,12 @@ class Admin extends backend_controller
 
 
 		$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', '', 'periodo_contable', 'periodo_contable DESC', false);
-		$this->data['select_secretarias'] = $this->Graph_model->obtener_contenido_select('_secretarias', '', 'secretaria', 'id ASC', false);
-		$this->data['select_proveedores'] = $this->Manager_model->obtener_contenido_select('_proveedores', '', 'nombre', 'id ASC', false);
+		$this->data['select_secretarias'] = $this->Graph_model->obtener_contenido_select('_secretarias', 'SECRETARIA', 'secretaria', 'id ASC', true);
+		$this->data['select_proveedores'] = $this->Manager_model->obtener_contenido_select('_proveedores', 'PORVEEDOR', 'nombre', 'id ASC', true);
+		$this->data['select_programas'] = $this->Manager_model->obtener_contenido_select('_programas', 'SELECCIONE PROGRAMA', 'descripcion', '');
 
 		$this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', '', 'tip_nombre', 'tip_id ASC', false);
-		$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', '', 'periodo_contable', 'periodo_contable DESC', false);
+		$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', 'PERIODO', 'periodo_contable', 'periodo_contable DESC', true);
 
 		$this->data['css_common'] = $this->css_common;
 

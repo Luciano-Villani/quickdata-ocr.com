@@ -7,6 +7,7 @@ class Consolidados extends backend_controller
 	{
 		parent::__construct();
 
+
 		if (!$this->ion_auth->logged_in()) {
 			redirect('Login');
 		} else {
@@ -16,7 +17,6 @@ class Consolidados extends backend_controller
 			$this->load->model('manager/Dependencias_model');
 			$this->load->model('manager/Proyectos_model');
 			$this->load->model('manager/Obras_model');
-
 
 			$this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA', 'secretaria', 'id ASC');
 			$this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias', 'SELECCIONE DEPENDENCIA', 'dependencia', 'id ASC');
@@ -54,26 +54,27 @@ class Consolidados extends backend_controller
 	}
 	public function list_dt($tipo = null, $tabla = null, $search = '')
 	{
+
 		// $data=array();
 		if ($this->input->is_ajax_request()) {
 
 			$data = $row = array();
-			
 			$memData = $this->Manager_model->getRows($_POST);
+
+// echo $this->db->last_query();
+// die();
 
 			foreach ($memData as $r) {
 
-				// $prov = $this->Manager_model->getWhere('_proveedores', 'nombre LIKE "%'.$r->proveedor.'%"');
-
-				// $data = array(
-				// 	'periodo_contable'=> fecha_es($r->fecha_consolidado,'F a', false)
-				// );
-				// $this->db->where('id', $r->id);
-				// $this->db->update('_consolidados', $data);
-				// echo $this->db->last_query();
-				// die();
+				// $file = $this->Manager_model->getWhere('_datos_api','id='.$r->id_lectura_api);
+				// $a=json_decode($file->dato_api);
+				// $totalIndices = count($a->document->inference->pages[0]->prediction->fecha_emision->values);
+				// $fecha_emision = '';
+				// for ($paso = 0; $paso < $totalIndices; $paso++) {
+				// 	$fecha_emision .= '' . trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
+				// }
 				// echo '<pre>';
-				// var_dump( $prov->id ); 
+				// var_dump(fecha_es($fecha_emision,'Y-m-d')); 
 				// echo '</pre>';
 				// die();
 
@@ -84,32 +85,29 @@ class Consolidados extends backend_controller
 				$accionesDelete = '<span class="borrar_dato acciones" data-lote="' . $r->lote . '" data-file="' . $r->nombre_archivo . '"><a title="Borrar lote" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar Datos"></i> </a> </span>';
 				$punto =".";
 		
-				if(strlen($r->id_programa) == 1){
-					$r->id_programa = '0'.$r->id_programa;
+				if(strlen($r->id_interno_programa) == 1){
+					$r->id_interno_programa = '0'.$r->id_interno_programa;
 				}
-				if($r->id_proyecto != '0' ){
+				if($r->id_interno_proyecto != '0' ){
 
-					if(strlen($r->id_proyecto) == 1){
+					if(strlen($r->id_interno_proyecto) == 1){
 						
-						$r->id_proyecto = ".0".intval($r->id_proyecto);
+						$r->id_interno_proyecto = ".0".strval($r->id_interno_proyecto);
 					}else{
-						$r->id_proyecto = ".".$r->id_proyecto;
+						$r->id_interno_proyecto = ".".$r->id_interno_proyecto;
 					}
 					
 				}else{
-					$r->id_proyecto = '';
+					$r->id_interno_proyecto = '';
 				}
-	
+
 				$data[] = array(
-					$r->id_consolidado,
-					$r->codigo_proveedor,
-					$r->id_proyecto,
-					$r->periodo_contable,
-					$r->proveedor .'('.$r->codigo_proveedor.')',
+					strtoupper($r->periodo_contable),
+					$r->proveedora,
 					$r->expediente,
 					$r->secretaria,
 					$r->jurisdiccion,
-					$r->id_programa,
+					$r->id_interno_programa.$r->id_interno_proyecto,
 					$r->jurisdiccion,
 					$r->objeto,
 					$r->dependencia,
@@ -118,8 +116,9 @@ class Consolidados extends backend_controller
 					$r->nro_cuenta,
 					$r->nro_factura,
 					$r->periodo_del_consumo,
-					fecha_es($r->fecha_vencimiento, 'd/m/a', false),
-					fecha_es($r->preventivas, 'd/m/a', false),
+					fecha_es($r->fecha_vencimiento,'d-m-a', false),
+					fecha_es($r->preventivas,'d-m-a', false),
+					// $r->preventivas,
 					$r->importe,
 					$accionesVer . $accionesDelete
 				);
@@ -207,11 +206,7 @@ class Consolidados extends backend_controller
 		$this->data['script'] = $script;
 
 
-
-
-
 		if ($this->form_validation->run() == FALSE) {
-
 
 			$this->data['content'] = $this->load->view('manager/secciones/proyectos/' . $this->router->fetch_method(), $this->data, TRUE);
 
