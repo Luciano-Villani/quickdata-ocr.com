@@ -114,7 +114,7 @@ class Graph_model extends Manager_model
 
                 );
 
-       
+
 
                 if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
                     $this->db->group_start();
@@ -126,16 +126,17 @@ class Graph_model extends Manager_model
                 }
 
                 if ((isset($postData['secretaria'])) && $postData['secretaria'] != 'false' && (isset($postData['secretaria']) && $postData['secretaria'] != '')) {
-                   
-                   $title = $postData['secretaria'];
-                   
+
+                    $title = $postData['secretaria'];
+
                     $this->db->group_start();
-                                            $this->db->or_where('secretaria',$postData['secretaria']);
-                  
+                    
+                    $this->db->or_where('secretaria', $postData['secretaria']);
+
                     $this->db->group_end();
                 }
 
-                $this->db->group_by('UPPER(periodo_contable), proveedor');
+                $this->db->group_by('proveedor, periodo_contable');
                 $my_column_order = array(
                     '_consolidados.id',
                     '_consolidados.periodo_contable',
@@ -148,6 +149,7 @@ class Graph_model extends Manager_model
                     '_consolidados.periodo_contable',
                     '_consolidados.importe',
                 );
+                $this->db->order_by( $my_column_order[0], 'desc');
                 break;
             case '_consolidados':
 
@@ -612,9 +614,12 @@ class Graph_model extends Manager_model
         return FALSE;
     }
 
-    public function getProveedores()
+    public function getProveedores($array=false)
     {
         $query = $this->db->select("*")->get('_proveedores');
+        if($array){
+            return $query->result_array();
+        }
         return $query->result();
     }
 
