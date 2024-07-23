@@ -128,7 +128,7 @@ $config['argon2_default_params']	= [
  */
 $config['site_title']                 = "https://mvl.quickdata.com.ar/";       // Site Title, example.com
 $config['admin_email']                = "admin@example.com"; // Admin Email, admin@example.com
-$config['default_group']              = 'members';           // Default group, use name
+$config['members_group']              = 'members';           // Default group, use name
 $config['admin_group']                = 'admin';             // Default administrators group, use name
 $config['super_group']                = 'super';             // Default administrators group, use name
 $config['marketing_group']            = 'marketing';             // Default administrators group, use name

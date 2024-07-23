@@ -12,10 +12,7 @@ $route['Admin/dashboard'] = 'manager/dashboard';
 $route['Admin/Consolidados'] = 'Consolidados/listados';
 $route['Consolidados/list_dt/(:any)/(:any)/(:any)'] = 'Consolidados/list_dt/$1/$2/$3';
 
-
-$route['Admin/Lecturas'] = 'Lecturas/listados';
 //LOTE
-$route['Admin/Lecturas/cerrarLote'] = 'Lotes/cerrarLote';
 
 $route['Admin/Lotes/viewBatch/(:any)'] = 'Lotes/viewBatch/$1';
 $route['Admin/Lotes/lotes_dt'] = 'Lotes/lotes_dt';
@@ -23,17 +20,18 @@ $route['Admin/Lotes/Upload'] = 'Lotes/upload';
 $route['Admin/Lotes/checkFile'] = 'Lotes/checkFile';
 $route['Admin/Lotes/getInfoPanel'] = 'Lotes/getInfoPanel';
 
+//LECTURAS
+$route['Admin/Lecturas'] = 'Lecturas/listados';
+$route['Admin/Lecturas/cerrarLote'] = 'Lotes/cerrarLote';
 $route['Admin/Lecturas/list_dt/(:any)'] = 'Lecturas/list_dt/$1';
 $route['Admin/Lecturas/lotes_dt/(:any)'] = 'Lecturas/lotes_dt/$1';
-
-
 $route['Admin/Lecturas/Views/(:any)'] = 'Lecturas/views/$1';
-
+$route['Admin/Lecturas/Copy/(:any)'] = 'Lecturas/copy/$1';
 $route['Admin/Lecturas/indexaciones_dt'] = 'Lecturas/indexaciones_dt';
+
 
 $route['Admin/Secretarias'] = 'secretarias/listados';
 $route['Admin/Secretarias/agregar'] = 'secretarias/agregar';
-
 $route['Admin/Dependencias'] = 'Dependencias/listados';
 $route['Admin/Dependencias/agregar'] = 'Dependencias/agregar';
 $route['Admin/Dependencias/editar/(:any)'] = 'Dependencias/listados/$1';
