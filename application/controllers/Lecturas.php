@@ -6,7 +6,7 @@ class Lecturas extends backend_controller
 	function __construct()
 	{
 		parent::__construct();
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_super() || $this->ion_auth->is_members()) {
+		if (!$this->ion_auth->logged_in()) {
 			redirect('Login');
 		} else {
 			$this->load->helper('file');
