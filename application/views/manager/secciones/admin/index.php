@@ -18,8 +18,7 @@
 		height: 100vh;
 		overflow: none;
 	}
-</style>
-<style>
+
 	.my-class-section {
 		color: #000;
 
@@ -56,21 +55,24 @@
 		text-transform: uppercase;
 	}
 </style>
-<div class="row">
-	<div id="testdata">	</div>
-</div>
+
+
+	<div class="row">
+	<div id="testdata"> </div>
+	</div>
+
 <div class="panel panel-flat">
 
-	<div class="panel-heading">
-		<div class="row ">
-			<div class="col-3">
+	<div class="panel-heading tablas">
+		<div class="container-fluid row ">
+			<div class="col">
 				<label class="col" for="id_proveedor">
 
 					<?php
 					$js = array(
 						'id' => 'id_proveedor',
-						'class' => 'ssse',
-						'multiple' => 'multiple',
+						'class' => 'form-control',
+						// 'multiple' => 'multiple',
 
 					);
 					?>
@@ -78,62 +80,69 @@
 					<?= form_dropdown('id_proveedor', $select_proveedores, set_value('id_proveedor'), $js); ?>
 
 					<script>
-						$('#id_proveedor').select2({
-							language: {
-								maximumSelected: function(e) {
-									var t = "Puede seleccionar " + e.maximum + " Proveedor";
-									e.maximum != 1 && (t += "s");
-									return t + '';
-								}
-							},
-							placeholder: 'PROVEEDORES',
-							maximumSelectionLength: 1,
-							// minimumResultsForSearch: "-1",
-							width: '100%',
-							closeOnSelect: true,
-							selectionCssClass: '',
+						// $('#id_proveedor').select2({
+						// 	language: {
+						// 		maximumSelected: function(e) {
+						// 			var t = "Puede seleccionar " + e.maximum + " Proveedor";
+						// 			e.maximum != 1 && (t += "s");
+						// 			return t + '';
+						// 		}
+						// 	},
+						// 	placeholder: 'PROVEEDORES',
+						// 	maximumSelectionLength: 1,
+						// 	// minimumResultsForSearch: "-1",
+						// 	width: '100%',
+						// 	closeOnSelect: true,
+						// 	selectionCssClass: '',
 
-							// escapeMarkup: function(m) {
-							// 	return m;
-							// }
-						});
+						// 	// escapeMarkup: function(m) {
+						// 	// 	return m;
+						// 	// }
+						// });
 					</script>
 				</label>
 			</div>
-			<div class="col-3 d-none">
-				<label for="periodo_contable">
+
+			<div class="col">
+				<label class="col" for="periodo_contable">
 					<?php
 					$js = array(
 						'id' => 'periodo_contable',
-						'class' => '',
-						'multiple' => "multiple",
+						'class' => 'form-control',
+						// 'multiple' => "multiple",
 					);
 					?>
 					<?= form_dropdown('periodo_contable', $select_periodo_contable, '', $js); ?>
-
 					<script>
-						$('#periodo_contable').select2({
-							placeholder: 'PERIODO CONTABLE',
-							tags: true,
-							minimumResultsForSearch: "-1",
-							width: '100%',
-							closeOnSelect: false,
-							selectionCssClass: '',
-
-						})
+						// $('#periodo_contable').select2({
+						// 	language: {
+						// 		maximumSelected: function(e) {
+						// 			var t = "Puede seleccionar " + e.maximum + " Proveedor";
+						// 			e.maximum != 1 && (t += "s");
+						// 			return t + '';
+						// 		}
+						// 	},
+						// 	placeholder: 'PERIODO CONTABLE',
+						// 	tags: true,
+						// 	maximumSelectionLength: 1,
+						// 	minimumResultsForSearch: "-1",
+						// 	width: '100%',
+						// 	closeOnSelect: false,
+						// 	selectionCssClass: '',
+						// })
 					</script>
 
 				</label>
 			</div>
 
-			<div class="col-3">
+			<div class="col">
 				<label class="col" for="id_secretaria">
 
 					<?php
 					$js = array(
 						'id' => 'id_secretaria',
-						'class' => 'ssse',
-						'multiple' => "multiple",
+						'class' => 'form-control',
+						// 'multiple' => "multiple",
 
 					);
 					?>
@@ -141,68 +150,214 @@
 					<?= form_dropdown('id_secretaria', $select_secretarias, set_value('id_secretaria'), $js); ?>
 
 					<script>
-						$('#id_secretaria').select2({
-							language: {
-								maximumSelected: function(e) {
-									var t = "Puede seleccionar " + e.maximum + " Secretaría";
-									e.maximum != 1 && (t += "s");
-									return t + '';
-								}
-							},
-							placeholder: 'SECRETARIAS',
-							maximumSelectionLength: 1,
+						// $('#id_secretaria').select2({
+						// 	// language: {
+						// 	// 	maximumSelected: function(e) {
+						// 	// 		var t = "Puede seleccionar " + e.maximum + " Secretaría";
+						// 	// 		e.maximum != 1 && (t += "s");
+						// 	// 		return t + '';
+						// 	// 	}
+						// 	// },
+						// 	// placeholder: 'SECRETARIAS',
+						// 	// maximumSelectionLength: 1,
 
-							width: '100%',
-							closeOnSelect: false,
-							selectionCssClass: '',
+						// 	// width: '100%',
+						// 	// closeOnSelect: false,
+						// 	// selectionCssClass: '',
 
-							// escapeMarkup: function(m) {
-							// 	return m;
-							// }
-						});
+						// 	// escapeMarkup: function(m) {
+						// 	// 	return m;
+						// 	// }
+						// });
 					</script>
 				</label>
 			</div>
-			<div class="col-12">
+			
+			<div class="col-md-4 d-none">
+				<div class="form-group form-group-feedback form-group-feedback-right  ">
 
-				<label class="">
-					<input type="checkbox" class="radio" value="1" name="tipo_fecha" id="tipo-fecha" />
-					<span data-popup="tooltip">Fecha de Consolidación</span>
-				</label>
-				<div class="col ">
-					<input type="text" name="daterange2" id="daterange2" class="form-control ">
+					<?php
+					$js = array(
+						'id' => 'select_programa',
+						'disabled' => 'disabled',
+						'class' => ' select2 form-control custom-select ',
+					);
+
+
+					?>
+
+					<?= form_dropdown('id_programa', $select_programas, set_value('id_programa', @$seleccion_programa), $js); ?>
+					<?php echo form_error('id_programa', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
+
 				</div>
 			</div>
+			<div class="col">
+				<label class="col" for="id_secretaria">
+
+					<?php
+					$js = array(
+						'id' => 'id_secretaria',
+						'class' => 'form-control',
+						// 'multiple' => "multiple",
+
+					);
+					?>
+
+					<?= form_dropdown('id_secretaria', $select_secretarias, set_value('id_secretaria'), $js); ?>
+
+					<script>
+						// $('#id_secretaria').select2({
+						// 	// language: {
+						// 	// 	maximumSelected: function(e) {
+						// 	// 		var t = "Puede seleccionar " + e.maximum + " Secretaría";
+						// 	// 		e.maximum != 1 && (t += "s");
+						// 	// 		return t + '';
+						// 	// 	}
+						// 	// },
+						// 	// placeholder: 'SECRETARIAS',
+						// 	// maximumSelectionLength: 1,
+
+						// 	// width: '100%',
+						// 	// closeOnSelect: false,
+						// 	// selectionCssClass: '',
+
+						// 	// escapeMarkup: function(m) {
+						// 	// 	return m;
+						// 	// }
+						// });
+					</script>
+				</label>
+			</div>
+			
+			<div class="col">
+				<label class="col" for="id_secretaria">
+
+					<?php
+					$js = array(
+						'id' => 'id_secretaria',
+						'class' => 'form-control',
+						// 'multiple' => "multiple",
+
+					);
+					?>
+
+					<?= form_dropdown('id_secretaria', $select_secretarias, set_value('id_secretaria'), $js); ?>
+
+					<script>
+						// $('#id_secretaria').select2({
+						// 	// language: {
+						// 	// 	maximumSelected: function(e) {
+						// 	// 		var t = "Puede seleccionar " + e.maximum + " Secretaría";
+						// 	// 		e.maximum != 1 && (t += "s");
+						// 	// 		return t + '';
+						// 	// 	}
+						// 	// },
+						// 	// placeholder: 'SECRETARIAS',
+						// 	// maximumSelectionLength: 1,
+
+						// 	// width: '100%',
+						// 	// closeOnSelect: false,
+						// 	// selectionCssClass: '',
+
+						// 	// escapeMarkup: function(m) {
+						// 	// 	return m;
+						// 	// }
+						// });
+					</script>
+				</label>
+			</div>
+			
+			<div class="col-md-4 d-none">
+				<div class="form-group form-group-feedback form-group-feedback-right  ">
+
+					<?php
+					$js = array(
+						'id' => 'select_programa',
+						'disabled' => 'disabled',
+						'class' => ' select2 form-control custom-select ',
+					);
+
+
+					?>
+
+					<?= form_dropdown('id_programa', $select_programas, set_value('id_programa', @$seleccion_programa), $js); ?>
+					<?php echo form_error('id_programa', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
+
+				</div>
+			</div>
+			<div class="col">
+				<label class="col" for="id_secretaria">
+
+					<?php
+					$js = array(
+						'id' => 'id_secretaria',
+						'class' => 'form-control',
+						// 'multiple' => "multiple",
+
+					);
+					?>
+
+					<?= form_dropdown('id_secretaria', $select_secretarias, set_value('id_secretaria'), $js); ?>
+
+					<script>
+						// $('#id_secretaria').select2({
+						// 	// language: {
+						// 	// 	maximumSelected: function(e) {
+						// 	// 		var t = "Puede seleccionar " + e.maximum + " Secretaría";
+						// 	// 		e.maximum != 1 && (t += "s");
+						// 	// 		return t + '';
+						// 	// 	}
+						// 	// },
+						// 	// placeholder: 'SECRETARIAS',
+						// 	// maximumSelectionLength: 1,
+
+						// 	// width: '100%',
+						// 	// closeOnSelect: false,
+						// 	// selectionCssClass: '',
+
+						// 	// escapeMarkup: function(m) {
+						// 	// 	return m;
+						// 	// }
+						// });
+					</script>
+				</label>
+			</div>
+		
+		<!--	<div class="col-2 ">
+				<label class="">
+					<input type="checkbox"  class="radio"  value="1" name="totalizador"  id="totalizador"/>
+					<span data-popup="tooltip" style="color: lightgray">Comparar Datos</span>
+				</label>
+			</div> -->
+			<div class="col">
+				<button id="applyfilter" type="button" class="btn mb-1 btn-outline-dark btn-sm" style="width: 160px";><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
+				<button id="resetfilter" type="button" class="btn mb-1 btn-outline-dark btn-sm"style="width: 160px";><b><i class="icon-reset"></i></b>Eliminar Filtros</button>
+				<button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm"style="width: 160px";><b><i class="icon-file-excel"></i></b> DESCARGAR</button>
+			</div>			
+			
 		</div>
-		<div class="container row mt-3">
-			<div class="col-md-auto">
-				<button id="applyfilter" type="button" class="btn-filtrar text-dark btn btn-outline-success"><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
-
-			</div>
-			<div class="col-md-auto">
-				<button id="resetfilter" type="button" class="btn-limpiar text-dark btn btn-outline-danger"><b><i class="icon-reset"></i></b>Eliminar Filtros</button>
-
-			</div>
-
-			<div class="col-md-auto">
-				<button id="descarga-exell" type="button" class=" btn-save btn bg-teal-400"><b><i class="icon-file-excel"></i></b> DESCARGAR ARCHIVO</button>
-			</div>
-		</div>
-		<script>
-
-		</script>
-
+		
+		
 
 
 	</div>
-	<div class="panel ">
-		<div class="card ">
-			<h5 class="card-title bg-titulo text-center text-dark">Reportes</h5>
+
+	<div class="panel">
+		<div class="card tablas">
+			<h5 class="card-title bg-titulo text-center text-dark">Gráfico de gastos por período</h5>
 			<div class="card-header">
 				<div id="chart-container">
 					cart
 				</div>
-				<table id="consolidados_dt" class="datatable-ajax table-bordered table-hover datatable-highlight" style="width: 100%">
+				
+			</div>
+		</div>
+
+	</div>
+
+		<div class="panel">
+		<div class="card tablas">
+		<table id="consolidados_dt" class="datatable-ajax table-bordered table-hover datatable-highlight" style="width: 100%">
 					<thead>
 
 						<tr>
@@ -216,7 +371,9 @@
 				</table>
 
 			</div>
-		</div>
+			</div>
+
+
 
 		<!-- <canvas id="myChart" width="" height="" aria-label="Hello ARIA World" role="img"></canvas> -->
 		<div id="test">
@@ -226,16 +383,123 @@
 	<script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 	<script>
+		$(document).ready(function() {
+			$("body").on(
+				"change",
+				"select#id_secretaria",
+				function() {
+
+
+					var dato = new FormData();
+					dato.append("id", $(this).val());
+					if ($(this).val() == 0) {
+						$(
+							"#tipo_pago,#select_programa,#select_dependencia, #select_proyecto"
+						).attr("disabled", "disabled");
+						return;
+					}
+					$.ajax({
+						type: "POST",
+						contentType: false,
+						//    				dataType: 'json',
+						data: dato,
+						processData: false,
+						cache: false,
+						beforeSend: function() {
+							$("#select_dependencia").empty();
+							$("#select_proyecto").empty();
+							$("#select_programa").empty();
+							//   $("#tipo_pago").empty();
+						},
+						url: $("body").data("base_url") + "Admin/Dependencias/get_dependencias",
+						success: function(result) {
+							var obj = jQuery.parseJSON(result);
+
+							if (Object.keys(obj.dependencias).length > 0) {
+								$("#select_dependencia").removeAttr("disabled");
+								$("#select_dependencia").append(
+									'<option selected value="0">SELECCIONE DEPENDENCIA</option>'
+								);
+
+								$.each(obj.dependencias, function(id, value) {
+									$("#select_dependencia").append(
+										'<option value="' +
+										value["id"] +
+										'">' +
+										value["dependencia"].toUpperCase() +
+										"</option>"
+									);
+								});
+							} else {
+								$("#select_dependencia").append(
+									'<option selected value="">SIN DEPENDENCIA</option>'
+								);
+								// $('#select_dependencia').attr('disabled','disabled');
+							}
+
+							if (Object.keys(obj.proyectos).length > 0) {
+								$("#select_proyecto").removeAttr("disabled");
+								$("#select_proyecto").append(
+									'<option selected value="0">SELECCIONE PROYECTO</option>'
+								);
+
+								// $.each(obj.proyectos, function (id, value) {
+								//   $("#select_proyecto").append(
+								//     '<option value="' +
+								//       value["id"] +
+								//       '">' +
+								//       value["id_interno"] +
+								//       "  " +
+								//       value["descripcion"].toUpperCase() +
+								//       "</option>"
+								//   );
+								// });
+							} else {
+								$("#select_proyecto").append(
+									'<option selected value="">SIN PROYECTOS</option>'
+								);
+								// $('#select_dependencia').attr('disabled','disabled');
+							}
+
+							if (Object.keys(obj.programas).length > 0) {
+								$("#select_programa").removeAttr("disabled");
+								$("#select_programa").append(
+									'<option selected value="0">SELECCIONE PROGRAMA</option>'
+								);
+
+								$.each(obj.programas, function(id, value) {
+									$("#select_programa").append(
+										'<option value="' +
+										value["id"] +
+										'">' +
+										value["id_interno"] +
+										"  " +
+										value["descripcion"].toUpperCase() +
+										"</option>"
+									);
+								});
+							} else {
+								$("#select_programa").append(
+									'<option selected value="">SIN PROGRAMAS</option>'
+								);
+								// $('#select_dependencia').attr('disabled','disabled');
+							}
+
+							//    					toastr.success('Registro Editado correctamente!', 'Categorías');
+						},
+						error: function(xhr, errmsg, err) {
+							console.log(xhr.status + ": " + xhr.responseText);
+						},
+					});
+				}
+			);
+		});
 		$("body").on("click", "#applyfilter", function(e) {
-
-
 			e.preventDefault();
-
-			console.log('campo');
-			console.log($("select#id_proveedor").val().length);
 			if (
-				$("select#id_proveedor").val().length === 0 &&
-				$("select#periodo_contable").val().length === 0
+				$('select[id="id_proveedor"] option:selected').val() == 0 ||
+				$('select[id="id_secretaria"] option:selected').val() == 0 ||
+				$('select[id="periodo_contable"] option:selected').val() == 0
 			) {
 				$.confirm({
 					icon: "icon-alert",
@@ -357,14 +621,13 @@
 
 		var dom = document.getElementById('chart-container');
 		var myChart = echarts.init(dom);
-		// initDatatable(sarch = false, type = 0, table = '_consolidados');
+		initDatatable(sarch = false, type = 0, table = '_consolidadosGr');
 
 		function initgrap() {
 
 		}
 
 		function initDatatable(search = false, type = 0, table = '_consolidadosGr', url = "/Admin/Graphs") {
-
 
 			// var fecha = '08/10/1943';
 
@@ -381,6 +644,7 @@
 			var prove = false;
 			var tipo_pago = false;
 			var periodo_contable = false;
+			secretaria = '';
 
 			// desde los filtros 4
 			if (type == 4) {
@@ -478,9 +742,10 @@
 						},
 					},
 					"drawCallback": function(settings) {
-						console.log('config');
-						console.log(settings);
-						console.log(settings.json.Gcategory);
+						// console.log('config');
+						// // console.log(settings);
+						// console.log(settings);
+
 						const periodos = settings.aoData.reduce((acc, item) => {
 							// console.log('config');
 							// console.log(item._aData[0]);
@@ -490,19 +755,34 @@
 							return acc;
 						}, [])
 
+						console.log('periodos');
+						console.log(periodos);
 
 						acc = [];
 						myconfig = [];
 
+						const misdatos = settings.json.finales.reduce((datos, item) => {
+							// console.log('config');
+							// console.log(item);
+							if (!datos.includes(item)) {
+								datos.push(item);
+							}
+							return datos;
+						}, [])
 
-						console.log('config.json.te');
-						console.log(settings.json.te);
+						// datos = [];
+						console.log('datos');
+						console.log(misdatos);
 
-						console.log('config.json.Gcategory');
-						console.log(settings.json.Gcategory);
-						console.log('config.json.test');
-						console.log(settings.json.test);
-
+						const labelOption = {
+							show: true,
+							
+							formatter: '{c}  {name|{a}}',
+							
+							rich: {
+								name: {}
+							}
+						};
 						option = {
 							title: {
 								text: settings.json.title,
@@ -528,17 +808,28 @@
 								bottom: '3%',
 								containLabel: true
 							},
+							dataZoom: [{
+									type: 'slider',
+									start: 0,
+									end: 100
+								},
+								{
+									type: 'inside',
+									start: 0,
+									end: 100
+								}
+							],
 							xAxis: [{
 								inverse: true,
+								data: periodos,
 								type: 'category',
-								data: periodos
 							}],
 							yAxis: [{
 
 								type: 'value',
 
 							}],
-							series: [settings.json.elementos]
+							series: misdatos
 						};
 
 						myChart.setOption(option, true);

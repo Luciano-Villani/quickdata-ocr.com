@@ -3,6 +3,11 @@ if (!function_exists('apiRest')) {
   function apiRest($file, $endPoint)
   {
 
+    // echo '<pre>';
+    // var_dump( $file ); 
+    // echo '</pre>';
+    // die();
+
     $newendPoint = explode('/', $endPoint);
 
     if (!function_exists('curl_init')) {

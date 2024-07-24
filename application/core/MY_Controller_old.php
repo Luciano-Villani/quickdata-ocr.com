@@ -55,6 +55,7 @@ class MY_controller extends CI_Controller
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/responsive.dataTables.css'),
 			'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
 			base_url('assets/manager/js/plugins/notifications/jquery-confirm.css'),
+			base_url('assets/css/icons/fontawesome/styles.min.css'),
 
 		);
 
@@ -65,6 +66,7 @@ class MY_controller extends CI_Controller
 			// 'https://cdn.datatables.net/v/dt/dt-1.13.8/r-2.5.0/sl-1.7.0/datatables.min.js">',
 			base_url('assets/manager/js/plugins/tables/datatables/jquery.dataTables.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/dataTables.buttons.js'),
+			// base_url('assets/manager/js/plugins/tables/datatables/extensions/col_reorder.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/fixed_columns.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/jszip/jszip.min.js'),
 			base_url('assets/manager/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js'),
@@ -99,7 +101,7 @@ class MY_controller extends CI_Controller
 		$data = array(
 			'proveedores' => $this->Manager_model->getProveedores(),
 			'script' => '',
-			'page_title' => 'CI_template',
+			'page_title' => 'MY_CONTROLLER_CI_template',
 			'page_datail' => 'Administrador',
 			'class_act' => $this->router->fetch_class(),
 			'method_act' => $this->router->fetch_method(),

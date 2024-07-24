@@ -46,11 +46,10 @@
 	}
 	.tablas {
 		width: 1300px !important;
-		margin-left: -80px!important;
+		margin-left: -80px; !important;
 
 	}
 </style>
-
 <div class="card tablas">
 <h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes </h5>
 
@@ -139,21 +138,15 @@
 		<div class="container row mt-3">
 			
 			
-		<div class="col-md-6 ">
+			
+			<div class="col-md-12 ">
 				<label class="">
-					<input type="checkbox"  class="radio"  value="1" name="tipo_fecha"  id="tipo-fecha" />
+					<input type="radio" class="radio" checked value="1" name="tipo_fecha" />
 					<span data-popup="tooltip">Fecha de Consolidación</span>
 				</label>
 				<div class="col-md-4 ">
 					<input type="text" name="daterange2" id="daterange2" class="form-control ">
 				</div>
-			</div>
-			<div class="col-md-6 ">
-				<label class="">
-					<input type="checkbox"  class="radio"  value="1" name="totalizador"  id="totalizador" />
-					<span data-popup="tooltip">Generar Totalizador</span>
-				</label>
-	
 			</div>
 		</div>
 		<div class="container row mt-3">
@@ -199,8 +192,7 @@
 <div class="card tablas">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas</h5>
 	<div class="card-header">
-<div id="consulta"></div>
-<div id="request"></div>
+
 		<table id="consolidados_dt" class="datatable-ajax table-bordered table-hover datatable-highlight" style="width: auto">
 			<thead>
 				
@@ -217,8 +209,7 @@
 					<th>Dependencia</th>
 					<th>Direccion</th>
 					<th>Tipo Pago</th>
-					<th>Acuerdo</th>
-					<th>Nro cuenta</th>
+					<th>Nro Cuenta</th>
 					<th>Nro factura</th>
 					<th>Período</th>
 					<th>Vencimiento</th>
