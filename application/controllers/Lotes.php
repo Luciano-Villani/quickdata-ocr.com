@@ -452,6 +452,10 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 					$cuenta = "N/A";
 					if (count($a->document->inference->pages[0]->prediction->nro_cuenta->values) > 0) {
 						$cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
+
+						// Agregar el guion después del cuarto dígito
+						$cuenta = substr_replace($cuenta, '-', 4, 0);
+
 					}
 					
 
