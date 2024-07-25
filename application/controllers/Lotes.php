@@ -12,7 +12,8 @@ class Lotes extends backend_controller
 	{
 		parent::__construct();
 
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() || !$this->ion_auth->is_super())) {
+		// if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() || !$this->ion_auth->is_super())) {
+		if (!$this->ion_auth->logged_in()) {
 			redirect('Login');
 		} else {
 
@@ -466,45 +467,6 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'consumo' => trim($consumo),
 					);
-
-
-					// TELECOM TELEFONIA FIJA MODELO VIEJO
-					//$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
-					//$consumo = '';
-					//for ($paso = 0; $paso < $totalIndices; $paso++) {
-					//	$consumo .= ' ' . $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
-					//}
-					//$totalIndices = count($a->document->inference->pages[0]->prediction->total_vencido->values);
-					//$total_vencido = '';
-					//for ($paso = 0; $paso < $totalIndices; $paso++) {
-					//	$total_vencido .= ' ' . $a->document->inference->pages[0]->prediction->total_vencido->values[$paso]->content;
-					//}
-
-
-					//$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-					//$vencimiento_del_pago = '';
-					//for ($paso = 0; $paso < $totalIndices; $paso++) {
-					//	$vencimiento_del_pago .= $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
-					//}
-					//$cuenta = "N/A";
-
-					//if (count($a->document->inference->pages[0]->prediction->nro_cuenta->values) > 0) {
-					//	$cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
-					//}
-
-
-
-					//$dataUpdate = array(
-					//	'nro_cuenta' => $cuenta,
-					//	'nro_medidor' => trim('N/A'),
-					//	'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-					//	'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-					//	'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-					//	'periodo_del_consumo' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-					//	'total_vencido' => trim($total_vencido),
-					//	'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-					//	'consumo' => trim($consumo),
-					//);
 
 					break;
 			}
