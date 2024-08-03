@@ -28,7 +28,7 @@ switch ($_SERVER['REMOTE_ADDR']) {
 		default:
 
 			$host = 'quickdata-db1.mysql.database.azure.com';
-			$userdb ='quickdata-admin';
+			$userdb ='quickadmin';
 			$pass = '1G8puZDc-Y$l]d|q';
 			$base ='u117285061_mvl_ocr_db';
 			break;
