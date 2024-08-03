@@ -30,12 +30,12 @@ switch ($_SERVER['REMOTE_ADDR']) {
         $config['base_url'] = 'http://mvl.local/';
         break;    
         case '181.117.11.253':
-        $config['base_url'] = 'http://quickdata-ocr.com/';
+        $config['base_url'] = 'http://quickdata.site/';
         break;       
        
         break;
         default:
-        $config['base_url'] = 'http://quickdata-ocr.com/';
+        $config['base_url'] = 'http://quickdata.site/';
         
     
 }
