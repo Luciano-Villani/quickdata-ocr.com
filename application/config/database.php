@@ -19,9 +19,9 @@ switch ($_SERVER['REMOTE_ADDR']) {
 			break;
        case '38.52.86.75':
 			// mysetup hostng
-			$host = 'localhost';
-			$userdb ='u117285061_mvl_ocr_db';
-			$pass = '/GaTGjBg7#bB';
+			$host = 'quickdata-db1.mysql.database.azure.com';
+			$userdb ='uickadmin';
+			$pass = '1G8puZDc-Y$l]d|q';
 			$base ='u117285061_mvl_ocr_db';
 			break;
    
