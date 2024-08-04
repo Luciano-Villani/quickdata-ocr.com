@@ -56,6 +56,8 @@ $db['default'] = array(
     'save_queries' => TRUE,
     'ssl_key'    => '', // Si tienes clave privada, especifica la ruta aquí
     'ssl_cert'   => '', // Si tienes certificado del cliente, especifica la ruta aquí
-    'ssl_ca'     => __DIR__ . '/DigiCertGlobalRootCA.crt.pem' // Ruta al archivo CA
+    'ssl_ca'     => '/var/www/quickdata.site/Certificado$/DigiCertGlobalRootCA.crt.pem' // Ruta completa al archivo CA
+
+	
 );
 
