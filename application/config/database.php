@@ -27,7 +27,7 @@ switch ($_SERVER['REMOTE_ADDR']) {
    
 		default:
 
-			$host = '34.125.217.72';
+			$host = 'quickdata-db1.mysql.database.azure.com';
 			$userdb ='u117285061_mvl_ocr_db';
 			$pass = '/GaTGjBg7#bB';
 			$base ='u117285061_mvl_ocr_db';
@@ -35,23 +35,29 @@ switch ($_SERVER['REMOTE_ADDR']) {
 }
 
 $db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => $host,
-	'username' => $userdb,
-	'password' => $pass,
-	'database' => $base,
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
+    'dsn'    => '',
+    'hostname' => $host,
+    'username' => $userdb,
+    'password' => $pass,
+    'database' => $base,
+    'dbdriver' => 'mysqli',
+    'dbprefix' => '',
+    'pconnect' => FALSE,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => TRUE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE,
+    'ssl_key'    => '', // Si tienes clave privada, especifica la ruta aquí
+    'ssl_cert'   => '', // Si tienes certificado del cliente, especifica la ruta aquí
+    'ssl_ca'     => '/var/www/quickdata.site/Certificado$/DigiCertGlobalRootCA.crt.pem' // Ruta completa al archivo CA
+
+	
 );
+
