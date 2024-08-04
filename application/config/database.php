@@ -35,23 +35,27 @@ switch ($_SERVER['REMOTE_ADDR']) {
 }
 
 $db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => $host,
-	'username' => $userdb,
-	'password' => $pass,
-	'database' => $base,
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
+    'dsn'    => '',
+    'hostname' => $host,
+    'username' => $userdb,
+    'password' => $pass,
+    'database' => $base,
+    'dbdriver' => 'mysqli',
+    'dbprefix' => '',
+    'pconnect' => FALSE,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => TRUE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE,
+    'ssl_key'    => '', // Si tienes clave privada, especifica la ruta aquí
+    'ssl_cert'   => '', // Si tienes certificado del cliente, especifica la ruta aquí
+    'ssl_ca'     => __DIR__ . '/DigiCertGlobalRootCA.crt.pem' // Ruta al archivo CA
 );
+
