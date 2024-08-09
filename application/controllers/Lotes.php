@@ -77,6 +77,8 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 
 		$query = "SELECT id, dato_api FROM _datos_api WHERE nombre_archivo_temp = '" . $file . "'";
 		$valor = $file;
+		$filename = $file;
+
 
 		$valor_escapado = $valor;
 
@@ -427,52 +429,76 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 						'consumo' => trim($detalle_de_servicio),
 					);
 					break;
-				case 10: //3480 TELECOM TELEFONIA FIJA
+				case 10: // 3480 TELECOM TELEFONIA FIJA
 
-					
-					$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
-					$consumo = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$consumo .= ' ' . $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
+    $totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
+    $consumo = '';
+    for ($paso = 0; $paso < $totalIndices; $paso++) {
+        $consumo .= ' ' . $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
+    }
 
-					}
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_facturado->values);
-					$periodo_facturado = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_facturado .= ' ' . $a->document->inference->pages[0]->prediction->periodo_facturado->values[$paso]->content;
-					}
+    $totalIndices = count($a->document->inference->pages[0]->prediction->periodo_facturado->values);
+    $periodo_facturado = '';
+    for ($paso = 0; $paso < $totalIndices; $paso++) {
+        $periodo_facturado .= ' ' . $a->document->inference->pages[0]->prediction->periodo_facturado->values[$paso]->content;
+    }
+
+    $totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+    $vencimiento_del_pago = '';
+    for ($paso = 0; $paso < $totalIndices; $paso++) {
+        $vencimiento_del_pago .= $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
+    }
+
+    $cuenta = "N/A";
+    if (count($a->document->inference->pages[0]->prediction->nro_cuenta->values) > 0) {
+        $cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
+
+        // Agregar el guion después del cuarto dígito
+        $cuenta = substr_replace($cuenta, '-', 4, 0);
+    }
+
+	$fecha_emision = "No leido"; // Valor predeterminado
+	if (count($a->document->inference->pages[0]->prediction->fecha_emision->values) > 0) {
+    $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
+	}
+
+    // Manejo de nro_factura vacío
+    // Suponiendo que $filename contiene 'uploader/files/3480/b04770-87496443_splitter.pdf'
+$partes = explode('/', $filename); // Separar por '/'
+$nombreArchivo = end($partes); // Obtener el último elemento: 'b04770-87496443_splitter.pdf'
+
+// Extraer el número utilizando la expresión regular
+preg_match('/b(\d{5})-(\d{8})_splitter\.pdf/', $nombreArchivo, $matches);
+
+$numero = isset($matches[1]) && isset($matches[2]) ? $matches[1] . '-' . $matches[2] : ''; // Concatenar para obtener '04770-87496443'
+
+$nro_factura = "N/A";
+if (count($a->document->inference->pages[0]->prediction->numero_de_factura->values) > 0) {
+    $nro_factura = trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content);
+
+    // Verificar si nro_factura está vacío
+    if (empty($nro_factura)) {
+        $nro_factura = $numero; // Usar el número extraído si nro_factura está vacío
+    }
+} else {
+    $nro_factura = $numero; // Usar el número extraído si no hay número de factura en el JSON
+}
 
 
+    $dataUpdate = array(
+        'nro_cuenta' => $cuenta,
+        'nro_medidor' => trim('N/A'),
+        'nro_factura' => $nro_factura, // Usar el valor procesado de nro_factura
+        'fecha_emision' => $fecha_emision,
+        'vencimiento_del_pago' => trim($vencimiento_del_pago),
+        'periodo_del_consumo' => trim($periodo_facturado),
+        'total_vencido' => trim('N/A'),
+        'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
+        'consumo' => trim($consumo),
+    );
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-					$vencimiento_del_pago = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$vencimiento_del_pago .= $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
-					}
-					$cuenta = "N/A";
-					if (count($a->document->inference->pages[0]->prediction->nro_cuenta->values) > 0) {
-						$cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
+    break;
 
-						// Agregar el guion después del cuarto dígito
-						$cuenta = substr_replace($cuenta, '-', 4, 0);
-
-					}
-					
-
-
-					$dataUpdate = array(
-						'nro_cuenta' => $cuenta,
-						'nro_medidor' => trim('N/A'),
-						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'periodo_del_consumo' => trim($periodo_facturado),
-						'total_vencido' => trim('N/A'),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-						'consumo' => trim($consumo),
-					);
-
-					break;
 			}
 
 			$this->db->where('id', $mires[0]->id);
