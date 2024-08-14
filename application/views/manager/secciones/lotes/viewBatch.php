@@ -34,12 +34,12 @@
 					<th>Medidor</th>
 					<th>Nro de factura</th>
 					<th>Período</th>
-					<th>Fecha emision</th>
+					<th>Fecha emisión</th>
 					<th>Vencimiento</th>
 					<th>Total importe</th>
 					<th>Total vencido</th>
 					<th>Consumo</th>
-					<th>index</th>
+					<th>Index</th>
 					<th>Archivo</th>
 					<th>Acciones</th>
 			</tr>
