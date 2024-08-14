@@ -33,7 +33,7 @@
 					<th>Cuenta</th>
 					<th>Medidor</th>
 					<th>Nro de factura</th>
-					<th>Pedríodo</th>
+					<th>Período</th>
 					<th>Fecha emision</th>
 					<th>Vencimiento</th>
 					<th>Total importe</th>
