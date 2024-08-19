@@ -6016,3 +6016,5241 @@ INFO - 2024-07-24 01:43:12 --> File loaded: C:\xampp\htdocs\mvl\application\view
 INFO - 2024-07-24 01:43:12 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
 INFO - 2024-07-24 01:43:12 --> Final output sent to browser
 DEBUG - 2024-07-24 01:43:12 --> Total execution time: 0.0966
+INFO - 2024-07-24 15:35:23 --> Config Class Initialized
+INFO - 2024-07-24 15:35:23 --> Hooks Class Initialized
+DEBUG - 2024-07-24 15:35:23 --> UTF-8 Support Enabled
+INFO - 2024-07-24 15:35:23 --> Utf8 Class Initialized
+INFO - 2024-07-24 15:35:23 --> URI Class Initialized
+INFO - 2024-07-24 15:35:23 --> Router Class Initialized
+INFO - 2024-07-24 15:35:23 --> Output Class Initialized
+INFO - 2024-07-24 15:35:23 --> Security Class Initialized
+DEBUG - 2024-07-24 15:35:23 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 15:35:23 --> Input Class Initialized
+INFO - 2024-07-24 15:35:23 --> Language Class Initialized
+INFO - 2024-07-24 15:35:23 --> Loader Class Initialized
+INFO - 2024-07-24 15:35:23 --> Helper loaded: form_helper
+INFO - 2024-07-24 15:35:23 --> Helper loaded: directory_helper
+INFO - 2024-07-24 15:35:23 --> Helper loaded: global_helper
+INFO - 2024-07-24 15:35:23 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 15:35:23 --> Helper loaded: url_helper
+INFO - 2024-07-24 15:35:23 --> Helper loaded: text_helper
+INFO - 2024-07-24 15:35:23 --> Helper loaded: file_helper
+INFO - 2024-07-24 15:35:23 --> Helper loaded: api_helper
+INFO - 2024-07-24 15:35:23 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 15:35:23 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 15:35:23 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 15:35:23 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 15:35:23 --> Email Class Initialized
+INFO - 2024-07-24 15:35:23 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 15:35:23 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 15:35:23 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 15:35:23 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 15:35:23 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 15:35:23 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 15:35:23 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 15:35:23 --> Encrypt Class Initialized
+INFO - 2024-07-24 15:35:23 --> Model "Manager_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Programas_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Graph_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 15:35:23 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 15:35:23 --> Controller Class Initialized
+ERROR - 2024-07-24 15:35:23 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 15:35:24 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 15:35:24 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 15:35:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 15:35:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 15:35:24 --> Config Class Initialized
+INFO - 2024-07-24 15:35:24 --> Hooks Class Initialized
+DEBUG - 2024-07-24 15:35:24 --> UTF-8 Support Enabled
+INFO - 2024-07-24 15:35:24 --> Utf8 Class Initialized
+INFO - 2024-07-24 15:35:24 --> URI Class Initialized
+INFO - 2024-07-24 15:35:24 --> Router Class Initialized
+INFO - 2024-07-24 15:35:24 --> Output Class Initialized
+INFO - 2024-07-24 15:35:24 --> Security Class Initialized
+DEBUG - 2024-07-24 15:35:24 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 15:35:24 --> Input Class Initialized
+INFO - 2024-07-24 15:35:24 --> Language Class Initialized
+INFO - 2024-07-24 15:35:24 --> Loader Class Initialized
+INFO - 2024-07-24 15:35:24 --> Helper loaded: form_helper
+INFO - 2024-07-24 15:35:24 --> Helper loaded: directory_helper
+INFO - 2024-07-24 15:35:24 --> Helper loaded: global_helper
+INFO - 2024-07-24 15:35:24 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 15:35:24 --> Helper loaded: url_helper
+INFO - 2024-07-24 15:35:24 --> Helper loaded: text_helper
+INFO - 2024-07-24 15:35:24 --> Helper loaded: file_helper
+INFO - 2024-07-24 15:35:24 --> Helper loaded: api_helper
+INFO - 2024-07-24 15:35:24 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 15:35:24 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 15:35:24 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 15:35:24 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 15:35:24 --> Email Class Initialized
+INFO - 2024-07-24 15:35:24 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 15:35:24 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 15:35:24 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 15:35:24 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 15:35:24 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 15:35:24 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 15:35:24 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 15:35:24 --> Encrypt Class Initialized
+INFO - 2024-07-24 15:35:24 --> Model "Manager_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Programas_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Graph_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 15:35:24 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 15:35:24 --> Controller Class Initialized
+ERROR - 2024-07-24 15:35:24 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 15:35:24 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 15:35:24 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 15:35:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 15:35:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 15:35:24 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 15:35:24 --> Form Validation Class Initialized
+INFO - 2024-07-24 15:35:24 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 15:35:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 15:35:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 15:35:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 15:35:24 --> Final output sent to browser
+DEBUG - 2024-07-24 15:35:24 --> Total execution time: 0.0603
+INFO - 2024-07-24 17:26:09 --> Config Class Initialized
+INFO - 2024-07-24 17:26:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:26:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:26:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:26:09 --> URI Class Initialized
+DEBUG - 2024-07-24 17:26:09 --> No URI present. Default controller set.
+INFO - 2024-07-24 17:26:09 --> Router Class Initialized
+INFO - 2024-07-24 17:26:09 --> Output Class Initialized
+INFO - 2024-07-24 17:26:09 --> Security Class Initialized
+DEBUG - 2024-07-24 17:26:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:26:09 --> Input Class Initialized
+INFO - 2024-07-24 17:26:09 --> Language Class Initialized
+INFO - 2024-07-24 17:26:09 --> Loader Class Initialized
+INFO - 2024-07-24 17:26:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:26:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:26:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:26:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:26:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:26:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:26:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:26:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:26:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:26:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:26:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:26:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:26:09 --> Email Class Initialized
+INFO - 2024-07-24 17:26:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:26:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:26:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:26:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:26:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:26:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:26:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:26:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:26:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:26:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:26:09 --> Controller Class Initialized
+ERROR - 2024-07-24 17:26:09 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 17:26:09 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 17:26:09 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 17:26:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:26:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:26:09 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:26:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:26:09 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:26:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:26:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:26:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:26:09 --> Final output sent to browser
+DEBUG - 2024-07-24 17:26:09 --> Total execution time: 0.1642
+INFO - 2024-07-24 17:26:23 --> Config Class Initialized
+INFO - 2024-07-24 17:26:23 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:26:23 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:26:23 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:26:23 --> URI Class Initialized
+INFO - 2024-07-24 17:26:23 --> Router Class Initialized
+INFO - 2024-07-24 17:26:23 --> Output Class Initialized
+INFO - 2024-07-24 17:26:23 --> Security Class Initialized
+DEBUG - 2024-07-24 17:26:23 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:26:23 --> Input Class Initialized
+INFO - 2024-07-24 17:26:23 --> Language Class Initialized
+INFO - 2024-07-24 17:26:23 --> Loader Class Initialized
+INFO - 2024-07-24 17:26:23 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:26:23 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:26:23 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:26:23 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:26:23 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:26:23 --> Email Class Initialized
+INFO - 2024-07-24 17:26:23 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:26:23 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:26:23 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:26:23 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:26:23 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:26:23 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:26:23 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:26:23 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:26:23 --> Controller Class Initialized
+ERROR - 2024-07-24 17:26:23 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 17:26:23 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 17:26:23 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 17:26:23 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:26:23 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:26:23 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:26:23 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:26:23 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:26:23 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 17:26:23 --> Helper loaded: date_helper
+INFO - 2024-07-24 17:26:23 --> Config Class Initialized
+INFO - 2024-07-24 17:26:23 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:26:23 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:26:23 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:26:23 --> URI Class Initialized
+INFO - 2024-07-24 17:26:23 --> Router Class Initialized
+INFO - 2024-07-24 17:26:23 --> Output Class Initialized
+INFO - 2024-07-24 17:26:23 --> Security Class Initialized
+DEBUG - 2024-07-24 17:26:23 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:26:23 --> Input Class Initialized
+INFO - 2024-07-24 17:26:23 --> Language Class Initialized
+INFO - 2024-07-24 17:26:23 --> Loader Class Initialized
+INFO - 2024-07-24 17:26:23 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:26:23 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:26:23 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:26:23 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:26:23 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:26:23 --> Email Class Initialized
+INFO - 2024-07-24 17:26:23 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:26:23 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:26:23 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:26:23 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:26:23 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:26:23 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:26:23 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:26:23 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:26:23 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:26:23 --> Controller Class Initialized
+INFO - 2024-07-24 17:26:23 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:26:23 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:26:23 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:23 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:26:23 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:26:23 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:26:23 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 17:26:23 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:26:23 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:26:23 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:26:23 --> Final output sent to browser
+DEBUG - 2024-07-24 17:26:23 --> Total execution time: 0.1899
+INFO - 2024-07-24 17:26:24 --> Config Class Initialized
+INFO - 2024-07-24 17:26:24 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:26:24 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:26:24 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:26:24 --> URI Class Initialized
+INFO - 2024-07-24 17:26:24 --> Router Class Initialized
+INFO - 2024-07-24 17:26:24 --> Output Class Initialized
+INFO - 2024-07-24 17:26:24 --> Security Class Initialized
+DEBUG - 2024-07-24 17:26:24 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:26:24 --> Input Class Initialized
+INFO - 2024-07-24 17:26:24 --> Language Class Initialized
+INFO - 2024-07-24 17:26:24 --> Loader Class Initialized
+INFO - 2024-07-24 17:26:24 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:26:24 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:26:24 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:26:24 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:26:24 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:26:24 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:26:24 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:26:24 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:26:24 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:26:24 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:26:24 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:26:24 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:26:24 --> Email Class Initialized
+INFO - 2024-07-24 17:26:24 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:26:24 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:26:24 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:26:24 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:26:24 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:26:24 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:26:24 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:26:24 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:26:24 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:26:24 --> Controller Class Initialized
+INFO - 2024-07-24 17:26:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:26:24 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:26:24 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:24 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:26:24 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:26:24 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:26:24 --> Final output sent to browser
+DEBUG - 2024-07-24 17:26:24 --> Total execution time: 0.1943
+INFO - 2024-07-24 17:26:25 --> Config Class Initialized
+INFO - 2024-07-24 17:26:25 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:26:25 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:26:25 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:26:25 --> URI Class Initialized
+INFO - 2024-07-24 17:26:25 --> Router Class Initialized
+INFO - 2024-07-24 17:26:25 --> Output Class Initialized
+INFO - 2024-07-24 17:26:25 --> Security Class Initialized
+DEBUG - 2024-07-24 17:26:25 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:26:25 --> Input Class Initialized
+INFO - 2024-07-24 17:26:25 --> Language Class Initialized
+INFO - 2024-07-24 17:26:25 --> Loader Class Initialized
+INFO - 2024-07-24 17:26:25 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:26:25 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:26:25 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:26:25 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:26:25 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:26:25 --> Email Class Initialized
+INFO - 2024-07-24 17:26:25 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:26:25 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:26:25 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:26:25 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:26:25 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:26:25 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:26:25 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:26:25 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:26:25 --> Controller Class Initialized
+INFO - 2024-07-24 17:26:25 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:26:25 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:26:25 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:25 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:26:25 --> Config Class Initialized
+INFO - 2024-07-24 17:26:25 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:26:25 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:26:25 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:26:25 --> URI Class Initialized
+INFO - 2024-07-24 17:26:25 --> Router Class Initialized
+INFO - 2024-07-24 17:26:25 --> Output Class Initialized
+INFO - 2024-07-24 17:26:25 --> Security Class Initialized
+DEBUG - 2024-07-24 17:26:25 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:26:25 --> Input Class Initialized
+INFO - 2024-07-24 17:26:25 --> Language Class Initialized
+INFO - 2024-07-24 17:26:25 --> Loader Class Initialized
+INFO - 2024-07-24 17:26:25 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:26:25 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:26:25 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:26:25 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:26:25 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:26:25 --> Email Class Initialized
+INFO - 2024-07-24 17:26:25 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:26:25 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:26:25 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:26:25 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:26:25 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:26:25 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:26:25 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:26:25 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:26:25 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:26:25 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:26:25 --> Controller Class Initialized
+INFO - 2024-07-24 17:26:25 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:26:25 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:26:25 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:26:25 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:26:25 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:26:25 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:26:25 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:26:25 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:26:25 --> Final output sent to browser
+DEBUG - 2024-07-24 17:26:25 --> Total execution time: 0.0750
+INFO - 2024-07-24 17:29:34 --> Config Class Initialized
+INFO - 2024-07-24 17:29:34 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:29:34 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:29:34 --> URI Class Initialized
+INFO - 2024-07-24 17:29:34 --> Router Class Initialized
+INFO - 2024-07-24 17:29:34 --> Output Class Initialized
+INFO - 2024-07-24 17:29:34 --> Security Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:29:34 --> Input Class Initialized
+INFO - 2024-07-24 17:29:34 --> Language Class Initialized
+INFO - 2024-07-24 17:29:34 --> Loader Class Initialized
+INFO - 2024-07-24 17:29:34 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:29:34 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:29:34 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:29:34 --> Email Class Initialized
+INFO - 2024-07-24 17:29:34 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:29:34 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:29:34 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:29:34 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:29:34 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:29:34 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:29:34 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:29:34 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:29:34 --> Controller Class Initialized
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:29:34 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:29:34 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:29:34 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:29:34 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 17:29:34 --> Helper loaded: date_helper
+INFO - 2024-07-24 17:29:34 --> Config Class Initialized
+INFO - 2024-07-24 17:29:34 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:29:34 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:29:34 --> URI Class Initialized
+INFO - 2024-07-24 17:29:34 --> Router Class Initialized
+INFO - 2024-07-24 17:29:34 --> Output Class Initialized
+INFO - 2024-07-24 17:29:34 --> Security Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:29:34 --> Input Class Initialized
+INFO - 2024-07-24 17:29:34 --> Language Class Initialized
+INFO - 2024-07-24 17:29:34 --> Loader Class Initialized
+INFO - 2024-07-24 17:29:34 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:29:34 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:29:34 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:29:34 --> Email Class Initialized
+INFO - 2024-07-24 17:29:34 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:29:34 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:29:34 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:29:34 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:29:34 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:29:34 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:29:34 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:29:34 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:29:34 --> Controller Class Initialized
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:29:34 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:29:34 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:29:34 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:29:34 --> Final output sent to browser
+DEBUG - 2024-07-24 17:29:34 --> Total execution time: 0.1393
+INFO - 2024-07-24 17:29:34 --> Config Class Initialized
+INFO - 2024-07-24 17:29:34 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:29:34 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:29:34 --> URI Class Initialized
+INFO - 2024-07-24 17:29:34 --> Router Class Initialized
+INFO - 2024-07-24 17:29:34 --> Output Class Initialized
+INFO - 2024-07-24 17:29:34 --> Security Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:29:34 --> Input Class Initialized
+INFO - 2024-07-24 17:29:34 --> Language Class Initialized
+INFO - 2024-07-24 17:29:34 --> Loader Class Initialized
+INFO - 2024-07-24 17:29:34 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:29:34 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:29:34 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:29:34 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:29:34 --> Email Class Initialized
+INFO - 2024-07-24 17:29:34 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:29:34 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:29:34 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:29:34 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:29:34 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:29:34 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:29:34 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:29:34 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:29:34 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:29:34 --> Controller Class Initialized
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:29:34 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:29:34 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:29:34 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:29:34 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:29:34 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:29:34 --> Final output sent to browser
+DEBUG - 2024-07-24 17:29:34 --> Total execution time: 0.1803
+INFO - 2024-07-24 17:29:36 --> Config Class Initialized
+INFO - 2024-07-24 17:29:36 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:29:36 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:29:36 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:29:36 --> URI Class Initialized
+INFO - 2024-07-24 17:29:36 --> Router Class Initialized
+INFO - 2024-07-24 17:29:36 --> Output Class Initialized
+INFO - 2024-07-24 17:29:36 --> Security Class Initialized
+DEBUG - 2024-07-24 17:29:36 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:29:36 --> Input Class Initialized
+INFO - 2024-07-24 17:29:36 --> Language Class Initialized
+INFO - 2024-07-24 17:29:36 --> Loader Class Initialized
+INFO - 2024-07-24 17:29:36 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:29:36 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:29:36 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:29:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:29:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:29:36 --> Email Class Initialized
+INFO - 2024-07-24 17:29:36 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:29:36 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:29:36 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:29:36 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:29:36 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:29:36 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:29:36 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:29:36 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:29:36 --> Controller Class Initialized
+INFO - 2024-07-24 17:29:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:29:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:29:36 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:29:36 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:29:36 --> Config Class Initialized
+INFO - 2024-07-24 17:29:36 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:29:36 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:29:36 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:29:36 --> URI Class Initialized
+INFO - 2024-07-24 17:29:36 --> Router Class Initialized
+INFO - 2024-07-24 17:29:36 --> Output Class Initialized
+INFO - 2024-07-24 17:29:36 --> Security Class Initialized
+DEBUG - 2024-07-24 17:29:36 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:29:36 --> Input Class Initialized
+INFO - 2024-07-24 17:29:36 --> Language Class Initialized
+INFO - 2024-07-24 17:29:36 --> Loader Class Initialized
+INFO - 2024-07-24 17:29:36 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:29:36 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:29:36 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:29:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:29:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:29:36 --> Email Class Initialized
+INFO - 2024-07-24 17:29:36 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:29:36 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:29:36 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:29:36 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:29:36 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:29:36 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:29:36 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:29:36 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:29:36 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:29:36 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:29:36 --> Controller Class Initialized
+INFO - 2024-07-24 17:29:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:29:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:29:36 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:29:36 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:29:36 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:29:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:29:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:29:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:29:36 --> Final output sent to browser
+DEBUG - 2024-07-24 17:29:36 --> Total execution time: 0.0663
+INFO - 2024-07-24 17:31:09 --> Config Class Initialized
+INFO - 2024-07-24 17:31:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:31:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:31:09 --> URI Class Initialized
+INFO - 2024-07-24 17:31:09 --> Router Class Initialized
+INFO - 2024-07-24 17:31:09 --> Output Class Initialized
+INFO - 2024-07-24 17:31:09 --> Security Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:31:09 --> Input Class Initialized
+INFO - 2024-07-24 17:31:09 --> Language Class Initialized
+INFO - 2024-07-24 17:31:09 --> Loader Class Initialized
+INFO - 2024-07-24 17:31:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:31:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:31:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:31:09 --> Email Class Initialized
+INFO - 2024-07-24 17:31:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:31:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:31:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:31:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:31:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:31:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:31:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:31:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:31:09 --> Controller Class Initialized
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:31:09 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:31:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:31:09 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:31:09 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 17:31:09 --> Helper loaded: date_helper
+INFO - 2024-07-24 17:31:09 --> Config Class Initialized
+INFO - 2024-07-24 17:31:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:31:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:31:09 --> URI Class Initialized
+INFO - 2024-07-24 17:31:09 --> Router Class Initialized
+INFO - 2024-07-24 17:31:09 --> Output Class Initialized
+INFO - 2024-07-24 17:31:09 --> Security Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:31:09 --> Input Class Initialized
+INFO - 2024-07-24 17:31:09 --> Language Class Initialized
+INFO - 2024-07-24 17:31:09 --> Loader Class Initialized
+INFO - 2024-07-24 17:31:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:31:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:31:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:31:09 --> Email Class Initialized
+INFO - 2024-07-24 17:31:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:31:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:31:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:31:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:31:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:31:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:31:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:31:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:31:09 --> Controller Class Initialized
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:31:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:31:09 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:31:09 --> Final output sent to browser
+DEBUG - 2024-07-24 17:31:09 --> Total execution time: 0.1504
+INFO - 2024-07-24 17:31:09 --> Config Class Initialized
+INFO - 2024-07-24 17:31:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:31:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:31:09 --> URI Class Initialized
+INFO - 2024-07-24 17:31:09 --> Router Class Initialized
+INFO - 2024-07-24 17:31:09 --> Output Class Initialized
+INFO - 2024-07-24 17:31:09 --> Security Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:31:09 --> Input Class Initialized
+INFO - 2024-07-24 17:31:09 --> Language Class Initialized
+INFO - 2024-07-24 17:31:09 --> Loader Class Initialized
+INFO - 2024-07-24 17:31:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:31:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:31:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:31:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:31:09 --> Email Class Initialized
+INFO - 2024-07-24 17:31:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:31:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:31:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:31:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:31:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:31:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:31:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:31:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:31:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:31:09 --> Controller Class Initialized
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:31:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:31:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:31:09 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:31:09 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:31:10 --> Final output sent to browser
+DEBUG - 2024-07-24 17:31:10 --> Total execution time: 0.2018
+INFO - 2024-07-24 17:31:11 --> Config Class Initialized
+INFO - 2024-07-24 17:31:11 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:31:11 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:31:11 --> URI Class Initialized
+INFO - 2024-07-24 17:31:11 --> Router Class Initialized
+INFO - 2024-07-24 17:31:11 --> Output Class Initialized
+INFO - 2024-07-24 17:31:11 --> Security Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:31:11 --> Input Class Initialized
+INFO - 2024-07-24 17:31:11 --> Language Class Initialized
+INFO - 2024-07-24 17:31:11 --> Loader Class Initialized
+INFO - 2024-07-24 17:31:11 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:31:11 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:31:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:31:11 --> Email Class Initialized
+INFO - 2024-07-24 17:31:11 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:31:11 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:31:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:31:11 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:31:11 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:31:11 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:31:11 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:31:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:31:11 --> Controller Class Initialized
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:31:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:11 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:31:11 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 17:31:11 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 17:31:11 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:31:11 --> Final output sent to browser
+DEBUG - 2024-07-24 17:31:11 --> Total execution time: 0.0934
+INFO - 2024-07-24 17:31:11 --> Config Class Initialized
+INFO - 2024-07-24 17:31:11 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:31:11 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:31:11 --> URI Class Initialized
+INFO - 2024-07-24 17:31:11 --> Router Class Initialized
+INFO - 2024-07-24 17:31:11 --> Output Class Initialized
+INFO - 2024-07-24 17:31:11 --> Security Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:31:11 --> Input Class Initialized
+INFO - 2024-07-24 17:31:11 --> Language Class Initialized
+INFO - 2024-07-24 17:31:11 --> Loader Class Initialized
+INFO - 2024-07-24 17:31:11 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:31:11 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:31:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:31:11 --> Email Class Initialized
+INFO - 2024-07-24 17:31:11 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:31:11 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:31:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:31:11 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:31:11 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:31:11 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:31:11 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:31:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:31:11 --> Controller Class Initialized
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:31:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:11 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:31:11 --> Config Class Initialized
+INFO - 2024-07-24 17:31:11 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:31:11 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:31:11 --> URI Class Initialized
+INFO - 2024-07-24 17:31:11 --> Router Class Initialized
+INFO - 2024-07-24 17:31:11 --> Output Class Initialized
+INFO - 2024-07-24 17:31:11 --> Security Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:31:11 --> Input Class Initialized
+INFO - 2024-07-24 17:31:11 --> Language Class Initialized
+INFO - 2024-07-24 17:31:11 --> Loader Class Initialized
+INFO - 2024-07-24 17:31:11 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:31:11 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:31:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:31:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:31:11 --> Email Class Initialized
+INFO - 2024-07-24 17:31:11 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:31:11 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:31:11 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:31:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:31:11 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:31:11 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:31:11 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:31:11 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:31:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:31:11 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:31:11 --> Controller Class Initialized
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:31:11 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:31:11 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:31:11 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:31:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:31:11 --> Final output sent to browser
+DEBUG - 2024-07-24 17:31:11 --> Total execution time: 0.0747
+INFO - 2024-07-24 17:32:12 --> Config Class Initialized
+INFO - 2024-07-24 17:32:12 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:32:12 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:32:12 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:32:12 --> URI Class Initialized
+INFO - 2024-07-24 17:32:12 --> Router Class Initialized
+INFO - 2024-07-24 17:32:12 --> Output Class Initialized
+INFO - 2024-07-24 17:32:12 --> Security Class Initialized
+DEBUG - 2024-07-24 17:32:12 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:32:12 --> Input Class Initialized
+INFO - 2024-07-24 17:32:12 --> Language Class Initialized
+INFO - 2024-07-24 17:32:12 --> Loader Class Initialized
+INFO - 2024-07-24 17:32:12 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:32:12 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:32:12 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:32:12 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:32:12 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:32:12 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:32:12 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:32:12 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:32:12 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:32:12 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:32:12 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:32:12 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:32:12 --> Email Class Initialized
+INFO - 2024-07-24 17:32:12 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:32:12 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:32:12 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:32:12 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:32:12 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:32:12 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:32:12 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:32:12 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:32:12 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:32:12 --> Controller Class Initialized
+INFO - 2024-07-24 17:32:12 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:32:12 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:32:12 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:32:12 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:32:12 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:32:12 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:32:12 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 17:32:12 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:32:12 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:32:12 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:32:12 --> Final output sent to browser
+DEBUG - 2024-07-24 17:32:12 --> Total execution time: 0.1437
+INFO - 2024-07-24 17:32:13 --> Config Class Initialized
+INFO - 2024-07-24 17:32:13 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:32:13 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:32:13 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:32:13 --> URI Class Initialized
+INFO - 2024-07-24 17:32:13 --> Router Class Initialized
+INFO - 2024-07-24 17:32:13 --> Output Class Initialized
+INFO - 2024-07-24 17:32:13 --> Security Class Initialized
+DEBUG - 2024-07-24 17:32:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:32:13 --> Input Class Initialized
+INFO - 2024-07-24 17:32:13 --> Language Class Initialized
+INFO - 2024-07-24 17:32:13 --> Loader Class Initialized
+INFO - 2024-07-24 17:32:13 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:32:13 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:32:13 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:32:13 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:32:13 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:32:13 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:32:13 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:32:13 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:32:13 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:32:13 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:32:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:32:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:32:13 --> Email Class Initialized
+INFO - 2024-07-24 17:32:13 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:32:13 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:32:13 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:32:13 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:32:13 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:32:13 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:32:13 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:32:13 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:32:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:32:13 --> Controller Class Initialized
+INFO - 2024-07-24 17:32:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:32:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:32:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:32:13 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:32:13 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:32:13 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:32:13 --> Final output sent to browser
+DEBUG - 2024-07-24 17:32:13 --> Total execution time: 0.1644
+INFO - 2024-07-24 17:32:14 --> Config Class Initialized
+INFO - 2024-07-24 17:32:14 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:32:14 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:32:14 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:32:14 --> URI Class Initialized
+INFO - 2024-07-24 17:32:14 --> Router Class Initialized
+INFO - 2024-07-24 17:32:14 --> Output Class Initialized
+INFO - 2024-07-24 17:32:14 --> Security Class Initialized
+DEBUG - 2024-07-24 17:32:14 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:32:14 --> Input Class Initialized
+INFO - 2024-07-24 17:32:14 --> Language Class Initialized
+INFO - 2024-07-24 17:32:14 --> Loader Class Initialized
+INFO - 2024-07-24 17:32:14 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:32:14 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:32:14 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:32:14 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:32:14 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:32:14 --> Email Class Initialized
+INFO - 2024-07-24 17:32:14 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:32:14 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:32:14 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:32:14 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:32:14 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:32:14 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:32:14 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:32:14 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:32:14 --> Controller Class Initialized
+INFO - 2024-07-24 17:32:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:32:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:32:14 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:32:14 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:32:14 --> Config Class Initialized
+INFO - 2024-07-24 17:32:14 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:32:14 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:32:14 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:32:14 --> URI Class Initialized
+INFO - 2024-07-24 17:32:14 --> Router Class Initialized
+INFO - 2024-07-24 17:32:14 --> Output Class Initialized
+INFO - 2024-07-24 17:32:14 --> Security Class Initialized
+DEBUG - 2024-07-24 17:32:14 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:32:14 --> Input Class Initialized
+INFO - 2024-07-24 17:32:14 --> Language Class Initialized
+INFO - 2024-07-24 17:32:14 --> Loader Class Initialized
+INFO - 2024-07-24 17:32:14 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:32:14 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:32:14 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:32:14 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:32:14 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:32:14 --> Email Class Initialized
+INFO - 2024-07-24 17:32:14 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:32:14 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:32:14 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:32:14 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:32:14 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:32:14 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:32:14 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:32:14 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:32:14 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:32:14 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:32:14 --> Controller Class Initialized
+INFO - 2024-07-24 17:32:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:32:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:32:14 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:32:14 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:32:14 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:32:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:32:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:32:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:32:14 --> Final output sent to browser
+DEBUG - 2024-07-24 17:32:14 --> Total execution time: 0.0910
+INFO - 2024-07-24 17:33:00 --> Config Class Initialized
+INFO - 2024-07-24 17:33:00 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:00 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:00 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:00 --> URI Class Initialized
+INFO - 2024-07-24 17:33:00 --> Router Class Initialized
+INFO - 2024-07-24 17:33:00 --> Output Class Initialized
+INFO - 2024-07-24 17:33:00 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:00 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:00 --> Input Class Initialized
+INFO - 2024-07-24 17:33:00 --> Language Class Initialized
+INFO - 2024-07-24 17:33:00 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:00 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:00 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:00 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:00 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:00 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:00 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:00 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:00 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:00 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:00 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:00 --> Email Class Initialized
+INFO - 2024-07-24 17:33:00 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:00 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:00 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:00 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:00 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:00 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:00 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:00 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:00 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:00 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:33:00 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:33:00 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:00 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:33:00 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 17:33:01 --> Config Class Initialized
+INFO - 2024-07-24 17:33:01 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:01 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:01 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:01 --> URI Class Initialized
+INFO - 2024-07-24 17:33:01 --> Router Class Initialized
+INFO - 2024-07-24 17:33:01 --> Output Class Initialized
+INFO - 2024-07-24 17:33:01 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:01 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:01 --> Input Class Initialized
+INFO - 2024-07-24 17:33:01 --> Language Class Initialized
+INFO - 2024-07-24 17:33:01 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:01 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:01 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:01 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:01 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:01 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:01 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:01 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:01 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:01 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:01 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:01 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:01 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:01 --> Email Class Initialized
+INFO - 2024-07-24 17:33:01 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:01 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:01 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:01 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:01 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:01 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:01 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:01 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:01 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:01 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:01 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:33:01 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:33:01 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:01 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:33:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:33:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:33:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:33:01 --> Final output sent to browser
+DEBUG - 2024-07-24 17:33:01 --> Total execution time: 0.0823
+INFO - 2024-07-24 17:33:10 --> Config Class Initialized
+INFO - 2024-07-24 17:33:10 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:10 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:10 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:10 --> URI Class Initialized
+INFO - 2024-07-24 17:33:10 --> Router Class Initialized
+INFO - 2024-07-24 17:33:10 --> Output Class Initialized
+INFO - 2024-07-24 17:33:10 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:10 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:10 --> Input Class Initialized
+INFO - 2024-07-24 17:33:10 --> Language Class Initialized
+INFO - 2024-07-24 17:33:10 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:10 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:10 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:10 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:10 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:10 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:10 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:10 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:10 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:10 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:10 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:10 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:10 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:10 --> Email Class Initialized
+INFO - 2024-07-24 17:33:10 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:10 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:10 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:10 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:10 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:11 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:11 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:11 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:11 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:33:11 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:33:11 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:11 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:33:11 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 17:33:11 --> Helper loaded: date_helper
+INFO - 2024-07-24 17:33:11 --> Config Class Initialized
+INFO - 2024-07-24 17:33:11 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:11 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:11 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:11 --> URI Class Initialized
+INFO - 2024-07-24 17:33:11 --> Router Class Initialized
+INFO - 2024-07-24 17:33:11 --> Output Class Initialized
+INFO - 2024-07-24 17:33:11 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:11 --> Input Class Initialized
+INFO - 2024-07-24 17:33:11 --> Language Class Initialized
+INFO - 2024-07-24 17:33:11 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:11 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:11 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:11 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:11 --> Email Class Initialized
+INFO - 2024-07-24 17:33:11 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:11 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:11 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:11 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:11 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:11 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:11 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:33:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:11 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:11 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:33:11 --> Final output sent to browser
+DEBUG - 2024-07-24 17:33:11 --> Total execution time: 0.1456
+INFO - 2024-07-24 17:33:11 --> Config Class Initialized
+INFO - 2024-07-24 17:33:11 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:11 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:11 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:11 --> URI Class Initialized
+INFO - 2024-07-24 17:33:11 --> Router Class Initialized
+INFO - 2024-07-24 17:33:11 --> Output Class Initialized
+INFO - 2024-07-24 17:33:11 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:11 --> Input Class Initialized
+INFO - 2024-07-24 17:33:11 --> Language Class Initialized
+INFO - 2024-07-24 17:33:11 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:11 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:11 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:11 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:11 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:11 --> Email Class Initialized
+INFO - 2024-07-24 17:33:11 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:11 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:11 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:11 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:11 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:11 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:11 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:11 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:11 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:33:11 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:11 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:11 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:33:11 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:33:11 --> Final output sent to browser
+DEBUG - 2024-07-24 17:33:11 --> Total execution time: 0.1618
+INFO - 2024-07-24 17:33:13 --> Config Class Initialized
+INFO - 2024-07-24 17:33:13 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:13 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:13 --> URI Class Initialized
+INFO - 2024-07-24 17:33:13 --> Router Class Initialized
+INFO - 2024-07-24 17:33:13 --> Output Class Initialized
+INFO - 2024-07-24 17:33:13 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:13 --> Input Class Initialized
+INFO - 2024-07-24 17:33:13 --> Language Class Initialized
+INFO - 2024-07-24 17:33:13 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:13 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:13 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:13 --> Email Class Initialized
+INFO - 2024-07-24 17:33:13 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:13 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:13 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:13 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:13 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:13 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:13 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:13 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:33:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:13 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:13 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 17:33:13 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 17:33:13 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:33:13 --> Final output sent to browser
+DEBUG - 2024-07-24 17:33:13 --> Total execution time: 0.0731
+INFO - 2024-07-24 17:33:13 --> Config Class Initialized
+INFO - 2024-07-24 17:33:13 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:13 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:13 --> URI Class Initialized
+INFO - 2024-07-24 17:33:13 --> Router Class Initialized
+INFO - 2024-07-24 17:33:13 --> Output Class Initialized
+INFO - 2024-07-24 17:33:13 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:13 --> Input Class Initialized
+INFO - 2024-07-24 17:33:13 --> Language Class Initialized
+INFO - 2024-07-24 17:33:13 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:13 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:13 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:13 --> Email Class Initialized
+INFO - 2024-07-24 17:33:13 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:13 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:13 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:13 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:13 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:13 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:13 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:13 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:33:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:13 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:13 --> Config Class Initialized
+INFO - 2024-07-24 17:33:13 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:13 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:13 --> URI Class Initialized
+INFO - 2024-07-24 17:33:13 --> Router Class Initialized
+INFO - 2024-07-24 17:33:13 --> Output Class Initialized
+INFO - 2024-07-24 17:33:13 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:13 --> Input Class Initialized
+INFO - 2024-07-24 17:33:13 --> Language Class Initialized
+INFO - 2024-07-24 17:33:13 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:13 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:13 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:13 --> Email Class Initialized
+INFO - 2024-07-24 17:33:13 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:13 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:13 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:13 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:13 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:13 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:13 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:13 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:13 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:13 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:33:13 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:33:13 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:13 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:33:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:33:13 --> Final output sent to browser
+DEBUG - 2024-07-24 17:33:13 --> Total execution time: 0.0642
+INFO - 2024-07-24 17:33:27 --> Config Class Initialized
+INFO - 2024-07-24 17:33:27 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:27 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:27 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:27 --> URI Class Initialized
+INFO - 2024-07-24 17:33:27 --> Router Class Initialized
+INFO - 2024-07-24 17:33:27 --> Output Class Initialized
+INFO - 2024-07-24 17:33:27 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:27 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:27 --> Input Class Initialized
+INFO - 2024-07-24 17:33:27 --> Language Class Initialized
+INFO - 2024-07-24 17:33:27 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:27 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:27 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:27 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:27 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:27 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:27 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:27 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:27 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:27 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:27 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:27 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:27 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:27 --> Email Class Initialized
+INFO - 2024-07-24 17:33:27 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:27 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:27 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:27 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:27 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:27 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:27 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:27 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:27 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:27 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:27 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:27 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:33:27 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:27 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:27 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:33:27 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:33:27 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 17:33:27 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:33:27 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:33:27 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:33:27 --> Final output sent to browser
+DEBUG - 2024-07-24 17:33:27 --> Total execution time: 0.1804
+INFO - 2024-07-24 17:33:28 --> Config Class Initialized
+INFO - 2024-07-24 17:33:28 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:28 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:28 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:28 --> URI Class Initialized
+INFO - 2024-07-24 17:33:28 --> Router Class Initialized
+INFO - 2024-07-24 17:33:28 --> Output Class Initialized
+INFO - 2024-07-24 17:33:28 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:28 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:28 --> Input Class Initialized
+INFO - 2024-07-24 17:33:28 --> Language Class Initialized
+INFO - 2024-07-24 17:33:28 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:28 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:28 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:28 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:28 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:28 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:28 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:28 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:28 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:28 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:28 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:28 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:28 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:28 --> Email Class Initialized
+INFO - 2024-07-24 17:33:28 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:28 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:28 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:28 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:28 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:28 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:28 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:28 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:28 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:28 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:28 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:28 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:33:28 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:28 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:28 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:33:28 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:33:28 --> Final output sent to browser
+DEBUG - 2024-07-24 17:33:28 --> Total execution time: 0.1595
+INFO - 2024-07-24 17:33:31 --> Config Class Initialized
+INFO - 2024-07-24 17:33:31 --> Hooks Class Initialized
+INFO - 2024-07-24 17:33:31 --> Config Class Initialized
+INFO - 2024-07-24 17:33:31 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:31 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:31 --> Utf8 Class Initialized
+DEBUG - 2024-07-24 17:33:31 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:31 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:31 --> URI Class Initialized
+INFO - 2024-07-24 17:33:31 --> URI Class Initialized
+INFO - 2024-07-24 17:33:31 --> Router Class Initialized
+INFO - 2024-07-24 17:33:31 --> Router Class Initialized
+INFO - 2024-07-24 17:33:31 --> Output Class Initialized
+INFO - 2024-07-24 17:33:31 --> Security Class Initialized
+INFO - 2024-07-24 17:33:31 --> Output Class Initialized
+DEBUG - 2024-07-24 17:33:31 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:31 --> Input Class Initialized
+INFO - 2024-07-24 17:33:31 --> Security Class Initialized
+INFO - 2024-07-24 17:33:31 --> Language Class Initialized
+DEBUG - 2024-07-24 17:33:31 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:31 --> Input Class Initialized
+INFO - 2024-07-24 17:33:31 --> Language Class Initialized
+ERROR - 2024-07-24 17:33:31 --> Severity: error --> Exception: call_user_func_array(): Argument #1 ($callback) must be a valid callback, class Error does not have a method "error_404" C:\xampp\htdocs\mvl\system\core\CodeIgniter.php 532
+ERROR - 2024-07-24 17:33:31 --> Severity: error --> Exception: call_user_func_array(): Argument #1 ($callback) must be a valid callback, class Error does not have a method "error_404" C:\xampp\htdocs\mvl\system\core\CodeIgniter.php 532
+INFO - 2024-07-24 17:33:36 --> Config Class Initialized
+INFO - 2024-07-24 17:33:36 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:33:36 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:33:36 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:33:36 --> URI Class Initialized
+INFO - 2024-07-24 17:33:36 --> Router Class Initialized
+INFO - 2024-07-24 17:33:36 --> Output Class Initialized
+INFO - 2024-07-24 17:33:36 --> Security Class Initialized
+DEBUG - 2024-07-24 17:33:36 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:33:36 --> Input Class Initialized
+INFO - 2024-07-24 17:33:36 --> Language Class Initialized
+INFO - 2024-07-24 17:33:36 --> Loader Class Initialized
+INFO - 2024-07-24 17:33:36 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:33:36 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:33:36 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:33:36 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:33:36 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:33:36 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:33:36 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:33:36 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:33:36 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:33:36 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:33:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:33:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:33:36 --> Email Class Initialized
+INFO - 2024-07-24 17:33:36 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:33:36 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:33:36 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:33:36 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:33:36 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:33:36 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:33:36 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:33:36 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:33:36 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:33:36 --> Controller Class Initialized
+INFO - 2024-07-24 17:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:33:36 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:33:36 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:33:36 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 17:33:36 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 17:33:36 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 17:33:36 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 17:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 17:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 17:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:33:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:33:36 --> Final output sent to browser
+DEBUG - 2024-07-24 17:33:36 --> Total execution time: 0.1061
+INFO - 2024-07-24 17:34:57 --> Config Class Initialized
+INFO - 2024-07-24 17:34:57 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:34:57 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:34:57 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:34:57 --> URI Class Initialized
+INFO - 2024-07-24 17:34:57 --> Router Class Initialized
+INFO - 2024-07-24 17:34:57 --> Output Class Initialized
+INFO - 2024-07-24 17:34:57 --> Security Class Initialized
+DEBUG - 2024-07-24 17:34:57 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:34:57 --> Input Class Initialized
+INFO - 2024-07-24 17:34:57 --> Language Class Initialized
+ERROR - 2024-07-24 17:34:57 --> Severity: error --> Exception: call_user_func_array(): Argument #1 ($callback) must be a valid callback, class Error does not have a method "error_404" C:\xampp\htdocs\mvl\system\core\CodeIgniter.php 532
+INFO - 2024-07-24 17:34:57 --> Config Class Initialized
+INFO - 2024-07-24 17:34:57 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:34:57 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:34:57 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:34:57 --> URI Class Initialized
+INFO - 2024-07-24 17:34:57 --> Router Class Initialized
+INFO - 2024-07-24 17:34:57 --> Output Class Initialized
+INFO - 2024-07-24 17:34:57 --> Security Class Initialized
+DEBUG - 2024-07-24 17:34:57 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:34:57 --> Input Class Initialized
+INFO - 2024-07-24 17:34:57 --> Language Class Initialized
+ERROR - 2024-07-24 17:34:57 --> Severity: error --> Exception: call_user_func_array(): Argument #1 ($callback) must be a valid callback, class Error does not have a method "error_404" C:\xampp\htdocs\mvl\system\core\CodeIgniter.php 532
+INFO - 2024-07-24 17:34:58 --> Config Class Initialized
+INFO - 2024-07-24 17:34:58 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:34:58 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:34:58 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:34:58 --> URI Class Initialized
+INFO - 2024-07-24 17:34:58 --> Router Class Initialized
+INFO - 2024-07-24 17:34:58 --> Output Class Initialized
+INFO - 2024-07-24 17:34:58 --> Security Class Initialized
+DEBUG - 2024-07-24 17:34:58 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:34:58 --> Input Class Initialized
+INFO - 2024-07-24 17:34:58 --> Language Class Initialized
+INFO - 2024-07-24 17:34:58 --> Loader Class Initialized
+INFO - 2024-07-24 17:34:58 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:34:58 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:34:58 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:34:58 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:34:58 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:34:58 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:34:58 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:34:58 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:34:58 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:34:58 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:34:58 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:34:58 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:34:58 --> Email Class Initialized
+INFO - 2024-07-24 17:34:58 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:34:58 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:34:58 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:34:58 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:34:58 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:34:58 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:34:58 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:34:58 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:34:58 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:34:58 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:34:58 --> Controller Class Initialized
+INFO - 2024-07-24 17:34:58 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:34:58 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:34:58 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:34:58 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:35:00 --> Config Class Initialized
+INFO - 2024-07-24 17:35:00 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:35:00 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:35:00 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:35:00 --> URI Class Initialized
+INFO - 2024-07-24 17:35:00 --> Router Class Initialized
+INFO - 2024-07-24 17:35:00 --> Output Class Initialized
+INFO - 2024-07-24 17:35:00 --> Security Class Initialized
+DEBUG - 2024-07-24 17:35:00 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:35:00 --> Input Class Initialized
+INFO - 2024-07-24 17:35:00 --> Language Class Initialized
+INFO - 2024-07-24 17:35:00 --> Loader Class Initialized
+INFO - 2024-07-24 17:35:00 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:35:00 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:35:00 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:35:00 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:35:00 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:35:00 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:35:00 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:35:00 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:35:00 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:35:00 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:35:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:35:00 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:35:00 --> Email Class Initialized
+INFO - 2024-07-24 17:35:00 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:35:00 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:35:00 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:35:00 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:35:00 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:35:00 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:35:00 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:35:00 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:35:00 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:35:00 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:35:00 --> Controller Class Initialized
+INFO - 2024-07-24 17:35:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:35:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:35:00 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:35:00 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:35:00 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:35:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:35:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:35:00 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:35:00 --> Final output sent to browser
+DEBUG - 2024-07-24 17:35:00 --> Total execution time: 0.0872
+INFO - 2024-07-24 17:35:44 --> Config Class Initialized
+INFO - 2024-07-24 17:35:44 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:35:44 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:35:44 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:35:44 --> URI Class Initialized
+INFO - 2024-07-24 17:35:44 --> Router Class Initialized
+INFO - 2024-07-24 17:35:44 --> Output Class Initialized
+INFO - 2024-07-24 17:35:44 --> Security Class Initialized
+DEBUG - 2024-07-24 17:35:44 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:35:44 --> Input Class Initialized
+INFO - 2024-07-24 17:35:44 --> Language Class Initialized
+INFO - 2024-07-24 17:35:44 --> Loader Class Initialized
+INFO - 2024-07-24 17:35:44 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:35:44 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:35:44 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:35:44 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:35:44 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:35:44 --> Email Class Initialized
+INFO - 2024-07-24 17:35:44 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:35:44 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:35:44 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:35:44 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:35:44 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:35:44 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:35:44 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:35:44 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:35:44 --> Controller Class Initialized
+INFO - 2024-07-24 17:35:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:35:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:35:44 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:35:44 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:35:44 --> Config Class Initialized
+INFO - 2024-07-24 17:35:44 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:35:44 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:35:44 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:35:44 --> URI Class Initialized
+INFO - 2024-07-24 17:35:44 --> Router Class Initialized
+INFO - 2024-07-24 17:35:44 --> Output Class Initialized
+INFO - 2024-07-24 17:35:44 --> Security Class Initialized
+DEBUG - 2024-07-24 17:35:44 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:35:44 --> Input Class Initialized
+INFO - 2024-07-24 17:35:44 --> Language Class Initialized
+INFO - 2024-07-24 17:35:44 --> Loader Class Initialized
+INFO - 2024-07-24 17:35:44 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:35:44 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:35:44 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:35:44 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:35:44 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:35:44 --> Email Class Initialized
+INFO - 2024-07-24 17:35:44 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:35:44 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:35:44 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:35:44 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:35:44 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:35:44 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:35:44 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:35:44 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:35:44 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:35:44 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:35:44 --> Controller Class Initialized
+INFO - 2024-07-24 17:35:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:35:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:35:44 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:35:44 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:35:44 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:35:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:35:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:35:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:35:44 --> Final output sent to browser
+DEBUG - 2024-07-24 17:35:44 --> Total execution time: 0.0680
+INFO - 2024-07-24 17:36:21 --> Config Class Initialized
+INFO - 2024-07-24 17:36:21 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:36:21 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:36:21 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:36:21 --> URI Class Initialized
+INFO - 2024-07-24 17:36:21 --> Router Class Initialized
+INFO - 2024-07-24 17:36:21 --> Output Class Initialized
+INFO - 2024-07-24 17:36:21 --> Security Class Initialized
+DEBUG - 2024-07-24 17:36:21 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:36:21 --> Input Class Initialized
+INFO - 2024-07-24 17:36:21 --> Language Class Initialized
+INFO - 2024-07-24 17:36:21 --> Loader Class Initialized
+INFO - 2024-07-24 17:36:21 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:36:21 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:36:21 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:36:21 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:36:21 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:36:21 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:36:21 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:36:21 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:36:21 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:36:21 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:36:21 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:36:21 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:36:21 --> Email Class Initialized
+INFO - 2024-07-24 17:36:21 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:36:21 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:36:21 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:36:21 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:36:21 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:36:21 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:36:21 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:36:21 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:36:21 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:36:21 --> Controller Class Initialized
+INFO - 2024-07-24 17:36:21 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:36:21 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:36:21 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:36:21 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:36:21 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 17:36:21 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 17:36:21 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 17:36:21 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 17:36:21 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 17:36:21 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 17:36:21 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:36:21 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:36:21 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:36:21 --> Final output sent to browser
+DEBUG - 2024-07-24 17:36:21 --> Total execution time: 0.1343
+INFO - 2024-07-24 17:37:42 --> Config Class Initialized
+INFO - 2024-07-24 17:37:42 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:37:42 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:37:42 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:37:42 --> URI Class Initialized
+INFO - 2024-07-24 17:37:42 --> Router Class Initialized
+INFO - 2024-07-24 17:37:42 --> Output Class Initialized
+INFO - 2024-07-24 17:37:42 --> Security Class Initialized
+DEBUG - 2024-07-24 17:37:42 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:37:42 --> Input Class Initialized
+INFO - 2024-07-24 17:37:42 --> Language Class Initialized
+ERROR - 2024-07-24 17:37:42 --> Severity: error --> Exception: call_user_func_array(): Argument #1 ($callback) must be a valid callback, class Error does not have a method "error_404" C:\xampp\htdocs\mvl\system\core\CodeIgniter.php 532
+INFO - 2024-07-24 17:37:43 --> Config Class Initialized
+INFO - 2024-07-24 17:37:43 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:37:43 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:37:43 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:37:43 --> URI Class Initialized
+INFO - 2024-07-24 17:37:43 --> Router Class Initialized
+INFO - 2024-07-24 17:37:43 --> Output Class Initialized
+INFO - 2024-07-24 17:37:43 --> Security Class Initialized
+DEBUG - 2024-07-24 17:37:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:37:43 --> Input Class Initialized
+INFO - 2024-07-24 17:37:43 --> Language Class Initialized
+ERROR - 2024-07-24 17:37:43 --> Severity: error --> Exception: call_user_func_array(): Argument #1 ($callback) must be a valid callback, class Error does not have a method "error_404" C:\xampp\htdocs\mvl\system\core\CodeIgniter.php 532
+INFO - 2024-07-24 17:37:43 --> Config Class Initialized
+INFO - 2024-07-24 17:37:43 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:37:43 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:37:43 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:37:43 --> URI Class Initialized
+INFO - 2024-07-24 17:37:43 --> Router Class Initialized
+INFO - 2024-07-24 17:37:43 --> Output Class Initialized
+INFO - 2024-07-24 17:37:43 --> Security Class Initialized
+DEBUG - 2024-07-24 17:37:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:37:43 --> Input Class Initialized
+INFO - 2024-07-24 17:37:43 --> Language Class Initialized
+INFO - 2024-07-24 17:37:43 --> Loader Class Initialized
+INFO - 2024-07-24 17:37:43 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:37:43 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:37:43 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:37:43 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:37:43 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:37:43 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:37:43 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:37:43 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:37:43 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:37:43 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:37:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:37:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:37:43 --> Email Class Initialized
+INFO - 2024-07-24 17:37:43 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:37:43 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:37:43 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:37:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:37:43 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:37:43 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:37:43 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:37:43 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:37:43 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:37:43 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:37:43 --> Controller Class Initialized
+INFO - 2024-07-24 17:37:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:37:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:37:43 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:37:43 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:37:45 --> Config Class Initialized
+INFO - 2024-07-24 17:37:45 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:37:45 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:37:45 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:37:45 --> URI Class Initialized
+INFO - 2024-07-24 17:37:45 --> Router Class Initialized
+INFO - 2024-07-24 17:37:45 --> Output Class Initialized
+INFO - 2024-07-24 17:37:45 --> Security Class Initialized
+DEBUG - 2024-07-24 17:37:45 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:37:45 --> Input Class Initialized
+INFO - 2024-07-24 17:37:45 --> Language Class Initialized
+INFO - 2024-07-24 17:37:45 --> Loader Class Initialized
+INFO - 2024-07-24 17:37:45 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:37:45 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:37:45 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:37:45 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:37:45 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:37:45 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:37:45 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:37:45 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:37:45 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:37:45 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:37:45 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:37:45 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:37:45 --> Email Class Initialized
+INFO - 2024-07-24 17:37:45 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:37:45 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:37:45 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:37:45 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:37:45 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:37:45 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:37:45 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:37:45 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:37:45 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:37:45 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:37:45 --> Controller Class Initialized
+INFO - 2024-07-24 17:37:45 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:37:45 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:37:45 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:37:45 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:37:45 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:37:45 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:37:45 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:37:45 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:37:45 --> Final output sent to browser
+DEBUG - 2024-07-24 17:37:45 --> Total execution time: 0.0478
+INFO - 2024-07-24 17:41:09 --> Config Class Initialized
+INFO - 2024-07-24 17:41:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:41:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:41:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:41:09 --> URI Class Initialized
+INFO - 2024-07-24 17:41:09 --> Router Class Initialized
+INFO - 2024-07-24 17:41:09 --> Output Class Initialized
+INFO - 2024-07-24 17:41:09 --> Security Class Initialized
+DEBUG - 2024-07-24 17:41:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:41:09 --> Input Class Initialized
+INFO - 2024-07-24 17:41:09 --> Language Class Initialized
+INFO - 2024-07-24 17:41:09 --> Loader Class Initialized
+INFO - 2024-07-24 17:41:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:41:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:41:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:41:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:41:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:41:09 --> Email Class Initialized
+INFO - 2024-07-24 17:41:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:41:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:41:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:41:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:41:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:41:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:41:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:41:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:41:09 --> Controller Class Initialized
+INFO - 2024-07-24 17:41:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:41:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:41:09 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:41:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:41:09 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:41:09 --> Config Class Initialized
+INFO - 2024-07-24 17:41:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:41:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:41:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:41:09 --> URI Class Initialized
+INFO - 2024-07-24 17:41:09 --> Router Class Initialized
+INFO - 2024-07-24 17:41:09 --> Output Class Initialized
+INFO - 2024-07-24 17:41:09 --> Security Class Initialized
+DEBUG - 2024-07-24 17:41:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:41:09 --> Input Class Initialized
+INFO - 2024-07-24 17:41:09 --> Language Class Initialized
+INFO - 2024-07-24 17:41:09 --> Loader Class Initialized
+INFO - 2024-07-24 17:41:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:41:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:41:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:41:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:41:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:41:09 --> Email Class Initialized
+INFO - 2024-07-24 17:41:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:41:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:41:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:41:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:41:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:41:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:41:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:41:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:41:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:41:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:41:09 --> Controller Class Initialized
+ERROR - 2024-07-24 17:41:09 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 17:41:09 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 17:41:09 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 17:41:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:41:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:41:09 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:41:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:41:09 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:41:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:41:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 17:41:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:41:09 --> Final output sent to browser
+DEBUG - 2024-07-24 17:41:09 --> Total execution time: 0.0910
+INFO - 2024-07-24 17:41:15 --> Config Class Initialized
+INFO - 2024-07-24 17:41:15 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:41:15 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:41:15 --> URI Class Initialized
+INFO - 2024-07-24 17:41:15 --> Router Class Initialized
+INFO - 2024-07-24 17:41:15 --> Output Class Initialized
+INFO - 2024-07-24 17:41:15 --> Security Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:41:15 --> Input Class Initialized
+INFO - 2024-07-24 17:41:15 --> Language Class Initialized
+INFO - 2024-07-24 17:41:15 --> Loader Class Initialized
+INFO - 2024-07-24 17:41:15 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:41:15 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:41:15 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:41:15 --> Email Class Initialized
+INFO - 2024-07-24 17:41:15 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:41:15 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:41:15 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:41:15 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:41:15 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:41:15 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:41:15 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:41:15 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:41:15 --> Controller Class Initialized
+ERROR - 2024-07-24 17:41:15 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 17:41:15 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 17:41:15 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 17:41:15 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 17:41:15 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:41:15 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 17:41:15 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 17:41:15 --> Helper loaded: date_helper
+INFO - 2024-07-24 17:41:15 --> Config Class Initialized
+INFO - 2024-07-24 17:41:15 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:41:15 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:41:15 --> URI Class Initialized
+INFO - 2024-07-24 17:41:15 --> Router Class Initialized
+INFO - 2024-07-24 17:41:15 --> Output Class Initialized
+INFO - 2024-07-24 17:41:15 --> Security Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:41:15 --> Input Class Initialized
+INFO - 2024-07-24 17:41:15 --> Language Class Initialized
+INFO - 2024-07-24 17:41:15 --> Loader Class Initialized
+INFO - 2024-07-24 17:41:15 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:41:15 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:41:15 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:41:15 --> Email Class Initialized
+INFO - 2024-07-24 17:41:15 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:41:15 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:41:15 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:41:15 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:41:15 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:41:15 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:41:15 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:41:15 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:41:15 --> Controller Class Initialized
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:41:15 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:15 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:41:15 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:41:15 --> Final output sent to browser
+DEBUG - 2024-07-24 17:41:15 --> Total execution time: 0.1244
+INFO - 2024-07-24 17:41:15 --> Config Class Initialized
+INFO - 2024-07-24 17:41:15 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:41:15 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:41:15 --> URI Class Initialized
+INFO - 2024-07-24 17:41:15 --> Router Class Initialized
+INFO - 2024-07-24 17:41:15 --> Output Class Initialized
+INFO - 2024-07-24 17:41:15 --> Security Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:41:15 --> Input Class Initialized
+INFO - 2024-07-24 17:41:15 --> Language Class Initialized
+INFO - 2024-07-24 17:41:15 --> Loader Class Initialized
+INFO - 2024-07-24 17:41:15 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:41:15 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:41:15 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:41:15 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:41:15 --> Email Class Initialized
+INFO - 2024-07-24 17:41:15 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:41:15 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:41:15 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:41:15 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:41:15 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:41:15 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:41:15 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:41:15 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:41:15 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:41:15 --> Controller Class Initialized
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:41:15 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:41:15 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:15 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:41:15 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 17:41:15 --> Model "Obras_model" initialized
+INFO - 2024-07-24 17:41:15 --> Final output sent to browser
+DEBUG - 2024-07-24 17:41:15 --> Total execution time: 0.1620
+INFO - 2024-07-24 17:41:17 --> Config Class Initialized
+INFO - 2024-07-24 17:41:17 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:41:17 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:41:17 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:41:17 --> URI Class Initialized
+INFO - 2024-07-24 17:41:17 --> Router Class Initialized
+INFO - 2024-07-24 17:41:17 --> Output Class Initialized
+INFO - 2024-07-24 17:41:17 --> Security Class Initialized
+DEBUG - 2024-07-24 17:41:17 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:41:17 --> Input Class Initialized
+INFO - 2024-07-24 17:41:17 --> Language Class Initialized
+INFO - 2024-07-24 17:41:17 --> Loader Class Initialized
+INFO - 2024-07-24 17:41:17 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:41:17 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:41:17 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:41:17 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:41:17 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:41:17 --> Email Class Initialized
+INFO - 2024-07-24 17:41:17 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:41:17 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:41:17 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:41:17 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:41:17 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:41:17 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:41:17 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:41:17 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:41:17 --> Controller Class Initialized
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:41:17 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:17 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:41:17 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 17:41:17 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 17:41:17 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 17:41:17 --> Final output sent to browser
+DEBUG - 2024-07-24 17:41:17 --> Total execution time: 0.0826
+INFO - 2024-07-24 17:41:17 --> Config Class Initialized
+INFO - 2024-07-24 17:41:17 --> Hooks Class Initialized
+DEBUG - 2024-07-24 17:41:17 --> UTF-8 Support Enabled
+INFO - 2024-07-24 17:41:17 --> Utf8 Class Initialized
+INFO - 2024-07-24 17:41:17 --> URI Class Initialized
+INFO - 2024-07-24 17:41:17 --> Router Class Initialized
+INFO - 2024-07-24 17:41:17 --> Output Class Initialized
+INFO - 2024-07-24 17:41:17 --> Security Class Initialized
+DEBUG - 2024-07-24 17:41:17 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 17:41:17 --> Input Class Initialized
+INFO - 2024-07-24 17:41:17 --> Language Class Initialized
+INFO - 2024-07-24 17:41:17 --> Loader Class Initialized
+INFO - 2024-07-24 17:41:17 --> Helper loaded: form_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: directory_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: global_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: url_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: text_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: file_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: api_helper
+INFO - 2024-07-24 17:41:17 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 17:41:17 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 17:41:17 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 17:41:17 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 17:41:17 --> Email Class Initialized
+INFO - 2024-07-24 17:41:17 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 17:41:17 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 17:41:17 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 17:41:17 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 17:41:17 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 17:41:17 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 17:41:17 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 17:41:17 --> Encrypt Class Initialized
+INFO - 2024-07-24 17:41:17 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Programas_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Graph_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 17:41:17 --> Controller Class Initialized
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 17:41:17 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 17:41:17 --> Model "Manager_model" initialized
+INFO - 2024-07-24 17:41:17 --> Form Validation Class Initialized
+INFO - 2024-07-24 17:41:17 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 17:41:17 --> Model "Uploader_model" initialized
+INFO - 2024-07-24 17:41:18 --> Final output sent to browser
+DEBUG - 2024-07-24 17:41:18 --> Total execution time: 1.0851
+INFO - 2024-07-24 18:58:13 --> Config Class Initialized
+INFO - 2024-07-24 18:58:13 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:13 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:13 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:13 --> URI Class Initialized
+DEBUG - 2024-07-24 18:58:13 --> No URI present. Default controller set.
+INFO - 2024-07-24 18:58:13 --> Router Class Initialized
+INFO - 2024-07-24 18:58:13 --> Output Class Initialized
+INFO - 2024-07-24 18:58:13 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:13 --> Input Class Initialized
+INFO - 2024-07-24 18:58:13 --> Language Class Initialized
+INFO - 2024-07-24 18:58:13 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:13 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:13 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:13 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:13 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:13 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:13 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:13 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:13 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:13 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:13 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:13 --> Email Class Initialized
+INFO - 2024-07-24 18:58:13 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:13 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:13 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:13 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:13 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:13 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:13 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:13 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:13 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:13 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:58:13 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:58:13 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:13 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:58:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:58:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 18:58:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:58:13 --> Final output sent to browser
+DEBUG - 2024-07-24 18:58:13 --> Total execution time: 0.1198
+INFO - 2024-07-24 18:58:36 --> Config Class Initialized
+INFO - 2024-07-24 18:58:36 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:36 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:36 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:36 --> URI Class Initialized
+INFO - 2024-07-24 18:58:36 --> Router Class Initialized
+INFO - 2024-07-24 18:58:36 --> Output Class Initialized
+INFO - 2024-07-24 18:58:36 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:36 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:36 --> Input Class Initialized
+INFO - 2024-07-24 18:58:36 --> Language Class Initialized
+INFO - 2024-07-24 18:58:36 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:36 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:36 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:36 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:36 --> Email Class Initialized
+INFO - 2024-07-24 18:58:36 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:36 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:36 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:36 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:36 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:36 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:36 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:36 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:36 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:58:36 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:58:36 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:36 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:58:36 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 18:58:36 --> Helper loaded: date_helper
+INFO - 2024-07-24 18:58:36 --> Config Class Initialized
+INFO - 2024-07-24 18:58:36 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:36 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:36 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:36 --> URI Class Initialized
+INFO - 2024-07-24 18:58:36 --> Router Class Initialized
+INFO - 2024-07-24 18:58:36 --> Output Class Initialized
+INFO - 2024-07-24 18:58:36 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:36 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:36 --> Input Class Initialized
+INFO - 2024-07-24 18:58:36 --> Language Class Initialized
+INFO - 2024-07-24 18:58:36 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:36 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:36 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:36 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:36 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:36 --> Email Class Initialized
+INFO - 2024-07-24 18:58:36 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:36 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:36 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:36 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:36 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:36 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:36 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:36 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:36 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:36 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:58:36 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:36 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:36 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 18:58:36 --> Model "Obras_model" initialized
+INFO - 2024-07-24 18:58:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 18:58:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:58:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 18:58:36 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:58:36 --> Final output sent to browser
+DEBUG - 2024-07-24 18:58:36 --> Total execution time: 0.1538
+INFO - 2024-07-24 18:58:37 --> Config Class Initialized
+INFO - 2024-07-24 18:58:37 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:37 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:37 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:37 --> URI Class Initialized
+INFO - 2024-07-24 18:58:37 --> Router Class Initialized
+INFO - 2024-07-24 18:58:37 --> Output Class Initialized
+INFO - 2024-07-24 18:58:37 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:37 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:37 --> Input Class Initialized
+INFO - 2024-07-24 18:58:37 --> Language Class Initialized
+INFO - 2024-07-24 18:58:37 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:37 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:37 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:37 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:37 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:37 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:37 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:37 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:37 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:37 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:37 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:37 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:37 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:37 --> Email Class Initialized
+INFO - 2024-07-24 18:58:37 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:37 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:37 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:37 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:37 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:37 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:37 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:37 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:37 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:37 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:37 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:37 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:58:37 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:37 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:37 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 18:58:37 --> Model "Obras_model" initialized
+INFO - 2024-07-24 18:58:37 --> Final output sent to browser
+DEBUG - 2024-07-24 18:58:37 --> Total execution time: 0.1459
+INFO - 2024-07-24 18:58:38 --> Config Class Initialized
+INFO - 2024-07-24 18:58:38 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:38 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:38 --> URI Class Initialized
+INFO - 2024-07-24 18:58:38 --> Router Class Initialized
+INFO - 2024-07-24 18:58:38 --> Output Class Initialized
+INFO - 2024-07-24 18:58:38 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:38 --> Input Class Initialized
+INFO - 2024-07-24 18:58:38 --> Language Class Initialized
+INFO - 2024-07-24 18:58:38 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:38 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:38 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:38 --> Email Class Initialized
+INFO - 2024-07-24 18:58:38 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:38 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:38 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:38 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:38 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:38 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:38 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:38 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:38 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:58:38 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:38 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:38 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 18:58:38 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 18:58:38 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:58:38 --> Final output sent to browser
+DEBUG - 2024-07-24 18:58:38 --> Total execution time: 0.0692
+INFO - 2024-07-24 18:58:38 --> Config Class Initialized
+INFO - 2024-07-24 18:58:38 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:38 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:38 --> URI Class Initialized
+INFO - 2024-07-24 18:58:38 --> Router Class Initialized
+INFO - 2024-07-24 18:58:38 --> Output Class Initialized
+INFO - 2024-07-24 18:58:38 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:38 --> Input Class Initialized
+INFO - 2024-07-24 18:58:38 --> Language Class Initialized
+INFO - 2024-07-24 18:58:38 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:38 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:38 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:38 --> Email Class Initialized
+INFO - 2024-07-24 18:58:38 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:38 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:38 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:38 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:38 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:38 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:38 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:38 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:38 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:58:38 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:38 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:38 --> Config Class Initialized
+INFO - 2024-07-24 18:58:38 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:38 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:38 --> URI Class Initialized
+INFO - 2024-07-24 18:58:38 --> Router Class Initialized
+INFO - 2024-07-24 18:58:38 --> Output Class Initialized
+INFO - 2024-07-24 18:58:38 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:38 --> Input Class Initialized
+INFO - 2024-07-24 18:58:38 --> Language Class Initialized
+INFO - 2024-07-24 18:58:38 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:38 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:38 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:38 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:38 --> Email Class Initialized
+INFO - 2024-07-24 18:58:38 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:38 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:38 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:38 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:38 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:38 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:38 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:38 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:38 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:38 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:38 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:58:38 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:58:38 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:38 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 18:58:38 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:58:38 --> Final output sent to browser
+DEBUG - 2024-07-24 18:58:38 --> Total execution time: 0.0673
+INFO - 2024-07-24 18:58:44 --> Config Class Initialized
+INFO - 2024-07-24 18:58:44 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:44 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:44 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:44 --> URI Class Initialized
+INFO - 2024-07-24 18:58:44 --> Router Class Initialized
+INFO - 2024-07-24 18:58:44 --> Output Class Initialized
+INFO - 2024-07-24 18:58:44 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:44 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:44 --> Input Class Initialized
+INFO - 2024-07-24 18:58:44 --> Language Class Initialized
+INFO - 2024-07-24 18:58:44 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:44 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:44 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:44 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:44 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:44 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:44 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:44 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:44 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:44 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:44 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:44 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:44 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:44 --> Email Class Initialized
+INFO - 2024-07-24 18:58:44 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:44 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:44 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:44 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:44 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:44 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:44 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:44 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:44 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:44 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:58:44 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:44 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:44 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 18:58:44 --> Model "Obras_model" initialized
+INFO - 2024-07-24 18:58:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 18:58:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:58:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 18:58:44 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:58:44 --> Final output sent to browser
+DEBUG - 2024-07-24 18:58:44 --> Total execution time: 0.1190
+INFO - 2024-07-24 18:58:44 --> Config Class Initialized
+INFO - 2024-07-24 18:58:44 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:58:44 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:58:44 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:58:44 --> URI Class Initialized
+INFO - 2024-07-24 18:58:44 --> Router Class Initialized
+INFO - 2024-07-24 18:58:44 --> Output Class Initialized
+INFO - 2024-07-24 18:58:44 --> Security Class Initialized
+DEBUG - 2024-07-24 18:58:44 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:58:44 --> Input Class Initialized
+INFO - 2024-07-24 18:58:44 --> Language Class Initialized
+INFO - 2024-07-24 18:58:44 --> Loader Class Initialized
+INFO - 2024-07-24 18:58:45 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:58:45 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:58:45 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:58:45 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:58:45 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:58:45 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:58:45 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:58:45 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:58:45 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:58:45 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:58:45 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:58:45 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:58:45 --> Email Class Initialized
+INFO - 2024-07-24 18:58:45 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:58:45 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:58:45 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:58:45 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:58:45 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:58:45 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:58:45 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:58:45 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:58:45 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:58:45 --> Controller Class Initialized
+INFO - 2024-07-24 18:58:45 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:58:45 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:58:45 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:58:45 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:58:45 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 18:58:45 --> Model "Obras_model" initialized
+INFO - 2024-07-24 18:58:45 --> Final output sent to browser
+DEBUG - 2024-07-24 18:58:45 --> Total execution time: 0.1384
+INFO - 2024-07-24 18:59:01 --> Config Class Initialized
+INFO - 2024-07-24 18:59:01 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:01 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:01 --> URI Class Initialized
+INFO - 2024-07-24 18:59:01 --> Router Class Initialized
+INFO - 2024-07-24 18:59:01 --> Output Class Initialized
+INFO - 2024-07-24 18:59:01 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:01 --> Input Class Initialized
+INFO - 2024-07-24 18:59:01 --> Language Class Initialized
+INFO - 2024-07-24 18:59:01 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:01 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:01 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:01 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:01 --> Email Class Initialized
+INFO - 2024-07-24 18:59:01 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:01 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:01 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:01 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:01 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:01 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:01 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:01 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:01 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:01 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:01 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:01 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 18:59:01 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 18:59:01 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:01 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:01 --> Total execution time: 0.0765
+INFO - 2024-07-24 18:59:01 --> Config Class Initialized
+INFO - 2024-07-24 18:59:01 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:01 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:01 --> URI Class Initialized
+INFO - 2024-07-24 18:59:01 --> Router Class Initialized
+INFO - 2024-07-24 18:59:01 --> Output Class Initialized
+INFO - 2024-07-24 18:59:01 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:01 --> Input Class Initialized
+INFO - 2024-07-24 18:59:01 --> Language Class Initialized
+INFO - 2024-07-24 18:59:01 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:01 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:01 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:01 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:01 --> Email Class Initialized
+INFO - 2024-07-24 18:59:01 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:01 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:01 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:01 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:01 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:01 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:01 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:01 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:01 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:01 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:01 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:01 --> Config Class Initialized
+INFO - 2024-07-24 18:59:01 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:01 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:01 --> URI Class Initialized
+INFO - 2024-07-24 18:59:01 --> Router Class Initialized
+INFO - 2024-07-24 18:59:01 --> Output Class Initialized
+INFO - 2024-07-24 18:59:01 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:01 --> Input Class Initialized
+INFO - 2024-07-24 18:59:01 --> Language Class Initialized
+INFO - 2024-07-24 18:59:01 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:01 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:01 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:01 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:01 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:01 --> Email Class Initialized
+INFO - 2024-07-24 18:59:01 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:01 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:01 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:01 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:01 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:01 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:01 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:01 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:01 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:01 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:01 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:59:01 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:59:01 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:01 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 18:59:01 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:01 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:01 --> Total execution time: 0.0532
+INFO - 2024-07-24 18:59:04 --> Config Class Initialized
+INFO - 2024-07-24 18:59:04 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:04 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:04 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:04 --> URI Class Initialized
+INFO - 2024-07-24 18:59:04 --> Router Class Initialized
+INFO - 2024-07-24 18:59:04 --> Output Class Initialized
+INFO - 2024-07-24 18:59:04 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:04 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:04 --> Input Class Initialized
+INFO - 2024-07-24 18:59:04 --> Language Class Initialized
+INFO - 2024-07-24 18:59:04 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:04 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:04 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:04 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:04 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:04 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:04 --> Email Class Initialized
+INFO - 2024-07-24 18:59:04 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:04 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:04 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:04 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:04 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:04 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:04 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:04 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:04 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:04 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:04 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:04 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 18:59:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/secretarias/listados.php
+INFO - 2024-07-24 18:59:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 18:59:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:04 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:04 --> Total execution time: 0.0573
+INFO - 2024-07-24 18:59:04 --> Config Class Initialized
+INFO - 2024-07-24 18:59:04 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:04 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:04 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:04 --> URI Class Initialized
+INFO - 2024-07-24 18:59:04 --> Router Class Initialized
+INFO - 2024-07-24 18:59:04 --> Output Class Initialized
+INFO - 2024-07-24 18:59:04 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:04 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:04 --> Input Class Initialized
+INFO - 2024-07-24 18:59:04 --> Language Class Initialized
+INFO - 2024-07-24 18:59:04 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:04 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:04 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:04 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:04 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:04 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:04 --> Email Class Initialized
+INFO - 2024-07-24 18:59:04 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:04 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:04 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:04 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:04 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:04 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:04 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:04 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:04 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:04 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:04 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:04 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:04 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:04 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:04 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 18:59:05 --> Config Class Initialized
+INFO - 2024-07-24 18:59:05 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:05 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:05 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:05 --> URI Class Initialized
+INFO - 2024-07-24 18:59:05 --> Router Class Initialized
+INFO - 2024-07-24 18:59:05 --> Output Class Initialized
+INFO - 2024-07-24 18:59:05 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:05 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:05 --> Input Class Initialized
+INFO - 2024-07-24 18:59:05 --> Language Class Initialized
+INFO - 2024-07-24 18:59:05 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:05 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:05 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:05 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:05 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:05 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:05 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:05 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:05 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:05 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:05 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:05 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:05 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:05 --> Email Class Initialized
+INFO - 2024-07-24 18:59:05 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:05 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:05 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:05 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:05 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:05 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:05 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:05 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:05 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:05 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:05 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:05 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:05 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:05 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:05 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 18:59:05 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 18:59:05 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 18:59:05 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 18:59:05 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 18:59:05 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 18:59:05 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:05 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 18:59:05 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:05 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:05 --> Total execution time: 0.0604
+INFO - 2024-07-24 18:59:06 --> Config Class Initialized
+INFO - 2024-07-24 18:59:06 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:06 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:06 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:06 --> URI Class Initialized
+INFO - 2024-07-24 18:59:06 --> Router Class Initialized
+INFO - 2024-07-24 18:59:06 --> Output Class Initialized
+INFO - 2024-07-24 18:59:06 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:06 --> Input Class Initialized
+INFO - 2024-07-24 18:59:06 --> Language Class Initialized
+INFO - 2024-07-24 18:59:06 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:06 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:06 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:06 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:06 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:06 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:06 --> Email Class Initialized
+INFO - 2024-07-24 18:59:06 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:06 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:06 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:06 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:06 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:06 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:06 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:06 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:06 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:06 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:06 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:06 --> Config Class Initialized
+INFO - 2024-07-24 18:59:06 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:06 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:06 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:06 --> URI Class Initialized
+INFO - 2024-07-24 18:59:06 --> Router Class Initialized
+INFO - 2024-07-24 18:59:06 --> Output Class Initialized
+INFO - 2024-07-24 18:59:06 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:06 --> Input Class Initialized
+INFO - 2024-07-24 18:59:06 --> Language Class Initialized
+INFO - 2024-07-24 18:59:06 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:06 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:06 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:06 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:06 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:06 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:06 --> Email Class Initialized
+INFO - 2024-07-24 18:59:06 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:06 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:06 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:06 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:06 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:06 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:06 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:06 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:06 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:06 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:06 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:59:06 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:59:06 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:06 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:59:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 18:59:06 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:06 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:06 --> Total execution time: 0.0615
+INFO - 2024-07-24 18:59:08 --> Config Class Initialized
+INFO - 2024-07-24 18:59:08 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:08 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:08 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:08 --> URI Class Initialized
+INFO - 2024-07-24 18:59:08 --> Router Class Initialized
+INFO - 2024-07-24 18:59:08 --> Output Class Initialized
+INFO - 2024-07-24 18:59:08 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:08 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:08 --> Input Class Initialized
+INFO - 2024-07-24 18:59:08 --> Language Class Initialized
+INFO - 2024-07-24 18:59:08 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:08 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:08 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:08 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:08 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:08 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:08 --> Email Class Initialized
+INFO - 2024-07-24 18:59:08 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:08 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:08 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:08 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:08 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:08 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:08 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:08 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:08 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:59:08 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:59:08 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:08 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:59:08 --> Config Class Initialized
+INFO - 2024-07-24 18:59:08 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:08 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:08 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:08 --> URI Class Initialized
+INFO - 2024-07-24 18:59:08 --> Router Class Initialized
+INFO - 2024-07-24 18:59:08 --> Output Class Initialized
+INFO - 2024-07-24 18:59:08 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:08 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:08 --> Input Class Initialized
+INFO - 2024-07-24 18:59:08 --> Language Class Initialized
+INFO - 2024-07-24 18:59:08 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:08 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:08 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:08 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:08 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:08 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:08 --> Email Class Initialized
+INFO - 2024-07-24 18:59:08 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:08 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:08 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:08 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:08 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:08 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:08 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:08 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:08 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:08 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:08 --> Controller Class Initialized
+ERROR - 2024-07-24 18:59:08 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 18:59:08 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 18:59:08 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 18:59:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:59:08 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:59:08 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:08 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:59:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 18:59:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:08 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:08 --> Total execution time: 0.0881
+INFO - 2024-07-24 18:59:18 --> Config Class Initialized
+INFO - 2024-07-24 18:59:18 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:18 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:18 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:18 --> URI Class Initialized
+INFO - 2024-07-24 18:59:18 --> Router Class Initialized
+INFO - 2024-07-24 18:59:18 --> Output Class Initialized
+INFO - 2024-07-24 18:59:18 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:18 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:18 --> Input Class Initialized
+INFO - 2024-07-24 18:59:18 --> Language Class Initialized
+INFO - 2024-07-24 18:59:18 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:18 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:18 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:18 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:18 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:18 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:18 --> Email Class Initialized
+INFO - 2024-07-24 18:59:18 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:18 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:18 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:18 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:18 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:18 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:18 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:18 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:18 --> Controller Class Initialized
+ERROR - 2024-07-24 18:59:18 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 18:59:18 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 18:59:18 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 18:59:18 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:18 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:59:18 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:59:18 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:18 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:59:18 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 18:59:18 --> Helper loaded: date_helper
+INFO - 2024-07-24 18:59:18 --> Config Class Initialized
+INFO - 2024-07-24 18:59:18 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:18 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:18 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:18 --> URI Class Initialized
+INFO - 2024-07-24 18:59:18 --> Router Class Initialized
+INFO - 2024-07-24 18:59:18 --> Output Class Initialized
+INFO - 2024-07-24 18:59:18 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:18 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:18 --> Input Class Initialized
+INFO - 2024-07-24 18:59:18 --> Language Class Initialized
+INFO - 2024-07-24 18:59:18 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:18 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:18 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:18 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:18 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:18 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:18 --> Email Class Initialized
+INFO - 2024-07-24 18:59:18 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:18 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:18 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:18 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:18 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:18 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:18 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:18 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:18 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:18 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:18 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:18 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:18 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:18 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:18 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 18:59:18 --> Model "Obras_model" initialized
+INFO - 2024-07-24 18:59:18 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 18:59:18 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:18 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 18:59:18 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:18 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:18 --> Total execution time: 0.0982
+INFO - 2024-07-24 18:59:19 --> Config Class Initialized
+INFO - 2024-07-24 18:59:19 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:19 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:19 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:19 --> URI Class Initialized
+INFO - 2024-07-24 18:59:19 --> Router Class Initialized
+INFO - 2024-07-24 18:59:19 --> Output Class Initialized
+INFO - 2024-07-24 18:59:19 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:19 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:19 --> Input Class Initialized
+INFO - 2024-07-24 18:59:19 --> Language Class Initialized
+INFO - 2024-07-24 18:59:19 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:19 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:19 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:19 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:19 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:19 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:19 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:19 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:19 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:19 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:19 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:19 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:19 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:19 --> Email Class Initialized
+INFO - 2024-07-24 18:59:19 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:19 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:19 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:19 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:19 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:19 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:19 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:19 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:19 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:19 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:19 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:19 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:19 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:19 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:19 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 18:59:19 --> Model "Obras_model" initialized
+INFO - 2024-07-24 18:59:19 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:19 --> Total execution time: 0.1383
+INFO - 2024-07-24 18:59:20 --> Config Class Initialized
+INFO - 2024-07-24 18:59:20 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:20 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:20 --> URI Class Initialized
+INFO - 2024-07-24 18:59:20 --> Router Class Initialized
+INFO - 2024-07-24 18:59:20 --> Output Class Initialized
+INFO - 2024-07-24 18:59:20 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:20 --> Input Class Initialized
+INFO - 2024-07-24 18:59:20 --> Language Class Initialized
+INFO - 2024-07-24 18:59:20 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:20 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:20 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:20 --> Email Class Initialized
+INFO - 2024-07-24 18:59:20 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:20 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:20 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:20 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:20 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:20 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:20 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:20 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:20 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:20 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:20 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:20 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 18:59:20 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 18:59:20 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:20 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:20 --> Total execution time: 0.0632
+INFO - 2024-07-24 18:59:20 --> Config Class Initialized
+INFO - 2024-07-24 18:59:20 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:20 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:20 --> URI Class Initialized
+INFO - 2024-07-24 18:59:20 --> Router Class Initialized
+INFO - 2024-07-24 18:59:20 --> Output Class Initialized
+INFO - 2024-07-24 18:59:20 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:20 --> Input Class Initialized
+INFO - 2024-07-24 18:59:20 --> Language Class Initialized
+INFO - 2024-07-24 18:59:20 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:20 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:20 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:20 --> Email Class Initialized
+INFO - 2024-07-24 18:59:20 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:20 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:20 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:20 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:20 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:20 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:20 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:20 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:20 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 18:59:20 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:20 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:20 --> Config Class Initialized
+INFO - 2024-07-24 18:59:20 --> Hooks Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> UTF-8 Support Enabled
+INFO - 2024-07-24 18:59:20 --> Utf8 Class Initialized
+INFO - 2024-07-24 18:59:20 --> URI Class Initialized
+INFO - 2024-07-24 18:59:20 --> Router Class Initialized
+INFO - 2024-07-24 18:59:20 --> Output Class Initialized
+INFO - 2024-07-24 18:59:20 --> Security Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 18:59:20 --> Input Class Initialized
+INFO - 2024-07-24 18:59:20 --> Language Class Initialized
+INFO - 2024-07-24 18:59:20 --> Loader Class Initialized
+INFO - 2024-07-24 18:59:20 --> Helper loaded: form_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: directory_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: global_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: url_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: text_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: file_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: api_helper
+INFO - 2024-07-24 18:59:20 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 18:59:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 18:59:20 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 18:59:20 --> Email Class Initialized
+INFO - 2024-07-24 18:59:20 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 18:59:20 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 18:59:20 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 18:59:20 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 18:59:20 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 18:59:20 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 18:59:20 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 18:59:20 --> Encrypt Class Initialized
+INFO - 2024-07-24 18:59:20 --> Model "Manager_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Programas_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Graph_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 18:59:20 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 18:59:20 --> Controller Class Initialized
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 18:59:20 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 18:59:20 --> Form Validation Class Initialized
+INFO - 2024-07-24 18:59:20 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 18:59:20 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 18:59:20 --> Final output sent to browser
+DEBUG - 2024-07-24 18:59:20 --> Total execution time: 0.0526
+INFO - 2024-07-24 19:02:43 --> Config Class Initialized
+INFO - 2024-07-24 19:02:43 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:43 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:43 --> URI Class Initialized
+INFO - 2024-07-24 19:02:43 --> Router Class Initialized
+INFO - 2024-07-24 19:02:43 --> Output Class Initialized
+INFO - 2024-07-24 19:02:43 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:43 --> Input Class Initialized
+INFO - 2024-07-24 19:02:43 --> Language Class Initialized
+INFO - 2024-07-24 19:02:43 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:43 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:43 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:43 --> Email Class Initialized
+INFO - 2024-07-24 19:02:43 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:43 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:43 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:43 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:43 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:43 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:43 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:43 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:02:43 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:43 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:43 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 19:02:43 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 19:02:43 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:02:43 --> Final output sent to browser
+DEBUG - 2024-07-24 19:02:43 --> Total execution time: 0.0726
+INFO - 2024-07-24 19:02:43 --> Config Class Initialized
+INFO - 2024-07-24 19:02:43 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:43 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:43 --> URI Class Initialized
+INFO - 2024-07-24 19:02:43 --> Router Class Initialized
+INFO - 2024-07-24 19:02:43 --> Output Class Initialized
+INFO - 2024-07-24 19:02:43 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:43 --> Input Class Initialized
+INFO - 2024-07-24 19:02:43 --> Language Class Initialized
+INFO - 2024-07-24 19:02:43 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:43 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:43 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:43 --> Email Class Initialized
+INFO - 2024-07-24 19:02:43 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:43 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:43 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:43 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:43 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:43 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:43 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:43 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:02:43 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:43 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:43 --> Config Class Initialized
+INFO - 2024-07-24 19:02:43 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:43 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:43 --> URI Class Initialized
+INFO - 2024-07-24 19:02:43 --> Router Class Initialized
+INFO - 2024-07-24 19:02:43 --> Output Class Initialized
+INFO - 2024-07-24 19:02:43 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:43 --> Input Class Initialized
+INFO - 2024-07-24 19:02:43 --> Language Class Initialized
+INFO - 2024-07-24 19:02:43 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:43 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:43 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:43 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:43 --> Email Class Initialized
+INFO - 2024-07-24 19:02:43 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:43 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:43 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:43 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:43 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:43 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:43 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:43 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:43 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:43 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:43 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 19:02:43 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 19:02:43 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:43 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 19:02:43 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:02:43 --> Final output sent to browser
+DEBUG - 2024-07-24 19:02:43 --> Total execution time: 0.0543
+INFO - 2024-07-24 19:02:46 --> Config Class Initialized
+INFO - 2024-07-24 19:02:46 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:46 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:46 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:46 --> URI Class Initialized
+INFO - 2024-07-24 19:02:46 --> Router Class Initialized
+INFO - 2024-07-24 19:02:46 --> Output Class Initialized
+INFO - 2024-07-24 19:02:46 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:46 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:46 --> Input Class Initialized
+INFO - 2024-07-24 19:02:46 --> Language Class Initialized
+INFO - 2024-07-24 19:02:46 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:46 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:46 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:46 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:46 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:46 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:46 --> Email Class Initialized
+INFO - 2024-07-24 19:02:46 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:46 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:46 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:46 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:46 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:46 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:46 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:46 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:46 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:46 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:46 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:02:46 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:46 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:46 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Obras_model" initialized
+INFO - 2024-07-24 19:02:46 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 19:02:46 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:02:46 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 19:02:46 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:02:46 --> Final output sent to browser
+DEBUG - 2024-07-24 19:02:46 --> Total execution time: 0.1137
+INFO - 2024-07-24 19:02:46 --> Config Class Initialized
+INFO - 2024-07-24 19:02:46 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:46 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:46 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:46 --> URI Class Initialized
+INFO - 2024-07-24 19:02:46 --> Router Class Initialized
+INFO - 2024-07-24 19:02:46 --> Output Class Initialized
+INFO - 2024-07-24 19:02:46 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:46 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:46 --> Input Class Initialized
+INFO - 2024-07-24 19:02:46 --> Language Class Initialized
+INFO - 2024-07-24 19:02:46 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:46 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:46 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:46 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:46 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:46 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:46 --> Email Class Initialized
+INFO - 2024-07-24 19:02:46 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:46 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:46 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:46 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:46 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:46 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:46 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:46 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:46 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:46 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:46 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:46 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:02:46 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:46 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:46 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 19:02:46 --> Model "Obras_model" initialized
+INFO - 2024-07-24 19:02:46 --> Final output sent to browser
+DEBUG - 2024-07-24 19:02:46 --> Total execution time: 0.1403
+INFO - 2024-07-24 19:02:47 --> Config Class Initialized
+INFO - 2024-07-24 19:02:47 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:47 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:47 --> URI Class Initialized
+INFO - 2024-07-24 19:02:47 --> Router Class Initialized
+INFO - 2024-07-24 19:02:47 --> Output Class Initialized
+INFO - 2024-07-24 19:02:47 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:47 --> Input Class Initialized
+INFO - 2024-07-24 19:02:47 --> Language Class Initialized
+INFO - 2024-07-24 19:02:47 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:47 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:47 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:47 --> Email Class Initialized
+INFO - 2024-07-24 19:02:47 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:47 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:47 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:47 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:47 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:47 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:47 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:47 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:47 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:02:47 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:47 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:47 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 19:02:47 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 19:02:47 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:02:47 --> Final output sent to browser
+DEBUG - 2024-07-24 19:02:47 --> Total execution time: 0.0618
+INFO - 2024-07-24 19:02:47 --> Config Class Initialized
+INFO - 2024-07-24 19:02:47 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:47 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:47 --> URI Class Initialized
+INFO - 2024-07-24 19:02:47 --> Router Class Initialized
+INFO - 2024-07-24 19:02:47 --> Output Class Initialized
+INFO - 2024-07-24 19:02:47 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:47 --> Input Class Initialized
+INFO - 2024-07-24 19:02:47 --> Language Class Initialized
+INFO - 2024-07-24 19:02:47 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:47 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:47 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:47 --> Email Class Initialized
+INFO - 2024-07-24 19:02:47 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:47 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:47 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:47 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:47 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:47 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:47 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:47 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:47 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:02:47 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:47 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:47 --> Config Class Initialized
+INFO - 2024-07-24 19:02:47 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:47 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:47 --> URI Class Initialized
+INFO - 2024-07-24 19:02:47 --> Router Class Initialized
+INFO - 2024-07-24 19:02:47 --> Output Class Initialized
+INFO - 2024-07-24 19:02:47 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:47 --> Input Class Initialized
+INFO - 2024-07-24 19:02:47 --> Language Class Initialized
+INFO - 2024-07-24 19:02:47 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:47 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:47 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:47 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:47 --> Email Class Initialized
+INFO - 2024-07-24 19:02:47 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:47 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:47 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:47 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:47 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:47 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:47 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:47 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:47 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:47 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:47 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 19:02:47 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 19:02:47 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:47 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 19:02:47 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:02:47 --> Final output sent to browser
+DEBUG - 2024-07-24 19:02:47 --> Total execution time: 0.0536
+INFO - 2024-07-24 19:02:56 --> Config Class Initialized
+INFO - 2024-07-24 19:02:56 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:56 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:56 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:56 --> URI Class Initialized
+INFO - 2024-07-24 19:02:56 --> Router Class Initialized
+INFO - 2024-07-24 19:02:56 --> Output Class Initialized
+INFO - 2024-07-24 19:02:56 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:56 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:56 --> Input Class Initialized
+INFO - 2024-07-24 19:02:56 --> Language Class Initialized
+INFO - 2024-07-24 19:02:56 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:56 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:56 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:56 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:56 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:56 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:56 --> Email Class Initialized
+INFO - 2024-07-24 19:02:56 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:56 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:56 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:56 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:56 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:56 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:56 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:56 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:56 --> Controller Class Initialized
+INFO - 2024-07-24 19:02:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 19:02:56 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 19:02:56 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:56 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 19:02:56 --> Config Class Initialized
+INFO - 2024-07-24 19:02:56 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:02:56 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:02:56 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:02:56 --> URI Class Initialized
+INFO - 2024-07-24 19:02:56 --> Router Class Initialized
+INFO - 2024-07-24 19:02:56 --> Output Class Initialized
+INFO - 2024-07-24 19:02:56 --> Security Class Initialized
+DEBUG - 2024-07-24 19:02:56 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:02:56 --> Input Class Initialized
+INFO - 2024-07-24 19:02:56 --> Language Class Initialized
+INFO - 2024-07-24 19:02:56 --> Loader Class Initialized
+INFO - 2024-07-24 19:02:56 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:02:56 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:02:56 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:02:56 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:02:56 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:02:56 --> Email Class Initialized
+INFO - 2024-07-24 19:02:56 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:02:56 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:02:56 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:02:56 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:02:56 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:02:56 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:02:56 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:02:56 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:02:56 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:02:56 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:02:56 --> Controller Class Initialized
+ERROR - 2024-07-24 19:02:56 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 19:02:56 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 19:02:56 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 19:02:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:02:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 19:02:56 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 19:02:56 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:02:56 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 19:02:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:02:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 19:02:56 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:02:56 --> Final output sent to browser
+DEBUG - 2024-07-24 19:02:56 --> Total execution time: 0.0688
+INFO - 2024-07-24 19:03:09 --> Config Class Initialized
+INFO - 2024-07-24 19:03:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:03:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:03:09 --> URI Class Initialized
+INFO - 2024-07-24 19:03:09 --> Router Class Initialized
+INFO - 2024-07-24 19:03:09 --> Output Class Initialized
+INFO - 2024-07-24 19:03:09 --> Security Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:03:09 --> Input Class Initialized
+INFO - 2024-07-24 19:03:09 --> Language Class Initialized
+INFO - 2024-07-24 19:03:09 --> Loader Class Initialized
+INFO - 2024-07-24 19:03:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:03:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:03:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:03:09 --> Email Class Initialized
+INFO - 2024-07-24 19:03:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:03:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:03:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:03:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:03:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:03:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:03:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:03:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:03:09 --> Controller Class Initialized
+ERROR - 2024-07-24 19:03:09 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 46
+ERROR - 2024-07-24 19:03:09 --> Severity: Warning --> Attempt to read property "first_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+ERROR - 2024-07-24 19:03:09 --> Severity: Warning --> Attempt to read property "last_name" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\nav2.php 104
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 19:03:09 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 19:03:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:03:09 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 19:03:09 --> Language file loaded: language/spanish/form_validation_lang.php
+INFO - 2024-07-24 19:03:09 --> Helper loaded: date_helper
+INFO - 2024-07-24 19:03:09 --> Config Class Initialized
+INFO - 2024-07-24 19:03:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:03:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:03:09 --> URI Class Initialized
+INFO - 2024-07-24 19:03:09 --> Router Class Initialized
+INFO - 2024-07-24 19:03:09 --> Output Class Initialized
+INFO - 2024-07-24 19:03:09 --> Security Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:03:09 --> Input Class Initialized
+INFO - 2024-07-24 19:03:09 --> Language Class Initialized
+INFO - 2024-07-24 19:03:09 --> Loader Class Initialized
+INFO - 2024-07-24 19:03:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:03:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:03:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:03:09 --> Email Class Initialized
+INFO - 2024-07-24 19:03:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:03:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:03:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:03:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:03:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:03:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:03:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:03:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:03:09 --> Controller Class Initialized
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:03:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:03:09 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Obras_model" initialized
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:03:09 --> Final output sent to browser
+DEBUG - 2024-07-24 19:03:09 --> Total execution time: 0.1101
+INFO - 2024-07-24 19:03:09 --> Config Class Initialized
+INFO - 2024-07-24 19:03:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:03:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:03:09 --> URI Class Initialized
+INFO - 2024-07-24 19:03:09 --> Router Class Initialized
+INFO - 2024-07-24 19:03:09 --> Output Class Initialized
+INFO - 2024-07-24 19:03:09 --> Security Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:03:09 --> Input Class Initialized
+INFO - 2024-07-24 19:03:09 --> Language Class Initialized
+INFO - 2024-07-24 19:03:09 --> Loader Class Initialized
+INFO - 2024-07-24 19:03:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:03:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:03:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:03:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:03:09 --> Email Class Initialized
+INFO - 2024-07-24 19:03:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:03:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:03:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:03:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:03:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:03:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:03:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:03:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:03:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:03:09 --> Controller Class Initialized
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:03:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:03:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:03:09 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 19:03:09 --> Model "Obras_model" initialized
+INFO - 2024-07-24 19:03:09 --> Final output sent to browser
+DEBUG - 2024-07-24 19:03:09 --> Total execution time: 0.1252
+INFO - 2024-07-24 19:03:13 --> Config Class Initialized
+INFO - 2024-07-24 19:03:13 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:03:13 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:03:13 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:03:13 --> URI Class Initialized
+INFO - 2024-07-24 19:03:13 --> Router Class Initialized
+INFO - 2024-07-24 19:03:13 --> Output Class Initialized
+INFO - 2024-07-24 19:03:13 --> Security Class Initialized
+DEBUG - 2024-07-24 19:03:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:03:13 --> Input Class Initialized
+INFO - 2024-07-24 19:03:13 --> Language Class Initialized
+INFO - 2024-07-24 19:03:13 --> Loader Class Initialized
+INFO - 2024-07-24 19:03:13 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:03:13 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:03:13 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:03:13 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:03:13 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:03:13 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:03:13 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:03:13 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:03:13 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:03:13 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:03:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:03:13 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:03:13 --> Email Class Initialized
+INFO - 2024-07-24 19:03:13 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:03:13 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:03:13 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:03:13 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:03:13 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:03:13 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:03:13 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:03:13 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:03:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:03:13 --> Controller Class Initialized
+INFO - 2024-07-24 19:03:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:03:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:03:13 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:13 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:03:13 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 19:03:13 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 19:03:13 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 19:03:13 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 19:03:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 19:03:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 19:03:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:03:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 19:03:13 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:03:13 --> Final output sent to browser
+DEBUG - 2024-07-24 19:03:13 --> Total execution time: 0.0815
+INFO - 2024-07-24 19:03:13 --> Config Class Initialized
+INFO - 2024-07-24 19:03:13 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:03:13 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:03:13 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:03:13 --> URI Class Initialized
+INFO - 2024-07-24 19:03:13 --> Router Class Initialized
+INFO - 2024-07-24 19:03:13 --> Output Class Initialized
+INFO - 2024-07-24 19:03:13 --> Security Class Initialized
+DEBUG - 2024-07-24 19:03:13 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:03:13 --> Input Class Initialized
+INFO - 2024-07-24 19:03:13 --> Language Class Initialized
+INFO - 2024-07-24 19:03:13 --> Loader Class Initialized
+INFO - 2024-07-24 19:03:13 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:03:14 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:03:14 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:03:14 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:03:14 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:03:14 --> Email Class Initialized
+INFO - 2024-07-24 19:03:14 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:03:14 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:03:14 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:03:14 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:03:14 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:03:14 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:03:14 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:03:14 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:03:14 --> Controller Class Initialized
+INFO - 2024-07-24 19:03:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:03:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:03:14 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:14 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:03:14 --> Config Class Initialized
+INFO - 2024-07-24 19:03:14 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:03:14 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:03:14 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:03:14 --> URI Class Initialized
+INFO - 2024-07-24 19:03:14 --> Router Class Initialized
+INFO - 2024-07-24 19:03:14 --> Output Class Initialized
+INFO - 2024-07-24 19:03:14 --> Security Class Initialized
+DEBUG - 2024-07-24 19:03:14 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:03:14 --> Input Class Initialized
+INFO - 2024-07-24 19:03:14 --> Language Class Initialized
+INFO - 2024-07-24 19:03:14 --> Loader Class Initialized
+INFO - 2024-07-24 19:03:14 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:03:14 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:03:14 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:03:14 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:03:14 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:03:14 --> Email Class Initialized
+INFO - 2024-07-24 19:03:14 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:03:14 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:03:14 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:03:14 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:03:14 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:03:14 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:03:14 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:03:14 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:03:14 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:03:14 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:03:14 --> Controller Class Initialized
+INFO - 2024-07-24 19:03:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:03:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 19:03:14 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 19:03:14 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:03:14 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 19:03:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:03:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 19:03:14 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:03:14 --> Final output sent to browser
+DEBUG - 2024-07-24 19:03:14 --> Total execution time: 0.0531
+INFO - 2024-07-24 19:04:07 --> Config Class Initialized
+INFO - 2024-07-24 19:04:07 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:04:07 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:04:07 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:04:07 --> URI Class Initialized
+INFO - 2024-07-24 19:04:07 --> Router Class Initialized
+INFO - 2024-07-24 19:04:07 --> Output Class Initialized
+INFO - 2024-07-24 19:04:07 --> Security Class Initialized
+DEBUG - 2024-07-24 19:04:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:04:07 --> Input Class Initialized
+INFO - 2024-07-24 19:04:07 --> Language Class Initialized
+INFO - 2024-07-24 19:04:07 --> Loader Class Initialized
+INFO - 2024-07-24 19:04:07 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:04:07 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:04:07 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:04:07 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:04:07 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:04:07 --> Email Class Initialized
+INFO - 2024-07-24 19:04:07 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:04:07 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:04:07 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:04:07 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:04:07 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:04:07 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:04:07 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:04:07 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:04:07 --> Controller Class Initialized
+INFO - 2024-07-24 19:04:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:04:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:04:07 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:07 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:04:07 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Obras_model" initialized
+INFO - 2024-07-24 19:04:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/consolidados/listados.php
+INFO - 2024-07-24 19:04:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:04:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 19:04:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:04:07 --> Final output sent to browser
+DEBUG - 2024-07-24 19:04:07 --> Total execution time: 0.1170
+INFO - 2024-07-24 19:04:07 --> Config Class Initialized
+INFO - 2024-07-24 19:04:07 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:04:07 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:04:07 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:04:07 --> URI Class Initialized
+INFO - 2024-07-24 19:04:07 --> Router Class Initialized
+INFO - 2024-07-24 19:04:07 --> Output Class Initialized
+INFO - 2024-07-24 19:04:07 --> Security Class Initialized
+DEBUG - 2024-07-24 19:04:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:04:07 --> Input Class Initialized
+INFO - 2024-07-24 19:04:07 --> Language Class Initialized
+INFO - 2024-07-24 19:04:07 --> Loader Class Initialized
+INFO - 2024-07-24 19:04:07 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:04:07 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:04:07 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:04:07 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:04:07 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:04:07 --> Email Class Initialized
+INFO - 2024-07-24 19:04:07 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:04:07 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:04:07 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:04:07 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:04:07 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:04:07 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:04:07 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:04:07 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:04:07 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:04:07 --> Controller Class Initialized
+INFO - 2024-07-24 19:04:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:04:07 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:04:07 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:07 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:04:07 --> Model "Ion_auth_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Dependencias_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Proyectos_model" initialized
+INFO - 2024-07-24 19:04:07 --> Model "Obras_model" initialized
+INFO - 2024-07-24 19:04:07 --> Final output sent to browser
+DEBUG - 2024-07-24 19:04:07 --> Total execution time: 0.1394
+INFO - 2024-07-24 19:04:08 --> Config Class Initialized
+INFO - 2024-07-24 19:04:08 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:04:08 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:04:08 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:04:08 --> URI Class Initialized
+INFO - 2024-07-24 19:04:08 --> Router Class Initialized
+INFO - 2024-07-24 19:04:08 --> Output Class Initialized
+INFO - 2024-07-24 19:04:08 --> Security Class Initialized
+DEBUG - 2024-07-24 19:04:08 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:04:08 --> Input Class Initialized
+INFO - 2024-07-24 19:04:08 --> Language Class Initialized
+INFO - 2024-07-24 19:04:08 --> Loader Class Initialized
+INFO - 2024-07-24 19:04:08 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:04:08 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:04:08 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:04:08 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:04:08 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:04:08 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:04:08 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:04:08 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:04:08 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:04:08 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:04:08 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:04:08 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:04:08 --> Email Class Initialized
+INFO - 2024-07-24 19:04:08 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:04:08 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:04:08 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:04:08 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:04:08 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:04:08 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:04:08 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:04:08 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:04:08 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:04:08 --> Controller Class Initialized
+INFO - 2024-07-24 19:04:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:04:08 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:04:08 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:08 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:04:08 --> Model "Lecturas_model" initialized
+INFO - 2024-07-24 19:04:08 --> Model "Uploader_model" initialized
+ERROR - 2024-07-24 19:04:09 --> Severity: Warning --> Undefined variable $proveedor C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+ERROR - 2024-07-24 19:04:09 --> Severity: Warning --> Attempt to read property "id" on null C:\xampp\htdocs\mvl\application\views\manager\etiquetas\dropzone.php 6
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/dropzone.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/secciones/lecturas/listados.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/index.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:04:09 --> Final output sent to browser
+DEBUG - 2024-07-24 19:04:09 --> Total execution time: 0.0678
+INFO - 2024-07-24 19:04:09 --> Config Class Initialized
+INFO - 2024-07-24 19:04:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:04:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:04:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:04:09 --> URI Class Initialized
+INFO - 2024-07-24 19:04:09 --> Router Class Initialized
+INFO - 2024-07-24 19:04:09 --> Output Class Initialized
+INFO - 2024-07-24 19:04:09 --> Security Class Initialized
+DEBUG - 2024-07-24 19:04:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:04:09 --> Input Class Initialized
+INFO - 2024-07-24 19:04:09 --> Language Class Initialized
+INFO - 2024-07-24 19:04:09 --> Loader Class Initialized
+INFO - 2024-07-24 19:04:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:04:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:04:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:04:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:04:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:04:09 --> Email Class Initialized
+INFO - 2024-07-24 19:04:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:04:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:04:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:04:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:04:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:04:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:04:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:04:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:04:09 --> Controller Class Initialized
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+INFO - 2024-07-24 19:04:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:04:09 --> Config Class Initialized
+INFO - 2024-07-24 19:04:09 --> Hooks Class Initialized
+DEBUG - 2024-07-24 19:04:09 --> UTF-8 Support Enabled
+INFO - 2024-07-24 19:04:09 --> Utf8 Class Initialized
+INFO - 2024-07-24 19:04:09 --> URI Class Initialized
+INFO - 2024-07-24 19:04:09 --> Router Class Initialized
+INFO - 2024-07-24 19:04:09 --> Output Class Initialized
+INFO - 2024-07-24 19:04:09 --> Security Class Initialized
+DEBUG - 2024-07-24 19:04:09 --> Global POST, GET and COOKIE data sanitized
+INFO - 2024-07-24 19:04:09 --> Input Class Initialized
+INFO - 2024-07-24 19:04:09 --> Language Class Initialized
+INFO - 2024-07-24 19:04:09 --> Loader Class Initialized
+INFO - 2024-07-24 19:04:09 --> Helper loaded: form_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: directory_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: global_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: fechaes_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: url_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: text_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: file_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: api_helper
+INFO - 2024-07-24 19:04:09 --> Database Driver Class Initialized
+DEBUG - 2024-07-24 19:04:09 --> Encrypt Class Initialized
+DEBUG - 2024-07-24 19:04:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/email.php
+DEBUG - 2024-07-24 19:04:09 --> Config file loaded: C:\xampp\htdocs\mvl\application\config/ion_auth.php
+INFO - 2024-07-24 19:04:09 --> Email Class Initialized
+INFO - 2024-07-24 19:04:09 --> Language file loaded: language/spanish/ion_auth_lang.php
+INFO - 2024-07-24 19:04:09 --> Helper loaded: cookie_helper
+INFO - 2024-07-24 19:04:09 --> Helper loaded: language_helper
+DEBUG - 2024-07-24 19:04:09 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2024-07-24 19:04:09 --> Session: Class initialized using 'files' driver.
+INFO - 2024-07-24 19:04:09 --> Model "Ion_auth_model" initialized
+DEBUG - 2024-07-24 19:04:09 --> Email class already loaded. Second attempt ignored.
+DEBUG - 2024-07-24 19:04:09 --> Encrypt Class Initialized
+INFO - 2024-07-24 19:04:09 --> Model "Manager_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Usuarios_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Secretarias_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Programas_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Indexaciones_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Lotes_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Graph_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Proveedores_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Consolidados_model" initialized
+INFO - 2024-07-24 19:04:09 --> Model "Electromecanica_model" initialized
+INFO - 2024-07-24 19:04:09 --> Controller Class Initialized
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/nav2.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/etiquetas/footer.php
+DEBUG - 2024-07-24 19:04:09 --> Ion_auth class already loaded. Second attempt ignored.
+INFO - 2024-07-24 19:04:09 --> Form Validation Class Initialized
+INFO - 2024-07-24 19:04:09 --> Language file loaded: language/spanish/auth_lang.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/head.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\auth/login.php
+INFO - 2024-07-24 19:04:09 --> File loaded: C:\xampp\htdocs\mvl\application\views\manager/footer.php
+INFO - 2024-07-24 19:04:09 --> Final output sent to browser
+DEBUG - 2024-07-24 19:04:09 --> Total execution time: 0.0515

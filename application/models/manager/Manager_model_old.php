@@ -7,6 +7,8 @@ class Manager_model extends CI_Model
     function __construct()
     {
         parent::__construct();
+        $sql = "SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));";
+        $this->db->query($sql );
         // $this->order='';
             
     }
@@ -113,7 +115,7 @@ class Manager_model extends CI_Model
                     " (", _consolidados.codigo_proveedor,")" ) as proveedora,
                     CONCAT(_consolidados. jurisdiccion," ",_consolidados.id_programa ) as sumajuris,
                     _consolidados.id as id_consolidado,
-                    UPPER(_consolidados.secretaria),
+                    UPPER(_consolidados.secretaria), UPPER(_consolidados.acuerdo_pago),
                     _consolidados.proveedor,_consolidados.*, 
                  ',
                 );
@@ -134,6 +136,7 @@ class Manager_model extends CI_Model
                     '_consolidados.dependencia',
                     '_consolidados.dependencia_direccion',
                     '_consolidados.tipo_pago',
+                    'UPPER(_consolidados.acuerdo_pago)',
                     '_consolidados.nro_cuenta',
                     '_consolidados.nro_factura',
                     '_consolidados.preventivas',
@@ -152,6 +155,7 @@ class Manager_model extends CI_Model
                     '_consolidados.dependencia',
                     '_consolidados.dependencia_direccion',
                     '_consolidados.tipo_pago',
+                    'UPPER(_consolidados.acuerdo_pago)',
                     '_consolidados.nro_cuenta',
                     '_consolidados.nro_factura',
                     '_consolidados.id',
@@ -165,31 +169,6 @@ class Manager_model extends CI_Model
                 );
 
 
-                
-		// echo '<pre>';
-		// var_dump( $_REQUEST ); 
-		// echo '</pre>';
-		// die();
-        //         if ($postData['data_search'] != "false" && (isset($postData['data_search']) && $postData['data_search'] != '')) {
-
-        //             $this->db->group_start();
-        //             switch ($postData['type']) {
-        //                 case 1:
-        //                     $dates = explode('@', $postData['data_search']);
-        //                     $this->db->where("_consolidados.fecha_consolidado >= '" . $dates[0] . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . $dates[1] . " 23:59:59'");
-        //                     break;
-        //                 case 2:
-        //                     $this->db->where("UPPER(_consolidados.proveedor) = '" . $postData['data_search'] . "'");
-        //                     break;
-        //                 case 3:
-        //                     $this->db->where("_consolidados.tipo_pago = '" . $postData['data_search'] . "'");
-        //                     break;
-        //                 case 4:
-        //                     $this->db->where("_consolidados.periodo_contable = '" . $postData['data_search'] . "'");
-        //                     break;
-        //             }
-        //             $this->db->group_end();
-        //         }
 
                 if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
                     $this->db->group_start();
@@ -223,14 +202,6 @@ class Manager_model extends CI_Model
                 if ((isset($postData['fecha']) && $postData['fecha'] != 'false' &&  $postData['fecha'] != '')) {
                     $dates = explode('-', $postData['fecha']);
 
-                    // echo '<pre>';
-                    // var_dump( $dates ); 
-                    // echo '</pre>';
-                    
-                    // echo fecha_es(trim(str_replace('/','-',$dates[0])),"Y-m-d", false);
-                    // echo '<br>';
-                    // echo fecha_es(trim(str_replace('/','-',$dates[1])),"Y-m-d", false);
-                    // die();
                     $this->db->where("_consolidados.fecha_consolidado >= '" . fecha_es(trim(str_replace('/','-',$dates[0])),"Y-m-d", false) . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . fecha_es(trim(str_replace('/','-',$dates[1])),"Y-m-d", false) . " 23:59:59'");
                 }
                 break;
@@ -481,8 +452,6 @@ class Manager_model extends CI_Model
     {
         $data['user_add'] = $this->user->id;
 
-
-
         try {
             $this->db->insert($tabla, $data);
 
@@ -556,6 +525,19 @@ class Manager_model extends CI_Model
         }
 
         return false;
+    }
+    public function get_alldata($tabla, $where=false){
+       $this->db->select('*');
+       if($where){
+           $this->db->where($where);
+       }
+       $query = $this->db->get($tabla);
+       return $query->result();
+
+    if ($query->result() > 0) {
+        return $query->result();
+    }
+    return false;
     }
     public function get_data($tabla, $id)
     {
