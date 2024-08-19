@@ -172,80 +172,157 @@ class Lecturas extends backend_controller
 
 	public function copy($id = 0)
 	{
-		$myDato = $id;
-		$datoleido = $this->Manager_model->get_data_api('_datos_api', $myDato, true);
-		
-		$importe_total = 0;
-		
-		$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="' . $myDato . '"');
-		if (count($datoTotalesMultiple) > 0)
-			$importe_total = $datoTotalesMultiple[0]->total_importe;
+
+		// 		$dataACT = $this->Manager_model->get_alldata('_datos_api');
+
+
+		// 		foreach ($dataACT as $reg) {
+
+
+
+		// 			switch($reg->id_proveedor){
+		// 				// case 1: //AYSA
+		// 				case 4: //EDENOR
+
+		// 					$importe = trim($reg->total_importe);
+
+		// 					// $importe = str_replace(',','.',str_replace('.','',$importe));
+		// 					echo $importe;
+		// 					$numero_decimal = number_format($importe,2,'.','');
+
+		// 					if($reg->id ==3127){
+
+		// 						// echo '<pre>';
+		// 						// var_dump( $reg->total_importe ); 
+		// 						// var_dump( $importe ); 
+		// 						// echo '</pre>';
+		// 						// die();
+		// 					}
+		// 					// die();
+		// 					break;
+
+		// 				case 8: //TELECOM INTER
+		// 				case 6: //TELECOM INTER
+
+
+		// 					$importe =  floatval(trim($reg->total_importe));
+		// 					$numero_decimal = number_format($importe,2,'.','');
+		// 					// die();
+		// 					break;
+		// 				default:
+
+
+		// 				$numero_decimal = trim($reg->total_importe);
+
+		// 				}
+		// 				if($numero_decimal =="")
+		// 					$numero_decimal = 99.99;
+
+		// 			$dataUpdate['importe_1'] = $numero_decimal;
+
+		// 			$this->db->where('id', $reg->id);
+		// 			$this->db->update('_datos_api', $dataUpdate);
+
+
+		// 		}
+
+
+		// 		die();
+
+
 
 		if ($this->input->is_ajax_request()) {
-			$update = false;
+
+
 			$datoleido = $this->Manager_model->get_data_api('_datos_api', trim($_REQUEST['id_registro']), true);
-			$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="'. trim($_REQUEST['id_registro']) .'"');
+
+			$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="' . trim($_REQUEST['id_registro']) . '"');
+
+
+			$update = false;
 			$error = "OK";
-			$this->db->trans_start();
+
 
 			if (count((array)$datoTotalesMultiple)  == 0) {
+
+				$this->db->trans_start();
+
 				$insertData = array(
 					'id_datos_api' => $datoleido->id,
-					'total_importe' => $datoleido->total_importe
+					'importe_1' => $datoleido->total_importe,
+					'total_importe' => $datoleido->total_importe,
+					'nro_factura' => $datoleido->nro_factura
 				);
 
 
 				if (!$this->db->insert('_datos_multiple', $insertData)) {
 					$error = $this->db->error()["message"];
 				}
+
+				$this->db->trans_complete();
 				$uploadDataPost = array(
 					'total_importe' => $_REQUEST['total'],
-					'nro_cuenta' => $_REQUEST['nro_cuenta']
+					'importe_1' => $_REQUEST['total'],
+					'nro_cuenta' => trim(str_replace(' ','',$_REQUEST['nro_cuenta']))
 				);
+
 				$this->db->where('id',  trim($_REQUEST['id_registro']));
 				$this->db->update('_datos_api', $uploadDataPost);
-
-			}else{
+			} else {
 				$update = true;
 			}
 
 
+
+
 			if ($update) {
 
+
 				unset($datoleido->id);
-				$datoleido->nro_cuenta = $_REQUEST['nro_cuenta'];
+				$datoleido->nro_cuenta = trim(str_replace(' ','',$_REQUEST['nro_cuenta']));
 				$datoleido->total_importe = $_REQUEST['total'];
+				$datoleido->importe_1 = $_REQUEST['total'];
+
 				if (!$this->db->insert('_datos_api', (array)$datoleido)) {
 					$error = $this->db->error()["message"];
 				}
-
-				
 			}
 
-			// $uploadDataPost = array(
-			// 	'total_importe'=> $_REQUEST['total']
-			// );
-			// $this->db->where('id',  $_REQUEST['id_registro']);
-			// $this->db->update('_datos_api', $uploadDataPost);
+			$registro_factura = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "' . $datoleido->nro_factura . '"');
 
 
 
-			$lasId = $this->db->insert_id();
-			$this->db->trans_complete();
+			$resultIngresado = 00;
+			foreach ($registro_factura as $reg) {
+				$resultIngresado += $reg->importe_1;
+			}
 
-			$resultd = array(
-				'result' => $error,
-				'lasId' => $lasId,
-				'importe_total' => $importe_total
+			$a = json_decode($registro_factura[0]->dato_api);
+
+			$importe_total = 00.00;
+			$totalFactura = 00.00;
+			$totalFacturaJson = $a->document->inference->pages[0]->prediction->total_importe->values[0]->content;
+			$datos['lineas']  = $registro_factura;
+			$datos['totalFactura'] = $totalFacturaJson;
+			$datos['resultIngresado'] = $resultIngresado;
+
+
+			$html = $this->data['lineas'] = $this->load->view('manager/etiquetas/lineas', $datos, TRUE);
+
+			$result = array(
+				'html' => $html,
+
 			);
-			echo json_encode($resultd);
+			echo json_encode($result);
 			die();
 			// die();
 			// if($this->Manager_model->grabar_datos('_datos_api', (array)$dato))
 			// die('pujdi');
 
 		}
+
 		if ($id == 0 && $_SERVER['REQUEST_METHOD'] === "POST") {
+
 
 			// // $_POST['fecha_emision']  = date(trim('Y-m-d',$_POST['fecha_emision']));
 			// $_POST['fecha_emision']  = fecha_es(trim($_POST['fecha_emision']), 'Y-m-d', false);
@@ -291,9 +368,28 @@ class Lecturas extends backend_controller
 			}
 		}
 
-		$registro_api = $this->Manager_model->get_data_api('_datos_api', $myDato);
+		$myDato = $id;
+		$datoleido = $this->Manager_model->get_data_api('_datos_api', $myDato, true);
 
-		$registro_factura = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "' . $registro_api->nro_factura . '"');
+
+		$a = json_decode($datoleido->dato_api);
+
+		$importe_total = 00.00;
+		$totalFactura = 00.00;
+		$totalFacturaJson = $a->document->inference->pages[0]->prediction->total_importe->values[0]->content;
+
+		$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="' . $myDato . '"');
+
+		if (count($datoTotalesMultiple) > 0)
+			$importe_total = $datoTotalesMultiple[0]->total_importe;
+
+
+		$registro_facturas = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "' . $datoleido->nro_factura . '"');
+		$resultIngresado = 00.00;
+
+		foreach ($registro_facturas as $reg) {
+			$resultIngresado += $reg->importe_1;
+		}
 
 		$script = array(
 			base_url('assets/manager/js/secciones/lecturas/copy.js?ver=' . time()),
@@ -303,27 +399,30 @@ class Lecturas extends backend_controller
 
 		$this->data['script_common'] = $this->script_common;
 		$this->data['script'] = $script;
-		$this->data['result'] = $registro_api;
+		$this->data['result'] = $datoleido;
 
-		$datos['lineas'] = $registro_factura;
-		$datos['result'] = $registro_api;
+
+		$datos['lineas'] = $registro_facturas;
+		$datos['result'] = $datoleido;
 		$datos['resultMulti'] = $importe_total;
+		$datos['totalFactura'] = $totalFacturaJson;
 
-		$total = 0;
-		foreach ($registro_factura as $reg) {
 
-			$total += $reg->total_importe;
-		}
 
-		$datos['resultIngresado'] = $total;
+		$datos['resultIngresado'] = $resultIngresado;
 
 		$this->data['lineas'] = $this->load->view('manager/etiquetas/lineas', $datos, TRUE);
+
+
+
 		$this->data['importe_total'] = $importe_total;
 		// $this->data['nro_cuenta'] = $resultData->nro_cuenta;
 
-		if ($registro_api) {
-			$this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($registro_api->nro_cuenta);
+
+		if ($datoleido) {
+			$this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($datoleido->nro_cuenta);
 		}
+
 
 		$this->data['content'] = $this->load->view('manager/secciones/' . strtolower($this->router->fetch_class()) . '/' . $this->router->fetch_method(), $this->data, TRUE);
 
@@ -332,6 +431,56 @@ class Lecturas extends backend_controller
 		$this->load->view('manager/footer', $this->data);
 	}
 
+	public function resetfile()
+	{
+		if ($this->input->is_ajax_request()) {
+			$datoleido = $this->Manager_model->get_data_api('_datos_api', $_REQUEST['id'], true);
+			$a = json_decode($datoleido->dato_api);
+
+			$total_importe = $a->document->inference->pages[0]->prediction->total_importe->values[0]->content;
+			$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
+			$nro_cuenta = '';
+			for ($paso = 0; $paso < $totalIndices; $paso++) {
+				$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
+			}
+			$hizo = false;
+			$this->db->trans_start();
+
+			$reloadData = array(
+				'total_importe' =>  $total_importe,
+				'importe_1' => $total_importe,
+				'nro_cuenta' => $nro_cuenta
+			);
+
+			$this->db->where('id',  trim($_REQUEST['id']));
+			$this->db->update('_datos_api', $reloadData);
+
+
+			$this->db->where('id_datos_api', trim($_REQUEST['id']));
+			$this->db->delete('_datos_multiple');
+
+			// $insertData = array(
+			// 	'id_datos_api' => $datoleido->id,
+			// 	'importe_1' => $datoleido->total_importe,
+			// 	'total_importe' => $datoleido->total_importe,
+			// 	'nro_factura' => $datoleido->nro_factura
+			// );
+
+
+			// if (!$this->db->insert('_datos_multiple', $insertData)) {
+			// 	$error = $this->db->error()["message"];
+			// }
+			$hizo = true;
+			$this->db->trans_complete();
+
+			$result = array(
+				'result'=>$hizo,
+
+			);
+
+			echo json_encode($result);
+		}
+	}
 	public function views($id = 0)
 	{
 		// $myDato = $this->encrypt->decode(urldecode($id));
