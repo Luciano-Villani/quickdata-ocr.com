@@ -37,7 +37,7 @@ if(isset($_SERVER['HTTP_REFERER'])){
 
 if($result && file_exists($result->nombre_archivo) ){
 ?>
-        <embed src="<?= base_url($result->nombre_archivo . '#toolbar=1&navpanes=3&scrollbar=1&zoom=90' )?>" type="application/pdf" width="100%" height="500px">
+        <embed src="<?= base_url($result->nombre_archivo . '#toolbar=1&navpanes=3&scrollbar=1&zoom=120' )?>" type="application/pdf" width="100%" height="500px">
         <?php
 }else{
     echo 'no existe el archivo PDF';
