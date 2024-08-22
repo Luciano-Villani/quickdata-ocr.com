@@ -8,13 +8,6 @@
 .dropzone {
    
  }
- .archivo-scroll-container {
-      max-height: 300px; /* Ajusta la altura máxima según sea necesario */
-      overflow-y: auto; /* Agrega el scroll vertical */
-      border: 1px solid #ddd; /* Opcional: agrega un borde alrededor del contenedor */
-      padding: 10px; /* Opcional: agrega padding al contenedor */
-      margin-bottom: 10px; /* Opcional: agrega margen en la parte inferior */
-    }
 </style>
 
 
@@ -164,42 +157,40 @@
 
 <!-- Disabled backdrop -->
 <div id="modal_backdrop" class="modal fade bd-example-modal-lg" data-backdrop="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                
-                <h5 class="modal-title">Proveedor: <span id="modal_proveedor"></span></h5>
-            </div>
-            
-            <div class="modal-body">
-                <div class="progress" style="display: none;">
-                    <div class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-                </div>
-                
-				<div class="archivo-scroll-container mt-3">
-				<table id="tabla_archivos" class="table" style="background-color: #fff!important;">
-                    <thead>
-                        <tr>
-                            <th>Archivos</th>
-                            <th class="col-md-2">Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Archivos se agregarán aquí dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h5 class="modal-title">Proveedor: <span id="modal_proveedor"></span> </h5>
+			</div>
+			
+			<div class="modal-body">
+				<div class="progress" style="display: none;">
+		<div class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+		</div>
+				<table id="tabla_archivos" class="table " style="background-color: #fff!important;">
+					<thead>
+						<tr>
+							<th>Archivo</th>
+							<th class="col-md-2">Estado</th>
+
+						</tr>
+					</thead>
+					<tbody id="">
+
+
+					</tbody>
+				</table>
 			</div>
 
-            <div class="modal-footer">
-                <button id="cerrar_modal" type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
-                <button id="enviar_archivos" type="button" class="btn btn-primary" disabled>Enviar archivos</button>
-            </div>
-        </div>
-    </div>
+			<div class="modal-footer">
+				<button id="cerrar_modal" type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
+				<button disabled='disabled' id="enviar_archivos" type="button" class="btn btn-primary">Enviar archivos</button>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- /disabled backdrop -->
-
 
 
 <script>

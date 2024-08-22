@@ -109,39 +109,71 @@ function checkFile(file) {
 }
 
 $(document).ready(function () {
+  // Carga inicial de datos en la tabla
+  function cargarDatosTabla() {
+    $.ajax({
+      url: $("body").data("base_url") + "Lotes/getArchivos", // Cambia esta URL según tu endpoint para obtener archivos
+      type: "GET",
+      dataType: "json",
+      success: function (data) {
+        var tbody = $("#tabla_archivos tbody");
+        tbody.empty();
+        $.each(data, function (index, archivo) {
+          var tr = $('<tr>');
+          tr.append($('<td>').text(archivo.nombre));
+          tr.append($('<td>').text(archivo.estado));
+          tr.data("archivo", archivo.nombre);
+          tbody.append(tr);
+        });
+      },
+      error: function (xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+      }
+    });
+  }
 
-  // $("#modal_backdrop").modal("show");
+  // Inicializa la tabla con datos al cargar la página
+  cargarDatosTabla();
+
+  // Maneja el cierre del modal
   $("body").on("click", "button#cerrar_modal", function (e) {
     $("#tabla_archivos tbody").html("");
     $("button#enviar_archivos").attr("disabled", "disabled");
+    $(".progress").hide(); // Oculta la barra de progreso al cerrar el modal
   });
+
+  // Maneja el envío de archivos
   $("body").on("click", "button#enviar_archivos", function (e) {
     $("button#enviar_archivos").attr("disabled", "disabled");
+    $(".progress").show(); // Muestra la barra de progreso
     var filas = $("#tabla_archivos tbody tr");
-    var count = 0;
-    $("#tabla_archivos tbody tr").each(function (index) {
-      count++;
+    var count = filas.length;
+    var processedCount = 0; // Cuenta de archivos procesados
+
+    filas.each(function (index) {
       var nombre = $(this).data("archivo");
 
       var postdata = new FormData();
       postdata.append("file", nombre);
       postdata.append("id_proveedor", $("#id_proveedor").val());
+
       setTimeout(function () {
         $.ajax({
           xhr: function () {
             var xhr = new window.XMLHttpRequest();
-            //Upload progress
+
+            // Manejo del progreso de carga
             xhr.upload.addEventListener(
               "progress",
               function (evt) {
                 if (evt.lengthComputable) {
-                  var percentComplete = evt.loaded / evt.total;
-                  //Do something with upload progress
-                  console.log("percentComplete");
-                  console.log(percentComplete);
+                  var percentComplete = Math.round((evt.loaded / evt.total) * 100);
+                  console.log("percentComplete:", percentComplete);
 
-                  $(".progress-bar").css("width", percentComplete + "%");
-                  $(".progress-bar").html(percentComplete + " %" + count);
+                  // Actualiza la barra de progreso con el progreso general
+                  var progressPercent = Math.round((processedCount / count) * 100);
+                  $(".progress-bar").css("width", progressPercent + "%");
+                  $(".progress-bar").html(progressPercent + "%");
                 }
               },
               false
@@ -155,49 +187,32 @@ $(document).ready(function () {
           dataType: "json",
           data: postdata,
           beforeSend: function () {
-            var xhr = new window.XMLHttpRequest();
-            //Upload progress
-            xhr.upload.addEventListener(
-              "progress",
-              function (evt) {
-                if (evt.lengthComputable) {
-                  var percentComplete = evt.loaded / evt.total;
-                  //Do something with upload progress
-                  console.log("percentComplete");
-                  console.log(percentComplete);
-
-                  $(".progress-bar").css("width", percentComplete + "%");
-                  $(".progress-bar").html(percentComplete + " %" + count);
-                }
-              },
-              false
-            );
-            $(".progress").show();
             $(".progress-bar").css("width", "0%");
             $(".progress-bar").html("0%");
-            console.log("SALE");
             $("#tabla_archivos tbody")
               .find("span[data-archivo='" + nombre + "']")
-              .removeClass("bg-warning-400 ")
+              .removeClass("bg-warning-400")
               .addClass("bg-info-400")
-              .text("procesando");
+              .text("Procesando");
           },
           url: $("body").data("base_url") + "Lotes/leerApi",
           success: function (result) {
-            console.log("VOLVIO");
+            processedCount++;
+            console.log("Procesamiento completado");
 
             $("#tabla_archivos tbody")
               .find("span[data-archivo='" + result.mensaje + "']")
-              .removeClass(["bg-info-400"])
-              .removeClass(["bg-warning-400"])
+              .removeClass("bg-info-400")
+              .removeClass("bg-warning-400")
               .addClass("bg-success-400")
               .text("Procesado");
-            var data = [];
-            data.status = result.status;
-            data.title = result.title;
-            data.mensaje = result.mensaje;
-            // alertas(result);
 
+            // Actualiza la barra de progreso con el progreso general
+            var progressPercent = Math.round((processedCount / count) * 100);
+            $(".progress-bar").css("width", progressPercent + "%");
+            $(".progress-bar").html(progressPercent + "%");
+
+            // Actualiza la tabla después de procesar
             $(".datatable-ajax").DataTable().ajax.reload();
           },
           error: function (xhr, errmsg, err) {
@@ -206,6 +221,8 @@ $(document).ready(function () {
         });
       }, 0);
     });
+  
+
 
     function sleep(milliseconds) {
       var start = new Date().getTime();
@@ -278,34 +295,7 @@ $(document).ready(function () {
   DestroyDropzones();
   dt();
 
-  // var mytable = $("#lecturas_dt").DataTable({
-  //   dom: "frtip",
-  //   responsive: true,
-  //   serverSide: true,
-  //   columnDefs: [
-  //     {
-  //       targets: ["_all"],
-  //       className: "dt-body-left",
-  //       bSortable: false,
-  //     },
-  //     { visible: false, targets: [] },
-  //   ],
-  //   language: {
-  //     url:
-  //       $("body").data("base_url") +
-  //       "assets/manager/js/plugins/tables/translate/spanish.json",
-  //   },
-  //   // dataType: 'json',
-  //   serverSide: true,
-  //   ajax: {
-  //     data: { time: "time" },
-  //     url: $("body").data("base_url") + "lecturas/list_dt",
-  //     type: "POST",
-  //     error: function (jqXHR, textStatus, errorThrown) {
-  //       alert(jqXHR.status + textStatus + errorThrown);
-  //     },
-  //   },
-  // });
+  
 
   $("body").on("click", "span.mergelote", function (e) {
     var code = $(this).data("code");
