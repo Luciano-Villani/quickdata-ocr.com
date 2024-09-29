@@ -2,18 +2,7 @@
 if (!function_exists('apiRest')) {
     function apiRest($file, $endPoint, $procesar_por = 'local')
     {
-        // Definir la ruta del archivo de log
-        $logFile = APPPATH . 'logs/apirest_log.txt';  // APPPATH apunta a 'mvl/application/'
         
-        // Crear un mensaje de log
-        $logMessage = "Llamada a apiRest: \n";
-        $logMessage .= "Archivo: " . print_r($file, true) . "\n";
-        $logMessage .= "EndPoint: $endPoint\n";
-        $logMessage .= "Procesar por: $procesar_por\n";
-        $logMessage .= "Fecha: " . date('Y-m-d H:i:s') . "\n\n";
-
-        // Escribir el log
-        file_put_contents($logFile, $logMessage, FILE_APPEND);
 
         // Continuar con el resto de la función
         if (!function_exists('curl_init')) {
