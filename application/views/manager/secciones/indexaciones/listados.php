@@ -155,12 +155,12 @@
 							$js = array(
 								'required' => 'required',
 								'id' => 'acuerdo_pago',
-								
+
 								'class' => '  form-control ',
 							);
 							?>
 
-							<input type="text"  class="form-control" placeholder="Acuerdo de pago" id="acuerdo_pago"name="acuerdo_pago" value="<?php echo @$acuerdo_pago; ?>">
+							<input type="text" class="form-control" placeholder="Acuerdo de pago" id="acuerdo_pago" name="acuerdo_pago" value="<?php echo @$acuerdo_pago; ?>">
 
 							<?php echo form_error('acuerdo_pago', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 

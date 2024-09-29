@@ -49,7 +49,7 @@ class Electromecanica extends backend_controller
 			exit();
 		}
 	}
-	public function delete()
+	public function delete_old()
 	{
 
 
@@ -83,6 +83,46 @@ class Electromecanica extends backend_controller
 		echo json_encode($response);
 		exit();
 	}
+
+
+	public function delete()
+{
+    // Verificar si 'file' y 'lote' están presentes en la solicitud
+    if (isset($_REQUEST['file']) && isset($_REQUEST['lote'])) {
+        // Eliminar el registro de la tabla _consolidados_canon
+        $this->db->where('nombre_archivo', $_REQUEST['file']);
+        $this->db->delete('_consolidados_canon');
+
+        // Actualizar el campo consolidado a 0 en la tabla _datos_api_canon
+        $data = array('consolidado' => 0);
+
+        $this->db->where('nombre_archivo', $_REQUEST['file']);
+        $this->db->update('_datos_api_canon', $data);
+
+        // Actualizar el campo consolidado a 0 en la tabla _lotes_canon
+        $this->db->where('code', $_REQUEST['lote']);
+        $this->db->update('_lotes_canon', $data);
+
+        $response = array(
+            'mensaje' => 'Datos borrados',
+            'title' => '_consolidados_canon',
+            'status' => 'success',
+        );
+    } else {
+        // Si los parámetros no están presentes, devolver un error
+        $response = array(
+            'mensaje' => 'Faltan parámetros en la solicitud',
+            'title' => 'Error',
+            'status' => 'error',
+        );
+    }
+
+    // Devolver la respuesta como JSON
+    echo json_encode($response);
+    exit();
+}
+	
+
 	public function index()
 	{
 		// $x = 1;

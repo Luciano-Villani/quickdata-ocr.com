@@ -37,4 +37,37 @@ class Pdf_lib
         // $pdf->Output();
         return;
     }
+
+    function test2($full_path, $destino)
+    {
+        // Copiar el archivo original sin modificarlo
+        if (!copy($full_path, $destino)) {
+            // Manejar el error si la copia falla
+            throw new Exception("Error al copiar el archivo PDF.");
+        }
+    
+        return;
+    }
+
+
+    function test3($full_path, $destino)
+    {
+        // Crear una nueva instancia de FPDI
+        $pdf = new Fpdi();
+    
+        // Obtener el número de páginas del PDF
+        $pageCount = $pdf->setSourceFile($full_path);
+    
+        // Crear un nuevo PDF donde guardaremos hasta las dos primeras páginas
+        for ($pageNro = 1; $pageNro <= min(2, $pageCount); $pageNro++) {
+            $pdf->AddPage();
+            $template = $pdf->importPage($pageNro);
+            $pdf->useTemplate($template, 0, 0);
+        }
+    
+        // Guardar el nuevo PDF en el destino especificado
+        $pdf->Output("F", $destino);
+    
+        return;
+    }
 }

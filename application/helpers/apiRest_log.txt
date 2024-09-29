@@ -1,0 +1,4 @@
+Inicio de apiRest - Procesar_por: local
+Endpoint: https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro_t1:analyze?api-version=2023-07-31
+Archivo a procesar: uploader/files/3857/vl202404-t1_20240409_00013801116_9601280253_0024-98640526b_splitter.pdf
+Respuesta de Mindee: { "statusCode": 401, "message": "Unauthorized. Access token is missing, invalid, audience is incorrect (https://cognitiveservices.azure.com), or have expired." }

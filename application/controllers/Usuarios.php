@@ -94,7 +94,7 @@ class Usuarios extends backend_controller
 		$this->load->view('manager/footer', $this->data);
 	}
 
-	public function agregar($id=NUL)
+	public function agregar($id=NULL)
 	{
 
 		$msg = 76;
@@ -148,7 +148,7 @@ class Usuarios extends backend_controller
 			);
 
 			$this->ion_auth->register($this->input->post('username'), $this->input->post('password'), $this->input->post('email'), $additional_data, $groups);
-			redirect(base_url('Manager/secciones/usuarios/usuarios/'));
+			redirect(base_url('Admin/Usuarios'));
 
 		}
 

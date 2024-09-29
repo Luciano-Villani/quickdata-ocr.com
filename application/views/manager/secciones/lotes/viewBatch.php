@@ -12,8 +12,8 @@
 
 <div class="container-fuid card tabla_view">
 	<div class="card-header header-elements-inline">
-		<h5 class="card-title">Datos en base - Lotes</h5>
-		<p>mostrar datos del lote.</p>
+		<h5 class="card-title">Archivos del lote</h5>
+		<p>Datos del lote.</p>
 	</div>
 
 	<style>

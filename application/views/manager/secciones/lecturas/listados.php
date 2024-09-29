@@ -25,21 +25,24 @@
 				<div class="card card-body">
 					<div class="row">
 
-						<div class="col-md-4">
-							<div class="  form-group form-group-feedback form-group-feedback-right">
+				<div class="col-md-4">
+					<div class="form-group form-group-feedback form-group-feedback-right  ">
 
-								<?php
-								$js = array(
-									'id' => 'id_proveedor',
-									'class' => ' select2 form-control custom-select ',
-								);
-								?>
+					<?php
+					$js = array(
+						'id' => 'id_proveedor',
+						'class' => ' select2 form-control custom-select ',
+					);
 
-								<?= form_dropdown('id_proveedor', $select_proveedores, set_value('id_proveedor'), $js); ?>
-								<?php echo form_error('id_proveedor', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
 
-							</div>
-						</div>
+
+					?>
+
+					<?= form_dropdown('id_proveedor', $select_proveedores, set_value('id_proveedor', @$id_proveedor), $js); ?>
+					<?php echo form_error('id_proveedor', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
+
+					</div>				
+				</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<input type="text" class="form-control  " readonly="readonly" placeholder="Código de Proveedor" id="codeproveedor" value="">
@@ -108,32 +111,6 @@
 </div>
 
 
-
-
-
-
-
-
-<!-- 
-<div class="card">
-<div class="panel">
-		<div class="panel-heading">
-			<h5 class="panel-title">Multiple files desde su carpeta</h5>
-		</div>
-
-		<div class="panel-body">
-
-			<p class="text-semibold">Multiple file upload example:</p>
-			<form action="suber" class="dropzones dz-clickable" id="file-multiple">
-				<div class="dz-default dz-message"><span>Drop files  <span>or CLICK</span></span></div>
-				<div class="fallback">
-					<input name="file" type="file" multiple />
-				</div>
-			</form>
-		</div>
-	</div>
-
-</div> -->
 <div class="card d-none">
 	<h5 class="card-title bg-titulo text-center text-dark"> Datos leídos</h5>
 
@@ -157,9 +134,6 @@
 
 	</table>
 </div>
-
-
-
 
 
 <!-- Disabled backdrop -->

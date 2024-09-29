@@ -108,6 +108,10 @@ $(document).ready(function () {
         document.getElementById("selectedStek").style.color = "blue";
     }
   });
+
+
+
+  
   $("body").on("click", "span.mergefile", function (e) {
     var file = $(this).data("file");
     e.preventDefault();

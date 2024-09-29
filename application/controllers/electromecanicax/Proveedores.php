@@ -24,14 +24,7 @@ class Proveedores extends backend_controller
     public function list_dt()
     {
 
-        // $query = $this->db->select('*')->get('_proveedores');
-
-        // foreach ($query->result()  as $r) {
-
-        // 	$this->db->set('detalle_gasto', strtoupper($r->detalle_gasto));
-        // 	$this->db->where('id', $r->id);
-        // 	$this->db->update('_proveedores');
-        // }
+        
 
 
         $memData = $this->electromecanica->getRows($_POST);

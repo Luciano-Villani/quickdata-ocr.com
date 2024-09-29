@@ -57,10 +57,9 @@
 
 	<div class="card-header" style="margin-top: -20px";>
 		<div class="row">
+		<label class="col-2" for="id_proveedor">
 
-			<label class="col-2" for="id_proveedor">
-
-				<?php
+		<?php
 				$js = array(
 					'id' => 'id_proveedor',
 					'class' => 'ssse',
@@ -71,24 +70,16 @@
 
 				<?= form_dropdown('id_proveedor', $select_proveedores, set_value('id_proveedor'), $js); ?>
 
-				<script>
-
-					$('#id_proveedor').select2({
-						placeholder: 'PROVEEDORES',
-						
-						minimumResultsForSearch: "-1",
-						width: '100%',
-						closeOnSelect: false,
-						selectionCssClass: '',
-						
-						// escapeMarkup: function(m) {
-						// 	return m;
-						// }
-					});
-
-
-				</script>
-			</label>
+<script>
+	$('#id_proveedor').select2({
+		placeholder: 'PROVEEDORES',
+		minimumResultsForSearch: "-1",
+		width: '100%',
+		closeOnSelect: false,
+		selectionCssClass: '',
+	});
+</script>
+</label>
 		
 			<label class="col-2" for="id_tipo_pago">
 				<?php

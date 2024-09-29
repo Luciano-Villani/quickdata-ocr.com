@@ -1,0 +1,750 @@
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/3857/vl202404-t1_20240404_00000794459_6656943361_0024-97833721b_splitter.pdf
+)
+
+EndPoint: https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro_t1:analyze?api-version=2023-07-31
+Procesar por: azure
+Fecha: 2024-09-09 15:04:09
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240408_00005043932_0515044531_0024-98190544b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-10 19:05:17
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/3857/vl202404-t1_20240403_00014860757_2780420219_0024-97566433b_splitter.pdf
+)
+
+EndPoint: https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro_t1:analyze?api-version=2023-07-31
+Procesar por: azure
+Fecha: 2024-09-12 14:55:36
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/4399/0632027-23-12_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/naturgy/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 14:56:47
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/3232/facturaaysa0110b02603013a_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/aysa/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 15:06:30
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/3857/vl202404-t1_20240410_00001070296_0528063770_0024-98747471b_splitter.pdf
+)
+
+EndPoint: https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro_t1:analyze?api-version=2023-07-31
+Procesar por: azure
+Fecha: 2024-09-12 15:07:28
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/3857/vl202404-t1_20240411_00015385450_2291171309_0024-99027872b_splitter.pdf
+)
+
+EndPoint: https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro_t1:analyze?api-version=2023-07-31
+Procesar por: azure
+Fecha: 2024-09-12 15:08:23
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202404-t2_20240416_00057444161_3719202568_0024-99629549b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/naturgy/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 16:19:55
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240411_00001626571_4472695261_0024-99061607b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 16:22:00
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240405_00000845956_8285403542_0024-98050867b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 16:30:57
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240411_00001101718_6894967360_0024-99103711b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/aysa/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 16:51:43
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240405_00000845956_6581378865_0024-98020514b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/aysa/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 16:58:22
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240404_00000817456_7187964940_0024-97842384b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 17:00:50
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240404_00000817456_7187964940_0024-97842384b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/aysa/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 17:03:19
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240404_00001249783_9389430423_0024-97878640b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 17:04:50
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240403_00009360200_7042831162_0024-97369073b_splitter.pdf
+)
+
+EndPoint: https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro_t1:analyze?api-version=2023-07-31
+Procesar por: azure
+Fecha: 2024-09-12 17:07:03
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202404-t1_20240408_00000914564_6347854448_0014-17395947a_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 17:09:18
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/4399/0984107-23-12_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/naturgy/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 17:30:12
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/4399/0984738-24-08_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/naturgy/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 17:31:53
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/4399/0984738-24-08_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/naturgy4/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 17:35:14
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202404-t2_20240423_00055363740_2768779142_0026-00858305b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-12 22:46:30
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202401-t1_20240101_00000397754_8486457090_0024-81802975b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-13 18:51:01
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202401-t1_20240101_00000425073_3623879311_0024-81754277b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-13 18:51:12
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202401-t1_20240101_00000248240_5740355574_0024-81771975b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-13 18:51:20
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240618_01725941910_3337000000_0026-10639589b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 16:52:32
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240619_00326075303_1952970417_0026-10880471b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 17:50:59
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202406-t2_20240606_00142779653_7250567649_0026-08804240b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 17:57:55
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202406-t2_20240617_00077162574_5016230568_0026-10374359b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 18:03:05
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202406-t2_20240611_00043990993_8502159587_0026-09533611b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 18:04:32
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202406-t1_20240604_00032359282_3465632688_0026-08178307b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 18:05:24
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202406-t2_20240604_00045707373_4954237140_0026-08199756b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 18:10:18
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202406-t2_20240610_00027433781_3983143849_0026-09173047b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 18:21:56
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202406-t2_20240612_00027680552_9353749328_0026-09787889b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t22_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 18:25:03
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240624_00072717179_6337000000_0026-11540585b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-16 18:28:19
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202406-t1_20240604_00001171472_7187964940_0026-08231738b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 00:19:14
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240618_00095909001_7337000000_0026-10712091b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 16:15:44
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240612_00411277733_1922604937_0026-09662467b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 16:15:49
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240610_00201375024_3576336452_0026-09167042b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 16:15:53
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240624_00184394470_2479066482_0026-11502645b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 17:06:47
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240624_00158747015_2566052521_0026-11503571b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 17:06:52
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240618_00382204317_5381712040_0026-10674420b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 17:06:57
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240624_00112212154_6931690464_0026-11546436b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 17:44:24
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202406-t3_20240618_00382204317_5381712040_0026-10674420b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-17 17:44:28
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/1_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-18 09:25:15
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/1_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-18 09:33:03
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/2_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-18 09:33:11
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/3857/vl202312-t1_20231201_00000490479_8486457090_0024-77151373b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/edenor2/v1/predict
+Procesar por: local
+Fecha: 2024-09-20 16:08:10
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202308-t1_20230811_00004547717_9902805194_0024-58530389b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-20 17:38:05
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/files/3232/facturaaysa0110b12399617axxx_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/aysa/v1/predict
+Procesar por: local
+Fecha: 2024-09-23 14:34:46
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202405-t1_20240502_00186137763_7757974832_0026-02538789b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-23 20:59:53
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202405-t1_20240502_00009407226_3844402546_0026-02478237b_splitter.pdf
+)
+
+EndPoint: https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro-t1-v2:analyze?api-version=2023-07-31
+Procesar por: azure
+Fecha: 2024-09-23 21:03:30
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202405-t2_20240503_00043839350_7250567649_0026-02819383b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t22_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-24 00:54:53
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202405-t3_20240520_00092570227_7337000000_0026-05473688b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-24 00:57:54
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240202_00015555044_4954237140_0024-87310353b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t22_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-24 00:58:43
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202402-t1_20240202_00000256514_9389430423_0024-87373386b_splitter.pdf
+)
+
+EndPoint: https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro-t1-v2:analyze?api-version=2023-07-31
+Procesar por: azure
+Fecha: 2024-09-24 00:59:09
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202402-t1_20240207_00014868434_0235114137_0024-87969701b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-24 01:16:39
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240209_00011612569_8502159587_0024-88586636b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-24 01:17:06
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202402-t1_20240202_00000256514_1809838656_0024-87265554b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-25 23:20:44
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202402-t1_20240202_00001975772_6270672907_0024-87329060b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 00:21:24
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202402-t1_20240202_00000248240_6656943361_0024-87334502b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 00:28:50
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202402-t1_20240208_00000278052_0528063770_0024-88218560b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 00:31:46
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240206_00013309216_7207675498_0024-87835841b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 00:37:19
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240205_00005150481_6541432587_0024-87623645b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 00:39:06
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240205_00005150481_6541432587_0024-87623645b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 00:42:54
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240205_00005150481_6541432587_0024-87623645b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 00:48:05
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240202_00020867090_9341771801_0024-87372872b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 01:04:10
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240205_00005150481_6541432587_0024-87623645b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 01:09:08
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240209_00019299066_3567167944_0024-88505815b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 01:11:24
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240209_00011612569_8502159587_0024-88586636b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 01:13:34
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/3/3857/vl202402-t3_20240219_00073212949_1952970417_0024-89604159b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t3_b5/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 02:19:38
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/2/3857/vl202402-t2_20240205_00022746586_9483458139_0024-87685926b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electromecanica_t2_bkp/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 23:09:17
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202402-t1_20240202_00000253680_7187964940_0024-87342079b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp2/v1/predict
+Procesar por: local
+Fecha: 2024-09-26 23:09:42
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202310-t1_20231002_00001578575_3844402546_0024-66862951b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp3/v1/predict
+Procesar por: local
+Fecha: 2024-09-29 18:41:26
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202310-t1_20231003_00002974083_4784764565_0024-67169498b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp4/v1/predict
+Procesar por: local
+Fecha: 2024-09-29 18:44:23
+
+Llamada a apiRest: 
+Archivo: Array
+(
+    [full_path] => uploader/canon/1/3857/vl202310-t1_20231002_00007409291_7261232460_0024-66914437b_splitter.pdf
+)
+
+EndPoint: https://api.mindee.net/v1/products/quickdata-mvl/electro_t1_bkp5/v1/predict
+Procesar por: local
+Fecha: 2024-09-29 18:56:48
+

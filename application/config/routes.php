@@ -55,11 +55,13 @@ $route['Admin/Indexaciones'] = 'Indexaciones/listados';
 $route['Admin/Proveedores'] = 'proveedores/listados';
 
 $route['Admin/Usuarios'] = 'Usuarios/listados';
+$route['Admin/usuarios/agregar/(:num)'] = 'usuarios/agregar/$1';
+$route['Admin/usuarios/agregar'] = 'usuarios/agregar';
+
 
 $route['Usuarios/profiles/'] = 'Usuarios/profiles';
 $route['Uploader/index'] = 'Uploader';
-$route['Admin/usuarios/agregar/?(:num)?'] = 'usuarios/agregar/$1';
-$route['Admin/usuarios/listados'] = 'usuarios/listados';
+
 
 
 // ELECTROMECANICA
@@ -70,12 +72,15 @@ $route['Electromecanica/Lecturas/lotes_dt'] = 'electromecanicax/Lecturas/lotes_d
 $route['Electromecanica/Lecturas/upload'] = 'electromecanicax/Lecturas/upload';
 $route['Electromecanica/Lecturas/checkFile'] = 'electromecanicax/Lecturas/checkfile';
 $route['Electromecanica/Lecturas/delete_lote'] = 'electromecanicax/Lecturas/delete_lote';
+$route['Electromecanica/Lecturas/deletefile'] = 'electromecanicax/Lecturas/deletefile';
+
 $route['Electromecanica/Lecturas/indexaciones_dt'] = 'electromecanicax/Lecturas/indexaciones_dt';
 $route['Electromecanica/Lecturas/indexaciones_cuenta'] = 'electromecanicax/Lecturas/indexaciones_cuenta';
 
 $route['Electromecanica/Lecturas/viewBatch/?(:any)?'] = 'electromecanicax/Lecturas/viewBatch/$1';
 $route['Electromecanica/Lecturas/Views/?(:any)?'] = 'electromecanicax/Lecturas/views/$1';
 $route['Electromecanica/Lecturas/leerApi'] = 'electromecanicax/Lecturas/leerApi';
+$route['Electromecanica/Lecturas/Consolidar'] = 'electromecanicax/Lecturas/Consolidar';
 
 $route['Electromecanica/Indexaciones'] = 'electromecanicax/Indexaciones';
 $route['Electromecanica/Indexaciones/list_dt'] = 'electromecanicax/Indexaciones/list_dt';
@@ -93,11 +98,26 @@ $route['Electromecanica/Proveedores/checkApiUrl'] = 'electromecanicax/Proveedore
 $route['Electromecanica/Proveedores/delete'] = 'electromecanicax/Electromecanica/delete';
 $route['Electromecanica/Proveedores/edit'] = 'electromecanicax/Electromecanica/get_edit';
 
+
+// CONSOLIDADOS - ELECTROMECANICA
+$route['Electromecanica/Consolidados'] = 'electromecanicax/Consolidados/listados';
+$route['Electromecanica/Consolidados/list_dt_canon'] = 'electromecanicax/Consolidados/list_dt_canon';
+$route['Electromecanica/Consolidados/checkApiUrl'] = 'electromecanicax/Consolidados/checkApiUrl';
+$route['Electromecanica/Consolidados/delete'] = 'electromecanicax/Electromecanica/delete';
+$route['Electromecanica/Consolidados/edit'] = 'electromecanicax/Electromecanica/get_edit';
+$route['Electromecanica/Consolidados/obtener_datos_grafico'] = 
+$route['Electromecanica/Consolidados/obtener_datos_grafico'] = 'electromecanicax/Consolidados/obtener_datos_grafico';
+
+
+
+
 // ELECTROMECANICA
 
 $route['Admin'] = 'admin';
 $route['Login'] = 'auth/login';
 $route['Logout'] = 'auth/logout';
 $route['default_controller'] = 'auth/login';
-$route['404_override'] = 'Error/error_404';
+//$route['404_override'] = 'Error/error_404';
+$route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+

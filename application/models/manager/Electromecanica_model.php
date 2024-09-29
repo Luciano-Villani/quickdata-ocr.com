@@ -64,6 +64,20 @@ class Electromecanica_model extends CI_Model
         return $query->result();
     }
 
+    public function get_alldata($tabla, $where=false){
+        $this->db->select('*');
+        if($where){
+            $this->db->where($where);
+        }
+        $query = $this->db->get($tabla);
+        return $query->result();
+ 
+     if ($query->result() > 0) {
+         return $query->result();
+     }
+     return false;
+     }
+
     public function get_dato_api_blanco($id_lote)
     {
         $this->db->select('_datos_api_canon.*,_datos_api_canon.id as id_file');
@@ -200,125 +214,148 @@ class Electromecanica_model extends CI_Model
                 $this->order = array('_programas.id' => 'desc');
                 break;
 
-            case '_consolidados':
+                case '_consolidados_canon':
 
-                $this->db->select(
-                    'CONCAT(_consolidados.proveedor,
-                    " (", _consolidados.codigo_proveedor,")" ) as proveedora,
-                    CONCAT(_consolidados. jurisdiccion," ",_consolidados.id_programa ) as sumajuris,
-                    _consolidados.id as id_consolidado,
-                    UPPER(_consolidados.secretaria),
-                    _consolidados.proveedor,_consolidados.*, 
-                 ',
-                );
-
-                // $this->db->join('_tipo_pago', '_consolidados.tipo_pago = _tipo_pago.tip_nombre', '');
-
-                $my_column_order = array(
-                    '_consolidados.id',
-                    '_consolidados.periodo_contable',
-                    '_consolidados.proveedor',
-                    '_consolidados.expediente',
-                    '_consolidados.secretaria',
-                    '_consolidados.jurisdiccion',
-                    '_consolidados.id_programa',
-                    '_consolidados.programa',
-                    'sumajuris',
-                    '_consolidados.objeto',
-                    '_consolidados.dependencia',
-                    '_consolidados.dependencia_direccion',
-                    '_consolidados.tipo_pago',
-                    '_consolidados.nro_cuenta',
-                    '_consolidados.nro_factura',
-                    '_consolidados.preventivas',
-                    '_consolidados.preventivas',
-                    '_consolidados.dependencia',
-                    '_consolidados.fecha_vencimiento',
-                );
-                $my_column_search = array(
-                    '_consolidados.periodo_contable',
-                    'UPPER(_consolidados.proveedor)',
-                    'UPPER(_consolidados.expediente)',
-                    '_consolidados.secretaria',
-                    '_consolidados.jurisdiccion',
-                    '_consolidados.programa',
-                    '_consolidados.objeto',
-                    '_consolidados.dependencia',
-                    '_consolidados.dependencia_direccion',
-                    '_consolidados.tipo_pago',
-                    '_consolidados.nro_cuenta',
-                    '_consolidados.nro_factura',
-                    '_consolidados.id',
-                    '_consolidados.preventivas',
-                    '_consolidados.dependencia',
-                    '_consolidados.fecha_vencimiento',
-                );
-
-                $this->order = array(
-                    '_consolidados.id' => 'desc'
-                );
-
-                // echo '<pre>';
-                // var_dump( $_REQUEST ); 
-                // echo '</pre>';
-                // die();
-                //         if ($postData['data_search'] != "false" && (isset($postData['data_search']) && $postData['data_search'] != '')) {
-
-                //             $this->db->group_start();
-                //             switch ($postData['type']) {
-                //                 case 1:
-                //                     $dates = explode('@', $postData['data_search']);
-                //                     $this->db->where("_consolidados.fecha_consolidado >= '" . $dates[0] . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . $dates[1] . " 23:59:59'");
-                //                     break;
-                //                 case 2:
-                //                     $this->db->where("UPPER(_consolidados.proveedor) = '" . $postData['data_search'] . "'");
-                //                     break;
-                //                 case 3:
-                //                     $this->db->where("_consolidados.tipo_pago = '" . $postData['data_search'] . "'");
-                //                     break;
-                //                 case 4:
-                //                     $this->db->where("_consolidados.periodo_contable = '" . $postData['data_search'] . "'");
-                //                     break;
-                //             }
-                //             $this->db->group_end();
-                //         }
-
-                if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
-                    $this->db->group_start();
-                    foreach ($postData['id_proveedor'] as $prove) {
-
-                        $this->db->or_where('id_proveedor', $prove);
+                    $this->db->select(
+                        'CONCAT(_consolidados_canon.proveedor,
+                        " (", _consolidados_canon.codigo_proveedor,")" ) as proveedora,
+                        CONCAT(_consolidados_canon.jurisdiccion," ",_consolidados_canon.id_programa ) as sumajuris,
+                        _consolidados_canon.id as id_consolidado,
+                        UPPER(_consolidados_canon.secretaria), UPPER(_consolidados_canon.acuerdo_pago),
+                        _consolidados_canon.proveedor,_consolidados_canon.*, 
+                     ',
+                    );
+                
+                    // $this->db->join('_tipo_pago', '_consolidados_canon.tipo_pago = _tipo_pago.tip_nombre', '');
+                
+                    $my_column_order = array(
+                        '_consolidados_canon.id',
+                        '_consolidados_canon.periodo_contable',
+                        '_consolidados_canon.proveedor',
+                        '_consolidados_canon.expediente',
+                        '_consolidados_canon.secretaria',
+                        '_consolidados_canon.jurisdiccion',
+                        '_consolidados_canon.id_programa',
+                        '_consolidados_canon.programa',
+                        'sumajuris',
+                        '_consolidados_canon.objeto',
+                        '_consolidados_canon.dependencia',
+                        '_consolidados_canon.dependencia_direccion',
+                        //'_consolidados_canon.tipo_pago',
+                        'UPPER(_consolidados_canon.acuerdo_pago)',
+                        '_consolidados_canon.nro_cuenta',
+                        '_consolidados_canon.nro_factura',
+                        '_consolidados_canon.preventivas',
+                        '_consolidados_canon.preventivas',
+                        '_consolidados_canon.dependencia',
+                        '_consolidados_canon.fecha_vencimiento',
+                    );
+                    $my_column_search = array(
+                        '_consolidados_canon.periodo_contable',
+                        'UPPER(_consolidados_canon.proveedor)',
+                        'UPPER(_consolidados_canon.expediente)',
+                        '_consolidados_canon.secretaria',
+                        '_consolidados_canon.jurisdiccion',
+                        '_consolidados_canon.programa',
+                        '_consolidados_canon.objeto',
+                        '_consolidados_canon.dependencia',
+                        '_consolidados_canon.dependencia_direccion',
+                        //'_consolidados_canon.tipo_pago',
+                        'UPPER(_consolidados_canon.acuerdo_pago)',
+                        '_consolidados_canon.nro_cuenta',
+                        '_consolidados_canon.nro_factura',
+                        '_consolidados_canon.id',
+                        '_consolidados_canon.preventivas',
+                        '_consolidados_canon.dependencia',
+                        '_consolidados_canon.fecha_vencimiento',
+                    );
+                
+                    $this->order = array(
+                        '_consolidados_canon.id' => 'desc'
+                    );
+                
+                    if ((isset($postData['id_proveedor'])) && $postData['id_proveedor'] != 'false' && (isset($postData['id_proveedor']) && $postData['id_proveedor'] != '')) {
+                        $this->db->group_start();
+                        foreach ($postData['id_proveedor'] as $prove) {
+                            $this->db->or_where('id_proveedor', $prove);
+                        }
+                        $this->db->group_end();
                     }
-                    $this->db->group_end();
-                }
-                if ((isset($postData['tipo_pago']) && $postData['tipo_pago'] != 'false' &&  $postData['tipo_pago'] != '')) {
+                   // if ((isset($postData['tipo_pago']) && $postData['tipo_pago'] != 'false' &&  $postData['tipo_pago'] != '')) {
+                    //    $this->db->group_start();
+                    //    foreach ($postData['tipo_pago'] as $tipo) {
+                    //        $this->db->or_where('_consolidados_canon.tipo_pago', $tipo);
+                    //    }
+                    //    $this->db->group_end();
+                   // }
+                
+                    //if ((isset($postData['periodo_contable']) && $postData['periodo_contable'] != 'false' &&  $postData['periodo_contable'] != '')) {
+                    //    $this->db->group_start();
+                    //    foreach ($postData['periodo_contable'] as $peri) {
+                     //       $this->db->or_where('_consolidados_canon.periodo_contable', $peri);
+                    //    }
+                     //   $this->db->group_end();
+                   // }
 
+                    //filtro de mes fc
 
-                    $this->db->group_start();
-                    foreach ($postData['tipo_pago'] as $tipo) {
-
-                        $this->db->or_where('_consolidados.tipo_pago', $tipo);
+                    if (isset($postData['mes_fc']) && $postData['mes_fc'] != 'false' && $postData['mes_fc'] != '') {
+                        // Si mes_fc es un string, lo agregamos directamente
+                        if (is_array($postData['mes_fc'])) {
+                            // Manejo del caso en que mes_fc es un array
+                            $this->db->group_start();
+                            foreach ($postData['mes_fc'] as $mes) {
+                                $this->db->or_where('_consolidados_canon.mes_fc', $mes);
+                            }
+                            $this->db->group_end();
+                        } else {
+                            // Aquí agregamos el string directamente
+                            $this->db->where('_consolidados_canon.mes_fc', $postData['mes_fc']);
+                        }
                     }
-                    $this->db->group_end();
-                }
 
-                if ((isset($postData['periodo_contable']) && $postData['periodo_contable'] != 'false' &&  $postData['periodo_contable'] != '')) {
+                    //filtro de año fc
 
-                    $this->db->group_start();
-                    foreach ($postData['periodo_contable'] as $peri) {
-
-                        $this->db->or_where('_consolidados.periodo_contable', $peri);
+                 
+                    if (isset($postData['anio_fc']) && !empty($postData['anio_fc'])) {
+                        if (is_array($postData['anio_fc'])) {
+                            $this->db->group_start(); // Inicia un grupo para la consulta
+                            foreach ($postData['anio_fc'] as $anio) {
+                                $this->db->or_where('_consolidados_canon.anio_fc', $anio);
+                            }
+                            $this->db->group_end(); // Cierra el grupo
+                        } else {
+                            $this->db->where('_consolidados_canon.anio_fc', $postData['anio_fc']);
+                        }
                     }
-                    $this->db->group_end();
+
+                 // Filtro registros donde 'cos_fi' es menor a 0.95
+
+                 if (!empty($postData['cos_fi']) && $postData['cos_fi'] === 'true') {
+                    $this->db->group_start(); // Iniciar un grupo para aislar la condición
+                    $this->db->where('_consolidados_canon.cosfi <', 0.95); // Filtrar valores menores a 0.95
+                    $this->db->where('_consolidados_canon.cosfi >', 0.0); // Filtrar valores mayores a 0.0
+                    $this->db->group_end(); // Cerrar el grupo
                 }
 
-                if ((isset($postData['fecha']) && $postData['fecha'] != 'false' &&  $postData['fecha'] != '')) {
-                    $dates = explode('-', $postData['fecha']);
-
-                    $this->db->where("_consolidados.fecha_consolidado >= '" . fecha_es(trim(str_replace('/', '-', $dates[0])), "Y-m-d", false) . " 00:00:01'  AND _consolidados.fecha_consolidado <= '" . fecha_es(trim(str_replace('/', '-', $dates[1])), "Y-m-d", false) . " 23:59:59'");
+                // Filtro para Cos Fi menores a 0.095
+                if (!empty($postData['tg_fi']) && $postData['tg_fi'] === 'true') {
+                    $this->db->group_start(); // Iniciar un grupo para aislar la condición
+                    $this->db->where('_consolidados_canon.tgfi >', 0.33); // Filtrar valores mayores a 0.33
+                    $this->db->group_end(); // Cerrar el grupo
                 }
-                break;
-
+            
+                
+    
+                
+                    if ((isset($postData['fecha']) && $postData['fecha'] != 'false' &&  $postData['fecha'] != '')) {
+                        $dates = explode('-', $postData['fecha']);
+                
+                        $this->db->where("_consolidados_canon.fecha_consolidado >= '" . fecha_es(trim(str_replace('/', '-', $dates[0])), "Y-m-d", false) . " 00:00:01'  AND _consolidados_canon.fecha_consolidado <= '" . fecha_es(trim(str_replace('/', '-', $dates[1])), "Y-m-d", false) . " 23:59:59'");
+                    }
+                    break;
+                
+                
 
             case '_dependencias_canon':
 
@@ -636,17 +673,45 @@ class Electromecanica_model extends CI_Model
 
     public function obtener_contenido_select($tabla, $defTxt = 'SELECCIONAR', $campo = NULL, $orden = 'id DESC', $title = true)
     {
-        $query = $this->db->select('*')
-            ->order_by($orden)
-            ->get($tabla);
+        // Verificar si la tabla es '_consolidados_canon' para obtener años únicos
+    if ($tabla === '_consolidados_canon') {
+        $this->db->select('anio_fc'); // Seleccionar el campo de año
+        $this->db->from($tabla);
+        $this->db->where('anio_fc IS NOT NULL'); // Asegurarte de que no sean nulos
+        $this->db->where('anio_fc !=', ''); // Asegurarte de que no estén vacíos
+        $this->db->group_by('anio_fc'); // Agrupar por el campo anio_fc
+        $this->db->order_by('anio_fc', 'ASC'); // Ordenar por el año
+        $query = $this->db->get();
 
-        if ($query->result() > 0) {
-
+        if ($query->num_rows() > 0) {
             $my_array = array();
             if ($title) {
                 $my_array[0] = strtoupper($defTxt);
             }
 
+            foreach ($query->result_array() as $data) {
+                $my_array[$data['anio_fc']] = $data['anio_fc']; // Usar el array asociativo
+            }
+
+            return $my_array;
+        }
+
+        return FALSE;
+
+
+    }
+        // Seleccionar todos los campos, incluyendo procesar_por si existe
+        $query = $this->db->select('*')
+            ->order_by($orden)
+            ->get($tabla);
+    
+        if ($query->result() > 0) {
+    
+            $my_array = array();
+            if ($title) {
+                $my_array[0] = strtoupper($defTxt);
+            }
+    
             foreach ($query->result_array() as $data) {
                 switch ($tabla) {
                     case "_programas":
@@ -662,20 +727,28 @@ class Electromecanica_model extends CI_Model
                     case "_consolidados":
                         $my_array[$data['periodo_contable']] = strtoupper($data[$campo]);
                         break;
+                    case "_proveedores":
+                        // Para proveedores, agregar el campo procesar_por
+                        $my_array[$data['id']] = [
+                            'nombre' => strtoupper($data[$campo]),
+                            'procesar_por' => $data['procesar_por']
+                        ];
+                        break;
                     default:
                         $my_array[$data['id']] = strtoupper($data[$campo]);
                 }
             }
-
+    
             return $my_array;
         }
-
+    
         return FALSE;
     }
 
+
     public function getProveedores()
     {
-        $query = $this->db->select("*")->get('_proveedores');
+        $query = $this->db->select("*")->get('_proveedores_canon');
         return $query->result();
     }
 
@@ -768,102 +841,176 @@ class Electromecanica_model extends CI_Model
         }
     }
 
-    public function delete()
-    {
+    
+    public function consolidar_datos()
+{
+	if (isset($_REQUEST['id_file']) && $_POST['id_file'] != null) {
+		$data = $this->Electromecanica_model->getwhere('_datos_api_canon', 'id=' . $_POST['id_file']);
+		$files = array($data);
+	} else {
+		$files = $this->Electromecanica_model->getBatchFiles($_POST['code_lote']);
+	}
 
-        try {
+	try {
+		$error = true;
+		foreach ($files as $file) {
 
-            if (isset($_REQUEST['deletefile'])) {
-                $file = $this->get_data('_datos_api', intval($_REQUEST['id']));
+			if (checkConsolidarCanon($file->id)) {
+				$error = false;
 
-                if (is_file($file->nombre_archivo)) {
-                    if (unlink($file->nombre_archivo)) {
+				// Definir variables y obtener datos adicionales
+				$dependencia = '';
+				$id_proyecto = '';
+				$id_programa = '';
+				$programa_descripcion = '';
+				$proyecto_descripcion = '';
+				$id_interno_programa = '';
+				$id_interno_proyecto = '';
+				$dependencia_dependencia = '';
+				$dependencia_direccion = '';
+				
+				$indexador = $this->Electromecanica_model->getWhere('_indexaciones_canon', 'nro_cuenta="' . $file->nro_cuenta . '"');
+				$proveedor = $this->Electromecanica_model->get_proveedor_canon($indexador->id_proveedor);
+				$secretaria = $this->Electromecanica_model->get_data('_secretarias', $indexador->id_secretaria);
 
-                        $this->db->where('id', $file->id);
-                        $this->db->delete('_datos_api');
-                    }
-                } else {
-                    $this->db->where('id', $file->id);
-                    $this->db->delete('_datos_api');
-                }
+				if ($dependencia = $this->Electromecanica_model->getWhere('_dependencias_canon', '_dependencias_canon.id="'.$indexador->id_dependencia .'" AND _dependencias_canon.id_secretaria = "'.$indexador->id_secretaria.'"')) {
+					$dependencia_dependencia =  $dependencia->dependencia;
+					$dependencia_direccion = $dependencia->direccion;
+				}
 
-                $totalFiles = $this->Lotes_model->countFiles($file->code_lote);
+				if ($programa = $this->Electromecanica_model->getWhere('_programas','id="' . $indexador->id_programa .'"' )) {
+					$id_programa = $programa->id;
+					$programa_descripcion = $programa->descripcion;
+					$id_interno_programa = $programa->id_interno;
+				}
+				if ($proyecto = $this->Electromecanica_model->getWhere('_proyectos','id="' . $indexador->id_proyecto.'"')) {
+					$id_proyecto = $proyecto->id;
+					$proyecto_descripcion = $proyecto->descripcion;
+					$id_interno_proyecto = $proyecto->id_interno;
+				}
 
-                if ($totalFiles > 0) {
-                    $this->db->set('cant', $totalFiles);
-                    $this->db->where('id', $file->id_lote);
-                    $this->db->update('_lotes');
-                } else {
-                    $this->db->where('id', $file->id_lote);
-                    $this->db->delete('_lotes');
-                }
-            } else {
-                $this->db->where('id', $file->id);
-                $this->db->delete('_datos_api');
+				$fechaVencimeinto = $file->vencimiento_del_pago;
+				$mesVencimiento = explode('-', $fechaVencimeinto);
+				$indicePeriodoContable = str_replace('0', '', $mesVencimiento[1]);
+				$grPeriodos =  getPeriodos();
+				$clavePeriodo = array_search(strtoupper(fecha_es(date("Y-m-d H:i:s"), 'F a', false)), $grPeriodos);
 
-                $totalFiles = $this->Lotes_model->countFiles($file->code_lote);
+				// Array de consolidación con campos adicionales
+				$dataBatch = array(
+					'id_lectura_api' => $file->id,
+					'id_indexador' => $indexador->id,
+					'id_proveedor' => $proveedor->id,
+					'proveedor' => $proveedor->nombre,
+					'expediente' => $indexador->expediente,
+					'secretaria' => $secretaria->secretaria,
+					'id_secretaria' => $secretaria->id,
+					'jurisdiccion' => $secretaria->major,
+					'programa' => $programa_descripcion,
+					'id_interno_programa' => $id_interno_programa,
+					'id_programa' => $id_programa,
+					'id_proyecto' => $id_proyecto,
+					'id_interno_proyecto' => $id_interno_proyecto,
+					'proyecto' => $proyecto_descripcion,
+					'objeto' => $proveedor->objeto_gasto,
+					'dependencia' =>  $dependencia_dependencia,
+					'dependencia_direccion' =>  $dependencia_direccion,
+					'nro_factura' => $file->nro_factura,
+					'codigo_proveedor' => $proveedor->codigo,
+					'tipo_pago' => get_tipoPago($indexador->tipo_pago),
+					'nro_cuenta' => $indexador->nro_cuenta,
+					'periodo_del_consumo' => $file->periodo_del_consumo,
+					'fecha_vencimiento' => $file->vencimiento_del_pago,
+					'mes_vencimiento' => $mesVencimiento[1],
+					'preventivas' => date("Y-m-d H:i:s"),
+					'importe' => $file->total_importe,
+					'nro_medidor' => $file->nro_medidor,
+					'periodo_contable' => strtoupper(fecha_es(date("Y-m-d H:i:s"), 'F a', false)),
+					'lote' => $_POST['code_lote'],
+					'user_consolidado' => $this->user->id,
+					'fecha_consolidado' => $this->fecha_now,
+					'nombre_archivo' => $file->nombre_archivo,
+					'importe_1' => $file->total_importe,
+					'acuerdo_pago' => $indexador->acuerdo_pago,
+					'periodo' => $clavePeriodo,
+					'mes_fc' => $file->mes_fc,
+					'anio_fc' => $file->anio_fc,
+					'unidad_medida' => $proveedor->unidad_medida,
 
-                if ($totalFiles > 0) {
-                    $this->db->set('cant', $totalFiles);
-                    $this->db->where('id', $file->id_lote);
-                    $this->db->update('_lotes');
-                } else {
-                    $this->db->where('id', $file->id_lote);
-                    $this->db->delete('_lotes');
-                }
-            }
-            $response = array(
-                'mensaje' => 'Datos borrados',
-                'title' => str_replace('_', '', $_REQUEST['tabla']),
-                'status' => 'success',
-            );
-        } catch (Exception $e) {
-            $response = array(
-                'mensaje' => 'Error: ' . $e->getMessage(),
-                'title' => str_replace('_', '', $_REQUEST['tabla']),
-                'status' => 'error',
-            );
+					// Nuevos campos a consolidar
+					'tipo_de_tarifa' => $file->tipo_de_tarifa,
+					'consumo' => $file->consumo,
+					'e_activa' => $file->e_activa,
+					'e_reactiva' => $file->e_reactiva,
+					'tgfi' => $file->tgfi,
+					'cosfi' => isset($file->cosfi) ? str_replace(',', '.', $file->cosfi) : null,
+					'nombre_cliente' => $file->nombre_cliente,
+					'domicilio_de_consumo' => $file->domicilio_de_consumo,
+					'p_contratada' => $file->p_contratada,
+					'p_registrada' => $file->p_registrada,
+					'p_excedida' => $file->p_excedida,
+				);
+
+				$this->Electromecanica_model->grabar_datos('_consolidados_canon', $dataBatch);
+
+				$data = array(
+					'consolidado' => 1,
+					'user_consolidado' => $this->user->id,
+					'fecha_consolidado' => $this->fecha_now,
+				);
+				$this->db->update('_datos_api_canon', $data, array('id' => $file->id));
+				$this->db->update('_lotes_canon', $data, array('code' => $_POST['code_lote']));
+
+			} else {
+				$error = true;
+			}
+		}
+		if($error){
+			$response = array(
+				'estado' => 'error',
+				'title' => 'CONSOLIDACIONES',
+				'mensaje' => 'Archivos anteriormente Consolidados'
+			);
+			echo json_encode($response);die();
+		}else{
+			$response = array(
+				'status' => 'succes',
+				'title' => 'CONSOLIDACIONES',
+				'mensaje' => 'Archivo Consolidado'
+			);
+			echo json_encode($response);die();
+		}
+	} catch (Exception $e) {
+		die('error');
+	}
+}
+
+
+    
+    
+    public function get_proveedor_canon($id_proveedor) {
+        $query = $this->db->select('*')
+                          ->where('id', $id_proveedor)
+                          ->get('_proveedores_canon');
+    
+        if ($query->result() > 0){
+            return $query->row();
+        } else {
+            return null; // En caso de que no encuentre el proveedor
         }
-
-
-
-        // echo '<pre>';
-        // var_dump( $file ); 
-        // echo '</pre>';
-        // die();
-        // $total = 0;
-        // foreach ($file as $data) {
-        // 	if (is_file($data->nombre_archivo)) {
-        // 		if (unlink($data->nombre_archivo)) {
-        // 			$total++;
-        // 			$this->db->where('nombre_archivo', $data->nombre_archivo);
-        // 			$this->db->delete('_datos_api');
-        // 		}
-        // 	} else {
-        // 		$this->db->where('nombre_archivo', $data->nombre_archivo);
-        // 		$this->db->delete('_datos_api');
-        // 		// die('no');
-        // 	}
-        // }
-        // $this->db->where('code', $_REQUEST['code']);
-        // $this->db->delete('_lotes');
-        // $response = array(
-        // 	'total' => $total,
-        // 	'status' => 'success'
-        // );
-        // echo json_encode($response);
-
-
-
-        $this->db->where($_REQUEST['campo'], $_REQUEST['id']);
-        if ($this->db->delete($_REQUEST['tabla'])) {
-            $response = array(
-                'mensaje' => 'Datos borrados',
-                'title' => str_replace('_', '', $_REQUEST['tabla']),
-                'status' => 'success',
-            );
-        };
-        echo json_encode($response);
-        exit();
     }
+
+    public function countFilesCanon($codeLote)
+	{
+		$this->db->like('code_lote', $codeLote);
+		$this->db->from('_datos_api_canon');
+		return  $this->db->count_all_results();
+	}
+    public function contar_registros_por_proveedor_canon() {
+        $this->db->select('id_proveedor, COUNT(*) as cantidad');
+        $this->db->group_by('id_proveedor');
+        $query = $this->db->get('_consolidados_canon');
+        return $query->result();
+    }
+    
+	
 }

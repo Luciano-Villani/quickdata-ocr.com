@@ -32,9 +32,17 @@
         $hora = date("H:i:s", $fecha_en); // H-i-s (Hora, minutos, segundos)
 
         $dias = array('Monday' => 'Lunes', 'Tuesday' => 'Martes', 'Wednesday' => 'Miercoles', 'Thursday' => 'Jueves', 'Friday' => 'Viernes', 'Saturday' => 'Sabado', 'Sunday' => 'Domingo');
-        $meses = array('01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Setiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre');
+        $meses = array('01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre');
 
         switch ($formato) {
+            case "m":
+                $fecha_es = date("m", $fecha_en);
+                //Resultado: 06
+                break;            
+            case "Y":
+                $fecha_es = date("Y", $fecha_en);
+                //Resultado: 2014
+                break;
             case "d/m/a":
 
                 $fecha_es = date("d/m/Y", $fecha_en);

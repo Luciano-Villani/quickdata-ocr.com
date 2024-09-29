@@ -1,6 +1,46 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
+
+function getPeriodos(){
+
+    $mesesEspanol = [
+        1 => 'ENERO', 
+        2 => 'FEBRERO', 
+        3 => 'MARZO', 
+        4 => 'ABRIL', 
+        5 => 'MAYO', 
+        6 => 'JUNIO', 
+        7 => 'JULIO', 
+        8 => 'AGOSTO', 
+        9 => 'SEPTIEMBRE', 
+        10 => 'OCTUBRE', 
+        11 => 'NOVIEMBRE', 
+        12 => 'DICIEMBRE'
+    ];
+    
+    $fechaInicial = new DateTime('2024-01-01');
+    $fechaActual = new DateTime();
+    
+    $periodosContables = [];
+    
+    while ($fechaInicial <= $fechaActual) {
+        // Obtener el mes y el año
+        $mes = (int) $fechaInicial->format('n'); // Número del mes (1-12)
+        $anio = $fechaInicial->format('Y'); // Año
+    
+        // Formatear el mes en español usando el array de meses
+        $periodo = $mesesEspanol[$mes] . ' ' . $anio;
+        $periodosContables[] = $periodo;
+    
+        // Avanzar al siguiente mes
+        $fechaInicial->modify('+1 month');
+    }
+    
+    // Mostrar el array
+    return $periodosContables;
+}
 // chequea que no este consolidado
 function checkConsolidar($id_api)
 {
@@ -13,6 +53,20 @@ function checkConsolidar($id_api)
        return false;
     }
 }
+function checkConsolidarCanon($id_api)
+{
+    $CI = &get_instance();
+    $registro_api = $CI->Electromecanica_model->getWhere('_datos_api_canon', 'id=' . $id_api);
+
+    if ($registro_api->consolidado == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
 function get_indexaciones($nro_cuenta)
 {
 

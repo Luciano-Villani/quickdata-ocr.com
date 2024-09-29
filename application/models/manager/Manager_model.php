@@ -16,6 +16,7 @@ class Manager_model extends CI_Model
     public function getRows($postData)
     {
 
+       
         $this->_get_datatables_query($postData);
 
 
@@ -471,17 +472,18 @@ class Manager_model extends CI_Model
 
     public function obtener_contenido_select($tabla, $defTxt = 'SELECCIONAR', $campo = NULL, $orden = 'id DESC', $title = true)
     {
+        // Seleccionar todos los campos, incluyendo procesar_por si existe
         $query = $this->db->select('*')
             ->order_by($orden)
             ->get($tabla);
-
+    
         if ($query->result() > 0) {
-
+    
             $my_array = array();
             if ($title) {
                 $my_array[0] = strtoupper($defTxt);
             }
-
+    
             foreach ($query->result_array() as $data) {
                 switch ($tabla) {
                     case "_programas":
@@ -501,10 +503,10 @@ class Manager_model extends CI_Model
                         $my_array[$data['id']] = strtoupper($data[$campo]);
                 }
             }
-
+    
             return $my_array;
         }
-
+    
         return FALSE;
     }
 

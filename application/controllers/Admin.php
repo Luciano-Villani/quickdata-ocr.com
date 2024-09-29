@@ -23,34 +23,20 @@ class Admin extends backend_controller
 		if ($query->result() > 0) {
 			foreach ($query->result_array() as $key => $reg) {
 				array_push($this->gperiodos, $reg['periodo_contable']);
-			};
+			}
+			;
 		}
+
 
 		// quito periodos contables con datos erroneos, enero, febreo, marzo
-		$this->peri = array_slice($this->gperiodos, -3, 3, true);
-		foreach ($this->peri as $key => $val) {
-			unset($this->gperiodos[$key]);
-		}
+		// $this->peri = array_slice($this->gperiodos, -1, null, true);
+		// foreach ($this->peri as $key => $val) {
+		// 	unset($this->gperiodos[$key]);
+		// }
+
 	}
 
-	public function mindee()
-	{
-		$mindeeClient = new Client("f4b6ebe406cdb615674ae37aabc48929");
-	}
 
-	function agruparPorTrimestre($datos)
-	{
-
-		$agrupados = [];
-		foreach ($datos as $dato) {
-			$trimestre = strtoupper($dato[0]);
-			if (!isset($agrupados[$trimestre])) {
-				$agrupados[$trimestre] = [];
-			}
-			$agrupados[$trimestre][] = $dato;
-		}
-		return $agrupados;
-	}
 
 	public function GraphsGr()
 	{
@@ -60,22 +46,22 @@ class Admin extends backend_controller
 
 
 	/*
-  $elementos = array(
-				'name' => $proveedor_grafico,
-				'type' => 'bar',
-				'emphasis' => array(
-					'focus' => 'series'
-				),
-				'data' => $valores
+		$elementos = array(
+					  'name' => $proveedor_grafico,
+					  'type' => 'bar',
+					  'emphasis' => array(
+						  'focus' => 'series'
+					  ),
+					  'data' => $valores
 
-			);
- */
+				  );
+	   */
 
 	function cube($d)
 	{
 
-		$previoNombre  = [];
-		$previoimporte  = [];
+		$previoNombre = [];
+		$previoimporte = [];
 
 		$claveProveedor = array_search($d->proveedor, $this->gelementos);
 
@@ -172,7 +158,7 @@ class Admin extends backend_controller
 
 
 		echo '<pre>';
-		var_dump( $peroi ); 
+		var_dump($peroi);
 		echo '</pre>';
 		die();
 		foreach ($e as $i => $val) {
@@ -206,8 +192,13 @@ class Admin extends backend_controller
 		return $e;
 	}
 
+
 	public function Graphs()
 	{
+
+
+		$periodos_contables = getPeriodos();
+
 
 		$totalesPorServicio[] = [];
 		$periodos_contables = [];
@@ -217,42 +208,13 @@ class Admin extends backend_controller
 
 		if ($this->input->is_ajax_request()) {
 
+
 			$_POST['periodos'] = $this->gperiodos;
 			$memData = $this->Graph_model->getRows($_POST);
 
 
 			foreach ($memData as $x) {
-				// echo trim($x->periodo_contable);
-				// if(in_array($x->periodo_contable,$this->gperiodos)){
-				// 	$key = array_key_exists(trim($x->proveedor),$this->gelementos);
 
-				// 	unset($this->gperiodos[$key]);
-				// 	echo '<pre>';
-				// 	var_dump( $this->gperiodos ); 
-				// 	echo '</pre>';
-				// 	die();
-				// }else{
-				// 	die('jifdjaspofdoakfdo');
-				// }
-				// 			if($claveProveedor =  in_array($x->periodo_contable,$this->gperiodos) && is_int(in_array($x->periodo_contable,$this->gperiodos))){
-
-
-				// 				die('si'.$claveProveedor);
-				// 				unset($this->gperiodos[$claveProveedor]);
-				// 			}else{
-				// 				die('no'.$claveProveedor	);
-				// 			}
-				// 			echo '<pre>';
-				// 			var_dump( $this->gperiodos );
-				// 			echo '</pre>';
-				// die();
-
-
-
-				// echo '<pre>elementos';
-				// var_dump( $this->gelementos ); 
-				// echo '</pre>';
-				// die();
 				if (array_key_exists(trim($x->proveedor), $this->gelementos)) {
 
 					$found_key = array_search($x->periodo_contable, array_column($this->gelementos[trim($x->proveedor)], 'periodo'));
@@ -260,7 +222,7 @@ class Admin extends backend_controller
 					if (is_int($found_key)) {
 						$this->gelementos[trim($x->proveedor)][$found_key]['total'] = $x->total;
 					}
-					// echo '<pre>found'.$x->periodo_contable;
+
 
 				} else {
 
@@ -275,13 +237,14 @@ class Admin extends backend_controller
 						$this->gelementos[trim($x->proveedor)][$found_key]['total'] = $x->total;
 					}
 
-					// echo 'no existwe PROveedore<br>';
-					// die();
+
 				}
 			}
 
 
 			$finales = [];
+
+
 			foreach ($this->gelementos as $key => $val) {
 
 				$misvalores = [];
@@ -306,30 +269,16 @@ class Admin extends backend_controller
 
 
 				array_push($finales, $data);
-			};
+			}
+			;
 
-			// echo '<pre>es el finales';
-			// var_dump($finales);
-			// echo '</pre>';
-
-			// var_dump(array_map(array($this, 'setPeriodos'), $this->gelementos));
-
-
-			// var_dump(array_map(array($this, 'setPeriodos'), $this->gelementos));
-			// echo '</pre>';
-			// die();
 
 			$datos = [];
 
-			$title = '';
+			$text = 'GRAFICO';
+			$subtext = 'v1.0';
 			$proveedor_grafico = '';
 			$data_datatable = [];
-			if ((isset($_POST['secretaria'])) && $_POST['secretaria'] != 'false' && (isset($_POST['secretaria']) && $_POST['secretaria'] != '')) {
-
-				$title = $_POST['secretaria'];
-			}
-
-
 
 			$dataz = $row = array();
 			$valores = array();
@@ -374,7 +323,7 @@ class Admin extends backend_controller
 							$newPeri[trim($item[1])][$clavePeriodo] = 0;
 						}
 						$total = $newPeri[trim($item[1])][$clavePeriodo] + $item[2];
-						$newPeri[trim($item[1])][$clavePeriodo] =  $total;
+						$newPeri[trim($item[1])][$clavePeriodo] = $total;
 					} else {
 						if (!isset($newPeri[trim($item[1])][$key])) {
 							$newPeri[trim($item[1])][$key] = 0;
@@ -382,22 +331,15 @@ class Admin extends backend_controller
 						$total = $newPeri[trim($item[1])][$key] + $item[2];
 						$newPeri[trim($item[1])][$clavePeriodo] = $total;
 					}
-				};
-			};
-			$dataaaa = array(
-				1423, 2432, 3432
-			);
-			$elementos = array(
-				'name' => $proveedor_grafico,
-				'type' => 'bar',
-				'emphasis' => array(
-					'focus' => 'series'
-				),
-				'data' => $dataaaa
+				}
+				;
+			}
+			;
 
-			);
+			array_unshift($this->gperiodos, 'este_lo_borrare');
 
 
+			unset($this->gperiodos[0]);
 
 
 
@@ -407,12 +349,252 @@ class Admin extends backend_controller
 				"recordsFiltered" => $this->Graph_model->countFiltered($_POST),
 				"data" => $data_datatable,
 				"Glegen" => $periodos_contables,
-				'gperiodos' =>  $this->gperiodos,
+				'gperiodos' => getPeriodos(),
 				'Gseries' => $series,
 				'test' => $newPeri,
-				'elementos' => $elementos,
 				'finales' => $finales,
-				'title' => $title,
+				'text' => $text,
+				'subtext' => $subtext,
+				'queri' => trim($this->db->last_query()),
+				'request' => $_REQUEST
+				,
+
+			);
+			// Output to JSON format
+			echo json_encode($output);
+		}
+	}
+	public function Graphs2()
+	{
+		$periodos_contables = getPeriodos();
+		// $datos = $this->Graph_model->get_alldata('_consolidados', false);
+
+
+		// foreach($datos as $dato){
+
+		// 			 $clave = array_search($dato->periodo_contable, $periodos_contables); 
+
+
+		// 			 $data = array(
+		// 				'periodo' => $clave,
+
+		// 			);
+
+		// 			$this->db->where('id', $dato->id);
+		// 			$this->db->update('_consolidados', $data);
+
+		// }
+
+
+		$cambiaTitulo = false;
+		$text = '';
+		$subtext = '';
+		if ($_POST['id_proveedor'] != 0) {
+			$cambiaTitulo = true;
+			$proveedor = $this->Graph_model->get_data('_proveedores', $_POST['id_proveedor']);
+			$text .= $proveedor->nombre;
+		}
+		if ($_POST['id_secretaria'] != 0) {
+			$cambiaTitulo = true;
+			$secretaria = $this->Graph_model->get_data('_secretarias', $_POST['id_secretaria']);
+			$text .= "\n" . $secretaria->secretaria;
+		}
+		if ($_POST['periodo_contable'] != 0 && $_POST['periodo_contable'] != 'PERIODO CONTABLE') {
+			$cambiaTitulo = true;
+			$text .= $_POST['periodo_contable'];
+		}
+		if ($_POST['id_programa'] != 0) {
+			$cambiaTitulo = true;
+			$programa = $this->Graph_model->get_data('_programas', $_POST['id_programa']);
+			$text .= "\n" . strtoupper($programa->descripcion);
+		}
+
+
+		if ($_POST['id_proyecto'] != 0) {
+			$cambiaTitulo = true;
+			$proyecto = $this->Graph_model->get_data('_proyectos', $_POST['id_proyecto']);
+			$text .= "\n" . strtoupper($proyecto->descripcion);
+		}
+		if (!$cambiaTitulo) {
+			$text = 'Resumen de Gastos';
+			$subtext = '-';
+		}
+
+
+
+		$totalesPorServicio[] = [];
+
+		$gperiodos = [];
+		$series = [];
+		$this->proveedoresdb = $this->Graph_model->getProveedores(true);
+
+		$this->gperiodos = getPeriodos();
+		if ($this->input->is_ajax_request()) {
+			$_POST['periodos'] = getPeriodos();
+			$memData = $this->Graph_model->getRows($_POST);
+
+			foreach ($memData as $x) {
+
+
+
+				//  if (array_key_exists(trim($x->proveedor), $this->gelementos)) {
+				// 	 die('si');
+				// }else{
+				// 	die('no');
+				// }
+
+
+
+				if (array_key_exists(trim($x->proveedor), $this->gelementos)) {
+
+					$found_key = array_search($x->periodo_contable, array_column($this->gelementos[trim($x->proveedor)], 'periodo'));
+
+					if (is_int($found_key)) {
+						$this->gelementos[trim($x->proveedor)][$found_key]['total'] = $x->total;
+					}
+
+				} else {
+
+					foreach ($periodos_contables as $key => $val) {
+						if (!array_key_exists($key, $this->gelementos)) {
+							$this->gelementos[trim($x->proveedor)][$key] = array('periodo' => $val, 'total' => 00.0);
+						}
+					}
+
+					$found_key = array_search($x->periodo_contable, array_column($this->gelementos[trim($x->proveedor)], 'periodo'));
+					if (is_int($found_key)) {
+						$this->gelementos[trim($x->proveedor)][$found_key]['total'] = $x->total;
+					}
+				}
+			}
+
+
+			$finales = [];
+
+
+			foreach ($this->gelementos as $key => $val) {
+
+
+				//  echo '<pre> ';
+				//  var_dump( $this->gelementos); 
+				//  echo '</pre>';
+				//  die(); 
+				$misvalores = [];
+				foreach ($this->gelementos[$key] as $r) {
+					$misvalores[] = floatval($r['total']);
+					if (floatval($r['total']) > 0) {
+
+					}
+				}
+
+				$data = array(
+					'name' => $key,
+					'type' => 'bar',
+					// 'stack'=> 'total',
+					"label"=> "labelOption",
+					'emphasis' => array(
+						'focus' => 'series'
+					),
+					'barWidth' => '15%',
+					'data' => $misvalores,
+					// 'label'=>array(
+					// 	'show'=>true,
+					// 	'position'=>'inside',
+					// 	'rotate'=> 90,	
+					// )
+				);
+
+
+				array_push($finales, $data);
+			}
+			;
+
+
+
+			$proveedor_grafico = '';
+			$data_datatable = [];
+
+			$dataz = $row = array();
+			$valores = array();
+			foreach ($memData as $r) {
+
+				$data_datatable[] = array(
+					strtoupper($r->periodo_contable),
+					strtoupper($r->proveedor),
+					strtoupper($r->periodo),
+					$r->total,
+
+				);
+
+				$proveedor_grafico = $r->proveedor;
+				$valores[] = $r->total;
+			}
+
+
+			$newPeri = [];
+			$proveeedor = [];
+
+
+			foreach ($dataz as $item) {
+				if (!isset($proveeedor[trim($item[1])])) {
+					$proveeedor[trim($item[1])] = '';
+				}
+
+				$proveeedor[$item[1]] = trim($item[1]);
+
+				// $proceso = ;
+				foreach ($this->gperiodos as $key => $val) {
+
+					$claveProveedor = array_search(trim($item[1]), $newPeri); // $clave  Periododo;
+					if (!isset($newPeri[trim($item[1])])) {
+						$newPeri[$item[1]] = [];
+					}
+
+					$clavePeriodo = array_search($val[0], $item); // $clave  Periododo;
+
+					if (is_int($clavePeriodo)) {
+
+						if (!isset($newPeri[trim($item[1])][$clavePeriodo])) {
+							$newPeri[trim($item[1])][$clavePeriodo] = 0;
+						}
+						$total = $newPeri[trim($item[1])][$clavePeriodo] + $item[2];
+						$newPeri[trim($item[1])][$clavePeriodo] = $total;
+					} else {
+						if (!isset($newPeri[trim($item[1])][$key])) {
+							$newPeri[trim($item[1])][$key] = 0;
+						}
+						$total = $newPeri[trim($item[1])][$key] + $item[2];
+						$newPeri[trim($item[1])][$clavePeriodo] = $total;
+					}
+				}
+				;
+			}
+			;
+
+			array_unshift($this->gperiodos, 'este_lo_borrare');
+
+
+			unset($this->gperiodos[0]);
+
+			if (count($data_datatable) == 0) {
+				$text .= "\nNO HAY DATOS";
+			}
+
+			$output = array(
+				"draw" => $_POST['draw'],
+				"recordsTotal" => count($data_datatable),
+				"recordsFiltered" => $this->Graph_model->countFiltered($_POST),
+				"data" => $data_datatable,
+				// "Glegen" => $periodos_contables,
+				'gperiodos' => getPeriodos(),
+				// 'Gseries' => $series,
+				// 'test' => $newPeri,
+				'finales' => $finales,
+				'text' => $text,
+				'subtext' => $subtext,
+				'queri' => trim($this->db->last_query()),
+				'request' => $_REQUEST
+				,
 
 			);
 			// Output to JSON format
@@ -488,8 +670,8 @@ class Admin extends backend_controller
 
 		$dataACT = $this->Manager_model->get_alldata('_consolidados');
 		/*
-		ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `proximo_vencimiento`, ADD `importe_1` DECIMAL(10,2) NOT NULL AFTER `nombre_archivo_temp`;
-		*/
+					ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `proximo_vencimiento`, ADD `importe_1` DECIMAL(10,2) NOT NULL AFTER `nombre_archivo_temp`;
+					*/
 
 		foreach ($dataACT as $reg) {
 			// echo $reg->secretaria;
@@ -520,24 +702,20 @@ class Admin extends backend_controller
 		// echo '</pre>';
 
 		// echo fechasMesNombre();
-
 		$script = array(
-			// 'https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js	',
 			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
-			// base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/chart.js'),
 		);
-
 
 		$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', '', 'periodo_contable', 'periodo_contable DESC', false);
 		$this->data['select_secretarias'] = $this->Graph_model->obtener_contenido_select('_secretarias', 'SECRETARIA', 'secretaria', 'id ASC', true);
 		$this->data['select_proveedores'] = $this->Manager_model->obtener_contenido_select('_proveedores', 'PORVEEDOR', 'nombre', 'id ASC', true);
 		$this->data['select_programas'] = $this->Manager_model->obtener_contenido_select('_programas', 'SELECCIONE PROGRAMA', 'descripcion', '');
-
+		$this->data['select_proyectos'] = $this->Manager_model->obtener_contenido_select('_proyectos', 'SELECCIONE PROYECTO', 'descripcion', 'id ASC'); // Agregado
 		$this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', '', 'tip_nombre', 'tip_id ASC', false);
-		$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', 'PERIODO', 'periodo_contable', 'periodo_contable DESC', true);
+		$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', 'PERIODO CONTABLE', 'periodo_contable', 'periodo_contable DESC', true);
+		// $this->data['select_periodo_contable'] =getPeriodos();
 
 		$this->data['css_common'] = $this->css_common;
-
 		$this->data['script_common'] = $this->script_common;
 		$this->data['script'] = $script;
 		$this->data['content'] = $this->load->view('manager/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method(), $this->data, TRUE);

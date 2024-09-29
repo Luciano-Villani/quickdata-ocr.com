@@ -17,21 +17,16 @@ class Lecturas extends backend_controller
 		}
 	}
 
-	public function views($id= null)
+	public function views($id = null)
 	{
+
 		// $myDato = $this->encrypt->decode(urldecode($id));
 		$myDato = $id;
-		
-		if ($id == 0 && $_SERVER['REQUEST_METHOD'] === "POST") {
 
-
-			// // $_POST['fecha_emision']  = date(trim('Y-m-d',$_POST['fecha_emision']));
-			// $_POST['fecha_emision']  = fecha_es(trim($_POST['fecha_emision']), 'Y-m-d', false);
-			// $_POST['vencimiento_del_pago']  = fecha_es(trim($_POST['vencimiento_del_pago']), 'Y-m-d', false);
-
+		if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 			$myDato = $_POST['id'];
-			$this->form_validation->set_rules('proveedor', 'Proveedor', 'trim|in_select[0]');
+			// $this->form_validation->set_rules('proveedor', 'Proveedor', 'trim|in_select[0]');
 			$this->form_validation->set_rules('nro_cuenta', 'Cuenta', 'trim|required');
 
 			//$this->form_validation->set_rules('nro_medidor', 'Medidor', 'trim|required');
@@ -39,6 +34,7 @@ class Lecturas extends backend_controller
 			// $this->form_validation->set_rules('periodo_del_consumo', 'Período', 'trim|required');
 			$this->form_validation->set_rules('fecha_emision', 'Fecha emisión', 'trim|required');
 			$this->form_validation->set_rules('total_importe', 'Importe', 'trim|required');
+
 
 			if ($this->form_validation->run() != FALSE) {
 				$id = $_REQUEST['id'];
@@ -49,25 +45,23 @@ class Lecturas extends backend_controller
 				// $timestamp = strtotime(trim($_REQUEST['vencimiento_del_pago']) );
 
 				if (($timestamp = strtotime($_REQUEST['vencimiento_del_pago'])) === false) {
-					$_REQUEST['vencimiento_del_pago']='error de lectura';
-					
+					$_REQUEST['vencimiento_del_pago'] = 'error de lectura';
 				} else {
-					$_REQUEST['vencimiento_del_pago']= date('Y-m-d', $timestamp);
+					$_REQUEST['vencimiento_del_pago'] = date('Y-m-d', $timestamp);
 				}
 
 				//campo fecha_emision
 				// $timestamp = strtotime(trim($_REQUEST['fecha_emision']) );
 				if (($timestamp = strtotime($_REQUEST['fecha_emision'])) === false) {
-					$_REQUEST['fecha_emision']='error de lectura';
-					
+					$_REQUEST['fecha_emision'] = 'error de lectura';
 				} else {
-					$_REQUEST['fecha_emision']= date('Y-m-d', $timestamp);
+					$_REQUEST['fecha_emision'] = date('Y-m-d', $timestamp);
 				}
 
 				if ($this->db->update('_datos_api_canon', $_REQUEST, array('id' => $_POST['id']))) {
 
 
-					redirect('Electromecanica/Lecturas/Views/'.$id);
+					redirect('Electromecanica/Lecturas/Views/' . $id);
 				};
 			}
 		}
@@ -86,9 +80,6 @@ class Lecturas extends backend_controller
 		$this->data['script_common'] = $this->script_common;
 		$this->data['script'] = $script;
 		$this->data['result'] = $registro_api;
-
-
-		// $this->data['nro_cuenta'] = $resultData->nro_cuenta;
 
 		$this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($registro_api->nro_cuenta);
 		$this->data['select_proveedores'] = $this->electromecanica->obtener_contenido_select('_proveedores_canon', 'SELECCIONE PROVEEDOR', 'nombre', 'id ASC');
@@ -110,9 +101,7 @@ class Lecturas extends backend_controller
 
 		$datoDb = $this->Electromecanica_model->getWhere('_datos_api_canon', 'nombre_archivo LIKE "%sadwsdw' . $nombre_archivodb . '%"');
 
-
 		if (file_exists($nombre_fichero) || $datoDb = NULL) {
-
 
 			$response = array(
 				"status" => 'error'
@@ -126,6 +115,8 @@ class Lecturas extends backend_controller
 			echo json_encode($response);
 		};
 	}
+
+
 	public function delete_lote()
 	{
 		$archivos = $this->Electromecanica_model->getBatchFiles($_REQUEST['code']);
@@ -162,6 +153,8 @@ class Lecturas extends backend_controller
 		);
 		echo json_encode($response);
 	}
+
+
 	public function indexaciones_cuenta()
 	{
 
@@ -183,7 +176,7 @@ class Lecturas extends backend_controller
 				$accionesDelete = '<span class="borrar_lote acciones" ><a title="Borrar lote" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar Lote"></i> </a> </span>';
 				$accionesReload = '<span class="reload-lote acciones" ><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
 
-	
+
 				$proveedor = $this->electromecanica->checkProveedor($r->id_proveedor);
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
@@ -205,7 +198,7 @@ class Lecturas extends backend_controller
 			$output = array(
 				"draw" => $_POST['draw'],
 				"recordsTotal" => 1,
-				"recordsFiltered" =>1,
+				"recordsFiltered" => 1,
 				"data" => $data,
 			);
 
@@ -213,6 +206,8 @@ class Lecturas extends backend_controller
 			echo json_encode($output);
 		}
 	}
+
+
 	public function indexaciones_dt($id = null)
 	{
 
@@ -298,6 +293,8 @@ class Lecturas extends backend_controller
 			echo json_encode($output);
 		}
 	}
+
+
 	public function lotes_dt($id = null)
 	{
 
@@ -348,10 +345,10 @@ class Lecturas extends backend_controller
 
 				$i++;
 				$accionesVer = '<span class="acciones"><a title="ver archivo" href="/Electromecanica/Lecturas/viewBatch/' . $r->code . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
-				$accionesMerge = '<span data-file="---" data-consolidado="' . $r->consolidado . '"  data-errores="' . $error . '" data-code="' . $r->code . '" data-id_lote="' . $r->id_lote . '" class="' . $classMerge . ' d-none"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $classTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
+				$accionesMerge = '<span data-file="---" data-consolidado="' . $r->consolidado . '"  data-errores="' . $error . '" data-code="' . $r->code . '" data-id_lote="' . $r->id_lote . '" class="' . $classMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $classTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
 				$accionesEdit = '<span data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="d-none editar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Editar lote" href="#"  class=""><i class=" text-warningr  icon-pencil4 " title="Editar Lote"></i> </a> </span>';
 				$accionesDelete = '<span data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="borrar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Borrar lote" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar Lote"></i> </a> </span>';
-				$accionesReload = '<span data-id_proveedor="' . $r->id_proveedor . '" data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="reload-lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
+				//$accionesReload = '<span data-id_proveedor="' . $r->id_proveedor . '" data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="reload-lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
 
 				$proveedor = $this->proveedores_model->get_proveedor($r->id_proveedor);
 				// $user = $this->ion_auth->user($r->user_add)->row();
@@ -374,7 +371,7 @@ class Lecturas extends backend_controller
 					// $estado,
 					$consolidado,
 					$r->last_name . ' ' . $r->first_name,
-					$accionesVer . $accionesReload . $accionesMerge . $accionesEdit . $accionesDelete,
+					$accionesVer . $accionesMerge . $accionesEdit . $accionesDelete,
 					$r->id_lote
 				);
 			}
@@ -413,22 +410,18 @@ class Lecturas extends backend_controller
 
 	public function viewBatch($id = null)
 	{
-
-
 		$_POST['search']['value'] = $id;
-
 		$this->lote = $id;
 
 		if ($this->input->is_ajax_request()) {
-
 			$files = $this->Electromecanica_model->getRows($_POST);
-
 			$i = $_POST['start'];
+			$data = array();
 
 			foreach ($files as $r) {
-
 				$classAccionMerge = 'mergefile';
 				$archivo = explode('/', $r->nombre_archivo);
+
 				if ($indexador = $this->Electromecanica_model->getWhere('_indexaciones_canon', 'nro_cuenta="' . $r->nro_cuenta . '"')) {
 					$indexador = $indexador->id;
 				} else {
@@ -436,11 +429,9 @@ class Lecturas extends backend_controller
 				}
 
 				$iconTextMerge = '';
-
 				$disableMerge = '';
 
 				if ($this->Electromecanica_model->get_indexacion('_indexaciones_canon', $r->nro_cuenta)) {
-
 					$iconTextMerge = 'text-success';
 				} else {
 					$iconTextMerge = 'text-danger';
@@ -451,29 +442,26 @@ class Lecturas extends backend_controller
 
 				$accionesVer = '<span class="acciones"><a title="ver archivo" href="/Electromecanica/Lecturas/Views/' . $r->id . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
 				$accionesMerge = '<span data-file="' . $archivo[3] . '" data-consolidado="' . $r->consolidado . '"  data-indexador="' . $indexador . '" data-code="' . $r->code_lote . '" data-id_file="' . $r->id . '" class="' . $classAccionMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $iconTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
-				$accionesReload = '<span data-id_proveedor="' . $r->id_proveedor . '"data-file="' . $r->nombre_archivo_temp . '"data-id_lote="' . $r->id . '" data-code="' . $r->code_lote . '"class="reload-lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
-				$accionesDelete = '<span data-tabla="_datos_api" data-id_file="' . $r->id . '" class="borrar-file acciones" ><a title="Borrar file" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
+				// Removed the $accionesReload variable
+				$accionesDelete = '<span data-tabla="_datos_api_canon" data-id_file="' . $r->id . '" class="borrar-file acciones" ><a title="Borrar file" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 
 				$data[] = array(
-					'',
+
 					$r->nro_cuenta,
 					$r->nro_medidor,
 					$r->nro_factura,
 					$r->periodo_del_consumo,
 					$r->fecha_emision,
-					// fecha_es($r->fecha_emision, 'd/m/a', false),
-					// fecha_es($r->vencimiento_del_pago, 'd/m/a', false),
 					$r->vencimiento_del_pago,
 					$r->total_importe,
 					$r->total_vencido,
 					$r->consumo,
 					$indexador,
 					$archivo[3],
-					$accionesVer . $accionesMerge . $accionesReload . $accionesDelete,
+					$accionesVer . $accionesMerge . $accionesDelete,
 					$r->id
 				);
 			}
-
 
 			$output = array(
 				"draw" => $_POST['draw'],
@@ -488,25 +476,17 @@ class Lecturas extends backend_controller
 		}
 
 		if ($id) {
-
-
 			$script = array(
 				base_url('assets\manager\js\plugins\tables\datatables\extensions/select.min.js'),
 				base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 				base_url('assets/manager/js/secciones/electromecanica/' . $this->router->fetch_method() . '.js'),
-				// base_url('assets/manager/js/secciones/Electromecanica/' . $this->router->fetch_class() . '/modulo.js'),
 			);
-
 
 			$this->data['css_common'] = $this->css_common;
 			$this->data['css'] = '';
 
 			$this->data['script_common'] = $this->script_common;
 			$this->data['script'] = $script;
-
-			// $this->data['proveedor'] = $this->Manager_model->get_data('_proveedores', $_POST['id_proveedor']);
-
-
 
 			$hoy = getdate();
 			$code = substr(str_replace(array('=', '-'), '', $this->encrypt->encode($hoy[0])), 0, -22);
@@ -521,7 +501,79 @@ class Lecturas extends backend_controller
 		}
 	}
 
-	public function leerApi()
+
+	public function deletefile()
+	{
+
+		try {
+
+			if (isset($_REQUEST['deletefile'])) {
+				$file = $this->Electromecanica_model->get_data('_datos_api_canon', intval($_REQUEST['id']));
+
+				if (is_file($file->nombre_archivo)) {
+					if (unlink($file->nombre_archivo)) {
+
+						$this->db->where('id', $file->id);
+						$this->db->delete('_datos_api_canon');
+					}
+				} else {
+					$this->db->where('id', $file->id);
+					$this->db->delete('_datos_api_canon');
+				}
+
+				$totalFiles = $this->Electromecanica_model->countFilesCanon($file->code_lote);
+
+				if ($totalFiles > 0) {
+					$this->db->set('cant', $totalFiles);
+					$this->db->where('id', $file->id_lote);
+					$this->db->update('_lotes_canon');
+				} else {
+					$this->db->where('id', $file->id_lote);
+					$this->db->delete('_lotes_canon');
+				}
+			} else {
+				$this->db->where('id', $file->id);
+				$this->db->delete('_datos_api_canon');
+
+				$totalFiles = $this->Electromecanica_model->countFilesCanon($file->code_lote);
+
+				if ($totalFiles > 0) {
+					$this->db->set('cant', $totalFiles);
+					$this->db->where('id', $file->id_lote);
+					$this->db->update('_lotes_canon');
+				} else {
+					$this->db->where('id', $file->id_lote);
+					$this->db->delete('_lotes_canon');
+				}
+			}
+			$response = array(
+				'mensaje' => 'Datos borrados',
+				'title' => str_replace('_', '', $_REQUEST['tabla']),
+				'status' => 'success',
+			);
+		} catch (Exception $e) {
+			$response = array(
+				'mensaje' => 'Error: ' . $e->getMessage(),
+				'title' => str_replace('_', '', $_REQUEST['tabla']),
+				'status' => 'error',
+			);
+		}
+
+
+		$this->db->where($_REQUEST['campo'], $_REQUEST['id']);
+		if ($this->db->delete($_REQUEST['tabla'])) {
+			$response = array(
+				'mensaje' => 'Datos borrados',
+				'title' => str_replace('_', '', $_REQUEST['tabla']),
+				'status' => 'success',
+			);
+		};
+		echo json_encode($response);
+		exit();
+	}
+
+
+	public function leerApi_carlos()
 	{
 		$response = [];
 		$API_KEY = 'f4b6ebe406cdb615674ae37aabc48929';
@@ -569,25 +621,24 @@ class Lecturas extends backend_controller
 				$campos = json_decode($data, true);
 				$updateData = [];
 
-				
+
 				$updateData['dato_api'] = $curlresponsejson;
 
-	
+
 				foreach ($campos['selector']['features'] as $selector) {
 
 					$elem = trim($selector['name']);
 
-					$totalIndices = count( $curlresponse->document->inference->pages[0]->prediction->$elem->values);
-			
+					$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->$elem->values);
+
 					$valorCampo = '';
-		
+
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$valorCampo .=' '. trim($curlresponse->document->inference->pages[0]->prediction->$elem->values[$paso]->content);
+						$valorCampo .= ' ' . trim($curlresponse->document->inference->pages[0]->prediction->$elem->values[$paso]->content);
 					}
 					$updateData[$elem] = $valorCampo;
-			
 				}
-		
+
 				$this->db->where("nombre_archivo",  $fileUrl);
 				$this->db->update('_datos_api_canon', $updateData);
 
@@ -604,7 +655,7 @@ class Lecturas extends backend_controller
 			$curl = curl_init();
 			$response = [];
 			curl_setopt_array($curl, array(
-				// CURLOPT_URL => 'https://api.mindee.net/v1/products/quickdata-mvl/edenor_canon_t_1/v1/predict',
+
 				CURLOPT_URL => $proveedor->urlapi,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => '',
@@ -638,171 +689,27 @@ class Lecturas extends backend_controller
 			$campos = json_decode($data, true);
 			$updateData = [];
 
-			
+
 			$updateData['dato_api'] = $curlresponsejson;
 
 
 			foreach ($campos['selector']['features'] as $selector) {
 
-			$elem = trim($selector['name']);
+				$elem = trim($selector['name']);
 
-				$totalIndices = count( $curlresponse->document->inference->pages[0]->prediction->$elem->values);
-		
+				$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->$elem->values);
+
 				$valorCampo = '';
-	
+
 				for ($paso = 0; $paso < $totalIndices; $paso++) {
-					$valorCampo .=' '. trim($curlresponse->document->inference->pages[0]->prediction->$elem->values[$paso]->content);
+					$valorCampo .= ' ' . trim($curlresponse->document->inference->pages[0]->prediction->$elem->values[$paso]->content);
 				}
 				$updateData[$elem] = $valorCampo;
-		
 			}
-	
+
 			$this->db->where("nombre_archivo_temp",  $_POST['file']);
 			$this->db->update('_datos_api_canon', $updateData);
-			// switch ($proveedor->id) {
 
-			// 	case 1:
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values);
-			// 		$nro_cuenta = '';
-
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_cuenta .= $curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
-			// 		}
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_medidor->values);
-			// 		$nro_medidor = '';
-
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_medidor .= $curlresponse->document->inference->pages[0]->prediction->nro_medidor->values[$paso]->content;
-			// 		}
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_factura->values);
-			// 		$nro_factura = '';
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_factura .= $curlresponse->document->inference->pages[0]->prediction->nro_factura->values[$paso]->content;
-			// 		}
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->total_importe->values);
-			// 		$total_importe = '';
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$total_importe .= $curlresponse->document->inference->pages[0]->prediction->total_importe->values[$paso]->content;
-			// 		}
-
-
-			// 		$total_importe = str_replace(',', '.', str_replace('.', '', $total_importe));
-
-			// 		$numero_decimal = number_format($total_importe, 2, '.', '');
-			// 		$updateData = array(
-			// 			'nro_medidor' => $nro_cuenta,
-			// 			'nro_cuenta' => $nro_cuenta,
-			// 			'nro_factura' => $nro_factura,
-			// 			'total_importe' => $total_importe,
-			// 			'importe_1' => $numero_decimal,
-			// 			'dato_api' => json_encode($curlresponse),
-			// 		);
-
-			// 		echo '<pre>';
-			// 		var_dump( $updateData ); 
-			// 		echo '</pre>';
-			// 		die();
-			// 		$this->db->where("nombre_archivo_temp",  $_POST['file']);
-			// 		$this->db->update('_datos_api_canon', $updateData);
-			// 		break;
-			// 	case 2:
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values);
-			// 		$nro_cuenta = '';
-
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_cuenta .= $curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
-			// 		}
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_medidor->values);
-			// 		$nro_medidor = '';
-
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_medidor .= $curlresponse->document->inference->pages[0]->prediction->nro_medidor->values[$paso]->content;
-			// 		}
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_factura->values);
-			// 		$nro_factura = '';
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_factura .= $curlresponse->document->inference->pages[0]->prediction->nro_factura->values[$paso]->content;
-			// 		}
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->total_importe->values);
-			// 		$total_importe = '';
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$total_importe .= $curlresponse->document->inference->pages[0]->prediction->total_importe->values[$paso]->content;
-			// 		}
-
-
-			// 		$total_importe = str_replace(',', '.', str_replace('.', '', $total_importe));
-
-
-			// 		$numero_decimal = number_format($total_importe, 2, '.', '');
-			// 		$updateData = array(
-			// 			'nro_medidor' => $nro_cuenta,
-			// 			'nro_cuenta' => $nro_cuenta,
-			// 			'nro_factura' => $nro_factura,
-			// 			'total_importe' => $total_importe,
-			// 			'importe_1' => $numero_decimal,
-			// 			'dato_api' => json_encode($curlresponse),
-			// 		);
-
-			// 		$this->db->where("nombre_archivo_temp",  $_POST['file']);
-			// 		$this->db->update('_datos_api_canon', $updateData);
-
-			// 		break;
-			// 	case 3:
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values);
-			// 		$nro_cuenta = '';
-
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_cuenta .= $curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
-			// 		}
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_medidor->values);
-			// 		$nro_medidor = '';
-
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_medidor .= $curlresponse->document->inference->pages[0]->prediction->nro_medidor->values[$paso]->content;
-			// 		}
-
-			// 		$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_factura->values);
-			// 		$nro_factura = '';
-			// 		for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 			$nro_factura .= $curlresponse->document->inference->pages[0]->prediction->nro_factura->values[$paso]->content;
-			// 		}
-
-			// 		$total_importe = 'N/A';
-			// 		$numero_decimal = '00.00';
-
-			// 		if ($curlresponse->document->inference->pages[0]->prediction->total_importe->confidence != 0) {
-
-			// 			$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->total_importe->values);
-			// 			$total_importe = '';
-			// 			for ($paso = 0; $paso < $totalIndices; $paso++) {
-			// 				$total_importe .= $curlresponse->document->inference->pages[0]->prediction->total_importe->values[$paso]->content;
-			// 			}
-			// 			$total_importe = str_replace(',', '.', str_replace('.', '', $total_importe));
-			// 			$numero_decimal = number_format($total_importe, 2, '.', '');
-			// 		}
-
-			// 		$updateData = array(
-			// 			'nro_medidor' => $nro_cuenta,
-			// 			'nro_cuenta' => $nro_cuenta,
-			// 			'nro_factura' => $nro_factura,
-			// 			'total_importe' => $total_importe,
-			// 			'importe_1' => $numero_decimal,
-			// 			'dato_api' => json_encode($curlresponse),
-			// 		);
-
-			// 		$this->db->where("nombre_archivo_temp",  $_POST['file']);
-			// 		$this->db->update('_datos_api_canon', $updateData);
-
-			// 		break;
-			// }
 			$response = array(
 				'mensaje' => $_POST['file'],
 				'title' => 'Lecturas',
@@ -813,7 +720,1070 @@ class Lecturas extends backend_controller
 		}
 	}
 
-	public function leerApi_ORIGINAL()
+	public function leerApi()
+	{
+		$file = str_replace(base_url(), '', $_POST['file']);
+
+		// Obtener datos del proveedor incluyendo el campo 'procesar_por'
+		$proveedor = $this->Electromecanica_model->getwhere('_proveedores_canon', 'id="' . $_POST['id_proveedor'] . '"');
+
+		// Asegurarse de que 'procesar_por' exista si no usar 'local' como valor predeterminado
+		$procesar_por = isset($proveedor->procesar_por) ? $proveedor->procesar_por : 'local';
+
+
+		$request = array(
+			'full_path' => $_POST['file']
+		);
+
+		// Realizar la llamada a apiRest con el valor de 'procesar_por'
+		$dataApi = apiRest($request, $proveedor->urlapi, $procesar_por);
+
+		// Actualizar los datos de la API en la tabla '_datos_api'
+		$updateData = array(
+			'dato_api' => json_encode($dataApi),
+		);
+		$this->db->where("nombre_archivo_temp", $_POST['file']);
+		$this->db->update('_datos_api_canon', $updateData);
+
+		$this->getDato($_POST['file'], $proveedor->id);
+
+		if (is_file($_POST['file'])) {
+			unlink($_POST['file']);
+		}
+
+		$response = array(
+			'mensaje' => $_POST['file'],
+			'title' => 'LOTES521',
+			'status' => 'success',
+		);
+		echo json_encode($response);
+		exit();
+	}
+
+	public function getDato($file = '', $id_proveedor = '')
+	{
+
+
+		if ($this->input->is_ajax_request()) {
+			$file = $_REQUEST['file'];
+			$id_proveedor = $_REQUEST['id_proveedor'];
+		}
+
+		$query = "SELECT id, dato_api FROM _datos_api_canon WHERE nombre_archivo_temp = '" . $file . "'";
+		$valor = $file;
+		$filename = $file;
+
+
+		$valor_escapado = $valor;
+
+		$resultado = $this->db->query($query, array($valor_escapado));
+		$mires = $resultado->result();
+
+
+		if ($resultado) {
+
+			$a = json_decode($mires[0]->dato_api);
+
+
+			switch ($id_proveedor) {
+				case 1: //3857 EDENOR T1
+
+
+					if (isset($a->document->inference->pages[0]->prediction->total_importe->values[0])) {
+						// Obtener el valor del importe
+						$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+
+						// Verificar si el importe no está vacío
+						if (!empty($importe)) {
+							// Elimina el separador de miles y ajusta el separador decimal
+							$importe = str_replace(',', '.', str_replace('.', '', $importe));
+
+							// Convierte la cadena en un valor numérico (float)
+							$importe_numerico = floatval($importe);
+
+							// Aplica number_format para formatear a 2 decimales
+							$total_importe = number_format($importe_numerico, 2, '.', '');
+						} else {
+							// Si el importe está vacío, asigna un valor por defecto
+							$total_importe = '0.00';
+						}
+					} else {
+						// Si no existe el valor, asigna un valor por defecto
+						$total_importe = '0.00';
+					}
+
+
+
+
+					//$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+
+					// Elimina el separador de miles y ajusta el separador decimal
+					//$importe = str_replace(',', '.', str_replace('.', '', $importe));
+
+					// Convierte la cadena en un valor numérico (float)
+					//$importe_numerico = floatval($importe);
+
+					// Aplica number_format para formatear a 2 decimales
+					//$numero_decimal = number_format($importe_numerico, 2, '.', '');
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
+					$periodo_del_consumo = '';
+
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+					}
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->tipo_de_tarifa->values);
+					$tipo_de_tarifa = '';
+
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$tipo_de_tarifa .= ' ' . $a->document->inference->pages[0]->prediction->tipo_de_tarifa->values[$paso]->content;
+					}
+
+					$totalIndices = count($a->document->inference->pages[1]->prediction->domicilio_de_consumo->values);
+					$domicilio_de_consumo = '';
+
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$domicilio_de_consumo .= ' ' . trim($a->document->inference->pages[1]->prediction->domicilio_de_consumo->values[$paso]->content);
+					}
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->dias_comprendidos->values);
+					$dias_comprendidos = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$dias_comprendidos .= ' ' . trim($a->document->inference->pages[0]->prediction->dias_comprendidos->values[$paso]->content);
+					}
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->nombre_cliente->values);
+					$nombre_cliente = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$nombre_cliente .= ' ' . trim($a->document->inference->pages[0]->prediction->nombre_cliente->values[$paso]->content);
+					}
+
+
+					
+			// Verificación para nro_factura
+			$nro_factura = 'N/A'; // Inicializar el nro_factura con un valor predeterminado
+
+			// Extraer el nombre del archivo desde la variable $filename
+			$partes = explode('/', $filename); // Separar la ruta por '/'
+			$nombreArchivo = end($partes); // Obtener el último elemento, que es el nombre del archivo
+
+			// Expresión regular ajustada para ser insensible a mayúsculas/minúsculas
+			// Formato esperado: 'VL202311-T1_20231101_+000004387,89_3623879311_0024-72041669B_splitter.pdf'
+			preg_match('/_(\d{4}-\d{8})b/i', $nombreArchivo, $matches); // El modificador 'i' hace la expresión insensible a mayúsculas/minúsculas
+
+			// Extraer el número de factura si coincide con el formato esperado
+			$numeroExtraido = isset($matches[1]) ? $matches[1] : ''; 
+
+			// Verificar si el nro_factura está en el JSON y si contiene algún valor
+			if (!empty($a->document->inference->pages[0]->prediction->nro_factura->values)) {
+				// Obtener el número de factura del JSON
+				$nro_factura = trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content);
+
+				// Verificar si el número de factura está vacío o no cumple con el formato xxxx-xxxxxxxx
+				if (empty($nro_factura) || !preg_match('/^\d{4}-\d{8}$/', $nro_factura)) {
+					// Si está vacío o no cumple el formato, usar el número extraído del nombre del archivo
+					$nro_factura = $numeroExtraido;
+				}
+			} else {
+				// Si no hay número de factura en el JSON, usar el número extraído del archivo
+				$nro_factura = $numeroExtraido;
+			}
+
+					
+					
+					// Verificación para nro_factura
+					//if ($a->document->inference->pages[0]->prediction->nro_factura->values) {
+					//	$nro_factura = $a->document->inference->pages[0]->prediction->nro_factura->values[0]->content;
+					//} else {
+					//	$nro_factura = 'N/A';
+					//}
+
+					// Verificación para fecha_emision
+					if ($a->document->inference->pages[0]->prediction->fecha_emision->values) {
+						$fecha_emision = $a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content;
+					} else {
+						$fecha_emision = 'N/A';
+					}
+
+					// Verificación para nro_cuenta
+					if ($a->document->inference->pages[0]->prediction->nro_cuenta->values) {
+						$nro_cuenta = $a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content;
+					} else {
+						$nro_cuenta = '0.00';
+					}
+
+
+					// Verificación para vencimiento_del_pago
+					if ($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values) {
+						$vencimiento_del_pago = $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content;
+					} else {
+						$vencimiento_del_pago = 'N/A';
+					}
+
+
+					// Verificación para proximo_vencimiento
+					//if ($a->document->inference->pages[0]->prediction->proximo_vencimiento->values) {
+					//	$proximo_vencimiento = $a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content;
+					//} else {
+					//	$proximo_vencimiento = 'N/A';
+					//}
+
+
+
+					// Verificación para nro_medidor
+					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
+						$nro_medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
+					} else {
+						$nro_medidor = '0.00';
+					}
+
+					// Verificación para periodo_del_consumo
+					if ($a->document->inference->pages[0]->prediction->periodo_del_consumo->values) {
+						$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
+						$periodo_del_consumo = '';
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+						}
+					} else {
+						$periodo_del_consumo = 'N/A';
+					}
+
+					// Verificación para consumo
+					if ($a->document->inference->pages[0]->prediction->consumo->values) {
+						$consumo = $a->document->inference->pages[0]->prediction->consumo->values[0]->content;
+					} else {
+						$consumo = '0.00';
+					}
+
+					// Verificación para dias_de_consumo
+					if ($a->document->inference->pages[0]->prediction->dias_de_consumo->values) {
+						$dias_de_consumo = $a->document->inference->pages[0]->prediction->dias_de_consumo->values[0]->content;
+					} else {
+						$dias_de_consumo = 'N/A';
+					}
+
+					// Verificación para dias_comprendidos
+					if ($a->document->inference->pages[0]->prediction->dias_comprendidos->values) {
+						$totalIndices = count($a->document->inference->pages[0]->prediction->dias_comprendidos->values);
+						$dias_comprendidos = '';
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$dias_comprendidos .= ' ' . $a->document->inference->pages[0]->prediction->dias_comprendidos->values[$paso]->content;
+						}
+					} else {
+						$dias_comprendidos = 'N/A';
+					}
+
+					// Verificación para consumo_dias_comprendidos
+					if ($a->document->inference->pages[0]->prediction->consumo_dias_comprendidos->values) {
+						$consumo_dias_comprendidos = $a->document->inference->pages[0]->prediction->consumo_dias_comprendidos->values[0]->content;
+					} else {
+						$consumo_dias_comprendidos = '0.00';
+					}
+
+					// Verificación para cargo_variable_hasta
+					if ($a->document->inference->pages[0]->prediction->cargo_variable_hasta->values) {
+						$cargo_variable_hasta = $a->document->inference->pages[0]->prediction->cargo_variable_hasta->values[0]->content;
+					} else {
+						$cargo_variable_hasta = '0.00';
+					}
+
+					// Verificación para cargo_fijo
+					if ($a->document->inference->pages[0]->prediction->cargo_fijo->values) {
+						$cargo_fijo = $a->document->inference->pages[0]->prediction->cargo_fijo->values[0]->content;
+					} else {
+						$cargo_fijo = '0.00';
+					}
+
+					// Verificación para monto_car_var_hasta
+					if ($a->document->inference->pages[0]->prediction->monto_car_var_hasta->values) {
+						$monto_car_var_hasta = $a->document->inference->pages[0]->prediction->monto_car_var_hasta->values[0]->content;
+					} else {
+						$monto_car_var_hasta = '0.00';
+					}
+
+					// Verificación para moto_var_mayor
+					if ($a->document->inference->pages[0]->prediction->moto_var_mayor->values) {
+						$moto_var_mayor = $a->document->inference->pages[0]->prediction->moto_var_mayor->values[0]->content;
+					} else {
+						$moto_var_mayor = '0.00';
+					}
+
+					// Verificación para otros_conseptos
+					if ($a->document->inference->pages[0]->prediction->otros_conseptos->values) {
+						$otros_conseptos = $a->document->inference->pages[0]->prediction->otros_conseptos->values[0]->content;
+					} else {
+						$otros_conseptos = '0.00';
+					}
+
+					// Verificación para conceptos_electricos
+					//if ($a->document->inference->pages[0]->prediction->conseptos_electricos->values) {
+					//		$conceptos_electricos = $a->document->inference->pages[0]->prediction->conseptos_electricos->values[0]->content;
+					//	} else {
+					//		$conceptos_electricos = '0.00';
+					//	}
+
+					// Verificación para impuestos
+					if ($a->document->inference->pages[0]->prediction->impuestos->values) {
+						$impuestos = $a->document->inference->pages[0]->prediction->impuestos->values[0]->content;
+					} else {
+						$impuestos = '0.00';
+					}
+
+					// Verificación para subsidio
+					if ($a->document->inference->pages[0]->prediction->subsidio->values) {
+						$subsidio = $a->document->inference->pages[0]->prediction->subsidio->values[0]->content;
+					} else {
+						$subsidio = '0.00';
+					}
+
+
+					$dataUpdate = array(
+
+
+						'nro_cuenta' => isset($nro_cuenta) ? trim($nro_cuenta) : 'N/A',
+						'tipo_de_tarifa' => isset($tipo_de_tarifa) ? trim($tipo_de_tarifa) : 'N/A',
+						'nombre_cliente' => isset($nombre_cliente) ? trim($nombre_cliente) : 'N/A',
+						'nro_medidor' => isset($nro_medidor) ? trim($nro_medidor) : 'N/A',
+						'nro_factura' => isset($nro_factura) ? trim($nro_factura) : 'N/A',
+						'periodo_del_consumo' => isset($periodo_del_consumo) ? trim($periodo_del_consumo) : 'N/A',
+						'fecha_emision' => isset($fecha_emision) ? trim($fecha_emision) : 'N/A',
+						'vencimiento_del_pago' => isset($vencimiento_del_pago) ? trim($vencimiento_del_pago) : 'N/A',
+						'proximo_vencimiento' => 'N/A',
+						'total_importe' => isset($total_importe) ? trim($total_importe) : 'N/A',
+						'importe_1' => isset($total_importe) ? trim($total_importe) : 'N/A', // 'importe_1' igual que 'total_importe'
+						'consumo' => isset($consumo) ? trim($consumo) : 'N/A',
+						'total_vencido' => 'S/D', // Valor predeterminado fijo por ahora
+						'domicilio_de_consumo' => isset($domicilio_de_consumo) ? trim($domicilio_de_consumo) : 'N/A',
+						'dias_comprendidos' => isset($dias_comprendidos) ? trim($dias_comprendidos) : 'N/A',
+						'dias_de_consumo' => isset($dias_de_consumo) ? trim($dias_de_consumo) : 'N/A',
+						'consumo_dias_comprendidos' => isset($consumo_dias_comprendidos) ? trim($consumo_dias_comprendidos) : 'N/A',
+						'nombre_proveedor' => 'EDENOR CANON - T1',
+						'cargo_variable_hasta' => isset($cargo_variable_hasta) ? trim($cargo_variable_hasta) : 'N/A',
+						'cargo_fijo' => isset($cargo_fijo) ? trim($cargo_fijo) : 'N/A',
+						'monto_car_var_hasta' => isset($monto_car_var_hasta) ? trim($monto_car_var_hasta) : 'N/A',
+						'moto_var_mayor' => isset($moto_var_mayor) ? trim($moto_var_mayor) : 'N/A',
+						'otros_conseptos' => isset($otros_conseptos) ? trim($otros_conseptos) : 'N/A',
+						'conceptos_electricos' => isset($conceptos_electricos) ? trim($conceptos_electricos) : 'N/A',
+						'impuestos' => isset($impuestos) ? trim($impuestos) : 'N/A',
+						'subsidio' => isset($subsidio) ? trim($subsidio) : 'N/A',
+						'energia_inyectada' => '0.00',
+						'p_contratada' => 'N/A',
+						'p_registrada' => 'N/A',
+						'p_excedida' => 'N/A',
+						'pot_punta' => 'N/A',
+						'pot_fuera_punta_cons' => 'N/A',
+						'ener_punta_act' => 'N/A',
+						'ener_punta_cons' => 'N/A',
+						'ener_resto_act' => 'N/A',
+						'ener_resto_cons' => 'N/A',
+						'ener_valle_act' => 'N/A',
+						'ener_valle_cons' => 'N/A',
+						'ener_reac_act' => 'N/A',
+						'ener_reac_cons' => 'N/A',
+						'e_reactiva' => 'N/A',
+						'tgfi' => 'N/A',
+						'cargo_pot_contratada' => 'N/A',
+						'cargo_pot_ad' => 'N/A',
+						'cargo_pot_excd' => 'N/A',
+						'recargo_tgfi' => 'N/A',
+						'consumo_pico_ant' => 'N/A',
+						'consumo_pico_vig' => 'N/A',
+						'cargo_pico' => 'N/A',
+						'consumo_resto_ant' => 'N/A',
+						'consumo_resto_vig' => 'N/A',
+						'cargo_resto' => 'N/A',
+						'consumo_valle_ant' => 'N/A',
+						'consumo_valle_vig' => 'N/A',
+						'cargo_valle' => 'N/A',
+						'e_actual' => 'N/A',
+						'cargo_contr' => 'N/A',
+						'cargo_adq' => 'N/A',
+						'cargo_exc' => 'N/A',
+						'cargo_var' => 'N/A',
+						'bimestre' => 'N/A',
+						'ener_generada' => 'N/A',
+						'conseptos_electricos' => 'N/A',
+						'cosfi' => 'N/A',
+
+
+					);
+
+
+					break;
+
+				case 2: // T2 Edenor canon
+
+
+					$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+
+					// Convertir el valor a un número flotante correctamente
+					$importe = str_replace(',', '.', str_replace('.', '', $importe));
+
+					// Asegurarse de que el valor convertido sea un número antes de usar number_format
+					if (is_numeric($importe)) {
+						$numero_decimal = number_format((float)$importe, 2, '.', '');
+					} else {
+						$numero_decimal = '0.00'; // Valor por defecto si la conversión falla
+					}
+
+
+
+
+					//periodo de consumo
+					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
+					$periodo_del_consumo = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+					}
+
+					$totalIndices = count($a->document->inference->pages[1]->prediction->domicilio_de_consumo->values);
+					$domicilio_de_consumo = '';
+
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$domicilio_de_consumo .= ' ' . trim($a->document->inference->pages[1]->prediction->domicilio_de_consumo->values[$paso]->content);
+					}
+
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->tipo_de_tarifa->values);
+					$tipo_de_tarifa = '';
+
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$tipo_de_tarifa .= ' ' . $a->document->inference->pages[0]->prediction->tipo_de_tarifa->values[$paso]->content;
+					}
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->nombre_cliente->values);
+					$nombre_cliente = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$nombre_cliente .= ' ' . trim($a->document->inference->pages[0]->prediction->nombre_cliente->values[$paso]->content);
+					}
+
+					// Verificación para nro_factura
+					$nro_factura = 'N/A'; // Valor por defecto
+
+					if (isset($a->document->inference->pages[0]->prediction->nro_factura->values) && 
+						count($a->document->inference->pages[0]->prediction->nro_factura->values) > 0) {
+						
+						// Obtener el número de factura del JSON
+						$nro_factura = trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content);
+					}
+
+					// Verificar si nro_factura está vacío o no cumple con el formato xxxx-xxxxxxxx
+					if (empty($nro_factura) || !preg_match('/^\d{4}-\d{8}$/', $nro_factura)) {
+						// Suponiendo que $filename contiene el nombre del archivo
+						$filename = 'uploader/canon/1/3857/vl202402-t1_20240202_00000248240_6656943361_0024-87334502b_splitter.pdf';
+						
+						// Extraer el número de factura desde el nombre del archivo
+						$partes = explode('/', $filename); // Separar por '/'
+						$nombreArchivo = end($partes); // Obtener el último elemento
+
+						// Expresión regular que permite mayúsculas y minúsculas
+						preg_match('/(\d{4}-\d{8})[A-Za-z]?/', $nombreArchivo, $matches);
+
+						// Verificar si se encontró el número y asignar
+						if (isset($matches[1])) {
+							$nro_factura = $matches[1]; // Usar el número extraído, ignorando la letra final si existe
+						} else {
+							$nro_factura = 'N/A'; // Si no se encuentra, mantener 'N/A'
+						}
+					}
+
+					// nro_factura
+					//if ($a->document->inference->pages[0]->prediction->nro_factura->values) {
+					//	$nro_factura = trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content);
+					//} else {
+					//	$nro_factura = 'N/A';
+					//}
+
+					// fecha_emision
+					if ($a->document->inference->pages[0]->prediction->fecha_emision->values) {
+						$fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
+					} else {
+						$fecha_emision = 'N/A';
+					}
+
+					// nro_cuenta
+					if ($a->document->inference->pages[0]->prediction->nro_cuenta->values) {
+						$nro_cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
+					} else {
+						$nro_cuenta = 'N/A';
+					}
+
+
+					// vencimiento_del_pago
+					if ($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values) {
+						$vencimiento_del_pago = trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content);
+					} else {
+						$vencimiento_del_pago = 'N/A';
+					}
+
+					// nro_medidor
+					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
+						$nro_medidor = trim($a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content);
+					} else {
+						$nro_medidor = 'N/A';
+					}
+
+					// proximo_vencimiento
+					//if ($a->document->inference->pages[0]->prediction->proximo_vencimiento->values) {
+					//	$proximo_vencimiento = trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content);
+					//} else {
+					//	$proximo_vencimiento = 'N/A';
+					//}
+
+
+					// contratada
+					if ($a->document->inference->pages[0]->prediction->contratada->values) {
+						$contratada = trim($a->document->inference->pages[0]->prediction->contratada->values[0]->content);
+					} else {
+						$contratada = 'N/A';
+					}
+
+					// consumida
+					if ($a->document->inference->pages[0]->prediction->consumida->values) {
+						$consumida = trim($a->document->inference->pages[0]->prediction->consumida->values[0]->content);
+					} else {
+						$consumida = 'N/A';
+					}
+
+					// consumo_act
+					if ($a->document->inference->pages[0]->prediction->consumo_act->values) {
+						$consumo_act = trim($a->document->inference->pages[0]->prediction->consumo_act->values[0]->content);
+					} else {
+						$consumo_act = 'N/A';
+					}
+
+					// consumo_reac
+					if ($a->document->inference->pages[0]->prediction->consumo_reac->values) {
+						$consumo_reac = trim($a->document->inference->pages[0]->prediction->consumo_reac->values[0]->content);
+					} else {
+						$consumo_reac = 'N/A';
+					}
+
+
+
+					// cargo_fijo
+					if ($a->document->inference->pages[0]->prediction->cargo_fijo->values) {
+						$cargo_fijo = trim($a->document->inference->pages[0]->prediction->cargo_fijo->values[0]->content);
+					} else {
+						$cargo_fijo = 'N/A';
+					}
+
+					// cargo_contr
+					if ($a->document->inference->pages[0]->prediction->cargo_contr->values) {
+						$cargo_contr = trim($a->document->inference->pages[0]->prediction->cargo_contr->values[0]->content);
+					} else {
+						$cargo_contr = 'N/A';
+					}
+
+					// cargo_adq
+					if ($a->document->inference->pages[0]->prediction->cargo_adq->values) {
+						$cargo_adq = trim($a->document->inference->pages[0]->prediction->cargo_adq->values[0]->content);
+					} else {
+						$cargo_adq = 'N/A';
+					}
+
+					// cargo_exc
+					if ($a->document->inference->pages[0]->prediction->cargo_exc->values) {
+						$cargo_exc = trim($a->document->inference->pages[0]->prediction->cargo_exc->values[0]->content);
+					} else {
+						$cargo_exc = 'N/A';
+					}
+
+					// cargo_var
+					if ($a->document->inference->pages[0]->prediction->cargo_var->values) {
+						$cargo_var = trim($a->document->inference->pages[0]->prediction->cargo_var->values[0]->content);
+					} else {
+						$cargo_var = 'N/A';
+					}
+
+					// subsidio
+					if ($a->document->inference->pages[0]->prediction->subsidio->values) {
+						$subsidio = trim($a->document->inference->pages[0]->prediction->subsidio->values[0]->content);
+					} else {
+						$subsidio = 'N/A';
+					}
+
+
+					// energia_inyectada de mindee este campo se usa para leer el cosfi
+					if ($a->document->inference->pages[1]->prediction->energia_inyectada->values) {
+						$cosfi = trim($a->document->inference->pages[1]->prediction->energia_inyectada->values[0]->content);
+					} else {
+						$cosfi = 'S/D';
+					}
+
+
+					$dataUpdate = array(
+						'nombre_proveedor' => 'EDENOR CANON - T2',
+						'nro_cuenta' => isset($nro_cuenta) ? trim($nro_cuenta) : 'N/A',
+						'tipo_de_tarifa' => isset($tipo_de_tarifa) ? trim($tipo_de_tarifa) : 'N/A',
+						'nombre_cliente' => isset($nombre_cliente) ? trim($nombre_cliente) : 'N/A',
+						'nro_medidor' => isset($nro_medidor) ? trim($nro_medidor) : 'N/A',
+						'nro_factura' => isset($nro_factura) ? trim($nro_factura) : 'N/A',
+						'periodo_del_consumo' => isset($periodo_del_consumo) ? trim($periodo_del_consumo) : 'N/A',
+						'fecha_emision' => isset($fecha_emision) ? trim($fecha_emision) : 'N/A',
+						'vencimiento_del_pago' => isset($vencimiento_del_pago) ? trim($vencimiento_del_pago) : 'N/A',
+						'proximo_vencimiento' => isset($proximo_vencimiento) ? trim($proximo_vencimiento) : 'N/A',
+						'total_importe' => isset($numero_decimal) ? trim($numero_decimal) : '0.00',
+						'importe_1' => isset($numero_decimal) ? trim($numero_decimal) : '0.00', // 'importe_1' igual que 'total_importe'
+						'consumo' => isset($consumida) ? trim($consumida) : '0.00',
+						'total_vencido' => 'S/D', // Valor predeterminado fijo por ahora
+						'domicilio_de_consumo' => isset($domicilio_de_consumo) ? trim($domicilio_de_consumo) : 'N/A',
+						'dias_comprendidos' => isset($dias_comprendidos) ? trim($dias_comprendidos) : 'N/A',
+						'dias_de_consumo' => isset($dias_de_consumo) ? trim($dias_de_consumo) : 'N/A',
+						'consumo_dias_comprendidos' => isset($consumo_dias_comprendidos) ? trim($consumo_dias_comprendidos) : 'N/A',
+						'cargo_variable_hasta' => isset($cargo_variable_hasta) ? trim($cargo_variable_hasta) : '0.00',
+						'cargo_fijo' => isset($cargo_fijo) ? trim($cargo_fijo) : '0.00',
+						'monto_car_var_hasta' => isset($monto_car_var_hasta) ? trim($monto_car_var_hasta) : '0.00',
+						'moto_var_mayor' => isset($moto_var_mayor) ? trim($moto_var_mayor) : '0.00',
+						'otros_conseptos' => isset($otros_conseptos) ? trim($otros_conseptos) : '0.00',
+						'conceptos_electricos' => isset($conceptos_electricos) ? trim($conceptos_electricos) : '0.00',
+						'impuestos' => isset($impuestos) ? trim($impuestos) : '0.00',
+						'subsidio' => isset($subsidio) ? trim($subsidio) : '0.00',
+						'e_reactiva' => isset($consumo_reac) ? trim($consumo_reac) : '0.00',
+						'e_activa' => isset($consumo_act) ? trim($consumo_act) : '0.00',
+						'energia_inyectada' => '0.00',
+						'p_contratada' => '0.00',
+						'p_registrada' => '0.00',
+						'p_excedida' => '0.00',
+						'pot_punta' => '0.00',
+						'pot_fuera_punta_cons' => '0.00',
+						'ener_punta_act' => '0.00',
+						'ener_punta_cons' => '0.00',
+						'ener_resto_act' => '0.00',
+						'ener_resto_cons' => '0.00',
+						'ener_valle_act' => '0.00',
+						'ener_valle_cons' => '0.00',
+						'ener_reac_act' => '0.00',
+						'ener_reac_cons' => '0.00',
+						'tgfi' => '0.00',
+						'cargo_pot_contratada' => '0.00',
+						'cargo_pot_ad' => '0.00',
+						'cargo_pot_excd' => '0.00',
+						'recargo_tgfi' => '0.00',
+						'consumo_pico_ant' => '0.00',
+						'consumo_pico_vig' => '0.00',
+						'cargo_pico' => '0.00',
+						'consumo_resto_ant' => '0.00',
+						'consumo_resto_vig' => '0.00',
+						'cargo_resto' => '0.00',
+						'consumo_valle_ant' => '0.00',
+						'consumo_valle_vig' => '0.00',
+						'cargo_valle' => '0.00',
+						'e_actual' => '0.00',
+						'cargo_contr' => isset($cargo_contr) ? trim($cargo_contr) : '0.00',
+						'cargo_adq' => isset($cargo_adq) ? trim($cargo_adq) : '0.00',
+						'cargo_exc' => isset($cargo_exc) ? trim($cargo_exc) : '0.00',
+						'cargo_var' => isset($cargo_var) ? trim($cargo_var) : '0.00',
+						'bimestre' => 'N/A',
+						'ener_generada' => '0.00',
+						'conseptos_electricos' => '0.00',
+						'cosfi' => isset($cosfi) ? trim($cosfi) : 'S/D',
+
+
+					);
+
+
+
+
+					break;
+
+
+				case 3: // T3
+
+					$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+
+					//$importe = str_replace(',', '.', str_replace('.', '', $importe));
+
+
+					//$numero_decimal = number_format($importe, 2, '.', '');
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->domicilio_de_consumo->values);
+					$domicilio_de_consumo = '';
+
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$domicilio_de_consumo .= ' ' . trim($a->document->inference->pages[0]->prediction->domicilio_de_consumo->values[$paso]->content);
+					}
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->tipo_de_tarifa->values);
+					$tipo_de_tarifa = '';
+
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$tipo_de_tarifa .= ' ' . $a->document->inference->pages[0]->prediction->tipo_de_tarifa->values[$paso]->content;
+					}
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->nombre_cliente->values);
+					$nombre_cliente = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$nombre_cliente .= ' ' . trim($a->document->inference->pages[0]->prediction->nombre_cliente->values[$paso]->content);
+					}
+
+
+					// nro_factura
+					if ($a->document->inference->pages[0]->prediction->nro_factura->values) {
+						$nro_factura = $a->document->inference->pages[0]->prediction->nro_factura->values[0]->content;
+					} else {
+						$nro_factura = 'N/A';
+					}
+
+					// fecha_emision
+					if ($a->document->inference->pages[0]->prediction->fecha_emision->values) {
+						$fecha_emision = $a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content;
+					} else {
+						$fecha_emision = 'N/A';
+					}
+
+					// nro_cuenta
+					if ($a->document->inference->pages[0]->prediction->nro_cuenta->values) {
+						$nro_cuenta = $a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content;
+					} else {
+						$nro_cuenta = 'N/A';
+					}
+
+					// vencimiento_del_pago
+					if ($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values) {
+						$vencimiento_del_pago = $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content;
+					} else {
+						$vencimiento_del_pago = 'N/A';
+					}
+
+					// proximo_vencimiento
+					if ($a->document->inference->pages[0]->prediction->proximo_vencimiento->values) {
+						$proximo_vencimiento = $a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content;
+					} else {
+						$proximo_vencimiento = 'N/A';
+					}
+
+
+
+					// periodo_del_consumo
+					if ($a->document->inference->pages[0]->prediction->periodo_del_consumo->values) {
+						$periodo_del_consumo = $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[0]->content;
+					} else {
+						$periodo_del_consumo = 'N/A';
+					}
+
+
+					// p_contratada
+					if ($a->document->inference->pages[0]->prediction->p_contratada->values) {
+						$p_contratada = $a->document->inference->pages[0]->prediction->p_contratada->values[0]->content;
+					} else {
+						$p_contratada = '0.00';
+					}
+
+					// p_registrada
+					if ($a->document->inference->pages[0]->prediction->p_registrada->values) {
+						$p_registrada = $a->document->inference->pages[0]->prediction->p_registrada->values[0]->content;
+					} else {
+						$p_registrada = '0.00';
+					}
+
+					// p_excedida
+					if ($a->document->inference->pages[0]->prediction->p_excedida->values) {
+						$p_excedida = $a->document->inference->pages[0]->prediction->p_excedida->values[0]->content;
+					} else {
+						$p_excedida = '0.00';
+					}
+
+					// pot_punta
+					if ($a->document->inference->pages[0]->prediction->pot_punta->values) {
+						$pot_punta = $a->document->inference->pages[0]->prediction->pot_punta->values[0]->content;
+					} else {
+						$pot_punta = '0.00';
+					}
+
+					// pot_fuera_punta_cons
+					if ($a->document->inference->pages[0]->prediction->pot_fuera_punta_cons->values) {
+						$pot_fuera_punta_cons = $a->document->inference->pages[0]->prediction->pot_fuera_punta_cons->values[0]->content;
+					} else {
+						$pot_fuera_punta_cons = '0.00';
+					}
+
+					// ener_punta_act
+					if ($a->document->inference->pages[0]->prediction->ener_punta_act->values) {
+						$ener_punta_act = $a->document->inference->pages[0]->prediction->ener_punta_act->values[0]->content;
+					} else {
+						$ener_punta_act = '0.00';
+					}
+
+					// ener_punta_cons
+					if ($a->document->inference->pages[0]->prediction->ener_punta_cons->values) {
+						$ener_punta_cons = $a->document->inference->pages[0]->prediction->ener_punta_cons->values[0]->content;
+					} else {
+						$ener_punta_cons = '0.00';
+					}
+
+					// ener_resto_act
+					if ($a->document->inference->pages[0]->prediction->ener_resto_act->values) {
+						$ener_resto_act = $a->document->inference->pages[0]->prediction->ener_resto_act->values[0]->content;
+					} else {
+						$ener_resto_act = '0.00';
+					}
+
+					// ener_resto_cons
+					if ($a->document->inference->pages[0]->prediction->ener_resto_cons->values) {
+						$ener_resto_cons = $a->document->inference->pages[0]->prediction->ener_resto_cons->values[0]->content;
+					} else {
+						$ener_resto_cons = '0.00';
+					}
+
+					// ener_valle_act
+					if ($a->document->inference->pages[0]->prediction->ener_valle_act->values) {
+						$ener_valle_act = $a->document->inference->pages[0]->prediction->ener_valle_act->values[0]->content;
+					} else {
+						$ener_valle_act = '0.00';
+					}
+
+					// ener_valle_cons
+					if ($a->document->inference->pages[0]->prediction->ener_valle_cons->values) {
+						$ener_valle_cons = $a->document->inference->pages[0]->prediction->ener_valle_cons->values[0]->content;
+					} else {
+						$ener_valle_cons = '0.00';
+					}
+
+					// ener_reac_act
+					if ($a->document->inference->pages[0]->prediction->ener_reac_act->values) {
+						$ener_reac_act = $a->document->inference->pages[0]->prediction->ener_reac_act->values[0]->content;
+					} else {
+						$ener_reac_act = '0.00';
+					}
+
+					// ener_reac_cons
+					if ($a->document->inference->pages[0]->prediction->ener_reac_cons->values) {
+						$ener_reac_cons = $a->document->inference->pages[0]->prediction->ener_reac_cons->values[0]->content;
+					} else {
+						$ener_reac_cons = '0.00';
+					}
+
+					// nro_medidor
+					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
+						$nro_medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
+					} else {
+						$nro_medidor = 'N/A';
+					}
+
+					// e_reactiva
+					if ($a->document->inference->pages[0]->prediction->e_reactiva->values) {
+						$e_reactiva = $a->document->inference->pages[0]->prediction->e_reactiva->values[0]->content;
+					} else {
+						$e_reactiva = '0.00';
+					}
+
+					// tgfi
+					if ($a->document->inference->pages[0]->prediction->tgfi->values) {
+						$tgfi = $a->document->inference->pages[0]->prediction->tgfi->values[0]->content;
+					} else {
+						$tgfi = '0.00';
+					}
+
+					// cargo_fijo
+					if ($a->document->inference->pages[0]->prediction->cargo_fijo->values) {
+						$cargo_fijo = $a->document->inference->pages[0]->prediction->cargo_fijo->values[0]->content;
+					} else {
+						$cargo_fijo = '0.00';
+					}
+
+					// cargo_pot_contratada
+					if ($a->document->inference->pages[0]->prediction->cargo_pot_contratada->values) {
+						$cargo_pot_contratada = $a->document->inference->pages[0]->prediction->cargo_pot_contratada->values[0]->content;
+					} else {
+						$cargo_pot_contratada = '0.00';
+					}
+
+					// cargo_pot_ad
+					if ($a->document->inference->pages[0]->prediction->cargo_pot_ad->values) {
+						$cargo_pot_ad = $a->document->inference->pages[0]->prediction->cargo_pot_ad->values[0]->content;
+					} else {
+						$cargo_pot_ad = '0.00';
+					}
+
+					// cargo_pot_excd
+					if ($a->document->inference->pages[0]->prediction->cargo_pot_excd->values) {
+						$cargo_pot_excd = $a->document->inference->pages[0]->prediction->cargo_pot_excd->values[0]->content;
+					} else {
+						$cargo_pot_excd = '0.00';
+					}
+
+					// recargo_tgfi
+					if ($a->document->inference->pages[0]->prediction->recargo_tgfi->values) {
+						$recargo_tgfi = $a->document->inference->pages[0]->prediction->recargo_tgfi->values[0]->content;
+					} else {
+						$recargo_tgfi = '0.00';
+					}
+
+					// consumo_pico_ant
+					if ($a->document->inference->pages[0]->prediction->consumo_pico_ant->values) {
+						$consumo_pico_ant = $a->document->inference->pages[0]->prediction->consumo_pico_ant->values[0]->content;
+					} else {
+						$consumo_pico_ant = '0.00';
+					}
+
+					// consumo_pico_vig
+					if ($a->document->inference->pages[0]->prediction->consumo_pico_vig->values) {
+						$consumo_pico_vig = $a->document->inference->pages[0]->prediction->consumo_pico_vig->values[0]->content;
+					} else {
+						$consumo_pico_vig = '0.00';
+					}
+
+					// cargo_pico
+					if ($a->document->inference->pages[0]->prediction->cargo_pico->values) {
+						$cargo_pico = $a->document->inference->pages[0]->prediction->cargo_pico->values[0]->content;
+					} else {
+						$cargo_pico = '0.00';
+					}
+
+					// consumo_resto_ant
+					if ($a->document->inference->pages[0]->prediction->consumo_resto_ant->values) {
+						$consumo_resto_ant = $a->document->inference->pages[0]->prediction->consumo_resto_ant->values[0]->content;
+					} else {
+						$consumo_resto_ant = '0.00';
+					}
+
+					// consumo_resto_vig
+					if ($a->document->inference->pages[0]->prediction->consumo_resto_vig->values) {
+						$consumo_resto_vig = $a->document->inference->pages[0]->prediction->consumo_resto_vig->values[0]->content;
+					} else {
+						$consumo_resto_vig = '0.00';
+					}
+
+					// cargo_resto
+					if ($a->document->inference->pages[0]->prediction->cargo_resto->values) {
+						$cargo_resto = $a->document->inference->pages[0]->prediction->cargo_resto->values[0]->content;
+					} else {
+						$cargo_resto = '0.00';
+					}
+
+					// consumo_valle_ant
+					if ($a->document->inference->pages[0]->prediction->consumo_valle_ant->values) {
+						$consumo_valle_ant = $a->document->inference->pages[0]->prediction->consumo_valle_ant->values[0]->content;
+					} else {
+						$consumo_valle_ant = '0.00';
+					}
+
+					// consumo_valle_vig
+					if ($a->document->inference->pages[0]->prediction->consumo_valle_vig->values) {
+						$consumo_valle_vig = $a->document->inference->pages[0]->prediction->consumo_valle_vig->values[0]->content;
+					} else {
+						$consumo_valle_vig = '0.00';
+					}
+
+					// cargo_valle
+					if ($a->document->inference->pages[0]->prediction->cargo_valle->values) {
+						$cargo_valle = $a->document->inference->pages[0]->prediction->cargo_valle->values[0]->content;
+					} else {
+						$cargo_valle = '0.00';
+					}
+
+					// subsidio
+					if ($a->document->inference->pages[0]->prediction->subsidio->values) {
+						$subsidio = $a->document->inference->pages[0]->prediction->subsidio->values[0]->content;
+					} else {
+						$subsidio = '0.00';
+					}
+
+					// e_actual
+					if ($a->document->inference->pages[0]->prediction->e_actual->values) {
+						$e_actual = $a->document->inference->pages[0]->prediction->e_actual->values[0]->content;
+					} else {
+						$e_actual = '0.00';
+					}
+
+					// impuestos
+					if ($a->document->inference->pages[0]->prediction->impuestos->values) {
+						$impuestos = $a->document->inference->pages[0]->prediction->impuestos->values[0]->content;
+					} else {
+						$impuestos = '0.00';
+					}
+
+
+					$dataUpdate = array(
+						'nombre_proveedor' => 'EDENOR CANON - T3',
+						'nro_cuenta' => isset($nro_cuenta) ? trim($nro_cuenta) : 'N/A',
+						'tipo_de_tarifa' => isset($tipo_de_tarifa) ? trim($tipo_de_tarifa) : 'N/A',
+						'nombre_cliente' => isset($nombre_cliente) ? trim($nombre_cliente) : 'N/A',
+						'nro_medidor' => isset($nro_medidor) ? trim($nro_medidor) : 'N/A',
+						'nro_factura' => isset($nro_factura) ? trim($nro_factura) : 'N/A',
+						'periodo_del_consumo' => isset($periodo_del_consumo) ? trim($periodo_del_consumo) : 'N/A',
+						'fecha_emision' => isset($fecha_emision) ? trim($fecha_emision) : 'N/A',
+						'vencimiento_del_pago' => isset($vencimiento_del_pago) ? trim($vencimiento_del_pago) : 'N/A',
+						'proximo_vencimiento' => 'N/A',
+						'total_importe' => isset($importe) ? trim($importe) : '0.00',
+						'importe_1' => isset($importe) ? trim($importe) : '0.00', // 'importe_1' igual que 'total_importe'
+						'consumo'  => '0.00', // Valor predeterminado fijo por ahora
+						'total_vencido' => 'S/D', // Valor predeterminado fijo por ahora
+						'domicilio_de_consumo' => isset($domicilio_de_consumo) ? trim($domicilio_de_consumo) : 'N/A',
+						'dias_comprendidos' => 'S/D', // Valor predeterminado fijo por ahora
+						'dias_de_consumo' => 'S/D', // Valor predeterminado fijo por ahora
+						'consumo_dias_comprendidos' => 'S/D', // Valor predeterminado fijo por ahora
+						'cargo_variable_hasta' => '0.00', // Valor predeterminado fijo por ahora
+						'cargo_fijo' => isset($cargo_fijo) ? trim($cargo_fijo) : '0.00',
+						'monto_car_var_hasta' => '0.00', // Valor predeterminado fijo por ahora
+						'moto_var_mayor' => '0.00', // Valor predeterminado fijo por ahora
+						'otros_conseptos' => '0.00', // Valor predeterminado fijo por ahora
+						'conceptos_electricos' => '0.00', // Valor predeterminado fijo por ahora
+						'impuestos' => isset($impuestos) ? trim($impuestos) : '0.00',
+						'subsidio' => isset($subsidio) ? trim($subsidio) : '0.00',
+						'energia_inyectada' => '0.00', // Valor predeterminado fijo por ahora
+						'p_contratada' => isset($p_contratada) ? trim($p_contratada) : '0.00',
+						'p_registrada' => isset($p_registrada) ? trim($p_registrada) : '0.00',
+						'p_excedida' => isset($p_excedida) ? trim($p_excedida) : '0.00',
+						'pot_punta' => isset($pot_punta) ? trim($pot_punta) : '0.00',
+						'pot_fuera_punta_cons' => isset($pot_fuera_punta_cons) ? trim($pot_fuera_punta_cons) : '0.00',
+						'ener_punta_act' => isset($ener_punta_act) ? trim($ener_punta_act) : '0.00',
+						'ener_punta_cons' => isset($ener_punta_cons) ? trim($ener_punta_cons) : '0.00',
+						'ener_resto_act' => isset($ener_resto_act) ? trim($ener_resto_act) : '0.00',
+						'ener_resto_cons' => isset($ener_resto_cons) ? trim($ener_resto_cons) : '0.00',
+						'ener_valle_act' => isset($ener_valle_act) ? trim($ener_valle_act) : '0.00',
+						'ener_valle_cons' => isset($ener_valle_cons) ? trim($ener_valle_cons) : '0.00',
+						'ener_reac_act' => isset($ener_reac_act) ? trim($ener_reac_act) : '0.00',
+						'ener_reac_cons' => isset($ener_reac_cons) ? trim($ener_reac_cons) : '0.00',
+						'e_reactiva' => isset($e_reactiva) ? trim($e_reactiva) : '0.00',
+						'tgfi' => isset($tgfi) ? trim($tgfi) : '0.00',
+						'cargo_pot_contratada' => isset($cargo_pot_contratada) ? trim($cargo_pot_contratada) : '0.00',
+						'cargo_pot_ad' => isset($cargo_pot_ad) ? trim($cargo_pot_ad) : '0.00',
+						'cargo_pot_excd' => isset($cargo_pot_excd) ? trim($cargo_pot_excd) : '0.00',
+						'recargo_tgfi' => isset($recargo_tgfi) ? trim($recargo_tgfi) : '0.00',
+						'consumo_pico_ant' => isset($consumo_pico_ant) ? trim($consumo_pico_ant) : '0.00',
+						'consumo_pico_vig' => isset($consumo_pico_vig) ? trim($consumo_pico_vig) : '0.00',
+						'cargo_pico' => isset($cargo_pico) ? trim($cargo_pico) : '0.00',
+						'consumo_resto_ant' => isset($consumo_resto_ant) ? trim($consumo_resto_ant) : '0.00',
+						'consumo_resto_vig' => isset($consumo_resto_vig) ? trim($consumo_resto_vig) : '0.00',
+						'cargo_resto' => isset($cargo_resto) ? trim($cargo_resto) : '0.00',
+						'consumo_valle_ant' => isset($consumo_valle_ant) ? trim($consumo_valle_ant) : '0.00',
+						'consumo_valle_vig' => isset($consumo_valle_vig) ? trim($consumo_valle_vig) : '0.00',
+						'cargo_valle' => isset($cargo_valle) ? trim($cargo_valle) : '0.00',
+						'e_actual' => isset($e_actual) ? trim($e_actual) : '0.00',
+						'cargo_contr' => '0.00', // Valor predeterminado fijo por ahora
+						'cargo_adq' => '0.00', // Valor predeterminado fijo por ahora
+						'cargo_exc' => '0.00', // Valor predeterminado fijo por ahora
+						'cargo_var' => '0.00', // Valor predeterminado fijo por ahora
+						'bimestre' => 'N/A', // Valor predeterminado fijo por ahora
+						'ener_generada' => '0.00', // Valor predeterminado fijo por ahora
+						'conseptos_electricos' => '0.00', // Valor predeterminado fijo por ahora
+						'cosfi' => '0.00',
+					);
+
+					break;
+			}
+
+			$data_proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $id_proveedor . '"');
+			$dataUpdate['unidad_medida'] = $data_proveedor->unidad_medida;
+
+			$dataUpdate['mes_fc'] = fecha_es(trim($fecha_emision), 'm');
+			$dataUpdate['anio_fc'] = fecha_es(trim($fecha_emision), 'Y');
+			$this->db->where('id', $mires[0]->id);
+			$this->db->update('_datos_api_canon', $dataUpdate);
+		} else {
+			die('error leyendo datos api en base');
+		}
+	}
+
+
+
+
+
+
+	public function leerApi_old()
 	{
 		$API_KEY = 'f4b6ebe406cdb615674ae37aabc48929';
 
@@ -877,14 +1847,11 @@ class Lecturas extends backend_controller
 					array_push($updateData, [$campo['name'] => $valorCampo]);
 				}
 
-				// echo '<pre>updatedata';
-				// var_dump( $updateData ); 
-				// echo '</pre>';
 				die();
 
 				switch ($proveedor->id) {
 
-					case 1:
+					case 1: //EDENOR CANON - T1
 						$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values);
 						$nro_cuenta = '';
 
@@ -927,7 +1894,10 @@ class Lecturas extends backend_controller
 						$this->db->where("nombre_archivo_temp",  $fileUrl);
 						$this->db->update('_datos_api_canon', $updateData);
 						break;
-					case 2:
+
+
+					case 2: //EDENOR CANON - T2
+
 						$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values);
 						$nro_cuenta = '';
 
@@ -972,7 +1942,8 @@ class Lecturas extends backend_controller
 						$this->db->update('_datos_api_canon', $updateData);
 
 						break;
-					case 3:
+
+					case 3: //EDENOR CANON - T3
 
 						$totalIndices = count($curlresponse->document->inference->pages[0]->prediction->nro_cuenta->values);
 						$nro_cuenta = '';
@@ -1228,7 +2199,7 @@ class Lecturas extends backend_controller
 
 		// $file = str_replace(base_url(), '', $_POST['file']);
 
-		$proveedor = $this->Electromecanica_model->getwhere('_proveedores', 'id ="' . $_POST['id_proveedor'] . '"');
+		$proveedor = $this->Electromecanica_model->getwhere('_proveedores_canon', 'id ="' . $_POST['id_proveedor'] . '"');
 		$files = $this->Electromecanica_model->getalldata('_datos_api_canon', 'id_lote="' . $_POST['id_lote'] . '"');
 
 		$curl = curl_init();
@@ -1360,7 +2331,7 @@ class Lecturas extends backend_controller
 
 					$this->load->library('pdf_lib');
 
-					$pdf = $this->pdf_lib->test($this->upload->data('full_path'), $destino);
+					$pdf = $this->pdf_lib->test2($this->upload->data('full_path'), $destino);
 
 					if (!file_exists(strtolower($nombre_fichero . '/' . $nuevoNOmbre))) {
 					}
@@ -1484,7 +2455,7 @@ class Lecturas extends backend_controller
 			$this->data['script_common'] = $this->script_common;
 			$this->data['script'] = $script;
 
-			$this->data['proveedor'] = $this->Manager_model->get_data('_proveedores_canon', $_POST['id_proveedor']);
+			$this->data['proveedor'] = $this->Electromecanica_model->get_data('_proveedores_canon', $_POST['id_proveedor']);
 
 
 			$this->form_validation->set_rules('id_proveedor', 'proveedor', 'callback_url_check');
@@ -1507,6 +2478,13 @@ class Lecturas extends backend_controller
 			$this->load->view('manager/footer', $this->data);
 		} else {
 			die('aca 216');
+		}
+	}
+	public function Consolidar()
+	{
+		if ($this->input->is_ajax_request()) {
+			$return = $this->Electromecanica_model->consolidar_datos($_POST);
+			echo json_encode($return);
 		}
 	}
 }
