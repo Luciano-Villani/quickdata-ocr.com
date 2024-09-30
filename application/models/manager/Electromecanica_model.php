@@ -930,7 +930,7 @@ class Electromecanica_model extends CI_Model
 					'fecha_consolidado' => $this->fecha_now,
 					'nombre_archivo' => $file->nombre_archivo,
 					'importe_1' => $file->total_importe,
-					'acuerdo_pago' => $indexador->acuerdo_pago,
+					'acuerdo_pago' => isset($indexador->acuerdo_pago) ? $indexador->acuerdo_pago : '',
 					'periodo' => $clavePeriodo,
 					'mes_fc' => $file->mes_fc,
 					'anio_fc' => $file->anio_fc,
