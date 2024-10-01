@@ -3,8 +3,6 @@ if (!function_exists('apiRest')) {
     function apiRest($file, $endPoint, $procesar_por = 'local')
     {
         
-
-        // Continuar con el resto de la función
         if (!function_exists('curl_init')) {
             exit("cURL isn't installed for " . phpversion());
         }
@@ -49,7 +47,7 @@ if (!function_exists('apiRest')) {
                 $operation_url = trim($matches[1]);
 
                 do {
-                    sleep(4);
+                    sleep(6);
 
                     $ch = curl_init();
                     curl_setopt_array($ch, array(
