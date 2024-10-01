@@ -932,34 +932,33 @@ class Lecturas extends backend_controller
 					}
 
 					// Verificación para nro_factura
-					$nro_factura = 'N/A'; // Valor por defecto
+			$nro_factura = 'N/A'; // Inicializar el nro_factura con un valor predeterminado
 
-					if (isset($a->document->inference->pages[0]->prediction->nro_factura->values) && 
-						count($a->document->inference->pages[0]->prediction->nro_factura->values) > 0) {
-						
-						// Obtener el número de factura del JSON
-						$nro_factura = trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content);
-					}
+			// Extraer el nombre del archivo desde la variable $filename
+			$partes = explode('/', $filename); // Separar la ruta por '/'
+			$nombreArchivo = end($partes); // Obtener el último elemento, que es el nombre del archivo
 
-					// Verificar si nro_factura está vacío o no cumple con el formato xxxx-xxxxxxxx
-					if (empty($nro_factura) || !preg_match('/^\d{4}-\d{8}$/', $nro_factura)) {
-						// Suponiendo que $filename contiene el nombre del archivo
-						$filename = 'uploader/canon/1/3857/vl202402-t1_20240202_00000248240_6656943361_0024-87334502b_splitter.pdf';
-						
-						// Extraer el número de factura desde el nombre del archivo
-						$partes = explode('/', $filename); // Separar por '/'
-						$nombreArchivo = end($partes); // Obtener el último elemento
+			// Expresión regular ajustada para ser insensible a mayúsculas/minúsculas
+			// Formato esperado: 'VL202311-T1_20231101_+000004387,89_3623879311_0024-72041669B_splitter.pdf'
+			preg_match('/_(\d{4}-\d{8})b/i', $nombreArchivo, $matches); // El modificador 'i' hace la expresión insensible a mayúsculas/minúsculas
 
-						// Expresión regular que permite mayúsculas y minúsculas
-						preg_match('/(\d{4}-\d{8})[A-Za-z]?/', $nombreArchivo, $matches);
+			// Extraer el número de factura si coincide con el formato esperado
+			$numeroExtraido = isset($matches[1]) ? $matches[1] : ''; 
 
-						// Verificar si se encontró el número y asignar
-						if (isset($matches[1])) {
-							$nro_factura = $matches[1]; // Usar el número extraído, ignorando la letra final si existe
-						} else {
-							$nro_factura = 'N/A'; // Si no se encuentra, mantener 'N/A'
-						}
-					}
+			// Verificar si el nro_factura está en el JSON y si contiene algún valor
+			if (!empty($a->document->inference->pages[0]->prediction->nro_factura->values)) {
+				// Obtener el número de factura del JSON
+				$nro_factura = trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content);
+
+				// Verificar si el número de factura está vacío o no cumple con el formato xxxx-xxxxxxxx
+				if (empty($nro_factura) || !preg_match('/^\d{4}-\d{8}$/', $nro_factura)) {
+					// Si está vacío o no cumple el formato, usar el número extraído del nombre del archivo
+					$nro_factura = $numeroExtraido;
+				}
+			} else {
+				// Si no hay número de factura en el JSON, usar el número extraído del archivo
+				$nro_factura = $numeroExtraido;
+			}
 
 					// nro_factura
 					//if ($a->document->inference->pages[0]->prediction->nro_factura->values) {
