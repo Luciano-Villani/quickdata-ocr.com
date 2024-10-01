@@ -47,7 +47,7 @@ if (!function_exists('apiRest')) {
                 $operation_url = trim($matches[1]);
 
                 do {
-                    sleep(5);
+                    sleep(6);
 
                     $ch = curl_init();
                     curl_setopt_array($ch, array(
