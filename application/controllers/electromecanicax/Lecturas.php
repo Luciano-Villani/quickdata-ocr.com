@@ -821,6 +821,8 @@ class Lecturas extends backend_controller
 						$impuestos = isset($fields->impuestos->content) ? trim($fields->impuestos->content) : '0.00';
 						$subsidio = isset($fields->subsidio->content) ? trim($fields->subsidio->content) : '0.00';
 						$cosfi = isset($fields->cosenofi->content) ? trim($fields->cosenofi->content) : 'N/A';
+						$bimestre = isset($fields->bimentre->content) ? trim($fields->bimentre->content) : 'N/A';
+						$liquidacion = isset($fields->liquidacion->content) ? trim($fields->liquidacion->content) : 'N/A';
 				
 						// Verificación para total_importe
 						$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
@@ -859,7 +861,7 @@ class Lecturas extends backend_controller
 							'vencimiento_del_pago' => $vencimiento_del_pago,
 							'proximo_vencimiento' => $proximo_vencimiento,
 							'total_importe' => $total_importe,
-							'importe_1' => $importe_1,
+							'importe_1' => $total_importe,
 							'consumo' => $consumo,
 							'total_vencido' => $total_vencido,
 							'domicilio_de_consumo' => $domicilio_de_consumo,
@@ -875,8 +877,49 @@ class Lecturas extends backend_controller
 							'conceptos_electricos' => $conceptos_electricos,
 							'impuestos' => $impuestos,
 							'subsidio' => $subsidio,
+							'bimestre' => $bimestre,
+							'liquidacion' => $liquidacion,
 							'energia_inyectada' => '0.00', // Valor fijo por ahora
-							'cosfi' => $cosfi
+							'cosfi' => $cosfi,
+							'p_contratada' => 'N/A',
+							'p_registrada' => 'N/A',
+							'p_excedida' => 'N/A',
+							'pot_punta' => 'N/A',
+							'pot_fuera_punta_cons' => 'N/A',
+							'ener_punta_act' => 'N/A',
+							'ener_punta_cons' => 'N/A',
+							'ener_resto_act' => 'N/A',
+							'ener_resto_cons' => 'N/A',
+							'ener_valle_act' => 'N/A',
+							'ener_valle_cons' => 'N/A',
+							'ener_reac_act' => 'N/A',
+							'ener_reac_cons' => 'N/A',
+							'e_reactiva' => 'N/A',
+							'tgfi' => 'N/A',
+							'cargo_pot_contratada' => 'N/A',
+							'cargo_pot_ad' => 'N/A',
+							'cargo_pot_excd' => 'N/A',
+							'recargo_tgfi' => 'N/A',
+							'consumo_pico_ant' => 'N/A',
+							'consumo_pico_vig' => 'N/A',
+							'cargo_pico' => 'N/A',
+							'consumo_resto_ant' => 'N/A',
+							'consumo_resto_vig' => 'N/A',
+							'cargo_resto' => 'N/A',
+							'consumo_valle_ant' => 'N/A',
+							'consumo_valle_vig' => 'N/A',
+							'cargo_valle' => 'N/A',
+							'e_actual' => 'N/A',
+							'cargo_contr' => 'N/A',
+							'cargo_adq' => 'N/A',
+							'cargo_exc' => 'N/A',
+							'cargo_var' => 'N/A',
+							'ener_generada' => 'N/A',
+							'conseptos_electricos' => 'N/A',
+												
+							
+
+
 						);
 					} else {
 						// Manejar el caso en el que no haya datos en el JSON
