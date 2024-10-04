@@ -800,9 +800,9 @@ class Lecturas extends backend_controller
 						$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'S/D';
 						$nro_factura = isset($fields->nro_de_factura->content) ? trim($fields->nro_de_factura->content) : 'S/D';
 						$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
-						$fecha_emision = isset($fields->fecha_emision->content) ? trim($fields->fecha_emision->content) : 'S/D';
-						$vencimiento_del_pago = isset($fields->vencimiento_del_pago->content) ? trim($fields->vencimiento_del_pago->content) : 'S/D';
-						$proximo_vencimiento = isset($fields->proximo_vencimiento->content) ? trim($fields->proximo_vencimiento->content) : 'S/D';
+						$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+						$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+						$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
 						$total_importe = isset($fields->total_importe->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->total_importe->content))) : '0.00';
 						$importe_1 = $total_importe; // igual que total_importe
 						$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : 'S/D';
@@ -812,8 +812,13 @@ class Lecturas extends backend_controller
 						$dias_de_consumo = isset($fields->dias_de_consumo->content) ? trim($fields->dias_de_consumo->content) : 'S/D';
 						$consumo_dias_comprendidos = isset($fields->{'consumo dias comprendidos'}->content) ? trim($fields->{'consumo dias comprendidos'}->content) : 'S/D';
 						$nombre_proveedor = 'EDENOR CANON - T1';
-						$cargo_variable_hasta = isset($fields->{'cargo variable hasta'}->content) ? trim($fields->{'cargo variable hasta'}->content) : '0.00';
-						
+
+						$cargo_variable_hasta = isset($fields->{'cargo variable hasta'}->content) ? $fields->{'cargo variable hasta'}->content : '0.00';
+
+						// Convertir "190.478,92" a "190478.92"
+						$cargo_variable_hasta = str_replace('.', '', $cargo_variable_hasta);  // Remover el punto de miles
+						$cargo_variable_hasta = str_replace(',', '.', $cargo_variable_hasta); // Cambiar la coma por un punto
+
 						$monto_car_var_hasta = isset($fields->monto_car_var_hasta->content) ? trim($fields->monto_car_var_hasta->content) : '0.00';
 						$monto_var_mayor = isset($fields->monto_var_mayor->content) ? trim($fields->monto_var_mayor->content) : '0.00';
 						$otros_conseptos = isset($fields->otros_conseptos->content) ? trim($fields->otros_conseptos->content) : '0.00';
@@ -941,9 +946,9 @@ class Lecturas extends backend_controller
 							$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'S/D';
 							$nro_factura = isset($fields->nro_de_factura->content) ? trim($fields->nro_de_factura->content) : 'S/D';
 							$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
-							$fecha_emision = isset($fields->fecha_emision->content) ? trim($fields->fecha_emision->content) : 'S/D';
-							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->content) ? trim($fields->vencimiento_del_pago->content) : 'S/D';
-							$proximo_vencimiento = isset($fields->proximo_vencimiento->content) ? trim($fields->proximo_vencimiento->content) : 'S/D';
+							$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+							$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
 							$domicilio_de_consumo = isset($fields->domicilio_de_consumo->content) ? trim($fields->domicilio_de_consumo->content) : 'S/D';
 							$nombre_proveedor = 'EDENOR CANON - T2';
 						
@@ -1439,13 +1444,158 @@ class Lecturas extends backend_controller
 					);
 
 					break;
+
+
+					case 5: // 3857 EDENOR T1 AP
+
+						// Verificamos que existan datos en el JSON
+						if (isset($a[0]->fields)) {
+							$fields = $a[0]->fields;
+					
+							// Extraemos cada campo necesario
+							// Extraemos cada campo necesario
+							$nro_cuenta = isset($fields->nro_cuenta->content) ? trim(str_replace(' ', '', $fields->nro_cuenta->content)) : 'S/D';
+							$tipo_de_tarifa = isset($fields->Tipo_de_tarifa->content) ? trim($fields->Tipo_de_tarifa->content) : 'S/D';
+							$nombre_cliente = isset($fields->nombre_cliente->content) ? trim($fields->nombre_cliente->content) : 'S/D';
+							$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'S/D';
+							$nro_factura = isset($fields->nro_de_factura->content) ? trim($fields->nro_de_factura->content) : 'S/D';
+							$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
+							$fecha_emision = isset($fields->fecha_emision->content) ? trim($fields->fecha_emision->content) : 'S/D';
+							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->content) ? trim($fields->vencimiento_del_pago->content) : 'S/D';
+							$proximo_vencimiento = isset($fields->proximo_vencimiento->content) ? trim($fields->proximo_vencimiento->content) : 'S/D';
+							$total_importe = isset($fields->total_importe->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->total_importe->content))) : '0.00';
+							$importe_1 = $total_importe; // igual que total_importe
+							$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : 'S/D';
+							$total_vencido = 'S/D'; // No disponible en JSON, valor predeterminado
+							$domicilio_de_consumo = isset($fields->domicilio_de_consumo->content) ? trim($fields->domicilio_de_consumo->content) : 'S/D';
+							$dias_comprendidos = isset($fields->{'dias comprendidos'}->content) ? trim($fields->{'dias comprendidos'}->content) : 'S/D';
+							$dias_de_consumo = isset($fields->dias_de_consumo->content) ? trim($fields->dias_de_consumo->content) : 'S/D';
+							$consumo_dias_comprendidos = isset($fields->{'consumo dias comprendidos'}->content) ? trim($fields->{'consumo dias comprendidos'}->content) : 'S/D';
+							$nombre_proveedor = 'EDENOR CANON - T1';
+							$cargo_variable_hasta = isset($fields->{'cargo variable hasta'}->content) ? trim($fields->{'cargo variable hasta'}->content) : '0.00';
+							
+							$monto_car_var_hasta = isset($fields->monto_car_var_hasta->content) ? trim($fields->monto_car_var_hasta->content) : '0.00';
+							$monto_var_mayor = isset($fields->monto_var_mayor->content) ? trim($fields->monto_var_mayor->content) : '0.00';
+							$otros_conseptos = isset($fields->otros_conseptos->content) ? trim($fields->otros_conseptos->content) : '0.00';
+							
+							$subsidio = isset($fields->subsidio->content) ? trim($fields->subsidio->content) : '0.00';
+							$cosfi = isset($fields->cosenofi->content) ? trim($fields->cosenofi->content) : 'S/D';
+							$bimestre = isset($fields->bimentre->content) ? trim($fields->bimentre->content) : 'S/D';
+							$liquidacion = isset($fields->liquidacion->content) ? trim($fields->liquidacion->content) : 'S/D';
+							
+					
+							// Verificación para total_importe
+							$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para cargo_fijo
+							$cargo_fijo = isset($fields->cargo_fijo->valueNumber) ? number_format($fields->cargo_fijo->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para cargo_variable_hasta
+							//$cargo_variable_hasta = isset($fields->cargo_variable_hasta->valueInteger) ? number_format($fields->cargo_variable_hasta->valueInteger, 2, '.', '') : '0.00';
+	
+							// Verificación para monto_car_var_hasta
+							$monto_car_var_hasta = isset($fields->monto_car_var_hasta->valueNumber) ? number_format($fields->monto_car_var_hasta->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para otros_conseptos
+							$otros_conseptos = isset($fields->otros_conseptos->valueNumber) ? number_format($fields->otros_conseptos->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para conceptos_electricos
+							$conceptos_electricos = isset($fields->conseptos_electricos->valueNumber) ? number_format($fields->conseptos_electricos->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para impuestos
+							$impuestos = isset($fields->impuestos->valueNumber) ? number_format($fields->impuestos->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para subsidio
+							$subsidio = isset($fields->subsidio->valueNumber) ? number_format($fields->subsidio->valueNumber, 2, '.', '') : '0.00';
+	
+					
+							// Array de datos a actualizar
+							$dataUpdate = array(
+								'nro_cuenta' => $nro_cuenta,
+								'tipo_de_tarifa' => $tipo_de_tarifa,
+								'nombre_cliente' => $nombre_cliente,
+								'nro_medidor' => $nro_medidor,
+								'nro_factura' => $nro_factura,
+								'periodo_del_consumo' => $periodo_del_consumo,
+								'fecha_emision' => $fecha_emision,
+								'vencimiento_del_pago' => $vencimiento_del_pago,
+								'proximo_vencimiento' => $proximo_vencimiento,
+								'total_importe' => $total_importe,
+								'importe_1' => $total_importe,
+								'consumo' => $consumo,
+								'total_vencido' => $total_vencido,
+								'domicilio_de_consumo' => $domicilio_de_consumo,
+								'dias_comprendidos' => $dias_comprendidos,
+								'dias_de_consumo' => $dias_de_consumo,
+								'consumo_dias_comprendidos' => $consumo_dias_comprendidos,
+								'nombre_proveedor' => $nombre_proveedor,
+								'cargo_variable_hasta' => $cargo_variable_hasta,
+								'cargo_fijo' => $cargo_fijo,
+								'monto_car_var_hasta' => $monto_car_var_hasta,
+								'moto_var_mayor' => $monto_var_mayor,
+								'otros_conseptos' => $otros_conseptos,
+								'conceptos_electricos' => $conceptos_electricos,
+								'impuestos' => $impuestos,
+								'subsidio' => $subsidio,
+								'bimestre' => $bimestre,
+								'liquidacion' => $liquidacion,
+								'energia_inyectada' => '0.00', // Valor fijo por ahora
+								'cosfi' => $cosfi,
+								'p_contratada' => 'N/A',
+								'p_registrada' => 'N/A',
+								'p_excedida' => 'N/A',
+								'pot_punta' => 'N/A',
+								'pot_fuera_punta_cons' => 'N/A',
+								'ener_punta_act' => 'N/A',
+								'ener_punta_cons' => 'N/A',
+								'ener_resto_act' => 'N/A',
+								'ener_resto_cons' => 'N/A',
+								'ener_valle_act' => 'N/A',
+								'ener_valle_cons' => 'N/A',
+								'ener_reac_act' => 'N/A',
+								'ener_reac_cons' => 'N/A',
+								'e_reactiva' => 'N/A',
+								'tgfi' => 'N/A',
+								'cargo_pot_contratada' => 'N/A',
+								'cargo_pot_ad' => 'N/A',
+								'cargo_pot_excd' => 'N/A',
+								'recargo_tgfi' => 'N/A',
+								'consumo_pico_ant' => 'N/A',
+								'consumo_pico_vig' => 'N/A',
+								'cargo_pico' => 'N/A',
+								'consumo_resto_ant' => 'N/A',
+								'consumo_resto_vig' => 'N/A',
+								'cargo_resto' => 'N/A',
+								'consumo_valle_ant' => 'N/A',
+								'consumo_valle_vig' => 'N/A',
+								'cargo_valle' => 'N/A',
+								'e_actual' => 'N/A',
+								'cargo_contr' => 'N/A',
+								'cargo_adq' => 'N/A',
+								'cargo_exc' => 'N/A',
+								'cargo_var' => 'N/A',
+								'ener_generada' => 'N/A',
+								
+													
+								
+	
+	
+							);
+						} else {
+							// Manejar el caso en el que no haya datos en el JSON
+							$dataUpdate = array(); // O manejar un error
+						}
+					
+						break;
 			}
 
-			$data_proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $id_proveedor . '"');
+			$data_proveedor = $this->Electromecanica_model->getwhere('_proveedores_canon', 'id="' . $id_proveedor . '"');
 			$dataUpdate['unidad_medida'] = $data_proveedor->unidad_medida;
 
 			$dataUpdate['mes_fc'] = fecha_es(trim($fecha_emision), 'm');
 			$dataUpdate['anio_fc'] = fecha_es(trim($fecha_emision), 'Y');
+
+			
 			$this->db->where('id', $mires[0]->id);
 			$this->db->update('_datos_api_canon', $dataUpdate);
 		} else {

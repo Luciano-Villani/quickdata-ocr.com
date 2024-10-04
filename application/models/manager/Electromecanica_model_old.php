@@ -124,14 +124,11 @@ class Electromecanica_model extends CI_Model
     }
     private function _get_datatables_query($postData)
     {
- 
         switch ($postData['table']) {
 
             case '_datos_api_canon':
 
-                if(isset($_POST['id_lote'])){
-                    $this->db->where('code_lote',$postData['id_lote']);
-                }
+
                 $this->db->select('*');
 
                 $my_column_order = array(
@@ -933,7 +930,7 @@ class Electromecanica_model extends CI_Model
 					'fecha_consolidado' => $this->fecha_now,
 					'nombre_archivo' => $file->nombre_archivo,
 					'importe_1' => $file->total_importe,
-					'acuerdo_pago' => $indexador->acuerdo_pago,
+					'acuerdo_pago' => isset($indexador->acuerdo_pago) ? $indexador->acuerdo_pago : '',
 					'periodo' => $clavePeriodo,
 					'mes_fc' => $file->mes_fc,
 					'anio_fc' => $file->anio_fc,
