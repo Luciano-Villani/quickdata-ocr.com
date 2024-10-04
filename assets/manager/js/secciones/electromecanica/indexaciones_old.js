@@ -291,7 +291,7 @@ function newexportaction(e, dt, button, config) {
             $("input[name='id']").val(result.data.id);
             $("input[name='expediente']").val(result.data.expediente);
             $("input[name='nro_cuenta']").val(result.data.nro_cuenta);
-            $("input[name='nro_cuenta']").removeAttr('disabled');
+            $("input[name='nro_cuenta']").attr('disabled','disabled');
             $("input[name='id_indexacion']").val(result.data.id);
             $("select#tipo_pago").val(result.data.tipo_pago).trigger('change');
             $("select#select_secretaria").val(result.data.id_secretaria).trigger('change');
