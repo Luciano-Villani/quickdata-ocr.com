@@ -118,7 +118,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
             </div>
         </div>
 
-        <?php if ($this->ion_auth->is_super() || $this->ion_auth->is_admin()) { ?>
+        <?php if (($this->ion_auth->is_super() || $this->ion_auth->is_admin()) && (!$this->ion_auth->is_electro())) { ?>
         <div class="col-md-3">
             <div class="col mb-3">
                 <button type="submit" class="btn btn-agregar bg-buton-blue btn-labeled btn-labeled-right">

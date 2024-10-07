@@ -19,8 +19,14 @@
 			</style>
 		
 
+<?php
+$dysplay = 'd-none'; 
+if (!$this->ion_auth->is_electro()){
+	$dysplay = '';
 
-		<div class="card-header header-elements-inline">
+} 
+?>
+		<div class="card-header header-elements-inline <?= $dysplay?>">
 			<button type="button" data-toggle="collapse" data-target="#collapseExample" class="btn btn-agregar mb-1 bg-buton-blue btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i>
 				</b>Agregar Nuevo Lote </button>
 			<div class="collapse" id="collapseExample">
@@ -78,6 +84,7 @@
 
 	</div>
 <?php } ?>
+
 <div class="card">
 	<h5 class="card-title bg-titulo text-center text-dark"> Lista de Lotes Electromecánica</h5>
 

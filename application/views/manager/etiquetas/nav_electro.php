@@ -121,17 +121,12 @@
 					<li class="nav-item-header">
 						<div class="text-uppercase font-size-xs line-height-xs">datos</div> <i class="icon-menu" title="datos"></i></li>
 						<li class="nav-item nav-item-menu"   data-seccion="admin" ><a href="/Electromecanica" class="nav-link"><i class="icon-grid7 " data-seccion="admin"></i>
-								<span>
-								Dashboard
-								</span>
-							</a>
-						</li>
-					<li class="nav-item nav-item-menu d-none"   data-seccion="consolidados" ><a href="/Electromecanica/Consolidados" class="nav-link"><i class="icon-grid7 " data-seccion="datos"></i>
-							<span>
+						<span>
 								Datos Consolidados 
 							</span>
-						</a>
-					</li>
+							</a>
+						</li>
+					
 					<li class="nav-item nav-item-menu " data-seccion="lecturas">
 						<a href="/Electromecanica/Lecturas" class="nav-link ">
 							<i class="icon-upload" data-seccion="datos"></i>
