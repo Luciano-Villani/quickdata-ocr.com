@@ -38,11 +38,21 @@ function newexportaction(e, dt, button, config) {
   dt.ajax.reload();
 }
 
+
+
+
 function initDatatable(search = false, type = 0) {
   var prove = $("#id_proveedor").val() || [];
-  var tipo_pago = $("#id_tipo_pago").val() || [];
-  var periodo_contable = $("#periodo_contable").val() || [];
+ // var tipo_pago = $("#id_tipo_pago").val() || [];
+  //var periodo_contable = $("#periodo_contable").val() || [];
   var fecha = $("#tipo-fecha").is(":checked") ? $("#daterange2").val() : false;
+  var mes_fc = $('#id_mes_fc').val() || []; // Captura el valor de `mes_fc` en una variable.
+  //var anio_fc = $('#id_anio_fc').val() || []; // Captura el valor de `anio_fc` en una variable.
+  var anio_fc = $('#id_anio_fc').val() && $('#id_anio_fc').val().length > 0 ? $('#id_anio_fc').val() : null;
+  var cosfiFilter = $('#cosfi_filter').is(':checked'); // Captura el estado del checkbox
+  var tgfiFilter = $('#tgfi_filter').is(':checked'); // Captura el estado del checkbox
+
+  
 
   
 
@@ -81,73 +91,37 @@ function initDatatable(search = false, type = 0) {
         },
       ],
       columnDefs: [
+        { targets: [0], title: "Proveedor", data: 0 }, // Utiliza el índice 0
+        { targets: [1], title: "Nro factura", data: 1 },
+        { targets: [2], title: "Nro cuenta", data: 2 },
+        { targets: [3], title: "Nro medidor", data: 3 },
+        { targets: [4], title: "Dependencia", data: 4 },
+        { targets: [5], title: "Dirección de Consumo", data: 5 },
+        { targets: [6], title: "Nombre Cliente", data: 6 },
+        { targets: [7], title: "Consumo", data: 7 },
+        { targets: [8], title: "U.Med", data: 8 },
+        { targets: [9], title: "cosfi", data: 9 },
+        { targets: [10], title: "tgfi", data: 10 },
+        { targets: [11], title: "Importe Total", data: 11 },
+        { targets: [12], title: "Mes Fc", data: 12 },
+        { targets: [13], title: "Año Fc", data: 13 },
+        { targets: [14], title: "Vencimiento", data: 14 },
         {
-          targets: [0], // Ajusta los índices según las nuevas columnas
-          title: "Proveedor",
-        },
-        {
-          targets: [1],
-          title: "Nro factura",
-        },
-        {
-          targets: [2],
-          title: "Nro cuenta",
-        },
-        {
-          targets: [3],
-          title: "Nro medidor",
-        },
-        {
-          targets: [4],
-          title: "Dependencia",
-        },
-        {
-          targets: [5],
-          title: "Dirección de Consumo",
-        },
-        {
-          targets: [6],
-          title: "Nombre Cliente",
-        },
-        {
-          targets: [7],
-          title: "Consumo",
-        },
-        {
-          targets: [8],
-          title: "U.Med",
-        },
-        {
-          targets: [9],
-          title: "cosfi",
-        },
-        {
-          targets: [10],
-          title: "tgfi",
-        },
-        {
-          targets: [11],
-          title: "Importe Total",
-        },
-        {
-          targets: [12],
-          title: "Mes Fc",
-        },
-        {
-          targets: [13],
-          title: "Año Fc",
-        },
-        {
-          targets: [14],
-          title: "Vencimiento",
-        },
+          targets: [15], // ID Proveedor
+          data: 15,      // Utiliza el índice 15 para 'id_proveedor'
+          visible: true,
+          searchable: false
+        }
+     
+        
       ],
+      
       language: {
         url: "/assets/manager/js/plugins/tables/translate/spanish.json",
       },
       processing: true,
       serverSide: true,
-      type: "POST",
+     // type: "POST",
       order: false,
       ajax: {
         data: {
@@ -155,12 +129,18 @@ function initDatatable(search = false, type = 0) {
           table: "_consolidados_canon",
           data_search: search,
           id_proveedor: prove,
-          tipo_pago: tipo_pago,
-          periodo_contable: periodo_contable,
+          //tipo_pago: tipo_pago,
+          //periodo_contable: periodo_contable,
           fecha: fecha,
+          mes_fc:mes_fc,
+          anio_fc:anio_fc,
+          cos_fi:cosfiFilter,
+          tg_fi:tgfiFilter
+          
         },
         url: "/Electromecanica/Consolidados/list_dt_canon",
         type: "POST",
+        
        
        
 
@@ -230,16 +210,27 @@ $(document).ready(function () {
     e.preventDefault();
     $("#tipo-fecha").prop('checked', false);
     $("#id_proveedor").val("").trigger("change");
-    $("#id_tipo_pago").val("").trigger("change");
-    $("#periodo_contable").val("").trigger("change");
+    //$("#id_tipo_pago").val("").trigger("change");
+    //$("#periodo_contable").val("").trigger("change");
+    $("#id_mes_fc").val("").trigger("change");
+    $("#id_anio_fc").val("").trigger("change");
     $('#daterange2').data('daterangepicker').setEndDate(new Date);
     $('#daterange2').data('daterangepicker').setStartDate(new Date);
+
+    // Resetear los nuevos checkboxes (cosfi y tgfi)
+    $("#cosfi_filter").prop('checked', false); // Restablecer el checkbox de Cos Fi
+    $("#tgfi_filter").prop('checked', false);  // Restablecer el checkbox de Tg Fi
+
+
     initDatatable();
+
+   
   });
   
   $("body").on("click", "#applyfilter", function (e) {
     e.preventDefault();
     initDatatable(false, 4);
+    
   });
   
   $("body").on("click", "#descarga-exell", function (e) {
@@ -355,5 +346,6 @@ $(document).ready(function () {
         },
     });
 });
+
 
 });

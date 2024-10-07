@@ -72,7 +72,7 @@ function initDatatable(search = false, type = 0) {
         [10, 25, 50, 100, -1],
         [10, 25, 50, 100, "All"],
       ],
-      pageLength: 25,
+      pageLength: -1,
       buttons: [
         {
           extend: "excelHtml5",
