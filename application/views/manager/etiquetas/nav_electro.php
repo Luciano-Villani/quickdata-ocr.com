@@ -34,7 +34,7 @@
 		
 		?>
 
-		<span class="btn bg-success ml-md-3 mr-md-auto"> <?= mb_strtoupper($grupos)?></span>
+		<span class="btn bg-success ml-md-3 mr-md-auto"> <?= strtoupper($grupos)?></span>
 
 		<ul class="navbar-nav">
 			
