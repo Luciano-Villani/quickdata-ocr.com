@@ -43,180 +43,150 @@
 	.tablasH {
 		width: 1300px !important;
 		margin-left: -92px!important;
-		height: 140px !important;
+		height: 300px !important;
+	}	
 
+	#provider-chart {
+    width: 300px; /* O el ancho que necesites */
+    height: 80px; /* Altura fija */
 	}
+	.btn-collapse {
+        background-color: #C9D4E6; /* Color de fondo */
+        border: none; /* Sin borde */
+        color: #000; /* Color del texto */
+        padding: 10px 15px; /* Espaciado interno */
+        display: flex; /* Para alinear íconos y texto */
+        align-items: center; /* Centrar verticalmente */
+        cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+        transition: background-color 0.3s ease; /* Efecto de transición para el color */
+		height: 20px !important; /* Altura del botón */
+    }
+
+    .btn-collapse:hover {
+        background-color: #AAB6C1; /* Color de fondo al pasar el mouse */
+    }
+
+    .arrow {
+        transition: transform 0.3s ease; /* Animación al girar */
+        margin: 0 5px; /* Espaciado entre flechas y texto */
+    }
+
+
+	
 
 </style>
 
-<div class="card tablasH" style="margin-top: -15px">
-<h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes Electromecánica </h5>
+<div class="card tablas" style="margin-top: -15px;">
+<button type="button" data-toggle="collapse" data-target="#collapseFilters" class="btn btn-collapse">
+    <i class="icon-arrow-down5 arrow" id="arrow-icon"></i>Filtros y reportes</button>
+	
 
-	<div class="card-header">
-		<div class="row" style="margin-top: -10px";>
+    
+    <div class="collapse" id="collapseFilters">
+        <div class="card-body" style="height: 150px;">
+            <div class="row">
 
-		<div class="col-2">
-		<div id="provider-chart" style="width: 100%; height: 75px;"></div>
-		</div>
+                <div class="col-3">
+                    <div id="provider-chart"></div>
+					<label><input type="checkbox" id="totales_por_mes" value="true">Totales por mes</label>
+                </div>
 
+                <label class="col-1" for="id_proveedor">
+                    <?php
+                    // Preparar opciones para el dropdown
+                    $proveedores_dropdown = [];
+                    foreach ($select_proveedores as $id => $proveedor) {
+                        $proveedores_dropdown[$id] = is_array($proveedor) ? $proveedor['nombre'] : $proveedor;
+                    }
 
-		<label class="col-2" for="id_proveedor">
+                    // Renderizar el dropdown
+                    $js = array(
+                        'id' => 'id_proveedor',
+                        'class' => 'custom-select',
+                        'multiple' => "multiple",
+                    );
+                    echo form_dropdown('id_proveedor', $proveedores_dropdown, set_value('id_proveedor'), $js);
+                    ?>
+                    <script>
+                        $('#id_proveedor').select2({
+                            placeholder: 'TARIFA',
+                            minimumResultsForSearch: "-1",
+                            width: '100%',
+                            closeOnSelect: true,
+                        });
+                    </script>
+                </label>
 
-				<?php
-				// Preparar opciones para el dropdown
-				$proveedores_dropdown = [];
+                <!-- Filtro de Mes FC -->
+                <label class="col-1" for="id_mes_fc">
+                    <?php
+                    // Opciones de meses
+                    $meses_fc = [
+                        '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo',
+                        '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio',
+                        '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre',
+                        '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre',
+                    ];
+                    $js = ['id' => 'id_mes_fc', 'class' => 'form-control', 'multiple' => 'multiple'];
+                    ?>
+                    <?= form_dropdown('id_mes_fc[]', $meses_fc, '', $js); ?>
+                    <script>
+                        $('#id_mes_fc').select2({
+                            placeholder: 'Mes FCS',
+                            minimumResultsForSearch: "-1",
+                            width: '100%',
+                            closeOnSelect: false,
+                        });
+                    </script>
+                </label>
 
-				foreach ($select_proveedores as $id => $proveedor) {
-					if (is_array($proveedor)) {
-						// Usar solo el nombre para el dropdown
-						$proveedores_dropdown[$id] = $proveedor['nombre'];
-					} else {
-						$proveedores_dropdown[$id] = $proveedor;
-					}
-				}
+                <!-- Filtro de Año FC -->
+                <label class="col-1" for="anio_fc">
+                    <?php
+                    // Opciones de años
+                    $anios_dropdown = [''];
+                    foreach ($select_anios as $anio) {
+                        $anios_dropdown[$anio] = $anio;
+                    }
+                    $js = ['id' => 'id_anio_fc', 'class' => 'form-control'];
+                    echo form_dropdown('anio_fc', $anios_dropdown, '', $js);
+                    ?>
+                    <script>
+                        $(document).ready(function() {
+                            $('#id_anio_fc').select2({
+                                placeholder: 'AÑO FC',
+                                minimumResultsForSearch: "-1",
+                                width: '100%',
+                            });
+                        });
+                    </script>
+                </label>
 
-				// Opciones adicionales para el dropdown
-				$js = array(
-					'id' => 'id_proveedor',
-					'class' => 'custom-select',
-					'multiple' => "multiple",
-				);
+                <div class="col-2">
+                    <label><input type="checkbox" id="cosfi_filter" value="true"> Cos Fi inferiores a 0.95</label>
+                    <label><input type="checkbox" id="filtrar_por_cuenta" value="true" disabled> Cuentas únicas</label>
+                    
+                </div>
 
-				// Renderizar el dropdown
-				echo form_dropdown('id_proveedor', $proveedores_dropdown, set_value('id_proveedor'), $js);
-				?>
+                <div class="col-2" style="margin: -10px;">
+                    <label><input type="checkbox" class="radio" value="1" name="tipo_fecha" id="tipo-fecha" /> <span data-popup="tooltip">Fecha de Consolidación</span></label>
+                    <div class="col" style="margin: -10px;">
+                        <input type="text" name="daterange2" id="daterange2" class="form-control">
+                    </div>
+                </div>
 
-				<script>
-					$('#id_proveedor').select2({
-						placeholder: 'PROVEEDORES',
-						minimumResultsForSearch: "-1",
-						width: '100%',
-						closeOnSelect: false,
-						selectionCssClass: '',
-					});
-				</script>
-			</label>
-		
-			
-			
+                <div class="col-2">
+                    <button id="applyfilter" type="button" class="btn btn-outline-dark btn-sm" title="Aplicar filtros"><b><i class="icon-filter3"></i></b></button>
+                    <button id="resetfilter" type="button" class="btn btn-outline-dark btn-sm" title="Eliminar filtros"><b><i class="icon-reset"></i></b></button>
+                    <button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm" title="Descargar reporte"><b><i class="icon-file-excel"></i></b></button>
+                </div>
 
-				<!-- Filtro de Mes FC -->
-			<label class="col-1" for="id_mes_fc">
-				<?php
-				// Definimos las opciones del filtro con los meses.
-				$meses_fc = array(
-					'' => 'Seleccionar Mes', // Opción por defecto.
-					'01' => 'Enero',
-					'02' => 'Febrero',
-					'03' => 'Marzo',
-					'04' => 'Abril',
-					'05' => 'Mayo',
-					'06' => 'Junio',
-					'07' => 'Julio',
-					'08' => 'Agosto',
-					'09' => 'Septiembre',
-					'10' => 'Octubre',
-					'11' => 'Noviembre',
-					'12' => 'Diciembre',
-				);
-
-				// Creamos el select para `mes_fc` con las opciones de los meses.
-				$js = array(
-					'id' => 'id_mes_fc',
-					'class' => 'form-control',
-				);
-				?>
-				<?= form_dropdown('id_mes_fc', $meses_fc, '', $js); ?>
-
-				<!-- Script para inicializar el dropdown con select2 -->
-				<script>
-					$('#id_mes_fc').select2({
-						placeholder: 'MES FC',
-						minimumResultsForSearch: "-1", // Deshabilitar la búsqueda.
-						width: '100%',
-						closeOnSelect: true,
-					});
-				</script>
-			</label>
-
-					<!-- Filtro de Año FC -->
-			<label class="col-1" for="anio_fc">
-				<?php
-				// Preparar opciones para el dropdown
-				$anios_dropdown = ['']; // Opción predeterminada
-
-				foreach ($select_anios as $anio) {
-					$anios_dropdown[$anio] = $anio; // Suponiendo que $anio ya contiene los años
-				}
-
-				// Opciones adicionales para el dropdown
-				$js = array(
-					'id' => 'id_anio_fc',
-					'class' => 'form-control',
-				);
-
-				// Renderizar el dropdown sin selección predeterminada
-				echo form_dropdown('anio_fc', $anios_dropdown, '', $js);
-				?>
-				<script>
-					$(document).ready(function() {
-						// Inicializar el dropdown y establecer su valor a null al cargar la página
-						$('#id_anio_fc').val(null).trigger('change');
-
-						// Inicializar Select2 
-						$('#id_anio_fc').select2({
-							placeholder: 'AÑO FC',
-							minimumResultsForSearch: "-1",
-							width: '100%',
-							closeOnSelect: true,
-						});
-
-						// Forzar que el valor del dropdown sea nulo al cargar la página
-						$('#id_anio_fc').val(null).trigger('change');
-					});
-				</script>
-			</label>
-
-
-			<div class="col-2 ">
-			<label class="">
-			<input type="checkbox" id="cosfi_filter" value="true">
-			Cos Fi inferiores a 0.95
-			</label>
-			<label class="">
-			<input type="checkbox" id="tgfi_filter" value="true">
-			Tg Fi mayores a 0.33
-			</label>
-
-
-
-			</div>
-
-
-			<div class="col-2" style = "margin: -10px";>
-				<label class="">
-					<input type="checkbox"  class="radio"  value="1" name="tipo_fecha"  id="tipo-fecha" />
-					<span data-popup="tooltip">Fecha de Consolidación</span>
-				</label>
-				<div class="col" style = "margin: -10px";>
-					<input type="text" name="daterange2" id="daterange2" class="form-control ">
-				</div>
-			</div>
-			
-			<div class="col-2">
-				<button id="applyfilter" type="button" class="btn btn-outline-dark btn-sm" title="Aplicar filtros"><b><i class="icon-filter3"></i></b></button>
-				<button id="resetfilter" type="button" class="btn btn-outline-dark btn-sm" title="Eliminar filtros"><b><i class="icon-reset"></i></b></button>
-				<button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm" title="Descargar reporte"><b><i class="icon-file-excel"></i></b></button>
-			</div>			
-			
-					
-			
-		</div>
-
-		
-		
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 <style>
 	#consolidados_dt_filter,
 	#consolidados_dt_length {
@@ -254,22 +224,64 @@
 				
 				<tr>
 				
-					<th>Proveedor</th>
-                    <th>Nro Factura</th>
-                    <th>Nro Cuenta</th>
-                    <th>Nro Medidor</th>
-                    <th>Dependencia</th>
-                    <th>Dirección de Consumo</th>
-                    <th>Nombre Cliente</th>
-                    <th>Consumo</th>
-                    <th>U. Med</th>
-                    <th>Cosfi</th>
-                    <th>Tgfi</th>
-                    <th>Importe Total</th>
-                    <th>Mes Fc</th>
-                    <th>Año Fc</th>
-                    <th>Vencimiento</th>
-					<th></th>
+                <th>Proveedor</th>
+                <th>Tarifa</th>
+                <th>Nro Factura</th>
+                <th>Nro Cuenta</th>
+                <th>Nro Medidor</th>
+                <th>Dependencia</th>
+                <th>Dirección de Consumo</th>
+                <th>Nombre Cliente</th>
+                <th>Cons kWh/kW"</th>
+                <th>Cosfi</th>
+                <th>Tgfi</th>
+                <th>E Activa kWh</th>                         <!-- 12 -->
+                <th>E Reactiva kVArh</th>                         <!-- 54 -->
+                <th>Importe $</th>
+                <th>Vencimiento</th>
+                <th>Impuestos $</th>
+                <th>Bimestre</th>
+                <th>Liquidación</th>                   <!-- Coincide con target 17 -->
+                <th>Cargo Variable Hasta $</th>          <!-- Coincide con target 18 -->
+                <th>Cargo Fijo $</th>                    <!-- Coincide con target 19 -->
+                <th>Cargo Var $</th>              <!-- Coincide con target 20 -->
+                <th>Cargo Var > $</th>                 <!-- Coincide con target 21 -->
+                <th>Otros Conceptos $</th>                <!-- Coincide con target 22 -->
+                <th>Conceptos Eléctricos $</th>           <!-- Coincide con target 23 -->
+                <th>Energía Inyectada</th>              <!-- Coincide con target 24 -->
+                <th>Pot Punta</th>                      <!-- Coincide con target 25 -->
+                <th>Pot Fuera Punta Cons</th>           <!-- Coincide con target 26 -->
+                <th>Energía Punta Act</th>              <!-- Coincide con target 27 -->
+                <th>Energía Resto Act</th>              <!-- Coincide con target 28 -->
+                <th>Energía Valle Act</th>              <!-- Coincide con target 29 -->
+                <th>Energía Reac Act</th>               <!-- Coincide con target 30 -->
+                <th>Cargo Pot Contratada $</th>           <!-- Coincide con target 31 -->
+                <th>Cargo Pot Ad $</th>                   <!-- Coincide con target 32 -->
+                <th>Cargo Pot Excedente $</th>            <!-- Coincide con target 33 -->
+                <th>Recargo TGFI $</th>                   <!-- Coincide con target 34 -->
+                <th>Consumo Pico Vigente</th>           <!-- Coincide con target 35 -->
+                <th>Cargo Pico $</th>                     <!-- Coincide con target 36 -->
+                <th>Consumo Resto Vigente</th>          <!-- Coincide con target 37 -->
+                <th>Cargo Resto $</th>                    <!-- Coincide con target 38 -->
+                <th>Consumo Valle Vigente</th>          <!-- Coincide con target 39 -->
+                <th>Cargo Valle $</th>                    <!-- Coincide con target 40 -->
+                <th>E Actual</th>                       <!-- Coincide con target 41 -->
+                <th>Cargo Contratado $</th>               <!-- Coincide con target 42 -->
+                <th>Cargo Adquirido $</th>                <!-- Coincide con target 43 -->
+                <th>Cargo Excedente $</th>                <!-- Coincide con target 44 -->
+                <th>Cargo Variable $</th>                 <!-- Coincide con target 45 -->
+                <th>Total Vencido $</th>                  <!-- Coincide con target 46 -->
+                <th>E Reactiva kVArh </th>                    <!-- Coincide con target 47 -->
+                <th>U.Med</th>                         <!-- Coincide con target 48 -->
+                <th>Días Cons</th>                         <!-- 49 -->
+                <th>Días Comp</th>                         <!-- 50 -->
+                <th>Cons DC kWh</th>                         <!-- 51 -->
+                <th>Período Consumo</th>                         <!-- 52 -->
+                <th>Mes Fc</th>                             <!-- 53 -->
+                <th>Año Fc</th>                         <!-- 54 -->
+                <th>Subsidio</th>                       <!-- 55 -->
+                <th></th>                               <!-- Columna vacía -->
+
 					
 				</tr>
 			</thead>
@@ -288,7 +300,9 @@
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 
 <script>
-  $(document).ready(function () {
+$(document).ready(function () {
+
+
     // Inicializar el gráfico en su contenedor
     var myChart = echarts.init(document.getElementById('provider-chart'));
     var option = {
@@ -335,80 +349,173 @@
             console.log("Datos visibles en la tabla:", datosVisibles); // Depuración
 
             if (datosVisibles.length === 0) {
-                console.warn("No hay datos visibles en la tabla para mostrar en el gráfico.");
+               // console.warn("No hay datos visibles en la tabla para mostrar en el gráfico.");
                 return;
             }
 
-            // Crear un objeto para contar la cantidad de registros por proveedor
-            var conteoProveedores = {};
+            var conteoProveedoresOMeses = {};
+            datosVisibles.forEach(function (item, index) {
+                //console.log(`Contenido completo de la fila ${index}:`, item);
+                var idProveedor = item[57]; // Ajusta según la columna correcta para el proveedor.
+                var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
-            datosVisibles.forEach(function (item) {
-                // Asegúrate de que `item[15]` es la posición correcta del `id_proveedor`.
-                var idProveedor = item[16]; // Asumiendo que `id_proveedor` está en la columna 15.
+                //console.log(`Fila ${index}: idProveedor = ${idProveedor}, mes = ${mes}`);
 
-                // Agregar la letra "T" al idProveedor para mostrar en el gráfico
-                var idProveedorModificado = `T${idProveedor}`;
-
-                // Verificar si ya existe el proveedor en el objeto de conteo y sumar
-                if (conteoProveedores[idProveedorModificado]) {
-                    conteoProveedores[idProveedorModificado] += 1; // Aumentar el conteo de registros
+                if ($('#totales_por_mes').is(':checked')) {
+                    if (mes) { 
+                        conteoProveedoresOMeses[mes] = (conteoProveedoresOMeses[mes] || 0) + 1;
+                    }
                 } else {
-                    conteoProveedores[idProveedorModificado] = 1; // Inicializar el conteo
+                    if (idProveedor) { 
+                        var idProveedorModificado = `T${idProveedor}`;
+                        conteoProveedoresOMeses[idProveedorModificado] = (conteoProveedoresOMeses[idProveedorModificado] || 0) + 1;
+                    }
                 }
             });
 
-            // Convertir el objeto en arrays de proveedores y sus cantidades
-            var proveedores = Object.keys(conteoProveedores);
-            var cantidades = Object.values(conteoProveedores);
+            var categorias = Object.keys(conteoProveedoresOMeses);
+            var cantidades = Object.values(conteoProveedoresOMeses);
 
-            console.log("Proveedores antes de ordenar:", proveedores); // Depuración
-
-            // Ordenar los proveedores en base a su ID numérico (extrayendo el número de la cadena 'T')
-            proveedores.sort(function (a, b) {
-                var numeroA = parseInt(a.replace('T', ''));
-                var numeroB = parseInt(b.replace('T', ''));
-                return numeroA - numeroB;
+            categorias.sort(function (a, b) {
+                var numA = parseInt(a.replace('T', ''));
+                var numB = parseInt(b.replace('T', ''));
+                return numA - numB; // Orden ascendente
             });
 
-            console.log("Proveedores después de ordenar:", proveedores); // Depuración
-
-            // Ordenar las cantidades en función del nuevo orden de los proveedores
-            var cantidadesOrdenadas = proveedores.map(function (proveedor) {
-                return conteoProveedores[proveedor];
+            var cantidadesOrdenadas = categorias.map(function (categoria) {
+                return conteoProveedoresOMeses[categoria];
             });
 
-            console.log("Cantidades después de ordenar:", cantidadesOrdenadas); // Depuración
+            //console.log("Categorías (meses/proveedores):", categorias); // Depuración
+            console.log("Cantidades ordenadas:", cantidadesOrdenadas); // Depuración
 
-            // Actualizar las opciones del gráfico con los datos visibles
+            if (categorias.length === 0 || cantidadesOrdenadas.length === 0) {
+                //console.warn("No hay categorías o cantidades disponibles para actualizar el gráfico.");
+                return;
+            }
+
             myChart.setOption({
-                xAxis: { data: proveedores }, // Actualiza los datos del eje X con los proveedores
-                series: [{ data: cantidadesOrdenadas }] // Actualiza los datos de la serie con las cantidades (número de registros)
+                xAxis: { data: categorias },
+                series: [{ data: cantidadesOrdenadas }]
             });
         }, 300); // Tiempo de espera para asegurarse de que la tabla esté lista
     }
 
-    // Escuchar el evento `draw` de DataTable para actualizar el gráfico
     $('#consolidados_dt').on('draw.dt', function () {
         actualizarGrafico(); // Llamar a la función actualizarGrafico después de que se dibuja la tabla
     });
 
-    // Puedes invocar `actualizarGrafico()` aquí si quieres que se ejecute una vez al cargar la página por primera vez.
-  });
+    $('#totales_por_mes').change(function () {
+        actualizarGrafico(); // Vuelve a actualizar el gráfico cuando cambia el estado del checkbox
+    });
+
+    // Inicialización de select2
+    $('#id_mes_fc').select2({
+        placeholder: 'Mes FCS',
+        minimumResultsForSearch: "-1",
+        width: '100%',
+        closeOnSelect: false,
+    });
+
+    $('#id_anio_fc').select2({
+        placeholder: 'AÑO FC',
+        minimumResultsForSearch: "-1",
+        width: '100%',
+    });
+
+    // Lógica de filtrado y estado del checkbox
+    var $filtrarPorCuenta = $('#filtrar_por_cuenta');
+    var $selectMesFc = $('#id_mes_fc');
+
+    $filtrarPorCuenta.prop('disabled', true);
+
+    function actualizarEstadoCheckbox() {
+        var mesesSeleccionados = $selectMesFc.val();
+        $filtrarPorCuenta.prop('disabled', mesesSeleccionados && mesesSeleccionados.length < 12);
+        if ($filtrarPorCuenta.prop('disabled')) {
+            $filtrarPorCuenta.prop('checked', false);
+        }
+    }
+
+    $selectMesFc.change(function () {
+        actualizarEstadoCheckbox();
+    });
+
+    function filtrarPorCuenta() {
+    var tabla = $('#consolidados_dt').DataTable();
+    var mesesSeleccionados = $selectMesFc.val(); // Meses seleccionados
+
+    if (!mesesSeleccionados || mesesSeleccionados.length < 2) {
+       // console.warn("Debe seleccionar al menos dos meses para usar el filtro por cuenta.");
+        return;
+    }
+
+    var cuentasPorMes = {};
+    var datosVisibles = tabla.rows({ filter: 'applied' }).data().toArray();
+
+    // Agrupar cuentas por mes
+    datosVisibles.forEach(function (item) {
+        var mes = item[12]; // Columna correcta para el mes
+        var cuenta = item[2]; // Columna correcta para la cuenta
+
+        if (mesesSeleccionados.includes(mes)) {
+            cuentasPorMes[cuenta] = cuentasPorMes[cuenta] || [];
+            cuentasPorMes[cuenta].push(mes);
+        }
+    });
+
+    // Filtrar cuentas que solo aparecen en un mes
+    var cuentasFiltradas = Object.keys(cuentasPorMes).filter(function (cuenta) {
+        return cuentasPorMes[cuenta].length === 1; // Aparece en solo un mes
+    });
+
+    //console.log("Cuentas filtradas:", cuentasFiltradas); // Depuración
+
+    // Iterar sobre las filas y aplicar el filtrado
+    tabla.rows().every(function () {
+        var cuenta = this.data()[2]; // Columna correcta para la cuenta
+
+        // Si el checkbox está marcado, ocultar las cuentas filtradas
+        if ($filtrarPorCuenta.is(':checked')) {
+            var shouldShow = cuentasFiltradas.includes(cuenta);
+            this.nodes().to$().toggle(shouldShow); // Mostrar u ocultar según el filtro
+            //console.log(`Cuenta: ${cuenta}, Mostrar: ${shouldShow}`); // Depuración
+        } else {
+            this.nodes().to$().show(); // Mostrar todas las filas si el filtro está desactivado
+        }
+    });
+
+    tabla.draw(); // Asegúrate de redibujar la tabla
+}
+
+
+    $filtrarPorCuenta.change(function () {
+        filtrarPorCuenta();
+    });
+
+    $selectMesFc.change(function () {
+        if ($filtrarPorCuenta.is(':checked')) {
+            filtrarPorCuenta();
+        }
+    });
+
+    actualizarEstadoCheckbox();
+    actualizarGrafico(); // Llamar a la función inicial
+});
+
+// Manejo de los íconos de colapso
+$('#collapseFilters').on('shown.bs.collapse', function () {
+        $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
+        
+        // Activar el botón de reset filtros al expandir el colapsable
+        $('#resetfilter').trigger('click');
+    });
+
+    $('#collapseFilters').on('hidden.bs.collapse', function () {
+        $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
+    });
+
+// **Fin del script**
+
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

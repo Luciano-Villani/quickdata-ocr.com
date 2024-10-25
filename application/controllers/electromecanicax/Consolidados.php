@@ -75,26 +75,66 @@ class Consolidados extends backend_controller
 
                 // Ajustar los datos para que correspondan con las columnas requeridas
                 $data[] = array(
-                    $r->proveedora,                      // Proveedor
-                    $r->nro_factura,                     // Nro Factura
-                    $r->nro_cuenta,                      // Nro Cuenta
-                    $r->nro_medidor,                     // Nro Medidor
-                    $r->dependencia,                     // Dependencia
-                    $r->dependencia_direccion,           // Dirección de Consumo
-                    $r->nombre_cliente,                  // Nombre Cliente
-                    $r->consumo,                         // Consumo
-                    $r->unidad_medida,                   // U. Med
-                    $r->cosfi,                           // Cosfi
-                    $r->tgfi,                            // Tgfi
-                    $r->importe,                         // Importe Total
-                    $r->mes_fc,  // Mes Fc (convertido a número de mes)
-                    $r->anio_fc,  // Año Fc (convertido a número de año)
-                    fecha_es($r->fecha_vencimiento, 'd-m-a', false), // Vencimiento
-                    $accionesVer . $accionesDelete,
-                    $r->id_proveedor, //id del proveedor
-
-
+                    $r->proveedora,                      // Proveedor 0
+                    $r->nro_factura,                     // Nro Factura 1
+                    $r->nro_cuenta,                      // Nro Cuenta 2
+                    $r->nro_medidor,                     // Nro Medidor 3
+                    $r->dependencia,                     // Dependencia 4
+                    $r->dependencia_direccion,           // Dirección de Consumo 5
+                    $r->nombre_cliente,                   // Nombre Cliente 6
+                    $r->consumo,                         // Consumo 7
+                    $r->unidad_medida,                   // U. Med 8
+                    $r->cosfi,                           // Cosfi 9
+                    $r->tgfi,                            // Tgfi 10
+                    $r->importe,                         // Importe Total 11
+                    $r->mes_fc,                          // Mes Fc (convertido a número de mes) 12
+                    $r->anio_fc,                         // Año Fc (convertido a número de año) 13
+                    fecha_es($r->fecha_vencimiento, 'd-m-a', false), // Vencimiento 14
+                    $r->impuestos,                       // Impuestos 15
+                    $r->bimestre,                        // Bimestre 16
+                    $r->liquidacion,                     // Liquidación 17
+                    $r->cargo_variable_hasta,            // Cargo Variable Hasta 18
+                    $r->cargo_fijo,                      // Cargo Fijo 19
+                    $r->monto_car_var_hasta,             // Monto Cargo Var Hasta 20
+                    $r->moto_var_mayor,                  // Moto Var Mayor 21
+                    $r->otros_conseptos,                 // Otros Conceptos 22
+                    $r->conceptos_electricos,            // Conceptos Eléctricos 23
+                    $r->energia_inyectada,               // Energía Inyectada 24
+                    $r->pot_punta,                       // Pot Punta 25
+                    $r->pot_fuera_punta_cons,            // Pot Fuera Punta Cons 26
+                    $r->ener_punta_act,                   // Energía Punta Act 27
+                    $r->ener_resto_act,                   // Energía Resto Act 28
+                    $r->ener_valle_act,                   // Energía Valle Act 29
+                    $r->ener_reac_act,                    // Energía Reac Act 30
+                    $r->cargo_pot_contratada,            // Cargo Pot Contratada 31
+                    $r->cargo_pot_ad,                    // Cargo Pot Ad 32
+                    $r->cargo_pot_excd,                  // Cargo Pot Excedente 33
+                    $r->recargo_tgfi,                    // Recargo TGFI 34
+                    $r->consumo_pico_vig,                // Consumo Pico Vigente 35
+                    $r->cargo_pico,                      // Cargo Pico 36
+                    $r->consumo_resto_vig,               // Consumo Resto Vigente 37
+                    $r->cargo_resto,                     // Cargo Resto 38
+                    $r->consumo_valle_vig,               // Consumo Valle Vigente 39
+                    $r->cargo_valle,                     // Cargo Valle 40
+                    $r->e_actual,                        // E Actual 41
+                    $r->cargo_contr,                     // Cargo Contratado 42
+                    $r->cargo_adq,                       // Cargo Adquirido 43
+                    $r->cargo_exc,                       // Cargo Excedente 44
+                    $r->cargo_var,                       // Cargo Variable 45
+                    $r->total_vencido,                   // Total Vencido 46
+                    $r->ener_reac_cons,                  // Energía Reactiva Consumida 47
+                    $r->tipo_de_tarifa,                  // Energía Reactiva Consumida 48
+                    $r ->dias_de_consumo,                //49
+                    $r ->dias_comprendidos,               //50
+                    $r ->consumo_dias_comprendidos,       // 51
+                    $r ->periodo_del_consumo,            // 52
+                    $r ->e_activa,  // 53       
+                    $r ->e_reactiva,   //54  
+                    $r ->subsidio,   //55  
+                    $accionesVer . $accionesDelete,      // Acciones 56
+                    $r->id_proveedor,                      // ID del Proveedor 57
                 );
+                
             }
 
             // Configuración de respuesta para DataTable
@@ -204,8 +244,49 @@ class Consolidados extends backend_controller
     }
 
     public function obtener_datos_grafico()
-    {
+{
+    // Recibir el valor del checkbox desde el frontend
+    $agrupar_por_mes = $this->input->post('agrupar_por_mes'); // true o false
+
+    // Pasar el parámetro al modelo para ajustar la agrupación
+    if ($agrupar_por_mes) {
+        $datos_grafico = $this->Electromecanica_model->contar_registros_por_mes();
+    } else {
         $datos_grafico = $this->Electromecanica_model->contar_registros_por_proveedor_canon();
-        echo json_encode($datos_grafico);
     }
+
+    // Devolver los datos en formato JSON
+    echo json_encode($datos_grafico);
+}
+
+
+public function test_query()
+{
+    // Selección de campos
+    $this->db->select(
+        'CONCAT(_consolidados_canon.proveedor, " (", _consolidados_canon.codigo_proveedor,")" ) as proveedora,
+        CONCAT(_consolidados_canon.jurisdiccion," ",_consolidados_canon.id_programa ) as sumajuris,
+        _consolidados_canon.id as id_consolidado,
+        UPPER(_consolidados_canon.secretaria), UPPER(_consolidados_canon.acuerdo_pago),
+        _consolidados_canon.proveedor, _consolidados_canon.*'
+    );
+
+    // Ejecutar la consulta sin ningún filtro
+    $query = $this->db->get('_consolidados_canon');
+
+    // Obtener todos los registros como un array
+    $result = $query->result_array();
+
+    // Mostrar todos los registros usando var_dump
+    echo "<pre>";
+    var_dump($result);
+    echo "</pre>";
+
+    // Retornar el array completo de resultados (opcional)
+    return $result;
+}
+
+
+
+
 }
