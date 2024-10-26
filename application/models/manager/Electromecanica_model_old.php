@@ -124,11 +124,14 @@ class Electromecanica_model extends CI_Model
     }
     private function _get_datatables_query($postData)
     {
+ 
         switch ($postData['table']) {
 
             case '_datos_api_canon':
 
-
+                if(isset($_POST['id_lote'])){
+                    $this->db->where('code_lote',$postData['id_lote']);
+                }
                 $this->db->select('*');
 
                 $my_column_order = array(
@@ -249,7 +252,46 @@ class Electromecanica_model extends CI_Model
                         '_consolidados_canon.preventivas',
                         '_consolidados_canon.dependencia',
                         '_consolidados_canon.fecha_vencimiento',
+                        // Nuevos campos
+                        '_consolidados_canon.impuestos',
+                        '_consolidados_canon.bimestre',
+                        '_consolidados_canon.liquidacion',
+                        '_consolidados_canon.cargo_variable_hasta',
+                        '_consolidados_canon.cargo_fijo',
+                        '_consolidados_canon.monto_car_var_hasta',
+                        '_consolidados_canon.moto_var_mayor',
+                        '_consolidados_canon.otros_conseptos',
+                        '_consolidados_canon.conceptos_electricos',
+                        '_consolidados_canon.energia_inyectada',
+                        '_consolidados_canon.pot_punta',
+                        '_consolidados_canon.pot_fuera_punta_cons',
+                        '_consolidados_canon.ener_punta_act',
+                        '_consolidados_canon.ener_resto_act',
+                        '_consolidados_canon.ener_valle_act',
+                        '_consolidados_canon.ener_reac_act',
+                        '_consolidados_canon.cargo_pot_contratada',
+                        '_consolidados_canon.cargo_pot_ad',
+                        '_consolidados_canon.cargo_pot_excd',
+                        '_consolidados_canon.recargo_tgfi',
+                        '_consolidados_canon.consumo_pico_vig',
+                        '_consolidados_canon.cargo_pico',
+                        '_consolidados_canon.consumo_resto_vig',
+                        '_consolidados_canon.cargo_resto',
+                        '_consolidados_canon.consumo_valle_vig',
+                        '_consolidados_canon.cargo_valle',
+                        '_consolidados_canon.e_actual',
+                        '_consolidados_canon.cargo_contr',
+                        '_consolidados_canon.cargo_adq',
+                        '_consolidados_canon.cargo_exc',
+                        '_consolidados_canon.cargo_var',
+                        '_consolidados_canon.total_vencido',
+                        '_consolidados_canon.ener_reac_cons',
+                        '_consolidados_canon.tipo_de_tarifa',
+                        
                     );
+                    
+                        
+                    
                     $my_column_search = array(
                         '_consolidados_canon.periodo_contable',
                         'UPPER(_consolidados_canon.proveedor)',
@@ -269,6 +311,8 @@ class Electromecanica_model extends CI_Model
                         '_consolidados_canon.dependencia',
                         '_consolidados_canon.fecha_vencimiento',
                     );
+
+                    
                 
                     $this->order = array(
                         '_consolidados_canon.id' => 'desc'
@@ -299,17 +343,12 @@ class Electromecanica_model extends CI_Model
 
                     //filtro de mes fc
 
+                   
                     if (isset($postData['mes_fc']) && $postData['mes_fc'] != 'false' && $postData['mes_fc'] != '') {
-                        // Si mes_fc es un string, lo agregamos directamente
                         if (is_array($postData['mes_fc'])) {
-                            // Manejo del caso en que mes_fc es un array
-                            $this->db->group_start();
-                            foreach ($postData['mes_fc'] as $mes) {
-                                $this->db->or_where('_consolidados_canon.mes_fc', $mes);
-                            }
-                            $this->db->group_end();
+                            // Uso de where_in para arrays
+                            $this->db->where_in('_consolidados_canon.mes_fc', $postData['mes_fc']);
                         } else {
-                            // Aquí agregamos el string directamente
                             $this->db->where('_consolidados_canon.mes_fc', $postData['mes_fc']);
                         }
                     }
@@ -328,6 +367,8 @@ class Electromecanica_model extends CI_Model
                             $this->db->where('_consolidados_canon.anio_fc', $postData['anio_fc']);
                         }
                     }
+
+                    
 
                  // Filtro registros donde 'cos_fi' es menor a 0.95
 
@@ -920,6 +961,7 @@ class Electromecanica_model extends CI_Model
 					'nro_cuenta' => $indexador->nro_cuenta,
 					'periodo_del_consumo' => $file->periodo_del_consumo,
 					'fecha_vencimiento' => $file->vencimiento_del_pago,
+                    'fecha_emision' => $file->fecha_emision,
 					'mes_vencimiento' => $mesVencimiento[1],
 					'preventivas' => date("Y-m-d H:i:s"),
 					'importe' => $file->total_importe,
@@ -930,7 +972,7 @@ class Electromecanica_model extends CI_Model
 					'fecha_consolidado' => $this->fecha_now,
 					'nombre_archivo' => $file->nombre_archivo,
 					'importe_1' => $file->total_importe,
-					'acuerdo_pago' => isset($indexador->acuerdo_pago) ? $indexador->acuerdo_pago : '',
+					'acuerdo_pago' => $indexador->acuerdo_pago,
 					'periodo' => $clavePeriodo,
 					'mes_fc' => $file->mes_fc,
 					'anio_fc' => $file->anio_fc,
@@ -948,6 +990,49 @@ class Electromecanica_model extends CI_Model
 					'p_contratada' => $file->p_contratada,
 					'p_registrada' => $file->p_registrada,
 					'p_excedida' => $file->p_excedida,
+
+                    'proximo_vencimiento' => $file->proximo_vencimiento,
+                    'bimestre' => $file->bimestre,
+                    'liquidacion' => $file->liquidacion,
+                    'dias_de_consumo' => $file->dias_de_consumo,
+                    'dias_comprendidos' => $file->dias_comprendidos,
+                    'consumo_dias_comprendidos' => $file->consumo_dias_comprendidos,
+                    'cargo_variable_hasta' => $file->cargo_variable_hasta,
+                    'cargo_fijo' => $file->cargo_fijo,
+                    'monto_car_var_hasta' => $file->monto_car_var_hasta,
+                    'moto_var_mayor' => $file->moto_var_mayor,
+                    'otros_conseptos' => $file->otros_conseptos,
+                    'conceptos_electricos' => $file->conceptos_electricos,
+                    'impuestos' => $file->impuestos,
+                    'energia_inyectada' => $file->energia_inyectada,
+                    'pot_punta' => $file->pot_punta,
+                    'pot_fuera_punta_cons' => $file->pot_fuera_punta_cons,
+                    'ener_punta_act' => $file->ener_punta_act,
+                    'ener_punta_cons' => $file->ener_punta_cons,
+                    'ener_resto_act' => $file->ener_resto_act,
+                    'ener_resto_cons' => $file->ener_resto_cons,
+                    'ener_valle_act' => $file->ener_valle_act,
+                    'ener_valle_cons' => $file->ener_valle_cons,
+                    'ener_reac_act' => $file->ener_reac_act,
+                    'ener_reac_cons' => $file->ener_reac_cons,
+                    'cargo_pot_contratada' => $file->cargo_pot_contratada,
+                    'cargo_pot_ad' => $file->cargo_pot_ad,
+                    'cargo_pot_excd' => $file->cargo_pot_excd,
+                    'recargo_tgfi' => $file->recargo_tgfi,
+                    'consumo_pico_vig' => $file->consumo_pico_vig,
+                    'cargo_pico' => $file->cargo_pico,
+                    'consumo_resto_vig' => $file->consumo_resto_vig,
+                    'cargo_resto' => $file->cargo_resto,
+                    'consumo_valle_vig' => $file->consumo_valle_vig,
+                    'cargo_valle' => $file->cargo_valle,
+                    'e_actual' => $file->e_actual,
+                    'cargo_contr' => $file->cargo_contr,
+                    'cargo_adq' => $file->cargo_adq,
+                    'cargo_exc' => $file->cargo_exc,
+                    'cargo_var' => $file->cargo_var,
+                    'total_vencido' => $file->total_vencido,
+
+
 				);
 
 				$this->Electromecanica_model->grabar_datos('_consolidados_canon', $dataBatch);
@@ -1012,5 +1097,14 @@ class Electromecanica_model extends CI_Model
         return $query->result();
     }
     
-	
+	public function contar_registros_por_mes()
+    {
+        $this->db->select('mes, COUNT(*) as cantidad');
+        $this->db->from('_consolidados_canon'); // Reemplaza con el nombre de la tabla correcta
+        $this->db->group_by('mes');
+        $this->db->order_by('mes', 'ASC');
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
 }

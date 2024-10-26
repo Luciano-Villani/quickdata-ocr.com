@@ -1031,6 +1031,8 @@ class Electromecanica_model extends CI_Model
                     'cargo_exc' => $file->cargo_exc,
                     'cargo_var' => $file->cargo_var,
                     'total_vencido' => $file->total_vencido,
+                    'subsidio' => $file->subsidio,
+
 
 
 				);

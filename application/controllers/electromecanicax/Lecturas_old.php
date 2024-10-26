@@ -349,7 +349,12 @@ class Lecturas extends backend_controller
 				$accionesEdit = '<span data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="d-none editar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Editar lote" href="#"  class=""><i class=" text-warningr  icon-pencil4 " title="Editar Lote"></i> </a> </span>';
 				$accionesDelete = '<span data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="borrar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Borrar lote" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar Lote"></i> </a> </span>';
 				//$accionesReload = '<span data-id_proveedor="' . $r->id_proveedor . '" data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="reload-lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
-
+			//QUITO ACCIONES A USUARIO ELECTRO
+			if ($this->ion_auth->is_electro()) {
+				$accionesMerge = '';
+				$accionesEdit = '';
+				$accionesDelete = '';
+			}
 				$proveedor = $this->proveedores_model->get_proveedor($r->id_proveedor);
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
@@ -410,7 +415,7 @@ class Lecturas extends backend_controller
 
 	public function viewBatch($id = null)
 	{
-		$_POST['search']['value'] = $id;
+	
 		$this->lote = $id;
 
 		if ($this->input->is_ajax_request()) {
@@ -445,6 +450,11 @@ class Lecturas extends backend_controller
 				// Removed the $accionesReload variable
 				$accionesDelete = '<span data-tabla="_datos_api_canon" data-id_file="' . $r->id . '" class="borrar-file acciones" ><a title="Borrar file" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 
+				//QUITO ACCIONES A USUARIO ELECTRO
+				if ($this->ion_auth->is_electro()) {
+					$accionesMerge = '';
+					$accionesDelete = '';
+				}
 				$data[] = array(
 
 					$r->nro_cuenta,
