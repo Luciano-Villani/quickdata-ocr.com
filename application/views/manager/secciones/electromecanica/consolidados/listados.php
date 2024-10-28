@@ -406,13 +406,7 @@ $(document).ready(function () {
         actualizarGrafico(); // Vuelve a actualizar el gráfico cuando cambia el estado del checkbox
     });
 
-    // Inicialización de select2
-    $('#id_mes_fc').select2({
-        placeholder: 'Mes FC',
-        minimumResultsForSearch: "-1",
-        width: '100%',
-        closeOnSelect: false,
-    });
+    
 
    
 
@@ -517,6 +511,8 @@ $('#id_mes_fc').select2({
         
         // otras configuraciones si es necesario
     });
+    actualizarGrafico();
+    
 
 
 });
