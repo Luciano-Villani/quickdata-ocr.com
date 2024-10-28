@@ -132,7 +132,7 @@
                     <?= form_dropdown('id_mes_fc[]', $meses_fc, '', $js); ?>
                     <script>
                         $('#id_mes_fc').select2({
-                            placeholder: 'Mes FC',
+                            placeholder: 'Mes FCS',
                             minimumResultsForSearch: "-1",
                             width: '100%',
                             closeOnSelect: false,
@@ -142,15 +142,24 @@
 
                 <!-- Filtro de Año FC -->
                 <label class="col-1" for="anio_fc">
-                <?php
-                // Opciones de años
-                $anios_dropdown = ['' => 'Selecciona un año']; // Esta opción actúa como el placeholder
-                foreach ($select_anios as $anio) {
-                    $anios_dropdown[$anio] = $anio;
-                }
-                $js = ['id' => 'id_anio_fc', 'class' => 'form-control'];
-                echo form_dropdown('anio_fc', $anios_dropdown, '', $js);
-                ?>
+                    <?php
+                    // Opciones de años
+                    $anios_dropdown = [''];
+                    foreach ($select_anios as $anio) {
+                        $anios_dropdown[$anio] = $anio;
+                    }
+                    $js = ['id' => 'id_anio_fc', 'class' => 'form-control'];
+                    echo form_dropdown('anio_fc', $anios_dropdown, '', $js);
+                    ?>
+                    <script>
+                        $(document).ready(function() {
+                            $('#id_anio_fc').select2({
+                                placeholder: 'AÑO FC',
+                                minimumResultsForSearch: "-1",
+                                width: '100%',
+                            });
+                        });
+                    </script>
                 </label>
 
                 <div class="col-2">
@@ -205,12 +214,6 @@
 <div class="card tablas" style="margin-top: -15px">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas Electromecánica</h5>
 
-<div id="loading-spinner" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-  <div class="spinner-border text-primary" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div>
-
 <div class="card-header" style="margin-top: -15px">
 <div id="consulta"></div>
 <div id="request"></div>
@@ -225,7 +228,7 @@
                 <th>Tarifa</th>
                 <th>Nro Factura</th>
                 <th>Nro Cuenta</th>
-                <th>Medidor</th>
+                <th>Nro Medidor</th>
                 <th>Dependencia</th>
                 <th>Dirección de Consumo</th>
                 <th>Nombre Cliente</th>
@@ -408,13 +411,17 @@ $(document).ready(function () {
 
     // Inicialización de select2
     $('#id_mes_fc').select2({
-        placeholder: 'Mes FC',
+        placeholder: 'Mes FCS',
         minimumResultsForSearch: "-1",
         width: '100%',
         closeOnSelect: false,
     });
 
-   
+    $('#id_anio_fc').select2({
+        placeholder: 'AÑO FC',
+        minimumResultsForSearch: "-1",
+        width: '100%',
+    });
 
     // Lógica de filtrado y estado del checkbox
     var $filtrarPorCuenta = $('#filtrar_por_cuenta');
@@ -496,37 +503,17 @@ $(document).ready(function () {
     actualizarGrafico(); // Llamar a la función inicial
 });
 
-
 // Manejo de los íconos de colapso
 $('#collapseFilters').on('shown.bs.collapse', function () {
-    $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
-    
-    // Reinicializa los select2 al expandir el colapsable
-    $('#id_proveedor').select2({
-        placeholder: "Tarifa",
-        // otras configuraciones si es necesario
-    });
-// Si tienes otros select2, reinicialízalos aquí
-$('#id_mes_fc').select2({
-        placeholder: "Mes FC",
-        // otras configuraciones si es necesario
-    });
-    // Si tienes otros select2, reinicialízalos aquí
-    $('#id_anio_fc').select2({
-        placeholder: "Año",
+        $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
         
-        // otras configuraciones si es necesario
+        // Activar el botón de reset filtros al expandir el colapsable
+        $('#resetfilter').trigger('click');
     });
 
-
-});
-console.log($('#id_anio_fc').length); // Debería ser 1 si el elemento existe
-
-// Evento para manejar el colapso oculto
-$('#collapseFilters').on('hidden.bs.collapse', function () {
-    $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
-});
-
+    $('#collapseFilters').on('hidden.bs.collapse', function () {
+        $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
+    });
 
 // **Fin del script**
 
