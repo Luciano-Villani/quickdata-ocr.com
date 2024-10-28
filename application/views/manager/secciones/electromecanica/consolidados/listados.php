@@ -88,7 +88,8 @@
 
                 <div class="col-3">
                     <div id="provider-chart"></div>
-					<label><input type="checkbox" id="totales_por_mes" value="true">Totales por mes</label>
+					<label style="margin: 25px;"><input type="checkbox" id="totales_por_mes" value="true">Totales por mes</label>
+                    <label><input type="checkbox" id="totales_por_tarifa" value="true">Totales por tarifa</label>
                 </div>
 
                 <label class="col-1" for="id_proveedor">
@@ -403,8 +404,32 @@ $(document).ready(function () {
     });
 
     $('#totales_por_mes').change(function () {
-        actualizarGrafico(); // Vuelve a actualizar el gráfico cuando cambia el estado del checkbox
-    });
+    var tabla = $('#consolidados_dt').DataTable();
+
+    // Si el checkbox 'totales por mes' se selecciona, desmarca 'totales por tarifa'
+    if ($(this).is(':checked')) {
+        $('#totales_por_tarifa').prop('checked', false);
+        tabla.page.len(-1).draw(); // Muestra todas las filas
+    } else {
+        tabla.page.len(50).draw(); // Vuelve al paginado de 50 filas
+    }
+
+    actualizarGrafico(); // Actualiza el gráfico después del cambio
+});
+
+$('#totales_por_tarifa').change(function () {
+    var tabla = $('#consolidados_dt').DataTable();
+
+    // Si el checkbox 'totales por tarifa' se selecciona, desmarca 'totales por mes'
+    if ($(this).is(':checked')) {
+        $('#totales_por_mes').prop('checked', false);
+        tabla.page.len(-1).draw(); // Muestra todas las filas
+    } else {
+        tabla.page.len(50).draw(); // Vuelve al paginado de 50 filas
+    }
+
+    actualizarGrafico(); // Actualiza el gráfico después del cambio
+});
 
     
 
@@ -511,8 +536,9 @@ $('#id_mes_fc').select2({
         
         // otras configuraciones si es necesario
     });
-    actualizarGrafico();
     
+   
+
 
 
 });
