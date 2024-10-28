@@ -52,7 +52,10 @@ function initDatatable(search = false, type = 0) {
   var anio_fc = $('#id_anio_fc').val() && $('#id_anio_fc').val().length > 0 ? $('#id_anio_fc').val() : null;
   var cosfiFilter = $('#cosfi_filter').is(':checked'); // Captura el estado del checkbox
   var tgfiFilter = $('#tgfi_filter').is(':checked'); // Captura el estado del checkbox
+  
 
+  // Calcula la altura disponible dinámicamente
+  let tableHeight = Math.min($(window).height() - $('#consolidados_dt').offset().top - 50, 450); // 600px como máximo
 
   
 
@@ -67,7 +70,7 @@ function initDatatable(search = false, type = 0) {
       dom: "Blfrtip",
       scrollX: true,
       scrollCollapse: true,
-      scrollY: 300,
+      scrollY: tableHeight + "px", // Altura calculada
       lengthMenu: [
         [10, 25, 50, 100, -1],
         [10, 25, 50, 100, "All"],
@@ -91,12 +94,13 @@ function initDatatable(search = false, type = 0) {
         },
       ],
       columnDefs: [
+        
         { targets: [0], title: "Proveedor", data: 0, visible: false }, // Utiliza el índice 0
         { targets: [1], title: "Tarifa", data: 48 },
         { targets: [2], title: "Nro factura", data: 1 },
-        { targets: [3], title: "Nro cuenta", data: 2 },
-        { targets: [4], title: "Nro medidor", data: 3 },
-        { targets: [5], title: "Dependencia", data: 4 },
+        { targets: [3], title: "Nro cuenta", data: 2, width: "20px"},
+        { targets: [4], title: "Medidor", data: 3 },
+        { targets: [5], title: "Dependencia", data: 4, width: "20px" },
         
         { targets: [6], title: "Dirección de Consumo", data: 5 },
         
@@ -166,6 +170,7 @@ function initDatatable(search = false, type = 0) {
         
       ],
       
+      
       language: {
         url: "/assets/manager/js/plugins/tables/translate/spanish.json",
       },
@@ -192,7 +197,7 @@ function initDatatable(search = false, type = 0) {
         type: "POST",
         
        
-       
+      
 
         
       },
@@ -206,6 +211,7 @@ function initDatatable(search = false, type = 0) {
       function aplicarVisibilidad() {
         var selectedProveedor = $("#id_proveedor").val(); // Obtener proveedor seleccionado
         console.log(selectedProveedor);
+        console.log("ejecutando visibilidad - Proveedor seleccionado:", selectedProveedor);
     
         if (table.columns().count() > 10) { // Verificar que existen al menos 11 columnas
           if (selectedProveedor == '1') {
@@ -298,17 +304,34 @@ function initDatatable(search = false, type = 0) {
    //     aplicarVisibilidad(); // Aplicar visibilidad al cambiar proveedor
     // });
     
+    
       // Ejecutar aplicarVisibilidad cada vez que se redibuja la tabla (incluye el filtrado)
+    table.off('draw'); // Asegúrate de desregistrar cualquier evento previo
      table.on('draw', function () {
       aplicarVisibilidad();
      });
     
-      // Listener para el botón de aplicar filtro
-     // $("#applyfilter").on("click", function () {
-     //   // Aquí puedes aplicar los filtros y luego llamar a `table.draw()` si es necesario
-      //  //table.draw(); // Ejecuta los filtros en la DataTable y dispara el evento draw
-     // });
+    
     });
+
+    // Evento para seleccionar la fila con un solo clic
+    $('#consolidados_dt tbody').on('click', 'tr', function () {
+      // Elimina la clase 'selected' de cualquier fila previamente seleccionada
+      table.$('tr.selected').removeClass('selected');
+      // Agrega la clase 'selected' a la fila clickeada
+      $(this).addClass('selected');
+  });
+
+  // Evento para redirigir con doble clic
+  $('#consolidados_dt tbody').on('dblclick', 'tr', function () {
+    // Encuentra el enlace en la columna correspondiente
+    var $link = $(this).find('a[title="ver archivo"]');
+    if ($link.length) {
+        // Abre el enlace en una nueva pestaña
+        window.open($link.attr('href'), '_blank');
+      }
+  });
+
     
     
 }
