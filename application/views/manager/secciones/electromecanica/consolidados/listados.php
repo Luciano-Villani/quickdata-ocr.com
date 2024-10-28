@@ -88,8 +88,15 @@
 
                 <div class="col-3">
                     <div id="provider-chart"></div>
-					<label style="margin: 25px;"><input type="checkbox" id="totales_por_mes" value="true">Totales por mes</label>
-                    <label><input type="checkbox" id="totales_por_tarifa" value="true">Totales por tarifa</label>
+                    <div style="margin: 10px;">
+					<button type="button" id="btn_totales_por_mes" class="btn btn-primary">Totales por Mes</button>
+                    <button type="button" id="btn_totales_por_tarifa" class="btn btn-secondary">Totales por Tarifa</button>
+                    </div>
+                </div>
+
+                                <!-- Contenedor para el mensaje de procesamiento -->
+                <div id="processing-message" style="display: none; margin: 10px;">
+                    <p>Calculando Totales por mes... Por favor espere.</p>
                 </div>
 
                 <label class="col-1" for="id_proveedor">
@@ -300,6 +307,7 @@
 <script>
 $(document).ready(function () {
 
+    
 
     // Inicializar el gráfico en su contenedor
     var myChart = echarts.init(document.getElementById('provider-chart'));
@@ -336,7 +344,11 @@ $(document).ready(function () {
             }
         }]
     };
+
     myChart.setOption(option); // Establecer la opción inicial del gráfico
+
+    // Variables para controlar la opción activa
+    var mostrarPorMes = false;
 
     // Función para actualizar el gráfico con los datos visibles en la tabla
     function actualizarGrafico() {
@@ -344,22 +356,14 @@ $(document).ready(function () {
             var tabla = $('#consolidados_dt').DataTable();
             var datosVisibles = tabla.rows({ filter: 'applied' }).data().toArray();
 
-            console.log("Datos visibles en la tabla:", datosVisibles); // Depuración
-
-            if (datosVisibles.length === 0) {
-               // console.warn("No hay datos visibles en la tabla para mostrar en el gráfico.");
-                return;
-            }
+            if (datosVisibles.length === 0) return;
 
             var conteoProveedoresOMeses = {};
             datosVisibles.forEach(function (item, index) {
-                //console.log(`Contenido completo de la fila ${index}:`, item);
                 var idProveedor = item[57]; // Ajusta según la columna correcta para el proveedor.
                 var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
-                //console.log(`Fila ${index}: idProveedor = ${idProveedor}, mes = ${mes}`);
-
-                if ($('#totales_por_mes').is(':checked')) {
+                if (mostrarPorMes) {
                     if (mes) { 
                         conteoProveedoresOMeses[mes] = (conteoProveedoresOMeses[mes] || 0) + 1;
                     }
@@ -377,145 +381,49 @@ $(document).ready(function () {
             categorias.sort(function (a, b) {
                 var numA = parseInt(a.replace('T', ''));
                 var numB = parseInt(b.replace('T', ''));
-                return numA - numB; // Orden ascendente
+                return numA - numB;
             });
 
             var cantidadesOrdenadas = categorias.map(function (categoria) {
                 return conteoProveedoresOMeses[categoria];
             });
 
-            //console.log("Categorías (meses/proveedores):", categorias); // Depuración
-            console.log("Cantidades ordenadas:", cantidadesOrdenadas); // Depuración
-
-            if (categorias.length === 0 || cantidadesOrdenadas.length === 0) {
-                //console.warn("No hay categorías o cantidades disponibles para actualizar el gráfico.");
-                return;
-            }
+            if (categorias.length === 0 || cantidadesOrdenadas.length === 0) return;
 
             myChart.setOption({
                 xAxis: { data: categorias },
                 series: [{ data: cantidadesOrdenadas }]
             });
-        }, 300); // Tiempo de espera para asegurarse de que la tabla esté lista
+        }, 300); 
     }
 
+    // Eventos para los botones
+    $('#btn_totales_por_mes').click(function () {
+        mostrarPorMes = true;
+        $('#btn_totales_por_mes').addClass('btn-primary').removeClass('btn-secondary');
+        $('#btn_totales_por_tarifa').removeClass('btn-primary').addClass('btn-secondary');
+        
+        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
+        actualizarGrafico();
+    });
+
+    $('#btn_totales_por_tarifa').click(function () {
+        mostrarPorMes = false;
+        $('#btn_totales_por_tarifa').addClass('btn-primary').removeClass('btn-secondary');
+        $('#btn_totales_por_mes').removeClass('btn-primary').addClass('btn-secondary');
+        
+        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
+        actualizarGrafico();
+    });
+
+    // Actualizar gráfico al dibujar la tabla
     $('#consolidados_dt').on('draw.dt', function () {
-        actualizarGrafico(); // Llamar a la función actualizarGrafico después de que se dibuja la tabla
+        actualizarGrafico();
     });
 
-    $('#totales_por_mes').change(function () {
-    var tabla = $('#consolidados_dt').DataTable();
-
-    // Si el checkbox 'totales por mes' se selecciona, desmarca 'totales por tarifa'
-    if ($(this).is(':checked')) {
-        $('#totales_por_tarifa').prop('checked', false);
-        tabla.page.len(-1).draw(); // Muestra todas las filas
-    } else {
-        tabla.page.len(50).draw(); // Vuelve al paginado de 50 filas
-    }
-
-    actualizarGrafico(); // Actualiza el gráfico después del cambio
+    // Llamar a la función inicial para actualizar el gráfico al cargar la página
+    actualizarGrafico();
 });
-
-$('#totales_por_tarifa').change(function () {
-    var tabla = $('#consolidados_dt').DataTable();
-
-    // Si el checkbox 'totales por tarifa' se selecciona, desmarca 'totales por mes'
-    if ($(this).is(':checked')) {
-        $('#totales_por_mes').prop('checked', false);
-        tabla.page.len(-1).draw(); // Muestra todas las filas
-    } else {
-        tabla.page.len(50).draw(); // Vuelve al paginado de 50 filas
-    }
-
-    actualizarGrafico(); // Actualiza el gráfico después del cambio
-});
-
-    
-
-   
-
-    // Lógica de filtrado y estado del checkbox
-    var $filtrarPorCuenta = $('#filtrar_por_cuenta');
-    var $selectMesFc = $('#id_mes_fc');
-
-    $filtrarPorCuenta.prop('disabled', true);
-
-    function actualizarEstadoCheckbox() {
-        var mesesSeleccionados = $selectMesFc.val();
-        $filtrarPorCuenta.prop('disabled', mesesSeleccionados && mesesSeleccionados.length < 12);
-        if ($filtrarPorCuenta.prop('disabled')) {
-            $filtrarPorCuenta.prop('checked', false);
-        }
-    }
-
-    $selectMesFc.change(function () {
-        actualizarEstadoCheckbox();
-    });
-
-    function filtrarPorCuenta() {
-    var tabla = $('#consolidados_dt').DataTable();
-    var mesesSeleccionados = $selectMesFc.val(); // Meses seleccionados
-
-    if (!mesesSeleccionados || mesesSeleccionados.length < 2) {
-       // console.warn("Debe seleccionar al menos dos meses para usar el filtro por cuenta.");
-        return;
-    }
-
-    var cuentasPorMes = {};
-    var datosVisibles = tabla.rows({ filter: 'applied' }).data().toArray();
-
-    // Agrupar cuentas por mes
-    datosVisibles.forEach(function (item) {
-        var mes = item[12]; // Columna correcta para el mes
-        var cuenta = item[2]; // Columna correcta para la cuenta
-
-        if (mesesSeleccionados.includes(mes)) {
-            cuentasPorMes[cuenta] = cuentasPorMes[cuenta] || [];
-            cuentasPorMes[cuenta].push(mes);
-        }
-    });
-
-    // Filtrar cuentas que solo aparecen en un mes
-    var cuentasFiltradas = Object.keys(cuentasPorMes).filter(function (cuenta) {
-        return cuentasPorMes[cuenta].length === 1; // Aparece en solo un mes
-    });
-
-    //console.log("Cuentas filtradas:", cuentasFiltradas); // Depuración
-
-    // Iterar sobre las filas y aplicar el filtrado
-    tabla.rows().every(function () {
-        var cuenta = this.data()[2]; // Columna correcta para la cuenta
-
-        // Si el checkbox está marcado, ocultar las cuentas filtradas
-        if ($filtrarPorCuenta.is(':checked')) {
-            var shouldShow = cuentasFiltradas.includes(cuenta);
-            this.nodes().to$().toggle(shouldShow); // Mostrar u ocultar según el filtro
-            //console.log(`Cuenta: ${cuenta}, Mostrar: ${shouldShow}`); // Depuración
-        } else {
-            this.nodes().to$().show(); // Mostrar todas las filas si el filtro está desactivado
-        }
-    });
-
-    tabla.draw(); // Asegúrate de redibujar la tabla
-}
-
-
-    $filtrarPorCuenta.change(function () {
-        filtrarPorCuenta();
-    });
-
-    $selectMesFc.change(function () {
-        if ($filtrarPorCuenta.is(':checked')) {
-            filtrarPorCuenta();
-        }
-    });
-
-    actualizarEstadoCheckbox();
-    actualizarGrafico(); // Llamar a la función inicial
-});
-
-
 // Manejo de los íconos de colapso
 $('#collapseFilters').on('shown.bs.collapse', function () {
     $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
@@ -536,9 +444,6 @@ $('#id_mes_fc').select2({
         
         // otras configuraciones si es necesario
     });
-    
-   
-
 
 
 });
@@ -548,9 +453,4 @@ console.log($('#id_anio_fc').length); // Debería ser 1 si el elemento existe
 $('#collapseFilters').on('hidden.bs.collapse', function () {
     $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
 });
-
-
-// **Fin del script**
-
 </script>
-
