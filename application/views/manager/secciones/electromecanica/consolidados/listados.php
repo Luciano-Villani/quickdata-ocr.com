@@ -73,10 +73,59 @@
     .btn-totales {
         background-color: #344F6E; /* Color de fondo */
         color: #ffffff; /* Color del texto */
-     
+    } 
        
-    }
+.dt-button-collection {
+  background-color: #f8f9fa; /* Color de fondo */
+  border: 1px solid #ced4da; /* Borde */
+  border-radius: 5px; /* Esquinas redondeadas */
+  padding: 10px; /* Espaciado interno */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+}
 
+.dt-button-collection button {
+  background-color: #007bff; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 3px; /* Esquinas redondeadas */
+  padding: 5px 10px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: background-color 0.3s; /* Transición suave */
+}
+
+.custom-colvis-menu {
+    background-color: #f8f9fa; /* Color de fondo */
+    border: 1px solid #ced4da; /* Borde */
+    border-radius: 5px; /* Esquinas redondeadas */
+    padding: 10px; /* Espaciado interno */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones fluyan a la siguiente fila */
+    max-width: 900px; /* Ancho máximo del menú */
+    
+}
+
+
+.custom-colvis-menu button {
+    display: flex; /* Habilita flexbox */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    flex: 1 1 calc(20% - 10px); /* Dos botones por fila */
+    margin: 5px; /* Espaciado entre botones */
+    white-space: normal; /* Permitir texto en múltiples líneas */
+    min-width: 70px; /* Ancho mínimo */
+    background-color: #113966; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 3px; /* Esquinas redondeadas */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.custom-colvis-menu button:hover {
+    background-color: #9DA8B3; /* Color al pasar el mouse */
+}
 
 	
 
@@ -253,7 +302,7 @@
                 <th>Impuestos $</th>
                 <th>Bimestre</th>
                 <th>Liquidación</th>                   <!-- Coincide con target 17 -->
-                <th>Cargo Variable Hasta $</th>          <!-- Coincide con target 18 -->
+                <th>P Contr Kw</th>          <!-- Coincide con target 18 -->
                 <th>Cargo Fijo $</th>                    <!-- Coincide con target 19 -->
                 <th>Cargo Var $</th>              <!-- Coincide con target 20 -->
                 <th>Cargo Var > $</th>                 <!-- Coincide con target 21 -->
@@ -291,6 +340,7 @@
                 <th>Mes Fc</th>                             <!-- 53 -->
                 <th>Año Fc</th>                         <!-- 54 -->
                 <th>Subsidio</th>                       <!-- 55 -->
+                <th>Car Var Hasta kw</th>                   <!-- 56 -->
                 <th></th>                               <!-- Columna vacía -->
 
 					
@@ -363,7 +413,7 @@ $(document).ready(function () {
 
             var conteoProveedoresOMeses = {};
             datosVisibles.forEach(function (item) {
-                var idProveedor = item[57]; // Ajusta según la columna correcta para el proveedor.
+                var idProveedor = item[58]; // Ajusta según la columna correcta para el proveedor.
                 var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
                 if (mostrarPorMes) {
