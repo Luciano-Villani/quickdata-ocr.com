@@ -88,7 +88,15 @@
 
                 <div class="col-3">
                     <div id="provider-chart"></div>
-					<label><input type="checkbox" id="totales_por_mes" value="true">Totales por mes</label>
+                    <div style="margin: 10px;">
+					<button type="button" id="btn_totales_por_mes" class="btn btn-primary">Totales por Mes</button>
+                    <button type="button" id="btn_totales_por_tarifa" class="btn btn-secondary">Totales por Tarifa</button>
+                    </div>
+                </div>
+
+                                <!-- Contenedor para el mensaje de procesamiento -->
+                <div id="processing-message" style="display: none; margin: 10px;">
+                    <p>Calculando Totales por mes... Por favor espere.</p>
                 </div>
 
                 <label class="col-1" for="id_proveedor">
@@ -132,7 +140,7 @@
                     <?= form_dropdown('id_mes_fc[]', $meses_fc, '', $js); ?>
                     <script>
                         $('#id_mes_fc').select2({
-                            placeholder: 'Mes FCS',
+                            placeholder: 'Mes FC',
                             minimumResultsForSearch: "-1",
                             width: '100%',
                             closeOnSelect: false,
@@ -142,24 +150,15 @@
 
                 <!-- Filtro de Año FC -->
                 <label class="col-1" for="anio_fc">
-                    <?php
-                    // Opciones de años
-                    $anios_dropdown = [''];
-                    foreach ($select_anios as $anio) {
-                        $anios_dropdown[$anio] = $anio;
-                    }
-                    $js = ['id' => 'id_anio_fc', 'class' => 'form-control'];
-                    echo form_dropdown('anio_fc', $anios_dropdown, '', $js);
-                    ?>
-                    <script>
-                        $(document).ready(function() {
-                            $('#id_anio_fc').select2({
-                                placeholder: 'AÑO FC',
-                                minimumResultsForSearch: "-1",
-                                width: '100%',
-                            });
-                        });
-                    </script>
+                <?php
+                // Opciones de años
+                $anios_dropdown = ['' => 'Selecciona un año']; // Esta opción actúa como el placeholder
+                foreach ($select_anios as $anio) {
+                    $anios_dropdown[$anio] = $anio;
+                }
+                $js = ['id' => 'id_anio_fc', 'class' => 'form-control'];
+                echo form_dropdown('anio_fc', $anios_dropdown, '', $js);
+                ?>
                 </label>
 
                 <div class="col-2">
@@ -214,6 +213,12 @@
 <div class="card tablas" style="margin-top: -15px">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas Electromecánica</h5>
 
+<div id="loading-spinner" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
 <div class="card-header" style="margin-top: -15px">
 <div id="consulta"></div>
 <div id="request"></div>
@@ -228,7 +233,7 @@
                 <th>Tarifa</th>
                 <th>Nro Factura</th>
                 <th>Nro Cuenta</th>
-                <th>Nro Medidor</th>
+                <th>Medidor</th>
                 <th>Dependencia</th>
                 <th>Dirección de Consumo</th>
                 <th>Nombre Cliente</th>
@@ -302,6 +307,7 @@
 <script>
 $(document).ready(function () {
 
+    
 
     // Inicializar el gráfico en su contenedor
     var myChart = echarts.init(document.getElementById('provider-chart'));
@@ -338,7 +344,11 @@ $(document).ready(function () {
             }
         }]
     };
+
     myChart.setOption(option); // Establecer la opción inicial del gráfico
+
+    // Variables para controlar la opción activa
+    var mostrarPorMes = false;
 
     // Función para actualizar el gráfico con los datos visibles en la tabla
     function actualizarGrafico() {
@@ -346,22 +356,14 @@ $(document).ready(function () {
             var tabla = $('#consolidados_dt').DataTable();
             var datosVisibles = tabla.rows({ filter: 'applied' }).data().toArray();
 
-            console.log("Datos visibles en la tabla:", datosVisibles); // Depuración
-
-            if (datosVisibles.length === 0) {
-               // console.warn("No hay datos visibles en la tabla para mostrar en el gráfico.");
-                return;
-            }
+            if (datosVisibles.length === 0) return;
 
             var conteoProveedoresOMeses = {};
             datosVisibles.forEach(function (item, index) {
-                //console.log(`Contenido completo de la fila ${index}:`, item);
                 var idProveedor = item[57]; // Ajusta según la columna correcta para el proveedor.
                 var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
-                //console.log(`Fila ${index}: idProveedor = ${idProveedor}, mes = ${mes}`);
-
-                if ($('#totales_por_mes').is(':checked')) {
+                if (mostrarPorMes) {
                     if (mes) { 
                         conteoProveedoresOMeses[mes] = (conteoProveedoresOMeses[mes] || 0) + 1;
                     }
@@ -379,143 +381,76 @@ $(document).ready(function () {
             categorias.sort(function (a, b) {
                 var numA = parseInt(a.replace('T', ''));
                 var numB = parseInt(b.replace('T', ''));
-                return numA - numB; // Orden ascendente
+                return numA - numB;
             });
 
             var cantidadesOrdenadas = categorias.map(function (categoria) {
                 return conteoProveedoresOMeses[categoria];
             });
 
-            //console.log("Categorías (meses/proveedores):", categorias); // Depuración
-            console.log("Cantidades ordenadas:", cantidadesOrdenadas); // Depuración
-
-            if (categorias.length === 0 || cantidadesOrdenadas.length === 0) {
-                //console.warn("No hay categorías o cantidades disponibles para actualizar el gráfico.");
-                return;
-            }
+            if (categorias.length === 0 || cantidadesOrdenadas.length === 0) return;
 
             myChart.setOption({
                 xAxis: { data: categorias },
                 series: [{ data: cantidadesOrdenadas }]
             });
-        }, 300); // Tiempo de espera para asegurarse de que la tabla esté lista
+        }, 300); 
     }
 
+    // Eventos para los botones
+    $('#btn_totales_por_mes').click(function () {
+        mostrarPorMes = true;
+        $('#btn_totales_por_mes').addClass('btn-primary').removeClass('btn-secondary');
+        $('#btn_totales_por_tarifa').removeClass('btn-primary').addClass('btn-secondary');
+        
+        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
+        actualizarGrafico();
+    });
+
+    $('#btn_totales_por_tarifa').click(function () {
+        mostrarPorMes = false;
+        $('#btn_totales_por_tarifa').addClass('btn-primary').removeClass('btn-secondary');
+        $('#btn_totales_por_mes').removeClass('btn-primary').addClass('btn-secondary');
+        
+        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
+        actualizarGrafico();
+    });
+
+    // Actualizar gráfico al dibujar la tabla
     $('#consolidados_dt').on('draw.dt', function () {
-        actualizarGrafico(); // Llamar a la función actualizarGrafico después de que se dibuja la tabla
+        actualizarGrafico();
     });
 
-    $('#totales_por_mes').change(function () {
-        actualizarGrafico(); // Vuelve a actualizar el gráfico cuando cambia el estado del checkbox
-    });
-
-    // Inicialización de select2
-    $('#id_mes_fc').select2({
-        placeholder: 'Mes FCS',
-        minimumResultsForSearch: "-1",
-        width: '100%',
-        closeOnSelect: false,
-    });
-
-    $('#id_anio_fc').select2({
-        placeholder: 'AÑO FC',
-        minimumResultsForSearch: "-1",
-        width: '100%',
-    });
-
-    // Lógica de filtrado y estado del checkbox
-    var $filtrarPorCuenta = $('#filtrar_por_cuenta');
-    var $selectMesFc = $('#id_mes_fc');
-
-    $filtrarPorCuenta.prop('disabled', true);
-
-    function actualizarEstadoCheckbox() {
-        var mesesSeleccionados = $selectMesFc.val();
-        $filtrarPorCuenta.prop('disabled', mesesSeleccionados && mesesSeleccionados.length < 12);
-        if ($filtrarPorCuenta.prop('disabled')) {
-            $filtrarPorCuenta.prop('checked', false);
-        }
-    }
-
-    $selectMesFc.change(function () {
-        actualizarEstadoCheckbox();
-    });
-
-    function filtrarPorCuenta() {
-    var tabla = $('#consolidados_dt').DataTable();
-    var mesesSeleccionados = $selectMesFc.val(); // Meses seleccionados
-
-    if (!mesesSeleccionados || mesesSeleccionados.length < 2) {
-       // console.warn("Debe seleccionar al menos dos meses para usar el filtro por cuenta.");
-        return;
-    }
-
-    var cuentasPorMes = {};
-    var datosVisibles = tabla.rows({ filter: 'applied' }).data().toArray();
-
-    // Agrupar cuentas por mes
-    datosVisibles.forEach(function (item) {
-        var mes = item[12]; // Columna correcta para el mes
-        var cuenta = item[2]; // Columna correcta para la cuenta
-
-        if (mesesSeleccionados.includes(mes)) {
-            cuentasPorMes[cuenta] = cuentasPorMes[cuenta] || [];
-            cuentasPorMes[cuenta].push(mes);
-        }
-    });
-
-    // Filtrar cuentas que solo aparecen en un mes
-    var cuentasFiltradas = Object.keys(cuentasPorMes).filter(function (cuenta) {
-        return cuentasPorMes[cuenta].length === 1; // Aparece en solo un mes
-    });
-
-    //console.log("Cuentas filtradas:", cuentasFiltradas); // Depuración
-
-    // Iterar sobre las filas y aplicar el filtrado
-    tabla.rows().every(function () {
-        var cuenta = this.data()[2]; // Columna correcta para la cuenta
-
-        // Si el checkbox está marcado, ocultar las cuentas filtradas
-        if ($filtrarPorCuenta.is(':checked')) {
-            var shouldShow = cuentasFiltradas.includes(cuenta);
-            this.nodes().to$().toggle(shouldShow); // Mostrar u ocultar según el filtro
-            //console.log(`Cuenta: ${cuenta}, Mostrar: ${shouldShow}`); // Depuración
-        } else {
-            this.nodes().to$().show(); // Mostrar todas las filas si el filtro está desactivado
-        }
-    });
-
-    tabla.draw(); // Asegúrate de redibujar la tabla
-}
-
-
-    $filtrarPorCuenta.change(function () {
-        filtrarPorCuenta();
-    });
-
-    $selectMesFc.change(function () {
-        if ($filtrarPorCuenta.is(':checked')) {
-            filtrarPorCuenta();
-        }
-    });
-
-    actualizarEstadoCheckbox();
-    actualizarGrafico(); // Llamar a la función inicial
+    // Llamar a la función inicial para actualizar el gráfico al cargar la página
+    actualizarGrafico();
 });
-
 // Manejo de los íconos de colapso
 $('#collapseFilters').on('shown.bs.collapse', function () {
-        $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
+    $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
+    
+    // Reinicializa los select2 al expandir el colapsable
+    $('#id_proveedor').select2({
+        placeholder: "Tarifa",
+        // otras configuraciones si es necesario
+    });
+// Si tienes otros select2, reinicialízalos aquí
+$('#id_mes_fc').select2({
+        placeholder: "Mes FC",
+        // otras configuraciones si es necesario
+    });
+    // Si tienes otros select2, reinicialízalos aquí
+    $('#id_anio_fc').select2({
+        placeholder: "Año",
         
-        // Activar el botón de reset filtros al expandir el colapsable
-        $('#resetfilter').trigger('click');
+        // otras configuraciones si es necesario
     });
 
-    $('#collapseFilters').on('hidden.bs.collapse', function () {
-        $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
-    });
 
-// **Fin del script**
+});
+console.log($('#id_anio_fc').length); // Debería ser 1 si el elemento existe
 
+// Evento para manejar el colapso oculto
+$('#collapseFilters').on('hidden.bs.collapse', function () {
+    $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
+});
 </script>
-

@@ -70,6 +70,12 @@
         transition: transform 0.3s ease; /* Animación al girar */
         margin: 0 5px; /* Espaciado entre flechas y texto */
     }
+    .btn-totales {
+        background-color: #344F6E; /* Color de fondo */
+        color: #ffffff; /* Color del texto */
+     
+       
+    }
 
 
 	
@@ -89,7 +95,7 @@
                 <div class="col-3">
                     <div id="provider-chart"></div>
                     <div style="margin: 10px;">
-					<button type="button" id="btn_totales_por_mes" class="btn btn-primary">Totales por Mes</button>
+					<button type="button" id="btn_totales_por_mes" class="btn btn-secondary">Totales por Mes</button>
                     <button type="button" id="btn_totales_por_tarifa" class="btn btn-secondary">Totales por Tarifa</button>
                     </div>
                 </div>
@@ -306,9 +312,6 @@
 
 <script>
 $(document).ready(function () {
-
-    
-
     // Inicializar el gráfico en su contenedor
     var myChart = echarts.init(document.getElementById('provider-chart'));
     var option = {
@@ -359,7 +362,7 @@ $(document).ready(function () {
             if (datosVisibles.length === 0) return;
 
             var conteoProveedoresOMeses = {};
-            datosVisibles.forEach(function (item, index) {
+            datosVisibles.forEach(function (item) {
                 var idProveedor = item[57]; // Ajusta según la columna correcta para el proveedor.
                 var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
@@ -397,23 +400,34 @@ $(document).ready(function () {
         }, 300); 
     }
 
+      // Función para manejar el cambio de botones
+      function actualizarBotones(mostrarPorMes) {
+        if (mostrarPorMes) {
+            $('#btn_totales_por_mes').addClass('btn-totales').removeClass('btn-secondary');
+            $('#btn_totales_por_tarifa').removeClass('btn-totales').addClass('btn-secondary');
+        } else {
+            $('#btn_totales_por_tarifa').addClass('btn-totales').removeClass('btn-secondary');
+            $('#btn_totales_por_mes').removeClass('btn-totales').addClass('btn-secondary');
+        }
+
+        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
+        // Asegúrate de que la tabla se haya dibujado antes de actualizar el gráfico
+        setTimeout(actualizarGrafico, 100); // Esperar un poco para que la tabla se dibuje
+    }
+
+    // Inicializar los botones en estado 'secondary'
+    $('#btn_totales_por_mes').addClass('btn-secondary');
+    $('#btn_totales_por_tarifa').addClass('btn-secondary');
+
     // Eventos para los botones
     $('#btn_totales_por_mes').click(function () {
         mostrarPorMes = true;
-        $('#btn_totales_por_mes').addClass('btn-primary').removeClass('btn-secondary');
-        $('#btn_totales_por_tarifa').removeClass('btn-primary').addClass('btn-secondary');
-        
-        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
-        actualizarGrafico();
+        actualizarBotones(mostrarPorMes);
     });
 
     $('#btn_totales_por_tarifa').click(function () {
         mostrarPorMes = false;
-        $('#btn_totales_por_tarifa').addClass('btn-primary').removeClass('btn-secondary');
-        $('#btn_totales_por_mes').removeClass('btn-primary').addClass('btn-secondary');
-        
-        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
-        actualizarGrafico();
+        actualizarBotones(mostrarPorMes);
     });
 
     // Actualizar gráfico al dibujar la tabla
@@ -423,34 +437,33 @@ $(document).ready(function () {
 
     // Llamar a la función inicial para actualizar el gráfico al cargar la página
     actualizarGrafico();
-});
-// Manejo de los íconos de colapso
-$('#collapseFilters').on('shown.bs.collapse', function () {
-    $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
-    
-    // Reinicializa los select2 al expandir el colapsable
-    $('#id_proveedor').select2({
-        placeholder: "Tarifa",
-        // otras configuraciones si es necesario
-    });
-// Si tienes otros select2, reinicialízalos aquí
-$('#id_mes_fc').select2({
-        placeholder: "Mes FC",
-        // otras configuraciones si es necesario
-    });
-    // Si tienes otros select2, reinicialízalos aquí
-    $('#id_anio_fc').select2({
-        placeholder: "Año",
+
+    // Manejo de los íconos de colapso
+    $('#collapseFilters').on('shown.bs.collapse', function () {
+        $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
         
-        // otras configuraciones si es necesario
+        // Reinicializa los select2 al expandir el colapsable
+        $('#id_proveedor').select2({
+            placeholder: "Tarifa",
+            // otras configuraciones si es necesario
+        });
+
+        $('#id_mes_fc').select2({
+            placeholder: "Mes FC",
+            // otras configuraciones si es necesario
+        });
+
+        $('#id_anio_fc').select2({
+            placeholder: "Año",
+            // otras configuraciones si es necesario
+        });
     });
 
+    console.log($('#id_anio_fc').length); // Debería ser 1 si el elemento existe
 
-});
-console.log($('#id_anio_fc').length); // Debería ser 1 si el elemento existe
-
-// Evento para manejar el colapso oculto
-$('#collapseFilters').on('hidden.bs.collapse', function () {
-    $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
+    // Evento para manejar el colapso oculto
+    $('#collapseFilters').on('hidden.bs.collapse', function () {
+        $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
+    });
 });
 </script>
