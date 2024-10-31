@@ -132,8 +132,9 @@ class Consolidados extends backend_controller
                     $r ->e_reactiva,   //54  
                     $r ->subsidio,   //55  
                     $r->p_contratada, //56
-                    $accionesVer . $accionesDelete,      // Acciones 57
-                    $r->id_proveedor,                      // ID del Proveedor 58
+                    $r->p_registrada, //57
+                    $accionesVer . $accionesDelete,      // Acciones 58
+                    $r->id_proveedor,                      // ID del Proveedor 59
                 );
                 
             }

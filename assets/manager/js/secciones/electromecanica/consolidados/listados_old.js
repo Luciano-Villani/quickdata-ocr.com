@@ -43,160 +43,217 @@ function newexportaction(e, dt, button, config) {
 
 function initDatatable(search = false, type = 0) {
   var prove = $("#id_proveedor").val() || [];
-  //console.log("Proveedor: ", prove);
- // var tipo_pago = $("#id_tipo_pago").val() || [];
-  //var periodo_contable = $("#periodo_contable").val() || [];
   var fecha = $("#tipo-fecha").is(":checked") ? $("#daterange2").val() : false;
-  var mes_fc = $('#id_mes_fc').val() || []; // Captura el valor de `mes_fc` en una variable.
-  //var anio_fc = $('#id_anio_fc').val() || []; // Captura el valor de `anio_fc` en una variable.
+  var mes_fc = $('#id_mes_fc').val() || [];
   var anio_fc = $('#id_anio_fc').val() && $('#id_anio_fc').val().length > 0 ? $('#id_anio_fc').val() : null;
-  var cosfiFilter = $('#cosfi_filter').is(':checked'); // Captura el estado del checkbox
-  var tgfiFilter = $('#tgfi_filter').is(':checked'); // Captura el estado del checkbox
+  var cosfiFilter = $('#cosfi_filter').is(':checked');
+  var tgfiFilter = $('#tgfi_filter').is(':checked');
 
-
-  
+  // Calcula la altura disponible dinámicamente
+  let tableHeight = Math.min($(window).height() - $('#consolidados_dt').offset().top - 50, 450);
 
   $("#consolidados_dt").DataTable().destroy();
-  
-  var table = $("#consolidados_dt")
-   
-    .DataTable({
+
+  var table = $("#consolidados_dt").DataTable({
       fixedHeader: {
-        header: true,
+          header: true,
       },
       dom: "Blfrtip",
       scrollX: true,
       scrollCollapse: true,
-      scrollY: 300,
+      scrollY: tableHeight + "px",
       lengthMenu: [
-        [10, 25, 50, 100, -1],
-        [10, 25, 50, 100, "All"],
+          [10, 25, 50, 100, -1],
+          [10, 25, 50, 100, "All"],
       ],
       pageLength: 50,
       buttons: [
-        {
-          extend: "excelHtml5",
-          exportOptions: {
-            columns: ":visible",
+          {
+              extend: "excelHtml5",
+              exportOptions: {
+                  columns: ":visible",
+              },
+              text: "Excel",
+              titleAttr: "Excel",
+              action: newexportaction,
+              className: "d-none",
           },
-          text: "Excel",
-          titleAttr: "Excel",
-          action: newexportaction,
-          className: "d-none",
-        },
-        {
-          extend: "colvis",
-          text: "Ver / Ocultar",
-          className: "",
-        },
+          {
+              text: 'Ver / Ocultar Columnas',
+              className: 'btn custom-colvis-menu button',
+              action: function (e, dt, button, config) {
+                  // Crear el menú manualmente
+                  let menu = $('<div class="custom-colvis-menu"></div>');
+
+                   // Agregar botones de visibilidad de columnas
+                    dt.columns().every(function (index) {
+                      if (index > 0 && index < dt.columns().count() - 1) { // Excluye la primera columna y la última
+                          let column = this;
+                          let btn = $('<button class="btn btn-info">' + column.header().textContent + '</button>')
+                              .on('click', function () {
+                                  // Cambiar visibilidad de la columna
+                                  column.visible(!column.visible());
+                                  updateButtonClass($(this), column.visible());
+                              });
+
+                          // Actualizar clase del botón según la visibilidad inicial
+                          updateButtonClass(btn, column.visible());
+                          menu.append(btn);
+                      }
+                  });
+
+                  // Mostrar el menú
+                  menu.appendTo('body').css({
+                      position: 'absolute',
+                      left: button.offset().left,
+                      top: button.offset().top + button.outerHeight(),
+                  }).fadeIn();
+
+                  // Cerrar el menú al hacer clic fuera
+                  setTimeout(function() {
+                      $(document).on('click.customColvis', function (event) {
+                          if (!$(event.target).closest('.custom-colvis-menu').length && !$(event.target).is(button)) {
+                              menu.fadeOut(function () {
+                                  $(this).remove();
+                              });
+                              $(document).off('click.customColvis'); // Desvincular el evento
+                          }
+                      });
+                  }, 0);
+              }
+          }
       ],
       columnDefs: [
-        { targets: [0], title: "Proveedor", data: 0, visible: false }, // Utiliza el índice 0
-        { targets: [1], title: "Tarifa", data: 48 },
-        { targets: [2], title: "Nro factura", data: 1 },
-        { targets: [3], title: "Nro cuenta", data: 2 },
-        { targets: [4], title: "Nro medidor", data: 3 },
-        { targets: [5], title: "Dependencia", data: 4 },
-        
-        { targets: [6], title: "Dirección de Consumo", data: 5 },
-        
-        { targets: [7], title: "Nombre Cliente", data: 6 },
-        { targets: [8], title: "Cons kWh/kW", data: 7 },
-        { targets: [9], title: "Cosfi", data: 9 },
-        { targets: [10], title: "Tgfi", data: 10 },
-        { targets: [11], title: "E Activa kWh", data: 53 },
-        { targets: [12], title: "E Reactiva kVArh", data: 54 },
-        { targets: [13], title: "Importe $", data: 11 },
-        { targets: [14], title: "Vencimiento", data: 14 },
-        { targets: [15], title: "Impuestos $", data: 15 },
-        { targets: [16], title: "Bimestre", data: 16 },
-        { targets: [17], title: "Liquidación", data: 17 }, // Liquidación
-        { targets: [18], title: "Cargo Variable Hasta $", data: 18 }, // Cargo Variable Hasta
-        { targets: [19], title: "Cargo Fijo $", data: 19 }, // Cargo Fijo
-        { targets: [20], title: "Cargo Var $", data: 20 }, // Monto Cargo Var Hasta
-        { targets: [21], title: "Cargo Var > $", data: 21 }, // Moto Var Mayor
-        { targets: [22], title: "Otros Conceptos $", data: 22 }, // Otros Conceptos
-        { targets: [23], title: "Conceptos Eléctricos $", data: 23 }, // Conceptos Eléctricos
-        { targets: [24], title: "Energía Inyectada", data: 24 }, // Energía Inyectada
-        { targets: [25], title: "Pot Punta", data: 25 }, // Pot Punta
-        { targets: [26], title: "Pot Fuera Punta Cons", data: 26 }, // Pot Fuera Punta Cons
-        { targets: [27], title: "Energía Punta Act", data: 27 }, // Energía Punta Act
-        { targets: [28], title: "Energía Resto Act", data: 28 }, // Energía Resto Act
-        { targets: [29], title: "Energía Valle Act", data: 29 }, // Energía Valle Act
-        { targets: [30], title: "Energía Reac Act", data: 30 }, // Energía Reac Act
-        { targets: [31], title: "Cargo Pot Contratada $", data: 31, visible: false }, // Cargo Pot Contratada
-        { targets: [32], title: "Cargo Pot Ad $", data: 32 , visible: false}, // Cargo Pot Ad
-        { targets: [33], title: "Cargo Pot Excedente $", data: 33, visible: false}, // Cargo Pot Excedente
-        { targets: [34], title: "Recargo TGFI $", data: 34 }, // Recargo TGFI
-        { targets: [35], title: "Consumo Pico Vigente", data: 35 }, // Consumo Pico Vigente
-        { targets: [36], title: "Cargo Pico $", data: 36 }, // Cargo Pico
-        { targets: [37], title: "Consumo Resto Vigente", data: 37 }, // Consumo Resto Vigente
-        { targets: [38], title: "Cargo Resto $", data: 38 }, // Cargo Resto
-        { targets: [39], title: "Consumo Valle Vigente", data: 39, visible: false }, // Consumo Valle Vigente
-        { targets: [40], title: "Cargo Valle $", data: 40 }, // Cargo Valle
-        { targets: [41], title: "E Actual", data: 41 }, // E Actual
-        { targets: [42], title: "Cargo Contratado", data: 42 }, // Cargo Contratado
-        { targets: [43], title: "Cargo Adquirida $", data: 43 }, // Cargo Adquirido
-        { targets: [44], title: "Cargo Excedente $", data: 44 }, // Cargo Excedente
-        { targets: [45], title: "Cargo Variable $", data: 45 }, // Cargo Variable
-        { targets: [46], title: "Total Vencido $", data: 46 }, // Total Vencido
-        { targets: [47], title: "E Reactiva kVArh", data: 47 }, // Energía Reactiva Consumida
-        
-        { targets: [48], title: "U.Med", data: 8, visible: false },
-        { targets: [49], title: "Días Cons", data: 49 },
+          { targets: [0], title: "Proveedor", data: 0, visible: false },
+          { targets: [1], title: "Tarifa", data: 48 ,orderable: false },
 
-        { targets: [50], title: "Días Comp", data: 50 },
-        { targets: [51], title: "Cons DC kWh", data: 51 },
-        { targets: [52], title: "Período Consumo", data: 52 },
-        { targets: [53], title: "Mes Fc", data: 12 },
-        { targets: [54], title: "Año Fc", data: 13 },
-        { targets: [55], title: "Subsidio", data: 55 },
-
-
-        
-        
-
-        {
-          targets: [56], // ID Proveedor
-          data: 56,      // Utiliza el índice 16 para 'id_proveedor'
-          visible: true,
-          searchable: false
-        }
-     
-        
+          
+          { targets: [2], title: "Nro factura", data: 1 ,orderable: false},
+          { targets: [3], title: "Nro cuenta", data: 2, width: "20px"  ,orderable: false},
+          { targets: [4], title: "Medidor", data: 3 ,orderable: false },
+          {
+            targets: [5], // Índice de la columna "Dependencia"
+            title: "Dependencia",
+            data: 4,
+            orderable: false,
+            createdCell: function(td) {
+                $(td).css({
+                    'max-width': '150px', // Establecer max-width
+                    'overflow': 'hidden', // Ocultar desbordamiento
+                    'white-space': 'nowrap', // No permitir salto de línea
+                    'text-overflow': 'ellipsis' // Agregar puntos suspensivos si es necesario
+                });
+            }
+             },
+            { 
+              targets: [6], 
+              title: "Dirección de Consumo", 
+              data: 5, 
+              orderable: false,
+              createdCell: function (td) {
+                  $(td).css({
+                      'max-width': '150px',
+                      'overflow': 'hidden',
+                      'text-overflow': 'ellipsis',
+                      'white-space': 'nowrap'
+                  });
+              }
+          },
+          { targets: [7], title: "Nombre Cliente", data: 6 ,orderable: false },
+          { targets: [8], title: "Cons kWh/kW", data: 7 ,orderable: false },
+          { targets: [9], title: "Cosfi", data: 9 ,orderable: false },
+          { targets: [10], title: "Tgfi", data: 10 ,orderable: false },
+          { targets: [11], title: "E Activa kWh", data: 53 ,orderable: false },
+          { targets: [12], title: "E Reactiva kVArh", data: 54 ,orderable: false },
+          { targets: [13], title: "Importe $", data: 11 ,orderable: false },
+          { targets: [14], title: "Vencimiento", data: 14 ,orderable: false },
+          { targets: [15], title: "Impuestos $", data: 15 ,orderable: false },
+          { targets: [16], title: "Bimestre", data: 16 ,orderable: false },
+          { targets: [17], title: "Liquidación", data: 17 ,orderable: false },
+          { targets: [18], title: "P Contr Kw", data: 56 ,orderable: false },
+          { targets: [19], title: "Cargo Fijo $", data: 19 ,orderable: false },
+          { targets: [20], title: "Cargo Var $", data: 20 ,orderable: false },
+          { targets: [21], title: "Cargo Var > $", data: 21 ,orderable: false },
+          { targets: [22], title: "Otros Conceptos $", data: 22 ,orderable: false },
+          { targets: [23], title: "Conceptos Eléctricos $", data: 23 ,orderable: false },
+          { targets: [24], title: "Energía Inyectada", data: 24 ,orderable: false },
+          { targets: [25], title: "Pot Punta", data: 25 ,orderable: false },
+          { targets: [26], title: "Pot Fuera Punta Cons", data: 26 ,orderable: false },
+          { targets: [27], title: "Energía Punta Act", data: 27 ,orderable: false },
+          { targets: [28], title: "Energía Resto Act", data: 28 ,orderable: false },
+          { targets: [29], title: "Energía Valle Act", data: 29 ,orderable: false },
+          { targets: [30], title: "Energía Reac Act", data: 30 ,orderable: false },
+          { targets: [31], title: "Cargo Pot Contratada $", data: 31, visible: false ,orderable: false },
+          { targets: [32], title: "Cargo Pot Ad $", data: 32, visible: false ,orderable: false },
+          { targets: [33], title: "Cargo Pot Excedente $", data: 33, visible: false ,orderable: false },
+          { targets: [34], title: "Recargo TGFI $", data: 34 ,orderable: false },
+          { targets: [35], title: "Consumo Pico Vigente", data: 35 ,orderable: false },
+          { targets: [36], title: "Cargo Pico $", data: 36 ,orderable: false },
+          { targets: [37], title: "Consumo Resto Vigente", data: 37  ,orderable: false},
+          { targets: [38], title: "Cargo Resto $", data: 38  ,orderable: false},
+          { targets: [39], title: "Consumo Valle Vigente", data: 39, visible: false  ,orderable: false},
+          { targets: [40], title: "Cargo Valle $", data: 40 ,orderable: false },
+          { targets: [41], title: "E Actual", data: 41 ,orderable: false },
+          { targets: [42], title: "Cargo Contratado", data: 42 ,orderable: false },
+          { targets: [43], title: "Cargo Adquirida $", data: 43 ,orderable: false },
+          { targets: [44], title: "Cargo Excedente $", data: 44 ,orderable: false },
+          { targets: [45], title: "Cargo Variable $", data: 45 ,orderable: false },
+          { targets: [46], title: "Total Vencido $", data: 46 ,orderable: false },
+          { targets: [47], title: "E Reactiva kVArh", data: 47 ,orderable: false },
+          { targets: [48], title: "U.Med", data: 8, visible: false  ,orderable: false},
+          { targets: [49], title: "Días Cons", data: 49 ,orderable: false },
+          { targets: [50], title: "Días Comp", data: 50 ,orderable: false },
+          { targets: [51], title: "Cons DC kWh", data: 51 ,orderable: false },
+          { targets: [52], title: "Período Consumo", data: 52  ,orderable: false},
+          { targets: [53], title: "Mes Fc", data: 12  ,orderable: false},
+          { targets: [54], title: "Año Fc", data: 13  ,orderable: false},
+          { targets: [55], title: "Subsidio", data: 55 ,orderable: false },
+          { targets: [56], title: "Car Var Hasta kw", data: 18  ,orderable: false},
+          { targets: [57], data: 57, visible: true, searchable: false  ,orderable: false}
       ],
-      
       language: {
-        url: "/assets/manager/js/plugins/tables/translate/spanish.json",
+          url: "/assets/manager/js/plugins/tables/translate/spanish.json",
       },
       processing: true,
       serverSide: true,
-     // type: "POST",
       order: false,
       ajax: {
-        data: {
-          type: type,
-          table: "_consolidados_canon",
-          data_search: search,
-          id_proveedor: prove,
-          //tipo_pago: tipo_pago,
-          //periodo_contable: periodo_contable,
-          fecha: fecha,
-          mes_fc:mes_fc,
-          anio_fc:anio_fc,
-          cos_fi:cosfiFilter,
-          tg_fi:tgfiFilter
-          
-        },
-        url: "/Electromecanica/Consolidados/list_dt_canon",
-        type: "POST",
-        
-       
-       
-
-        
+          data: {
+              type: type,
+              table: "_consolidados_canon",
+              data_search: search,
+              id_proveedor: prove,
+              fecha: fecha,
+              mes_fc: mes_fc,
+              anio_fc: anio_fc,
+              cos_fi: cosfiFilter,
+              tg_fi: tgfiFilter
+          },
+          url: "/Electromecanica/Consolidados/list_dt_canon",
+          type: "POST",
       },
-    });
+  });
+
+  // Función para actualizar la clase del botón según la visibilidad
+function updateButtonClass(button, isVisible) {
+  if (isVisible) {
+      button.addClass('custom-colvis-menu button'); // Columna visible
+      button.css({
+          backgroundColor: '#113966', // Color de fondo original
+          color: 'white' // Color del texto original
+      });
+  } else {
+      button.removeClass('custom-colvis-menu button'); // Columna oculta
+      button.css({
+          backgroundColor: '#5E5E5E', // Color de fondo para columna oculta
+          color: 'white' // Color del texto para columna oculta
+      });
+  }
+}
+
+    
+
+    
 
     $(document).ready(function () {
       // Inicializar DataTable
@@ -206,6 +263,7 @@ function initDatatable(search = false, type = 0) {
       function aplicarVisibilidad() {
         var selectedProveedor = $("#id_proveedor").val(); // Obtener proveedor seleccionado
         console.log(selectedProveedor);
+        console.log("ejecutando visibilidad - Proveedor seleccionado:", selectedProveedor);
     
         if (table.columns().count() > 10) { // Verificar que existen al menos 11 columnas
           if (selectedProveedor == '1') {
@@ -235,13 +293,13 @@ function initDatatable(search = false, type = 0) {
             table.column(44).visible(false);   // Cargo Excedente
             table.column(45).visible(false);   // Cargo Variable
             table.column(47).visible(false)
+            table.column(56).visible(false)
           
 
           } else if (selectedProveedor == '2') {
             table.column(10).visible(false); // Tgfi
             table.column(16).visible(false); // Bimestre
             table.column(17).visible(false); // Liquidación
-            table.column(18).visible(false); // Cargo Variable Hasta
             table.column(20).visible(false); // Cargo Var
             table.column(21).visible(false); // Cargo Var >
             table.column(25).visible(false); // Pot Punta
@@ -262,6 +320,7 @@ function initDatatable(search = false, type = 0) {
             table.column(49).visible(false); // Días Cons
             table.column(50).visible(false); // Días Comp
             table.column(51).visible(false); // cons dc
+            table.column(56).visible(false); // Cargo Variable Hasta
 
           } else if (selectedProveedor == '3') {
             table.column(8).visible(false);   // Cons kWh
@@ -270,7 +329,6 @@ function initDatatable(search = false, type = 0) {
             table.column(12).visible(false);
             table.column(16).visible(false);  // Bimestre
             table.column(17).visible(false);  // Liquidación
-            table.column(18).visible(false);  // Cargo Variable Hasta
             table.column(19).visible(false);  // Cargo Fijo
             table.column(20).visible(false);  // Cargo Var
             table.column(21).visible(false);  // Cargo Var >
@@ -288,6 +346,7 @@ function initDatatable(search = false, type = 0) {
             table.column(51).visible(false);  // Cons DC
             table.column(52).visible(false);  // e activa
             table.column(53).visible(false);  // e reactiva
+            table.column(56).visible(false);  // Cargo Variable Hasta
           }
         } 
         
@@ -298,17 +357,34 @@ function initDatatable(search = false, type = 0) {
    //     aplicarVisibilidad(); // Aplicar visibilidad al cambiar proveedor
     // });
     
+    
       // Ejecutar aplicarVisibilidad cada vez que se redibuja la tabla (incluye el filtrado)
+      table.off('draw'); // Asegúrate de desregistrar cualquier evento previo
      table.on('draw', function () {
       aplicarVisibilidad();
      });
     
-      // Listener para el botón de aplicar filtro
-     // $("#applyfilter").on("click", function () {
-     //   // Aquí puedes aplicar los filtros y luego llamar a `table.draw()` si es necesario
-      //  //table.draw(); // Ejecuta los filtros en la DataTable y dispara el evento draw
-     // });
+    
     });
+
+    // Evento para seleccionar la fila con un solo clic
+    $('#consolidados_dt tbody').on('click', 'tr', function () {
+      // Elimina la clase 'selected' de cualquier fila previamente seleccionada
+      table.$('tr.selected').removeClass('selected');
+      // Agrega la clase 'selected' a la fila clickeada
+      $(this).addClass('selected');
+  });
+
+  // Evento para redirigir con doble clic
+  $('#consolidados_dt tbody').on('dblclick', 'tr', function () {
+    // Encuentra el enlace en la columna correspondiente
+    var $link = $(this).find('a[title="ver archivo"]');
+    if ($link.length) {
+        // Abre el enlace en una nueva pestaña
+        window.open($link.attr('href'), '_blank');
+      }
+  });
+
     
     
 }

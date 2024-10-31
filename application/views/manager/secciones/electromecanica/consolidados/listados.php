@@ -126,7 +126,32 @@
 .custom-colvis-menu button:hover {
     background-color: #9DA8B3; /* Color al pasar el mouse */
 }
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
 
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: auto; /* O puedes especificar un ancho */
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Posición de la tooltip */
+    left: 50%;
+    margin-left: -60px; /* Ajuste de la posición */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
 	
 
 </style>
@@ -341,6 +366,7 @@
                 <th>Año Fc</th>                         <!-- 54 -->
                 <th>Subsidio</th>                       <!-- 55 -->
                 <th>Car Var Hasta kw</th>                   <!-- 56 -->
+                <th>P Registrada</th>                    <!-- 57 -->
                 <th></th>                               <!-- Columna vacía -->
 
 					
@@ -413,7 +439,7 @@ $(document).ready(function () {
 
             var conteoProveedoresOMeses = {};
             datosVisibles.forEach(function (item) {
-                var idProveedor = item[58]; // Ajusta según la columna correcta para el proveedor.
+                var idProveedor = item[59]; // Ajusta según la columna correcta para el proveedor.
                 var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
                 if (mostrarPorMes) {
