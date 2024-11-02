@@ -287,6 +287,67 @@ public function test_query()
     // Retornar el array completo de resultados (opcional)
     return $result;
 }
+function actualizarConsumoAct() {
+    // Cargar el modelo de base de datos
+    $ci = &get_instance();
+    $ci->load->database();
+
+    // Contadores de registros
+    $registrosTotal = 0;
+    $registrosModificados = 0;
+    $registrosNoModificados = 0;
+    $registrosError = 0;
+
+    // Seleccionar los registros de la tabla _datos_api_canon que tienen JSON almacenado
+    $query = $ci->db->select('id, dato_api, e_activa')
+                    ->from('_datos_api_canon')
+                    ->get();
+
+    // Iterar sobre cada registro
+    foreach ($query->result() as $row) {
+        $registrosTotal++;
+        
+        // Decodificar el JSON desde `dato_api`
+        $jsonData = json_decode($row->dato_api);
+
+        // Verificar que el JSON y los datos necesarios existan
+        if (isset($jsonData->document->inference->pages[0]->prediction->consumo_act->values[0]->content)) {
+            // Obtener el valor correcto de consumo_act desde el JSON
+            $consumoAct = $jsonData->document->inference->pages[0]->prediction->consumo_act->values[0]->content;
+
+            // Asegurarse de que el valor sea numérico y aplicar la multiplicación solo si es menor a 1000
+            $consumoAct = is_numeric($consumoAct) && $consumoAct < 1000 ? $consumoAct * 1000 : (float)$consumoAct;
+
+            // Mostrar el valor actual y el valor nuevo para depuración
+            echo "ID: {$row->id} | e_activa actual: {$row->e_activa} | consumoAct nuevo: {$consumoAct}\n";
+
+            // Actualizar el valor en la base de datos solo si es diferente al valor almacenado
+            if ($consumoAct != $row->e_activa) {
+                $ci->db->where('id', $row->id)
+                       ->update('_datos_api_canon', ['e_activa' => $consumoAct]);
+                
+                echo "Registro con ID {$row->id} actualizado a {$consumoAct}.\n";
+                $registrosModificados++;
+            } else {
+                echo "Registro con ID {$row->id} ya está correcto.\n";
+                $registrosNoModificados++;
+            }
+        } else {
+            echo "Registro con ID {$row->id} no contiene el valor consumo_act en JSON.\n";
+            $registrosError++;
+        }
+    }
+
+    // Mostrar resumen al finalizar
+    echo "\nResumen de la actualización:\n";
+    echo "Total de registros procesados: {$registrosTotal}\n";
+    echo "Registros modificados: {$registrosModificados}\n";
+    echo "Registros ya correctos: {$registrosNoModificados}\n";
+    echo "Registros con error en JSON: {$registrosError}\n";
+}
+
+
+
 
 
 
