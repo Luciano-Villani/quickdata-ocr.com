@@ -345,11 +345,58 @@ function actualizarConsumoAct() {
     echo "Registros ya correctos: {$registrosNoModificados}\n";
     echo "Registros con error en JSON: {$registrosError}\n";
 }
+function actualizarEActivaConsolidados() {
+    // Cargar el modelo de base de datos
+    $ci = &get_instance();
+    $ci->load->database();
 
+    // Contadores para el resumen final
+    $registrosTotal = 0;
+    $registrosActualizados = 0;
+    $registrosError = 0;
 
+    // Seleccionar los registros de la tabla _consolidados_canon con id_lectura_api
+    $query = $ci->db->select('id, id_lectura_api, e_activa')
+                    ->from('_consolidados_canon')
+                    ->get();
 
+    // Iterar sobre cada registro
+    foreach ($query->result() as $row) {
+        $registrosTotal++;
 
+        // Obtener el valor de e_activa desde la tabla _datos_api_canon basado en id_lectura_api
+        $datosApiQuery = $ci->db->select('e_activa')
+                                ->from('_datos_api_canon')
+                                ->where('id', $row->id_lectura_api)
+                                ->get();
 
+        // Verificar si se encontró el registro correspondiente en _datos_api_canon
+        if ($datosApiQuery->num_rows() > 0) {
+            $eActivaCorregida = $datosApiQuery->row()->e_activa;
+
+            // Actualizar e_activa en _consolidados_canon solo si es diferente
+            if ($row->e_activa != $eActivaCorregida) {
+                $ci->db->where('id', $row->id)
+                       ->update('_consolidados_canon', ['e_activa' => $eActivaCorregida]);
+                
+                echo "Registro con ID {$row->id} actualizado a {$eActivaCorregida}.\n";
+                $registrosActualizados++;
+            } else {
+                echo "Registro con ID {$row->id} ya tiene el valor correcto.\n";
+            }
+        } else {
+            // Si no se encuentra el id_lectura_api en _datos_api_canon
+            echo "Error: No se encontró el registro id_lectura_api {$row->id_lectura_api} en _datos_api_canon.\n";
+            $registrosError++;
+        }
+    }
+
+    // Mostrar resumen al finalizar
+    echo "\nResumen de la actualización:\n";
+    echo "Total de registros procesados en _consolidados_canon: {$registrosTotal}\n";
+    echo "Registros actualizados: {$registrosActualizados}\n";
+    echo "Errores (id_lectura_api no encontrado): {$registrosError}\n";
+}
 
 
 }
