@@ -70,8 +70,88 @@
         transition: transform 0.3s ease; /* Animación al girar */
         margin: 0 5px; /* Espaciado entre flechas y texto */
     }
+    .btn-totales {
+        background-color: #344F6E; /* Color de fondo */
+        color: #ffffff; /* Color del texto */
+    } 
+       
+.dt-button-collection {
+  background-color: #f8f9fa; /* Color de fondo */
+  border: 1px solid #ced4da; /* Borde */
+  border-radius: 5px; /* Esquinas redondeadas */
+  padding: 10px; /* Espaciado interno */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.dt-button-collection button {
+  background-color: #007bff; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 3px; /* Esquinas redondeadas */
+  padding: 5px 10px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: background-color 0.3s; /* Transición suave */
+}
+
+.custom-colvis-menu {
+    background-color: #f8f9fa; /* Color de fondo */
+    border: 1px solid #ced4da; /* Borde */
+    border-radius: 5px; /* Esquinas redondeadas */
+    padding: 10px; /* Espaciado interno */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones fluyan a la siguiente fila */
+    max-width: 900px; /* Ancho máximo del menú */
+    
+}
 
 
+.custom-colvis-menu button {
+    display: flex; /* Habilita flexbox */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    flex: 1 1 calc(20% - 10px); /* Dos botones por fila */
+    margin: 5px; /* Espaciado entre botones */
+    white-space: normal; /* Permitir texto en múltiples líneas */
+    min-width: 70px; /* Ancho mínimo */
+    background-color: #113966; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 3px; /* Esquinas redondeadas */
+    padding: 5px 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.custom-colvis-menu button:hover {
+    background-color: #9DA8B3; /* Color al pasar el mouse */
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: auto; /* O puedes especificar un ancho */
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Posición de la tooltip */
+    left: 50%;
+    margin-left: -60px; /* Ajuste de la posición */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
 	
 
 </style>
@@ -89,7 +169,7 @@
                 <div class="col-3">
                     <div id="provider-chart"></div>
                     <div style="margin: 10px;">
-					<button type="button" id="btn_totales_por_mes" class="btn btn-primary">Totales por Mes</button>
+					<button type="button" id="btn_totales_por_mes" class="btn btn-secondary">Totales por Mes</button>
                     <button type="button" id="btn_totales_por_tarifa" class="btn btn-secondary">Totales por Tarifa</button>
                     </div>
                 </div>
@@ -247,7 +327,7 @@
                 <th>Impuestos $</th>
                 <th>Bimestre</th>
                 <th>Liquidación</th>                   <!-- Coincide con target 17 -->
-                <th>Cargo Variable Hasta $</th>          <!-- Coincide con target 18 -->
+                <th>P Contr Kw</th>          <!-- Coincide con target 18 -->
                 <th>Cargo Fijo $</th>                    <!-- Coincide con target 19 -->
                 <th>Cargo Var $</th>              <!-- Coincide con target 20 -->
                 <th>Cargo Var > $</th>                 <!-- Coincide con target 21 -->
@@ -285,6 +365,8 @@
                 <th>Mes Fc</th>                             <!-- 53 -->
                 <th>Año Fc</th>                         <!-- 54 -->
                 <th>Subsidio</th>                       <!-- 55 -->
+                <th>Car Var Hasta kw</th>                   <!-- 56 -->
+                <th>P Registrada</th>                    <!-- 57 -->
                 <th></th>                               <!-- Columna vacía -->
 
 					
@@ -306,9 +388,6 @@
 
 <script>
 $(document).ready(function () {
-
-    
-
     // Inicializar el gráfico en su contenedor
     var myChart = echarts.init(document.getElementById('provider-chart'));
     var option = {
@@ -359,8 +438,8 @@ $(document).ready(function () {
             if (datosVisibles.length === 0) return;
 
             var conteoProveedoresOMeses = {};
-            datosVisibles.forEach(function (item, index) {
-                var idProveedor = item[57]; // Ajusta según la columna correcta para el proveedor.
+            datosVisibles.forEach(function (item) {
+                var idProveedor = item[59]; // Ajusta según la columna correcta para el proveedor.
                 var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
                 if (mostrarPorMes) {
@@ -397,23 +476,34 @@ $(document).ready(function () {
         }, 300); 
     }
 
+      // Función para manejar el cambio de botones
+      function actualizarBotones(mostrarPorMes) {
+        if (mostrarPorMes) {
+            $('#btn_totales_por_mes').addClass('btn-totales').removeClass('btn-secondary');
+            $('#btn_totales_por_tarifa').removeClass('btn-totales').addClass('btn-secondary');
+        } else {
+            $('#btn_totales_por_tarifa').addClass('btn-totales').removeClass('btn-secondary');
+            $('#btn_totales_por_mes').removeClass('btn-totales').addClass('btn-secondary');
+        }
+
+        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
+        // Asegúrate de que la tabla se haya dibujado antes de actualizar el gráfico
+        setTimeout(actualizarGrafico, 100); // Esperar un poco para que la tabla se dibuje
+    }
+
+    // Inicializar los botones en estado 'secondary'
+    $('#btn_totales_por_mes').addClass('btn-secondary');
+    $('#btn_totales_por_tarifa').addClass('btn-secondary');
+
     // Eventos para los botones
     $('#btn_totales_por_mes').click(function () {
         mostrarPorMes = true;
-        $('#btn_totales_por_mes').addClass('btn-primary').removeClass('btn-secondary');
-        $('#btn_totales_por_tarifa').removeClass('btn-primary').addClass('btn-secondary');
-        
-        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
-        actualizarGrafico();
+        actualizarBotones(mostrarPorMes);
     });
 
     $('#btn_totales_por_tarifa').click(function () {
         mostrarPorMes = false;
-        $('#btn_totales_por_tarifa').addClass('btn-primary').removeClass('btn-secondary');
-        $('#btn_totales_por_mes').removeClass('btn-primary').addClass('btn-secondary');
-        
-        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
-        actualizarGrafico();
+        actualizarBotones(mostrarPorMes);
     });
 
     // Actualizar gráfico al dibujar la tabla
@@ -423,34 +513,33 @@ $(document).ready(function () {
 
     // Llamar a la función inicial para actualizar el gráfico al cargar la página
     actualizarGrafico();
-});
-// Manejo de los íconos de colapso
-$('#collapseFilters').on('shown.bs.collapse', function () {
-    $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
-    
-    // Reinicializa los select2 al expandir el colapsable
-    $('#id_proveedor').select2({
-        placeholder: "Tarifa",
-        // otras configuraciones si es necesario
-    });
-// Si tienes otros select2, reinicialízalos aquí
-$('#id_mes_fc').select2({
-        placeholder: "Mes FC",
-        // otras configuraciones si es necesario
-    });
-    // Si tienes otros select2, reinicialízalos aquí
-    $('#id_anio_fc').select2({
-        placeholder: "Año",
+
+    // Manejo de los íconos de colapso
+    $('#collapseFilters').on('shown.bs.collapse', function () {
+        $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
         
-        // otras configuraciones si es necesario
+        // Reinicializa los select2 al expandir el colapsable
+        $('#id_proveedor').select2({
+            placeholder: "Tarifa",
+            // otras configuraciones si es necesario
+        });
+
+        $('#id_mes_fc').select2({
+            placeholder: "Mes FC",
+            // otras configuraciones si es necesario
+        });
+
+        $('#id_anio_fc').select2({
+            placeholder: "Año",
+            // otras configuraciones si es necesario
+        });
     });
 
+    console.log($('#id_anio_fc').length); // Debería ser 1 si el elemento existe
 
-});
-console.log($('#id_anio_fc').length); // Debería ser 1 si el elemento existe
-
-// Evento para manejar el colapso oculto
-$('#collapseFilters').on('hidden.bs.collapse', function () {
-    $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
+    // Evento para manejar el colapso oculto
+    $('#collapseFilters').on('hidden.bs.collapse', function () {
+        $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
+    });
 });
 </script>

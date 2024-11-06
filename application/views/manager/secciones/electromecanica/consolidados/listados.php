@@ -310,7 +310,9 @@
 				<tr>
 				
                 <th>Proveedor</th>
-                <th>Tarifa</th>
+                <th>Medidor</th>
+                <th>Categoría</th>
+                <th>Tensión</th>
                 <th>Nro Factura</th>
                 <th>Nro Cuenta</th>
                 <th>Medidor</th>

@@ -125,93 +125,148 @@ function initDatatable(search = false, type = 0) {
       ],
       columnDefs: [
           { targets: [0], title: "Proveedor", data: 0, visible: false },
-          { targets: [1], title: "Tarifa", data: 48 ,orderable: false },
+          {
+            targets: [1],
+            title: "Medidor",
+            data: 48,
+            orderable: false,
+            render: function (data, type, row) {
+                if (/T3|BT/i.test(data)) { 
+                    return "T3";
+                } else if (/T1/i.test(data)) {
+                    return "T1";
+                } else if (/T2/i.test(data)) {
+                    return "T2";
+                }
+                return data;
+            }
+        },
+        {
+          targets: [2], // Nueva columna "Subtarifa"
+          title: "Categoría",
+          data: 48,
+          orderable: false,
+          render: function (data, type, row) {
+              const match = data.match(/T[1-3]\s*-\s*(\w+)/i);
+              if (match) {
+                  return match[1]; // Retorna el valor después de T1-, T2- o T3-
+              } else if (/T2/i.test(data)) {
+                  return "0"; // Si es T2, retorna "T2"
+              } else if (/T3|BT/i.test(data)) {
+                  return "0"; // Si es T3, retorna "T3"
+              }
+              return "0"; // Por defecto, retorna "0"
+          }
+      },
+      {
+        targets: [3], // Nueva columna "tension"
+        title: "Tensión",
+        data: 48,
+        orderable: false,
+        render: function (data, type, row) {
+            // Si el valor contiene T1 o T2
+            if (/T1|T2/i.test(data)) {
+                return "0"; // Para T1-xx o T2 retorna 0
+            }
+    
+            // Si es T3 y contiene "S BT" o "BT"
+            const matchT3 = data.match(/T3[\s*-]*(.*)/i);
+            if (matchT3) {
+                return matchT3[1]; // Retorna lo que sigue después de T3 (por ejemplo, "S BT" o "BT")
+            }
+    
+            return "0"; // Por defecto, retorna "0" si no coincide con ninguno de los casos anteriores
+        }
+    },
+    
+
+  
 
           
-          { targets: [2], title: "Nro factura", data: 1 ,orderable: false},
-          { targets: [3], title: "Nro cuenta", data: 2, width: "20px"  ,orderable: false},
-          { targets: [4], title: "Medidor", data: 3 ,orderable: false },
-          {
-            targets: [5], // Índice de la columna "Dependencia"
-            title: "Dependencia",
-            data: 4,
-            orderable: false,
-            createdCell: function(td) {
-                $(td).css({
-                    'max-width': '150px', // Establecer max-width
-                    'overflow': 'hidden', // Ocultar desbordamiento
-                    'white-space': 'nowrap', // No permitir salto de línea
-                    'text-overflow': 'ellipsis' // Agregar puntos suspensivos si es necesario
-                });
-            }
-             },
-            { 
-              targets: [6], 
-              title: "Dirección de Consumo", 
-              data: 5, 
-              orderable: false,
-              createdCell: function (td) {
-                  $(td).css({
-                      'max-width': '150px',
-                      'overflow': 'hidden',
-                      'text-overflow': 'ellipsis',
-                      'white-space': 'nowrap'
-                  });
-              }
-          },
-          { targets: [7], title: "Nombre Cliente", data: 6 ,orderable: false },
-          { targets: [8], title: "Cons kWh/kW", data: 7 ,orderable: false },
-          { targets: [9], title: "Cosfi", data: 9 ,orderable: false },
-          { targets: [10], title: "Tgfi", data: 10 ,orderable: false },
-          { targets: [11], title: "E Activa kWh", data: 53 ,orderable: false },
-          { targets: [12], title: "E Reactiva kVArh", data: 54 ,orderable: false },
-          { targets: [13], title: "Importe $", data: 11 ,orderable: false },
-          { targets: [14], title: "Vencimiento", data: 14 ,orderable: false },
-          { targets: [15], title: "Impuestos $", data: 15 ,orderable: false },
-          { targets: [16], title: "Bimestre", data: 16 ,orderable: false },
-          { targets: [17], title: "Liquidación", data: 17 ,orderable: false },
-          { targets: [18], title: "P Contr Kw", data: 56 ,orderable: false },
-          { targets: [19], title: "Cargo Fijo $", data: 19 ,orderable: false },
-          { targets: [20], title: "Cargo Var $", data: 20 ,orderable: false },
-          { targets: [21], title: "Cargo Var > $", data: 21 ,orderable: false },
-          { targets: [22], title: "Otros Conceptos $", data: 22 ,orderable: false },
-          { targets: [23], title: "Conceptos Eléctricos $", data: 23 ,orderable: false },
-          { targets: [24], title: "Energía Inyectada", data: 24 ,orderable: false },
-          { targets: [25], title: "Pot Punta", data: 25 ,orderable: false },
-          { targets: [26], title: "Pot Fuera Punta Cons", data: 26 ,orderable: false },
-          { targets: [27], title: "Energía Punta Act", data: 27 ,orderable: false },
-          { targets: [28], title: "Energía Resto Act", data: 28 ,orderable: false },
-          { targets: [29], title: "Energía Valle Act", data: 29 ,orderable: false },
-          { targets: [30], title: "Energía Reac Act", data: 30 ,orderable: false },
-          { targets: [31], title: "Cargo Pot Contratada $", data: 31, visible: false ,orderable: false },
-          { targets: [32], title: "Cargo Pot Ad $", data: 32, visible: false ,orderable: false },
-          { targets: [33], title: "Cargo Pot Excedente $", data: 33, visible: false ,orderable: false },
-          { targets: [34], title: "Recargo TGFI $", data: 34 ,orderable: false },
-          { targets: [35], title: "Consumo Pico Vigente", data: 35 ,orderable: false },
-          { targets: [36], title: "Cargo Pico $", data: 36 ,orderable: false },
-          { targets: [37], title: "Consumo Resto Vigente", data: 37  ,orderable: false},
-          { targets: [38], title: "Cargo Resto $", data: 38  ,orderable: false},
-          { targets: [39], title: "Consumo Valle Vigente", data: 39, visible: false  ,orderable: false},
-          { targets: [40], title: "Cargo Valle $", data: 40 ,orderable: false },
-          { targets: [41], title: "E Actual", data: 41 ,orderable: false },
-          { targets: [42], title: "Cargo Contratado", data: 42 ,orderable: false },
-          { targets: [43], title: "Cargo Adquirida $", data: 43 ,orderable: false },
-          { targets: [44], title: "Cargo Excedente $", data: 44 ,orderable: false },
-          { targets: [45], title: "Cargo Variable $", data: 45 ,orderable: false },
-          { targets: [46], title: "Total Vencido $", data: 46 ,orderable: false },
-          { targets: [47], title: "E Reactiva kVArh", data: 47 ,orderable: false },
-          { targets: [48], title: "P Registrada", data: 57  ,orderable: false},
-          { targets: [57], title: "U.Med", data: 8, visible: false  ,orderable: false},
-          { targets: [49], title: "Días Cons", data: 49 ,orderable: false },
-          { targets: [50], title: "Días Comp", data: 50 ,orderable: false },
-          { targets: [51], title: "Cons DC kWh", data: 51 ,orderable: false },
-          { targets: [52], title: "Período Consumo", data: 52  ,orderable: false},
-          { targets: [53], title: "Mes Fc", data: 12  ,orderable: false},
-          { targets: [54], title: "Año Fc", data: 13  ,orderable: false},
-          { targets: [55], title: "Subsidio", data: 55 ,orderable: false },
-          { targets: [56], title: "Car Var Hasta kw", data: 18  ,orderable: false},
-          { targets: [57], title: "U.Med", data: 8, visible: false  ,orderable: false},
-          { targets: [58], data: 58, visible: true, searchable: false  ,orderable: false}
+    { targets: [4], title: "Nro factura", data: 1, orderable: false },
+    { targets: [5], title: "Nro cuenta", data: 2, width: "20px", orderable: false },
+    { targets: [6], title: "Medidor", data: 3, orderable: false },
+    {
+        targets: [7], // Índice de la columna "Dependencia"
+        title: "Dependencia",
+        data: 4,
+        orderable: false,
+        createdCell: function(td) {
+            $(td).css({
+                'max-width': '150px', // Establecer max-width
+                'overflow': 'hidden', // Ocultar desbordamiento
+                'white-space': 'nowrap', // No permitir salto de línea
+                'text-overflow': 'ellipsis' // Agregar puntos suspensivos si es necesario
+            });
+        }
+    },
+    { 
+        targets: [8], 
+        title: "Dirección de Consumo", 
+        data: 5, 
+        orderable: false,
+        createdCell: function (td) {
+            $(td).css({
+                'max-width': '150px',
+                'overflow': 'hidden',
+                'text-overflow': 'ellipsis',
+                'white-space': 'nowrap'
+            });
+        }
+        },
+        { targets: [9], title: "Nombre Cliente", data: 6 ,orderable: false },
+        { targets: [10], title: "Cons kWh/kW", data: 7 ,orderable: false },
+        { targets: [11], title: "Cosfi", data: 9 ,orderable: false },
+        { targets: [12], title: "Tgfi", data: 10 ,orderable: false },
+        { targets: [13], title: "E Activa kWh", data: 53 ,orderable: false },
+        { targets: [14], title: "E Reactiva kVArh", data: 54 ,orderable: false },
+        { targets: [15], title: "Importe $", data: 11 ,orderable: false },
+        { targets: [16], title: "Vencimiento", data: 14 ,orderable: false },
+        { targets: [17], title: "Impuestos $", data: 15 ,orderable: false },
+        { targets: [18], title: "Bimestre", data: 16 ,orderable: false },
+        { targets: [19], title: "Liquidación", data: 17 ,orderable: false },
+        { targets: [20], title: "P Contr Kw", data: 56 ,orderable: false },
+        { targets: [21], title: "Cargo Fijo $", data: 19 ,orderable: false },
+        { targets: [22], title: "Cargo Var $", data: 20 ,orderable: false },
+        { targets: [23], title: "Cargo Var > $", data: 21 ,orderable: false },
+        { targets: [24], title: "Otros Conceptos $", data: 22 ,orderable: false },
+        { targets: [25], title: "Conceptos Eléctricos $", data: 23 ,orderable: false },
+        { targets: [26], title: "Energía Inyectada", data: 24 ,orderable: false },
+        { targets: [27], title: "Pot Punta", data: 25 ,orderable: false },
+        { targets: [28], title: "Pot Fuera Punta Cons", data: 26 ,orderable: false },
+        { targets: [29], title: "Energía Punta Act", data: 27 ,orderable: false },
+        { targets: [30], title: "Energía Resto Act", data: 28 ,orderable: false },
+        { targets: [31], title: "Energía Valle Act", data: 29 ,orderable: false },
+        { targets: [32], title: "Energía Reac Act", data: 30 ,orderable: false },
+        { targets: [33], title: "Cargo Pot Contratada $", data: 31, visible: false ,orderable: false },
+        { targets: [34], title: "Cargo Pot Ad $", data: 32, visible: false ,orderable: false },
+        { targets: [35], title: "Cargo Pot Excedente $", data: 33, visible: false ,orderable: false },
+        { targets: [36], title: "Recargo TGFI $", data: 34 ,orderable: false },
+        { targets: [37], title: "Consumo Pico Vigente", data: 35 ,orderable: false },
+        { targets: [38], title: "Cargo Pico $", data: 36 ,orderable: false },
+        { targets: [39], title: "Consumo Resto Vigente", data: 37 ,orderable: false },
+        { targets: [40], title: "Cargo Resto $", data: 38 ,orderable: false },
+        { targets: [41], title: "Consumo Valle Vigente", data: 39, visible: false ,orderable: false },
+        { targets: [42], title: "Cargo Valle $", data: 40 ,orderable: false },
+        { targets: [43], title: "E Actual", data: 41 ,orderable: false },
+        { targets: [44], title: "Cargo Contratado", data: 42 ,orderable: false },
+        { targets: [45], title: "Cargo Adquirida $", data: 43 ,orderable: false },
+        { targets: [46], title: "Cargo Excedente $", data: 44 ,orderable: false },
+        { targets: [47], title: "Cargo Variable $", data: 45 ,orderable: false },
+        { targets: [48], title: "Total Vencido $", data: 46 ,orderable: false },
+        { targets: [49], title: "E Reactiva kVArh", data: 47 ,orderable: false },
+        { targets: [50], title: "P Registrada", data: 57 ,orderable: false },
+        { targets: [51], title: "U.Med", data: 8, visible: false ,orderable: false },
+        { targets: [52], title: "Días Cons", data: 49 ,orderable: false },
+        { targets: [53], title: "Días Comp", data: 50 ,orderable: false },
+        { targets: [54], title: "Cons DC kWh", data: 51 ,orderable: false },
+        { targets: [55], title: "Período Consumo", data: 52 ,orderable: false },
+        { targets: [56], title: "Mes Fc", data: 12 ,orderable: false },
+        { targets: [57], title: "Año Fc", data: 13 ,orderable: false },
+        { targets: [58], title: "Subsidio", data: 55 ,orderable: false },
+        { targets: [59], title: "Car Var Hasta kw", data: 18 ,orderable: false },
+        { targets: [60], title: "Días Desde", data: 58 ,orderable: false } // Última columna
+    
       ],
       language: {
           url: "/assets/manager/js/plugins/tables/translate/spanish.json",
@@ -269,91 +324,100 @@ function updateButtonClass(button, isVisible) {
     
         if (table.columns().count() > 10) { // Verificar que existen al menos 11 columnas
           if (selectedProveedor == '1') {
-            table.column(10).visible(false);  // Tgfi
-            table.column(11).visible(false);
-            table.column(12).visible(false);
-            table.column(18).visible(false);
-            table.column(25).visible(false);   // Pot Punta
-            table.column(26).visible(false);   // Pot Fuera Punta Cons
-            table.column(27).visible(false);   // Energía Punta Act
-            table.column(28).visible(false);   // Energía Resto Act
-            table.column(29).visible(false);   // Energía Valle Act
-            table.column(30).visible(false);   // Energía Reac Act
-            table.column(31).visible(false);   // Cargo Pot Contratada
-            table.column(32).visible(false);   // Cargo Pot Ad
-            table.column(33).visible(false);   // Cargo Pot Excedente
-            table.column(34).visible(false);   // Recargo TGFI
-            table.column(35).visible(false);   // Consumo Pico Vigente
-            table.column(36).visible(false);   // Cargo Pico
-            table.column(37).visible(false);   // Consumo Resto Vigente
-            table.column(38).visible(false);   // Cargo Resto
-            table.column(39).visible(false);   // Consumo Valle Vigente
-            table.column(40).visible(false);   // Cargo Valle
-            table.column(41).visible(false);   // E Actual
-            table.column(42).visible(false);   // Cargo Contratado
-            table.column(43).visible(false);   // Cargo Adquirido
-            table.column(44).visible(false);   // Cargo Excedente
-            table.column(45).visible(false);   // Cargo Variable
-            table.column(47).visible(false)
-            table.column(48).visible(false)
-            table.column(56).visible(false)
-            table.column(57).visible(false)
+            table.column(3).visible(false); // Tension
+            table.column(12).visible(false);  // Tgfi
+            table.column(13).visible(false);
+            table.column(14).visible(false);
+            table.column(20).visible(false);
+            table.column(27).visible(false);   // Pot Punta
+            table.column(28).visible(false);   // Pot Fuera Punta Cons
+            table.column(29).visible(false);   // Energía Punta Act
+            table.column(30).visible(false);   // Energía Resto Act
+            table.column(31).visible(false);   // Energía Valle Act
+            table.column(32).visible(false);   // Energía Reac Act
+            table.column(33).visible(false);   // Cargo Pot Contratada
+            table.column(34).visible(false);   // Cargo Pot Ad
+            table.column(35).visible(false);   // Cargo Pot Excedente
+            table.column(36).visible(false);   // Recargo TGFI
+            table.column(37).visible(false);   // Consumo Pico Vigente
+            table.column(38).visible(false);   // Cargo Pico
+            table.column(39).visible(false);   // Consumo Resto Vigente
+            table.column(40).visible(false);   // Cargo Resto
+            table.column(41).visible(false);   // Consumo Valle Vigente
+            table.column(42).visible(false);   // Cargo Valle
+            table.column(43).visible(false);   // E Actual
+            table.column(44).visible(false);   // Cargo Contratado
+            table.column(45).visible(false);   // Cargo Adquirido
+            table.column(46).visible(false);   // Cargo Excedente
+            table.column(47).visible(false);   // Cargo Variable
+            table.column(49).visible(false);
+            table.column(50).visible(false);
+            table.column(58).visible(false);
+            table.column(59).visible(false);
+            
           
 
           } else if (selectedProveedor == '2') {
-            table.column(10).visible(false); // Tgfi
-            table.column(16).visible(false); // Bimestre
-            table.column(17).visible(false); // Liquidación
-            table.column(20).visible(false); // Cargo Var
-            table.column(21).visible(false); // Cargo Var >
-            table.column(25).visible(false); // Pot Punta
-            table.column(26).visible(false); // Pot Fuera Punta Cons
-            table.column(27).visible(false); // Energía Punta Act
-            table.column(28).visible(false); // Energía Resto Act
-            table.column(29).visible(false); // Energía Valle Act
-            table.column(30).visible(false); // Energía Reac Act
-            table.column(34).visible(false); // Recargo TGFI
-            table.column(35).visible(false); // Consumo Pico Vigente
-            table.column(36).visible(false); // Cargo Pico
-            table.column(37).visible(false); // Consumo Resto Vigente
-            table.column(38).visible(false); // Cargo Resto
-            table.column(39).visible(false); // Consumo Valle Vigente
-            table.column(40).visible(false); // Cargo Valle
-            table.column(41).visible(false); // E Actual
-            table.column(47).visible(false); // E Reac Cons
-            table.column(48).visible(false)
-            table.column(49).visible(false); // Días Cons
-            table.column(50).visible(false); // Días Comp
-            table.column(51).visible(false); // cons dc
-            table.column(56).visible(false); // Cargo Variable Hasta
-            table.column(57).visible(false)
+            table.column(2).visible(false); // Categoria
+            table.column(3).visible(false); // Tension
+            table.column(12).visible(false); // Tgfi
+            table.column(18).visible(false); // Bimestre
+            table.column(19).visible(false); // Liquidación
+            table.column(22).visible(false); // Cargo Var
+            table.column(23).visible(false); // Cargo Var >
+            table.column(27).visible(false); // Pot Punta
+            table.column(28).visible(false); // Pot Fuera Punta Cons
+            table.column(29).visible(false); // Energía Punta Act
+            table.column(30).visible(false); // Energía Resto Act
+            table.column(31).visible(false); // Energía Valle Act
+            table.column(32).visible(false); // Energía Reac Act
+            table.column(36).visible(false); // Recargo TGFI
+            table.column(37).visible(false); // Consumo Pico Vigente
+            table.column(38).visible(false); // Cargo Pico
+            table.column(39).visible(false); // Consumo Resto Vigente
+            table.column(40).visible(false); // Cargo Resto
+            table.column(41).visible(false); // Consumo Valle Vigente
+            table.column(42).visible(false); // Cargo Valle
+            table.column(43).visible(false); // E Actual
+            table.column(49).visible(false); // E Reac Cons
+            table.column(50).visible(false)
+            table.column(51).visible(false); // Días Cons
+            table.column(52).visible(false); // Días Comp
+            table.column(53).visible(false); // cons dc
+            table.column(58).visible(false); // Cargo Variable Hasta
+            table.column(59).visible(false)
+            
+
 
           } else if (selectedProveedor == '3') {
-            table.column(8).visible(false);   // Cons kWh
-            table.column(9).visible(false);   // Cosfi
-            table.column(11).visible(false);
-            table.column(12).visible(false);
-            table.column(16).visible(false);  // Bimestre
-            table.column(17).visible(false);  // Liquidación
-            table.column(19).visible(false);  // Cargo Fijo
-            table.column(20).visible(false);  // Cargo Var
-            table.column(21).visible(false);  // Cargo Var >
-            table.column(22).visible(false);  // Otros Conceptos
-            table.column(23).visible(false);  // Conceptos Eléctricos
-            table.column(31).visible(false);  // Cargo Pot Contratada
-            table.column(32).visible(false);  // Cargo Pot Ad
-            table.column(33).visible(false);  // Cargo Pot Excedente
-            table.column(42).visible(false);  // Cargo Contratado
-            table.column(43).visible(false);  // Cargo Adquirido
-            table.column(44).visible(false);  // Cargo Excedente
-            table.column(45).visible(false);  // Cargo Variable
-            table.column(49).visible(false);  // Días Cons
-            table.column(50).visible(false);  // Días Comp
-            table.column(51).visible(false);  // Cons DC
-            table.column(52).visible(false);  // e activa
-            table.column(53).visible(false);  // e reactiva
-            table.column(56).visible(false);  // Cargo Variable Hasta
-            table.column(57).visible(false)
+            table.column(2).visible(false); // Categoria
+            table.column(10).visible(false);   // Cons kWh
+            table.column(11).visible(false);   // Cosfi
+            table.column(13).visible(false);
+            table.column(14).visible(false);
+            table.column(18).visible(false);   // Bimestre
+            table.column(19).visible(false);   // Liquidación
+            table.column(21).visible(false);   // Cargo Fijo
+            table.column(22).visible(false);   // Cargo Var
+            table.column(23).visible(false);   // Cargo Var >
+            table.column(24).visible(false);   // Otros Conceptos
+            table.column(25).visible(false);   // Conceptos Eléctricos
+            table.column(33).visible(false);   // Cargo Pot Contratada
+            table.column(34).visible(false);   // Cargo Pot Ad
+            table.column(35).visible(false);   // Cargo Pot Excedente
+            table.column(44).visible(false);   // Cargo Contratado
+            table.column(45).visible(false);   // Cargo Adquirido
+            table.column(46).visible(false);   // Cargo Excedente
+            table.column(47).visible(false);   // Cargo Variable
+            table.column(51).visible(false);   // Días Cons
+            table.column(52).visible(false);   // Días Comp
+            table.column(53).visible(false);   // Cons DC
+            table.column(54).visible(false);   // e activa
+            table.column(55).visible(false);   // e reactiva
+            table.column(58).visible(false);   // Cargo Variable Hasta
+            table.column(59).visible(false)
+
+            
           }
         } 
         

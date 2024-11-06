@@ -200,8 +200,7 @@ function initDatatable(search = false, type = 0) {
           { targets: [45], title: "Cargo Variable $", data: 45 ,orderable: false },
           { targets: [46], title: "Total Vencido $", data: 46 ,orderable: false },
           { targets: [47], title: "E Reactiva kVArh", data: 47 ,orderable: false },
-          { targets: [48], title: "P Registrada", data: 57  ,orderable: false},
-          { targets: [57], title: "U.Med", data: 8, visible: false  ,orderable: false},
+          { targets: [48], title: "U.Med", data: 8, visible: false  ,orderable: false},
           { targets: [49], title: "Días Cons", data: 49 ,orderable: false },
           { targets: [50], title: "Días Comp", data: 50 ,orderable: false },
           { targets: [51], title: "Cons DC kWh", data: 51 ,orderable: false },
@@ -210,8 +209,7 @@ function initDatatable(search = false, type = 0) {
           { targets: [54], title: "Año Fc", data: 13  ,orderable: false},
           { targets: [55], title: "Subsidio", data: 55 ,orderable: false },
           { targets: [56], title: "Car Var Hasta kw", data: 18  ,orderable: false},
-          { targets: [57], title: "U.Med", data: 8, visible: false  ,orderable: false},
-          { targets: [58], data: 58, visible: true, searchable: false  ,orderable: false}
+          { targets: [57], data: 57, visible: true, searchable: false  ,orderable: false}
       ],
       language: {
           url: "/assets/manager/js/plugins/tables/translate/spanish.json",
@@ -295,9 +293,7 @@ function updateButtonClass(button, isVisible) {
             table.column(44).visible(false);   // Cargo Excedente
             table.column(45).visible(false);   // Cargo Variable
             table.column(47).visible(false)
-            table.column(48).visible(false)
             table.column(56).visible(false)
-            table.column(57).visible(false)
           
 
           } else if (selectedProveedor == '2') {
@@ -321,12 +317,10 @@ function updateButtonClass(button, isVisible) {
             table.column(40).visible(false); // Cargo Valle
             table.column(41).visible(false); // E Actual
             table.column(47).visible(false); // E Reac Cons
-            table.column(48).visible(false)
             table.column(49).visible(false); // Días Cons
             table.column(50).visible(false); // Días Comp
             table.column(51).visible(false); // cons dc
             table.column(56).visible(false); // Cargo Variable Hasta
-            table.column(57).visible(false)
 
           } else if (selectedProveedor == '3') {
             table.column(8).visible(false);   // Cons kWh
@@ -353,7 +347,6 @@ function updateButtonClass(button, isVisible) {
             table.column(52).visible(false);  // e activa
             table.column(53).visible(false);  // e reactiva
             table.column(56).visible(false);  // Cargo Variable Hasta
-            table.column(57).visible(false)
           }
         } 
         
