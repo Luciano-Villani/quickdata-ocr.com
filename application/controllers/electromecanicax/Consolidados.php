@@ -102,9 +102,9 @@ class Consolidados extends backend_controller
                     $r->energia_inyectada,               // Energía Inyectada 24
                     $r->pot_punta,                       // Pot Punta 25
                     $r->pot_fuera_punta_cons,            // Pot Fuera Punta Cons 26
-                    $r->ener_punta_act,                   // Energía Punta Act 27
-                    $r->ener_resto_act,                   // Energía Resto Act 28
-                    $r->ener_valle_act,                   // Energía Valle Act 29
+                    $r->ener_punta_cons,                   // Energía Punta Act 27
+                    $r->ener_resto_cons,                   // Energía Resto Act 28
+                    $r->ener_valle_cons,                   // Energía Valle Act 29
                     $r->ener_reac_act,                    // Energía Reac Act 30
                     $r->cargo_pot_contratada,            // Cargo Pot Contratada 31
                     $r->cargo_pot_ad,                    // Cargo Pot Ad 32
@@ -133,6 +133,7 @@ class Consolidados extends backend_controller
                     $r ->subsidio,   //55  
                     $r->p_contratada, //56
                     $r->p_registrada, //57
+                    
                     $accionesVer . $accionesDelete,      // Acciones 58
                     $r->id_proveedor,                      // ID del Proveedor 59
                 );
@@ -279,14 +280,25 @@ public function test_query()
     // Obtener todos los registros como un array
     $result = $query->result_array();
 
-    // Mostrar todos los registros usando var_dump
+    // Mostrar los registros con un índice
     echo "<pre>";
-    var_dump($result);
+    foreach ($result as $index => $row) {
+        echo "Registro #" . ($index + 1) . ":\n"; // Numeración empezando desde 1
+        
+        // Recorrer las claves de cada registro y mostrar su índice dentro del array
+        foreach ($row as $key => $value) {
+            echo "    Clave: $key | Valor: $value\n"; // Mostrar la clave y su valor
+        }
+
+        echo "\n\n"; // Espacio entre registros
+    }
     echo "</pre>";
 
     // Retornar el array completo de resultados (opcional)
     return $result;
 }
+
+
 function actualizarConsumoAct() {
     // Cargar el modelo de base de datos
     $ci = &get_instance();

@@ -233,10 +233,10 @@ function initDatatable(search = false, type = 0) {
         { targets: [25], title: "Conceptos Eléctricos $", data: 23 ,orderable: false },
         { targets: [26], title: "Energía Inyectada", data: 24 ,orderable: false },
         { targets: [27], title: "Pot Punta", data: 25 ,orderable: false },
-        { targets: [28], title: "Pot Fuera Punta Cons", data: 26 ,orderable: false },
-        { targets: [29], title: "Energía Punta Act", data: 27 ,orderable: false },
-        { targets: [30], title: "Energía Resto Act", data: 28 ,orderable: false },
-        { targets: [31], title: "Energía Valle Act", data: 29 ,orderable: false },
+        { targets: [28], title: "Pot Fuera Punta", data: 26 ,orderable: false },
+        { targets: [29], title: "Energía Punta", data: 27 ,orderable: false },
+        { targets: [30], title: "Energía Resto", data: 28 ,orderable: false },
+        { targets: [31], title: "Energía Valle", data: 29 ,orderable: false },
         { targets: [32], title: "Energía Reac Act", data: 30 ,orderable: false },
         { targets: [33], title: "Cargo Pot Contratada $", data: 31, visible: false ,orderable: false },
         { targets: [34], title: "Cargo Pot Ad $", data: 32, visible: false ,orderable: false },
@@ -288,8 +288,22 @@ function initDatatable(search = false, type = 0) {
           },
           url: "/Electromecanica/Consolidados/list_dt_canon",
           type: "POST",
-      },
-  });
+          dataSrc: function (json) {
+            // Aquí agregas el console.log para depurar los índices del array
+            console.log("Datos recibidos desde el servidor:", json);
+
+            // Si los datos recibidos son arrays de objetos, por ejemplo, podemos iterar
+            json.data.forEach((row, index) => {
+                console.log(`Índice ${index}:`, row);
+            });
+
+            // Devuelve los datos para el DataTable
+            return json.data;
+        }
+    },
+});
+     
+
 
   // Función para actualizar la clase del botón según la visibilidad
 function updateButtonClass(button, isVisible) {

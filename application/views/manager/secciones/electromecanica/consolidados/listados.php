@@ -337,10 +337,10 @@
                 <th>Conceptos Eléctricos $</th>           <!-- Coincide con target 23 -->
                 <th>Energía Inyectada</th>              <!-- Coincide con target 24 -->
                 <th>Pot Punta</th>                      <!-- Coincide con target 25 -->
-                <th>Pot Fuera Punta Cons</th>           <!-- Coincide con target 26 -->
-                <th>Energía Punta Act</th>              <!-- Coincide con target 27 -->
-                <th>Energía Resto Act</th>              <!-- Coincide con target 28 -->
-                <th>Energía Valle Act</th>              <!-- Coincide con target 29 -->
+                <th>Pot Fuera Punta</th>           <!-- Coincide con target 26 -->
+                <th>Energía Punta</th>              <!-- Coincide con target 27 -->
+                <th>Energía Resto</th>              <!-- Coincide con target 28 -->
+                <th>Energía Valle</th>              <!-- Coincide con target 29 -->
                 <th>Energía Reac Act</th>               <!-- Coincide con target 30 -->
                 <th>Cargo Pot Contratada $</th>           <!-- Coincide con target 31 -->
                 <th>Cargo Pot Ad $</th>                   <!-- Coincide con target 32 -->
