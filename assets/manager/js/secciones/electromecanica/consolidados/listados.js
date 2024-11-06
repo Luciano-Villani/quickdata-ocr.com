@@ -244,7 +244,7 @@ function initDatatable(search = false, type = 0) {
         { targets: [36], title: "Recargo TGFI $", data: 34 ,orderable: false },
         { targets: [37], title: "Consumo Pico Vigente", data: 35 ,orderable: false },
         { targets: [38], title: "Cargo Pico $", data: 36 ,orderable: false },
-        { targets: [39], title: "Consumo Resto Vigente", data: 37 ,orderable: false },
+        { targets: [39], title: "Consumo Resto Vigente", data: 37 , visible: false, orderable: false },
         { targets: [40], title: "Cargo Resto $", data: 38 ,orderable: false },
         { targets: [41], title: "Consumo Valle Vigente", data: 39, visible: false ,orderable: false },
         { targets: [42], title: "Cargo Valle $", data: 40 ,orderable: false },
