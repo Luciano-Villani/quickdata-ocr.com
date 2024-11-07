@@ -449,7 +449,7 @@ $(document).ready(function () {
 
             var conteoProveedoresOMeses = {};
             datosVisibles.forEach(function (item) {
-                var idProveedor = item[62]; // Ajusta según la columna correcta para el proveedor.
+                var idProveedor = item[63]; // Ajusta según la columna correcta para el proveedor.
                 var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
                 if (mostrarPorMes) {
