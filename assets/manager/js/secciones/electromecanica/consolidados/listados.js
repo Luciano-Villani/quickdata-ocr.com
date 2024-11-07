@@ -511,15 +511,18 @@ function updateButtonClass(button, isVisible) {
       $(this).addClass('selected');
   });
 
-  // Evento para redirigir con doble clic
-  $('#consolidados_dt tbody').on('dblclick', 'tr', function () {
-    // Encuentra el enlace en la columna correspondiente
-    var $link = $(this).find('a[title="ver archivo"]');
-    if ($link.length) {
-        // Abre el enlace en una nueva pestaña
-        window.open($link.attr('href'), '_blank');
+    // Evento para redirigir con doble clic
+    $('#consolidados_dt tbody').on('dblclick', 'tr', function (e) {
+      e.stopPropagation();  // Detiene la propagación del evento
+      console.log("dblclick evento ejecutado");
+      // Encuentra el enlace en la columna correspondiente
+      var $link = $(this).find('a[title="ver archivo"]');
+      if ($link.length) {
+          // Abre el enlace en una nueva pestaña
+          window.open($link.attr('href'), '_blank');
       }
-  });
+    });
+
 
     
     
