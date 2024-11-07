@@ -256,7 +256,7 @@ function initDatatable(search = false, type = 0) {
         { targets: [23], title: "Cargo Var > $", data: 21 , visible: false ,orderable: false },
         { targets: [24], title: "Otros Conceptos $", data: 22 ,orderable: false },
         { targets: [25], title: "Conceptos Eléctricos $", data: 23 ,orderable: false },
-        { targets: [26], title: "Energía Inyectada", data: 24 ,orderable: false },
+        { targets: [26], title: "P Excedida", data: 61 ,orderable: false },
         { targets: [27], title: "Pot Punta", data: 25 ,orderable: false },
         { targets: [28], title: "Pot Fuera Punta", data: 26 ,orderable: false },
         { targets: [29], title: "Energía Punta", data: 27 ,orderable: false },
@@ -265,7 +265,7 @@ function initDatatable(search = false, type = 0) {
         { targets: [32], title: "Energía Reac Act", data: 30 ,orderable: false },
         { targets: [33], title: "Cargo Pot Contratada $", data: 31 ,orderable: false },
         { targets: [34], title: "Cargo Pot Ad $", data: 32, orderable: false },
-        { targets: [35], title: "Cargo Pot Excedente $", data: 33 ,orderable: false },
+        { targets: [35], title: "Cargo Pot Excedida $", data: 33 ,orderable: false },
         { targets: [36], title: "Recargo TGFI $", data: 34 ,orderable: false },
         { targets: [37], title: "Cons.Pico Vigente", data: 35 ,orderable: false },
         { targets: [38], title: "Con.Valle Vigente", data: 39 , visible: false ,orderable: false }, //ojo
@@ -276,7 +276,7 @@ function initDatatable(search = false, type = 0) {
         { targets: [43], title: "E Actual", data: 41 ,orderable: false },
         { targets: [44], title: "Cargo Contratado", data: 42 ,orderable: false },
         { targets: [45], title: "Cargo Adquirida $", data: 43 ,orderable: false },
-        { targets: [46], title: "Cargo Excedente $", data: 44 ,orderable: false },
+        { targets: [46], title: "Cargo Excedidaente $", data: 44 ,orderable: false },
         { targets: [47], title: "Cargo Variable $", data: 45 ,orderable: false },
         { targets: [48], title: "Total Vencido $", data: 46 ,orderable: false },
         { targets: [49], title: "E Reactiva kVArh", data: 47 ,orderable: false },
@@ -301,9 +301,11 @@ function initDatatable(search = false, type = 0) {
         { targets: [60], title: "Cons.Pico Anterior", data: 58 ,orderable: false },
         { targets: [61], title: "Cons.Resto Anterior", data: 59 ,orderable: false },
         { targets: [62], title: "Cons.Valle Anterior", data: 60 ,orderable: false },
+        
+        { targets: [63], title: "Energía Inyectada", data: 24 ,orderable: false },
 
 
-        { targets: [63], title: "Acc.", data: 61 ,orderable: false },
+        { targets: [64], title: "Acc.", data: 62 ,orderable: false },
         
 
         
@@ -384,6 +386,7 @@ function updateButtonClass(button, isVisible) {
             table.column(13).visible(false);
             table.column(14).visible(false);
             table.column(20).visible(false);
+            table.column(26).visible(false);   //P excedida T3
             table.column(27).visible(false);   // Pot Punta
             table.column(28).visible(false);   // Pot Fuera Punta Cons
             table.column(29).visible(false);   // Energía Punta Act
@@ -423,6 +426,7 @@ function updateButtonClass(button, isVisible) {
             table.column(19).visible(false); // Liquidación
             table.column(22).visible(false); // Cargo Var
             table.column(23).visible(false); // Cargo Var >
+            table.column(26).visible(false);   //P excedida T3
             table.column(27).visible(false); // Pot Punta
             table.column(28).visible(false); // Pot Fuera Punta Cons
             table.column(29).visible(false); // Energía Punta Act

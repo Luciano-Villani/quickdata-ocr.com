@@ -336,7 +336,7 @@
                 <th>Cargo Var > $</th>                      <!-- 24 -->
                 <th>Otros Conceptos $</th>                  <!-- 25 -->
                 <th>Conceptos Eléctricos $</th>             <!-- 26 -->
-                <th>Energía Inyectada</th>                  <!-- 27 -->
+                <th>P Excedida</th>                         <!-- 27 -->
                 <th>Pot Punta</th>                          <!-- 28 -->
                 <th>Pot Fuera Punta</th>                    <!-- 29 -->
                 <th>Energía Punta</th>                      <!-- 30 -->
@@ -345,7 +345,7 @@
                 <th>Energía Reac Act</th>                   <!-- 33 -->
                 <th>Cargo Pot Contratada $</th>             <!-- 34 -->
                 <th>Cargo Pot Ad $</th>                     <!-- 35 -->
-                <th>Cargo Pot Excedente $</th>              <!-- 36 -->
+                <th>Cargo Pot Excedida $</th>              <!-- 36 -->
                 <th>Recargo TGFI $</th>                     <!-- 37 -->
                 <th>Cons.Pico Vigente</th>               <!-- 38 -->
                 <th>Cargo Pico $</th>                       <!-- 39 -->
@@ -372,11 +372,12 @@
                 <th>Cons.Pico Anterior</th>              <!-- 60 -->
                 <th>Cons.Resto Anterior</th>             <!-- 61 -->
                 <th>Cons.Valle Anterior</th>             <!-- 62 -->
+                <th>Energía Inyectada</th>                  <!-- 63 -->
 
-                <th>Acc.</th>                               <!-- 63 -->
+                <th>Acc.</th>                               <!-- 64 -->
 
                                  
-
+                
 
 					
 				</tr>
