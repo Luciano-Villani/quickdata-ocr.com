@@ -133,9 +133,12 @@ class Consolidados extends backend_controller
                     $r ->subsidio,   //55  
                     $r->p_contratada, //56
                     $r->p_registrada, //57
+                    $r->consumo_pico_ant, //58
+                    $r->consumo_resto_ant, //59
+                    $r->consumo_valle_ant, //60,
                     
-                    $accionesVer . $accionesDelete,      // Acciones 58
-                    $r->id_proveedor,                      // ID del Proveedor 59
+                    $accionesVer . $accionesDelete,      // Acciones 61
+                    $r->id_proveedor,                      // ID del Proveedor 62
                 );
                 
             }
@@ -409,6 +412,64 @@ function actualizarEActivaConsolidados() {
     echo "Registros actualizados: {$registrosActualizados}\n";
     echo "Errores (id_lectura_api no encontrado): {$registrosError}\n";
 }
+public function actualizarConsumosConsolidados() {
+    // Cargar el modelo de base de datos
+    $this->load->database();
+
+    // Contadores para el resumen
+    $registrosTotal = 0;
+    $registrosActualizados = 0;
+    $registrosSinRelacion = 0;
+
+    // Seleccionar los registros de la tabla _datos_api_canon con los campos de consumo
+    $query = $this->db->select('id, consumo_pico_ant, consumo_resto_ant, consumo_valle_ant')
+                      ->from('_datos_api_canon')
+                      ->get();
+
+    // Iterar sobre cada registro en _datos_api_canon
+    foreach ($query->result() as $row) {
+        $registrosTotal++;
+
+        // Buscar en _consolidados_canon el registro relacionado con el id_lectura_api
+        $consolidadoQuery = $this->db->select('id')
+                                     ->from('_consolidados_canon')
+                                     ->where('id_lectura_api', $row->id)
+                                     ->get();
+
+        // Verificar si existe un registro relacionado en _consolidados_canon
+        if ($consolidadoQuery->num_rows() > 0) {
+            $consolidadoId = $consolidadoQuery->row()->id;
+
+            // Datos a actualizar
+            $dataUpdate = [
+                'consumo_pico_ant' => $row->consumo_pico_ant,
+                'consumo_resto_ant' => $row->consumo_resto_ant,
+                'consumo_valle_ant' => $row->consumo_valle_ant,
+            ];
+
+            // Actualizar los campos en _consolidados_canon
+            $this->db->where('id', $consolidadoId)
+                     ->update('_consolidados_canon', $dataUpdate);
+
+            echo "Registro en _consolidados_canon con ID {$consolidadoId} actualizado: ";
+            echo "consumo_pico_ant = {$row->consumo_pico_ant}, ";
+            echo "consumo_resto_ant = {$row->consumo_resto_ant}, ";
+            echo "consumo_valle_ant = {$row->consumo_valle_ant}.\n";
+
+            $registrosActualizados++;
+        } else {
+            echo "No se encontró un registro en _consolidados_canon con id_lectura_api {$row->id}.\n";
+            $registrosSinRelacion++;
+        }
+    }
+
+    // Resumen al finalizar
+    echo "\nResumen de la actualización:\n";
+    echo "Total de registros procesados en _datos_api_canon: {$registrosTotal}\n";
+    echo "Registros actualizados en _consolidados_canon: {$registrosActualizados}\n";
+    echo "Registros sin relación en _consolidados_canon: {$registrosSinRelacion}\n";
+}
+
 
 
 }

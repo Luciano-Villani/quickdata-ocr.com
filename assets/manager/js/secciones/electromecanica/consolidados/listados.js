@@ -187,34 +187,59 @@ function initDatatable(search = false, type = 0) {
     { targets: [5], title: "Nro cuenta", data: 2, width: "20px", orderable: false },
     { targets: [6], title: "Medidor", data: 3, orderable: false },
     {
-        targets: [7], // Índice de la columna "Dependencia"
-        title: "Dependencia",
-        data: 4,
-        orderable: false,
-        createdCell: function(td) {
-            $(td).css({
-                'max-width': '150px', // Establecer max-width
-                'overflow': 'hidden', // Ocultar desbordamiento
-                'white-space': 'nowrap', // No permitir salto de línea
-                'text-overflow': 'ellipsis' // Agregar puntos suspensivos si es necesario
-            });
-        }
-    },
+      targets: [7], // Índice de la columna "Dependencia"
+      title: "Dependencia",
+      data: 4,
+      orderable: false,
+      createdCell: function (td, cellData) {
+          $(td).css({
+              'max-width': '150px', // Establecer max-width
+              'overflow': 'hidden', // Ocultar desbordamiento
+              'white-space': 'nowrap', // No permitir salto de línea
+              'text-overflow': 'ellipsis' // Agregar puntos suspensivos si es necesario
+          });
+  
+          // Agregar el tooltip con el texto completo
+          $(td).attr('title', cellData);
+      }
+  },
+  
     { 
-        targets: [8], 
-        title: "Dirección de Consumo", 
-        data: 5, 
-        orderable: false,
-        createdCell: function (td) {
-            $(td).css({
-                'max-width': '150px',
-                'overflow': 'hidden',
-                'text-overflow': 'ellipsis',
-                'white-space': 'nowrap'
-            });
-        }
-        },
-        { targets: [9], title: "Nombre Cliente", data: 6 ,orderable: false },
+      targets: [8], 
+      title: "Dirección de Consumo", 
+      data: 5, 
+      orderable: false,
+      createdCell: function (td, cellData) {
+          $(td).css({
+              'max-width': '150px',
+              'overflow': 'hidden',
+              'text-overflow': 'ellipsis',
+              'white-space': 'nowrap'
+          });
+  
+          // Agregar el tooltip con el texto completo
+          $(td).attr('title', cellData);
+      }
+  },
+  
+        { 
+          targets: [9], 
+          title: "Nombre Cliente", 
+          data: 6, 
+          orderable: false,
+          createdCell: function (td, cellData) {
+              $(td).css({
+                  'max-width': '150px',
+                  'overflow': 'hidden',
+                  'text-overflow': 'ellipsis',
+                  'white-space': 'nowrap'
+              });
+              // Agregar el tooltip con el texto completo
+              $(td).attr('title', cellData);
+          }
+      },
+      
+              
         { targets: [10], title: "Cons kWh/kW", data: 7 ,orderable: false },
         { targets: [11], title: "Cosfi", data: 9 ,orderable: false },
         { targets: [12], title: "Tgfi", data: 10 ,orderable: false },
@@ -242,11 +267,11 @@ function initDatatable(search = false, type = 0) {
         { targets: [34], title: "Cargo Pot Ad $", data: 32, visible: false ,orderable: false },
         { targets: [35], title: "Cargo Pot Excedente $", data: 33, visible: false ,orderable: false },
         { targets: [36], title: "Recargo TGFI $", data: 34 ,orderable: false },
-        { targets: [37], title: "Consumo Pico Vigente", data: 35 ,orderable: false },
-        { targets: [38], title: "Cargo Pico $", data: 36 ,orderable: false },
-        { targets: [39], title: "Consumo Resto Vigente", data: 37 , visible: false, orderable: false },
+        { targets: [37], title: "Cons.Pico Vigente", data: 35 ,orderable: false },
+        { targets: [38], title: "Con.Valle Vigente", data: 39 , visible: false ,orderable: false }, //ojo
+        { targets: [39], title: "Cargo Pico $", data: 36 , orderable: false }, //t3
         { targets: [40], title: "Cargo Resto $", data: 38 ,orderable: false },
-        { targets: [41], title: "Consumo Valle Vigente", data: 39, visible: false ,orderable: false },
+        { targets: [41], title: "Cons.Resto Vigente", data: 37, orderable: false },
         { targets: [42], title: "Cargo Valle $", data: 40 ,orderable: false },
         { targets: [43], title: "E Actual", data: 41 ,orderable: false },
         { targets: [44], title: "Cargo Contratado", data: 42 ,orderable: false },
@@ -260,12 +285,28 @@ function initDatatable(search = false, type = 0) {
         { targets: [52], title: "Días Cons", data: 49 ,orderable: false },
         { targets: [53], title: "Días Comp", data: 50 ,orderable: false },
         { targets: [54], title: "Cons DC kWh", data: 51 ,orderable: false },
-        { targets: [55], title: "Período Consumo", data: 52 ,orderable: false },
+        {
+          targets: [55],
+          title: "Período Consumo",
+          data: 52,
+          orderable: false,
+          createdCell: function(td) {
+              $(td).css('max-width', '155px'); // Ajusta el ancho máximo a 150px
+          }
+      },
         { targets: [56], title: "Mes Fc", data: 12 ,orderable: false },
         { targets: [57], title: "Año Fc", data: 13 ,orderable: false },
         { targets: [58], title: "Subsidio", data: 55 ,orderable: false },
-        { targets: [59], title: "Car Var Hasta kw", data: 18 ,orderable: false },
-        { targets: [60], title: "Días Desde", data: 58 ,orderable: false } // Última columna
+        { targets: [59], title: "Car Var Hasta kw", visible: false, data: 18 ,orderable: false },
+        { targets: [60], title: "Cons.Pico Anterior", data: 58 ,orderable: false },
+        { targets: [61], title: "Cons.Resto Anterior", data: 59 ,orderable: false },
+        { targets: [62], title: "Cons.Valle Anterior", data: 60 ,orderable: false },
+
+
+        { targets: [63], title: "Acc.", data: 61 ,orderable: false },
+        
+
+        
     
       ],
       language: {
@@ -368,6 +409,9 @@ function updateButtonClass(button, isVisible) {
             table.column(50).visible(false);
             table.column(58).visible(false);
             table.column(59).visible(false);
+            table.column(60).visible(false);
+            table.column(61).visible(false);
+            table.column(62).visible(false);
             
           
 
@@ -394,12 +438,15 @@ function updateButtonClass(button, isVisible) {
             table.column(42).visible(false); // Cargo Valle
             table.column(43).visible(false); // E Actual
             table.column(49).visible(false); // E Reac Cons
-            table.column(50).visible(false)
+            table.column(50).visible(false);
             table.column(51).visible(false); // Días Cons
             table.column(52).visible(false); // Días Comp
             table.column(53).visible(false); // cons dc
             table.column(58).visible(false); // Cargo Variable Hasta
-            table.column(59).visible(false)
+            table.column(59).visible(false);
+            table.column(60).visible(false);
+            table.column(61).visible(false);
+            table.column(62).visible(false);
             
 
 

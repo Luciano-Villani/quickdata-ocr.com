@@ -309,67 +309,74 @@
 				
 				<tr>
 				
-                <th>Proveedor</th>
-                <th>Medidor</th>
-                <th>Categoría</th>
-                <th>Tensión</th>
-                <th>Nro Factura</th>
-                <th>Nro Cuenta</th>
-                <th>Medidor</th>
-                <th>Dependencia</th>
-                <th>Dirección de Consumo</th>
-                <th>Nombre Cliente</th>
-                <th>Cons kWh/kW"</th>
-                <th>Cosfi</th>
-                <th>Tgfi</th>
-                <th>E Activa kWh</th>                         <!-- 12 -->
-                <th>E Reactiva kVArh</th>                         <!-- 54 -->
-                <th>Importe $</th>
-                <th>Vencimiento</th>
-                <th>Impuestos $</th>
-                <th>Bimestre</th>
-                <th>Liquidación</th>                   <!-- Coincide con target 17 -->
-                <th>P Contr Kw</th>          <!-- Coincide con target 18 -->
-                <th>Cargo Fijo $</th>                    <!-- Coincide con target 19 -->
-                <th>Cargo Var $</th>              <!-- Coincide con target 20 -->
-                <th>Cargo Var > $</th>                 <!-- Coincide con target 21 -->
-                <th>Otros Conceptos $</th>                <!-- Coincide con target 22 -->
-                <th>Conceptos Eléctricos $</th>           <!-- Coincide con target 23 -->
-                <th>Energía Inyectada</th>              <!-- Coincide con target 24 -->
-                <th>Pot Punta</th>                      <!-- Coincide con target 25 -->
-                <th>Pot Fuera Punta</th>           <!-- Coincide con target 26 -->
-                <th>Energía Punta</th>              <!-- Coincide con target 27 -->
-                <th>Energía Resto</th>              <!-- Coincide con target 28 -->
-                <th>Energía Valle</th>              <!-- Coincide con target 29 -->
-                <th>Energía Reac Act</th>               <!-- Coincide con target 30 -->
-                <th>Cargo Pot Contratada $</th>           <!-- Coincide con target 31 -->
-                <th>Cargo Pot Ad $</th>                   <!-- Coincide con target 32 -->
-                <th>Cargo Pot Excedente $</th>            <!-- Coincide con target 33 -->
-                <th>Recargo TGFI $</th>                   <!-- Coincide con target 34 -->
-                <th>Consumo Pico Vigente</th>           <!-- Coincide con target 35 -->
-                <th>Cargo Pico $</th>                     <!-- Coincide con target 36 -->
-                <th>Consumo Resto Vigente</th>          <!-- Coincide con target 37 -->
-                <th>Cargo Resto $</th>                    <!-- Coincide con target 38 -->
-                <th>Consumo Valle Vigente</th>          <!-- Coincide con target 39 -->
-                <th>Cargo Valle $</th>                    <!-- Coincide con target 40 -->
-                <th>E Actual</th>                       <!-- Coincide con target 41 -->
-                <th>Cargo Contratado $</th>               <!-- Coincide con target 42 -->
-                <th>Cargo Adquirido $</th>                <!-- Coincide con target 43 -->
-                <th>Cargo Excedente $</th>                <!-- Coincide con target 44 -->
-                <th>Cargo Variable $</th>                 <!-- Coincide con target 45 -->
-                <th>Total Vencido $</th>                  <!-- Coincide con target 46 -->
-                <th>E Reactiva kVArh </th>                    <!-- Coincide con target 47 -->
-                <th>U.Med</th>                         <!-- Coincide con target 48 -->
-                <th>Días Cons</th>                         <!-- 49 -->
-                <th>Días Comp</th>                         <!-- 50 -->
-                <th>Cons DC kWh</th>                         <!-- 51 -->
-                <th>Período Consumo</th>                         <!-- 52 -->
-                <th>Mes Fc</th>                             <!-- 53 -->
-                <th>Año Fc</th>                         <!-- 54 -->
-                <th>Subsidio</th>                       <!-- 55 -->
-                <th>Car Var Hasta kw</th>                   <!-- 56 -->
-                <th>P Registrada</th>                    <!-- 57 -->
-                <th></th>                               <!-- Columna vacía -->
+                <th>Proveedor</th>                          <!-- 0 -->
+                <th>Medidor</th>                            <!-- 1 -->
+                <th>Categoría</th>                          <!-- 2 -->
+                <th>Tensión</th>                            <!-- 3 -->
+                <th>Nro Factura</th>                        <!-- 4 -->
+                <th>Nro Cuenta</th>                         <!-- 5 -->
+                <th>Medidor</th>                            <!-- 6 -->
+                <th>Dependencia</th>                        <!-- 7 -->
+                <th>Dirección de Consumo</th>               <!-- 8 -->
+                <th>Nombre Cliente</th>                     <!-- 9 -->
+                <th>Cons kWh/kW"</th>                       <!-- 10 -->
+                <th>Cosfi</th>                              <!-- 11 -->
+                <th>Tgfi</th>                               <!-- 12 -->
+                <th>E Activa kWh</th>                       <!-- 13 -->
+                <th>E Reactiva kVArh</th>                   <!-- 14 -->
+                <th>P Registrada</th>                       <!-- 15 -->
+                <th>Importe $</th>                          <!-- 16 -->
+                <th>Vencimiento</th>                        <!-- 17 -->
+                <th>Impuestos $</th>                        <!-- 18 -->
+                <th>Bimestre</th>                           <!-- 19 -->
+                <th>Liquidación</th>                        <!-- 20 -->
+                <th>P Contr Kw</th>                         <!-- 21 -->
+                <th>Cargo Fijo $</th>                       <!-- 22 -->
+                <th>Cargo Var $</th>                        <!-- 23 -->
+                <th>Cargo Var > $</th>                      <!-- 24 -->
+                <th>Otros Conceptos $</th>                  <!-- 25 -->
+                <th>Conceptos Eléctricos $</th>             <!-- 26 -->
+                <th>Energía Inyectada</th>                  <!-- 27 -->
+                <th>Pot Punta</th>                          <!-- 28 -->
+                <th>Pot Fuera Punta</th>                    <!-- 29 -->
+                <th>Energía Punta</th>                      <!-- 30 -->
+                <th>Energía Resto</th>                      <!-- 31 -->
+                <th>Energía Valle</th>                      <!-- 32 -->
+                <th>Energía Reac Act</th>                   <!-- 33 -->
+                <th>Cargo Pot Contratada $</th>             <!-- 34 -->
+                <th>Cargo Pot Ad $</th>                     <!-- 35 -->
+                <th>Cargo Pot Excedente $</th>              <!-- 36 -->
+                <th>Recargo TGFI $</th>                     <!-- 37 -->
+                <th>Cons.Pico Vigente</th>               <!-- 38 -->
+                <th>Cargo Pico $</th>                       <!-- 39 -->
+                <th>Cons.Resto Vigente</th>              <!-- 40 -->
+                <th>Cargo Resto $</th>                      <!-- 41 -->
+                <th>Cons.Valle Vigente</th>              <!-- 42 -->
+                <th>Cargo Valle $</th>                      <!-- 43 -->
+                <th>E Actual</th>                           <!-- 44 -->
+                <th>Cargo Contratado $</th>                 <!-- 45 -->
+                <th>Cargo Adquirido $</th>                  <!-- 46 -->
+                <th>Cargo Excedente $</th>                  <!-- 47 -->
+                <th>Cargo Variable $</th>                   <!-- 48 -->
+                <th>Total Vencido $</th>                    <!-- 49 -->
+                <th>E Reactiva kVArh</th>                   <!-- 50 -->
+                <th>U.Med</th>                              <!-- 51 -->
+                <th>Días Cons</th>                          <!-- 52 -->
+                <th>Días Comp</th>                          <!-- 53 -->
+                <th>Cons DC kWh</th>                        <!-- 54 -->
+                <th>Período Consumo</th>                    <!-- 55 -->
+                <th>Mes Fc</th>                             <!-- 56 -->
+                <th>Año Fc</th>                             <!-- 57 -->
+                <th>Subsidio</th>                           <!-- 58 -->
+                <th>Car Var Hasta kw</th>                   <!-- 59 -->
+                <th>Cons.Pico Anterior</th>              <!-- 60 -->
+                <th>Cons.Resto Anterior</th>             <!-- 61 -->
+                <th>Cons.Valle Anterior</th>             <!-- 62 -->
+
+                <th>Acc.</th>                               <!-- 63 -->
+
+                                 
+
 
 					
 				</tr>
@@ -441,7 +448,7 @@ $(document).ready(function () {
 
             var conteoProveedoresOMeses = {};
             datosVisibles.forEach(function (item) {
-                var idProveedor = item[59]; // Ajusta según la columna correcta para el proveedor.
+                var idProveedor = item[62]; // Ajusta según la columna correcta para el proveedor.
                 var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
                 if (mostrarPorMes) {
