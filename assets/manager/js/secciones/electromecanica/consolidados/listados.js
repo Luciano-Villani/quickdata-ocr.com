@@ -263,9 +263,9 @@ function initDatatable(search = false, type = 0) {
         { targets: [30], title: "Energía Resto", data: 28 ,orderable: false },
         { targets: [31], title: "Energía Valle", data: 29 ,orderable: false },
         { targets: [32], title: "Energía Reac Act", data: 30 ,orderable: false },
-        { targets: [33], title: "Cargo Pot Contratada $", data: 31, visible: false ,orderable: false },
-        { targets: [34], title: "Cargo Pot Ad $", data: 32, visible: false ,orderable: false },
-        { targets: [35], title: "Cargo Pot Excedente $", data: 33, visible: false ,orderable: false },
+        { targets: [33], title: "Cargo Pot Contratada $", data: 31 ,orderable: false },
+        { targets: [34], title: "Cargo Pot Ad $", data: 32, orderable: false },
+        { targets: [35], title: "Cargo Pot Excedente $", data: 33 ,orderable: false },
         { targets: [36], title: "Recargo TGFI $", data: 34 ,orderable: false },
         { targets: [37], title: "Cons.Pico Vigente", data: 35 ,orderable: false },
         { targets: [38], title: "Con.Valle Vigente", data: 39 , visible: false ,orderable: false }, //ojo
@@ -429,6 +429,11 @@ function updateButtonClass(button, isVisible) {
             table.column(30).visible(false); // Energía Resto Act
             table.column(31).visible(false); // Energía Valle Act
             table.column(32).visible(false); // Energía Reac Act
+            table.column(33).visible(false);   // Cargo Pot Contratada
+            table.column(34).visible(false);   // Cargo Pot Ad
+            table.column(35).visible(false);   // Cargo Pot Excedente
+
+
             table.column(36).visible(false); // Recargo TGFI
             table.column(37).visible(false); // Consumo Pico Vigente
             table.column(38).visible(false); // Cargo Pico
@@ -442,6 +447,8 @@ function updateButtonClass(button, isVisible) {
             table.column(51).visible(false); // Días Cons
             table.column(52).visible(false); // Días Comp
             table.column(53).visible(false); // cons dc
+            table.column(54).visible(false); // cons dc
+
             table.column(58).visible(false); // Cargo Variable Hasta
             table.column(59).visible(false);
             table.column(60).visible(false);
@@ -463,9 +470,6 @@ function updateButtonClass(button, isVisible) {
             table.column(23).visible(false);   // Cargo Var >
             table.column(24).visible(false);   // Otros Conceptos
             table.column(25).visible(false);   // Conceptos Eléctricos
-            table.column(33).visible(false);   // Cargo Pot Contratada
-            table.column(34).visible(false);   // Cargo Pot Ad
-            table.column(35).visible(false);   // Cargo Pot Excedente
             table.column(44).visible(false);   // Cargo Contratado
             table.column(45).visible(false);   // Cargo Adquirido
             table.column(46).visible(false);   // Cargo Excedente
