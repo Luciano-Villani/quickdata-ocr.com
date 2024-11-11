@@ -441,50 +441,51 @@ $(document).ready(function () {
 
     // Función para actualizar el gráfico con los datos visibles en la tabla
     function actualizarGrafico() {
-        setTimeout(function () {
-            var tabla = $('#consolidados_dt').DataTable();
-            var datosVisibles = tabla.rows({ filter: 'applied' }).data().toArray();
+    setTimeout(function () {
+        var tabla = $('#consolidados_dt').DataTable();
+        var datosVisibles = tabla.rows({ filter: 'applied' }).data().toArray();
 
-            if (datosVisibles.length === 0) return;
+        if (datosVisibles.length === 0) return;
 
-            var conteoProveedoresOMeses = {};
-            datosVisibles.forEach(function (item) {
-                var idProveedor = item[63]; // Ajusta según la columna correcta para el proveedor.
-                var mes = item[12]; // Ajusta según la columna correcta para el mes.
+        var conteoProveedoresOMeses = {};
+        datosVisibles.forEach(function (item) {
+            var idProveedor = item[63]; // Ajusta según la columna correcta para el proveedor.
+            var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
-                if (mostrarPorMes) {
-                    if (mes) { 
-                        conteoProveedoresOMeses[mes] = (conteoProveedoresOMeses[mes] || 0) + 1;
-                    }
-                } else {
-                    if (idProveedor) { 
-                        var idProveedorModificado = `T${idProveedor}`;
-                        conteoProveedoresOMeses[idProveedorModificado] = (conteoProveedoresOMeses[idProveedorModificado] || 0) + 1;
-                    }
+            if (mostrarPorMes) {
+                if (mes) {
+                    conteoProveedoresOMeses[mes] = (conteoProveedoresOMeses[mes] || 0) + 1;
                 }
-            });
+            } else {
+                if (idProveedor) {
+                    // Si el ID del proveedor es 5, usa "AP" en vez de "T5"
+                    var idProveedorModificado = (idProveedor == 5) ? "AP" : `T${idProveedor}`;
+                    conteoProveedoresOMeses[idProveedorModificado] = (conteoProveedoresOMeses[idProveedorModificado] || 0) + 1;
+                }
+            }
+        });
 
-            var categorias = Object.keys(conteoProveedoresOMeses);
-            var cantidades = Object.values(conteoProveedoresOMeses);
+        var categorias = Object.keys(conteoProveedoresOMeses);
+        var cantidades = Object.values(conteoProveedoresOMeses);
 
-            categorias.sort(function (a, b) {
-                var numA = parseInt(a.replace('T', ''));
-                var numB = parseInt(b.replace('T', ''));
-                return numA - numB;
-            });
+        categorias.sort(function (a, b) {
+            var numA = parseInt(a.replace('T', '').replace('AP', ''));
+            var numB = parseInt(b.replace('T', '').replace('AP', ''));
+            return numA - numB;
+        });
 
-            var cantidadesOrdenadas = categorias.map(function (categoria) {
-                return conteoProveedoresOMeses[categoria];
-            });
+        var cantidadesOrdenadas = categorias.map(function (categoria) {
+            return conteoProveedoresOMeses[categoria];
+        });
 
-            if (categorias.length === 0 || cantidadesOrdenadas.length === 0) return;
+        if (categorias.length === 0 || cantidadesOrdenadas.length === 0) return;
 
-            myChart.setOption({
-                xAxis: { data: categorias },
-                series: [{ data: cantidadesOrdenadas }]
-            });
-        }, 300); 
-    }
+        myChart.setOption({
+            xAxis: { data: categorias },
+            series: [{ data: cantidadesOrdenadas }]
+        });
+    }, 300);
+}
 
       // Función para manejar el cambio de botones
       function actualizarBotones(mostrarPorMes) {

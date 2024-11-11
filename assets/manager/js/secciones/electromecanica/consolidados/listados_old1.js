@@ -488,53 +488,9 @@ function updateButtonClass(button, isVisible) {
 
             
           }
-          else if (selectedProveedor == '5') {
-            table.column(3).visible(false); // Tension
-            table.column(6).visible(false); // medidor
-            table.column(11).visible(false);  // cosfi
-            table.column(12).visible(false);  // Tgfi
-            table.column(13).visible(false);
-            table.column(14).visible(false);
-            table.column(18).visible(false);   // Bimestre
-            table.column(19).visible(false);   // Liquidación
-            table.column(20).visible(false);
-            table.column(26).visible(false);   //P excedida T3
-            table.column(27).visible(false);   // Pot Punta
-            table.column(28).visible(false);   // Pot Fuera Punta Cons
-            table.column(29).visible(false);   // Energía Punta Act
-            table.column(30).visible(false);   // Energía Resto Act
-            table.column(31).visible(false);   // Energía Valle Act
-            table.column(32).visible(false);   // Energía Reac Act
-            table.column(33).visible(false);   // Cargo Pot Contratada
-            table.column(34).visible(false);   // Cargo Pot Ad
-            table.column(35).visible(false);   // Cargo Pot Excedente
-            table.column(36).visible(false);   // Recargo TGFI
-            table.column(37).visible(false);   // Consumo Pico Vigente
-            table.column(38).visible(false);   // Cargo Pico
-            table.column(39).visible(false);   // Consumo Resto Vigente
-            table.column(40).visible(false);   // Cargo Resto
-            table.column(41).visible(false);   // Consumo Valle Vigente
-            table.column(42).visible(false);   // Cargo Valle
-            table.column(43).visible(false);   // E Actual
-            table.column(44).visible(false);   // Cargo Contratado
-            table.column(45).visible(false);   // Cargo Adquirido
-            table.column(46).visible(false);   // Cargo Excedente
-            table.column(47).visible(false);   // Cargo Variable
-            table.column(49).visible(false);
-            table.column(50).visible(false);
-            table.column(51).visible(false);   // Días Cons
-            table.column(52).visible(false);   // Días Comp
-            table.column(53).visible(false);   // unidad de medida
-            table.column(54).visible(false);   // Cons DC
-            table.column(58).visible(false);
-            table.column(59).visible(false);
-            table.column(60).visible(false);
-            table.column(61).visible(false);
-            table.column(62).visible(false);
-            table.column(63).visible(false); //energia inyectada
         } 
         
-      }}
+      }
     
       // Listener para el cambio en el select de proveedor
      // $("#id_proveedor").on("change", function () {

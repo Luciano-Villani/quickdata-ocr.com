@@ -471,7 +471,115 @@ public function actualizarConsumosConsolidados() {
     echo "Registros actualizados en _consolidados_canon: {$registrosActualizados}\n";
     echo "Registros sin relación en _consolidados_canon: {$registrosSinRelacion}\n";
 }
-
+function actualizarPContratada() {
+   
+        // Cargar el modelo de base de datos
+        $ci = &get_instance();
+        $ci->load->database();
+    
+        // Contadores de registros
+        $registrosTotal = 0;
+        $registrosModificados = 0;
+        $registrosNoModificados = 0;
+        $registrosError = 0;
+    
+        // Seleccionar los registros de la tabla _datos_api_canon con id_proveedor = 2 que tienen JSON almacenado
+        $query = $ci->db->select('id, dato_api, p_contratada')
+                        ->from('_datos_api_canon')
+                        ->where('id_proveedor', 2) // Solo registros con id_proveedor = 2
+                        ->get();
+    
+        // Iterar sobre cada registro
+        foreach ($query->result() as $row) {
+            $registrosTotal++;
+    
+            // Decodificar el JSON desde `dato_api`
+            $jsonData = json_decode($row->dato_api);
+    
+            // Verificar si el JSON fue decodificado correctamente
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                echo "Error de JSON en el registro ID: {$row->id}. No se pudo decodificar el JSON.\n";
+                $registrosError++;
+                continue;
+            }
+    
+            // Verificar que el valor de `contratada` esté presente en el JSON
+            if (isset($jsonData->document->inference->pages[0]->prediction->contratada->values[0]->content)) {
+                // Obtener el valor de `contratada`
+                $contratada = $jsonData->document->inference->pages[0]->prediction->contratada->values[0]->content;
+    
+                // Asegurarse de que el valor sea numérico
+                $contratada = is_numeric($contratada) ? (float)$contratada : 0;
+    
+                // Verificar si `p_contratada` es 0.00 antes de actualizar
+                if ($row->p_contratada == 0.00 && $contratada > 0) {
+                    // Actualizar `p_contratada` en la base de datos
+                    $ci->db->where('id', $row->id)
+                           ->update('_datos_api_canon', ['p_contratada' => $contratada]);
+    
+                    echo "Registro con ID {$row->id} actualizado a {$contratada}.\n";
+                    $registrosModificados++;
+                } else {
+                    echo "Registro con ID {$row->id} ya está correcto o no necesita cambios.\n";
+                    $registrosNoModificados++;
+                }
+            } else {
+                echo "Registro con ID {$row->id} no contiene el valor 'contratada' en JSON.\n";
+                $registrosError++;
+            }
+        }
+    
+        // Mostrar resumen al finalizar
+        echo "\nResumen de la depuración:\n";
+        echo "Total de registros procesados: {$registrosTotal}\n";
+        echo "Registros modificados: {$registrosModificados}\n";
+        echo "Registros ya correctos o sin cambios necesarios: {$registrosNoModificados}\n";
+        echo "Registros con error en JSON: {$registrosError}\n";
+    }
+    function actualizarPContratadaCanon() {
+        // Cargar el modelo de base de datos
+        $ci = &get_instance();
+        $ci->load->database();
+    
+        // Contadores de registros
+        $registrosTotal = 0;
+        $registrosActualizados = 0;
+        $registrosNoActualizados = 0;
+    
+        // Consultar registros de `_consolidados_canon` con p_contratada = 0.00 y obtener el valor de `_datos_api_canon`
+        $query = $ci->db->select('_consolidados_canon.id, _consolidados_canon.p_contratada, _datos_api_canon.p_contratada AS p_contratada_actualizada')
+                        ->from('_consolidados_canon')
+                        ->join('_datos_api_canon', '_consolidados_canon.id_lectura_api = _datos_api_canon.id')
+                        ->where('_consolidados_canon.p_contratada', 0.00)
+                        ->where('_datos_api_canon.p_contratada !=', 0.00)  // Solo registros donde p_contratada en _datos_api_canon sea distinto de 0
+                        ->get();
+    
+        // Iterar sobre cada registro para actualizar
+        foreach ($query->result() as $row) {
+            $registrosTotal++;
+    
+            // Actualizar el valor de p_contratada en _consolidados_canon si es 0.00
+            $ci->db->where('id', $row->id)
+                   ->update('_consolidados_canon', ['p_contratada' => $row->p_contratada_actualizada]);
+    
+            echo "Registro con ID {$row->id} actualizado de 0.00 a {$row->p_contratada_actualizada}.\n";
+            $registrosActualizados++;
+        }
+    
+        // Si no se encontraron registros para actualizar
+        if ($registrosActualizados == 0) {
+            $registrosNoActualizados++;
+            echo "No se encontraron registros para actualizar.\n";
+        }
+    
+        // Mostrar resumen al finalizar
+        echo "\nResumen de la actualización de p_contratada:\n";
+        echo "Total de registros procesados: {$registrosTotal}\n";
+        echo "Registros actualizados: {$registrosActualizados}\n";
+        echo "Registros sin necesidad de actualización: {$registrosNoActualizados}\n";
+    }
+    
+    
 
 
 }
