@@ -47,6 +47,8 @@ function initDatatable(search = false, type = 0) {
   var mes_fc = $('#id_mes_fc').val() || [];
   var anio_fc = $('#id_anio_fc').val() && $('#id_anio_fc').val().length > 0 ? $('#id_anio_fc').val() : null;
   var cosfiFilter = $('#cosfi_filter').is(':checked');
+  var consFilter = $('#cons_filter').is(':checked');
+
   var tgfiFilter = $('#tgfi_filter').is(':checked');
 
   // Calcula la altura disponible dinámicamente
@@ -303,9 +305,10 @@ function initDatatable(search = false, type = 0) {
         { targets: [62], title: "Cons.Valle Anterior", data: 60 ,orderable: false },
         
         { targets: [63], title: "Energía Inyectada", data: 24 ,orderable: false },
+        { targets: [64], title: "Cargo Cant", data: 62 ,orderable: false },
 
 
-        { targets: [64], title: "Acc.", data: 62 ,orderable: false },
+        { targets: [65], title: "Acc.", data: 63 ,orderable: false },
         
 
         
@@ -327,17 +330,19 @@ function initDatatable(search = false, type = 0) {
               mes_fc: mes_fc,
               anio_fc: anio_fc,
               cos_fi: cosfiFilter,
+              consumo: consFilter,
+
               tg_fi: tgfiFilter
           },
           url: "/Electromecanica/Consolidados/list_dt_canon",
           type: "POST",
           dataSrc: function (json) {
             // Aquí agregas el console.log para depurar los índices del array
-            console.log("Datos recibidos desde el servidor:", json);
+            //console.log("Datos recibidos desde el servidor:", json);
 
             // Si los datos recibidos son arrays de objetos, por ejemplo, podemos iterar
             json.data.forEach((row, index) => {
-                console.log(`Índice ${index}:`, row);
+              //  console.log(`Índice ${index}:`, row);
             });
 
             // Devuelve los datos para el DataTable
@@ -376,8 +381,8 @@ function updateButtonClass(button, isVisible) {
       // Función para aplicar visibilidad a las columnas según el proveedor seleccionado
       function aplicarVisibilidad() {
         var selectedProveedor = $("#id_proveedor").val(); // Obtener proveedor seleccionado
-        console.log(selectedProveedor);
-        console.log("ejecutando visibilidad - Proveedor seleccionado:", selectedProveedor);
+        //console.log(selectedProveedor);
+       // console.log("ejecutando visibilidad - Proveedor seleccionado:", selectedProveedor);
     
         if (table.columns().count() > 10) { // Verificar que existen al menos 11 columnas
           if (selectedProveedor == '1') {
@@ -415,6 +420,7 @@ function updateButtonClass(button, isVisible) {
             table.column(60).visible(false);
             table.column(61).visible(false);
             table.column(62).visible(false);
+            table.column(64).visible(false);
             
           
 
@@ -458,6 +464,7 @@ function updateButtonClass(button, isVisible) {
             table.column(60).visible(false);
             table.column(61).visible(false);
             table.column(62).visible(false);
+            table.column(64).visible(false);
             
 
 
@@ -485,6 +492,7 @@ function updateButtonClass(button, isVisible) {
             table.column(55).visible(false);   // e reactiva
             table.column(58).visible(false);   // Cargo Variable Hasta
             table.column(59).visible(false)
+            table.column(64).visible(false);
 
             
           }
@@ -532,6 +540,7 @@ function updateButtonClass(button, isVisible) {
             table.column(61).visible(false);
             table.column(62).visible(false);
             table.column(63).visible(false); //energia inyectada
+            table.column(64).visible(false);
         } 
         
       }}
@@ -540,6 +549,23 @@ function updateButtonClass(button, isVisible) {
      // $("#id_proveedor").on("change", function () {
    //     aplicarVisibilidad(); // Aplicar visibilidad al cambiar proveedor
     // });
+    // Listener independiente para habilitar o deshabilitar el checkbox según el proveedor seleccionado
+   // Listener independiente para habilitar o deshabilitar el checkbox según el proveedor seleccionado
+      // Deshabilitar el checkbox al cargar la página
+    $('#cons_filter').prop('disabled', true);
+
+    $("#id_proveedor").on("change", function () {
+        const selectedValues = $(this).val() || []; // Obtener los valores seleccionados o un array vacío si no hay selección
+        
+
+        if (selectedValues.includes("1") || selectedValues.includes("2")) {
+            $('#cons_filter').prop('disabled', false); // Habilitar checkbox
+        } else {
+            $('#cons_filter').prop('disabled', true); // Deshabilitar checkbox
+            $('#cons_filter').prop('checked', false);  // Desmarcar el checkbox si se deshabilita
+        }
+    });
+
     
     
       // Ejecutar aplicarVisibilidad cada vez que se redibuja la tabla (incluye el filtrado)
@@ -562,7 +588,7 @@ function updateButtonClass(button, isVisible) {
     // Evento para redirigir con doble clic
     $('#consolidados_dt tbody').on('dblclick', 'tr', function (e) {
       e.stopPropagation();  // Detiene la propagación del evento
-      console.log("dblclick evento ejecutado");
+      //console.log("dblclick evento ejecutado");
       // Encuentra el enlace en la columna correspondiente
       var $link = $(this).find('a[title="ver archivo"]');
       if ($link.length) {
@@ -594,7 +620,7 @@ $(document).ready(function () {
       'Mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
     },
   }, function(start, end, label) {
-    console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
   });
   
   var range = $('input[name="daterange2d"]').daterangepicker({
@@ -646,6 +672,8 @@ $(document).ready(function () {
 
     // Resetear los nuevos checkboxes (cosfi y tgfi)
     $("#cosfi_filter").prop('checked', false); // Restablecer el checkbox de Cos Fi
+    $("#cons_filter").prop('checked', false); // Restablecer el checkbox de Cosumo = 0
+
     $("#tgfi_filter").prop('checked', false);  // Restablecer el checkbox de Tg Fi
 
 

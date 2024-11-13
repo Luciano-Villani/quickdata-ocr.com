@@ -243,6 +243,7 @@
 
                 <div class="col-2">
                     <label><input type="checkbox" id="cosfi_filter" value="true"> Cos Fi inferiores a 0.95</label>
+                    <label><input type="checkbox" id="cons_filter" value="true"> Cosumo en 0 para T1/T2</label>
                     <label><input type="checkbox" id="filtrar_por_cuenta" value="true" disabled> Cuentas únicas</label>
                     
                 </div>
@@ -302,6 +303,7 @@
 <div class="card-header" style="margin-top: -15px">
 <div id="consulta"></div>
 <div id="request"></div>
+
 	
 		<table id="consolidados_dt" class="datatable-ajax table-bordered table-hover datatable-highlight" style="width: auto">
 			
@@ -373,14 +375,16 @@
                 <th>Cons.Resto Anterior</th>             <!-- 61 -->
                 <th>Cons.Valle Anterior</th>             <!-- 62 -->
                 <th>Energía Inyectada</th>                  <!-- 63 -->
+                <th>Cargo Cant</th>                        <!-- 64 -->
 
-                <th>Acc.</th>                               <!-- 64 -->
-
+                <th>Acc.</th>                               <!-- 65 -->
                                  
-                
-
 					
 				</tr>
+                
+
+
+            
 			</thead>
 			<!--<tfoot>
 				<tr>
@@ -449,7 +453,7 @@ $(document).ready(function () {
 
         var conteoProveedoresOMeses = {};
         datosVisibles.forEach(function (item) {
-            var idProveedor = item[63]; // Ajusta según la columna correcta para el proveedor.
+            var idProveedor = item[64]; // Ajusta según la columna correcta para el proveedor.
             var mes = item[12]; // Ajusta según la columna correcta para el mes.
 
             if (mostrarPorMes) {

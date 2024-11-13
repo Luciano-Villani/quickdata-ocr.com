@@ -379,11 +379,15 @@ class Electromecanica_model extends CI_Model
                     $this->db->group_end(); // Cerrar el grupo
                 }
 
-                // Filtro para Cos Fi menores a 0.095
+                // Filtro para tg_fi mayores a 0.33
                 if (!empty($postData['tg_fi']) && $postData['tg_fi'] === 'true') {
                     $this->db->group_start(); // Iniciar un grupo para aislar la condición
                     $this->db->where('_consolidados_canon.tgfi >', 0.33); // Filtrar valores mayores a 0.33
                     $this->db->group_end(); // Cerrar el grupo
+                }
+                // Filtro registros donde 'consumo' es igual a 0.00
+                if (!empty($postData['consumo']) && $postData['consumo'] === 'true') {
+                    $this->db->where('_consolidados_canon.consumo', 0.00); // Filtrar valores de consumo igual a 0.00
                 }
             
                 
@@ -1032,6 +1036,8 @@ class Electromecanica_model extends CI_Model
                     'cargo_var' => $file->cargo_var,
                     'total_vencido' => $file->total_vencido,
                     'subsidio' => $file->subsidio,
+                    'cargo_fijo_cant' => $file->cargo_fijo_cant,
+                    
 
 
 

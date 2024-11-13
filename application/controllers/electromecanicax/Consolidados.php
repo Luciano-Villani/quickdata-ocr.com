@@ -137,10 +137,11 @@ class Consolidados extends backend_controller
                     $r->consumo_resto_ant, //59https://quickdata.site/Electromecanica/Lecturas
                     $r->consumo_valle_ant, //60,
                     $r->p_excedida, //61
+                    $r->cargo_fijo_cant, //62
 
                     
-                    $accionesVer . $accionesDelete,      // Acciones 62
-                    $r->id_proveedor,                      // ID del Proveedor 63
+                    $accionesVer . $accionesDelete,      // Acciones 63
+                    $r->id_proveedor,                      // ID del Proveedor 64
                 );
                 
             }
