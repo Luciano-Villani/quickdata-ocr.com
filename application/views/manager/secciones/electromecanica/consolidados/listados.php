@@ -244,6 +244,7 @@
                 <div class="col-2">
                     <label><input type="checkbox" id="cosfi_filter" value="true"> Cos Fi inferiores a 0.95</label>
                     <label><input type="checkbox" id="cons_filter" value="true"> Cosumo en 0 para T1/T2</label>
+                    <label><input type="checkbox" id="const3_filter" value="true"> Cosumo en 0 para T3</label>
                     <label><input type="checkbox" id="filtrar_por_cuenta" value="true" disabled> Cuentas únicas</label>
                     
                 </div>

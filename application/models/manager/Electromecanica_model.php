@@ -388,7 +388,13 @@ class Electromecanica_model extends CI_Model
                 // Filtro registros donde 'consumo' es igual a 0.00
                 if (!empty($postData['consumo']) && $postData['consumo'] === 'true') {
                     $this->db->where('_consolidados_canon.consumo', 0.00); // Filtrar valores de consumo igual a 0.00
+
                 }
+                // Filtro registros donde 'consumo para T3' es igual a 0.00
+                if (!empty($postData['p_registrada']) && $postData['p_registrada'] === 'true') {
+                    $this->db->where('_consolidados_canon.p_registrada', 0.00); // Filtrar valores de consumo igual a 0.00
+                }
+
             
                 
     

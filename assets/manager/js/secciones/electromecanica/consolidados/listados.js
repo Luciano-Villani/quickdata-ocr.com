@@ -47,7 +47,9 @@ function initDatatable(search = false, type = 0) {
   var mes_fc = $('#id_mes_fc').val() || [];
   var anio_fc = $('#id_anio_fc').val() && $('#id_anio_fc').val().length > 0 ? $('#id_anio_fc').val() : null;
   var cosfiFilter = $('#cosfi_filter').is(':checked');
+  
   var consFilter = $('#cons_filter').is(':checked');
+  var const3Filter = $('#const3_filter').is(':checked');
 
   var tgfiFilter = $('#tgfi_filter').is(':checked');
 
@@ -331,6 +333,7 @@ function initDatatable(search = false, type = 0) {
               anio_fc: anio_fc,
               cos_fi: cosfiFilter,
               consumo: consFilter,
+              p_registrada: const3Filter,
 
               tg_fi: tgfiFilter
           },
@@ -552,17 +555,27 @@ function updateButtonClass(button, isVisible) {
     // Listener independiente para habilitar o deshabilitar el checkbox según el proveedor seleccionado
    // Listener independiente para habilitar o deshabilitar el checkbox según el proveedor seleccionado
       // Deshabilitar el checkbox al cargar la página
+    // Deshabilitar ambos checkboxes al cargar la página
     $('#cons_filter').prop('disabled', true);
+    $('#const3_filter').prop('disabled', true);
 
     $("#id_proveedor").on("change", function () {
         const selectedValues = $(this).val() || []; // Obtener los valores seleccionados o un array vacío si no hay selección
         
-
+        // Condición para habilitar o deshabilitar el checkbox cons_filter
         if (selectedValues.includes("1") || selectedValues.includes("2")) {
-            $('#cons_filter').prop('disabled', false); // Habilitar checkbox
+            $('#cons_filter').prop('disabled', false); // Habilitar checkbox cons_filter
         } else {
-            $('#cons_filter').prop('disabled', true); // Deshabilitar checkbox
+            $('#cons_filter').prop('disabled', true); // Deshabilitar checkbox cons_filter
             $('#cons_filter').prop('checked', false);  // Desmarcar el checkbox si se deshabilita
+        }
+
+        // Condición para habilitar o deshabilitar el checkbox const3_filter
+        if (selectedValues.includes("3")) {
+            $('#const3_filter').prop('disabled', false); // Habilitar checkbox const3_filter
+        } else {
+            $('#const3_filter').prop('disabled', true); // Deshabilitar checkbox const3_filter
+            $('#const3_filter').prop('checked', false);  // Desmarcar el checkbox si se deshabilita
         }
     });
 
