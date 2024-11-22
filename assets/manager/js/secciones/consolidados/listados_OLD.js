@@ -92,7 +92,9 @@ function initDatatable(search = false, type = 0) {
     tipo_pago = $("#id_tipo_pago").val();
     periodo_contable = $("#periodo_contable").val();
 
-    var fecha =  $("#daterange2").val();
+    if ($("#tipo-fecha").is(":checked")) {
+      var fecha = $("#daterange2").val();
+    }
         var $select = $("#id_tipo_pago");
     var value = $select.val();
     var data = [];
@@ -281,7 +283,8 @@ function initDatatable(search = false, type = 0) {
 $(document).ready(function () {
 
   $('input[name="daterange2"]').daterangepicker({
-    "showDropdowns": true,
+    // autoUpdateInput: false,
+    showDropdowns: true,
     locale:{
       applyLabel: "Aplicar",
       cancelLabel: "Cancelar",
@@ -360,7 +363,7 @@ $(document).ready(function () {
 
   $("body").on("click", "#resetfilter", function (e) {
     e.preventDefault();
-
+    $("#tipo-fecha").prop('checked',false);
     $("#id_proveedor").val("").trigger("change");
     $("#id_tipo_pago").val("").trigger("change");
     $("#periodo_contable").val("").trigger("change");
@@ -462,6 +465,14 @@ $(document).ready(function () {
       .ajax.reload();
   }
 
+  function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if (new Date().getTime() - start > milliseconds) {
+        break;
+      }
+    }
+  }
   $("body").on("click", "span.borrar_dato", function (e) {
     e.preventDefault();
 
@@ -489,7 +500,10 @@ $(document).ready(function () {
               beforeSend: function () {},
               url: $("body").data("base_url") + "Consolidados/delete",
               success: function (result) {
-                initDatatable();
+                // initDatatable();
+           
+                $("body #applyfilter").trigger('click');
+          
               },
               error: function (xhr, errmsg, err) {
                 console.log(xhr.status + ": " + xhr.responseText);
