@@ -52,6 +52,10 @@ function initDatatable(search = false, type = 0) {
   var const3Filter = $('#const3_filter').is(':checked');
 
   var tgfiFilter = $('#tgfi_filter').is(':checked');
+  var cuentasUnicasFilter = $('#cuentas_unicas_filter').is(':checked') ? 'true' : 'false'; // Usamos strings 'true' y 'false' en lugar de booleanos
+  var comentariosFilter = $('#comentarios_filter').is(':checked'); // Será un booleano
+  // Console log para ver todos los filtros seleccionados antes de enviarlos
+  
 
   // Calcula la altura disponible dinámicamente
   let tableHeight = Math.min($(window).height() - $('#consolidados_dt').offset().top - 50, 450);
@@ -335,7 +339,9 @@ function initDatatable(search = false, type = 0) {
               consumo: consFilter,
               p_registrada: const3Filter,
 
-              tg_fi: tgfiFilter
+              tg_fi: tgfiFilter,
+              nro_cuenta: cuentasUnicasFilter, // Agregamos el filtro de nro_cuenta aquí
+              comentarios: comentariosFilter 
           },
           url: "/Electromecanica/Consolidados/list_dt_canon",
           type: "POST",
@@ -347,7 +353,7 @@ function initDatatable(search = false, type = 0) {
             json.data.forEach((row, index) => {
               //  console.log(`Índice ${index}:`, row);
             });
-
+            
             // Devuelve los datos para el DataTable
             return json.data;
         }
@@ -555,29 +561,41 @@ function updateButtonClass(button, isVisible) {
     // Listener independiente para habilitar o deshabilitar el checkbox según el proveedor seleccionado
    // Listener independiente para habilitar o deshabilitar el checkbox según el proveedor seleccionado
       // Deshabilitar el checkbox al cargar la página
-    // Deshabilitar ambos checkboxes al cargar la página
-    $('#cons_filter').prop('disabled', true);
-    $('#const3_filter').prop('disabled', true);
+   // Deshabilitar ambos checkboxes al cargar la página
+$('#cons_filter').prop('disabled', true);
+$('#const3_filter').prop('disabled', true);
+$('#cuentas_unicas_filter').prop('disabled', true); // Deshabilitar "Cuentas únicas" por defecto
+//$('#comentarios_filter').prop('disabled', true); // Deshabilitar  por defecto
 
-    $("#id_proveedor").on("change", function () {
-        const selectedValues = $(this).val() || []; // Obtener los valores seleccionados o un array vacío si no hay selección
-        
-        // Condición para habilitar o deshabilitar el checkbox cons_filter
-        if (selectedValues.includes("1") || selectedValues.includes("2")) {
-            $('#cons_filter').prop('disabled', false); // Habilitar checkbox cons_filter
-        } else {
-            $('#cons_filter').prop('disabled', true); // Deshabilitar checkbox cons_filter
-            $('#cons_filter').prop('checked', false);  // Desmarcar el checkbox si se deshabilita
-        }
 
-        // Condición para habilitar o deshabilitar el checkbox const3_filter
-        if (selectedValues.includes("3")) {
-            $('#const3_filter').prop('disabled', false); // Habilitar checkbox const3_filter
-        } else {
-            $('#const3_filter').prop('disabled', true); // Deshabilitar checkbox const3_filter
-            $('#const3_filter').prop('checked', false);  // Desmarcar el checkbox si se deshabilita
-        }
-    });
+$("#id_proveedor").on("change", function () {
+    const selectedValues = $(this).val() || []; // Obtener los valores seleccionados o un array vacío si no hay selección
+    
+    // Condición para habilitar o deshabilitar el checkbox cons_filter
+    if (selectedValues.includes("1") || selectedValues.includes("2")) {
+        $('#cons_filter').prop('disabled', false); // Habilitar checkbox cons_filter
+    } else {
+        $('#cons_filter').prop('disabled', true); // Deshabilitar checkbox cons_filter
+        $('#cons_filter').prop('checked', false);  // Desmarcar el checkbox si se deshabilita
+    }
+
+    // Condición para habilitar o deshabilitar el checkbox const3_filter
+    if (selectedValues.includes("3")) {
+        $('#const3_filter').prop('disabled', false); // Habilitar checkbox const3_filter
+    } else {
+        $('#const3_filter').prop('disabled', true); // Deshabilitar checkbox const3_filter
+        $('#const3_filter').prop('checked', false);  // Desmarcar el checkbox si se deshabilita
+    }
+
+    // Habilitar el checkbox de "Cuentas únicas" solo si hay exactamente un proveedor seleccionado
+    if (selectedValues.length === 1) {
+        $('#cuentas_unicas_filter').prop('disabled', false); // Habilitar el checkbox de Cuentas únicas
+    } else {
+        $('#cuentas_unicas_filter').prop('disabled', true); // Deshabilitarlo si hay más de 1 proveedor seleccionado
+       
+    }
+});
+
 
     
     
@@ -609,7 +627,7 @@ function updateButtonClass(button, isVisible) {
           window.open($link.attr('href'), '_blank');
       }
     });
-
+  
 
     
     
@@ -688,6 +706,9 @@ $(document).ready(function () {
     $("#cons_filter").prop('checked', false); // Restablecer el checkbox de Cosumo = 0
 
     $("#tgfi_filter").prop('checked', false);  // Restablecer el checkbox de Tg Fi
+    $('#comentarios_filter').prop('checked', false); // Restablecer  
+    $('#cuentas_unicas_filter').prop('checked', false); // Restablecer  
+
 
 
     initDatatable();
@@ -697,9 +718,11 @@ $(document).ready(function () {
   
   $("body").on("click", "#applyfilter", function (e) {
     e.preventDefault();
+    
+        // Realiza la actualización de la tabla 
     initDatatable(false, 4);
     
-  });
+});
   
   $("body").on("click", "#descarga-exell", function (e) {
     e.preventDefault();
