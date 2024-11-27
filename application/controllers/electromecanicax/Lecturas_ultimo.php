@@ -349,7 +349,12 @@ class Lecturas extends backend_controller
 				$accionesEdit = '<span data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="d-none editar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Editar lote" href="#"  class=""><i class=" text-warningr  icon-pencil4 " title="Editar Lote"></i> </a> </span>';
 				$accionesDelete = '<span data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="borrar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Borrar lote" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar Lote"></i> </a> </span>';
 				//$accionesReload = '<span data-id_proveedor="' . $r->id_proveedor . '" data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="reload-lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
-
+			//QUITO ACCIONES A USUARIO ELECTRO
+			if ($this->ion_auth->is_electro()) {
+				$accionesMerge = '';
+				$accionesEdit = '';
+				$accionesDelete = '';
+			}
 				$proveedor = $this->proveedores_model->get_proveedor($r->id_proveedor);
 				// $user = $this->ion_auth->user($r->user_add)->row();
 
@@ -410,7 +415,7 @@ class Lecturas extends backend_controller
 
 	public function viewBatch($id = null)
 	{
-		$_POST['search']['value'] = $id;
+	
 		$this->lote = $id;
 
 		if ($this->input->is_ajax_request()) {
@@ -445,6 +450,11 @@ class Lecturas extends backend_controller
 				// Removed the $accionesReload variable
 				$accionesDelete = '<span data-tabla="_datos_api_canon" data-id_file="' . $r->id . '" class="borrar-file acciones" ><a title="Borrar file" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 
+				//QUITO ACCIONES A USUARIO ELECTRO
+				if ($this->ion_auth->is_electro()) {
+					$accionesMerge = '';
+					$accionesDelete = '';
+				}
 				$data[] = array(
 
 					$r->nro_cuenta,
@@ -794,35 +804,40 @@ class Lecturas extends backend_controller
 				
 						// Extraemos cada campo necesario
 						// Extraemos cada campo necesario
-						$nro_cuenta = isset($fields->nro_cuenta->content) ? trim(str_replace(' ', '', $fields->nro_cuenta->content)) : 'N/A';
-						$tipo_de_tarifa = isset($fields->Tipo_de_tarifa->content) ? trim($fields->Tipo_de_tarifa->content) : 'N/A';
-						$nombre_cliente = isset($fields->nombre_cliente->content) ? trim($fields->nombre_cliente->content) : 'N/A';
-						$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'N/A';
-						$nro_factura = isset($fields->nro_de_factura->content) ? trim($fields->nro_de_factura->content) : 'N/A';
-						$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'N/A';
-						$fecha_emision = isset($fields->fecha_emision->content) ? trim($fields->fecha_emision->content) : 'N/A';
-						$vencimiento_del_pago = isset($fields->vencimiento_del_pago->content) ? trim($fields->vencimiento_del_pago->content) : 'N/A';
-						$proximo_vencimiento = isset($fields->proximo_vencimiento->content) ? trim($fields->proximo_vencimiento->content) : 'N/A';
+						$nro_cuenta = isset($fields->nro_cuenta->content) ? trim(str_replace(' ', '', $fields->nro_cuenta->content)) : 'S/D';
+						$tipo_de_tarifa = isset($fields->Tipo_de_tarifa->content) ? trim($fields->Tipo_de_tarifa->content) : 'S/D';
+						$nombre_cliente = isset($fields->nombre_cliente->content) ? trim($fields->nombre_cliente->content) : 'S/D';
+						$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'S/D';
+						$nro_factura = isset($fields->nro_de_factura->content) ? trim($fields->nro_de_factura->content) : 'S/D';
+						$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
+						$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+						$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+						$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
 						$total_importe = isset($fields->total_importe->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->total_importe->content))) : '0.00';
 						$importe_1 = $total_importe; // igual que total_importe
-						$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : 'N/A';
-						$total_vencido = 'S/D'; // No disponible en JSON, valor predeterminado
-						$domicilio_de_consumo = isset($fields->domicilio_de_consumo->content) ? trim($fields->domicilio_de_consumo->content) : 'N/A';
-						$dias_comprendidos = isset($fields->{'dias comprendidos'}->content) ? trim($fields->{'dias comprendidos'}->content) : 'N/A';
-						$dias_de_consumo = isset($fields->dias_de_consumo->content) ? trim($fields->dias_de_consumo->content) : 'N/A';
-						$consumo_dias_comprendidos = isset($fields->{'consumo dias comprendidos'}->content) ? trim($fields->{'consumo dias comprendidos'}->content) : 'N/A';
+						$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : 'S/D';
+						$total_vencido = '0.00'; // No disponible en JSON, valor predeterminado
+						$domicilio_de_consumo = isset($fields->domicilio_de_consumo->content) ? trim($fields->domicilio_de_consumo->content) : 'S/D';
+						$dias_comprendidos = isset($fields->{'dias comprendidos'}->content) ? trim($fields->{'dias comprendidos'}->content) : 'S/D';
+						$dias_de_consumo = isset($fields->dias_de_consumo->content) ? trim($fields->dias_de_consumo->content) : '0';
+						$consumo_dias_comprendidos = isset($fields->{'consumo dias comprendidos'}->content) ? trim($fields->{'consumo dias comprendidos'}->content) : 'S/D';
 						$nombre_proveedor = 'EDENOR CANON - T1';
-						$cargo_variable_hasta = isset($fields->{'cargo variable hasta'}->content) ? trim($fields->{'cargo variable hasta'}->content) : '0.00';
-						$cargo_fijo = isset($fields->cargo_fijo->content) ? trim($fields->cargo_fijo->content) : '0.00';
+
+						$cargo_variable_hasta = isset($fields->{'cargo variable hasta'}->content) ? $fields->{'cargo variable hasta'}->content : '0.00';
+
+						// Convertir "190.478,92" a "190478.92"
+						$cargo_variable_hasta = str_replace('.', '', $cargo_variable_hasta);  // Remover el punto de miles
+						$cargo_variable_hasta = str_replace(',', '.', $cargo_variable_hasta); // Cambiar la coma por un punto
+
 						$monto_car_var_hasta = isset($fields->monto_car_var_hasta->content) ? trim($fields->monto_car_var_hasta->content) : '0.00';
-						$moto_var_mayor = isset($fields->monto_var_mayor->content) ? trim($fields->monto_var_mayor->content) : '0.00';
+						$monto_var_mayor = isset($fields->monto_var_mayor->content) ? trim($fields->monto_var_mayor->content) : '0.00';
 						$otros_conseptos = isset($fields->otros_conseptos->content) ? trim($fields->otros_conseptos->content) : '0.00';
-						$conceptos_electricos = isset($fields->conseptos_electricos->content) ? trim($fields->conseptos_electricos->content) : '0.00';
-						$impuestos = isset($fields->impuestos->content) ? trim($fields->impuestos->content) : '0.00';
+						
 						$subsidio = isset($fields->subsidio->content) ? trim($fields->subsidio->content) : '0.00';
-						$cosfi = isset($fields->cosenofi->content) ? trim($fields->cosenofi->content) : 'N/A';
-						$bimestre = isset($fields->bimentre->content) ? trim($fields->bimentre->content) : 'N/A';
-						$liquidacion = isset($fields->liquidacion->content) ? trim($fields->liquidacion->content) : 'N/A';
+						$cosfi = isset($fields->cosenofi->content) ? trim($fields->cosenofi->content) : 'S/D';
+						$bimestre = isset($fields->bimentre->content) ? trim($fields->bimentre->content) : 'S/D';
+						$liquidacion = isset($fields->liquidacion->content) ? trim($fields->liquidacion->content) : 'S/D';
+						
 				
 						// Verificación para total_importe
 						$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
@@ -831,7 +846,7 @@ class Lecturas extends backend_controller
 						$cargo_fijo = isset($fields->cargo_fijo->valueNumber) ? number_format($fields->cargo_fijo->valueNumber, 2, '.', '') : '0.00';
 
 						// Verificación para cargo_variable_hasta
-						$cargo_variable_hasta = isset($fields->cargo_variable_hasta->valueNumber) ? number_format($fields->cargo_variable_hasta->valueNumber, 2, '.', '') : '0.00';
+						//$cargo_variable_hasta = isset($fields->cargo_variable_hasta->valueInteger) ? number_format($fields->cargo_variable_hasta->valueInteger, 2, '.', '') : '0.00';
 
 						// Verificación para monto_car_var_hasta
 						$monto_car_var_hasta = isset($fields->monto_car_var_hasta->valueNumber) ? number_format($fields->monto_car_var_hasta->valueNumber, 2, '.', '') : '0.00';
@@ -872,7 +887,7 @@ class Lecturas extends backend_controller
 							'cargo_variable_hasta' => $cargo_variable_hasta,
 							'cargo_fijo' => $cargo_fijo,
 							'monto_car_var_hasta' => $monto_car_var_hasta,
-							'moto_var_mayor' => $moto_var_mayor,
+							'moto_var_mayor' => $monto_var_mayor,
 							'otros_conseptos' => $otros_conseptos,
 							'conceptos_electricos' => $conceptos_electricos,
 							'impuestos' => $impuestos,
@@ -881,41 +896,40 @@ class Lecturas extends backend_controller
 							'liquidacion' => $liquidacion,
 							'energia_inyectada' => '0.00', // Valor fijo por ahora
 							'cosfi' => $cosfi,
-							'p_contratada' => 'N/A',
-							'p_registrada' => 'N/A',
-							'p_excedida' => 'N/A',
-							'pot_punta' => 'N/A',
-							'pot_fuera_punta_cons' => 'N/A',
-							'ener_punta_act' => 'N/A',
-							'ener_punta_cons' => 'N/A',
-							'ener_resto_act' => 'N/A',
-							'ener_resto_cons' => 'N/A',
-							'ener_valle_act' => 'N/A',
-							'ener_valle_cons' => 'N/A',
-							'ener_reac_act' => 'N/A',
-							'ener_reac_cons' => 'N/A',
-							'e_reactiva' => 'N/A',
-							'tgfi' => 'N/A',
-							'cargo_pot_contratada' => 'N/A',
-							'cargo_pot_ad' => 'N/A',
-							'cargo_pot_excd' => 'N/A',
-							'recargo_tgfi' => 'N/A',
-							'consumo_pico_ant' => 'N/A',
-							'consumo_pico_vig' => 'N/A',
-							'cargo_pico' => 'N/A',
-							'consumo_resto_ant' => 'N/A',
-							'consumo_resto_vig' => 'N/A',
-							'cargo_resto' => 'N/A',
-							'consumo_valle_ant' => 'N/A',
-							'consumo_valle_vig' => 'N/A',
-							'cargo_valle' => 'N/A',
-							'e_actual' => 'N/A',
-							'cargo_contr' => 'N/A',
-							'cargo_adq' => 'N/A',
-							'cargo_exc' => 'N/A',
-							'cargo_var' => 'N/A',
-							'ener_generada' => 'N/A',
-							'conseptos_electricos' => 'N/A',
+							'p_registrada' => '0.00',
+							'p_excedida' => '0.00',
+							'pot_punta' => '0.00',
+							'pot_fuera_punta_cons' => '0.00',
+							'ener_punta_act' => '0.00',
+							'ener_punta_cons' => '0.00',
+							'ener_resto_act' => '0.00',
+							'ener_resto_cons' => '0.00',
+							'ener_valle_act' => '0.00',
+							'ener_valle_cons' => '0.00',
+							'ener_reac_act' => '0.00',
+							'ener_reac_cons' => '0.00',
+							'e_reactiva' => '0.00',
+							'tgfi' => '0.00',
+							'cargo_pot_contratada' => '0.00',
+							'cargo_pot_ad' => '0.00',
+							'cargo_pot_excd' => '0.00',
+							'recargo_tgfi' => '0.00',
+							'consumo_pico_ant' => '0.00',
+							'consumo_pico_vig' => '0.00',
+							'cargo_pico' => '0.00',
+							'consumo_resto_ant' => '0.00',
+							'consumo_resto_vig' => '0.00',
+							'cargo_resto' => '0.00',
+							'consumo_valle_ant' => '0.00',
+							'consumo_valle_vig' => '0.00',
+							'cargo_valle' => '0.00',
+							'e_actual' => '0.00',
+							'cargo_contr' => '0.00',
+							'cargo_adq' => '0.00',
+							'cargo_exc' => '0.00',
+							'cargo_var' => '0.00',
+							'ener_generada' => '0.00',
+							
 												
 							
 
@@ -928,281 +942,152 @@ class Lecturas extends backend_controller
 				
 					break;
 				
-				case 2: // T2 Edenor canon
+					case 2: // T2 Edenor canon Azure
+
+						// Verificamos que existan datos en el JSON
+						if (isset($a[0]->fields)) {
+							$fields = $a[0]->fields;
+					
+							// Extraemos cada campo necesario
+							$nro_cuenta = isset($fields->nro_cuenta->content) ? trim(str_replace(' ', '', $fields->nro_cuenta->content)) : 'S/D';
+							$tipo_de_tarifa = isset($fields->Tipo_de_tarifa->content) ? trim($fields->Tipo_de_tarifa->content) : 'S/D';
+							$nombre_cliente = isset($fields->nombre_cliente->content) ? trim($fields->nombre_cliente->content) : 'S/D';
+							$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'S/D';
+							$nro_factura = isset($fields->nro_de_factura->content) ? trim($fields->nro_de_factura->content) : 'S/D';
+							$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
+							$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+							$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
+							$domicilio_de_consumo = isset($fields->domicilio_de_consumo->content) ? trim($fields->domicilio_de_consumo->content) : 'S/D';
+							$nombre_proveedor = 'EDENOR CANON - T2';
+						
+
+							// Verificación para p_contratada
+							$p_contratada = isset($fields->contratada->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->contratada->content))) : 'S/D';
+					
+							// Verificación para consumida
+							$consumida = isset($fields->consumida->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->consumida->content))) : 'S/D';
 
 
-					$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+					
+							// Verificación para total_importe
+							$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para cargo_fijo
+							$cargo_fijo = isset($fields->cargo_fijo->valueNumber) ? number_format($fields->cargo_fijo->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para otros_conseptos
+							$otros_conseptos = isset($fields->otros_conseptos->valueNumber) ? number_format($fields->otros_conseptos->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para conceptos_electricos
+							$conceptos_electricos = isset($fields->conseptos_electricos->valueNumber) ? number_format($fields->conseptos_electricos->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para impuestos
+							$impuestos = isset($fields->impuestos->valueNumber) ? number_format($fields->impuestos->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para subsidio
+							$subsidio = isset($fields->subsidio->valueNumber) ? number_format($fields->subsidio->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para cargo_contr
+							$cargo_contr = isset($fields->cargo_contr->valueNumber) ? number_format($fields->cargo_contr->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para cargo_adq
+							$cargo_adq = isset($fields->cargo_adq->valueNumber) ? number_format($fields->cargo_adq->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para cargo_exc
+							$cargo_exc = isset($fields->cargo_exc->valueNumber) ? number_format($fields->cargo_exc->valueNumber, 2, '.', '') : '0.00';
+					
+							// Verificación para cargo_var
+							$cargo_var = isset($fields->cargo_var->valueNumber) ? str_replace(',', '.', str_replace('.', '', trim($fields->cargo_var->valueNumber))) : '0.00';
+					
+							// Verificación para cosfi
+							$cosfi = isset($fields->cosenofi->content) ? trim($fields->cosenofi->content) : '0.0';
+					
+							// Verificación para e_activa
+							$e_activa = isset($fields->e_activa->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->e_activa->content))) : 'S/D';
+					
+							// Verificación para e_reactiva
+							$e_reactiva = isset($fields->e_reactiva->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->e_reactiva->content))) : 'S/D';
+					
+							$dataUpdate = array(
+								'nro_cuenta' => $nro_cuenta,
+								'tipo_de_tarifa' => $tipo_de_tarifa,
+								'nombre_cliente' => $nombre_cliente,
+								'nro_medidor' => $nro_medidor,
+								'nro_factura' => $nro_factura,
+								'periodo_del_consumo' => $periodo_del_consumo,
+								'fecha_emision' => $fecha_emision,
+								'vencimiento_del_pago' => $vencimiento_del_pago,
+								'proximo_vencimiento' => $proximo_vencimiento,
+								'total_importe' => $total_importe,
+								'importe_1' => $total_importe,
+								'domicilio_de_consumo' => $domicilio_de_consumo,
+								'nombre_proveedor' => $nombre_proveedor,
+								'cargo_fijo' => $cargo_fijo,
+								'otros_conseptos' => $otros_conseptos,
+								'conceptos_electricos' => $conceptos_electricos,
+								'impuestos' => $impuestos,
+								'subsidio' => $subsidio,
+								'cargo_contr' => $cargo_contr,
+								'cargo_adq' => $cargo_adq,
+								'cargo_exc' => $cargo_exc,
+								'cargo_var' => $cargo_var,
+								'cosfi' => $cosfi,
+								'consumo' => $consumida,
+								'p_contratada' => $p_contratada,
+								'e_reactiva' => $e_reactiva,
+								'e_activa' => $e_activa,
+								'p_registrada' => '0.00',
+								'p_excedida' => '0.00',
+								'pot_punta' => '0.00',
+								'pot_fuera_punta_cons' => '0.00',
+								'ener_punta_act' => '0.00',
+								'ener_punta_cons' => '0.00',
+								'ener_resto_act' => '0.00',
+								'ener_resto_cons' => '0.00',
+								'ener_valle_act' => '0.00',
+								'ener_valle_cons' => '0.00',
+								'ener_reac_act' => '0.00',
+								'ener_reac_cons' => '0.00',
+								'tgfi' => '0.00',
+								'energia_inyectada' => '0.00',
+								'cargo_pot_contratada' => '0.00',
+								'cargo_pot_ad' => '0.00',
+								'cargo_pot_excd' => '0.00',
+								'recargo_tgfi' => '0.00',
+								'consumo_pico_ant' => '0.00',
+								'consumo_pico_vig' => '0.00',
+								'cargo_pico' => '0.00',
+								'consumo_resto_ant' => '0.00',
+								'consumo_resto_vig' => '0.00',
+								'cargo_resto' => '0.00',
+								'consumo_valle_ant' => '0.00',
+								'consumo_valle_vig' => '0.00',
+								'cargo_valle' => '0.00',
+								'e_actual' => '0.00',
+								'ener_generada' => '0.00',
+								'conseptos_electricos' => '0.00',
+								'bimestre' => '0',
+								'liquidacion' => '0',
+								'total_vencido' => '.0.00', // Valor predeterminado fijo por ahora
+								'dias_comprendidos' => '0', // Valor predeterminado fijo por ahora
+								'dias_de_consumo' => '0', // Valor predeterminado fijo por ahora
+								'consumo_dias_comprendidos' => '0.00', // Valor predeterminado fijo por ahora
+								'monto_car_var_hasta' => '0.00',
+								'moto_var_mayor' => '0.00',
+								'cargo_variable_hasta' => '0.00', // Valor predeterminado fijo por ahora
 
-					// Convertir el valor a un número flotante correctamente
-					$importe = str_replace(',', '.', str_replace('.', '', $importe));
-
-					// Asegurarse de que el valor convertido sea un número antes de usar number_format
-					if (is_numeric($importe)) {
-						$numero_decimal = number_format((float)$importe, 2, '.', '');
-					} else {
-						$numero_decimal = '0.00'; // Valor por defecto si la conversión falla
-					}
-
-
-
-
-					//periodo de consumo
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-					$periodo_del_consumo = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}
-
-					$totalIndices = count($a->document->inference->pages[1]->prediction->domicilio_de_consumo->values);
-					$domicilio_de_consumo = '';
-
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$domicilio_de_consumo .= ' ' . trim($a->document->inference->pages[1]->prediction->domicilio_de_consumo->values[$paso]->content);
-					}
-
-
-					$totalIndices = count($a->document->inference->pages[0]->prediction->tipo_de_tarifa->values);
-					$tipo_de_tarifa = '';
-
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$tipo_de_tarifa .= ' ' . $a->document->inference->pages[0]->prediction->tipo_de_tarifa->values[$paso]->content;
-					}
-
-					$totalIndices = count($a->document->inference->pages[0]->prediction->nombre_cliente->values);
-					$nombre_cliente = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$nombre_cliente .= ' ' . trim($a->document->inference->pages[0]->prediction->nombre_cliente->values[$paso]->content);
-					}
-
-					// Verificación para nro_factura
-			$nro_factura = 'N/A'; // Inicializar el nro_factura con un valor predeterminado
-
-			// Extraer el nombre del archivo desde la variable $filename
-			$partes = explode('/', $filename); // Separar la ruta por '/'
-			$nombreArchivo = end($partes); // Obtener el último elemento, que es el nombre del archivo
-
-			// Expresión regular ajustada para ser insensible a mayúsculas/minúsculas
-			// Formato esperado: 'VL202311-T1_20231101_+000004387,89_3623879311_0024-72041669B_splitter.pdf'
-			preg_match('/_(\d{4}-\d{8})b/i', $nombreArchivo, $matches); // El modificador 'i' hace la expresión insensible a mayúsculas/minúsculas
-
-			// Extraer el número de factura si coincide con el formato esperado
-			$numeroExtraido = isset($matches[1]) ? $matches[1] : ''; 
-
-			// Verificar si el nro_factura está en el JSON y si contiene algún valor
-			if (!empty($a->document->inference->pages[0]->prediction->nro_factura->values)) {
-				// Obtener el número de factura del JSON
-				$nro_factura = trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content);
-
-				// Verificar si el número de factura está vacío o no cumple con el formato xxxx-xxxxxxxx
-				if (empty($nro_factura) || !preg_match('/^\d{4}-\d{8}$/', $nro_factura)) {
-					// Si está vacío o no cumple el formato, usar el número extraído del nombre del archivo
-					$nro_factura = $numeroExtraido;
-				}
-			} else {
-				// Si no hay número de factura en el JSON, usar el número extraído del archivo
-				$nro_factura = $numeroExtraido;
-			}
-
-					// nro_factura
-					//if ($a->document->inference->pages[0]->prediction->nro_factura->values) {
-					//	$nro_factura = trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content);
-					//} else {
-					//	$nro_factura = 'N/A';
-					//}
-
-					// fecha_emision
-					if ($a->document->inference->pages[0]->prediction->fecha_emision->values) {
-						$fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
-					} else {
-						$fecha_emision = 'N/A';
-					}
-
-					// nro_cuenta
-					if ($a->document->inference->pages[0]->prediction->nro_cuenta->values) {
-						$nro_cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
-					} else {
-						$nro_cuenta = 'N/A';
-					}
-
-
-					// vencimiento_del_pago
-					if ($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values) {
-						$vencimiento_del_pago = trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content);
-					} else {
-						$vencimiento_del_pago = 'N/A';
-					}
-
-					// nro_medidor
-					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
-						$nro_medidor = trim($a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content);
-					} else {
-						$nro_medidor = 'N/A';
-					}
-
-					// proximo_vencimiento
-					//if ($a->document->inference->pages[0]->prediction->proximo_vencimiento->values) {
-					//	$proximo_vencimiento = trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content);
-					//} else {
-					//	$proximo_vencimiento = 'N/A';
-					//}
-
-
-					// contratada
-					if ($a->document->inference->pages[0]->prediction->contratada->values) {
-						$contratada = trim($a->document->inference->pages[0]->prediction->contratada->values[0]->content);
-					} else {
-						$contratada = 'N/A';
-					}
-
-					// consumida
-					if ($a->document->inference->pages[0]->prediction->consumida->values) {
-						$consumida = trim($a->document->inference->pages[0]->prediction->consumida->values[0]->content);
-					} else {
-						$consumida = 'N/A';
-					}
-
-					// consumo_act
-					if ($a->document->inference->pages[0]->prediction->consumo_act->values) {
-						$consumo_act = trim($a->document->inference->pages[0]->prediction->consumo_act->values[0]->content);
-					} else {
-						$consumo_act = 'N/A';
-					}
-
-					// consumo_reac
-					if ($a->document->inference->pages[0]->prediction->consumo_reac->values) {
-						$consumo_reac = trim($a->document->inference->pages[0]->prediction->consumo_reac->values[0]->content);
-					} else {
-						$consumo_reac = 'N/A';
-					}
-
-
-
-					// cargo_fijo
-					if ($a->document->inference->pages[0]->prediction->cargo_fijo->values) {
-						$cargo_fijo = trim($a->document->inference->pages[0]->prediction->cargo_fijo->values[0]->content);
-					} else {
-						$cargo_fijo = 'N/A';
-					}
-
-					// cargo_contr
-					if ($a->document->inference->pages[0]->prediction->cargo_contr->values) {
-						$cargo_contr = trim($a->document->inference->pages[0]->prediction->cargo_contr->values[0]->content);
-					} else {
-						$cargo_contr = 'N/A';
-					}
-
-					// cargo_adq
-					if ($a->document->inference->pages[0]->prediction->cargo_adq->values) {
-						$cargo_adq = trim($a->document->inference->pages[0]->prediction->cargo_adq->values[0]->content);
-					} else {
-						$cargo_adq = 'N/A';
-					}
-
-					// cargo_exc
-					if ($a->document->inference->pages[0]->prediction->cargo_exc->values) {
-						$cargo_exc = trim($a->document->inference->pages[0]->prediction->cargo_exc->values[0]->content);
-					} else {
-						$cargo_exc = 'N/A';
-					}
-
-					// cargo_var
-					if ($a->document->inference->pages[0]->prediction->cargo_var->values) {
-						$cargo_var = trim($a->document->inference->pages[0]->prediction->cargo_var->values[0]->content);
-					} else {
-						$cargo_var = 'N/A';
-					}
-
-					// subsidio
-					if ($a->document->inference->pages[0]->prediction->subsidio->values) {
-						$subsidio = trim($a->document->inference->pages[0]->prediction->subsidio->values[0]->content);
-					} else {
-						$subsidio = 'N/A';
-					}
-
-
-					// energia_inyectada de mindee este campo se usa para leer el cosfi
-					if ($a->document->inference->pages[1]->prediction->energia_inyectada->values) {
-						$cosfi = trim($a->document->inference->pages[1]->prediction->energia_inyectada->values[0]->content);
-					} else {
-						$cosfi = 'S/D';
-					}
-
-
-					$dataUpdate = array(
-						'nombre_proveedor' => 'EDENOR CANON - T2',
-						'nro_cuenta' => isset($nro_cuenta) ? trim($nro_cuenta) : 'N/A',
-						'tipo_de_tarifa' => isset($tipo_de_tarifa) ? trim($tipo_de_tarifa) : 'N/A',
-						'nombre_cliente' => isset($nombre_cliente) ? trim($nombre_cliente) : 'N/A',
-						'nro_medidor' => isset($nro_medidor) ? trim($nro_medidor) : 'N/A',
-						'nro_factura' => isset($nro_factura) ? trim($nro_factura) : 'N/A',
-						'periodo_del_consumo' => isset($periodo_del_consumo) ? trim($periodo_del_consumo) : 'N/A',
-						'fecha_emision' => isset($fecha_emision) ? trim($fecha_emision) : 'N/A',
-						'vencimiento_del_pago' => isset($vencimiento_del_pago) ? trim($vencimiento_del_pago) : 'N/A',
-						'proximo_vencimiento' => isset($proximo_vencimiento) ? trim($proximo_vencimiento) : 'N/A',
-						'total_importe' => isset($numero_decimal) ? trim($numero_decimal) : '0.00',
-						'importe_1' => isset($numero_decimal) ? trim($numero_decimal) : '0.00', // 'importe_1' igual que 'total_importe'
-						'consumo' => isset($consumida) ? trim($consumida) : '0.00',
-						'total_vencido' => 'S/D', // Valor predeterminado fijo por ahora
-						'domicilio_de_consumo' => isset($domicilio_de_consumo) ? trim($domicilio_de_consumo) : 'N/A',
-						'dias_comprendidos' => isset($dias_comprendidos) ? trim($dias_comprendidos) : 'N/A',
-						'dias_de_consumo' => isset($dias_de_consumo) ? trim($dias_de_consumo) : 'N/A',
-						'consumo_dias_comprendidos' => isset($consumo_dias_comprendidos) ? trim($consumo_dias_comprendidos) : 'N/A',
-						'cargo_variable_hasta' => isset($cargo_variable_hasta) ? trim($cargo_variable_hasta) : '0.00',
-						'cargo_fijo' => isset($cargo_fijo) ? trim($cargo_fijo) : '0.00',
-						'monto_car_var_hasta' => isset($monto_car_var_hasta) ? trim($monto_car_var_hasta) : '0.00',
-						'moto_var_mayor' => isset($moto_var_mayor) ? trim($moto_var_mayor) : '0.00',
-						'otros_conseptos' => isset($otros_conseptos) ? trim($otros_conseptos) : '0.00',
-						'conceptos_electricos' => isset($conceptos_electricos) ? trim($conceptos_electricos) : '0.00',
-						'impuestos' => isset($impuestos) ? trim($impuestos) : '0.00',
-						'subsidio' => isset($subsidio) ? trim($subsidio) : '0.00',
-						'e_reactiva' => isset($consumo_reac) ? trim($consumo_reac) : '0.00',
-						'e_activa' => isset($consumo_act) ? trim($consumo_act) : '0.00',
-						'energia_inyectada' => '0.00',
-						'p_contratada' => '0.00',
-						'p_registrada' => '0.00',
-						'p_excedida' => '0.00',
-						'pot_punta' => '0.00',
-						'pot_fuera_punta_cons' => '0.00',
-						'ener_punta_act' => '0.00',
-						'ener_punta_cons' => '0.00',
-						'ener_resto_act' => '0.00',
-						'ener_resto_cons' => '0.00',
-						'ener_valle_act' => '0.00',
-						'ener_valle_cons' => '0.00',
-						'ener_reac_act' => '0.00',
-						'ener_reac_cons' => '0.00',
-						'tgfi' => '0.00',
-						'cargo_pot_contratada' => '0.00',
-						'cargo_pot_ad' => '0.00',
-						'cargo_pot_excd' => '0.00',
-						'recargo_tgfi' => '0.00',
-						'consumo_pico_ant' => '0.00',
-						'consumo_pico_vig' => '0.00',
-						'cargo_pico' => '0.00',
-						'consumo_resto_ant' => '0.00',
-						'consumo_resto_vig' => '0.00',
-						'cargo_resto' => '0.00',
-						'consumo_valle_ant' => '0.00',
-						'consumo_valle_vig' => '0.00',
-						'cargo_valle' => '0.00',
-						'e_actual' => '0.00',
-						'cargo_contr' => isset($cargo_contr) ? trim($cargo_contr) : '0.00',
-						'cargo_adq' => isset($cargo_adq) ? trim($cargo_adq) : '0.00',
-						'cargo_exc' => isset($cargo_exc) ? trim($cargo_exc) : '0.00',
-						'cargo_var' => isset($cargo_var) ? trim($cargo_var) : '0.00',
-						'bimestre' => 'N/A',
-						'ener_generada' => '0.00',
-						'conseptos_electricos' => '0.00',
-						'cosfi' => isset($cosfi) ? trim($cosfi) : 'S/D',
-
-
-					);
-
-
-
-
-					break;
-
+								
+							);
+							
+					
+						} else {
+							// Manejar el caso en el que no haya datos en el JSON
+							$dataUpdate = array(); // O manejar un error
+						}
+					
+						break;
+					
 
 				case 3: // T3
 
@@ -1525,11 +1410,11 @@ class Lecturas extends backend_controller
 						'total_importe' => isset($importe) ? trim($importe) : '0.00',
 						'importe_1' => isset($importe) ? trim($importe) : '0.00', // 'importe_1' igual que 'total_importe'
 						'consumo'  => '0.00', // Valor predeterminado fijo por ahora
-						'total_vencido' => 'S/D', // Valor predeterminado fijo por ahora
+						'total_vencido' => '.0.00', // Valor predeterminado fijo por ahora
 						'domicilio_de_consumo' => isset($domicilio_de_consumo) ? trim($domicilio_de_consumo) : 'N/A',
-						'dias_comprendidos' => 'S/D', // Valor predeterminado fijo por ahora
-						'dias_de_consumo' => 'S/D', // Valor predeterminado fijo por ahora
-						'consumo_dias_comprendidos' => 'S/D', // Valor predeterminado fijo por ahora
+						'dias_comprendidos' => '0', // Valor predeterminado fijo por ahora
+						'dias_de_consumo' => '0', // Valor predeterminado fijo por ahora
+						'consumo_dias_comprendidos' => '0.00', // Valor predeterminado fijo por ahora
 						'cargo_variable_hasta' => '0.00', // Valor predeterminado fijo por ahora
 						'cargo_fijo' => isset($cargo_fijo) ? trim($cargo_fijo) : '0.00',
 						'monto_car_var_hasta' => '0.00', // Valor predeterminado fijo por ahora
@@ -1579,13 +1464,158 @@ class Lecturas extends backend_controller
 					);
 
 					break;
+
+
+					case 5: // 3857 EDENOR T1 AP
+
+						// Verificamos que existan datos en el JSON
+						if (isset($a[0]->fields)) {
+							$fields = $a[0]->fields;
+					
+							// Extraemos cada campo necesario
+							// Extraemos cada campo necesario
+							$nro_cuenta = isset($fields->nro_cuenta->content) ? trim(str_replace(' ', '', $fields->nro_cuenta->content)) : 'S/D';
+							$tipo_de_tarifa = isset($fields->Tipo_de_tarifa->content) ? trim($fields->Tipo_de_tarifa->content) : 'S/D';
+							$nombre_cliente = isset($fields->nombre_cliente->content) ? trim($fields->nombre_cliente->content) : 'S/D';
+							//$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'S/D';
+							$nro_factura = isset($fields->nro_de_factura->content) ? trim($fields->nro_de_factura->content) : 'S/D';
+							$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
+							$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+							$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
+							//$total_importe = isset($fields->total_importe->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->total_importe->content))) : '0.00';
+						
+							$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : 'S/D';
+							$total_vencido = '0.00'; // No disponible en JSON, valor predeterminado
+							$domicilio_de_consumo = isset($fields->domicilio_de_consumo->content) ? trim($fields->domicilio_de_consumo->content) : 'S/D';
+							//$dias_comprendidos = isset($fields->{'dias comprendidos'}->content) ? trim($fields->{'dias comprendidos'}->content) : '0';
+							//$dias_de_consumo = isset($fields->dias_de_consumo->content) ? trim($fields->dias_de_consumo->content) : '0';
+							//$consumo_dias_comprendidos = isset($fields->{'consumo dias comprendidos'}->content) ? trim($fields->{'consumo dias comprendidos'}->content) : '0.00';
+							$nombre_proveedor = 'EDENOR - AP';
+							//$cargo_variable_hasta = isset($fields->{'cargo variable hasta'}->content) ? trim($fields->{'cargo variable hasta'}->content) : '0.00';
+							
+							//$monto_car_var_hasta = isset($fields->monto_car_var_hasta->content) ? trim($fields->monto_car_var_hasta->content) : '0.00';
+							//$monto_var_mayor = isset($fields->monto_var_mayor->content) ? trim($fields->monto_var_mayor->content) : '0.00';
+							$otros_conseptos = isset($fields->otros_conseptos->content) ? trim($fields->otros_conseptos->content) : '0.00';
+							
+							$subsidio = isset($fields->subsidio->content) ? trim($fields->subsidio->content) : '0.00';
+							//$cosfi = isset($fields->cosenofi->content) ? trim($fields->cosenofi->content) : 'S/D';
+							//$bimestre = isset($fields->bimentre->content) ? trim($fields->bimentre->content) : 'S/D';
+							//$liquidacion = isset($fields->liquidacion->content) ? trim($fields->liquidacion->content) : 'S/D';
+							
+					
+							// Verificación para total_importe
+							$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+							$importe_1 = $total_importe; // igual que total_importe
+							// Verificación para cargo_fijo
+							$cargo_fijo = isset($fields->cargo_fijo->valueNumber) ? number_format($fields->cargo_fijo->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para cargo_variable_hasta
+							//$cargo_variable_hasta = isset($fields->cargo_variable_hasta->valueInteger) ? number_format($fields->cargo_variable_hasta->valueInteger, 2, '.', '') : '0.00';
+	
+							// Verificación para monto_car_var_hasta
+							//$monto_car_var_hasta = isset($fields->monto_car_var_hasta->valueNumber) ? number_format($fields->monto_car_var_hasta->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para otros_conseptos
+							$otros_conseptos = isset($fields->otros_conseptos->valueNumber) ? number_format($fields->otros_conseptos->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para conceptos_electricos
+							$conceptos_electricos = isset($fields->conseptos_electricos->valueNumber) ? number_format($fields->conseptos_electricos->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para impuestos
+							$impuestos = isset($fields->impuestos->valueNumber) ? number_format($fields->impuestos->valueNumber, 2, '.', '') : '0.00';
+	
+							// Verificación para subsidio
+							$subsidio = isset($fields->subsidio->valueNumber) ? number_format($fields->subsidio->valueNumber, 2, '.', '') : '0.00';
+	
+					
+							// Array de datos a actualizar
+							$dataUpdate = array(
+								'nro_cuenta' => $nro_cuenta,
+								'tipo_de_tarifa' => $tipo_de_tarifa,
+								'nombre_cliente' => $nombre_cliente,
+								'nro_medidor' => '0',
+								'nro_factura' => $nro_factura,
+								'periodo_del_consumo' => $periodo_del_consumo,
+								'fecha_emision' => $fecha_emision,
+								'vencimiento_del_pago' => $vencimiento_del_pago,
+								'proximo_vencimiento' => $proximo_vencimiento,
+								'total_importe' => $total_importe,
+								'importe_1' => $total_importe,
+								'consumo' => $consumo,
+								'total_vencido' => $total_vencido,
+								'domicilio_de_consumo' => $domicilio_de_consumo,
+								'dias_comprendidos' => '0',
+								'dias_de_consumo' => '0',
+								'consumo_dias_comprendidos' => '0.00',
+								'nombre_proveedor' => $nombre_proveedor,
+								'cargo_variable_hasta' => '0.00',
+								'cargo_fijo' => $cargo_fijo,
+								'monto_car_var_hasta' => '0.00',
+								'moto_var_mayor' => '0.00',
+								'otros_conseptos' => $otros_conseptos,
+								'conceptos_electricos' => $conceptos_electricos,
+								'impuestos' => $impuestos,
+								'subsidio' => $subsidio,
+								'bimestre' => '0',
+								'liquidacion' => '0',
+								'energia_inyectada' => '0.00', // Valor fijo por ahora
+								'cosfi' => '0.00',
+								'p_contratada' => '0',
+								'p_registrada' => 'N/A',
+								'p_excedida' => 'N/A',
+								'pot_punta' => 'N/A',
+								'pot_fuera_punta_cons' => 'N/A',
+								'ener_punta_act' => 'N/A',
+								'ener_punta_cons' => 'N/A',
+								'ener_resto_act' => 'N/A',
+								'ener_resto_cons' => 'N/A',
+								'ener_valle_act' => 'N/A',
+								'ener_valle_cons' => 'N/A',
+								'ener_reac_act' => 'N/A',
+								'ener_reac_cons' => 'N/A',
+								'e_reactiva' => 'N/A',
+								'tgfi' => 'N/A',
+								'cargo_pot_contratada' => 'N/A',
+								'cargo_pot_ad' => 'N/A',
+								'cargo_pot_excd' => 'N/A',
+								'recargo_tgfi' => 'N/A',
+								'consumo_pico_ant' => 'N/A',
+								'consumo_pico_vig' => 'N/A',
+								'cargo_pico' => 'N/A',
+								'consumo_resto_ant' => 'N/A',
+								'consumo_resto_vig' => 'N/A',
+								'cargo_resto' => 'N/A',
+								'consumo_valle_ant' => 'N/A',
+								'consumo_valle_vig' => 'N/A',
+								'cargo_valle' => 'N/A',
+								'e_actual' => 'N/A',
+								'cargo_contr' => 'N/A',
+								'cargo_adq' => 'N/A',
+								'cargo_exc' => 'N/A',
+								'cargo_var' => 'N/A',
+								'ener_generada' => 'N/A',
+								
+													
+								
+	
+	
+							);
+						} else {
+							// Manejar el caso en el que no haya datos en el JSON
+							$dataUpdate = array(); // O manejar un error
+						}
+					
+						break;
 			}
 
-			$data_proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $id_proveedor . '"');
+			$data_proveedor = $this->Electromecanica_model->getwhere('_proveedores_canon', 'id="' . $id_proveedor . '"');
 			$dataUpdate['unidad_medida'] = $data_proveedor->unidad_medida;
 
 			$dataUpdate['mes_fc'] = fecha_es(trim($fecha_emision), 'm');
 			$dataUpdate['anio_fc'] = fecha_es(trim($fecha_emision), 'Y');
+
+			
 			$this->db->where('id', $mires[0]->id);
 			$this->db->update('_datos_api_canon', $dataUpdate);
 		} else {

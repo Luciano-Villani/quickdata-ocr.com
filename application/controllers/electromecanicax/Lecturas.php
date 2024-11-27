@@ -2332,6 +2332,31 @@ class Lecturas extends backend_controller
 			echo json_encode($return);
 		}
 	}
+
+
+	
+	public function guardar_comentario_en_consolidados() {
+		// Recibir los datos del formulario
+		$comentarios = $this->input->post('comentarios');
+		$resuelto = $this->input->post('resuelto') ? 0 : 1;  // Si "Resuelto" está marcado, guardamos 0, si no 1
+		$seguimiento = ($resuelto == 1) ? 1 : 0; // Si resuelto es 1 (no marcado), se guarda 1 en seguimiento, sino 0
+	
+		// Actualizar la base de datos en la tabla _consolidados_canon
+		$data = [
+			'comentarios' => $comentarios,
+			'seguimiento' => $seguimiento, // 1 si en seguimiento, 0 si resuelto
+		];
+	
+		// Aquí actualizamos el registro en la tabla _consolidados_canon
+		$this->db->where('id', $this->input->post('id'));  // Asumiendo que el ID se pasa como un campo oculto
+		$this->db->update('_consolidados_canon', $data);
+	
+		// Respuesta exitosa
+		$this->session->set_flashdata('mensaje', 'Comentario guardado correctamente.');
+		//redirect('ruta/a/tu/vista');  // Redirigir donde quieras
+	}
+	
+	
 }
 
 /* End of file Lecturas.php and path \application\controllers\electromecanica\Lecturas.php */

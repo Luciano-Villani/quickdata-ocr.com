@@ -44,7 +44,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
                 
                 <div class="col-md-4">
     <div class="form-group form-group-feedback form-group-feedback-right">
-        <label class="form-label">Provedor:</label>
+        <label class="form-label">Proveedorx:</label>
         <?php
 
  
@@ -104,38 +104,6 @@ if (isset($_SERVER['HTTP_REFERER'])) {
                     <input name="consumo" type="text" class="form-control" placeholder="Consumo" value="<?= $result->consumo ?>">
                 </div>
             </div>
-            <div class="col-md-12">
-    <?php echo form_open('Electromecanica/Lecturas/guardar_comentario_en_consolidados', array('id' => 'form-comentarios')); ?>
-    <div class="col-md-12">
-        <!-- Campo de comentarios -->
-        <div class="form-group">
-            <label for="comentarios">Comentarios:</label>
-            <textarea class="form-control" id="comentarios" name="comentarios" rows="4" placeholder="Ingrese comentarios"></textarea>
-        </div>
-
-        <!-- Checkboxes y botón en la misma fila -->
-        <div class="form-group row">
-            <div class="col-md-2">
-                <div class="form-check">
-                    <!-- Checkbox "Resuelto" -->
-                    <input type="checkbox" class="form-check-input" id="resuelto" name="resuelto" value="1">
-                    <label class="form-check-label" for="resuelto">Resuelto</label>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    <!-- Botón para enviar comentario -->
-                    <button type="submit" class="btn btn-agregar bg-buton-blue" id="enviar_comentario">Enviar Comentario</button>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php echo form_close(); ?>
-
-
-</div>
-
 
             <div class="row mb-6">
                 <div class="col-md-6">
@@ -188,39 +156,3 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 }
 
 ?>
-
-<?php
-// Obtener los valores de seguimiento y resuelto desde la base de datos
-$seguimiento = isset($result->seguimiento) ? $result->seguimiento : 0; // 1 si en seguimiento, 0 si resuelto
-$resuelto = isset($result->resuelto) ? $result->resuelto : 0; // 0 si resuelto, 1 si no resuelto
-?>
-<script>
-    $(document).ready(function() {
-        // Al escribir en el campo de comentarios, desmarcar "Resuelto" y cambiar seguimiento a 1
-        $('#comentarios').on('input', function() {
-            if ($(this).val().trim() !== '') {
-                $('#resuelto').prop('checked', false); // Desmarcar "Resuelto"
-            }
-        });
-
-        // Cuando se cambie el estado del checkbox "Resuelto", actualizar el campo de seguimiento
-        $('#resuelto').change(function() {
-            if ($(this).prop('checked')) {
-                // Si se marca "Resuelto", establecer seguimiento en 0
-                $('#seguimiento').val(0);
-            } else {
-                // Si no se marca "Resuelto", establecer seguimiento en 1
-                $('#seguimiento').val(1);
-            }
-        });
-
-        // Al hacer submit, también guardar el valor de seguimiento
-        $('#enviar_comentario').on('click', function() {
-            if ($('#resuelto').prop('checked')) {
-                $('#seguimiento').val(0); // Si está marcado "Resuelto", seguimiento será 0
-            } else {
-                $('#seguimiento').val(1); // Si no está marcado, seguimiento será 1
-            }
-        });
-    });
-</script>
