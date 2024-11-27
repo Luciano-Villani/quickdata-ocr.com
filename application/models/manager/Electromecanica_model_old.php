@@ -1104,87 +1104,21 @@ class Electromecanica_model extends CI_Model
 		$this->db->from('_datos_api_canon');
 		return  $this->db->count_all_results();
 	}
-    public function contar_registros_por_proveedor_canon($filtros = null)
-    {
+    public function contar_registros_por_proveedor_canon() {
         $this->db->select('id_proveedor, COUNT(*) as cantidad');
-        
-        // Filtros: proveedor, meses y año
-        if (isset($filtros['proveedor']) && !empty($filtros['proveedor'])) {
-            $this->db->where_in('id_proveedor', $filtros['proveedor']);
-        }
-        if (isset($filtros['meses']) && !empty($filtros['meses'])) {
-            $this->db->where_in('mes_fc', $filtros['meses']);
-        }
-        if (isset($filtros['anio']) && !empty($filtros['anio'])) {
-            $this->db->where('anio_fc', $filtros['anio']);
-        }
-    
         $this->db->group_by('id_proveedor');
         $query = $this->db->get('_consolidados_canon');
         return $query->result();
     }
     
-    
-    
-    
-	public function contar_registros_por_mes($filtros = null)
-{
-    try {
-        // Configuración de la consulta
-        $this->db->select('mes_fc as mes, COUNT(*) as cantidad');
-        $this->db->from('_consolidados_canon');
-        
-        // Filtros: meses, proveedores y año
-        if (isset($filtros['meses']) && !empty($filtros['meses'])) {
-            $this->db->where_in('mes_fc', $filtros['meses']);
-        }
-        if (isset($filtros['proveedor']) && !empty($filtros['proveedor'])) {
-            $this->db->where_in('id_proveedor', $filtros['proveedor']);
-        }
-        if (isset($filtros['anio']) && !empty($filtros['anio'])) {
-            $this->db->where('anio_fc', $filtros['anio']);
-        }
-
-        $this->db->group_by('mes_fc');
-        $this->db->order_by('mes_fc', 'ASC');
-
-        // Ejecutar la consulta
+	public function contar_registros_por_mes()
+    {
+        $this->db->select('mes, COUNT(*) as cantidad');
+        $this->db->from('_consolidados_canon'); // Reemplaza con el nombre de la tabla correcta
+        $this->db->group_by('mes');
+        $this->db->order_by('mes', 'ASC');
         $query = $this->db->get();
-
-        // Verificar resultados
-        if (!$query) {
-            return []; // Retorna un array vacío si hay un error
-        }
-
+        
         return $query->result();
-
-    } catch (Exception $e) {
-        // Capturar y registrar excepciones
-        return []; // Retorna un array vacío en caso de error
     }
-}
-public function guardar_comentarios($data) {
-    // Asegúrate de que '_consolidados_canon' sea el nombre correcto de la tabla
-    $this->db->where('id', $data['consolidado_id']); // El ID del consolidado
-    $this->db->update('_consolidados_canon', [
-        'comentarios' => $data['comentarios'],
-        'seguimiento' => $data['seguimiento']  // Guardamos el estado de seguimiento
-    ]);
-    
-    // Verifica si la actualización fue exitosa
-    return $this->db->affected_rows() > 0;
-}
-
-public function get_comentario_por_id($id) {
-    // Obtener el comentario y seguimiento por ID
-    $this->db->where('id', $id);
-    $query = $this->db->get('_consolidados_canon');  // Tabla donde están los comentarios
-
-    // Si existe el registro, retornar los resultados
-    if ($query->num_rows() > 0) {
-        return $query->row();  // Devuelve una sola fila
-    }
-
-    return false;  // Si no existe el comentario
-}
 }
