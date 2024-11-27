@@ -400,6 +400,14 @@ class Electromecanica_model extends CI_Model
                     $this->db->where('TRIM(comentarios) !=', ''); // Asegurarse de que no está vacío
                     $this->db->group_end(); // Cerrar el grupo
                 }
+                // Filtro de cuentas únicas activado
+                if (!empty($postData['nro_cuenta']) && $postData['nro_cuenta'] === 'true') {
+                    // Agrupar por nro_cuenta
+                    $this->db->group_by('nro_cuenta');
+                    
+                    // Verificar que la cuenta solo aparece en un mes
+                    $this->db->having('COUNT(DISTINCT mes_fc) = 1');  // Esto asegura que la cuenta aparece solo en un mes
+                }
 
             
                 
