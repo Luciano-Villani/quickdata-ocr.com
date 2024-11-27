@@ -286,33 +286,25 @@ class Consolidados extends backend_controller
 
     public function obtener_datos_grafico()
 {
-    // Registrar todos los datos recibidos por POST para depuración
-    $this->escribir_log('Datos recibidos en POST: ' . json_encode($this->input->post()));
-
     // Recibir el valor y convertirlo explícitamente a booleano
     $agrupar_por_mes = $this->input->post('agrupar_por_mes') === 'true';
 
     // Recibir los filtros
     $filtros = $this->input->post('filtros');
-    $this->escribir_log('Filtros recibidos: ' . json_encode($filtros));
 
     // Según el valor de 'agrupar_por_mes', se llamará a una u otra función del modelo
     if ($agrupar_por_mes) {
         // Si se agrupa por mes, obtenemos los datos correspondientes a los filtros
-        $this->escribir_log('Obteniendo totales por mes...');
         $datos_grafico = $this->Electromecanica_model->contar_registros_por_mes($filtros);
     } else {
         // Si no se agrupa por mes, obtenemos los datos por proveedor (tarifa)
-        $this->escribir_log('Obteniendo totales por tarifa...');
         $datos_grafico = $this->Electromecanica_model->contar_registros_por_proveedor_canon($filtros);
     }
-
-    // Registrar los datos obtenidos
-    $this->escribir_log('Datos obtenidos del modelo: ' . json_encode($datos_grafico));
 
     // Devolver los datos en formato JSON
     echo json_encode($datos_grafico);
 }
+
 
 private function escribir_log($mensaje)
 {
