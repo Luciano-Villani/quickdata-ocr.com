@@ -394,6 +394,12 @@ class Electromecanica_model extends CI_Model
                 if (!empty($postData['p_registrada']) && $postData['p_registrada'] === 'true') {
                     $this->db->where('_consolidados_canon.p_registrada', 0.00); // Filtrar valores de consumo igual a 0.00
                 }
+                if (!empty($postData['comentarios']) && $postData['comentarios'] === 'true') {
+                    $this->db->group_start(); // Iniciar un grupo para aislar la condición
+                    $this->db->where('comentarios IS NOT NULL'); // Asegurarse de que no es NULL
+                    $this->db->where('TRIM(comentarios) !=', ''); // Asegurarse de que no está vacío
+                    $this->db->group_end(); // Cerrar el grupo
+                }
 
             
                 
