@@ -65,7 +65,7 @@ $route['Uploader/index'] = 'Uploader';
 
 
 // ELECTROMECANICA
-$route['Electromecanica'] = 'electromecanicax/Electromecanica';
+$route['Electromecanica'] = 'electromecanicax/Consolidados/Listados';
 $route['Electromecanica/Lecturas/upload'] = 'electromecanicax/Electromecanica/Lecturas/upload';
 $route['Electromecanica/Lecturas'] = 'electromecanicax/Lecturas';
 $route['Electromecanica/Lecturas/lotes_dt'] = 'electromecanicax/Lecturas/lotes_dt';
@@ -102,13 +102,9 @@ $route['Electromecanica/Proveedores/edit'] = 'electromecanicax/Electromecanica/g
 // CONSOLIDADOS - ELECTROMECANICA
 $route['Electromecanica/Consolidados'] = 'electromecanicax/Consolidados/listados';
 $route['Electromecanica/Consolidados/list_dt_canon'] = 'electromecanicax/Consolidados/list_dt_canon';
-$route['Electromecanica/Consolidados/checkApiUrl'] = 'electromecanicax/Consolidados/checkApiUrl';
+$route['Electromecanica/Consolidadoss/checkApiUrl'] = 'electromecanicax/Consolidados/checkApiUrl';
 $route['Electromecanica/Consolidados/delete'] = 'electromecanicax/Electromecanica/delete';
 $route['Electromecanica/Consolidados/edit'] = 'electromecanicax/Electromecanica/get_edit';
-$route['Electromecanica/Consolidados/obtener_datos_grafico'] = 
-$route['Electromecanica/Consolidados/obtener_datos_grafico'] = 'electromecanicax/Consolidados/obtener_datos_grafico';
-
-
 
 
 // ELECTROMECANICA

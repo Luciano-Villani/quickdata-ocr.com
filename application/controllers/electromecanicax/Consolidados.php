@@ -44,122 +44,154 @@ class Consolidados extends backend_controller
 
 
     public function list_dt_canon($tipo = null, $tabla = null, $search = '')
-    {
+{
+    if ($this->input->is_ajax_request()) {
+        $data = array();
+        
+        // Registrar el contenido de $_POST en el log de errores
+        log_message('debug', 'Datos POST: ' . print_r($_POST, true));
 
-        if ($this->input->is_ajax_request()) {
-            $data = array();
-
-            // Obtener los datos a mostrar en la tabla
-            $memData = $this->Electromecanica_model->getRows($_POST);
-
-            // Información de depuración
-            $request = $_REQUEST;
-            $consulta = $this->db->last_query();
+        // Registrar la última consulta SQL en el log de errores
+        log_message('debug', 'Consulta SQL: ' . $this->db->last_query());
 
 
-            foreach ($memData as $r) {
-                // Obtener datos adicionales según la lógica de la aplicación
-                $indexador = $this->Electromecanica_model->getWhere('_indexaciones_canon', 'nro_cuenta="' . $r->nro_cuenta . '"');
 
-                // Definir acciones (botones/ver/editar)
-                $accionesVer = '<a title="ver archivo" href="/Electromecanica/Lecturas/Views/' . $r->id_lectura_api . '" class=" "><i class="icon-eye4" title="ver archivo"></i></a> ';
-                $accionesDelete = '<span class="borrar_dato acciones" data-lote="' . $r->lote . '" data-file="' . $r->nombre_archivo . '"><a title="Borrar lote" href="#" class=""><i class="text-danger icon-trash" title="Borrar Datos"></i></a></span>';
+        // Obtener los datos a mostrar en la tabla
+        $memData = $this->Electromecanica_model->getRows($_POST);
+        // Más depuración (por ejemplo, los datos de $memData)
+        log_message('debug', 'Datos obtenidos: ' . print_r($memData, true));
+        
+        
 
-                // Lógica para mostrar los valores correctos en caso de que los datos sean nulos o vacíos
-                $acuerdo = $r->acuerdo_pago == '' ? 'SIN ACUERDO' : $r->acuerdo_pago;
+        // Información de depuración
+        $request = $_REQUEST;
+        $consulta = $this->db->last_query();
+       
 
-                //QUITO ACCIONES A USUARIO ELECTRO
-                if ($this->ion_auth->is_electro()) {
-                    $accionesDelete = '';
-                }
 
-                // Ajustar los datos para que correspondan con las columnas requeridas
-                $data[] = array(
-                    $r->proveedora,                      // Proveedor 0
-                    $r->nro_factura,                     // Nro Factura 1
-                    $r->nro_cuenta,                      // Nro Cuenta 2
-                    $r->nro_medidor,                     // Nro Medidor 3
-                    $r->dependencia,                     // Dependencia 4
-                    $r->dependencia_direccion,           // Dirección de Consumo 5
-                    $r->nombre_cliente,                   // Nombre Cliente 6
-                    $r->consumo,                         // Consumo 7
-                    $r->unidad_medida,                   // U. Med 8
-                    $r->cosfi,                           // Cosfi 9
-                    $r->tgfi,                            // Tgfi 10
-                    $r->importe,                         // Importe Total 11
-                    $r->mes_fc,                          // Mes Fc (convertido a número de mes) 12
-                    $r->anio_fc,                         // Año Fc (convertido a número de año) 13
-                    fecha_es($r->fecha_vencimiento, 'd-m-a', false), // Vencimiento 14
-                    $r->impuestos,                       // Impuestos 15
-                    $r->bimestre,                        // Bimestre 16
-                    $r->liquidacion,                     // Liquidación 17
-                    $r->cargo_variable_hasta,            // Cargo Variable Hasta 18
-                    $r->cargo_fijo,                      // Cargo Fijo 19
-                    $r->monto_car_var_hasta,             // Monto Cargo Var Hasta 20
-                    $r->moto_var_mayor,                  // Moto Var Mayor 21
-                    $r->otros_conseptos,                 // Otros Conceptos 22
-                    $r->conceptos_electricos,            // Conceptos Eléctricos 23
-                    $r->energia_inyectada,               // Energía Inyectada 24
-                    $r->pot_punta,                       // Pot Punta 25
-                    $r->pot_fuera_punta_cons,            // Pot Fuera Punta Cons 26
-                    $r->ener_punta_cons,                   // Energía Punta Act 27
-                    $r->ener_resto_cons,                   // Energía Resto Act 28
-                    $r->ener_valle_cons,                   // Energía Valle Act 29
-                    $r->ener_reac_act,                    // Energía Reac Act 30
-                    $r->cargo_pot_contratada,            // Cargo Pot Contratada 31
-                    $r->cargo_pot_ad,                    // Cargo Pot Ad 32
-                    $r->cargo_pot_excd,                  // Cargo Pot Excedente 33
-                    $r->recargo_tgfi,                    // Recargo TGFI 34
-                    $r->consumo_pico_vig,                // Consumo Pico Vigente 35
-                    $r->cargo_pico,                      // Cargo Pico 36
-                    $r->consumo_resto_vig,               // Consumo Resto Vigente 37
-                    $r->cargo_resto,                     // Cargo Resto 38
-                    $r->consumo_valle_vig,               // Consumo Valle Vigente 39
-                    $r->cargo_valle,                     // Cargo Valle 40
-                    $r->e_actual,                        // E Actual 41
-                    $r->cargo_contr,                     // Cargo Contratado 42
-                    $r->cargo_adq,                       // Cargo Adquirido 43
-                    $r->cargo_exc,                       // Cargo Excedente 44
-                    $r->cargo_var,                       // Cargo Variable 45
-                    $r->total_vencido,                   // Total Vencido 46
-                    $r->ener_reac_cons,                  // Energía Reactiva Consumida 47
-                    $r->tipo_de_tarifa,                  // Energía Reactiva Consumida 48
-                    $r ->dias_de_consumo,                //49
-                    $r ->dias_comprendidos,               //50
-                    $r ->consumo_dias_comprendidos,       // 51
-                    $r ->periodo_del_consumo,            // 52
-                    $r ->e_activa,  // 53       
-                    $r ->e_reactiva,   //54  
-                    $r ->subsidio,   //55  
-                    $r->p_contratada, //56
-                    $r->p_registrada, //57
-                    $r->consumo_pico_ant, //58
-                    $r->consumo_resto_ant, //59https://quickdata.site/Electromecanica/Lecturas
-                    $r->consumo_valle_ant, //60,
-                    $r->p_excedida, //61
-                    $r->cargo_fijo_cant, //62
 
-                    
-                    $accionesVer . $accionesDelete,      // Acciones 63
-                    $r->id_proveedor,                      // ID del Proveedor 64
-                );
-                
+        foreach ($memData as $r) {
+            // Obtener datos adicionales según la lógica de la aplicación
+            $indexador = $this->Electromecanica_model->getWhere('_indexaciones_canon', 'nro_cuenta="' . $r->nro_cuenta . '"');
+
+            // Definir acciones (botones/ver/editar)
+            $accionesVer = '<a title="ver archivo" href="/Electromecanica/Consolidados/ver/' . $r->id_consolidado . '" class=" "><i class="icon-eye4" title="ver archivo" style="margin-right: 10px;"></i></a> ';
+            $accionesDelete = '<span class="borrar_dato acciones" data-lote="' . $r->lote . '" data-file="' . $r->nombre_archivo . '"><a title="Borrar lote" href="#" class=""><i class="text-danger icon-trash" title="Borrar Datos"></i></a></span>';
+
+            // Lógica para mostrar los valores correctos en caso de que los datos sean nulos o vacíos
+            $acuerdo = $r->acuerdo_pago == '' ? 'SIN ACUERDO' : $r->acuerdo_pago;
+
+            // QUITO ACCIONES A USUARIO ELECTRO
+            if ($this->ion_auth->is_electro()) {
+                $accionesDelete = '';
             }
 
-            // Configuración de respuesta para DataTable
-            $output = array(
-                "draw" => $_POST['draw'],
-                "recordsTotal" => $this->Electromecanica_model->countAll(),
-                "recordsFiltered" => $this->Electromecanica_model->countFiltered($_POST),
-                "data" => $data,
-                "consulta" => $consulta,
-                "mirequest" => $request,
-            );
+            // Lógica para el ícono de alerta según el campo comentarios y seguimiento
+            $comentarios = isset($r->comentarios) ? $r->comentarios : '';  // Obtener el valor de comentarios
+            $seguimiento = $r->seguimiento;  // Obtener el valor de seguimiento
 
-            // Enviar los datos en formato JSON
-            echo json_encode($output);
+            // Generar el ícono de alerta
+            $alertaIcono = ''; // Inicia como vacío
+            if (!empty($comentarios)) {
+                // Si hay texto, mostrar el ícono de alerta con el color adecuado
+                if ($seguimiento == 1) {
+                    // Ícono de seguimiento (Rojo) con margen lateral
+                    $alertaIcono = '<i class="text-danger icon-alert" title="En seguimiento" style="margin-right: 10px;"></i>';
+                } else {
+                    // Ícono resuelto (Verde) con margen lateral
+                    $alertaIcono = '<i class="text-success icon-alert" title="Resuelto" style="margin-right: 10px;"></i>';
+                }
+            } else {
+                // Si no hay texto, el ícono grisado con margen lateral
+                $alertaIcono = '<i class="text-muted icon-alert" title="No hay comentarios" style="margin-right: 10px;"></i>';
+            }
+
+
+            // Ajustar los datos para que correspondan con las columnas requeridas
+            $data[] = array(
+                $r->proveedora,                      // Proveedor 0
+                $r->nro_factura,                     // Nro Factura 1
+                $r->nro_cuenta,                      // Nro Cuenta 2
+                $r->nro_medidor,                     // Nro Medidor 3
+                $r->dependencia,                     // Dependencia 4
+                $r->dependencia_direccion,           // Dirección de Consumo 5
+                $r->nombre_cliente,                   // Nombre Cliente 6
+                $r->consumo,                         // Consumo 7
+                $r->unidad_medida,                   // U. Med 8
+                $r->cosfi,                           // Cosfi 9
+                $r->tgfi,                            // Tgfi 10
+                $r->importe,                         // Importe Total 11
+                $r->mes_fc,                          // Mes Fc (convertido a número de mes) 12
+                $r->anio_fc,                         // Año Fc (convertido a número de año) 13
+                fecha_es($r->fecha_vencimiento, 'd-m-a', false), // Vencimiento 14
+                $r->impuestos,                       // Impuestos 15
+                $r->bimestre,                        // Bimestre 16
+                $r->liquidacion,                     // Liquidación 17
+                $r->cargo_variable_hasta,            // Cargo Variable Hasta 18
+                $r->cargo_fijo,                      // Cargo Fijo 19
+                $r->monto_car_var_hasta,             // Monto Cargo Var Hasta 20
+                $r->moto_var_mayor,                  // Moto Var Mayor 21
+                $r->otros_conseptos,                 // Otros Conceptos 22
+                $r->conceptos_electricos,            // Conceptos Eléctricos 23
+                $r->energia_inyectada,               // Energía Inyectada 24
+                $r->pot_punta,                       // Pot Punta 25
+                $r->pot_fuera_punta_cons,            // Pot Fuera Punta Cons 26
+                $r->ener_punta_cons,                   // Energía Punta Act 27
+                $r->ener_resto_cons,                   // Energía Resto Act 28
+                $r->ener_valle_cons,                   // Energía Valle Act 29
+                $r->ener_reac_act,                    // Energía Reac Act 30
+                $r->cargo_pot_contratada,            // Cargo Pot Contratada 31
+                $r->cargo_pot_ad,                    // Cargo Pot Ad 32
+                $r->cargo_pot_excd,                  // Cargo Pot Excedente 33
+                $r->recargo_tgfi,                    // Recargo TGFI 34
+                $r->consumo_pico_vig,                // Consumo Pico Vigente 35
+                $r->cargo_pico,                      // Cargo Pico 36
+                $r->consumo_resto_vig,               // Consumo Resto Vigente 37
+                $r->cargo_resto,                     // Cargo Resto 38
+                $r->consumo_valle_vig,               // Consumo Valle Vigente 39
+                $r->cargo_valle,                     // Cargo Valle 40
+                $r->e_actual,                        // E Actual 41
+                $r->cargo_contr,                     // Cargo Contratado 42
+                $r->cargo_adq,                       // Cargo Adquirido 43
+                $r->cargo_exc,                       // Cargo Excedente 44
+                $r->cargo_var,                       // Cargo Variable 45
+                $r->total_vencido,                   // Total Vencido 46
+                $r->ener_reac_cons,                  // Energía Reactiva Consumida 47
+                $r->tipo_de_tarifa,                  // Energía Reactiva Consumida 48
+                $r ->dias_de_consumo,                //49
+                $r ->dias_comprendidos,               //50
+                $r ->consumo_dias_comprendidos,       // 51
+                $r ->periodo_del_consumo,            // 52
+                $r ->e_activa,  // 53       
+                $r ->e_reactiva,   //54  
+                $r ->subsidio,   //55  
+                $r->p_contratada, //56
+                $r->p_registrada, //57
+                $r->consumo_pico_ant, //58
+                $r->consumo_resto_ant, //59
+                $r->consumo_valle_ant, //60
+                $r->p_excedida, //61
+                $r->cargo_fijo_cant, //62
+                $alertaIcono . $accionesVer . $accionesDelete,      // Acciones 63
+                $r->id_proveedor,                      // ID del Proveedor 64
+            );
         }
+
+        // Configuración de respuesta para DataTable
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->Electromecanica_model->countAll(),
+            "recordsFiltered" => $this->Electromecanica_model->countFiltered($_POST),
+            "data" => $data,
+            "consulta" => $consulta,
+            "mirequest" => $request,
+        );
+
+        // Enviar los datos en formato JSON
+        echo json_encode($output);
     }
+}
+
 
 
     public function listados()
@@ -254,19 +286,66 @@ class Consolidados extends backend_controller
 
     public function obtener_datos_grafico()
 {
-    // Recibir el valor del checkbox desde el frontend
-    $agrupar_por_mes = $this->input->post('agrupar_por_mes'); // true o false
+    // Registrar todos los datos recibidos por POST para depuración
+    $this->escribir_log('Datos recibidos en POST: ' . json_encode($this->input->post()));
 
-    // Pasar el parámetro al modelo para ajustar la agrupación
+    // Recibir el valor y convertirlo explícitamente a booleano
+    $agrupar_por_mes = $this->input->post('agrupar_por_mes') === 'true';
+
+    // Recibir los filtros
+    $filtros = $this->input->post('filtros');
+    $this->escribir_log('Filtros recibidos: ' . json_encode($filtros));
+
+    // Según el valor de 'agrupar_por_mes', se llamará a una u otra función del modelo
     if ($agrupar_por_mes) {
-        $datos_grafico = $this->Electromecanica_model->contar_registros_por_mes();
+        // Si se agrupa por mes, obtenemos los datos correspondientes a los filtros
+        $this->escribir_log('Obteniendo totales por mes...');
+        $datos_grafico = $this->Electromecanica_model->contar_registros_por_mes($filtros);
     } else {
-        $datos_grafico = $this->Electromecanica_model->contar_registros_por_proveedor_canon();
+        // Si no se agrupa por mes, obtenemos los datos por proveedor (tarifa)
+        $this->escribir_log('Obteniendo totales por tarifa...');
+        $datos_grafico = $this->Electromecanica_model->contar_registros_por_proveedor_canon($filtros);
     }
+
+    // Registrar los datos obtenidos
+    $this->escribir_log('Datos obtenidos del modelo: ' . json_encode($datos_grafico));
 
     // Devolver los datos en formato JSON
     echo json_encode($datos_grafico);
 }
+
+private function escribir_log($mensaje)
+{
+    $ruta_log = APPPATH . 'controllers/electromecanicax/log_datos_grafico.txt'; // Ruta del archivo de log
+    $fecha_hora = date('Y-m-d H:i:s'); // Fecha y hora actual
+    $linea = "[{$fecha_hora}] {$mensaje}" . PHP_EOL;
+
+    // Escribir en el archivo
+    file_put_contents($ruta_log, $linea, FILE_APPEND);
+}
+
+public function probar_contar_registros_por_mes()
+{
+    // Cargar el helper solo para esta función
+    $this->load->helper('global');
+
+    // Cargar el modelo
+    $this->load->model('Electromecanica_model');
+
+    // Registrar log antes de la ejecución
+    escribir_log('Iniciando prueba de contar_registros_por_mes.');
+
+    // Llamar al método del modelo
+    $resultado = $this->Electromecanica_model->contar_registros_por_mes();
+
+    // Registrar log después de obtener el resultado
+    escribir_log('Resultado obtenido: ' . json_encode($resultado));
+
+    // Mostrar el resultado en formato JSON para depuración
+    echo json_encode($resultado);
+}
+
+
 
 
 public function test_query()
@@ -579,6 +658,108 @@ function actualizarPContratada() {
         echo "Registros actualizados: {$registrosActualizados}\n";
         echo "Registros sin necesidad de actualización: {$registrosNoActualizados}\n";
     }
+
+    public function ver_consolidados($id = NULL)
+{
+    // Validar que se pasó un ID válido
+    if (is_null($id)) {
+        show_404();  // Muestra una página de error 404 si no se pasó un ID
+        return;
+    }
+
+    // Depuración: Verificar el ID recibido y convertirlo a un entero
+    $id = intval($id); // Convertir el ID a entero
+
+    // Obtener los detalles del consolidado desde la base de datos
+    $consolidado = $this->Electromecanica_model->getWhere('_consolidados_canon', 'id = ' . $id, true);
+
+    // Si no se encuentra el consolidado, mostrar un error
+    if (!$consolidado) {
+        show_404();  // Muestra una página de error 404 si no se encontró el consolidado
+        return;
+    }
+
+    // Obtener los comentarios y el estado de seguimiento del consolidado
+    $comentario = $this->Electromecanica_model->get_comentario_por_id($id);
+
+    // Pasar los datos a la vista
+    $this->data['consolidado'] = $consolidado;
+    $this->data['comentario'] = $comentario;  // Agregar los comentarios
+    $this->data['id'] = $id;  // Pasar el ID al formulario
+
+    $this->data['css_common'] = $this->css_common;
+    $this->data['script_common'] = $this->script_common;
+
+    // Cargar la vista con la nueva ruta
+    $this->data['content'] = $this->load->view('manager/secciones/electromecanica/consolidados/ver_consolidado', $this->data, TRUE);
+
+    // Cargar las vistas de cabecera, cuerpo y pie
+    $this->load->view('manager/head', $this->data);
+    $this->load->view('manager/index', $this->data);
+    $this->load->view('manager/footer', $this->data);
+}
+
+    
+public function guardar_comentario_en_consolidados() {
+    // Verifica si el formulario fue enviado por POST
+    if ($this->input->post()) {
+        // Obtener los datos enviados desde el formulario
+        $comentarios = $this->input->post('comentarios');
+        $resuelto = $this->input->post('resuelto'); // El valor del checkbox
+        $id_consolidado = $this->input->post('id');  // El ID del consolidado, si lo estás enviando
+
+        // Si el checkbox "Resuelto" está marcado, establecer seguimiento en 1, si no, 0
+        $seguimiento = ($resuelto) ? 1 : 0;
+
+        // Crear el array con los datos a guardar
+        $data = [
+            'comentarios' => $comentarios,
+            'seguimiento' => $seguimiento,  // Guardar el valor de seguimiento
+            'consolidado_id' => $id_consolidado
+        ];
+
+        // Llamar al modelo para guardar los comentarios y el estado de seguimiento
+        if ($this->Electromecanica_model->guardar_comentarios($data)) {
+            // Generar el mensaje de estado
+            $estado = ($seguimiento == 1) ? 'En seguimiento' : 'Resuelto';
+
+            // Mensaje con estado de seguimiento/resuelto
+            $mensaje = "Comentarios agregados correctamente. Estado: " . $estado;
+
+            // Almacenar el mensaje en la sesión
+            $this->session->set_flashdata('mensaje', $mensaje);
+
+            // Redirigir al mismo lugar o a donde necesites
+            redirect('Electromecanica/Consolidados/ver/' . $id_consolidado);
+        } else {
+            // Si no se guardó correctamente, muestra un mensaje de error
+            $this->session->set_flashdata('error', 'Hubo un problema al guardar el comentario.');
+            redirect('Electromecanica/Consolidados/ver/' . $id_consolidado);
+        }
+    } else {
+        // Si no se envió el formulario, muestra un error 404 o redirige a una página segura
+        show_404();
+    }
+}
+
+    public function editar_comentario($id_consolidado) {
+        // Obtener los datos del comentario y seguimiento desde la base de datos
+        $comentario = $this->Electromecanica_model->get_comentario_por_id($id_consolidado);
+    
+        // Si no existe el consolidado, mostrar error
+        if (!$comentario) {
+            show_404();
+        }
+    
+        // Cargar la vista con los datos
+        $data['comentario'] = $comentario;
+        $data['id'] = $id_consolidado;  // Pasar el ID al formulario
+    
+        $this->load->view('editar_comentario', $data);
+    }
+    
+   
+    
     
     
 
