@@ -112,7 +112,8 @@ class Lotes extends backend_controller
 						if (isset($a[0]->fields)) {
 							$fields = $a[0]->fields;
 					
-							$nro_cuenta = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : 'S/D';
+							//$nro_cuenta = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : 'S/D';
+							$nro_cuenta = isset($fields->nro_cuenta->content) ? str_replace(' ', '', trim($fields->nro_cuenta->content)) : 'S/D';
 							$nro_medidor = isset($fields->nro_medidor->valueNumber) ? trim($fields->nro_medidor->valueNumber) : 'S/D';
 							$nro_factura = isset($fields->nro_factura->valueNumber) ? trim($fields->nro_factura->valueNumber) : 'S/D';
 							//$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
