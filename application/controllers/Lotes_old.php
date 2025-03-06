@@ -24,51 +24,6 @@ class Lotes extends backend_controller
 
 	public function getDato($file = '', $id_proveedor = '')
 	{
-		$dataACT = $this->Manager_model->get_alldata('_consolidados');
-		/*
-ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `proximo_vencimiento`, ADD `importe_1` DECIMAL(10,2) NOT NULL AFTER `nombre_archivo_temp`;
-*/
-
-		foreach ($dataACT as $reg) {
-
-
-
-			// modificacion campo importe_1 pasa de string total_importe a double 10.2
-			// switch($reg->id_proveedor){
-			// 	// case 1: //AYSA
-			// 	case 4: //EDENOR
-			// 		$importe = trim($reg->importe);
-
-			// 		$importe = str_replace(',','.',str_replace('.','',$importe));
-			// 		$numero_decimal = number_format($importe,2,'.','');
-			// 		// die();
-			// 		break;
-
-			// 	case 8: //TELECOM INTER
-			// 	case 6: //TELECOM INTER
-
-
-			// 		$importe =  floatval(trim($reg->importe));
-			// 		$numero_decimal = number_format($importe,2,'.','');
-			// 		// die();
-			// 		break;
-			// 	default:
-
-
-			// 	$numero_decimal = trim($reg->importe);
-
-			// 	}
-			// 	if($numero_decimal =="")
-			// 		$numero_decimal = 99.99;
-
-			// $dataUpdate['importe_1'] = $numero_decimal;
-
-			// $this->db->where('id', $reg->id);
-			// $this->db->update('_consolidados', $dataUpdate);
-
-
-		}
-
 
 		if ($this->input->is_ajax_request()) {
 			$file = $_REQUEST['file'];
@@ -77,6 +32,8 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 
 		$query = "SELECT id, dato_api FROM _datos_api WHERE nombre_archivo_temp = '" . $file . "'";
 		$valor = $file;
+		$filename = $file;
+
 
 		$valor_escapado = $valor;
 
@@ -87,6 +44,7 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 		if ($resultado) {
 
 			$a = json_decode($mires[0]->dato_api);
+
 
 			switch ($id_proveedor) {
 				case 1: // ASYSA 3232
@@ -132,7 +90,7 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 					if ($a->document->inference->pages[0]->prediction->consumo->values) {
 						$consumo = $a->document->inference->pages[0]->prediction->consumo->values[0]->content;
 					} else {
-						$consumo = 'N/A';
+						$consumo = 'S/D';
 					}
 					$dataUpdate = array(
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
@@ -151,10 +109,24 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 				case 2: //NATURGY 4399
 
 
+					// Suponiendo que $filename contiene algo como 'uploader/files/3480/0110161-24-06_splitter.pdf'
+					$partes = explode('/', $filename); // Separar por '/'
+					$nombreArchivo = end($partes); // Obtener el último elemento: '0110161-24-06_splitter.pdf'
+
+					// Extraer la parte "24-06" utilizando una expresión regular o dividiendo por guiones
+					preg_match('/\d{7}-(\d{2}-\d{2})_splitter\.pdf/', $nombreArchivo, $matches);
+					$numero = isset($matches[1]) ? $matches[1] : ''; // Guardar la fecha "24-06" si está presente
+
+					// Recorremos los valores del periodo del consumo
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
 					$periodo_del_consumo = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+					}
+
+					// Verificar si periodo del consumo está vacío
+					if (empty(trim($periodo_del_consumo))) {
+						$periodo_del_consumo = $numero; // Usar la parte "24-06" del nombre del archivo si está vacío
 					}
 					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
 						$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
@@ -252,16 +224,16 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 				case 4: //3857 EDENOR 
 
 					$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
-	
-			
+
+
 					$importe = str_replace(',', '.', str_replace('.', '', $importe));
-		
+
 					// die();
-				
+
 					// echo $importe; die();
 					// echo $valor_float_de_var = floatval($importe);
 
-				
+
 					$numero_decimal = number_format($importe, 2, '.', '');
 
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
@@ -285,6 +257,7 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 						'total_importe' => $numero_decimal,
 						'importe_1' => $numero_decimal,
 						'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
+						'total_vencido' => trim('S/D'),
 					);
 					break;
 
@@ -307,10 +280,12 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
 						'nro_factura' => trim($numero_de_factura),
 						// 'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						// 'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->cargos_del_mes->values[0]->content),
 						'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
-						// 'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
+						'total_vencido' => trim('S/D'),
+						'consumo' => trim('Plan Internet'),
+						'nro_medidor' => trim('N/A'),
 					);
 					break;
 				case 6: // 6198 CLARO ARGENTINA
@@ -425,55 +400,197 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'consumo' => trim($detalle_de_servicio),
+						'total_vencido' => trim('S/D'),
 					);
 					break;
-				case 10: //3480 TELECOM TELEFONIA FIJA
+				case 10: // 3480 TELECOM TELEFONIA FIJA
 
-					
 					$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
 					$consumo = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$consumo .= ' ' . $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
-
 					}
+
 					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_facturado->values);
 					$periodo_facturado = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$periodo_facturado .= ' ' . $a->document->inference->pages[0]->prediction->periodo_facturado->values[$paso]->content;
 					}
 
-
-
 					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
 					$vencimiento_del_pago = '';
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
 						$vencimiento_del_pago .= $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
 					}
+
 					$cuenta = "N/A";
 					if (count($a->document->inference->pages[0]->prediction->nro_cuenta->values) > 0) {
 						$cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
 
 						// Agregar el guion después del cuarto dígito
 						$cuenta = substr_replace($cuenta, '-', 4, 0);
-
 					}
-					
+
+					$fecha_emision = "No leido"; // Valor predeterminado
+					if (count($a->document->inference->pages[0]->prediction->fecha_emision->values) > 0) {
+						$fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
+					}
+
+					// Manejo de nro_factura vacío
+					// Suponiendo que $filename contiene 'uploader/files/3480/b04770-87496443_splitter.pdf'
+					$partes = explode('/', $filename); // Separar por '/'
+					$nombreArchivo = end($partes); // Obtener el último elemento: 'b04770-87496443_splitter.pdf'
+
+					// Extraer el número utilizando la expresión regular
+					preg_match('/b(\d{5})-(\d{8})_splitter\.pdf/', $nombreArchivo, $matches);
+
+					$numero = isset($matches[1]) && isset($matches[2]) ? $matches[1] . '-' . $matches[2] : ''; // Concatenar para obtener '04770-87496443'
+
+					$nro_factura = "N/A";
+					if (count($a->document->inference->pages[0]->prediction->numero_de_factura->values) > 0) {
+						$nro_factura = trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content);
+
+						// Verificar si nro_factura está vacío
+						if (empty($nro_factura)) {
+							$nro_factura = $numero; // Usar el número extraído si nro_factura está vacío
+						}
+					} else {
+						$nro_factura = $numero; // Usar el número extraído si no hay número de factura en el JSON
+					}
 
 
 					$dataUpdate = array(
 						'nro_cuenta' => $cuenta,
 						'nro_medidor' => trim('N/A'),
-						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+						'nro_factura' => $nro_factura, // Usar el valor procesado de nro_factura
+						'fecha_emision' => $fecha_emision,
+						'vencimiento_del_pago' => trim($vencimiento_del_pago),
 						'periodo_del_consumo' => trim($periodo_facturado),
-						'total_vencido' => trim('N/A'),
+						'total_vencido' => trim('S/D'),
 						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
 						'consumo' => trim($consumo),
 					);
 
 					break;
+
+
+				case 24: // electro T1 azure
+
+					// Inicialización de variables
+					$importe = '';
+					$periodo_del_consumo = '';
+					$medidor = 'N/A';
+					$nro_cuenta = 'N/A';
+					$nro_factura = 'N/A';
+					$fecha_emision = 'N/A';
+					$vencimiento_del_pago = 'N/A';
+					$consumo = 'S/D';
+
+					// Comprobación si $a[0] existe y tiene la propiedad 'fields'
+					if (isset($a[0]->fields)) {
+
+						// Extraer el importe
+						$fields = $a[0]->fields;
+
+						// Extraer el importe, convertir a formato decimal con 2 decimales
+						if (isset($fields->total_importe->content)) {
+							$importe = trim($fields->total_importe->content);
+							$importe = str_replace('.', '', $importe); // Eliminar los puntos como separadores de miles
+							$importe = str_replace(',', '.', $importe); // Reemplazar la coma por punto decimal
+							$numero_decimal = number_format(floatval($importe), 2, '.', ''); // Convertir a formato decimal con 2 decimales
+						} else {
+							$numero_decimal = '0.00'; // Valor por defecto en caso de fallo
+						}
+
+						// Extraer el periodo del consumo
+						$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : '';
+
+						// Extraer otros campos y eliminar espacios en números
+						$medidor = isset($fields->nro_medidor->content) ? str_replace(' ', '', trim($fields->nro_medidor->content)) : 'N/A';
+						$nro_cuenta = isset($fields->nro_cuenta->content) ? str_replace(' ', '', trim($fields->nro_cuenta->content)) : 'N/A';
+						$nro_factura = isset($fields->nro_de_factura->content) ? str_replace(' ', '', trim($fields->nro_de_factura->content)) : 'N/A';
+						$fecha_emision = isset($fields->fecha_emision->content) ? trim($fields->fecha_emision->content) : 'N/A';
+						$vencimiento_del_pago = isset($fields->vencimiento_del_pago->content) ? trim($fields->vencimiento_del_pago->content) : 'N/A';
+						$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : 'S/D';
+
+						// Otros campos que podrías usar en el futuro
+						// $ajustes = isset($fields->ajustes->content) ? trim($fields->ajustes->content) : 'N/A';
+						// $domicilio_de_consumo = isset($fields->domicilio_de_consumo->content) ? trim($fields->domicilio_de_consumo->content) : 'N/A';
+						// $dias_comprendidos = isset($fields->dias_comprendidos->content) ? trim($fields->dias_comprendidos->content) : 'N/A';
+						// $consumo_dias_comprendidos = isset($fields->consumo_dias_comprendidos->content) ? trim($fields->consumo_dias_comprendidos->content) : 'N/A';
+
+					} else {
+						// Manejar el caso donde $a[0]->fields no existe
+						// Puedes asignar valores por defecto o manejar el error de otra manera aquí
+						$numero_decimal = '0.00'; // Valor por defecto en caso de fallo
+					}
+
+					// Preparar el array de actualización
+					$dataUpdate = array(
+						'nro_cuenta' => $nro_cuenta,
+						'nro_medidor' => $medidor,
+						'nro_factura' => $nro_factura,
+						'periodo_del_consumo' => $periodo_del_consumo,
+						'fecha_emision' => $fecha_emision,
+						'vencimiento_del_pago' => $vencimiento_del_pago,
+						'total_importe' => $numero_decimal,
+						'importe_1' => $numero_decimal,
+						'consumo' => $consumo,
+						'total_vencido' => 'S/D', // Asignación fija para este caso
+					);
+
+					break;
+				case 25: //3857 EDENOR 
+
+					$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+
+
+					$importe = str_replace(',', '.', str_replace('.', '', $importe));
+
+
+
+
+					$numero_decimal = number_format($importe, 2, '.', '');
+
+					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
+					$periodo_del_consumo = '';
+					for ($paso = 0; $paso < $totalIndices; $paso++) {
+						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+					}
+					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
+						$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
+					} else {
+						$medidor = 'N/A';
+					}
+
+					if ($a->document->inference->pages[0]->prediction->nro_factura->values) {
+						$nro_factura = $a->document->inference->pages[0]->prediction->nro_factura->values[0]->content;
+					} else {
+						$nro_factura = 'N/A';
+					}
+
+
+					$dataUpdate = array(
+						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
+						'nro_medidor' => trim($medidor),
+						'nro_factura' => trim($nro_factura),
+						'periodo_del_consumo' => trim($periodo_del_consumo),
+						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+						'total_importe' => $numero_decimal,
+						'importe_1' => $numero_decimal,
+						'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
+						'total_vencido' => trim('S/D'),
+					);
+					break;
 			}
+
+
+			$data_proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $id_proveedor . '"');
+			$dataUpdate['unidad_medida'] = $data_proveedor->unidad_medida;
+
+			$dataUpdate['mes_fc'] = fecha_es(trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content), 'm');
+			$dataUpdate['anio_fc'] = fecha_es(trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content), 'Y');
 
 			$this->db->where('id', $mires[0]->id);
 			$this->db->update('_datos_api', $dataUpdate);
@@ -546,48 +663,57 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 		echo json_encode($response);
 		exit();
 	}
+
 	public function leerApi()
 	{
 
-
 		$file = str_replace(base_url(), '', $_POST['file']);
 
+		// Obtener datos del proveedor incluyendo el campo 'procesar_por'
 		$proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $_POST['id_proveedor'] . '"');
+
+		// Asegurar de que 'procesar_por' exista si no usar 'local' como valor predeterminado
+		$procesar_por = isset($proveedor->procesar_por) ? $proveedor->procesar_por : 'local';
 
 
 		$request = array(
 			'full_path' => $_POST['file']
 		);
 
+		// Realizar la llamada a apiRest con el valor de 'procesar_por'
+		$dataApi = apiRest($request, $proveedor->urlapi, $procesar_por);
 
-		$dataApi = apiRest($request, $proveedor->urlapi);
-
-
+		// Actualizar los datos de la API en la tabla '_datos_api'
 		$updateData = array(
 			'dato_api' => json_encode($dataApi),
 		);
 
-
-		// $this->db->where("nombre_archivo LIKE '%uploader/files/".$proveedor->codigo. "/". $dataApi['document']['name']  . "%' ESCAPE '!'");
-		// $this->db->where("nombre_archivo", "uploader/files/" . $proveedor->codigo . "/" . $dataApi['document']['name']);
-		$this->db->where("nombre_archivo_temp",  $_POST['file']);
+		// Actualizar la base de datos en función del archivo temporal
+		$this->db->where("nombre_archivo_temp", $_POST['file']);
 		$this->db->update('_datos_api', $updateData);
 
+		// Llamar a otra función (suponiendo que realiza procesamiento adicional)
 		$this->getDato($_POST['file'], $proveedor->id);
 
+		// Si el archivo ya ha sido procesado, eliminarlo del servidor
 		if (is_file($_POST['file'])) {
-			if (unlink($_POST['file'])) {
-			}
+			unlink($_POST['file']);
 		}
 
+		// Preparar la respuesta final para la solicitud
 		$response = array(
 			'mensaje' => $_POST['file'],
 			'title' => 'LOTES521',
 			'status' => 'success',
 		);
+
+		// Enviar la respuesta en formato JSON y finalizar la ejecución
 		echo json_encode($response);
 		exit();
 	}
+
+
+
 
 	public function upload($id = null)
 	{
@@ -925,8 +1051,6 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 	}
 	public function deletefile()
 	{
-
-
 		$this->Manager_model->delete();
 	}
 
@@ -1147,5 +1271,6 @@ ALTER TABLE `_datos_api` ADD `nombre_archivo_temp` INT(255) NOT NULL AFTER `prox
 	}
 
 	// functiones callback validacion de formularios
+
 
 }

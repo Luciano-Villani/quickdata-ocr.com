@@ -1,74 +1,118 @@
 <?php
 if (!function_exists('apiRest')) {
-  function apiRest($file, $endPoint)
-  {
+    function apiRest($file, $endPoint, $procesar_por = 'local')
+    {
+        
+        if (!function_exists('curl_init')) {
+            exit("cURL isn't installed for " . phpversion());
+        }
 
-    $newendPoint = explode('/', $endPoint);
+        $FILE_PATH = $file['full_path'];
+        $MIME_TYPE = 'application/pdf';
 
-    if (!function_exists('curl_init')) {
-      exit("cURL isn't installed for " . phpversion());
+        if ($procesar_por === 'azure') {
+            $API_KEY = 'a49c210e168941658db7c33e33218733';
+            $headers = array(
+                "Ocp-Apim-Subscription-Key: $API_KEY",
+                "Content-Type: application/pdf"
+            );
+
+            $data = file_get_contents($FILE_PATH);
+
+            // Iniciar la solicitud de análisis a Azure
+            $ch = curl_init();
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => $endPoint,
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HEADER => true,
+                CURLOPT_FOLLOWLOCATION => true
+            ));
+
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                return 'Curl error: ' . curl_error($ch);
+            }
+
+            $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+            $header = substr($response, 0, $header_size);
+            $body = substr($response, $header_size);
+
+            curl_close($ch);
+
+            if (preg_match('/operation-location:\s*(.+)\r\n/i', $header, $matches)) {
+                $operation_url = trim($matches[1]);
+
+                do {
+                    sleep(2);
+
+                    $ch = curl_init();
+                    curl_setopt_array($ch, array(
+                        CURLOPT_URL => $operation_url,
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_HEADER => true,
+                        CURLOPT_CUSTOMREQUEST => 'GET',
+                        CURLOPT_HTTPHEADER => array(
+                            "Ocp-Apim-Subscription-Key: $API_KEY"
+                        ),
+                    ));
+
+                    $result = curl_exec($ch);
+
+                    if (curl_errno($ch)) {
+                        break;
+                    } else {
+                        $header_size_get = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+                        $header_get = substr($result, 0, $header_size_get);
+                        $body_get = substr($result, $header_size_get);
+
+                        $result_data = json_decode($body_get, true);
+                    }
+                } while ($result_data['status'] === 'running');
+
+                if (isset($result_data['analyzeResult']['documents'])) {
+                    return $result_data['analyzeResult']['documents'];
+                } else {
+                    return $result_data;
+                }
+            } else {
+                return array('error' => 'No se encontró la cabecera Operation-Location en la respuesta.');
+            }
+        } else {
+            // Lógica para Mindee (actual)
+            $API_KEY = 'f4b6ebe406cdb615674ae37aabc48929';
+            $url = $endPoint;
+
+            $headers = array(
+                "Authorization: Token $API_KEY"
+            );
+
+            $data = array(
+                "document" => new CURLFile(
+                    $FILE_PATH,
+                    $MIME_TYPE,
+                    substr($FILE_PATH, strrpos($FILE_PATH, "/") + 1)
+                )
+            );
+
+            $ch = curl_init();
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => $url,
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true
+            ));
+
+            $json = curl_exec($ch);
+            curl_close($ch);
+
+            return json_decode($json, JSON_PRETTY_PRINT);
+        }
     }
-    $API_KEY = 'f4b6ebe406cdb615674ae37aabc48929';
-
-    // $FILE_PATH = base_url('uploads/27238775960_015_00002_00000015.pdf');
-    $FILE_PATH = $file['full_path'];
-    $MIME_TYPE = 'application/pdf'; // change according to the file type
-    $ACCOUNT = 'quickdata-mvl';
-    $VERSION = '1.1';
-    $ENDPOINT = $newendPoint[6];
-
-
-    // Open a cURL session to send the document
-    $ch = curl_init();
-
-    // Setup headers
-    $headers = array(
-      "Authorization: Token $API_KEY"
-    );
-
-    // Add our file to the request
-    $data = array(
-      "document" => new CURLFile(
-        $FILE_PATH,
-        $MIME_TYPE,
-        substr($FILE_PATH, strrpos($FILE_PATH, "/") + 1)
-      )
-    );
-
-
-    // URL for a prediction
-    $url = $endPoint;
-
-    $options = array(
-      CURLOPT_URL => $url,
-      CURLOPT_HTTPHEADER => $headers,
-      CURLOPT_POSTFIELDS => $data,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_RETURNTRANSFER => true
-    );
-
-    // Set all options for the cURL request
-    curl_setopt_array(
-      $ch,
-      $options
-    );
-
-    // Execute the request & extract the query content into a variable
-    $json = curl_exec($ch);
-
-
-
-    // Close the cURL session
-    curl_close($ch);
-
-    // Store the response as an array to allow for easier manipulations
-    return json_decode($json, JSON_PRETTY_PRINT);
-
-    // Print the content of the document as raw json
-// echo json_encode($result, JSON_PRETTY_PRINT);
-
-  }
-
 }
 
 ?>

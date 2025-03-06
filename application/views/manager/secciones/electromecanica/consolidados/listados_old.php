@@ -152,6 +152,7 @@
     visibility: visible;
     opacity: 1;
 }
+
 	
 
 </style>
@@ -179,54 +180,73 @@
                     <p>Calculando Totales por mes... Por favor espere.</p>
                 </div>
 
-                <label class="col-1" for="id_proveedor">
-                    <?php
-                    // Preparar opciones para el dropdown
-                    $proveedores_dropdown = [];
-                    foreach ($select_proveedores as $id => $proveedor) {
-                        $proveedores_dropdown[$id] = is_array($proveedor) ? $proveedor['nombre'] : $proveedor;
-                    }
+    <label class="col-1" for="id_proveedor">
+    <?php
+    // Preparar opciones para el dropdown
+    $proveedores_dropdown = [];
+    foreach ($select_proveedores as $id => $proveedor) {
+        // Verificamos si $proveedor es un array y tomamos el nombre
+        $proveedor_name = is_array($proveedor) ? $proveedor['nombre'] : $proveedor;
+        
+        // Eliminar el prefijo "EDENOR-" o "EDENOR -" (con espacio adicional o sin él)
+        $proveedor_name = preg_replace('/^EDENOR[\s-]+/', '', $proveedor_name);  // Usamos expresión regular para eliminar "EDENOR-" y los espacios
 
-                    // Renderizar el dropdown
-                    $js = array(
-                        'id' => 'id_proveedor',
-                        'class' => 'custom-select',
-                        'multiple' => "multiple",
-                    );
-                    echo form_dropdown('id_proveedor', $proveedores_dropdown, set_value('id_proveedor'), $js);
-                    ?>
-                    <script>
-                        $('#id_proveedor').select2({
-                            placeholder: 'TARIFA',
-                            minimumResultsForSearch: "-1",
-                            width: '100%',
-                            closeOnSelect: true,
-                        });
-                    </script>
-                </label>
+        // Eliminar caracteres invisibles o espacios adicionales
+        $proveedor_name = trim($proveedor_name);  // Eliminar espacios en los extremos
 
-                <!-- Filtro de Mes FC -->
-                <label class="col-1" for="id_mes_fc">
-                    <?php
-                    // Opciones de meses
-                    $meses_fc = [
-                        '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo',
-                        '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio',
-                        '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre',
-                        '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre',
-                    ];
-                    $js = ['id' => 'id_mes_fc', 'class' => 'form-control', 'multiple' => 'multiple'];
-                    ?>
-                    <?= form_dropdown('id_mes_fc[]', $meses_fc, '', $js); ?>
-                    <script>
-                        $('#id_mes_fc').select2({
-                            placeholder: 'Mes FC',
-                            minimumResultsForSearch: "-1",
-                            width: '100%',
-                            closeOnSelect: false,
-                        });
-                    </script>
-                </label>
+        // Asignar el nombre limpio (sin "EDENOR-" o "EDENOR -")
+        $proveedores_dropdown[$id] = $proveedor_name;
+    }
+
+    // Renderizar el dropdown
+    $js = array(
+        'id' => 'id_proveedor',
+        'class' => 'custom-select',
+        'multiple' => "multiple",
+    );
+    echo form_dropdown('id_proveedor', $proveedores_dropdown, '', $js); // Dejar vacío el valor por defecto
+    ?>
+    <script>
+        $(document).ready(function() {
+            $('#id_proveedor').select2({
+                placeholder: 'TARIFA',  // Definir el placeholder
+                minimumResultsForSearch: "-1",
+                width: '100%',
+                closeOnSelect: true,
+            }).trigger('change');  // Forzar el cambio después de la inicialización
+        });
+    </script>
+</label>
+
+
+
+<!-- Filtro de Mes FC -->
+<label class="col-1" for="id_mes_fc">
+    <?php
+    $meses_fc = [
+        '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo',
+        '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio',
+        '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre',
+        '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre',
+    ];
+    $js = ['id' => 'id_mes_fc', 'class' => 'form-control', 'multiple' => 'multiple'];
+    echo form_dropdown('id_mes_fc[]', $meses_fc, '', $js); // Dejar vacío el valor por defecto
+    ?>
+    <script>
+        $(document).ready(function() {
+            $('#id_mes_fc').select2({
+                placeholder: 'Mes FC',  // Definir el placeholder
+                minimumResultsForSearch: "-1",
+                width: '100%',
+                closeOnSelect: false,
+            });
+
+            // Forzar la visualización del placeholder al cargar la página
+            $('#id_mes_fc').trigger('change');  // Esto es para asegurar que el placeholder sea visible
+        });
+    </script>
+</label>
+
 
                 <!-- Filtro de Año FC -->
                 <label class="col-1" for="anio_fc">
@@ -245,7 +265,9 @@
                     <label><input type="checkbox" id="cosfi_filter" value="true"> Cos Fi inferiores a 0.95</label>
                     <label><input type="checkbox" id="cons_filter" value="true"> Cosumo en 0 para T1/T2</label>
                     <label><input type="checkbox" id="const3_filter" value="true"> Cosumo en 0 para T3</label>
-                    <label><input type="checkbox" id="filtrar_por_cuenta" value="true" disabled> Cuentas únicas</label>
+                    <label><input type="checkbox" id="cuentas_unicas_filter" value="true"> Altas / Bajas</label>
+                    <label><input type="checkbox" id="comentarios_filter" value="true"> Cuentas con seguimiento</label>
+
                     
                 </div>
 
@@ -403,15 +425,13 @@
 
 <script>
 $(document).ready(function () {
-    // Inicializar el gráfico en su contenedor
     var myChart = echarts.init(document.getElementById('provider-chart'));
+    
     var option = {
         title: {
             text: '',
             left: 'center',
-            textStyle: {
-                fontSize: 14 // Tamaño de tipografía ajustado para el título
-            }
+            textStyle: { fontSize: 14 }
         },
         tooltip: {
             trigger: 'axis',
@@ -419,7 +439,7 @@ $(document).ready(function () {
         },
         xAxis: {
             type: 'category',
-            data: [], // Inicialmente vacío
+            data: [],
             axisLabel: { rotate: 30 }
         },
         yAxis: {
@@ -432,68 +452,71 @@ $(document).ready(function () {
         series: [{
             name: 'Cantidad',
             type: 'bar',
-            data: [], // Inicialmente vacío
-            itemStyle: {
-                color: '#0C2847'
-            }
+            data: [],
+            itemStyle: { color: '#0C2847' }
         }]
     };
 
-    myChart.setOption(option); // Establecer la opción inicial del gráfico
+    myChart.setOption(option);
 
-    // Variables para controlar la opción activa
     var mostrarPorMes = false;
 
-    // Función para actualizar el gráfico con los datos visibles en la tabla
+    // Función para obtener los filtros seleccionados
+    function obtenerFiltros() {
+        // Capturamos los valores de los filtros de la interfaz (multiple select)
+        var filtros = {
+            proveedor: $('#id_proveedor').val(),  // Filtro de proveedores (múltiple)
+            meses: $('#id_mes_fc').val(),         // Filtro de meses (múltiple)
+            anio: $('#id_anio_fc').val()          // Filtro de año
+        };
+
+        return filtros;
+    }
+
     function actualizarGrafico() {
-    setTimeout(function () {
-        var tabla = $('#consolidados_dt').DataTable();
-        var datosVisibles = tabla.rows({ filter: 'applied' }).data().toArray();
+    var filtros = obtenerFiltros(); // Obtener los filtros actuales
 
-        if (datosVisibles.length === 0) return;
+    $.ajax({
+        url: "/Electromecanica/Consolidados/obtener_datos_grafico", 
+        type: "POST",
+        dataType: "json",
+        data: {
+            agrupar_por_mes: mostrarPorMes, 
+            filtros: filtros  // Enviar los filtros junto con la solicitud
+        },
+        success: function (respuesta) {
+            var categorias = [];
+            var cantidades = [];
 
-        var conteoProveedoresOMeses = {};
-        datosVisibles.forEach(function (item) {
-            var idProveedor = item[64]; // Ajusta según la columna correcta para el proveedor.
-            var mes = item[12]; // Ajusta según la columna correcta para el mes.
+            respuesta.forEach(function (item) {
+                var categoria = mostrarPorMes ? item.mes : item.id_proveedor;
 
-            if (mostrarPorMes) {
-                if (mes) {
-                    conteoProveedoresOMeses[mes] = (conteoProveedoresOMeses[mes] || 0) + 1;
+                // Si estamos mostrando por proveedor (mostrarPorMes = false)
+                if (!mostrarPorMes) {
+                    // Solo aplicar los reemplazos a los proveedores
+                    if (categoria == 1 || categoria == 2 || categoria == 3) {
+                        categoria = 'T' + categoria;  // Agregar 'T' a 1, 2, 3
+                    } else if (categoria == 5) {
+                        categoria = 'AP';  // Reemplazar 5 por 'AP'
+                    }
                 }
-            } else {
-                if (idProveedor) {
-                    // Si el ID del proveedor es 5, usa "AP" en vez de "T5"
-                    var idProveedorModificado = (idProveedor == 5) ? "AP" : `T${idProveedor}`;
-                    conteoProveedoresOMeses[idProveedorModificado] = (conteoProveedoresOMeses[idProveedorModificado] || 0) + 1;
-                }
-            }
-        });
 
-        var categorias = Object.keys(conteoProveedoresOMeses);
-        var cantidades = Object.values(conteoProveedoresOMeses);
+                categorias.push(categoria);
+                cantidades.push(item.cantidad);
+            });
 
-        categorias.sort(function (a, b) {
-            var numA = parseInt(a.replace('T', '').replace('AP', ''));
-            var numB = parseInt(b.replace('T', '').replace('AP', ''));
-            return numA - numB;
-        });
-
-        var cantidadesOrdenadas = categorias.map(function (categoria) {
-            return conteoProveedoresOMeses[categoria];
-        });
-
-        if (categorias.length === 0 || cantidadesOrdenadas.length === 0) return;
-
-        myChart.setOption({
-            xAxis: { data: categorias },
-            series: [{ data: cantidadesOrdenadas }]
-        });
-    }, 300);
+            myChart.setOption({
+                xAxis: { data: categorias },
+                series: [{ data: cantidades }]
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al obtener los datos del gráfico:', error);
+        }
+    });
 }
 
-      // Función para manejar el cambio de botones
-      function actualizarBotones(mostrarPorMes) {
+    function actualizarBotones() {
         if (mostrarPorMes) {
             $('#btn_totales_por_mes').addClass('btn-totales').removeClass('btn-secondary');
             $('#btn_totales_por_tarifa').removeClass('btn-totales').addClass('btn-secondary');
@@ -502,60 +525,90 @@ $(document).ready(function () {
             $('#btn_totales_por_mes').removeClass('btn-totales').addClass('btn-secondary');
         }
 
-        $('#consolidados_dt').DataTable().page.len(-1).draw(); // Muestra todas las filas
-        // Asegúrate de que la tabla se haya dibujado antes de actualizar el gráfico
-        setTimeout(actualizarGrafico, 100); // Esperar un poco para que la tabla se dibuje
+        actualizarGrafico(); // Actualizar el gráfico directamente
     }
 
-    // Inicializar los botones en estado 'secondary'
-    $('#btn_totales_por_mes').addClass('btn-secondary');
-    $('#btn_totales_por_tarifa').addClass('btn-secondary');
-
-    // Eventos para los botones
     $('#btn_totales_por_mes').click(function () {
         mostrarPorMes = true;
-        actualizarBotones(mostrarPorMes);
+        actualizarBotones();
     });
 
     $('#btn_totales_por_tarifa').click(function () {
         mostrarPorMes = false;
-        actualizarBotones(mostrarPorMes);
+        actualizarBotones();
     });
 
-    // Actualizar gráfico al dibujar la tabla
-    $('#consolidados_dt').on('draw.dt', function () {
-        actualizarGrafico();
+    $('#applyfilter').click(function () {
+        // Llamar al actualizar gráfico con un retraso de 1 segundo (1000 ms)
+        setTimeout(function() {
+            actualizarGrafico();  // Actualizar el gráfico después de un pequeño delay
+        }, 1000);  // Puedes ajustar este tiempo según tus necesidades
     });
 
-    // Llamar a la función inicial para actualizar el gráfico al cargar la página
-    actualizarGrafico();
-
-    // Manejo de los íconos de colapso
-    $('#collapseFilters').on('shown.bs.collapse', function () {
-        $('#arrow-icon').removeClass('icon-arrow-down5').addClass('icon-arrow-up5');
+    $('#resetfilter').click(function () {
+        // Restablecer los valores de los filtros
+        $('#id_proveedor').val([]).trigger('change');  // Restablecer el filtro de proveedores
+        $('#id_mes_fc').val([]).trigger('change');     // Restablecer el filtro de meses
+        $('#id_anio_fc').val('').trigger('change');    // Restablecer el filtro de año
         
-        // Reinicializa los select2 al expandir el colapsable
+        // Llamar al actualizar gráfico con un retraso de 1 segundo (1000 ms)
+        setTimeout(function() {
+            actualizarGrafico();  // Actualizar el gráfico después de un pequeño delay
+        }, 1000);  // Puedes ajustar este tiempo según tus necesidades
+    });
+
+    // Inicialización de los filtros Select2
+    $('#id_proveedor').select2({
+        placeholder: 'TARIFA',
+        minimumResultsForSearch: "-1",
+        width: '100%',
+        closeOnSelect: true
+    });
+
+    $('#id_mes_fc').select2({
+        placeholder: 'Mes FC',
+        minimumResultsForSearch: "-1",
+        width: '100%',
+        closeOnSelect: false
+    });
+
+    $('#id_anio_fc').select2({
+        placeholder: 'Selecciona un año',
+        minimumResultsForSearch: "-1",
+        width: '100%',
+        closeOnSelect: true
+    });
+
+    // Cuando el colapsable de filtros se muestra, volver a inicializar Select2 para asegurar que los placeholders estén visibles
+    $('#collapseFilters').on('shown.bs.collapse', function () {
         $('#id_proveedor').select2({
-            placeholder: "Tarifa",
-            // otras configuraciones si es necesario
+            placeholder: 'TARIFA',
+            minimumResultsForSearch: "-1",
+            width: '100%',
+            closeOnSelect: true
         });
 
         $('#id_mes_fc').select2({
-            placeholder: "Mes FC",
-            // otras configuraciones si es necesario
+            placeholder: 'Mes',
+            minimumResultsForSearch: "-1",
+            width: '100%',
+            closeOnSelect: false
         });
 
         $('#id_anio_fc').select2({
-            placeholder: "Año",
-            // otras configuraciones si es necesario
+            placeholder: 'Año',
+            minimumResultsForSearch: "-1",
+            width: '100%',
+            closeOnSelect: true
         });
     });
 
-    console.log($('#id_anio_fc').length); // Debería ser 1 si el elemento existe
-
-    // Evento para manejar el colapso oculto
-    $('#collapseFilters').on('hidden.bs.collapse', function () {
-        $('#arrow-icon').removeClass('icon-arrow-up5').addClass('icon-arrow-down5');
-    });
+    actualizarBotones(); // Llamar la primera vez al cargar la página
+    actualizarGrafico(); // Llamar la primera vez al cargar el gráfico
 });
 </script>
+
+
+
+
+

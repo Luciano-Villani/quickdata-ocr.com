@@ -106,65 +106,48 @@ class Lotes extends backend_controller
 					);
 
 					break;
-				case 2: //NATURGY 4399
+					case 2: // NATURGY 4399
 
-
-					// Suponiendo que $filename contiene algo como 'uploader/files/3480/0110161-24-06_splitter.pdf'
-					$partes = explode('/', $filename); // Separar por '/'
-					$nombreArchivo = end($partes); // Obtener el último elemento: '0110161-24-06_splitter.pdf'
-
-					// Extraer la parte "24-06" utilizando una expresión regular o dividiendo por guiones
-					preg_match('/\d{7}-(\d{2}-\d{2})_splitter\.pdf/', $nombreArchivo, $matches);
-					$numero = isset($matches[1]) ? $matches[1] : ''; // Guardar la fecha "24-06" si está presente
-
-					// Recorremos los valores del periodo del consumo
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-					$periodo_del_consumo = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}
-
-					// Verificar si periodo del consumo está vacío
-					if (empty(trim($periodo_del_consumo))) {
-						$periodo_del_consumo = $numero; // Usar la parte "24-06" del nombre del archivo si está vacío
-					}
-					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
-						$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
-					} else {
-						$medidor = 'N/A';
-					}
-					if ($a->document->inference->pages[0]->prediction->nro_cuenta->values) {
-						$nro_cuenta = $a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content;
-					} else {
-						$nro_cuenta = 'N/A';
-					}
-					if ($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values) {
-						$vencimiento_del_pago = $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content;
-					} else {
-						$vencimiento_del_pago = 'N/A';
-					}
-					if ($a->document->inference->pages[0]->prediction->consumo->values) {
-						$consumo = $a->document->inference->pages[0]->prediction->consumo->values[0]->content;
-					} else {
-						$consumo = 'N/A';
-					}
-
-					$dataUpdate = array(
-						'nro_cuenta' => trim($nro_cuenta),
-						'nro_medidor' => trim($medidor),
-						'nro_factura' => trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content),
-						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-						'vencimiento_del_pago' => trim($vencimiento_del_pago),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-						'total_vencido' => trim($a->document->inference->pages[0]->prediction->total_vencido->values[0]->content),
-						'consumo' => trim($consumo),
-					);
-
-
-
-					break;
-
+						// Verificamos que existan datos en el JSON
+						if (isset($a[0]->fields)) {
+							$fields = $a[0]->fields;
+					
+							$nro_cuenta = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : 'S/D';
+							$nro_medidor = isset($fields->nro_medidor->valueNumber) ? trim($fields->nro_medidor->valueNumber) : 'S/D';
+							$nro_factura = isset($fields->nro_factura->valueNumber) ? trim($fields->nro_factura->valueNumber) : 'S/D';
+							//$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
+							$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+							$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
+							$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : '0.00';
+							$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+							$total_vencido = isset($fields->total_vencido->valueNumber) ? number_format($fields->total_vencido->valueNumber, 2, '.', '') : '0.00';
+					
+							
+							 // Extraer solo la parte antes del guion "-"
+							 $periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
+							 $periodo_del_consumo = explode('-', $periodo_del_consumo)[0]; // Toma solo la parte antes del "-"
+							
+							$dataUpdate = array(
+								'nro_cuenta' => $nro_cuenta,
+								'nro_medidor' => $nro_medidor,
+								'nro_factura' => $nro_factura,
+								'periodo_del_consumo' => $periodo_del_consumo,
+								'fecha_emision' => $fecha_emision,
+								'vencimiento_del_pago' => $vencimiento_del_pago,
+								'proximo_vencimiento' => $proximo_vencimiento,
+								'consumo' => $consumo,
+								'total_importe' => $total_importe,
+								'total_vencido' => $total_vencido,
+							);
+						} else {
+							// Manejar el caso en el que no haya datos en el JSON
+							$dataUpdate = array();
+						}
+					
+						break;
+					
+					
 				case 3: //FLOW 3480
 
 					$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
@@ -586,16 +569,37 @@ class Lotes extends backend_controller
 			}
 
 
-			$data_proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $id_proveedor . '"');
-			$dataUpdate['unidad_medida'] = $data_proveedor->unidad_medida;
+			// Obtener datos del proveedor
+$data_proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $id_proveedor . '"');
+$dataUpdate['unidad_medida'] = $data_proveedor->unidad_medida;
 
-			$dataUpdate['mes_fc'] = fecha_es(trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content), 'm');
-			$dataUpdate['anio_fc'] = fecha_es(trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content), 'Y');
+// Verificar la estructura de fecha_emision en el JSON
+if (isset($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content)) {
+    // Formato antiguo
+    $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
+} elseif (isset($a->document->inference->pages[0]->prediction->fecha_emision->valueDate)) {
+    // Formato nuevo (Naturgy V2, etc.)
+    $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->valueDate);
+} else {
+    // Si no se encuentra el dato, registrar error y asignar "S/D"
+    log_message('error', "Error: No se encontró fecha_emision en la respuesta de la API. ID Proveedor: $id_proveedor");
+    $fecha_emision = 'S/D';
+}
 
-			$this->db->where('id', $mires[0]->id);
-			$this->db->update('_datos_api', $dataUpdate);
-		} else {
-			die('error leyendo datos api en base');
+// Convertir la fecha a mes y año
+$dataUpdate['mes_fc'] = fecha_es($fecha_emision, 'm');
+$dataUpdate['anio_fc'] = fecha_es($fecha_emision, 'Y');
+
+// Guardar en la base de datos
+$this->db->where('id', $mires[0]->id);
+$this->db->update('_datos_api', $dataUpdate);
+
+// Verificar si la actualización fue exitosa
+if ($this->db->affected_rows() > 0) {
+    log_message('info', "Actualización exitosa: ID {$mires[0]->id} - Fecha emisión: $fecha_emision");
+} else {
+    log_message('error', "Error al actualizar la base de datos para ID {$mires[0]->id}");
+}
 		}
 	}
 	public function delete_lote()

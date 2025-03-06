@@ -135,7 +135,7 @@ function initDatatable(search = false, type = 0) {
           { targets: [0], title: "Proveedor", data: 0, visible: false },
           {
             targets: [1],
-            title: "Medidor",
+            title: "Tarifa",
             data: 48,
             orderable: false,
             render: function (data, type, row) {

@@ -16,56 +16,163 @@ class Lecturas extends backend_controller
 			$this->load->model('manager/Manager_model');
 		}
 	}
-	public function resetfile()
+
+	public function Consolidar()
 	{
 		if ($this->input->is_ajax_request()) {
-			$datoleido = $this->Manager_model->get_data_api('_datos_api', $_REQUEST['id'], true);
-			$a = json_decode($datoleido->dato_api);
-
-			$total_importe = $a->document->inference->pages[0]->prediction->total_importe->values[0]->content;
-			$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
-			$nro_cuenta = '';
-			for ($paso = 0; $paso < $totalIndices; $paso++) {
-				$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
-			}
-			$hizo = false;
-			$this->db->trans_start();
-
-			$reloadData = array(
-				'total_importe' =>  $total_importe,
-				'importe_1' => $total_importe,
-				'nro_cuenta' => $nro_cuenta
-			);
-
-			$this->db->where('id',  trim($_REQUEST['id']));
-			$this->db->update('_datos_api', $reloadData);
-
-
-			$this->db->where('id_datos_api', trim($_REQUEST['id']));
-			$this->db->delete('_datos_multiple');
-
-			// $insertData = array(
-			// 	'id_datos_api' => $datoleido->id,
-			// 	'importe_1' => $datoleido->total_importe,
-			// 	'total_importe' => $datoleido->total_importe,
-			// 	'nro_factura' => $datoleido->nro_factura
-			// );
-
-
-			// if (!$this->db->insert('_datos_multiple', $insertData)) {
-			// 	$error = $this->db->error()["message"];
-			// }
-			$hizo = true;
-			$this->db->trans_complete();
-
-			$result = array(
-				'result'=>$hizo,
-
-			);
-
-			echo json_encode($result);
+			$return = $this->Consolidados_model->consolidar_datos($_POST);
+			echo json_encode($return);
 		}
 	}
+	public function cerrarLote()
+	{
+		// Actualizacion tabla _lotes
+
+
+		$data = array(
+			'cant' => $_POST['cant'],
+			'status' => 1,
+
+		);
+		$data['user_add'] = $this->user->id;
+		$this->db->where('id', $_POST['id_lote']);
+		$this->db->update('_lotes', $data);
+		echo json_encode(array('data' => 'OK'));
+	}
+	public function getInfoPanel($data = null)
+	{
+
+
+		$lote = $this->Manager_model->crearLote();
+
+
+
+		echo json_encode($this->load->view('manager/etiquetas/panel', $lote, TRUE));
+	}
+
+	public function checkFile()
+	{
+
+
+
+		$proveedor = $this->Manager_model->get_data('_proveedores', $_POST['id_proveedor']);
+		$nombre_fichero = 'uploader/files/' . strtolower($proveedor->codigo) . '/' . $_POST['name'];
+
+		if (file_exists($nombre_fichero)) {
+			// echo 'The file "'.$nombre_fichero.'/'.$_FILES['file']['name'].'" exists.';die();
+			$data['response'] = 'El archivo ya existe -' . urlencode($_POST['name']);
+			$data['status'] = 'error';
+			$grabar_datos_array = array(
+				'seccion' => 'Lectura de Documentos',
+				'mensaje' => 'El archivo ya existe - ' . $_POST['name'],
+				'estado' => 'error',
+			);
+
+			$this->session->set_userdata('save_data', $grabar_datos_array);
+			$response = array(
+				"status" => 'error'
+			);
+			echo json_encode($response);
+			// $this->session->unset_userdata('save_data');
+		} else {
+			$response = array(
+				"status" => 'success'
+			);
+			echo json_encode($response);
+		};
+	}
+	public function url_check()
+	{
+		if ($this->data['proveedor']->urlapi === "") {
+			return false;
+		}
+		return TRUE;
+	}
+
+	public function list_dt($id = null)
+	{
+		// $this->Lecturas_model->list_dt($id);
+	}
+	public function lotes_dt($id = null)
+	{
+
+		if ($this->input->is_ajax_request()) {
+			$this->Lecturas_model->lotes_dt($id);
+		}
+	}
+
+	public function uploads()
+{
+    $data = array();
+    if (!empty($_FILES['file']['name'])) {
+        // Set preference 
+        $uploadPath = 'uploader/files/';
+        $config["remove_spaces"] = TRUE;
+        $config["overwrite"] = TRUE;
+        $config['upload_path'] = $uploadPath;
+        $config['allowed_types'] = '*';
+        $config['max_size'] = '1024'; // max_size in kb 
+        $config['file_name'] = $_FILES['file']['name'];
+
+        // Load upload library 
+        $this->load->library('upload', $config);
+
+        // File upload
+        if ($this->upload->do_upload('file')) {
+            // Get data about the file
+            $uploadData = $this->upload->data();
+
+            // Obtener proveedor seleccionado
+            $proveedorId = $this->input->post('id_proveedor');
+            $proveedor = $this->manager_model->obtener_contenido_select('_proveedores')[$proveedorId];
+			// Debug: Verificar valor de procesar_por
+			// Log para verificar valor de procesar_por
+			log_message('error', 'Valor de procesar_por: ' . var_export($proveedor['procesar_por'], true));
+			echo "Logging realizado"; // Para verificar que la línea se ejecuta
+            // Determinar a qué sistema enviar el archivo
+            if ($proveedor['procesar_por'] === 'azure') {
+                // Llamada a apiRest para Azure
+                $data = apiRest($uploadData, 'azure');
+            } else {
+                // Llamada a apiRest para Mindee (u otros)
+                $data = apiRest($uploadData);
+            }
+
+            // Procesar la respuesta de la API
+            $direccion = array_column($data['document']['inference']['pages'][0]['prediction']['direccion']['values'], 'content');
+            $titular = array_column($data['document']['inference']['pages'][0]['prediction']['titular']['values'], 'content');
+
+            $cadena_titular = implode(" ", $titular);
+            $cadena_direccion = implode(" ", $direccion);
+
+            echo '<br>' . $cadena_titular . '<br>' . $cadena_direccion;
+
+            $filename = $uploadData['file_name'];
+            $data['response'] = 'successfully uploaded ' . $filename;
+        } else {
+            // Handle upload error
+            echo '<pre>';
+            var_dump($this->upload->display_errors());
+            echo '</pre>';
+            die();
+            $data['response'] = 'failed';
+        }
+    } else {
+        $data['response'] = 'failed';
+    }
+    echo json_encode($data);
+}
+
+	public function indexaciones_dt($nro_cuenta = null)
+	{
+
+		$my_nro_cuenta = urldecode($_POST['nro_cuenta']);
+
+		$datps = $this->Indexaciones_model->get_indexaciones($my_nro_cuenta);
+
+		echo $datps;
+	}
+
 	public function copy($id = 0)
 	{
 
@@ -159,7 +266,7 @@ class Lecturas extends backend_controller
 				$uploadDataPost = array(
 					'total_importe' => $_REQUEST['total'],
 					'importe_1' => $_REQUEST['total'],
-					'nro_cuenta' => $_REQUEST['nro_cuenta']
+					'nro_cuenta' => trim(str_replace(' ','',$_REQUEST['nro_cuenta']))
 				);
 
 				$this->db->where('id',  trim($_REQUEST['id_registro']));
@@ -174,10 +281,8 @@ class Lecturas extends backend_controller
 			if ($update) {
 
 
-
 				unset($datoleido->id);
-
-				$datoleido->nro_cuenta = $_REQUEST['nro_cuenta'];
+				$datoleido->nro_cuenta = trim(str_replace(' ','',$_REQUEST['nro_cuenta']));
 				$datoleido->total_importe = $_REQUEST['total'];
 				$datoleido->importe_1 = $_REQUEST['total'];
 
@@ -329,321 +434,56 @@ class Lecturas extends backend_controller
 		$this->load->view('manager/footer', $this->data);
 	}
 
-	public function Consolidar()
+	public function resetfile()
 	{
 		if ($this->input->is_ajax_request()) {
-			$return = $this->Consolidados_model->consolidar_datos($_POST);
-			echo json_encode($return);
-		}
-	}
-	public function cerrarLote()
-	{
-		// Actualizacion tabla _lotes
+			$datoleido = $this->Manager_model->get_data_api('_datos_api', $_REQUEST['id'], true);
+			$a = json_decode($datoleido->dato_api);
 
-
-		$data = array(
-			'cant' => $_POST['cant'],
-			'status' => 1,
-
-		);
-		$data['user_add'] = $this->user->id;
-		$this->db->where('id', $_POST['id_lote']);
-		$this->db->update('_lotes', $data);
-		echo json_encode(array('data' => 'OK'));
-	}
-	public function getInfoPanel($data = null)
-	{
-
-
-		$lote = $this->Manager_model->crearLote();
-
-
-
-		echo json_encode($this->load->view('manager/etiquetas/panel', $lote, TRUE));
-	}
-
-	public function checkFile()
-	{
-
-
-
-		$proveedor = $this->Manager_model->get_data('_proveedores', $_POST['id_proveedor']);
-		$nombre_fichero = 'uploader/files/' . strtolower($proveedor->codigo) . '/' . $_POST['name'];
-
-		if (file_exists($nombre_fichero)) {
-			// echo 'The file "'.$nombre_fichero.'/'.$_FILES['file']['name'].'" exists.';die();
-			$data['response'] = 'El archivo ya existe -' . urlencode($_POST['name']);
-			$data['status'] = 'error';
-			$grabar_datos_array = array(
-				'seccion' => 'Lectura de Documentos',
-				'mensaje' => 'El archivo ya existe - ' . $_POST['name'],
-				'estado' => 'error',
-			);
-
-			$this->session->set_userdata('save_data', $grabar_datos_array);
-			$response = array(
-				"status" => 'error'
-			);
-			echo json_encode($response);
-			// $this->session->unset_userdata('save_data');
-		} else {
-			$response = array(
-				"status" => 'success'
-			);
-			echo json_encode($response);
-		};
-	}
-	public function url_check()
-	{
-		if ($this->data['proveedor']->urlapi === "") {
-			return false;
-		}
-		return TRUE;
-	}
-
-	public function list_dt($id = null)
-	{
-		// $this->Lecturas_model->list_dt($id);
-	}
-	public function lotes_dt($id = null)
-	{
-
-		if ($this->input->is_ajax_request()) {
-			$this->Lecturas_model->lotes_dt($id);
-		}
-	}
-
-	public function uploads()
-	{
-
-		$data = array();
-		if (!empty($_FILES['file']['name'])) {
-			// Set preference 
-			$uploadPath = 'uploader/files/';
-			$config["remove_spaces"] = TRUE;
-			$config["overwrite"] = TRUE;
-			$config['upload_path'] = 'uploader/files';
-			//    $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-			$config['allowed_types'] = '*';
-			$config['max_size'] = '1024'; // max_size in kb 
-			$config['file_name'] = $_FILES['file']['name'];
-
-			// Load upload library 
-			$this->load->library('upload', $config);
-
-			// File upload
-			if ($this->upload->do_upload('file')) {
-				// Get data about the file
-				$uploadData = $this->upload->data();
-
-				sleep(2);
-				$data = apiRest($uploadData);
-
-				//  echo '<pre>DATA';
-				//  var_dump( $data); 
-				// echo '</pre>';
-				// die(); 
-
-				$direccion = array_column($data['document']['inference']['pages'][0]['prediction']['direccion']['values'], 'content');
-				$titular = array_column($data['document']['inference']['pages'][0]['prediction']['titular']['values'], 'content');
-
-
-				$cadena_titular = implode(" ", $titular);
-				$cadena_direccion = implode(" ", $direccion);
-				echo '<br>';
-				echo $cadena_titular;
-				echo '<br>';
-
-				echo $cadena_direccion;
-
-				$filename = $uploadData['file_name'];
-				$data['response'] = 'successfully uploaded ' . $filename;
-			} else {
-
-				echo '<pre>';
-				var_dump($this->upload->display_errors());
-				echo '</pre>';
-				die();
-				echo 'error ->' . $this->upload->display_errors();
-				$data['response'] = 'failed';
+			$total_importe = $a->document->inference->pages[0]->prediction->total_importe->values[0]->content;
+			$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
+			$nro_cuenta = '';
+			for ($paso = 0; $paso < $totalIndices; $paso++) {
+				$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
 			}
-		} else {
-			$data['response'] = 'failed';
-		}
-		echo json_encode($data);
-	}
-	public function indexaciones_dt($nro_cuenta = null)
-	{
-
-		$my_nro_cuenta = urldecode($_POST['nro_cuenta']);
-
-		$datps = $this->Indexaciones_model->get_indexaciones($my_nro_cuenta);
-
-		echo $datps;
-	}
-
-	public function copy_OLD($id = 0)
-	{
-		$myDato = $id;
-		$datoleido = $this->Manager_model->get_data_api('_datos_api', $myDato, true);
-		
-		$importe_total = 0;
-		
-		$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="' . $myDato . '"');
-		if (count($datoTotalesMultiple) > 0)
-			$importe_total = $datoTotalesMultiple[0]->total_importe;
-
-		if ($this->input->is_ajax_request()) {
-			$update = false;
-			$datoleido = $this->Manager_model->get_data_api('_datos_api', trim($_REQUEST['id_registro']), true);
-			$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="'. trim($_REQUEST['id_registro']) .'"');
-			$error = "OK";
+			$hizo = false;
 			$this->db->trans_start();
 
-			if (count((array)$datoTotalesMultiple)  == 0) {
-				$insertData = array(
-					'id_datos_api' => $datoleido->id,
-					'total_importe' => $datoleido->total_importe
-				);
+			$reloadData = array(
+				'total_importe' =>  $total_importe,
+				'importe_1' => $total_importe,
+				'nro_cuenta' => $nro_cuenta
+			);
+
+			$this->db->where('id',  trim($_REQUEST['id']));
+			$this->db->update('_datos_api', $reloadData);
 
 
-				if (!$this->db->insert('_datos_multiple', $insertData)) {
-					$error = $this->db->error()["message"];
-				}
-				$uploadDataPost = array(
-					'total_importe' => $_REQUEST['total'],
-					'nro_cuenta' => $_REQUEST['nro_cuenta']
-				);
-				$this->db->where('id',  trim($_REQUEST['id_registro']));
-				$this->db->update('_datos_api', $uploadDataPost);
+			$this->db->where('id_datos_api', trim($_REQUEST['id']));
+			$this->db->delete('_datos_multiple');
 
-			}else{
-				$update = true;
-			}
-
-
-			if ($update) {
-
-				unset($datoleido->id);
-				$datoleido->nro_cuenta = $_REQUEST['nro_cuenta'];
-				$datoleido->total_importe = $_REQUEST['total'];
-				if (!$this->db->insert('_datos_api', (array)$datoleido)) {
-					$error = $this->db->error()["message"];
-				}
-
-				
-			}
-
-			// $uploadDataPost = array(
-			// 	'total_importe'=> $_REQUEST['total']
+			// $insertData = array(
+			// 	'id_datos_api' => $datoleido->id,
+			// 	'importe_1' => $datoleido->total_importe,
+			// 	'total_importe' => $datoleido->total_importe,
+			// 	'nro_factura' => $datoleido->nro_factura
 			// );
-			// $this->db->where('id',  $_REQUEST['id_registro']);
-			// $this->db->update('_datos_api', $uploadDataPost);
 
 
-
-			$lasId = $this->db->insert_id();
+			// if (!$this->db->insert('_datos_multiple', $insertData)) {
+			// 	$error = $this->db->error()["message"];
+			// }
+			$hizo = true;
 			$this->db->trans_complete();
 
-			$resultd = array(
-				'result' => $error,
-				'lasId' => $lasId,
-				'importe_total' => $importe_total
+			$result = array(
+				'result'=>$hizo,
+
 			);
-			echo json_encode($resultd);
-			die();
-			// die();
-			// if($this->Manager_model->grabar_datos('_datos_api', (array)$dato))
-			// die('pujdi');
 
+			echo json_encode($result);
 		}
-		if ($id == 0 && $_SERVER['REQUEST_METHOD'] === "POST") {
-
-			// // $_POST['fecha_emision']  = date(trim('Y-m-d',$_POST['fecha_emision']));
-			// $_POST['fecha_emision']  = fecha_es(trim($_POST['fecha_emision']), 'Y-m-d', false);
-			// $_POST['vencimiento_del_pago']  = fecha_es(trim($_POST['vencimiento_del_pago']), 'Y-m-d', false);
-
-			$myDato = $_POST['id'];
-			$this->form_validation->set_rules('proveedor', 'Proveedor', 'trim|in_select[0]');
-			$this->form_validation->set_rules('nro_cuenta', 'Cuenta', 'trim|required');
-
-			//$this->form_validation->set_rules('nro_medidor', 'Medidor', 'trim|required');
-			$this->form_validation->set_rules('nro_factura', 'Factura', 'trim|required');
-			// $this->form_validation->set_rules('periodo_del_consumo', 'Período', 'trim|required');
-			$this->form_validation->set_rules('fecha_emision', 'Fecha emisión', 'trim|required');
-			$this->form_validation->set_rules('total_importe', 'Importe', 'trim|required');
-
-			if ($this->form_validation->run() != FALSE) {
-				$id = $_REQUEST['id'];
-				unset($_REQUEST['id']);
-
-				//campo fecha vencimiento
-
-				// $timestamp = strtotime(trim($_REQUEST['vencimiento_del_pago']) );
-
-				if (($timestamp = strtotime($_REQUEST['vencimiento_del_pago'])) === false) {
-					$_REQUEST['vencimiento_del_pago'] = 'error de lectura';
-				} else {
-					$_REQUEST['vencimiento_del_pago'] = date('Y-m-d', $timestamp);
-				}
-
-				//campo fecha_emision
-				// $timestamp = strtotime(trim($_REQUEST['fecha_emision']) );
-				if (($timestamp = strtotime($_REQUEST['fecha_emision'])) === false) {
-					$_REQUEST['fecha_emision'] = 'error de lectura';
-				} else {
-					$_REQUEST['fecha_emision'] = date('Y-m-d', $timestamp);
-				}
-
-				if ($this->db->update('_datos_api', $_REQUEST, array('id' => $_POST['id']))) {
-
-
-					redirect('Admin/Lecturas/copy/' . $id);
-				};
-			}
-		}
-
-		$registro_api = $this->Manager_model->get_data_api('_datos_api', $myDato);
-
-		$registro_factura = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "' . $registro_api->nro_factura . '"');
-
-		$script = array(
-			base_url('assets/manager/js/secciones/lecturas/copy.js?ver=' . time()),
-		);
-		$this->data['css_common'] = $this->css_common;
-		$this->data['css'] = '';
-
-		$this->data['script_common'] = $this->script_common;
-		$this->data['script'] = $script;
-		$this->data['result'] = $registro_api;
-
-		$datos['lineas'] = $registro_factura;
-		$datos['result'] = $registro_api;
-		$datos['resultMulti'] = $importe_total;
-
-		$total = 0;
-		foreach ($registro_factura as $reg) {
-
-			$total += $reg->total_importe;
-		}
-
-		$datos['resultIngresado'] = $total;
-
-		$this->data['lineas'] = $this->load->view('manager/etiquetas/lineas', $datos, TRUE);
-		$this->data['importe_total'] = $importe_total;
-		// $this->data['nro_cuenta'] = $resultData->nro_cuenta;
-
-		if ($registro_api) {
-			$this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($registro_api->nro_cuenta);
-		}
-
-		$this->data['content'] = $this->load->view('manager/secciones/' . strtolower($this->router->fetch_class()) . '/' . $this->router->fetch_method(), $this->data, TRUE);
-
-		$this->load->view('manager/head', $this->data);
-		$this->load->view('manager/index', $this->data);
-		$this->load->view('manager/footer', $this->data);
 	}
-
 	public function views($id = 0)
 	{
 		// $myDato = $this->encrypt->decode(urldecode($id));
@@ -899,4 +739,139 @@ class Lecturas extends backend_controller
 		$pdf->merge('download', 'samplepdfs/test.pdf'); // force download
 
 	}
+
+
+
+	public function azureApi() {
+
+
+$curl = curl_init();
+
+// Cargar el archivo PDF
+$data = file_get_contents('C:/electro.pdf');
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro_t1:analyze?api-version=2023-07-31&features=queryFields&queryFields=nro_de_factura,fecha_emision,nro_cuenta,nombre_cliente,vencimiento_del_pago',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_HEADER => true,  // Incluir las cabeceras en la salida
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => $data,
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/pdf',
+    'Ocp-Apim-Subscription-Key: a49c210e168941658db7c33e33218733'
+  ),
+));
+
+$response = curl_exec($curl);
+
+if (curl_errno($curl)) {
+    echo 'Curl error: ' . curl_error($curl);
+} else {
+    // Separar las cabeceras del cuerpo de la respuesta
+    $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+    $header = substr($response, 0, $header_size);
+    $body = substr($response, $header_size);
+
+    // Mostrar cabeceras para ver que onda
+    echo "Cabeceras de respuesta:\n$header\n";
+    echo "Cuerpo de respuesta:\n$body\n";
+
+    // Buscar la URL de Operation-Location en las cabeceras para hacer el get
+    if (preg_match('/Operation-Location:\s*(.+)\r\n/', $header, $matches)) {
+        $operation_url = trim($matches[1]);
+
+        // Realizar solicitudes GET hasta obtener un resultado final
+        do {
+            sleep(5); // Esperar 5 segundos entre consultas
+
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => $operation_url,
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_HEADER => true,  // Incluir las cabeceras en la salida
+              CURLOPT_CUSTOMREQUEST => 'GET',
+              CURLOPT_HTTPHEADER => array(
+                'Ocp-Apim-Subscription-Key: a49c210e168941658db7c33e33218733'
+              ),
+            ));
+            
+            $result = curl_exec($curl);
+
+            if (curl_errno($curl)) {
+                echo 'Curl error: ' . curl_error($curl);
+                break;
+            } else {
+                // Separar las cabeceras del cuerpo de la respuesta GET
+                $header_size_get = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+                $header_get = substr($result, 0, $header_size_get);
+                $body_get = substr($result, $header_size_get);
+
+                echo "Respuesta de la solicitud GET (cabeceras):\n$header_get\n";
+                echo "Respuesta de la solicitud GET (cuerpo):\n$body_get\n";
+
+                $result_data = json_decode($body_get, true);
+
+                // Verifica si el resultado está vacío o si la clave 'status' si no existe
+                if (is_null($result_data) || !isset($result_data['status'])) {
+                    echo "Error: No se pudo obtener el estado de la operación.\n";
+                    var_dump($result_data); 
+                    break;
+                }
+
+                echo "Estado: " . $result_data['status'] . "\n";
+            }
+        } while ($result_data['status'] === 'running'); // Continuar mientras el estado sea "running"
+
+        // mostrar el el result
+        echo "Resultado de la operación:\n";
+        var_dump($result_data);
+    } else {
+        echo "No se encontró la cabecera Operation-Location en la respuesta.\n";
+    }
+}
+
+curl_close($curl);
+
+
+		
+
+
+	}
+
+
+
+
+
+
+
+
+public function azureGet(){
+
+	$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://mvl.cognitiveservices.azure.com/formrecognizer/documentModels/electro_t1/analyzeResults/5180059a-90c7-414f-af9b-4f51495c3ac4?api-version=2023-07-31',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Ocp-Apim-Subscription-Key: a49c210e168941658db7c33e33218733'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+var_dump($response);
+}
+
 }

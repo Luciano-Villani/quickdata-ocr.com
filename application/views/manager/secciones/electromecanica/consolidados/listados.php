@@ -335,7 +335,7 @@
 				<tr>
 				
                 <th>Proveedor</th>                          <!-- 0 -->
-                <th>Medidor</th>                            <!-- 1 -->
+                <th>Tarifa</th>                            <!-- 1 -->
                 <th>Categoría</th>                          <!-- 2 -->
                 <th>Tensión</th>                            <!-- 3 -->
                 <th>Nro Factura</th>                        <!-- 4 -->
