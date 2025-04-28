@@ -1477,36 +1477,36 @@ class Lecturas extends backend_controller
 							$nro_cuenta = isset($fields->nro_cuenta->content) ? trim(str_replace(' ', '', $fields->nro_cuenta->content)) : 'S/D';
 							$tipo_de_tarifa = isset($fields->Tipo_de_tarifa->content) ? trim($fields->Tipo_de_tarifa->content) : 'S/D';
 							$nombre_cliente = isset($fields->nombre_cliente->content) ? trim($fields->nombre_cliente->content) : 'S/D';
-							$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'S/D';
+							//$nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'S/D';
 							$nro_factura = isset($fields->nro_de_factura->content) ? trim($fields->nro_de_factura->content) : 'S/D';
 							$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
-							$fecha_emision = isset($fields->fecha_emision->content) ? trim($fields->fecha_emision->content) : 'S/D';
-							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->content) ? trim($fields->vencimiento_del_pago->content) : 'S/D';
-							$proximo_vencimiento = isset($fields->proximo_vencimiento->content) ? trim($fields->proximo_vencimiento->content) : 'S/D';
-							$total_importe = isset($fields->total_importe->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->total_importe->content))) : '0.00';
-							$importe_1 = $total_importe; // igual que total_importe
+							$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+							$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
+							//$total_importe = isset($fields->total_importe->content) ? str_replace(',', '.', str_replace('.', '', trim($fields->total_importe->content))) : '0.00';
+						
 							$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : 'S/D';
 							$total_vencido = '0.00'; // No disponible en JSON, valor predeterminado
 							$domicilio_de_consumo = isset($fields->domicilio_de_consumo->content) ? trim($fields->domicilio_de_consumo->content) : 'S/D';
-							$dias_comprendidos = isset($fields->{'dias comprendidos'}->content) ? trim($fields->{'dias comprendidos'}->content) : '0';
-							$dias_de_consumo = isset($fields->dias_de_consumo->content) ? trim($fields->dias_de_consumo->content) : '0';
-							$consumo_dias_comprendidos = isset($fields->{'consumo dias comprendidos'}->content) ? trim($fields->{'consumo dias comprendidos'}->content) : '0.00';
-							$nombre_proveedor = 'EDENOR CANON - T1';
-							$cargo_variable_hasta = isset($fields->{'cargo variable hasta'}->content) ? trim($fields->{'cargo variable hasta'}->content) : '0.00';
+							//$dias_comprendidos = isset($fields->{'dias comprendidos'}->content) ? trim($fields->{'dias comprendidos'}->content) : '0';
+							//$dias_de_consumo = isset($fields->dias_de_consumo->content) ? trim($fields->dias_de_consumo->content) : '0';
+							//$consumo_dias_comprendidos = isset($fields->{'consumo dias comprendidos'}->content) ? trim($fields->{'consumo dias comprendidos'}->content) : '0.00';
+							$nombre_proveedor = 'EDENOR - AP';
+							//$cargo_variable_hasta = isset($fields->{'cargo variable hasta'}->content) ? trim($fields->{'cargo variable hasta'}->content) : '0.00';
 							
-							$monto_car_var_hasta = isset($fields->monto_car_var_hasta->content) ? trim($fields->monto_car_var_hasta->content) : '0.00';
-							$monto_var_mayor = isset($fields->monto_var_mayor->content) ? trim($fields->monto_var_mayor->content) : '0.00';
+							//$monto_car_var_hasta = isset($fields->monto_car_var_hasta->content) ? trim($fields->monto_car_var_hasta->content) : '0.00';
+							//$monto_var_mayor = isset($fields->monto_var_mayor->content) ? trim($fields->monto_var_mayor->content) : '0.00';
 							$otros_conseptos = isset($fields->otros_conseptos->content) ? trim($fields->otros_conseptos->content) : '0.00';
 							
 							$subsidio = isset($fields->subsidio->content) ? trim($fields->subsidio->content) : '0.00';
-							$cosfi = isset($fields->cosenofi->content) ? trim($fields->cosenofi->content) : 'S/D';
-							$bimestre = isset($fields->bimentre->content) ? trim($fields->bimentre->content) : 'S/D';
-							$liquidacion = isset($fields->liquidacion->content) ? trim($fields->liquidacion->content) : 'S/D';
+							//$cosfi = isset($fields->cosenofi->content) ? trim($fields->cosenofi->content) : 'S/D';
+							//$bimestre = isset($fields->bimentre->content) ? trim($fields->bimentre->content) : 'S/D';
+							//$liquidacion = isset($fields->liquidacion->content) ? trim($fields->liquidacion->content) : 'S/D';
 							
 					
 							// Verificación para total_importe
 							$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
-	
+							$importe_1 = $total_importe; // igual que total_importe
 							// Verificación para cargo_fijo
 							$cargo_fijo = isset($fields->cargo_fijo->valueNumber) ? number_format($fields->cargo_fijo->valueNumber, 2, '.', '') : '0.00';
 	
@@ -1514,7 +1514,7 @@ class Lecturas extends backend_controller
 							//$cargo_variable_hasta = isset($fields->cargo_variable_hasta->valueInteger) ? number_format($fields->cargo_variable_hasta->valueInteger, 2, '.', '') : '0.00';
 	
 							// Verificación para monto_car_var_hasta
-							$monto_car_var_hasta = isset($fields->monto_car_var_hasta->valueNumber) ? number_format($fields->monto_car_var_hasta->valueNumber, 2, '.', '') : '0.00';
+							//$monto_car_var_hasta = isset($fields->monto_car_var_hasta->valueNumber) ? number_format($fields->monto_car_var_hasta->valueNumber, 2, '.', '') : '0.00';
 	
 							// Verificación para otros_conseptos
 							$otros_conseptos = isset($fields->otros_conseptos->valueNumber) ? number_format($fields->otros_conseptos->valueNumber, 2, '.', '') : '0.00';
@@ -1534,7 +1534,7 @@ class Lecturas extends backend_controller
 								'nro_cuenta' => $nro_cuenta,
 								'tipo_de_tarifa' => $tipo_de_tarifa,
 								'nombre_cliente' => $nombre_cliente,
-								'nro_medidor' => $nro_medidor,
+								'nro_medidor' => '0',
 								'nro_factura' => $nro_factura,
 								'periodo_del_consumo' => $periodo_del_consumo,
 								'fecha_emision' => $fecha_emision,
@@ -1545,23 +1545,23 @@ class Lecturas extends backend_controller
 								'consumo' => $consumo,
 								'total_vencido' => $total_vencido,
 								'domicilio_de_consumo' => $domicilio_de_consumo,
-								'dias_comprendidos' => $dias_comprendidos,
-								'dias_de_consumo' => $dias_de_consumo,
-								'consumo_dias_comprendidos' => $consumo_dias_comprendidos,
+								'dias_comprendidos' => '0',
+								'dias_de_consumo' => '0',
+								'consumo_dias_comprendidos' => '0.00',
 								'nombre_proveedor' => $nombre_proveedor,
-								'cargo_variable_hasta' => $cargo_variable_hasta,
+								'cargo_variable_hasta' => '0.00',
 								'cargo_fijo' => $cargo_fijo,
-								'monto_car_var_hasta' => $monto_car_var_hasta,
-								'moto_var_mayor' => $monto_var_mayor,
+								'monto_car_var_hasta' => '0.00',
+								'moto_var_mayor' => '0.00',
 								'otros_conseptos' => $otros_conseptos,
 								'conceptos_electricos' => $conceptos_electricos,
 								'impuestos' => $impuestos,
 								'subsidio' => $subsidio,
-								'bimestre' => $bimestre,
-								'liquidacion' => $liquidacion,
+								'bimestre' => '0',
+								'liquidacion' => '0',
 								'energia_inyectada' => '0.00', // Valor fijo por ahora
-								'cosfi' => $cosfi,
-								'p_contratada' => 'N/A',
+								'cosfi' => '0.00',
+								'p_contratada' => '0',
 								'p_registrada' => 'N/A',
 								'p_excedida' => 'N/A',
 								'pot_punta' => 'N/A',
@@ -2332,6 +2332,31 @@ class Lecturas extends backend_controller
 			echo json_encode($return);
 		}
 	}
+
+
+	
+	public function guardar_comentario_en_consolidados() {
+		// Recibir los datos del formulario
+		$comentarios = $this->input->post('comentarios');
+		$resuelto = $this->input->post('resuelto') ? 0 : 1;  // Si "Resuelto" está marcado, guardamos 0, si no 1
+		$seguimiento = ($resuelto == 1) ? 1 : 0; // Si resuelto es 1 (no marcado), se guarda 1 en seguimiento, sino 0
+	
+		// Actualizar la base de datos en la tabla _consolidados_canon
+		$data = [
+			'comentarios' => $comentarios,
+			'seguimiento' => $seguimiento, // 1 si en seguimiento, 0 si resuelto
+		];
+	
+		// Aquí actualizamos el registro en la tabla _consolidados_canon
+		$this->db->where('id', $this->input->post('id'));  // Asumiendo que el ID se pasa como un campo oculto
+		$this->db->update('_consolidados_canon', $data);
+	
+		// Respuesta exitosa
+		$this->session->set_flashdata('mensaje', 'Comentario guardado correctamente.');
+		//redirect('ruta/a/tu/vista');  // Redirigir donde quieras
+	}
+	
+	
 }
 
 /* End of file Lecturas.php and path \application\controllers\electromecanica\Lecturas.php */
