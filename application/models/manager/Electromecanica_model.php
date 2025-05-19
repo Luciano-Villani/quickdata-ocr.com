@@ -560,7 +560,7 @@ class Electromecanica_model extends CI_Model
                 case '_indexaciones_canon':
 
                     // $this->db->from($_POST['table']);
-                
+    
                     $this->db->select(
                         '_indexaciones_canon.*
                         ,_secretarias.secretaria as nombre_secretaria,
@@ -573,13 +573,13 @@ class Electromecanica_model extends CI_Model
                         _proyectos.descripcion as descr_proyecto,
                         '
                     );
-                
-                    $this->db->join('_secretarias', '_secretarias.id = _indexaciones_canon.id_secretaria', 'right');
+    
+                    $this->db->join('_secretarias', '_secretarias.id = _indexaciones_canon.id_secretaria', 'rigth', true);
                     $this->db->join('_proveedores_canon', '_proveedores_canon.id = _indexaciones_canon.id_proveedor', '');
                     $this->db->join('_dependencias_canon', '_dependencias_canon.id = _indexaciones_canon.id_dependencia', 'left');
                     $this->db->join('_programas', ' _indexaciones_canon.id_programa = _programas.id', '');
                     $this->db->join('_proyectos', '_indexaciones_canon.id_proyecto = _proyectos.id', '');
-                
+    
                     $my_column_order = array(
                         '',
                         '_indexaciones_canon.id',
@@ -591,7 +591,7 @@ class Electromecanica_model extends CI_Model
                         '_programas.descripcion',
                         '_proyectos.descripcion'
                     );
-                
+    
                     $my_column_search = array(
                         '_proveedores_canon.nombre',
                         '_indexaciones_canon.nro_cuenta',
@@ -601,55 +601,59 @@ class Electromecanica_model extends CI_Model
                         'UPPER(_proyectos.descripcion)',
                         '_indexaciones_canon.expediente',
                     );
-                
-                    if (isset($postData['data_search'])) {
-                        // Convertir el valor de data_search a booleano
-                        $dataSearchActivo = ($postData['data_search'] === 'true');
-                
-                        // Aplicar el filtro específico por nro_cuenta solo si data_search está activo y tiene un valor
-                        if ($dataSearchActivo && isset($postData['data_search']) && $postData['data_search'] !== 'false' && $postData['data_search'] !== '') {
-                            $this->db->where("_indexaciones_canon.nro_cuenta", $postData['data_search']);
+                    if (isset($postData['data_search'])){
+                    
+                        if ($postData['data_search'] != 'false' && (isset($postData['data_search']) && $postData['data_search'] != '')) {
+                            
+                            $this->db->group_start();
+                            
+                            $this->db->where("_indexaciones_canon.nro_cuenta= '" . $postData['data_search'] . "'");
+                            
+                            $this->db->group_end();
                         }
-                    }
+                        }
                     $this->order = array(
                         '_indexaciones_canon.id' => 'desc'
                     );
-                
-                    $i = 0;
-                
-                    foreach ($my_column_search as $item) {
-                
-                        if (isset($postData['search']['value']) && $postData['search']['value'] != '') {
-                            // first loop
-                            if ($i === 0) {
-                                // open bracket
-                                $this->db->group_start();
-                                $this->db->like($item, $postData['search']['value']);
-                            } else {
-                                $this->db->or_like($item, $postData['search']['value']);
-                            }
-                
-                            // last loop
-                            if (count($my_column_search) - 1 == $i) {
-                                // close bracket
-                                $this->db->group_end();
-                            }
-                        }
-                        $i++;
-                    }
-                    if (isset($postData['order'])) {
-                        $this->db->order_by($my_column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
-                    } else if (isset($this->order)) {
-                
-                        $order = $this->order;
-                        $this->db->order_by(key($order), $order[key($order)]);
-                    }
-                
-                    // $this->db->from($_POST['table']);
-                    $this->db->from($_POST['table']);
-                }
+    
+                    break;
             }
-
+    
+            $i = 0;
+    
+    
+            foreach ($my_column_search as $item) {
+    
+                if (isset($postData['search']['value']) &&  $postData['search']['value'] != '') {
+                    // first loop
+                    if ($i === 0) {
+                        // open bracket
+                        $this->db->group_start();
+                        $this->db->like($item, $postData['search']['value']);
+                    } else {
+                        $this->db->or_like($item, $postData['search']['value']);
+                    }
+    
+                    // last loop
+                    if (count($my_column_search) - 1 == $i) {
+                        // close bracket
+                        $this->db->group_end();
+                    }
+                }
+                $i++;
+            }
+            if (isset($postData['order'])) {
+                $this->db->order_by($my_column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
+            } else if (isset($this->order)) {
+    
+                $order = $this->order;
+                $this->db->order_by(key($order), $order[key($order)]);
+            }
+    
+            // $this->db->from($_POST['table']);
+            $this->db->from($_POST['table']);
+        }
+        
     public function countAll()
     {
         $this->db->from($_POST['table']);
