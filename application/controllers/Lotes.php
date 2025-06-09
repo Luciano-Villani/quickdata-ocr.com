@@ -367,10 +367,27 @@ class Lotes extends backend_controller
 
 				case 10: // 3480 TELECOM TELEFONIA FIJA
 
-							if (isset($a[0]->fields)) {
+				if (isset($a[0]->fields)) {
 					$fields = $a[0]->fields;
 
-					$cuenta = isset($fields->nro_cuenta->content) ? preg_replace('/\s+/', '', trim($fields->nro_cuenta->content)) : 'S/D';
+					// --- INICIO: Lógica para parsear y formatear nro_cuenta ---
+					$cuenta_raw = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : '';
+					$cuenta_limpia = preg_replace('/^\(\d+\)/', '', $cuenta_raw); // Elimina el patrón (XX) al inicio
+
+					if (!empty($cuenta_limpia) && is_string($cuenta_limpia)) {
+						$length = strlen($cuenta_limpia);
+						if ($length > 4) { // Solo si tiene más de 4 dígitos para insertar el guion
+							$parte_inicial = substr($cuenta_limpia, 0, $length - 4);
+							$ultimos_cuatro = substr($cuenta_limpia, -4);
+							$cuenta = $parte_inicial . '-' . $ultimos_cuatro;
+						} else {
+							$cuenta = $cuenta_limpia; // Si tiene 4 o menos dígitos, no se agrega guion
+						}
+					} else {
+						$cuenta = 'S/D'; // Si después de la limpieza está vacío, asigna S/D
+					}
+					// --- FIN: Lógica para parsear y formatear nro_cuenta ---
+
 					$nro_factura = isset($fields->numero_de_factura->valueString) ? trim($fields->numero_de_factura->valueString) : 'S/D';
 					$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
 					$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
@@ -380,7 +397,7 @@ class Lotes extends backend_controller
 					$consumo = isset($fields->consumo->valueString) ? trim($fields->consumo->valueString) : 'S/D';
 
 					$dataUpdate = array(
-						'nro_cuenta' => $cuenta,
+						'nro_cuenta' => $cuenta, // <-- Aquí ya se usa la variable $cuenta formateada
 						'nro_medidor' => trim('N/A'), // No aplica
 						'nro_factura' => $nro_factura,
 						'fecha_emision' => $fecha_emision,
@@ -395,7 +412,6 @@ class Lotes extends backend_controller
 				}
 
 				break;
-
 
 				case 24: // electro T1 azure
 
