@@ -543,8 +543,10 @@ if (isset($a->document->inference->pages[0]->prediction->fecha_emision->values[0
 }
 
 // Convertir la fecha a mes y año
-$dataUpdate['mes_fc'] = fecha_es($fecha_emision, 'm');
-$dataUpdate['anio_fc'] = fecha_es($fecha_emision, 'Y');
+//$dataUpdate['mes_fc'] = fecha_es($fecha_emision, 'm');
+//$dataUpdate['anio_fc'] = fecha_es($fecha_emision, 'Y');
+$dataUpdate['mes_fc'] = fecha_es(trim($fecha_emision), 'm');
+$dataUpdate['anio_fc'] = fecha_es(trim($fecha_emision), 'Y');
 
 // Guardar en la base de datos
 $this->db->where('id', $mires[0]->id);
