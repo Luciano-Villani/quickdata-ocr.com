@@ -9,13 +9,12 @@ if (!function_exists('apiRest')) {
         $FILE_PATH = $file['full_path'];
         $MIME_TYPE = 'application/pdf';
 
-        // Selección de API Key y tiempo de espera según procesar_por
         if ($procesar_por === 'azure') {
             $API_KEY = 'a49c210e168941658db7c33e33218733';
-            $wait_time = 2; // Espera de 2 segundos
+            $wait_time = 2;
         } elseif ($procesar_por === 'azure2') {
             $API_KEY = '716c75SXPYp6Wvw1VUATXJM37mccGIMVqS8tNDMvHc4a5Gi60siVJQQJ99AKACZoyfiXJ3w3AAALACOGsdKb';
-            $wait_time = 5; // Espera de 5 segundos
+            $wait_time = 6;
         } else {
             $API_KEY = 'N/A';
             $wait_time = 0;
@@ -30,37 +29,57 @@ if (!function_exists('apiRest')) {
             );
 
             $data = file_get_contents($FILE_PATH);
-            $ch = curl_init();
-            curl_setopt_array($ch, array(
-                CURLOPT_URL => $endPoint,
-                CURLOPT_HTTPHEADER => $headers,
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $data,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_HEADER => true,
-                CURLOPT_FOLLOWLOCATION => true
-            ));
 
-            $response = curl_exec($ch);
-            if (curl_errno($ch)) {
-                log_message('error', "cURL error: " . curl_error($ch));
-                return 'Curl error: ' . curl_error($ch);
-            }
+            $realizarPostAzure = function () use ($endPoint, $headers, $data) {
+                $ch = curl_init();
+                curl_setopt_array($ch, array(
+                    CURLOPT_URL => $endPoint,
+                    CURLOPT_HTTPHEADER => $headers,
+                    CURLOPT_POST => true,
+                    CURLOPT_POSTFIELDS => $data,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_HEADER => true,
+                    CURLOPT_FOLLOWLOCATION => true
+                ));
+                $response = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    log_message('error', "cURL error: " . curl_error($ch));
+                    return array('error' => curl_error($ch));
+                }
+                $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+                $header = substr($response, 0, $header_size);
+                $body = substr($response, $header_size);
+                curl_close($ch);
+                return array('header' => $header, 'body' => $body);
+            };
 
-            log_message('error', "Respuesta recibida: " . print_r($response, true));
+            $attempts = 0;
+            $max_attempts = 2;
+            $operation_url = null;
 
-            $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-            $header = substr($response, 0, $header_size);
-            $body = substr($response, $header_size);
+            do {
+                $attempts++;
+                log_message('error', "Intento #$attempts de obtener Operation-Location...");
+                $result = $realizarPostAzure();
+                if (isset($result['error'])) return array('error' => $result['error']);
 
-            curl_close($ch);
+                $header = $result['header'];
+                $body = $result['body'];
+                log_message('error', "Respuesta recibida (intento $attempts): " . print_r($body, true));
 
-            if (preg_match('/operation-location:\s*(.+)\r\n/i', $header, $matches)) {
-                $operation_url = trim($matches[1]);
+                if (preg_match('/operation-location:\s*(.+)\r\n/i', $header, $matches)) {
+                    $operation_url = trim($matches[1]);
+                    break;
+                }
 
+                if ($attempts < $max_attempts) {
+                    sleep(2);
+                }
+            } while ($attempts < $max_attempts);
+
+            if ($operation_url) {
                 do {
-                    sleep($wait_time); // Espera personalizada
-
+                    sleep($wait_time);
                     $ch = curl_init();
                     curl_setopt_array($ch, array(
                         CURLOPT_URL => $operation_url,
@@ -71,7 +90,6 @@ if (!function_exists('apiRest')) {
                             "Ocp-Apim-Subscription-Key: $API_KEY"
                         ),
                     ));
-
                     $result = curl_exec($ch);
                     if (curl_errno($ch)) {
                         log_message('error', "cURL error en GET: " . curl_error($ch));
@@ -79,10 +97,9 @@ if (!function_exists('apiRest')) {
                     }
 
                     log_message('error', "Respuesta GET: " . print_r($result, true));
-
                     $header_size_get = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-                    $header_get = substr($result, 0, $header_size_get);
                     $body_get = substr($result, $header_size_get);
+                    curl_close($ch);
 
                     $result_data = json_decode($body_get, true);
                 } while ($result_data['status'] === 'running');
@@ -93,11 +110,11 @@ if (!function_exists('apiRest')) {
                     return $result_data;
                 }
             } else {
-                log_message('error', "No se encontró la cabecera Operation-Location en la respuesta.");
+                log_message('error', "No se encontró Operation-Location en ninguno de los intentos.");
                 return array('error' => 'No se encontró la cabecera Operation-Location en la respuesta.');
             }
         } else {
-            // Lógica para Mindee (actual)
+            // Lógica para Mindee
             $API_KEY = 'f4b6ebe406cdb615674ae37aabc48929';
             $url = $endPoint;
 
