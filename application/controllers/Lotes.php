@@ -1217,6 +1217,8 @@ private function formatearCuenta($raw) {
         : $cuenta_limpia;
 }
 private function procesarProveedorTelecomFija($fields) {
+    $totalImporte = $this->getValor($fields, 'total_importe', 'number');
+
     return [
         'nro_cuenta' => $this->formatearCuenta($fields->nro_cuenta->content ?? ''),
         'nro_medidor' => 'N/A',
@@ -1225,7 +1227,8 @@ private function procesarProveedorTelecomFija($fields) {
         'vencimiento_del_pago' => $this->getValor($fields, 'vencimiento_del_pago', 'date'),
         'periodo_del_consumo' => $this->getValor($fields, 'periodo_facturado'),
         'total_vencido' => $this->getValor($fields, 'cargo_mes', 'number'),
-        'total_importe' => $this->getValor($fields, 'total_importe', 'number'),
+        'total_importe' => $totalImporte,
+        'importe_1' => is_numeric($totalImporte) ? number_format((float)$totalImporte, 2, '.', '') : 0.00,
         'consumo' => $this->getValor($fields, 'consumo')
     ];
 }
