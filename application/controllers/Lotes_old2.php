@@ -366,10 +366,52 @@ class Lotes extends backend_controller
 					break;
 
 				case 10: // 3480 TELECOM TELEFONIA FIJA
-					$dataUpdate = (isset($a[0]->fields))
-						? $this->procesarProveedorTelecomFija($a[0]->fields)
-						: [];
-					break;
+
+				if (isset($a[0]->fields)) {
+					$fields = $a[0]->fields;
+
+					// --- INICIO: Lógica para parsear y formatear nro_cuenta ---
+					$cuenta_raw = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : '';
+					$cuenta_limpia = preg_replace('/^\(\d+\)/', '', $cuenta_raw); // Elimina el patrón (XX) al inicio
+
+					if (!empty($cuenta_limpia) && is_string($cuenta_limpia)) {
+						$length = strlen($cuenta_limpia);
+						if ($length > 4) { // Solo si tiene más de 4 dígitos para insertar el guion
+							$parte_inicial = substr($cuenta_limpia, 0, $length - 4);
+							$ultimos_cuatro = substr($cuenta_limpia, -4);
+							$cuenta = $parte_inicial . '-' . $ultimos_cuatro;
+						} else {
+							$cuenta = $cuenta_limpia; // Si tiene 4 o menos dígitos, no se agrega guion
+						}
+					} else {
+						$cuenta = 'S/D'; // Si después de la limpieza está vacío, asigna S/D
+					}
+					// --- FIN: Lógica para parsear y formatear nro_cuenta ---
+
+					$nro_factura = isset($fields->numero_de_factura->valueString) ? trim($fields->numero_de_factura->valueString) : 'S/D';
+					$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+					$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+					$periodo_facturado = isset($fields->periodo_facturado->valueString) ? trim($fields->periodo_facturado->valueString) : 'S/D';
+					$cargo_mes = isset($fields->cargo_mes->valueNumber) ? number_format($fields->cargo_mes->valueNumber, 2, '.', '') : '0.00';
+					$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+					$consumo = isset($fields->consumo->valueString) ? trim($fields->consumo->valueString) : 'S/D';
+
+					$dataUpdate = array(
+						'nro_cuenta' => $cuenta, // <-- Aquí ya se usa la variable $cuenta formateada
+						'nro_medidor' => trim('N/A'), // No aplica
+						'nro_factura' => $nro_factura,
+						'fecha_emision' => $fecha_emision,
+						'vencimiento_del_pago' => $vencimiento_del_pago,
+						'periodo_del_consumo' => $periodo_facturado,
+						'total_vencido' => $cargo_mes, // Se usa cargo_mes en su lugar
+						'total_importe' => $total_importe,
+						'consumo' => $consumo
+					);
+				} else {
+					$dataUpdate = array();
+				}
+
+				break;
 
 				case 24: // electro T1 azure
 
@@ -1191,44 +1233,6 @@ if ($this->db->affected_rows() > 0) {
 	}
 
 	// functiones callback validacion de formularios
-
-	// --- FUNCIONES AUXILIARES ---
-
-private function getValor($obj, $campo, $tipo = 'string') {
-    if (!isset($obj->$campo)) return ($tipo === 'number') ? '0.00' : 'S/D';
-    
-    switch ($tipo) {
-        case 'string':
-            return trim($obj->$campo->valueString ?? $obj->$campo->content ?? 'S/D');
-        case 'number':
-            return number_format($obj->$campo->valueNumber ?? 0, 2, '.', '');
-        case 'date':
-            return trim($obj->$campo->valueDate ?? 'S/D');
-        default:
-            return 'S/D';
-    }
-}
-
-private function formatearCuenta($raw) {
-    $cuenta_limpia = preg_replace('/^\(\d+\)/', '', trim($raw));
-    if ($cuenta_limpia === '') return 'S/D';
-    return (strlen($cuenta_limpia) > 4)
-        ? substr($cuenta_limpia, 0, -4) . '-' . substr($cuenta_limpia, -4)
-        : $cuenta_limpia;
-}
-private function procesarProveedorTelecomFija($fields) {
-    return [
-        'nro_cuenta' => $this->formatearCuenta($fields->nro_cuenta->content ?? ''),
-        'nro_medidor' => 'N/A',
-        'nro_factura' => $this->getValor($fields, 'numero_de_factura'),
-        'fecha_emision' => $this->getValor($fields, 'fecha_emision', 'date'),
-        'vencimiento_del_pago' => $this->getValor($fields, 'vencimiento_del_pago', 'date'),
-        'periodo_del_consumo' => $this->getValor($fields, 'periodo_facturado'),
-        'total_vencido' => $this->getValor($fields, 'cargo_mes', 'number'),
-        'total_importe' => $this->getValor($fields, 'total_importe', 'number'),
-        'consumo' => $this->getValor($fields, 'consumo')
-    ];
-}
 
 
 }
