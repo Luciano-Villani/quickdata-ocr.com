@@ -149,61 +149,38 @@ class Lotes extends backend_controller
 						break;
 					
 					
-				case 3: //FLOW 3480
+				case 3: // FLOW 3480
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
-					$nro_cuenta = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
-					}
-					$numero_de_factura = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->numero_de_factura->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$numero_de_factura .= $a->document->inference->pages[0]->prediction->numero_de_factura->values[$paso]->content;
-					}
+				if (isset($a[0]->fields)) {
+					$fields = $a[0]->fields;
 
-					$fecha_emision = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->fecha_emision->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$fecha_emision .= $a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content;
-					}
+					$nro_cuenta = isset($fields->nro_cuenta->valueNumber) ? trim($fields->nro_cuenta->valueNumber) : 'S/D';
+					$nro_factura = isset($fields->numero_de_factura->valueString) ? trim($fields->numero_de_factura->valueString) : 'S/D';
+					$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+					$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+					$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+					$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
 
-					$total_importe = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->total_importe->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$total_importe .= $a->document->inference->pages[0]->prediction->total_importe->values[$paso]->content;
-					}
-
-
-					$vencimiento_del_pago = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$vencimiento_del_pago .= $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
-					}
-
-
-
-					$periodo_del_consumo = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}
-
+					$abonos = isset($fields->abonos->valueString) ? trim($fields->abonos->valueString) : '';
+					$cantidad_abonos = isset($fields->cantidad_de_abonos->valueNumber) ? trim($fields->cantidad_de_abonos->valueNumber) : '';
+					$consumo = (!empty($abonos) && $cantidad_abonos !== '') ? $abonos . ' x ' . $cantidad_abonos : 'S/D';
 
 					$dataUpdate = array(
-						'nro_cuenta' => trim($nro_cuenta),
-						'nro_factura' => trim($numero_de_factura),
-						'fecha_emision' => trim($fecha_emision),
-						'total_importe' => trim($total_importe),
-						'vencimiento_del_pago' => trim($vencimiento_del_pago),
-						'periodo_del_consumo' => trim($periodo_del_consumo),
-						// 'nro_medidor' => trim('N/A'),
-						// 'total_vencido' => trim($total_vencido),
-						// 'consumo' => trim($consumo),
+						'nro_cuenta' => $nro_cuenta,
+						'nro_factura' => $nro_factura,
+						'fecha_emision' => $fecha_emision,
+						'total_importe' => $total_importe,
+						'vencimiento_del_pago' => $vencimiento_del_pago,
+						'periodo_del_consumo' => $periodo_del_consumo,
+						'consumo' => $consumo,
+						'nro_medidor' => 'N/A', // Valor fijo para mantener estructura
+						'total_vencido' => 'S/D', // Valor fijo para mantener estructura
 					);
+				} else {
+					$dataUpdate = array(); // No hay datos en el JSON
+				}
 
-
-					break;
+				break;
 
 				case 4: //3857 EDENOR 
 
@@ -387,75 +364,37 @@ class Lotes extends backend_controller
 						'total_vencido' => trim('S/D'),
 					);
 					break;
+
 				case 10: // 3480 TELECOM TELEFONIA FIJA
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
-					$consumo = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$consumo .= ' ' . $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
-					}
+							if (isset($a[0]->fields)) {
+					$fields = $a[0]->fields;
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_facturado->values);
-					$periodo_facturado = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_facturado .= ' ' . $a->document->inference->pages[0]->prediction->periodo_facturado->values[$paso]->content;
-					}
-
-					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-					$vencimiento_del_pago = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$vencimiento_del_pago .= $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content;
-					}
-
-					$cuenta = "N/A";
-					if (count($a->document->inference->pages[0]->prediction->nro_cuenta->values) > 0) {
-						$cuenta = trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content);
-
-						// Agregar el guion después del cuarto dígito
-						$cuenta = substr_replace($cuenta, '-', 4, 0);
-					}
-
-					$fecha_emision = "No leido"; // Valor predeterminado
-					if (count($a->document->inference->pages[0]->prediction->fecha_emision->values) > 0) {
-						$fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
-					}
-
-					// Manejo de nro_factura vacío
-					// Suponiendo que $filename contiene 'uploader/files/3480/b04770-87496443_splitter.pdf'
-					$partes = explode('/', $filename); // Separar por '/'
-					$nombreArchivo = end($partes); // Obtener el último elemento: 'b04770-87496443_splitter.pdf'
-
-					// Extraer el número utilizando la expresión regular
-					preg_match('/b(\d{5})-(\d{8})_splitter\.pdf/', $nombreArchivo, $matches);
-
-					$numero = isset($matches[1]) && isset($matches[2]) ? $matches[1] . '-' . $matches[2] : ''; // Concatenar para obtener '04770-87496443'
-
-					$nro_factura = "N/A";
-					if (count($a->document->inference->pages[0]->prediction->numero_de_factura->values) > 0) {
-						$nro_factura = trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content);
-
-						// Verificar si nro_factura está vacío
-						if (empty($nro_factura)) {
-							$nro_factura = $numero; // Usar el número extraído si nro_factura está vacío
-						}
-					} else {
-						$nro_factura = $numero; // Usar el número extraído si no hay número de factura en el JSON
-					}
-
+					$cuenta = isset($fields->nro_cuenta->content) ? preg_replace('/\s+/', '', trim($fields->nro_cuenta->content)) : 'S/D';
+					$nro_factura = isset($fields->numero_de_factura->valueString) ? trim($fields->numero_de_factura->valueString) : 'S/D';
+					$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+					$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+					$periodo_facturado = isset($fields->periodo_facturado->valueString) ? trim($fields->periodo_facturado->valueString) : 'S/D';
+					$cargo_mes = isset($fields->cargo_mes->valueNumber) ? number_format($fields->cargo_mes->valueNumber, 2, '.', '') : '0.00';
+					$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+					$consumo = isset($fields->consumo->valueString) ? trim($fields->consumo->valueString) : 'S/D';
 
 					$dataUpdate = array(
 						'nro_cuenta' => $cuenta,
-						'nro_medidor' => trim('N/A'),
-						'nro_factura' => $nro_factura, // Usar el valor procesado de nro_factura
+						'nro_medidor' => trim('N/A'), // No aplica
+						'nro_factura' => $nro_factura,
 						'fecha_emision' => $fecha_emision,
-						'vencimiento_del_pago' => trim($vencimiento_del_pago),
-						'periodo_del_consumo' => trim($periodo_facturado),
-						'total_vencido' => trim('S/D'),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-						'consumo' => trim($consumo),
+						'vencimiento_del_pago' => $vencimiento_del_pago,
+						'periodo_del_consumo' => $periodo_facturado,
+						'total_vencido' => $cargo_mes, // Se usa cargo_mes en su lugar
+						'total_importe' => $total_importe,
+						'consumo' => $consumo
 					);
+				} else {
+					$dataUpdate = array();
+				}
 
-					break;
+				break;
 
 
 				case 24: // electro T1 azure
