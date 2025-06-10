@@ -1495,6 +1495,12 @@ private function procesarProveedorTelecomFija($fields) {
     // ASUMIMOS que $this->getMesAnioDesdeFecha existe y es accesible en esta clase.
     $mesAnioData = $this->getMesAnioDesdeFecha($fechaEmision);
 
+    // Extraer el campo 'proximo_vencimiento'
+    // Accedemos directamente a valueDate si 'proximo_vencimiento' existe,
+    // de lo contrario, devolvemos 'S/D' o un valor predeterminado apropiado.
+    $proximoVencimiento = $fields->proximo_vencimiento->valueDate ?? 'S/D';
+
+
     return [
         'nro_cuenta'           => $this->formatearCuenta($fields->nro_cuenta->content ?? ''),
         'nro_medidor'          => 'N/A',
@@ -1506,8 +1512,9 @@ private function procesarProveedorTelecomFija($fields) {
         'total_importe'        => $totalImporte,
         'importe_1'            => is_numeric($totalImporte) ? number_format((float)$totalImporte, 2, '.', '') : 0.00,
         'consumo'              => $this->getValor($fields, 'consumo'),
-        'mes_fc'               => $mesAnioData['mes_fc'],   // Nuevo: mes de la factura
-        'anio_fc'              => $mesAnioData['anio_fc'],  // Nuevo: año de la factura
+        'mes_fc'               => $mesAnioData['mes_fc'],
+        'anio_fc'              => $mesAnioData['anio_fc'],
+        'proximo_vencimiento'  => $proximoVencimiento, // ¡Nuevo campo agregado!
     ];
 }
 // --- FUNCIÓN AUXILIAR en el controlador lotes.php ---
@@ -1530,7 +1537,7 @@ private function getMesAnioDesdeFecha(string $fechaStr): array
 
     // Si aún no se pudo parsear, registra un error y devuelve S/D
     if ($fechaObjeto === false) {
-        error_log("Error: Formato de fecha no reconocido por getMesAnioDesdeFecha: " . $fechaStr);
+       // error_log("Error: Formato de fecha no reconocido por getMesAnioDesdeFecha: " . $fechaStr);
         return ['mes_fc' => 'S/D', 'anio_fc' => 'S/D'];
     }
 
