@@ -43,7 +43,7 @@ if (!function_exists('apiRest')) {
                 ));
                 $response = curl_exec($ch);
                 if (curl_errno($ch)) {
-                    log_message('error', "cURL error: " . curl_error($ch));
+                  //  log_message('error', "cURL error: " . curl_error($ch));
                     return array('error' => curl_error($ch));
                 }
                 $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
@@ -65,7 +65,7 @@ if (!function_exists('apiRest')) {
 
                 $header = $result['header'];
                 $body = $result['body'];
-                log_message('error', "Respuesta recibida (intento $attempts): " . print_r($body, true));
+                //log_message('error', "Respuesta recibida (intento $attempts): " . print_r($body, true));
 
                 if (preg_match('/operation-location:\s*(.+)\r\n/i', $header, $matches)) {
                     $operation_url = trim($matches[1]);
@@ -92,11 +92,11 @@ if (!function_exists('apiRest')) {
                     ));
                     $result = curl_exec($ch);
                     if (curl_errno($ch)) {
-                        log_message('error', "cURL error en GET: " . curl_error($ch));
+                       // log_message('error', "cURL error en GET: " . curl_error($ch));
                         break;
                     }
 
-                    log_message('error', "Respuesta GET: " . print_r($result, true));
+                    //log_message('error', "Respuesta GET: " . print_r($result, true));
                     $header_size_get = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
                     $body_get = substr($result, $header_size_get);
                     curl_close($ch);
@@ -140,7 +140,7 @@ if (!function_exists('apiRest')) {
             ));
 
             $json = curl_exec($ch);
-            log_message('error', "Respuesta Mindee: " . print_r($json, true));
+            //log_message('error', "Respuesta Mindee: " . print_r($json, true));
 
             curl_close($ch);
             return json_decode($json, JSON_PRETTY_PRINT);

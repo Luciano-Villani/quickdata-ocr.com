@@ -47,106 +47,155 @@ class Lotes extends backend_controller
 
 
 			switch ($id_proveedor) {
+
+
 				case 1: // ASYSA 3232
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-					$fecha_emision = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$fecha_emision .= trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
-					}
+				$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+				$fecha_emision = '';
+				for ($paso = 0; $paso < $totalIndices; $paso++) {
+					$fecha_emision .= trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
+				}
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-					$vencimiento_del_pago = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$vencimiento_del_pago .= trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content);
-					}
-					// echo '<pre>';
-					// echo $fecha_emision;
-					// echo '<pre>';
-					// echo fecha_es($fecha_emision,'Y-m-d'); 
-					// echo '</pre>';
-					// // die();
-					$nro_cuenta = '';
-					//calculo indices para el periodo
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-					$periodo_del_consumo = '';
-					$monto_subsidio = '';
-					$consumo = '';
+				$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
+				$vencimiento_del_pago = '';
+				for ($paso = 0; $paso < $totalIndices; $paso++) {
+					$vencimiento_del_pago .= trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content);
+				}
+				// echo '<pre>';
+				// echo $fecha_emision;
+				// echo '<pre>';
+				// echo fecha_es($fecha_emision,'Y-m-d'); 
+				// echo '</pre>';
+				// // die();
+				$nro_cuenta = '';
+				//calculo indices para el periodo
+				$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
+				$periodo_del_consumo = '';
+				$monto_subsidio = '';
+				$consumo = '';
 
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}
+				for ($paso = 0; $paso < $totalIndices; $paso++) {
+					$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+				}
 
-					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
-						$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
-					} else {
-						$medidor = 'N/A';
-					}
-					if ($a->document->inference->pages[0]->prediction->monto_subsidio->values) {
-						$monto_subsidio = $a->document->inference->pages[0]->prediction->monto_subsidio->values[0]->content;
-					} else {
-						$monto_subsidio = 'N/A';
-					}
-					if ($a->document->inference->pages[0]->prediction->consumo->values) {
-						$consumo = $a->document->inference->pages[0]->prediction->consumo->values[0]->content;
-					} else {
-						$consumo = 'S/D';
-					}
-					$dataUpdate = array(
-						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-						'nro_medidor' => trim($medidor),
-						'nro_factura' => trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content),
-						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'fecha_emision' => trim($fecha_emision),
-						'vencimiento_del_pago' => trim($vencimiento_del_pago),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-						'total_vencido' => trim($a->document->inference->pages[0]->prediction->total_vencido->values[0]->content),
-						'monto_subsidio' => trim($monto_subsidio),
-						'consumo' => trim($consumo),
-					);
+				if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
+					$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
+				} else {
+					$medidor = 'N/A';
+				}
+				if ($a->document->inference->pages[0]->prediction->monto_subsidio->values) {
+					$monto_subsidio = $a->document->inference->pages[0]->prediction->monto_subsidio->values[0]->content;
+				} else {
+					$monto_subsidio = 'N/A';
+				}
+				if ($a->document->inference->pages[0]->prediction->consumo->values) {
+					$consumo = $a->document->inference->pages[0]->prediction->consumo->values[0]->content;
+				} else {
+					$consumo = 'S/D';
+				}
 
-					break;
+				// *** INICIO DE LA LÓGICA PARA mes_fc y anio_fc ***
+				// La variable $fecha_emision ya está construida al inicio del case.
+				$fecha_emision_para_calculo = trim($fecha_emision); // Asegurarse de que esté limpia antes de pasarla a la función.
+				$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_para_calculo);
+				// *** FIN DE LA LÓGICA PARA mes_fc y anio_fc ***
+
+				// --- INICIO: Lógica para importe_1 (total_importe como string, importe_1 como decimal 2) ---
+				$total_importe_asysa_raw = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+				
+				// CAMBIO AQUÍ: Eliminar solo comas, manteniendo el punto decimal.
+				// Si el valor viene "28,261.52", esto lo convierte en "28261.52".
+				// Si el valor viene "28261.52", esto lo mantiene como "28261.52".
+				$total_importe_asysa_cleaned = str_replace(',', '', $total_importe_asysa_raw); 
+				
+				$importe_1_asysa_formatted = '0.00';
+				if (is_numeric($total_importe_asysa_cleaned)) {
+					$importe_1_asysa_formatted = number_format((float)$total_importe_asysa_cleaned, 2, '.', '');
+				}
+				// --- FIN: Lógica para importe_1 ---
+
+				$dataUpdate = array(
+					'nro_cuenta'         => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
+					'nro_medidor'        => trim($medidor),
+					'nro_factura'        => trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content),
+					'periodo_del_consumo' => trim($periodo_del_consumo),
+					'fecha_emision'      => trim($fecha_emision),
+					'vencimiento_del_pago' => trim($vencimiento_del_pago),
+					'total_importe'      => $total_importe_asysa_cleaned, // Se usa el string limpio aquí, ahora con el punto
+					'importe_1'          => $importe_1_asysa_formatted,   // Agregado y formateado a decimal 2
+					'total_vencido'      => trim($a->document->inference->pages[0]->prediction->total_vencido->values[0]->content),
+					'monto_subsidio'     => trim($monto_subsidio),
+					'consumo'            => trim($consumo),
+					'mes_fc'             => $mesAnioData['mes_fc'],
+					'anio_fc'            => $mesAnioData['anio_fc'],
+				);
+				break;
+			
+					
 					case 2: // NATURGY 4399
 
-						// Verificamos que existan datos en el JSON
-						if (isset($a[0]->fields)) {
-							$fields = $a[0]->fields;
+				// Verificamos que existan datos en el JSON
+				if (isset($a[0]->fields)) {
+					$fields = $a[0]->fields;
+
+					//$nro_cuenta = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : 'S/D';
+					$nro_cuenta = isset($fields->nro_cuenta->content) ? str_replace(' ', '', trim($fields->nro_cuenta->content)) : 'S/D';
+					$nro_medidor = isset($fields->nro_medidor->valueNumber) ? trim($fields->nro_medidor->valueNumber) : 'S/D';
+					$nro_factura = isset($fields->nro_factura->valueNumber) ? trim($fields->nro_factura->valueNumber) : 'S/D';
+					//$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
+					$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+					$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+					$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
+					$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : '0.00';
 					
-							//$nro_cuenta = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : 'S/D';
-							$nro_cuenta = isset($fields->nro_cuenta->content) ? str_replace(' ', '', trim($fields->nro_cuenta->content)) : 'S/D';
-							$nro_medidor = isset($fields->nro_medidor->valueNumber) ? trim($fields->nro_medidor->valueNumber) : 'S/D';
-							$nro_factura = isset($fields->nro_factura->valueNumber) ? trim($fields->nro_factura->valueNumber) : 'S/D';
-							//$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
-							$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
-							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
-							$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
-							$consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : '0.00';
-							$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
-							$total_vencido = isset($fields->total_vencido->valueNumber) ? number_format($fields->total_vencido->valueNumber, 2, '.', '') : '0.00';
+					// total_importe ya se extrae y formatea a 2 decimales
+					$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
 					
-							
-							 // Extraer solo la parte antes del guion "-"
-							 $periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
-							 $periodo_del_consumo = explode('-', $periodo_del_consumo)[0]; // Toma solo la parte antes del "-"
-							
-							$dataUpdate = array(
-								'nro_cuenta' => $nro_cuenta,
-								'nro_medidor' => $nro_medidor,
-								'nro_factura' => $nro_factura,
-								'periodo_del_consumo' => $periodo_del_consumo,
-								'fecha_emision' => $fecha_emision,
-								'vencimiento_del_pago' => $vencimiento_del_pago,
-								'proximo_vencimiento' => $proximo_vencimiento,
-								'consumo' => $consumo,
-								'total_importe' => $total_importe,
-								'total_vencido' => $total_vencido,
-							);
-						} else {
-							// Manejar el caso en el que no haya datos en el JSON
-							$dataUpdate = array();
-						}
-					
-						break;
+					$total_vencido = isset($fields->total_vencido->valueNumber) ? number_format($fields->total_vencido->valueNumber, 2, '.', '') : '0.00';
+
+					// Extraer solo la parte antes del guion "-"
+					$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
+					$periodo_del_consumo = explode('-', $periodo_del_consumo)[0]; // Toma solo la parte antes del "-"
+
+					// Lógica para obtener mes_fc y anio_fc
+					$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision);
+
+					$dataUpdate = array(
+						'nro_cuenta'         => $nro_cuenta,
+						'nro_medidor'        => $nro_medidor,
+						'nro_factura'        => $nro_factura,
+						'periodo_del_consumo' => $periodo_del_consumo,
+						'fecha_emision'      => $fecha_emision,
+						'vencimiento_del_pago' => $vencimiento_del_pago,
+						'proximo_vencimiento' => $proximo_vencimiento,
+						'consumo'            => $consumo,
+						'total_importe'      => $total_importe,
+						'importe_1'          => $total_importe, // <--- AGREGADO: Utiliza el mismo valor de total_importe ya formateado
+						'total_vencido'      => $total_vencido,
+						'mes_fc'             => $mesAnioData['mes_fc'],
+						'anio_fc'            => $mesAnioData['anio_fc'],
+					);
+				} else {
+					// Manejar el caso en el que no haya datos en el JSON
+					$dataUpdate = array(
+						'nro_cuenta'         => 'S/D',
+						'nro_medidor'        => 'S/D',
+						'nro_factura'        => 'S/D',
+						'periodo_del_consumo' => 'S/D',
+						'fecha_emision'      => 'S/D',
+						'vencimiento_del_pago' => 'S/D',
+						'proximo_vencimiento' => 'S/D',
+						'consumo'            => '0.00',
+						'total_importe'      => '0.00',
+						'importe_1'          => '0.00', // <--- AGREGADO: Valor por defecto para importe_1
+						'total_vencido'      => '0.00',
+						'mes_fc'             => 'S/D',
+						'anio_fc'            => 'S/D',
+					);
+				}
+
+				break;
 					
 					
 				case 3: // FLOW 3480
@@ -157,7 +206,10 @@ class Lotes extends backend_controller
 					$nro_cuenta = isset($fields->nro_cuenta->valueNumber) ? trim($fields->nro_cuenta->valueNumber) : 'S/D';
 					$nro_factura = isset($fields->numero_de_factura->valueString) ? trim($fields->numero_de_factura->valueString) : 'S/D';
 					$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+					
+					// total_importe ya se extrae y formatea a 2 decimales
 					$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+					
 					$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
 					$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
 
@@ -165,179 +217,368 @@ class Lotes extends backend_controller
 					$cantidad_abonos = isset($fields->cantidad_de_abonos->valueNumber) ? trim($fields->cantidad_de_abonos->valueNumber) : '';
 					$consumo = (!empty($abonos) && $cantidad_abonos !== '') ? $abonos . ' x ' . $cantidad_abonos : 'S/D';
 
+					// *** AQUI APLICAMOS LA LOGICA PARA mes_fc y anio_fc ***
+					// Utilizamos la función getMesAnioDesdeFecha con la $fecha_emision ya extraída.
+					$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision);
+
 					$dataUpdate = array(
-						'nro_cuenta' => $nro_cuenta,
-						'nro_factura' => $nro_factura,
-						'fecha_emision' => $fecha_emision,
-						'total_importe' => $total_importe,
+						'nro_cuenta'         => $nro_cuenta,
+						'nro_factura'        => $nro_factura,
+						'fecha_emision'      => $fecha_emision,
+						'total_importe'      => $total_importe,
+						'importe_1'          => $total_importe, // <--- AGREGADO: Utiliza el mismo valor de total_importe ya formateado
 						'vencimiento_del_pago' => $vencimiento_del_pago,
 						'periodo_del_consumo' => $periodo_del_consumo,
-						'consumo' => $consumo,
-						'nro_medidor' => 'N/A', // Valor fijo para mantener estructura
-						'total_vencido' => 'S/D', // Valor fijo para mantener estructura
+						'consumo'            => $consumo,
+						'nro_medidor'        => 'N/A', // Valor fijo para mantener estructura
+						'total_vencido'      => 'S/D', // Valor fijo para mantener estructura
+						'mes_fc'             => $mesAnioData['mes_fc'],
+						'anio_fc'            => $mesAnioData['anio_fc'],
 					);
 				} else {
-					$dataUpdate = array(); // No hay datos en el JSON
+					$dataUpdate = array(
+						// Es buena práctica inicializar todos los campos con valores por defecto aquí también
+						'nro_cuenta'         => 'S/D',
+						'nro_factura'        => 'S/D',
+						'fecha_emision'      => 'S/D',
+						'total_importe'      => '0.00',
+						'importe_1'          => '0.00', // <--- AGREGADO: Valor por defecto para importe_1
+						'vencimiento_del_pago' => 'S/D',
+						'periodo_del_consumo' => 'S/D',
+						'consumo'            => 'S/D',
+						'nro_medidor'        => 'N/A',
+						'total_vencido'      => 'S/D',
+						'mes_fc'             => 'S/D',
+						'anio_fc'            => 'S/D',
+					);
 				}
-
 				break;
+
 
 				case 4: //3857 EDENOR 
 
-					$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+						// Helper function to safely get content or default value
+						$safe_get_content = function($prediction_obj, $field_name, $default_value = 'S/D') {
+							if (isset($prediction_obj->$field_name) &&
+								isset($prediction_obj->$field_name->values) &&
+								is_array($prediction_obj->$field_name->values) &&
+								isset($prediction_obj->$field_name->values[0]) &&
+								isset($prediction_obj->$field_name->values[0]->content)) {
+								return trim($prediction_obj->$field_name->values[0]->content);
+							}
+							return $default_value;
+						};
 
+						// Simplify access to prediction object
+						$prediction = $a->document->inference->pages[0]->prediction;
 
-					$importe = str_replace(',', '.', str_replace('.', '', $importe));
+						// --- INICIO: Manejo de total_importe y importe_1 ---
+						// 1. Extraemos el importe como string del JSON (valor "crudo")
+						$total_importe_json_string = $safe_get_content($prediction, 'total_importe', '0.00');
+						
+						// 2. Limpiamos el string para que sea interpretable como número (quitar puntos, cambiar coma por punto decimal)
+						$total_importe_cleaned_string = str_replace(',', '.', str_replace('.', '', $total_importe_json_string)); 
 
-					// die();
+						// 3. Preparamos el valor de importe_1: lo convertimos a flotante y lo formateamos a 2 decimales
+						$importe_1_formatted_decimal = '0.00';
+						if (is_numeric($total_importe_cleaned_string)) {
+							$importe_1_formatted_decimal = number_format((float)$total_importe_cleaned_string, 2, '.', '');
+						}
+						// --- FIN: Manejo de total_importe y importe_1 ---
 
-					// echo $importe; die();
-					// echo $valor_float_de_var = floatval($importe);
+						$periodo_del_consumo_raw = '';
+						if (isset($prediction->periodo_del_consumo->values) && is_array($prediction->periodo_del_consumo->values)) {
+							foreach ($prediction->periodo_del_consumo->values as $value_obj) {
+								if (isset($value_obj->content)) {
+									$periodo_del_consumo_raw .= ' ' . $value_obj->content;
+								}
+							}
+						}
+						$periodo_del_consumo = trim($periodo_del_consumo_raw);
 
+						$medidor = $safe_get_content($prediction, 'nro_medidor', 'N/A');
 
-					$numero_decimal = number_format($importe, 2, '.', '');
+						// Lógica para obtener mes_fc y anio_fc
+						$fecha_emision_raw = $safe_get_content($prediction, 'fecha_emision');
+						$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-					$periodo_del_consumo = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}
-					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
-						$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
-					} else {
-						$medidor = 'N/A';
-					}
-
-					$dataUpdate = array(
-						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-						'nro_medidor' => trim($medidor),
-						'nro_factura' => trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content),
-						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'total_importe' => $numero_decimal,
-						'importe_1' => $numero_decimal,
-						'consumo' => trim($a->document->inference->pages[0]->prediction->consumo->values[0]->content),
-						'total_vencido' => trim('S/D'),
-					);
-					break;
+						$dataUpdate = array(
+							'nro_cuenta'         => $safe_get_content($prediction, 'nro_cuenta'),
+							'nro_medidor'        => $medidor,
+							'nro_factura'        => $safe_get_content($prediction, 'nro_factura'),
+							'periodo_del_consumo' => $periodo_del_consumo,
+							'fecha_emision'      => $fecha_emision_raw,
+							'vencimiento_del_pago' => $safe_get_content($prediction, 'vencimiento_del_pago'),
+							'total_importe'      => $total_importe_cleaned_string, // <-- Aquí va el string limpio (ej. "1234.56")
+							'importe_1'          => $importe_1_formatted_decimal, // <-- Aquí va el string formateado a 2 decimales (ej. "1234.56")
+							'consumo'            => $safe_get_content($prediction, 'consumo'),
+							'total_vencido'      => $safe_get_content($prediction, 'total_vencido'),
+							'mes_fc'             => $mesAnioData['mes_fc'],
+							'anio_fc'            => $mesAnioData['anio_fc'],
+						);
+						break;
 
 				case 5: //3480 PERSONAL
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-					$periodo_del_consumo = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}
-					$totalIndices = count($a->document->inference->pages[0]->prediction->numero_de_factura->values);
-					$numero_de_factura = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$numero_de_factura .= ' ' . $a->document->inference->pages[0]->prediction->numero_de_factura->values[$paso]->content;
-					}
+						$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
+						$periodo_del_consumo = '';
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+						}
+						$totalIndices = count($a->document->inference->pages[0]->prediction->numero_de_factura->values);
+						$numero_de_factura = '';
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$numero_de_factura .= ' ' . $a->document->inference->pages[0]->prediction->numero_de_factura->values[$paso]->content;
+						}
 
-					$dataUpdate = array(
-						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-						'nro_factura' => trim($numero_de_factura),
-						// 'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->cargos_del_mes->values[0]->content),
-						'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
-						'total_vencido' => trim('S/D'),
-						'consumo' => trim('Plan Internet'),
-						'nro_medidor' => trim('N/A'),
-					);
-					break;
+						// --- INICIO: Lógica para mes_fc y anio_fc ---
+						// Extraer fecha_emision a una variable para poder usarla en la función
+						$fecha_emision_raw = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
+						$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);
+						// --- FIN: Lógica para mes_fc y anio_fc ---
+
+						// --- INICIO: Lógica para total_importe e importe_1 ---
+						$cargos_del_mes_raw_string = trim($a->document->inference->pages[0]->prediction->cargos_del_mes->values[0]->content);
+						
+						// Limpiar el string: remover comas (asumiendo que los puntos son decimales o no existen)
+						$cargos_del_mes_cleaned_string = str_replace(',', '', $cargos_del_mes_raw_string); 
+
+						$importe_1_personal_formatted = '0.00';
+						if (is_numeric($cargos_del_mes_cleaned_string)) {
+							$importe_1_personal_formatted = number_format((float)$cargos_del_mes_cleaned_string, 2, '.', '');
+						}
+						// --- FIN: Lógica para total_importe e importe_1 ---
+
+
+						$dataUpdate = array(
+							'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
+							'periodo_del_consumo' => trim($periodo_del_consumo),
+							'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
+							'nro_factura' => trim($numero_de_factura),
+							'fecha_emision' => $fecha_emision_raw, // Usamos la variable ya extraída
+							'total_importe' => $cargos_del_mes_cleaned_string, // Ahora es el string limpio
+							'importe_1' => $importe_1_personal_formatted, // <--- AGREGADO: El valor formateado a 2 decimales
+							'proximo_vencimiento' => trim($a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content),
+							'total_vencido' => trim('S/D'),
+							'consumo' => trim('Plan Internet'),
+							'nro_medidor' => trim('N/A'),
+							'mes_fc' => $mesAnioData['mes_fc'],   // <--- Agregado
+							'anio_fc' => $mesAnioData['anio_fc'], // <--- Agregado
+						);
+						break;
+					
 				case 6: // 6198 CLARO ARGENTINA
+						$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
+						$nro_cuenta = '';
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
+						}
+						$periodo_del_consumo = '';
+						$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
+						}
+						$consumo = '';
+						$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$consumo .= $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
+						}
+
+						$totalIndices = count($a->document->inference->pages[0]->prediction->total_vencido->values);
+						$total_vencido = '';
+						for ($paso = 0; $paso < $totalIndices; $paso++) {
+							$total_vencido .= $a->document->inference->pages[0]->prediction->total_vencido->values[$paso]->content;
+						}
+
+						// Aseguramos que $prediction sea un alias para la ruta larga
+						$prediction = $a->document->inference->pages[0]->prediction;
+
+						// Helper function to safely get content or default value
+						// (Asegúrate de que esta función 'safe_get_content' esté definida y accesible
+						// Si la tienes definida a nivel de clase, puedes usar '$this->safe_get_content(...)')
+						// Copio la función aquí para que el ejemplo sea autocontenido, pero si ya existe globalmente/en la clase, elimínala.
+						$safe_get_content = function($prediction_obj, $field_name, $default_value = 'S/D') {
+							if (isset($prediction_obj->$field_name) &&
+								isset($prediction_obj->$field_name->values) &&
+								is_array($prediction_obj->$field_name->values) &&
+								isset($prediction_obj->$field_name->values[0]) &&
+								isset($prediction_obj->$field_name->values[0]->content)) {
+									return trim($prediction_obj->$field_name->values[0]->content);
+								}
+							return $default_value;
+						};
+
+						// --- INICIO: Lógica para mes_fc y anio_fc ---
+						$fecha_emision_raw = $safe_get_content($prediction, 'fecha_emision');
+						$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);
+						// --- FIN: Lógica para mes_fc y anio_fc ---
+
+						// --- INICIO: Lógica para importe_1 (Corregida para el punto decimal) ---
+						$total_importe_json_string = $safe_get_content($prediction, 'total_importe', '0.00');
+
+						// **CORRECCIÓN AQUÍ:**
+						// Primero, elimina todos los puntos que NO estén seguidos por dos dígitos (asumiendo que son separadores de miles).
+						// Luego, si el decimal es una coma, cámbiala a un punto. Si el decimal ya es un punto, se mantiene.
+						$total_importe_cleaned_string = preg_replace('/(?<!\d)\.(?!\d{2})/', '', $total_importe_json_string); // Elimina puntos no decimales
+						$total_importe_cleaned_string = str_replace(',', '.', $total_importe_cleaned_string); // Convierte coma decimal a punto
+
+						// Caso de ejemplo: "3.230.587.48" -> "3230587.48"
+						// Caso de ejemplo: "3.230.587,48" -> "3230587.48"
+						// Caso de ejemplo: "3230587.48" -> "3230587.48"
+
+						$importe_1_formatted_decimal = '0.00';
+						if (is_numeric($total_importe_cleaned_string)) {
+							$importe_1_formatted_decimal = number_format((float)$total_importe_cleaned_string, 2, '.', '');
+						}
+						// --- FIN: Lógica para importe_1 ---
+
+						$dataUpdate = array(
+							'periodo_del_consumo' => trim($periodo_del_consumo),
+							'nro_cuenta' => trim($nro_cuenta),
+							'nro_medidor' => trim('N/A'),
+							'nro_factura' => $safe_get_content($prediction, 'numero_de_factura'),
+							'fecha_emision' => $fecha_emision_raw,
+							'vencimiento_del_pago' => $safe_get_content($prediction, 'vencimiento_del_pago'),
+							'total_vencido' => trim($total_vencido),
+							'total_importe' => $total_importe_cleaned_string, // Usamos el string limpio aquí
+							'importe_1' => $importe_1_formatted_decimal, // ¡Ahora con el formato correcto!
+							'consumo' => trim($consumo),
+							'mes_fc' => $mesAnioData['mes_fc'],
+							'anio_fc' => $mesAnioData['anio_fc'],
+						);
+
+						break;
+					case 7: // TELECENTRO 3959
+
+						// Aseguramos que $prediction sea un alias para la ruta larga
+						$prediction = $a->document->inference->pages[0]->prediction;
+
+						// Helper function to safely get content or default value
+						// IMPORTANTE: Si esta función ya está definida como un método de clase
+						// (ej: public function safe_get_content(...)), DEBES ELIMINAR esta definición
+						// y usar '$this->safe_get_content(...)' en su lugar.
+						$safe_get_content = function($prediction_obj, $field_name, $default_value = 'S/D') {
+							if (isset($prediction_obj->$field_name) &&
+								isset($prediction_obj->$field_name->values) &&
+								is_array($prediction_obj->$field_name->values) &&
+								isset($prediction_obj->$field_name->values[0]) &&
+								isset($prediction_obj->$field_name->values[0]->content)) {
+									return trim($prediction_obj->$field_name->values[0]->content);
+								}
+							return $default_value;
+						};
+
+						// Extraemos fecha_emision usando safe_get_content
+						$fecha_emision_raw = $safe_get_content($prediction, 'fecha_emision');
+
+						// Extraemos vencimiento_del_pago usando safe_get_content
+						$vencimiento_del_pago_raw = $safe_get_content($prediction, 'vencimiento_del_pago');
+
+						// Extracción y concatenación para periodo_del_consumo
+						$periodo_del_consumo_raw = '';
+						if (isset($prediction->periodo_del_consumo->values) && is_array($prediction->periodo_del_consumo->values)) {
+							foreach ($prediction->periodo_del_consumo->values as $value_obj) {
+								if (isset($value_obj->content)) {
+									$periodo_del_consumo_raw .= ' ' . $value_obj->content;
+								}
+							}
+						}
+						$periodo_del_consumo = trim($periodo_del_consumo_raw);
+
+
+						// Extracción y concatenación para numero_de_factura (CON LA LÓGICA DE "No Leído" APLICADA)
+						$numero_de_factura_raw = '';
+						if (isset($prediction->numero_de_factura->values) && is_array($prediction->numero_de_factura->values)) {
+							foreach ($prediction->numero_de_factura->values as $value_obj) {
+								if (isset($value_obj->content)) {
+									$numero_de_factura_raw .= $value_obj->content;
+								}
+							}
+						}
+						$numero_de_factura = trim($numero_de_factura_raw);
+
+						// --- Lógica para asignar "No Leído" si no se extrajo la factura o es insignificante ---
+						// Verifica si la cadena está vacía O si tiene menos de 4 caracteres
+						if (empty($numero_de_factura) || strlen($numero_de_factura) < 4) {
+							$numero_de_factura = 'No Leído';
+						}
+						// --- FIN de la lógica "No Leído" ---
+
+
+						// --- Lógica para mes_fc y anio_fc ---
+						// Utilizamos la fecha_emision ya extraída y validada
+						$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);
+						// --- FIN: Lógica para mes_fc y anio_fc ---
+
+
+						// --- INICIO: Lógica para total_importe y importe_1 (AJUSTADA PARA "197.33" DESDE EL OCR DE TELECENTRO) ---
+						// 1. Extraemos el total_importe como string del JSON (valor "crudo")
+						$total_importe_json_string = $safe_get_content($prediction, 'total_importe', '0.00');
+
+						// 2. Limpiamos el string para que sea un número flotante interpretable por PHP.
+						//    Si el OCR ya nos da "197.33" con el punto como separador decimal,
+						//    solo necesitamos eliminar cualquier posible coma que podría interpretarse como separador de miles o decimal.
+						$temp_importe_string = str_replace(',', '', $total_importe_json_string); // Solo quita las comas si las hay
+
+						// 3. Convertir a flotante. PHP es lo suficientemente inteligente para convertir "197.33" a 197.33.
+						$total_importe_float = floatval($temp_importe_string);
+
+						// 4. Formatear el importe final a dos decimales con punto como separador.
+						//    Esto asegura que siempre esté en el formato "XX.YY" para la base de datos o uso posterior.
+						$total_importe_formatted = number_format($total_importe_float, 2, '.', '');
+
+						// 'importe_1' será el mismo valor que 'total_importe' para este caso.
+						$importe_1_formatted_decimal = $total_importe_formatted;
+						// --- FIN: Lógica para total_importe y importe_1 ---
+
+
+						// UNICO Y FINAL $dataUpdate para el case 7
+						$dataUpdate = array(
+							'nro_cuenta' => $safe_get_content($prediction, 'nro_cuenta'),
+							'fecha_emision' => $fecha_emision_raw,
+							'total_importe' => $total_importe_formatted, // Usa el valor ya limpio y formateado (ej. "197.33")
+							'importe_1' => $importe_1_formatted_decimal,     // Asignación de importe_1
+							'nro_factura' => $numero_de_factura, // Usa el valor ya validado ("No Leído" o el número)
+							'periodo_del_consumo' => str_replace(':', '', $periodo_del_consumo),
+							'vencimiento_del_pago' => $vencimiento_del_pago_raw,
+							'nro_medidor' => trim('N/A'),
+							'total_vencido' => trim('S/D'),
+							'consumo' => 'Tel/Int Pyme corp.',
+							'mes_fc' => $mesAnioData['mes_fc'],
+							'anio_fc' => $mesAnioData['anio_fc'],
+						);
+
+						break;
+			case 8: //3480 TELECOM INTERNET - DIGITAL
+
+					// Extracción inicial de nro_cuenta (como lo tenías)
 					$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
-					$nro_cuenta = '';
+					$nro_cuenta_raw = ''; // Variable temporal para la construcción original del nro_cuenta
 					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
-					}
-					$periodo_del_consumo = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}
-					$consumo = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->consumo->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$consumo .= $a->document->inference->pages[0]->prediction->consumo->values[$paso]->content;
+						$nro_cuenta_raw .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
 					}
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->total_vencido->values);
-					$total_vencido = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$total_vencido .= $a->document->inference->pages[0]->prediction->total_vencido->values[$paso]->content;
+					// *** INICIO DEL AJUSTE PARA LIMPIAR nro_cuenta ***
+					$nro_cuenta = 'S/D'; // Valor por defecto si no se encuentra el patrón
+					$nro_cuenta_raw = trim($nro_cuenta_raw); // Limpiar espacios antes de la regex
+
+					// Intenta extraer el patrón "numeros:numeros"
+					if (preg_match('/^(\d+:\d+)/', $nro_cuenta_raw, $matches)) {
+						$nro_cuenta = $matches[1]; // Asigna la parte capturada (e.g., "160427:24462")
+						// log_message('info', "DEBUG: nro_cuenta ajustado. Original: '" . $nro_cuenta_raw . "', Limpio: '" . $nro_cuenta . "'"); // Opcional para depuración
+					} else {
+						// Si no coincide con el patrón esperado, mantiene 'S/D'
+						// log_message('error', "Error: El nro_cuenta '" . $nro_cuenta_raw . "' no coincide con el patrón 'numeros:numeros'."); // Opcional para depuración
 					}
+					// *** FIN DEL AJUSTE PARA nro_cuenta ***
 
-					$dataUpdate = array(
-						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'nro_cuenta' => trim($nro_cuenta),
-						'nro_medidor' => trim('N/A'),
-						'nro_factura' => trim($a->document->inference->pages[0]->prediction->numero_de_factura->values[0]->content),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
-						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'total_vencido' => trim($total_vencido),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-						'consumo' => trim($consumo),
-					);
-
-
-					break;
-				case 7: //  TELECENTRO 3959
-
-					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-					$fecha_emision = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$fecha_emision .= trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
-					}
-
-					$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-					$vencimiento_del_pago = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$vencimiento_del_pago .= trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content);
-					}
-
-					$periodo_del_consumo = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-					}
-
-					$numero_de_factura = '';
-					$totalIndices = count($a->document->inference->pages[0]->prediction->numero_de_factura->values);
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$numero_de_factura .= $a->document->inference->pages[0]->prediction->numero_de_factura->values[$paso]->content;
-					}
-
-					$dataUpdate = array(
-						'nro_cuenta' => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-						'fecha_emision' => trim($fecha_emision),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-						'nro_factura' => trim($numero_de_factura),
-						'periodo_del_consumo' => str_replace(':', '', trim($periodo_del_consumo)),
-						'vencimiento_del_pago' => trim($vencimiento_del_pago),
-						'nro_medidor' => trim('N/A'),
-						// 'total_vencido' => trim($total_vencido),
-						'consumo' => 'Tel/Int Pyme corp.',
-					);
-
-					break;
-				case 8: //3480 TELECOM INTERNET - DIGITAL
-
-					$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
-					$nro_cuenta = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
-					}
+					// Las líneas comentadas sobre nro_medidor las mantengo intactas:
 					// $totalIndices = count($a->document->inference->pages[0]->prediction->nro_medidor->values);
 					// if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
-					// 	$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
+					//  $medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
 					// } else {
-					// 	$medidor = 'N/A';
-					// }			
+					//  $medidor = 'N/A';
+					// }
 
 
 					$totalIndices = count($a->document->inference->pages[0]->prediction->priodo_del_consumo->values);
@@ -352,18 +593,54 @@ class Lotes extends backend_controller
 						$detalle_de_servicio .= ' ' . $a->document->inference->pages[0]->prediction->detalle_de_servicio->values[$paso]->content;
 					}
 
+					// *** Extraer fecha_emision en una variable temporal ANTES de crear el array ***
+					// Esto es necesario para poder pasársela a getMesAnioDesdeFecha.
+					// Se mantiene la forma de acceso original, sin comprobaciones de isset por tu solicitud.
+					$fecha_emision_raw = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
+
+					// *** Calcular mes_fc y anio_fc usando la función getMesAnioDesdeFecha ***
+					$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);
+
+
+					// --- INICIO: Lógica para total_importe y importe_1 (AJUSTADA PARA TELECOM: "23534.50") ---
+					// 1. Extraemos el total_importe como string del JSON (valor "crudo")
+					$total_importe_json_string = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+
+					// 2. Limpiamos la cadena: solo eliminamos comas si existen (asumiendo que los puntos ya son decimales correctos)
+					//    Si el OCR ya te da "23534.50", no debemos tocar el punto decimal.
+					//    Solo quitamos las comas, si Telecom las usa como separador de miles.
+					$total_importe_cleaned_string = str_replace(',', '', $total_importe_json_string);
+
+					// 3. Convertimos a flotante y formateamos a 2 decimales para importe_1.
+					//    PHP interpretará "23534.50" correctamente como un flotante.
+					$total_importe_float = floatval($total_importe_cleaned_string);
+
+					// 4. Formateamos el importe final a dos decimales con punto como separador,
+					//    asegurando el formato deseado para la base de datos.
+					$importe_1_formatted_decimal = number_format($total_importe_float, 2, '.', '');
+
+					// 'total_importe' también guardará el valor formateado correctamente
+					$total_importe_formatted = $importe_1_formatted_decimal;
+					// --- FIN: Lógica para total_importe y importe_1 ---
+
+
 					$dataUpdate = array(
-						'nro_cuenta' => trim($nro_cuenta),
-						'nro_medidor' => trim('N/A'),
-						'nro_factura' => trim($a->document->inference->pages[0]->prediction->nro_de_factura->values[0]->content),
+						'nro_cuenta'         => $nro_cuenta, // <-- Aquí usamos la variable $nro_cuenta ya limpia
+						'nro_medidor'        => trim('N/A'),
+						'nro_factura'        => trim($a->document->inference->pages[0]->prediction->nro_de_factura->values[0]->content),
 						'periodo_del_consumo' => trim($periodo_del_consumo),
-						'fecha_emision' => trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content),
+						'fecha_emision'      => $fecha_emision_raw,
 						'vencimiento_del_pago' => trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content),
-						'total_importe' => trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content),
-						'consumo' => trim($detalle_de_servicio),
-						'total_vencido' => trim('S/D'),
+						'total_importe'      => $total_importe_formatted, // Usar el valor limpio y formateado
+						'importe_1'          => $importe_1_formatted_decimal, // ¡Campo importe_1 agregado aquí!
+						'consumo'            => trim($detalle_de_servicio),
+						'total_vencido'      => trim('S/D'),
+						'mes_fc'             => $mesAnioData['mes_fc'],
+						'anio_fc'            => $mesAnioData['anio_fc'],
 					);
+
 					break;
+
 
 				case 10: // 3480 TELECOM TELEFONIA FIJA
 					$dataUpdate = (isset($a[0]->fields))
@@ -488,35 +765,29 @@ $data_proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $id_pr
 $dataUpdate['unidad_medida'] = $data_proveedor->unidad_medida;
 
 // Verificar la estructura de fecha_emision en el JSON
-if (isset($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content)) {
-    // Formato antiguo
-    $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
-} elseif (isset($a->document->inference->pages[0]->prediction->fecha_emision->valueDate)) {
+//if (isset($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content)) {
+   // Formato antiguo
+  //  $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
+//} elseif (isset($a->document->inference->pages[0]->prediction->fecha_emision->valueDate)) {
     // Formato nuevo (Naturgy V2, etc.)
-    $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->valueDate);
-} else {
+//    $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->valueDate);
+//} else {
     // Si no se encuentra el dato, registrar error y asignar "S/D"
-    log_message('error', "Error: No se encontró fecha_emision en la respuesta de la API. ID Proveedor: $id_proveedor");
-    $fecha_emision = 'S/D';
-}
+ //   log_message('error', "Error: No se encontró fecha_emision en la respuesta de la API. ID Proveedor: $id_proveedor");
+ //   $fecha_emision = 'S/D';
+//}
 
 // Convertir la fecha a mes y año
 //$dataUpdate['mes_fc'] = fecha_es($fecha_emision, 'm');
 //$dataUpdate['anio_fc'] = fecha_es($fecha_emision, 'Y');
-$dataUpdate['mes_fc'] = fecha_es(trim($fecha_emision), 'm');
-$dataUpdate['anio_fc'] = fecha_es(trim($fecha_emision), 'Y');
+//$dataUpdate['mes_fc'] = fecha_es(trim($fecha_emision), 'm');
+//$dataUpdate['anio_fc'] = fecha_es(trim($fecha_emision), 'Y');
 
 // Guardar en la base de datos
 $this->db->where('id', $mires[0]->id);
 $this->db->update('_datos_api', $dataUpdate);
 
-// Verificar si la actualización fue exitosa
-if ($this->db->affected_rows() > 0) {
-    log_message('info', "Actualización exitosa: ID {$mires[0]->id} - Fecha emisión: $fecha_emision");
-} else {
-    log_message('error', "Error al actualizar la base de datos para ID {$mires[0]->id}");
 }
-		}
 	}
 	public function delete_lote()
 	{
@@ -1218,18 +1489,55 @@ private function formatearCuenta($raw) {
 }
 private function procesarProveedorTelecomFija($fields) {
     $totalImporte = $this->getValor($fields, 'total_importe', 'number');
+    $fechaEmision = $this->getValor($fields, 'fecha_emision', 'date'); // Obtener la fecha de emisión
+
+    // Calcular mes_fc y anio_fc
+    // ASUMIMOS que $this->getMesAnioDesdeFecha existe y es accesible en esta clase.
+    $mesAnioData = $this->getMesAnioDesdeFecha($fechaEmision);
 
     return [
-        'nro_cuenta' => $this->formatearCuenta($fields->nro_cuenta->content ?? ''),
-        'nro_medidor' => 'N/A',
-        'nro_factura' => $this->getValor($fields, 'numero_de_factura'),
-        'fecha_emision' => $this->getValor($fields, 'fecha_emision', 'date'),
+        'nro_cuenta'           => $this->formatearCuenta($fields->nro_cuenta->content ?? ''),
+        'nro_medidor'          => 'N/A',
+        'nro_factura'          => $this->getValor($fields, 'numero_de_factura'),
+        'fecha_emision'        => $fechaEmision, // Usar la variable ya obtenida
         'vencimiento_del_pago' => $this->getValor($fields, 'vencimiento_del_pago', 'date'),
-        'periodo_del_consumo' => $this->getValor($fields, 'periodo_facturado'),
-        'total_vencido' => $this->getValor($fields, 'cargo_mes', 'number'),
-        'total_importe' => $totalImporte,
-        'importe_1' => is_numeric($totalImporte) ? number_format((float)$totalImporte, 2, '.', '') : 0.00,
-        'consumo' => $this->getValor($fields, 'consumo')
+        'periodo_del_consumo'  => $this->getValor($fields, 'periodo_facturado'),
+        'total_vencido'        => $this->getValor($fields, 'cargo_mes', 'number'),
+        'total_importe'        => $totalImporte,
+        'importe_1'            => is_numeric($totalImporte) ? number_format((float)$totalImporte, 2, '.', '') : 0.00,
+        'consumo'              => $this->getValor($fields, 'consumo'),
+        'mes_fc'               => $mesAnioData['mes_fc'],   // Nuevo: mes de la factura
+        'anio_fc'              => $mesAnioData['anio_fc'],  // Nuevo: año de la factura
+    ];
+}
+// --- FUNCIÓN AUXILIAR en el controlador lotes.php ---
+// (Asegúrate de que esta función esté dentro de tu clase Lotes.php, no en un helper global)
+
+private function getMesAnioDesdeFecha(string $fechaStr): array
+{
+    // Si la fecha es 'S/D' o vacía, devolvemos valores por defecto
+    if (empty($fechaStr) || $fechaStr === 'S/D') {
+        return ['mes_fc' => 'S/D', 'anio_fc' => 'S/D'];
+    }
+
+    // Intenta parsear como 'YYYY-MM-DD' (formato estándar de DB y muchas APIs)
+    $fechaObjeto = DateTime::createFromFormat('Y-m-d', $fechaStr);
+
+    // Si falló, intenta parsear como 'DD/MM/YYYY' (común en documentos y algunas APIs)
+    if ($fechaObjeto === false) {
+        $fechaObjeto = DateTime::createFromFormat('d/m/Y', $fechaStr);
+    }
+
+    // Si aún no se pudo parsear, registra un error y devuelve S/D
+    if ($fechaObjeto === false) {
+        error_log("Error: Formato de fecha no reconocido por getMesAnioDesdeFecha: " . $fechaStr);
+        return ['mes_fc' => 'S/D', 'anio_fc' => 'S/D'];
+    }
+
+    // Extraer y retornar el mes (con cero inicial) y el año
+    return [
+        'mes_fc' => $fechaObjeto->format('m'), // 'm' para mes con cero inicial (01-12)
+        'anio_fc' => $fechaObjeto->format('Y')  // 'Y' para año completo (ej. 2023)
     ];
 }
 
