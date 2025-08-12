@@ -173,317 +173,301 @@ class Lecturas extends backend_controller
 		echo $datps;
 	}
 
-	public function copy($id = 0)
-	{
+public function copy($id = 0)
+{
+    // Bloque para solicitudes AJAX
+    if ($this->input->is_ajax_request()) {
+        // Configurar respuesta como JSON
+        header('Content-Type: application/json');
+        
+        try {
+            // 1. Validación y preparación de datos
+            $id_registro = trim($this->input->post('id_registro'));
+            $nro_cuenta = trim(str_replace(' ', '', $this->input->post('nro_cuenta')));
+            $total = $this->input->post('total');
+            
+            if (empty($id_registro) || empty($nro_cuenta) || empty($total)) {
+                throw new Exception('Datos incompletos para procesar la solicitud');
+            }
+
+            // 2. Obtener datos principales
+            $datoleido = $this->Manager_model->get_data_api('_datos_api', $id_registro, true);
+            if (!$datoleido) {
+                throw new Exception('Registro no encontrado en la base de datos');
+            }
+
+            // 3. Validar duplicados
+            $this->db->where('nro_factura', $datoleido->nro_factura);
+            $this->db->where('nro_cuenta', $nro_cuenta);
+            $existe = $this->db->count_all_results('_datos_api') > 0;
+            
+            if ($existe) {
+                throw new Exception('Esta cuenta ya está registrada para la factura '.$datoleido->nro_factura);
+            }
+
+            // 4. Procesar transacción
+            $this->db->trans_start();
+            
+            $datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="'.$id_registro.'"');
+            
+            if (empty($datoTotalesMultiple)) {
+                // Insertar en _datos_multiple
+                $this->db->insert('_datos_multiple', [
+                    'id_datos_api' => $datoleido->id,
+                    'importe_1' => $total,
+                    'total_importe' => $total,
+                    'nro_factura' => $datoleido->nro_factura
+                ]);
+                
+                // Actualizar registro principal
+                $this->db->where('id', $id_registro);
+                $this->db->update('_datos_api', [
+                    'total_importe' => $total,
+                    'importe_1' => $total,
+                    'nro_cuenta' => $nro_cuenta
+                ]);
+            } else {
+                // Crear copia del registro
+                unset($datoleido->id);
+                $datoleido->nro_cuenta = $nro_cuenta;
+                $datoleido->total_importe = $total;
+                $datoleido->importe_1 = $total;
+                $this->db->insert('_datos_api', (array)$datoleido);
+            }
+            
+            $this->db->trans_complete();
+
+            // 5. Obtener datos actualizados para la respuesta
+            $registro_factura = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "'.$datoleido->nro_factura.'"');
+            
+            // Extraer total factura del JSON de forma robusta
+            $a = json_decode($registro_factura[0]->dato_api);
+            $totalFacturaJson = '0.00';
+            
+            if ($a && is_array($a) && !empty($a)) {
+                $primerItem = $a[0];
+                
+                if (isset($primerItem->fields->total_importe)) {
+                    $totalData = $primerItem->fields->total_importe;
+                    
+                    if (isset($totalData->content)) {
+                        // Formatear valor (ej: "204.151,20" => 204151.20)
+                        $totalFacturaJson = str_replace(['.', ','], ['', '.'], $totalData->content);
+                    } elseif (isset($totalData->valueNumber)) {
+                        $totalFacturaJson = $totalData->valueNumber;
+                    }
+                    
+                    $totalFacturaJson = number_format($totalFacturaJson, 2, '.', '');
+                }
+            }
+
+            // Calcular total ingresado
+            $resultIngresado = 0;
+            foreach ($registro_factura as $reg) {
+                $resultIngresado += $reg->importe_1;
+            }
+
+            // 6. Generar vista parcial
+            $html = $this->load->view('manager/etiquetas/lineas', [
+                'lineas' => $registro_factura,
+                'totalFactura' => $totalFacturaJson,
+                'resultIngresado' => $resultIngresado
+            ], TRUE);
+
+            // 7. Retornar respuesta exitosa
+            echo json_encode([
+                'status' => 'success',
+                'html' => $html,
+                'totalFactura' => $totalFacturaJson,
+                'resultIngresado' => $resultIngresado
+            ]);
+            exit();
+
+        } catch (Exception $e) {
+            // Registrar error y devolver mensaje
+            log_message('error', 'Error en copy(): '.$e->getMessage());
+            
+            echo json_encode([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+            exit();
+        }
+    }
+
+    // Bloque para solicitudes POST normales (no AJAX)
+    if ($id == 0 && $_SERVER['REQUEST_METHOD'] === "POST") {
+        $this->form_validation->set_rules('proveedor', 'Proveedor', 'trim|in_select[0]');
+        $this->form_validation->set_rules('nro_cuenta', 'Cuenta', 'trim|required');
+        $this->form_validation->set_rules('nro_factura', 'Factura', 'trim|required');
+        $this->form_validation->set_rules('fecha_emision', 'Fecha emisión', 'trim|required');
+        $this->form_validation->set_rules('total_importe', 'Importe', 'trim|required');
+
+        if ($this->form_validation->run() != FALSE) {
+            $id = $this->input->post('id');
+            $post_data = $this->input->post();
+            unset($post_data['id']);
+
+            // Procesamiento de fechas
+            $post_data['vencimiento_del_pago'] = $this->parseDate($post_data['vencimiento_del_pago']);
+            $post_data['fecha_emision'] = $this->parseDate($post_data['fecha_emision']);
+
+            if ($this->db->update('_datos_api', $post_data, ['id' => $id])) {
+                redirect('Admin/Lecturas/copy/'.$id);
+            }
+        }
+    }
+
+    // Bloque para mostrar la vista normal
+    $myDato = $id;
+    $datoleido = $this->Manager_model->get_data_api('_datos_api', $myDato, true);
+
+    // Extraer total factura para la vista normal
+    $totalFacturaJson = '0.00';
+    if ($datoleido) {
+        $a = json_decode($datoleido->dato_api);
+        
+        if ($a && is_array($a) && !empty($a)) {
+            $primerItem = $a[0];
+            
+            if (isset($primerItem->fields->total_importe)) {
+                $totalData = $primerItem->fields->total_importe;
+                
+                if (isset($totalData->content)) {
+                    $totalFacturaJson = str_replace(['.', ','], ['', '.'], $totalData->content);
+                } elseif (isset($totalData->valueNumber)) {
+                    $totalFacturaJson = $totalData->valueNumber;
+                }
+                
+                $totalFacturaJson = number_format($totalFacturaJson, 2, '.', '');
+            }
+        }
+    }
+
+    // Obtener datos para la vista
+    $datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="'.$myDato.'"');
+    $importe_total = !empty($datoTotalesMultiple) ? $datoTotalesMultiple[0]->total_importe : 0.00;
+
+    $registro_facturas = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "'.$datoleido->nro_factura.'"');
+    $resultIngresado = array_sum(array_column($registro_facturas, 'importe_1'));
+
+    // Configurar assets
+    $this->data['css_common'] = $this->css_common;
+    $this->data['script_common'] = $this->script_common;
+    $this->data['script'] = [base_url('assets/manager/js/secciones/lecturas/copy.js?ver='.time())];
+    $this->data['result'] = $datoleido;
+
+    // Preparar datos para la vista
+    $this->data['lineas'] = $this->load->view('manager/etiquetas/lineas', [
+        'lineas' => $registro_facturas,
+        'result' => $datoleido,
+        'resultMulti' => $importe_total,
+        'totalFactura' => $totalFacturaJson,
+        'resultIngresado' => $resultIngresado
+    ], TRUE);
+
+    $this->data['importe_total'] = $importe_total;
+    
+    if ($datoleido) {
+        $this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($datoleido->nro_cuenta);
+    }
+
+    // Cargar vistas
+    $this->data['content'] = $this->load->view('manager/secciones/'.strtolower($this->router->fetch_class()).'/'.$this->router->fetch_method(), $this->data, TRUE);
+    $this->load->view('manager/head', $this->data);
+    $this->load->view('manager/index', $this->data);
+    $this->load->view('manager/footer', $this->data);
+}
+
+// Función auxiliar para parseo de fechas
+protected function parseDate($dateString)
+{
+    $timestamp = strtotime($dateString);
+    return ($timestamp === false) ? 'error de lectura' : date('Y-m-d', $timestamp);
+}
 
-		// 		$dataACT = $this->Manager_model->get_alldata('_datos_api');
-
-
-		// 		foreach ($dataACT as $reg) {
-
-
-
-		// 			switch($reg->id_proveedor){
-		// 				// case 1: //AYSA
-		// 				case 4: //EDENOR
-
-		// 					$importe = trim($reg->total_importe);
-
-		// 					// $importe = str_replace(',','.',str_replace('.','',$importe));
-		// 					echo $importe;
-		// 					$numero_decimal = number_format($importe,2,'.','');
-
-		// 					if($reg->id ==3127){
-
-		// 						// echo '<pre>';
-		// 						// var_dump( $reg->total_importe ); 
-		// 						// var_dump( $importe ); 
-		// 						// echo '</pre>';
-		// 						// die();
-		// 					}
-		// 					// die();
-		// 					break;
-
-		// 				case 8: //TELECOM INTER
-		// 				case 6: //TELECOM INTER
-
-
-		// 					$importe =  floatval(trim($reg->total_importe));
-		// 					$numero_decimal = number_format($importe,2,'.','');
-		// 					// die();
-		// 					break;
-		// 				default:
-
-
-		// 				$numero_decimal = trim($reg->total_importe);
-
-		// 				}
-		// 				if($numero_decimal =="")
-		// 					$numero_decimal = 99.99;
-
-		// 			$dataUpdate['importe_1'] = $numero_decimal;
-
-		// 			$this->db->where('id', $reg->id);
-		// 			$this->db->update('_datos_api', $dataUpdate);
-
-
-		// 		}
-
-
-		// 		die();
-
-
-
-		if ($this->input->is_ajax_request()) {
-
-
-			$datoleido = $this->Manager_model->get_data_api('_datos_api', trim($_REQUEST['id_registro']), true);
-
-			$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="' . trim($_REQUEST['id_registro']) . '"');
-
-
-			$update = false;
-			$error = "OK";
-
-
-			if (count((array)$datoTotalesMultiple)  == 0) {
-
-				$this->db->trans_start();
-
-				$insertData = array(
-					'id_datos_api' => $datoleido->id,
-					'importe_1' => $datoleido->total_importe,
-					'total_importe' => $datoleido->total_importe,
-					'nro_factura' => $datoleido->nro_factura
-				);
-
-
-				if (!$this->db->insert('_datos_multiple', $insertData)) {
-					$error = $this->db->error()["message"];
-				}
-
-				$this->db->trans_complete();
-				$uploadDataPost = array(
-					'total_importe' => $_REQUEST['total'],
-					'importe_1' => $_REQUEST['total'],
-					'nro_cuenta' => trim(str_replace(' ','',$_REQUEST['nro_cuenta']))
-				);
-
-				$this->db->where('id',  trim($_REQUEST['id_registro']));
-				$this->db->update('_datos_api', $uploadDataPost);
-			} else {
-				$update = true;
-			}
-
-
-
-
-			if ($update) {
-
-
-				unset($datoleido->id);
-				$datoleido->nro_cuenta = trim(str_replace(' ','',$_REQUEST['nro_cuenta']));
-				$datoleido->total_importe = $_REQUEST['total'];
-				$datoleido->importe_1 = $_REQUEST['total'];
-
-				if (!$this->db->insert('_datos_api', (array)$datoleido)) {
-					$error = $this->db->error()["message"];
-				}
-			}
-
-			$registro_factura = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "' . $datoleido->nro_factura . '"');
-
-
-
-			$resultIngresado = 00;
-			foreach ($registro_factura as $reg) {
-				$resultIngresado += $reg->importe_1;
-			}
-
-			$a = json_decode($registro_factura[0]->dato_api);
-
-			$importe_total = 00.00;
-			$totalFactura = 00.00;
-			$totalFacturaJson = $a->document->inference->pages[0]->prediction->total_importe->values[0]->content;
-			$datos['lineas']  = $registro_factura;
-			$datos['totalFactura'] = $totalFacturaJson;
-			$datos['resultIngresado'] = $resultIngresado;
-
-
-			$html = $this->data['lineas'] = $this->load->view('manager/etiquetas/lineas', $datos, TRUE);
-
-			$result = array(
-				'html' => $html,
-
-			);
-			echo json_encode($result);
-			die();
-			// die();
-			// if($this->Manager_model->grabar_datos('_datos_api', (array)$dato))
-			// die('pujdi');
-
-		}
-
-		if ($id == 0 && $_SERVER['REQUEST_METHOD'] === "POST") {
-
-
-			// // $_POST['fecha_emision']  = date(trim('Y-m-d',$_POST['fecha_emision']));
-			// $_POST['fecha_emision']  = fecha_es(trim($_POST['fecha_emision']), 'Y-m-d', false);
-			// $_POST['vencimiento_del_pago']  = fecha_es(trim($_POST['vencimiento_del_pago']), 'Y-m-d', false);
-
-			$myDato = $_POST['id'];
-			$this->form_validation->set_rules('proveedor', 'Proveedor', 'trim|in_select[0]');
-			$this->form_validation->set_rules('nro_cuenta', 'Cuenta', 'trim|required');
-
-			//$this->form_validation->set_rules('nro_medidor', 'Medidor', 'trim|required');
-			$this->form_validation->set_rules('nro_factura', 'Factura', 'trim|required');
-			// $this->form_validation->set_rules('periodo_del_consumo', 'Período', 'trim|required');
-			$this->form_validation->set_rules('fecha_emision', 'Fecha emisión', 'trim|required');
-			$this->form_validation->set_rules('total_importe', 'Importe', 'trim|required');
-
-			if ($this->form_validation->run() != FALSE) {
-				$id = $_REQUEST['id'];
-				unset($_REQUEST['id']);
-
-				//campo fecha vencimiento
-
-				// $timestamp = strtotime(trim($_REQUEST['vencimiento_del_pago']) );
-
-				if (($timestamp = strtotime($_REQUEST['vencimiento_del_pago'])) === false) {
-					$_REQUEST['vencimiento_del_pago'] = 'error de lectura';
-				} else {
-					$_REQUEST['vencimiento_del_pago'] = date('Y-m-d', $timestamp);
-				}
-
-				//campo fecha_emision
-				// $timestamp = strtotime(trim($_REQUEST['fecha_emision']) );
-				if (($timestamp = strtotime($_REQUEST['fecha_emision'])) === false) {
-					$_REQUEST['fecha_emision'] = 'error de lectura';
-				} else {
-					$_REQUEST['fecha_emision'] = date('Y-m-d', $timestamp);
-				}
-
-				if ($this->db->update('_datos_api', $_REQUEST, array('id' => $_POST['id']))) {
-
-
-					redirect('Admin/Lecturas/copy/' . $id);
-				};
-			}
-		}
-
-		$myDato = $id;
-		$datoleido = $this->Manager_model->get_data_api('_datos_api', $myDato, true);
-
-
-		$a = json_decode($datoleido->dato_api);
-
-		$importe_total = 00.00;
-		$totalFactura = 00.00;
-		$totalFacturaJson = $a->document->inference->pages[0]->prediction->total_importe->values[0]->content;
-
-		$datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="' . $myDato . '"');
-
-		if (count($datoTotalesMultiple) > 0)
-			$importe_total = $datoTotalesMultiple[0]->total_importe;
-
-
-		$registro_facturas = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "' . $datoleido->nro_factura . '"');
-		$resultIngresado = 00.00;
-
-		foreach ($registro_facturas as $reg) {
-			$resultIngresado += $reg->importe_1;
-		}
-
-		$script = array(
-			base_url('assets/manager/js/secciones/lecturas/copy.js?ver=' . time()),
-		);
-		$this->data['css_common'] = $this->css_common;
-		$this->data['css'] = '';
-
-		$this->data['script_common'] = $this->script_common;
-		$this->data['script'] = $script;
-		$this->data['result'] = $datoleido;
-
-
-		$datos['lineas'] = $registro_facturas;
-		$datos['result'] = $datoleido;
-		$datos['resultMulti'] = $importe_total;
-		$datos['totalFactura'] = $totalFacturaJson;
-
-
-
-		$datos['resultIngresado'] = $resultIngresado;
-
-		$this->data['lineas'] = $this->load->view('manager/etiquetas/lineas', $datos, TRUE);
-
-
-
-		$this->data['importe_total'] = $importe_total;
-		// $this->data['nro_cuenta'] = $resultData->nro_cuenta;
-
-
-		if ($datoleido) {
-			$this->data['indexaciones'] = $this->Indexaciones_model->get_indexaciones($datoleido->nro_cuenta);
-		}
-
-
-		$this->data['content'] = $this->load->view('manager/secciones/' . strtolower($this->router->fetch_class()) . '/' . $this->router->fetch_method(), $this->data, TRUE);
-
-		$this->load->view('manager/head', $this->data);
-		$this->load->view('manager/index', $this->data);
-		$this->load->view('manager/footer', $this->data);
-	}
 
 	public function resetfile()
-	{
-		if ($this->input->is_ajax_request()) {
-			$datoleido = $this->Manager_model->get_data_api('_datos_api', $_REQUEST['id'], true);
-			$a = json_decode($datoleido->dato_api);
+{
+    if ($this->input->is_ajax_request()) {
+        $id_registro = trim($_REQUEST['id']);
+        $datoleido = $this->Manager_model->get_data_api('_datos_api', $id_registro, true);
+        
+        // Verifica si el registro principal existe
+        if (!$datoleido) {
+            echo json_encode(array('result' => false, 'message' => 'Registro principal no encontrado.'));
+            return;
+        }
+        
+        $a = json_decode($datoleido->dato_api);
 
-			$total_importe = $a->document->inference->pages[0]->prediction->total_importe->values[0]->content;
-			$totalIndices = count($a->document->inference->pages[0]->prediction->nro_cuenta->values);
-			$nro_cuenta = '';
-			for ($paso = 0; $paso < $totalIndices; $paso++) {
-				$nro_cuenta .= $a->document->inference->pages[0]->prediction->nro_cuenta->values[$paso]->content;
-			}
-			$hizo = false;
-			$this->db->trans_start();
+        // INICIALIZACIÓN DE VARIABLES para evitar NULL en la DB
+        $total_importe = '0.00';
+        $nro_cuenta = 'S/D';
 
-			$reloadData = array(
-				'total_importe' =>  $total_importe,
-				'importe_1' => $total_importe,
-				'nro_cuenta' => $nro_cuenta
-			);
+        // Lógica de lectura segura del JSON para 'total_importe'
+        if (isset($a->document->inference->pages[0]->prediction->total_importe)) {
+            $total_importe_obj = $a->document->inference->pages[0]->prediction->total_importe;
+            
+            if (isset($total_importe_obj->values) && is_array($total_importe_obj->values) && count($total_importe_obj->values) > 0) {
+                $total_importe = $total_importe_obj->values[0]->content;
+            } else {
+                $total_importe = $total_importe_obj->content ?? '0.00';
+            }
 
-			$this->db->where('id',  trim($_REQUEST['id']));
-			$this->db->update('_datos_api', $reloadData);
+            // Normalización del formato numérico (reemplaza coma por punto)
+            $total_importe = str_replace('.', '', $total_importe);
+            $total_importe = str_replace(',', '.', $total_importe);
+        }
 
+        // Lógica de lectura segura del JSON para 'nro_cuenta'
+        if (isset($a->document->inference->pages[0]->prediction->nro_cuenta)) {
+            $nro_cuenta_obj = $a->document->inference->pages[0]->prediction->nro_cuenta;
+            
+            if (isset($nro_cuenta_obj->values) && is_array($nro_cuenta_obj->values)) {
+                $nro_cuenta = ''; // Reinicia la variable para concatenar
+                foreach ($nro_cuenta_obj->values as $value) {
+                    $nro_cuenta .= $value->content;
+                }
+            } else {
+                $nro_cuenta = $nro_cuenta_obj->content ?? 'S/D';
+            }
+        }
 
-			$this->db->where('id_datos_api', trim($_REQUEST['id']));
-			$this->db->delete('_datos_multiple');
+        $hizo = false;
+        $this->db->trans_start();
 
-			// $insertData = array(
-			// 	'id_datos_api' => $datoleido->id,
-			// 	'importe_1' => $datoleido->total_importe,
-			// 	'total_importe' => $datoleido->total_importe,
-			// 	'nro_factura' => $datoleido->nro_factura
-			// );
+        // 1. Eliminar los registros duplicados asociados a la factura
+        $this->db->where('nro_factura', $datoleido->nro_factura);
+        $this->db->where('id !=', $id_registro);
+        $this->db->delete('_datos_api');
 
+        // 2. Actualizar el registro principal con los datos originales del JSON
+        $reloadData = array(
+            'total_importe' => $total_importe,
+            'importe_1' => $total_importe,
+            'nro_cuenta' => $nro_cuenta
+        );
 
-			// if (!$this->db->insert('_datos_multiple', $insertData)) {
-			// 	$error = $this->db->error()["message"];
-			// }
-			$hizo = true;
-			$this->db->trans_complete();
+        $this->db->where('id', $id_registro);
+        $this->db->update('_datos_api', $reloadData);
 
-			$result = array(
-				'result'=>$hizo,
+        // 3. Eliminar los registros de la tabla '_datos_multiple'
+        $this->db->where('id_datos_api', $id_registro);
+        $this->db->delete('_datos_multiple');
 
-			);
+        $this->db->trans_complete();
 
-			echo json_encode($result);
-		}
-	}
+        $hizo = $this->db->trans_status();
+
+        $result = array(
+            'result' => $hizo,
+            'message' => $hizo ? 'El registro se ha reseteado correctamente.' : 'Hubo un error al resetear el registro.'
+        );
+
+        echo json_encode($result);
+    }
+}
 	public function views($id = 0)
 	{
 		// $myDato = $this->encrypt->decode(urldecode($id));
@@ -875,3 +859,5 @@ var_dump($response);
 }
 
 }
+
+

@@ -32,7 +32,7 @@ $facturaDuplicada = $query->num_rows() > 0;
     <?php $a = 1; ?>
 
     <div class="col" style="background-color: #C9D4E6;">
-        <h3 class="pt-1">Total facturado: $ <?= number_format((float)$totalFactura, 2, '.', '') ?></h3>
+        <h3 class="pt-1">Total facturado: $ <?= isset($totalFactura) ? number_format((float)$totalFactura, 2, '.', '') : '0.00' ?></h3>
         <input readonly name="total_importe" type="hidden" class="form-control" placeholder="Total importe" value="<?= number_format((float)$totalFactura, 2, '.', '') ?>">
         <?php echo form_error('total_importe', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
         <div class="col pl-2">
