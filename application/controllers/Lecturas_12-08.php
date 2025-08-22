@@ -418,11 +418,21 @@ protected function parseDate($dateString)
             // Normalización del formato numérico (reemplaza coma por punto)
             $total_importe = str_replace('.', '', $total_importe);
             $total_importe = str_replace(',', '.', $total_importe);
-             $nro_cuenta = $nro_cuenta_obj->content ?? 'S/D';
         }
 
         // Lógica de lectura segura del JSON para 'nro_cuenta'
-        
+        if (isset($a->document->inference->pages[0]->prediction->nro_cuenta)) {
+            $nro_cuenta_obj = $a->document->inference->pages[0]->prediction->nro_cuenta;
+            
+            if (isset($nro_cuenta_obj->values) && is_array($nro_cuenta_obj->values)) {
+                $nro_cuenta = ''; // Reinicia la variable para concatenar
+                foreach ($nro_cuenta_obj->values as $value) {
+                    $nro_cuenta .= $value->content;
+                }
+            } else {
+                $nro_cuenta = $nro_cuenta_obj->content ?? 'S/D';
+            }
+        }
 
         $hizo = false;
         $this->db->trans_start();
