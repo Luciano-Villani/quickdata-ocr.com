@@ -240,8 +240,9 @@ public function copy($id = 0)
             // 5. Obtener datos actualizados para la respuesta
             $registro_factura = $this->Manager_model->get_alldata('_datos_api', 'nro_factura = "'.$datoleido->nro_factura.'"');
             
-            // Extraer total factura del JSON de forma robusta
-            $a = json_decode($registro_factura[0]->dato_api);
+            // 🌟 MODIFICACIÓN: Extraer total factura del JSON de forma robusta,
+            // considerando tanto 'total_importe' como 'importe'
+            $a = json_decode($datoleido->dato_api);
             $totalFacturaJson = '0.00';
             
             if ($a && is_array($a) && !empty($a)) {
@@ -251,15 +252,34 @@ public function copy($id = 0)
                     $totalData = $primerItem->fields->total_importe;
                     
                     if (isset($totalData->content)) {
-                        // Formatear valor (ej: "204.151,20" => 204151.20)
                         $totalFacturaJson = str_replace(['.', ','], ['', '.'], $totalData->content);
                     } elseif (isset($totalData->valueNumber)) {
                         $totalFacturaJson = $totalData->valueNumber;
                     }
+                } elseif (isset($primerItem->fields->importe)) {
+                    $totalData = $primerItem->fields->importe;
                     
-                    $totalFacturaJson = number_format($totalFacturaJson, 2, '.', '');
+                    if (isset($totalData->content)) {
+                        $totalFacturaJson = str_replace(['.', ','], ['', '.'], $totalData->content);
+                    } elseif (isset($totalData->valueNumber)) {
+                        $totalFacturaJson = $totalData->valueNumber;
+                    }
+                }
+            } elseif ($a && is_object($a) && isset($a->document->inference->pages[0]->prediction)) {
+                $prediction = $a->document->inference->pages[0]->prediction;
+                if (isset($prediction->total_importe->values[0]->content)) {
+                    $totalFacturaJson = $prediction->total_importe->values[0]->content;
+                } elseif (isset($prediction->total_importe->content)) {
+                    $totalFacturaJson = $prediction->total_importe->content;
+                } elseif (isset($prediction->importe->values[0]->content)) {
+                    $totalFacturaJson = $prediction->importe->values[0]->content;
+                } elseif (isset($prediction->importe->content)) {
+                    $totalFacturaJson = $prediction->importe->content;
                 }
             }
+            
+            // Normalización final del formato
+            $totalFacturaJson = number_format((float)$totalFacturaJson, 2, '.', '');
 
             // Calcular total ingresado
             $resultIngresado = 0;
@@ -322,7 +342,8 @@ public function copy($id = 0)
     $myDato = $id;
     $datoleido = $this->Manager_model->get_data_api('_datos_api', $myDato, true);
 
-    // Extraer total factura para la vista normal
+    // 🌟 MODIFICACIÓN: Extraer total factura para la vista normal de forma robusta,
+    // considerando tanto 'total_importe' como 'importe'
     $totalFacturaJson = '0.00';
     if ($datoleido) {
         $a = json_decode($datoleido->dato_api);
@@ -332,17 +353,35 @@ public function copy($id = 0)
             
             if (isset($primerItem->fields->total_importe)) {
                 $totalData = $primerItem->fields->total_importe;
-                
                 if (isset($totalData->content)) {
                     $totalFacturaJson = str_replace(['.', ','], ['', '.'], $totalData->content);
                 } elseif (isset($totalData->valueNumber)) {
                     $totalFacturaJson = $totalData->valueNumber;
                 }
-                
-                $totalFacturaJson = number_format($totalFacturaJson, 2, '.', '');
+            } elseif (isset($primerItem->fields->importe)) {
+                $totalData = $primerItem->fields->importe;
+                if (isset($totalData->content)) {
+                    $totalFacturaJson = str_replace(['.', ','], ['', '.'], $totalData->content);
+                } elseif (isset($totalData->valueNumber)) {
+                    $totalFacturaJson = $totalData->valueNumber;
+                }
+            }
+        } elseif ($a && is_object($a) && isset($a->document->inference->pages[0]->prediction)) {
+            $prediction = $a->document->inference->pages[0]->prediction;
+            if (isset($prediction->total_importe->values[0]->content)) {
+                $totalFacturaJson = $prediction->total_importe->values[0]->content;
+            } elseif (isset($prediction->total_importe->content)) {
+                $totalFacturaJson = $prediction->total_importe->content;
+            } elseif (isset($prediction->importe->values[0]->content)) {
+                $totalFacturaJson = $prediction->importe->values[0]->content;
+            } elseif (isset($prediction->importe->content)) {
+                $totalFacturaJson = $prediction->importe->content;
             }
         }
     }
+    
+    // Normalizar el formato numérico
+    $totalFacturaJson = number_format((float)$totalFacturaJson, 2, '.', '');
 
     // Obtener datos para la vista
     $datoTotalesMultiple = $this->Manager_model->get_alldata('_datos_multiple', 'id_datos_api="'.$myDato.'"');
@@ -385,7 +424,6 @@ protected function parseDate($dateString)
     $timestamp = strtotime($dateString);
     return ($timestamp === false) ? 'error de lectura' : date('Y-m-d', $timestamp);
 }
-
 
 	public function resetfile()
 {
