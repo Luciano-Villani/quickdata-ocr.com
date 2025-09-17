@@ -1089,381 +1089,141 @@ class Lecturas extends backend_controller
 						break;
 					
 
-				case 3: // T3
+				case 3: // T3 Edenor Canon Azure
 
-					$importe = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
+    // Verificamos que existan datos en el JSON en la ruta de Azure
+    if (isset($a[0]->fields)) {
+        $fields = $a[0]->fields;
 
-					//$importe = str_replace(',', '.', str_replace('.', '', $importe));
+        // Extraemos cada campo necesario, validando y formateando
+        $nro_cuenta = isset($fields->nro_cuenta->valueString) ? trim(str_replace(' ', '', $fields->nro_cuenta->valueString)) : 'N/A';
+        $nro_factura = isset($fields->nro_factura->valueString) ? trim($fields->nro_factura->valueString) : 'N/A';
+        $periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'N/A';
+        $vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'N/A';
+        $proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'N/A';
+        $nombre_cliente = isset($fields->nombre_cliente->valueString) ? trim($fields->nombre_cliente->valueString) : 'N/A';
+        $tipo_de_tarifa = isset($fields->tipo_de_tarifa->valueString) ? trim($fields->tipo_de_tarifa->valueString) : 'N/A';
+        $domicilio_de_consumo = isset($fields->domicilio_de_consumo->valueString) ? trim($fields->domicilio_de_consumo->valueString) : 'N/A';
+        $nro_medidor = isset($fields->nro_medidor->valueNumber) ? trim($fields->nro_medidor->valueNumber) : 'N/A';
+        $fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'N/A';
+        $nombre_proveedor = 'EDENOR CANON - T3';
 
+        // Campos numéricos con formato
+        $total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+        $importe = $total_importe; // Usamos el total_importe como importe_1
+        $cargo_fijo = isset($fields->cargo_fijo->valueNumber) ? number_format($fields->cargo_fijo->valueNumber, 2, '.', '') : '0.00';
+        $impuestos = isset($fields->impuestos->valueNumber) ? number_format($fields->impuestos->valueNumber, 2, '.', '') : '0.00';
+        $subsidio = isset($fields->subsidio->valueNumber) ? number_format($fields->subsidio->valueNumber, 2, '.', '') : '0.00';
+        $recargo_tgfi = '0.00'; // Inicializamos el valor por si no se encuentra
+        if (isset($fields->{'recargo_tgfi>062'}->valueNumber)) {
+            $recargo_tgfi = number_format($fields->{'recargo_tgfi>062'}->valueNumber, 2, '.', '');
+        } else if (isset($fields->{'recargo_tgfi033y<=062'}->valueNumber)) {
+            $recargo_tgfi = number_format($fields->{'recargo_tgfi033y<=062'}->valueNumber, 2, '.', '');
+        }
+        
+        $p_contratada = isset($fields->p_contratada->valueString) ? trim($fields->p_contratada->valueString) : '0.00';
+        $p_registrada = isset($fields->p_registrada->valueNumber) ? number_format($fields->p_registrada->valueNumber, 2, '.', '') : '0.00';
+        $p_excedida = isset($fields->p_excedida->valueNumber) ? number_format($fields->p_excedida->valueNumber, 2, '.', '') : '0.00';
+        $pot_punta = isset($fields->pot_punta->valueNumber) ? number_format($fields->pot_punta->valueNumber, 2, '.', '') : '0.00';
+        $pot_fuera_punta_cons = isset($fields->pot_fuera_punta_cons->valueNumber) ? number_format($fields->pot_fuera_punta_cons->valueNumber, 2, '.', '') : '0.00';
+        $ener_punta_act = isset($fields->ener_punta_act->valueNumber) ? number_format($fields->ener_punta_act->valueNumber, 2, '.', '') : '0.00';
+        $ener_punta_cons = isset($fields->ener_punta_cons->valueNumber) ? number_format($fields->ener_punta_cons->valueNumber, 2, '.', '') : '0.00';
+        $ener_resto_act = isset($fields->ener_resto_act->valueNumber) ? number_format($fields->ener_resto_act->valueNumber, 2, '.', '') : '0.00';
+        $ener_resto_cons = isset($fields->ener_resto_cons->valueNumber) ? number_format($fields->ener_resto_cons->valueNumber, 2, '.', '') : '0.00';
+        $ener_valle_act = isset($fields->ener_valle_act->valueNumber) ? number_format($fields->ener_valle_act->valueNumber, 2, '.', '') : '0.00';
+        $ener_valle_cons = isset($fields->ener_valle_cons->valueNumber) ? number_format($fields->ener_valle_cons->valueNumber, 2, '.', '') : '0.00';
+        $ener_reac_act = isset($fields->ener_reac_act->valueNumber) ? number_format($fields->ener_reac_act->valueNumber, 2, '.', '') : '0.00';
+        $ener_reac_cons = isset($fields->ener_reac_cons->valueNumber) ? number_format($fields->ener_reac_cons->valueNumber, 2, '.', '') : '0.00';
+        $e_reactiva = isset($fields->e_reactiva->valueNumber) ? number_format($fields->e_reactiva->valueNumber, 2, '.', '') : '0.00';
+        //$tgfi = isset($fields->tgfi->valueNumber) ? number_format($fields->tgfi->valueNumber, 2, '.', '') : '0.00';
+		$tgfi = isset($fields->tgfi->content) ? str_replace(',', '.', trim($fields->tgfi->content)) : '0.00';
+        $cargo_pot_contratada = isset($fields->cargo_pot_contratada->valueNumber) ? number_format($fields->cargo_pot_contratada->valueNumber, 2, '.', '') : '0.00';
+        $cargo_pot_ad = isset($fields->cargo_pot_ad->valueNumber) ? number_format($fields->cargo_pot_ad->valueNumber, 2, '.', '') : '0.00';
+        $cargo_pot_excd = isset($fields->cargo_pot_excd->valueNumber) ? number_format($fields->cargo_pot_excd->valueNumber, 2, '.', '') : '0.00';
+        $consumo_pico_vig = isset($fields->consumo_pico_vig->valueNumber) ? number_format($fields->consumo_pico_vig->valueNumber, 2, '.', '') : '0.00';
+        $cargo_pico = isset($fields->cargo_pico->valueNumber) ? number_format($fields->cargo_pico->valueNumber, 2, '.', '') : '0.00';
+        $consumo_resto_vig = isset($fields->consumo_resto_vig->valueNumber) ? number_format($fields->consumo_resto_vig->valueNumber, 2, '.', '') : '0.00';
+        $cargo_resto = isset($fields->cargo_resto->valueNumber) ? number_format($fields->cargo_resto->valueNumber, 2, '.', '') : '0.00';
+        $consumo_valle_vig = isset($fields->consumo_valle_vig->valueNumber) ? number_format($fields->consumo_valle_vig->valueNumber, 2, '.', '') : '0.00';
+        $cargo_valle = isset($fields->cargo_valle->valueNumber) ? number_format($fields->cargo_valle->valueNumber, 2, '.', '') : '0.00';
+        $e_actual = isset($fields->e_actual->valueString) ? trim($fields->e_actual->valueString) : 'N/A';
+        $consumo = '0.00'; // Este valor no está en el JSON, lo dejamos en 0
 
-					//$numero_decimal = number_format($importe, 2, '.', '');
+        $dataUpdate = array(
+            'nombre_proveedor' => $nombre_proveedor,
+            'nro_cuenta' => $nro_cuenta,
+            'tipo_de_tarifa' => $tipo_de_tarifa,
+            'nombre_cliente' => $nombre_cliente,
+            'nro_medidor' => $nro_medidor,
+            'nro_factura' => $nro_factura,
+            'periodo_del_consumo' => $periodo_del_consumo,
+            'fecha_emision' => $fecha_emision,
+            'vencimiento_del_pago' => $vencimiento_del_pago,
+            'proximo_vencimiento' => $proximo_vencimiento,
+            'total_importe' => $total_importe,
+            'importe_1' => $importe,
+            'domicilio_de_consumo' => $domicilio_de_consumo,
+            'cargo_fijo' => $cargo_fijo,
+            'impuestos' => $impuestos,
+            'subsidio' => $subsidio,
+            'p_contratada' => $p_contratada,
+            'p_registrada' => $p_registrada,
+            'p_excedida' => $p_excedida,
+            'pot_punta' => $pot_punta,
+            'pot_fuera_punta_cons' => $pot_fuera_punta_cons,
+            'ener_punta_act' => $ener_punta_act,
+            'ener_punta_cons' => $ener_punta_cons,
+            'ener_resto_act' => $ener_resto_act,
+            'ener_resto_cons' => $ener_resto_cons,
+            'ener_valle_act' => $ener_valle_act,
+            'ener_valle_cons' => $ener_valle_cons,
+            'ener_reac_act' => $ener_reac_act,
+            'ener_reac_cons' => $ener_reac_cons,
+            'e_reactiva' => $e_reactiva,
+            'tgfi' => $tgfi,
+            'cargo_pot_contratada' => $cargo_pot_contratada,
+            'cargo_pot_ad' => $cargo_pot_ad,
+            'cargo_pot_excd' => $cargo_pot_excd,
+            'recargo_tgfi' => $recargo_tgfi,
+            'consumo_pico_vig' => $consumo_pico_vig,
+            'cargo_pico' => $cargo_pico,
+            'consumo_resto_vig' => $consumo_resto_vig,
+            'cargo_resto' => $cargo_resto,
+            'consumo_valle_vig' => $consumo_valle_vig,
+            'cargo_valle' => $cargo_valle,
+            'e_actual' => $e_actual,
+            'consumo' => $consumo,
+            // Valores que no están en el JSON, los dejamos en 0.00
+            'total_vencido' => '0.00',
+            'dias_comprendidos' => '0',
+            'dias_de_consumo' => '0',
+            'consumo_dias_comprendidos' => '0.00',
+            'otros_conseptos' => '0.00',
+            'conceptos_electricos' => '0.00',
+            'monto_car_var_hasta' => '0.00',
+            'moto_var_mayor' => '0.00',
+            'cargo_variable_hasta' => '0.00',
+            'cargo_contr' => '0.00',
+            'cargo_adq' => '0.00',
+            'cargo_exc' => '0.00',
+            'cargo_var' => '0.00',
+            'cosfi' => '0.00',
+            'e_activa' => '0.00',
+            'energia_inyectada' => '0.00',
+            'consumo_pico_ant' => '0.00',
+            'consumo_resto_ant' => '0.00',
+            'consumo_valle_ant' => '0.00',
+            'ener_generada' => '0.00',
+            'conseptos_electricos' => '0.00',
+            'bimestre' => '0',
+            'liquidacion' => '0',
+        );
 
-					$totalIndices = count($a->document->inference->pages[0]->prediction->domicilio_de_consumo->values);
-					$domicilio_de_consumo = '';
-
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$domicilio_de_consumo .= ' ' . trim($a->document->inference->pages[0]->prediction->domicilio_de_consumo->values[$paso]->content);
-					}
-
-					$totalIndices = count($a->document->inference->pages[0]->prediction->tipo_de_tarifa->values);
-					$tipo_de_tarifa = '';
-
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$tipo_de_tarifa .= ' ' . $a->document->inference->pages[0]->prediction->tipo_de_tarifa->values[$paso]->content;
-					}
-
-					$totalIndices = count($a->document->inference->pages[0]->prediction->nombre_cliente->values);
-					$nombre_cliente = '';
-					for ($paso = 0; $paso < $totalIndices; $paso++) {
-						$nombre_cliente .= ' ' . trim($a->document->inference->pages[0]->prediction->nombre_cliente->values[$paso]->content);
-					}
-
-
-					// nro_factura
-					if ($a->document->inference->pages[0]->prediction->nro_factura->values) {
-						$nro_factura = $a->document->inference->pages[0]->prediction->nro_factura->values[0]->content;
-					} else {
-						$nro_factura = 'N/A';
-					}
-
-					// fecha_emision
-					if ($a->document->inference->pages[0]->prediction->fecha_emision->values) {
-						$fecha_emision = $a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content;
-					} else {
-						$fecha_emision = 'N/A';
-					}
-
-					// nro_cuenta
-					if ($a->document->inference->pages[0]->prediction->nro_cuenta->values) {
-						$nro_cuenta = $a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content;
-					} else {
-						$nro_cuenta = 'N/A';
-					}
-
-					// vencimiento_del_pago
-					if ($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values) {
-						$vencimiento_del_pago = $a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[0]->content;
-					} else {
-						$vencimiento_del_pago = 'N/A';
-					}
-
-					// proximo_vencimiento
-					if ($a->document->inference->pages[0]->prediction->proximo_vencimiento->values) {
-						$proximo_vencimiento = $a->document->inference->pages[0]->prediction->proximo_vencimiento->values[0]->content;
-					} else {
-						$proximo_vencimiento = 'N/A';
-					}
-
-
-
-					// periodo_del_consumo
-					if ($a->document->inference->pages[0]->prediction->periodo_del_consumo->values) {
-						$periodo_del_consumo = $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[0]->content;
-					} else {
-						$periodo_del_consumo = 'N/A';
-					}
-
-
-					// p_contratada
-					if ($a->document->inference->pages[0]->prediction->p_contratada->values) {
-						$p_contratada = $a->document->inference->pages[0]->prediction->p_contratada->values[0]->content;
-					} else {
-						$p_contratada = '0.00';
-					}
-
-					// p_registrada
-					if ($a->document->inference->pages[0]->prediction->p_registrada->values) {
-						$p_registrada = $a->document->inference->pages[0]->prediction->p_registrada->values[0]->content;
-					} else {
-						$p_registrada = '0.00';
-					}
-
-					// p_excedida
-					if ($a->document->inference->pages[0]->prediction->p_excedida->values) {
-						$p_excedida = $a->document->inference->pages[0]->prediction->p_excedida->values[0]->content;
-					} else {
-						$p_excedida = '0.00';
-					}
-
-					// pot_punta
-					if ($a->document->inference->pages[0]->prediction->pot_punta->values) {
-						$pot_punta = $a->document->inference->pages[0]->prediction->pot_punta->values[0]->content;
-					} else {
-						$pot_punta = '0.00';
-					}
-
-					// pot_fuera_punta_cons
-					if ($a->document->inference->pages[0]->prediction->pot_fuera_punta_cons->values) {
-						$pot_fuera_punta_cons = $a->document->inference->pages[0]->prediction->pot_fuera_punta_cons->values[0]->content;
-					} else {
-						$pot_fuera_punta_cons = '0.00';
-					}
-
-					// ener_punta_act
-					if ($a->document->inference->pages[0]->prediction->ener_punta_act->values) {
-						$ener_punta_act = $a->document->inference->pages[0]->prediction->ener_punta_act->values[0]->content;
-					} else {
-						$ener_punta_act = '0.00';
-					}
-
-					// ener_punta_cons
-					if ($a->document->inference->pages[0]->prediction->ener_punta_cons->values) {
-						$ener_punta_cons = $a->document->inference->pages[0]->prediction->ener_punta_cons->values[0]->content;
-					} else {
-						$ener_punta_cons = '0.00';
-					}
-
-					// ener_resto_act
-					if ($a->document->inference->pages[0]->prediction->ener_resto_act->values) {
-						$ener_resto_act = $a->document->inference->pages[0]->prediction->ener_resto_act->values[0]->content;
-					} else {
-						$ener_resto_act = '0.00';
-					}
-
-					// ener_resto_cons
-					if ($a->document->inference->pages[0]->prediction->ener_resto_cons->values) {
-						$ener_resto_cons = $a->document->inference->pages[0]->prediction->ener_resto_cons->values[0]->content;
-					} else {
-						$ener_resto_cons = '0.00';
-					}
-
-					// ener_valle_act
-					if ($a->document->inference->pages[0]->prediction->ener_valle_act->values) {
-						$ener_valle_act = $a->document->inference->pages[0]->prediction->ener_valle_act->values[0]->content;
-					} else {
-						$ener_valle_act = '0.00';
-					}
-
-					// ener_valle_cons
-					if ($a->document->inference->pages[0]->prediction->ener_valle_cons->values) {
-						$ener_valle_cons = $a->document->inference->pages[0]->prediction->ener_valle_cons->values[0]->content;
-					} else {
-						$ener_valle_cons = '0.00';
-					}
-
-					// ener_reac_act
-					if ($a->document->inference->pages[0]->prediction->ener_reac_act->values) {
-						$ener_reac_act = $a->document->inference->pages[0]->prediction->ener_reac_act->values[0]->content;
-					} else {
-						$ener_reac_act = '0.00';
-					}
-
-					// ener_reac_cons
-					if ($a->document->inference->pages[0]->prediction->ener_reac_cons->values) {
-						$ener_reac_cons = $a->document->inference->pages[0]->prediction->ener_reac_cons->values[0]->content;
-					} else {
-						$ener_reac_cons = '0.00';
-					}
-
-					// nro_medidor
-					if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
-						$nro_medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
-					} else {
-						$nro_medidor = 'N/A';
-					}
-
-					// e_reactiva
-					if ($a->document->inference->pages[0]->prediction->e_reactiva->values) {
-						$e_reactiva = $a->document->inference->pages[0]->prediction->e_reactiva->values[0]->content;
-					} else {
-						$e_reactiva = '0.00';
-					}
-
-					// tgfi
-					if ($a->document->inference->pages[0]->prediction->tgfi->values) {
-						$tgfi = $a->document->inference->pages[0]->prediction->tgfi->values[0]->content;
-					} else {
-						$tgfi = '0.00';
-					}
-
-					// cargo_fijo
-					if ($a->document->inference->pages[0]->prediction->cargo_fijo->values) {
-						$cargo_fijo = $a->document->inference->pages[0]->prediction->cargo_fijo->values[0]->content;
-					} else {
-						$cargo_fijo = '0.00';
-					}
-
-					// cargo_pot_contratada
-					if ($a->document->inference->pages[0]->prediction->cargo_pot_contratada->values) {
-						$cargo_pot_contratada = $a->document->inference->pages[0]->prediction->cargo_pot_contratada->values[0]->content;
-					} else {
-						$cargo_pot_contratada = '0.00';
-					}
-
-					// cargo_pot_ad
-					if ($a->document->inference->pages[0]->prediction->cargo_pot_ad->values) {
-						$cargo_pot_ad = $a->document->inference->pages[0]->prediction->cargo_pot_ad->values[0]->content;
-					} else {
-						$cargo_pot_ad = '0.00';
-					}
-
-					// cargo_pot_excd
-					if ($a->document->inference->pages[0]->prediction->cargo_pot_excd->values) {
-						$cargo_pot_excd = $a->document->inference->pages[0]->prediction->cargo_pot_excd->values[0]->content;
-					} else {
-						$cargo_pot_excd = '0.00';
-					}
-
-					// recargo_tgfi
-					if ($a->document->inference->pages[0]->prediction->recargo_tgfi->values) {
-						$recargo_tgfi = $a->document->inference->pages[0]->prediction->recargo_tgfi->values[0]->content;
-					} else {
-						$recargo_tgfi = '0.00';
-					}
-
-					// consumo_pico_ant
-					if ($a->document->inference->pages[0]->prediction->consumo_pico_ant->values) {
-						$consumo_pico_ant = $a->document->inference->pages[0]->prediction->consumo_pico_ant->values[0]->content;
-					} else {
-						$consumo_pico_ant = '0.00';
-					}
-
-					// consumo_pico_vig
-					if ($a->document->inference->pages[0]->prediction->consumo_pico_vig->values) {
-						$consumo_pico_vig = $a->document->inference->pages[0]->prediction->consumo_pico_vig->values[0]->content;
-					} else {
-						$consumo_pico_vig = '0.00';
-					}
-
-					// cargo_pico
-					if ($a->document->inference->pages[0]->prediction->cargo_pico->values) {
-						$cargo_pico = $a->document->inference->pages[0]->prediction->cargo_pico->values[0]->content;
-					} else {
-						$cargo_pico = '0.00';
-					}
-
-					// consumo_resto_ant
-					if ($a->document->inference->pages[0]->prediction->consumo_resto_ant->values) {
-						$consumo_resto_ant = $a->document->inference->pages[0]->prediction->consumo_resto_ant->values[0]->content;
-					} else {
-						$consumo_resto_ant = '0.00';
-					}
-
-					// consumo_resto_vig
-					if ($a->document->inference->pages[0]->prediction->consumo_resto_vig->values) {
-						$consumo_resto_vig = $a->document->inference->pages[0]->prediction->consumo_resto_vig->values[0]->content;
-					} else {
-						$consumo_resto_vig = '0.00';
-					}
-
-					// cargo_resto
-					if ($a->document->inference->pages[0]->prediction->cargo_resto->values) {
-						$cargo_resto = $a->document->inference->pages[0]->prediction->cargo_resto->values[0]->content;
-					} else {
-						$cargo_resto = '0.00';
-					}
-
-					// consumo_valle_ant
-					if ($a->document->inference->pages[0]->prediction->consumo_valle_ant->values) {
-						$consumo_valle_ant = $a->document->inference->pages[0]->prediction->consumo_valle_ant->values[0]->content;
-					} else {
-						$consumo_valle_ant = '0.00';
-					}
-
-					// consumo_valle_vig
-					if ($a->document->inference->pages[0]->prediction->consumo_valle_vig->values) {
-						$consumo_valle_vig = $a->document->inference->pages[0]->prediction->consumo_valle_vig->values[0]->content;
-					} else {
-						$consumo_valle_vig = '0.00';
-					}
-
-					// cargo_valle
-					if ($a->document->inference->pages[0]->prediction->cargo_valle->values) {
-						$cargo_valle = $a->document->inference->pages[0]->prediction->cargo_valle->values[0]->content;
-					} else {
-						$cargo_valle = '0.00';
-					}
-
-					// subsidio
-					if ($a->document->inference->pages[0]->prediction->subsidio->values) {
-						$subsidio = $a->document->inference->pages[0]->prediction->subsidio->values[0]->content;
-					} else {
-						$subsidio = '0.00';
-					}
-
-					// e_actual
-					if ($a->document->inference->pages[0]->prediction->e_actual->values) {
-						$e_actual = $a->document->inference->pages[0]->prediction->e_actual->values[0]->content;
-					} else {
-						$e_actual = '0.00';
-					}
-
-					// impuestos
-					if ($a->document->inference->pages[0]->prediction->impuestos->values) {
-						$impuestos = $a->document->inference->pages[0]->prediction->impuestos->values[0]->content;
-					} else {
-						$impuestos = '0.00';
-					}
-
-
-					$dataUpdate = array(
-						'nombre_proveedor' => 'EDENOR CANON - T3',
-						'nro_cuenta' => isset($nro_cuenta) ? trim($nro_cuenta) : 'N/A',
-						'tipo_de_tarifa' => isset($tipo_de_tarifa) ? trim($tipo_de_tarifa) : 'N/A',
-						'nombre_cliente' => isset($nombre_cliente) ? trim($nombre_cliente) : 'N/A',
-						'nro_medidor' => isset($nro_medidor) ? trim($nro_medidor) : 'N/A',
-						'nro_factura' => isset($nro_factura) ? trim($nro_factura) : 'N/A',
-						'periodo_del_consumo' => isset($periodo_del_consumo) ? trim($periodo_del_consumo) : 'N/A',
-						'fecha_emision' => isset($fecha_emision) ? trim($fecha_emision) : 'N/A',
-						'vencimiento_del_pago' => isset($vencimiento_del_pago) ? trim($vencimiento_del_pago) : 'N/A',
-						'proximo_vencimiento' => 'N/A',
-						'total_importe' => isset($importe) ? trim($importe) : '0.00',
-						'importe_1' => isset($importe) ? trim($importe) : '0.00', // 'importe_1' igual que 'total_importe'
-						'consumo'  => '0.00', // Valor predeterminado fijo por ahora
-						'total_vencido' => '.0.00', // Valor predeterminado fijo por ahora
-						'domicilio_de_consumo' => isset($domicilio_de_consumo) ? trim($domicilio_de_consumo) : 'N/A',
-						'dias_comprendidos' => '0', // Valor predeterminado fijo por ahora
-						'dias_de_consumo' => '0', // Valor predeterminado fijo por ahora
-						'consumo_dias_comprendidos' => '0.00', // Valor predeterminado fijo por ahora
-						'cargo_variable_hasta' => '0.00', // Valor predeterminado fijo por ahora
-						'cargo_fijo' => isset($cargo_fijo) ? trim($cargo_fijo) : '0.00',
-						'monto_car_var_hasta' => '0.00', // Valor predeterminado fijo por ahora
-						'moto_var_mayor' => '0.00', // Valor predeterminado fijo por ahora
-						'otros_conseptos' => '0.00', // Valor predeterminado fijo por ahora
-						'conceptos_electricos' => '0.00', // Valor predeterminado fijo por ahora
-						'impuestos' => isset($impuestos) ? trim($impuestos) : '0.00',
-						'subsidio' => isset($subsidio) ? trim($subsidio) : '0.00',
-						'energia_inyectada' => '0.00', // Valor predeterminado fijo por ahora
-						'p_contratada' => isset($p_contratada) ? trim($p_contratada) : '0.00',
-						'p_registrada' => isset($p_registrada) ? trim($p_registrada) : '0.00',
-						'p_excedida' => isset($p_excedida) ? trim($p_excedida) : '0.00',
-						'pot_punta' => isset($pot_punta) ? trim($pot_punta) : '0.00',
-						'pot_fuera_punta_cons' => isset($pot_fuera_punta_cons) ? trim($pot_fuera_punta_cons) : '0.00',
-						'ener_punta_act' => isset($ener_punta_act) ? trim($ener_punta_act) : '0.00',
-						'ener_punta_cons' => isset($ener_punta_cons) ? trim($ener_punta_cons) : '0.00',
-						'ener_resto_act' => isset($ener_resto_act) ? trim($ener_resto_act) : '0.00',
-						'ener_resto_cons' => isset($ener_resto_cons) ? trim($ener_resto_cons) : '0.00',
-						'ener_valle_act' => isset($ener_valle_act) ? trim($ener_valle_act) : '0.00',
-						'ener_valle_cons' => isset($ener_valle_cons) ? trim($ener_valle_cons) : '0.00',
-						'ener_reac_act' => isset($ener_reac_act) ? trim($ener_reac_act) : '0.00',
-						'ener_reac_cons' => isset($ener_reac_cons) ? trim($ener_reac_cons) : '0.00',
-						'e_reactiva' => isset($e_reactiva) ? trim($e_reactiva) : '0.00',
-						'tgfi' => isset($tgfi) ? trim($tgfi) : '0.00',
-						'cargo_pot_contratada' => isset($cargo_pot_contratada) ? trim($cargo_pot_contratada) : '0.00',
-						'cargo_pot_ad' => isset($cargo_pot_ad) ? trim($cargo_pot_ad) : '0.00',
-						'cargo_pot_excd' => isset($cargo_pot_excd) ? trim($cargo_pot_excd) : '0.00',
-						'recargo_tgfi' => isset($recargo_tgfi) ? trim($recargo_tgfi) : '0.00',
-						'consumo_pico_ant' => isset($consumo_pico_ant) ? trim($consumo_pico_ant) : '0.00',
-						'consumo_pico_vig' => isset($consumo_pico_vig) ? trim($consumo_pico_vig) : '0.00',
-						'cargo_pico' => isset($cargo_pico) ? trim($cargo_pico) : '0.00',
-						'consumo_resto_ant' => isset($consumo_resto_ant) ? trim($consumo_resto_ant) : '0.00',
-						'consumo_resto_vig' => isset($consumo_resto_vig) ? trim($consumo_resto_vig) : '0.00',
-						'cargo_resto' => isset($cargo_resto) ? trim($cargo_resto) : '0.00',
-						'consumo_valle_ant' => isset($consumo_valle_ant) ? trim($consumo_valle_ant) : '0.00',
-						'consumo_valle_vig' => isset($consumo_valle_vig) ? trim($consumo_valle_vig) : '0.00',
-						'cargo_valle' => isset($cargo_valle) ? trim($cargo_valle) : '0.00',
-						'e_actual' => isset($e_actual) ? trim($e_actual) : '0.00',
-						'cargo_contr' => '0.00', // Valor predeterminado fijo por ahora
-						'cargo_adq' => '0.00', // Valor predeterminado fijo por ahora
-						'cargo_exc' => '0.00', // Valor predeterminado fijo por ahora
-						'cargo_var' => '0.00', // Valor predeterminado fijo por ahora
-						'bimestre' => 'N/A', // Valor predeterminado fijo por ahora
-						'ener_generada' => '0.00', // Valor predeterminado fijo por ahora
-						'conseptos_electricos' => '0.00', // Valor predeterminado fijo por ahora
-						'cosfi' => '0.00',
-					);
-
-					break;
+    } else {
+        // Manejar el caso en el que no haya datos
+        $dataUpdate = array();
+    }
+    break;
 
 
 					case 5: // 3857 EDENOR T1 AP

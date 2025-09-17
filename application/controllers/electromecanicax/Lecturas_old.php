@@ -2129,202 +2129,170 @@ class Lecturas extends backend_controller
 	}
 
 	public function upload($id = null)
-	{
+{
+    if ($this->input->is_ajax_request()) {
 
-		if ($this->input->is_ajax_request()) {
+        if (!empty($_FILES['file']['name']) && !empty($_POST['id_proveedor'])) {
 
-			if (!empty($_FILES['file']['name']) && !empty($_POST['id_proveedor'])) {
+            // Corregido: manejar correctamente nombres con múltiples puntos
+            $infoArchivo = pathinfo($_FILES['file']['name']);
+            $nuevoNombre = limpiar_caracteres($infoArchivo['filename']);
+            $nombre_archivodb = $nuevoNombre . '.' . $infoArchivo['extension'];
 
-				$arc = explode('.', $_FILES['file']['name']);
-				$nuevoNOmbre = limpiar_caracteres($arc[0]);
-				$nombre_archivodb = $nuevoNOmbre . '.' . $arc[1];
+            $proveedor = $this->Electromecanica_model->get_data('_proveedores_canon', $_POST['id_proveedor']);
+            $db_tabla = "_t" . $proveedor->tipo_proveedor;
+            $nombre_fichero = 'uploader/canon/' . $proveedor->tipo_proveedor . '/' . strtolower($proveedor->codigo);
 
-				$proveedor = $this->Electromecanica_model->get_data('_proveedores_canon', $_POST['id_proveedor']);
+            if (!file_exists(strtolower($nombre_fichero))) {
+                mkdir($nombre_fichero, 0777, true);
+            }
 
-				$db_tabla = "_t" . $proveedor->tipo_proveedor;
+            $data = array();
+            $uploadPath = $nombre_fichero;
+            $config["remove_spaces"] = TRUE;
+            $config["overwrite"] = TRUE;
+            $config['upload_path'] = $uploadPath;
+            $config['allowed_types'] = '*';
+            $config['max_size'] = '10000'; // max_size en KB
+            $config['file_name'] = $nombre_archivodb;
 
-				$nombre_fichero = 'uploader/canon/' . $proveedor->tipo_proveedor . '/' . strtolower($proveedor->codigo);
+            $this->load->library('upload', $config);
 
-				if (!file_exists(strtolower($nombre_fichero))) {
-					mkdir($nombre_fichero, 0777, true);
-				}
+            $response = array(
+                'mensaje' => 'inicio',
+                'title' => 'LOTES 227',
+                'status' => 'error',
+            );
 
-				$data = array();
-				// Set preference 
-				$uploadPath = $nombre_fichero;
-				$config["remove_spaces"] = TRUE;
-				$config["overwrite"] = TRUE;
-				$config['upload_path'] = $uploadPath;
-				//    $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-				$config['allowed_types'] = '*';
-				$config['max_size'] = '10000'; // max_size in kb 
-				$config['file_name'] = $nombre_archivodb;
+            if ($this->upload->do_upload('file')) {
 
-				$this->load->library('upload', $config);
+                $nombre_archivo_temp = $nuevoNombre . '_splitter.' . $infoArchivo['extension'];
+                $destino = $nombre_fichero . "/" . $nombre_archivo_temp;
 
-				$response = array(
-					'mensaje' => 'inico',
-					'title' => 'LOTES 227',
-					'status' => 'error',
-				);
+                $this->load->library('pdf_lib');
+                $pdf = $this->pdf_lib->test2($this->upload->data('full_path'), $destino);
 
-				if ($this->upload->do_upload('file')) {
+                if (!file_exists(strtolower($nombre_fichero . '/' . $nuevoNombre))) {
+                    // Está vacío, pero lo dejo porque respetaste tu código original
+                }
 
-					$nombre_archivo_temp = $nuevoNOmbre . '_splitter.' . $arc[1];
+                try {
+                    if (isset($_REQUEST['id_lote'])) {
+                        $lote = $this->Electromecanica_model->getwhere('_lotes_canon', 'id=' . $_REQUEST['id_lote']);
+                        $dataLote = array(
+                            'cant' => $lote->cant + $_REQUEST['cant']
+                        );
+                        $this->db->where('id', $_REQUEST['id_lote']);
+                        $this->db->update('_lotes_canon', $dataLote);
+                    }
+                } catch (Exception $e) {
+                    echo $e->getMessage();
+                    $response = array(
+                        'mensaje' => $e->getMessage(),
+                        'title' => 'Consulta API 218',
+                        'status' => 'error',
+                    );
+                    echo json_encode($response);
+                    exit();
+                }
 
-					$destino = $nombre_fichero  . "/" . $nombre_archivo_temp;
+                $uploadData = $this->upload->data();
+                $filename = $uploadData['file_name'];
+                $fullpath = $uploadData['full_path'];
 
-					$this->load->library('pdf_lib');
+                $nombre_archivodb = $config['upload_path'] . '/' . $config['file_name'];
 
-					$pdf = $this->pdf_lib->test2($this->upload->data('full_path'), $destino);
+                $lote = $this->Electromecanica_model->crearLote();
 
-					if (!file_exists(strtolower($nombre_fichero . '/' . $nuevoNOmbre))) {
-					}
-					try {
-						//actrualizo tabla lotes cantidad de archivos
-						if (isset($_REQUEST['id_lote'])) {
+                $saveData = array(
+                    'id_lote' => $lote[0]->id,
+                    'code_lote' => $lote[0]->code,
+                    'id_proveedor' => $proveedor->id,
+                    'tipo_proveedor' => $proveedor->tipo_proveedor,
+                    'nombre_proveedor' => $proveedor->nombre,
+                    'nombre_archivo' => $nombre_archivodb,
+                    'nombre_archivo_temp' => $destino,
+                );
 
-							$lote = $this->Electromecanica_model->getwhere('_lotes_canon', 'id=' . $_REQUEST['id_lote']);
-							$dataLote = array(
-								'cant' => $lote->cant + $_REQUEST['cant']
-							);
-							$this->db->where('id', $_REQUEST['id_lote']);
-							$this->db->update('_lotes_canon', $dataLote);
-						}
-					} catch (Exception $e) {
+                if ($this->Electromecanica_model->grabar_datos("_datos_api_canon", $saveData)) {
+                    $response = array(
+                        'mensaje' => 'Archivo: ' . $filename . ' Lote: ' . $lote[0]->code,
+                        'title' => 'Grabar Archivos',
+                        'status' => 'success',
+                        'file' => $filename,
+                        'path' => $fullpath,
+                        'pathw' => $destino,
+                    );
+                    echo json_encode($response);
+                    exit();
+                } else {
+                    $response = array(
+                        'mensaje' => 'Archivo: ' . $filename . ' Lote: ' . $lote[0]->code,
+                        'title' => 'Grabar Archivos',
+                        'status' => 'error',
+                    );
+                    echo json_encode($response);
+                    exit();
+                }
+            } else {
+                $data['response'] = 'failed';
+                $response = array(
+                    'mensaje' => 'Archivo: ' . $this->upload->display_errors() . '<br>' . $nombre_archivodb . ' Lote: ' . $_POST['code_lote'],
+                    'title' => 'Grabar Archivos',
+                    'status' => 'error',
+                );
+                echo json_encode($response);
+                exit();
+            }
+        } else {
+            $response = array(
+                'mensaje' => 'Archivo: vacio',
+                'title' => 'Grabar ',
+                'status' => 'error',
+            );
+            echo json_encode($response);
+            exit();
+        }
+    }
 
-						// this will not catch DB related errors. But it will include them, because this is more general. 
-						echo $e->getMessage();
-						$response = array(
-							'mensaje' => $e->getMessage(),
-							'title' => 'Consulta API 218',
-							'status' => 'error',
-						);
-						echo json_encode($response);
-						exit();
-					}
+    // SI NO ES UNA SOLICITUD AJAX
+    if (!empty($_POST['id_proveedor'])) {
 
-					$uploadData = $this->upload->data();
+        $script = array(
+            base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),
+            base_url('assets/manager/js/plugins/dropzone.min.js'),
+            base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
+            base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '.js'),
+        );
 
-					$filename = $uploadData['file_name'];
-					$fullpath = $uploadData['full_path'];
+        $this->data['css_common'] = $this->css_common;
+        $this->data['css'] = '';
 
-					$nombre_archivodb = $config['upload_path'] . '/' . $config['file_name'];
+        $this->data['script_common'] = $this->script_common;
+        $this->data['script'] = $script;
 
-					$lote = $this->Electromecanica_model->crearLote();
+        $this->data['proveedor'] = $this->Electromecanica_model->get_data('_proveedores_canon', $_POST['id_proveedor']);
 
-					$texto = ' ';
-					// $saveData = array(
-					// 	'id_lote'.$db_tabla => $lote[0]->id,
-					// 	'code_lote'.$db_tabla => $lote[0]->code,
-					// 	'id_proveedor'.$db_tabla => $proveedor->id,
-					// 	'tipo_proveedor'.$db_tabla => $proveedor->tipo_proveedor,
-					// 	'nombre_proveedor'.$db_tabla => $proveedor->nombre,
-					// 	'nombre_archivo'.$db_tabla => $nombre_archivodb,
-					// 	'nombre_archivo_temp'.$db_tabla => $destino,
-					// );
-					$saveData = array(
-						'id_lote' => $lote[0]->id,
-						'code_lote' => $lote[0]->code,
-						'id_proveedor' => $proveedor->id,
-						'tipo_proveedor' => $proveedor->tipo_proveedor,
-						'nombre_proveedor' => $proveedor->nombre,
-						'nombre_archivo' => $nombre_archivodb,
-						'nombre_archivo_temp' => $destino,
-					);
+        $this->form_validation->set_rules('id_proveedor', 'proveedor', 'callback_url_check');
 
-					// if ($this->Electromecanica_model->grabar_datos("_t".$proveedor->tipo_proveedor, $saveData)) {
-					if ($this->Electromecanica_model->grabar_datos("_datos_api_canon", $saveData)) {
+        if ($this->form_validation->run() == FALSE) {
+            redirect('Electromecanica/Lecturas');
+        }
 
+        $hoy = getdate();
+        $code = substr(str_replace(array('=', '-', '/s'), '', $this->encrypt->encode($hoy[0])), 0, 6);
 
-						$response = array(
-							'mensaje' => 'Archivo: ' . $filename . ' Lote: ' . $lote[0]->code,
-							'title' => 'Grabar Archivos',
-							'status' => 'success',
-							// 'file' => $filename,
-							'file' => $filename,
-							'path' => $fullpath,
-							'pathw' => $destino,
-						);
-						echo json_encode($response);
-						exit();
-					} else {
-						$response = array(
-							'mensaje' => 'Archivo: ' . $filename . ' Lote: ' . $lote[0]->code,
-							'title' => 'Grabar Archivos',
-							'status' => 'error',
-						);
-						echo json_encode($response);
-						exit();
-					}
-				} else {
-					// echo 'error ->' . $this->upload->display_errors();
-					$data['response'] = 'failed';
-					$response = array(
-						'mensaje' => 'Archivo: ' . $this->upload->display_errors() . '<br>' . $nombre_archivodb . ' Lote: ' . $_POST['code_lote'],
-						'title' => 'Grabar Archivos',
-						'status' => 'error',
-					);
+        $this->data['code'] = urlencode($code);
+        $this->data['dropzone'] = $this->load->view('manager/etiquetas/dropzone', $this->data, TRUE);
+        $this->data['content'] = $this->load->view('manager/secciones/lotes/' . $this->router->fetch_method(), $this->data, TRUE);
+        $this->load->view('manager/head', $this->data);
+        $this->load->view('manager/index', $this->data);
+        $this->load->view('manager/footer', $this->data);
+    } else {
+        die('aca 216');
+    }
+}
 
-					echo json_encode($response);
-					exit();
-				}
-			} else {
-				$response = array(
-					'mensaje' => 'Archivo: vacio',
-					'title' => 'Grabar ',
-					'status' => 'error',
-				);
-
-				echo json_encode($response);
-				exit();
-			}
-		}
-
-		// ACA LLEGA NORMAL
-
-		if (!empty($_POST['id_proveedor'])) {
-
-
-			$script = array(
-				base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),
-				base_url('assets/manager/js/plugins/dropzone.min.js'),
-				base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
-				base_url('assets/manager/js/secciones/' . $this->router->fetch_class()  . '.js'),
-			);
-
-
-			$this->data['css_common'] = $this->css_common;
-			$this->data['css'] = '';
-
-			$this->data['script_common'] = $this->script_common;
-			$this->data['script'] = $script;
-
-			$this->data['proveedor'] = $this->Electromecanica_model->get_data('_proveedores_canon', $_POST['id_proveedor']);
-
-
-			$this->form_validation->set_rules('id_proveedor', 'proveedor', 'callback_url_check');
-
-
-			if ($this->form_validation->run() == FALSE) {
-				redirect('Electromecanica/Lecturas');
-			}
-
-			$hoy = getdate();
-
-			$code = substr(str_replace(array('=', '-', '/s'), '', $this->encrypt->encode($hoy[0])), 0, 6);
-
-			$this->data['code'] = urlencode($code);
-
-			$this->data['dropzone'] = $this->load->view('manager/etiquetas/dropzone', $this->data, TRUE);
-			$this->data['content'] = $this->load->view('manager/secciones/lotes/' . $this->router->fetch_method(), $this->data, TRUE);
-			$this->load->view('manager/head', $this->data);
-			$this->load->view('manager/index', $this->data);
-			$this->load->view('manager/footer', $this->data);
-		} else {
-			die('aca 216');
-		}
-	}
 	public function Consolidar()
 	{
 		if ($this->input->is_ajax_request()) {

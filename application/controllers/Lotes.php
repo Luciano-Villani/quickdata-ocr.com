@@ -49,89 +49,74 @@ class Lotes extends backend_controller
 			switch ($id_proveedor) {
 
 
-				case 1: // ASYSA 3232
+				case 1: // ASYSA - Solo Azure
+			// Extraer datos directamente del JSON de Azure
+			$fields = $a[0]->fields; // El JSON está en un array, accedemos a la posición 0
 
-				$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-				$fecha_emision = '';
-				for ($paso = 0; $paso < $totalIndices; $paso++) {
-					$fecha_emision .= trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
-				}
+			// --- Fechas ---
+			$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+			$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
 
-				$totalIndices = count($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values);
-				$vencimiento_del_pago = '';
-				for ($paso = 0; $paso < $totalIndices; $paso++) {
-					$vencimiento_del_pago .= trim($a->document->inference->pages[0]->prediction->vencimiento_del_pago->values[$paso]->content);
-				}
-				// echo '<pre>';
-				// echo $fecha_emision;
-				// echo '<pre>';
-				// echo fecha_es($fecha_emision,'Y-m-d'); 
-				// echo '</pre>';
-				// // die();
-				$nro_cuenta = '';
-				//calculo indices para el periodo
-				$totalIndices = count($a->document->inference->pages[0]->prediction->periodo_del_consumo->values);
-				$periodo_del_consumo = '';
-				$monto_subsidio = '';
-				$consumo = '';
+			// --- Otros campos principales ---
+			$nro_cuenta = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : 'S/D';
+			$nro_factura = isset($fields->nro_factura->content) ? trim($fields->nro_factura->content) : 'S/D';
+			$periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
+			$total_importe_raw = isset($fields->total_importe->content) ? trim($fields->total_importe->content) : '0,00';
+			$total_vencido_raw = isset($fields->total_vencido->content) ? trim($fields->total_vencido->content) : '0,00';
 
-				for ($paso = 0; $paso < $totalIndices; $paso++) {
-					$periodo_del_consumo .= ' ' . $a->document->inference->pages[0]->prediction->periodo_del_consumo->values[$paso]->content;
-				}
+			// --- Campos opcionales ---
+			$nro_medidor = (isset($fields->nro_medidor->content) && trim($fields->nro_medidor->content) !== '') 
+				? trim($fields->nro_medidor->content) 
+				: 'N/A';
 
-				if ($a->document->inference->pages[0]->prediction->nro_medidor->values) {
-					$medidor = $a->document->inference->pages[0]->prediction->nro_medidor->values[0]->content;
-				} else {
-					$medidor = 'N/A';
-				}
-				if ($a->document->inference->pages[0]->prediction->monto_subsidio->values) {
-					$monto_subsidio = $a->document->inference->pages[0]->prediction->monto_subsidio->values[0]->content;
-				} else {
-					$monto_subsidio = 'N/A';
-				}
-				if ($a->document->inference->pages[0]->prediction->consumo->values) {
-					$consumo = $a->document->inference->pages[0]->prediction->consumo->values[0]->content;
-				} else {
-					$consumo = 'S/D';
-				}
+			$consumo = (isset($fields->consumo->content) && trim($fields->consumo->content) !== '') 
+				? trim($fields->consumo->content) 
+				: 'N/A';
 
-				// *** INICIO DE LA LÓGICA PARA mes_fc y anio_fc ***
-				// La variable $fecha_emision ya está construida al inicio del case.
-				$fecha_emision_para_calculo = trim($fecha_emision); // Asegurarse de que esté limpia antes de pasarla a la función.
+			// --- Limpieza y formateo de importes ---
+			// Ejemplo: "50.785,21" -> "50785.21"
+			$total_importe_clean = str_replace('.', '', $total_importe_raw);
+			$total_importe_clean = str_replace(',', '.', $total_importe_clean);
+
+			$total_vencido_clean = str_replace('.', '', $total_vencido_raw);
+			$total_vencido_clean = str_replace(',', '.', $total_vencido_clean);
+
+			$importe_1_formatted = is_numeric($total_importe_clean) 
+				? number_format((float)$total_importe_clean, 2, '.', '') 
+				: '0.00';
+
+			// --- Calcular mes y año desde fecha_emision ---
+			$fecha_emision_para_calculo = trim($fecha_emision);
+			$mes_fc = '';
+			$anio_fc = '';
+			if ($fecha_emision_para_calculo !== 'S/D') {
 				$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_para_calculo);
-				// *** FIN DE LA LÓGICA PARA mes_fc y anio_fc ***
+				$mes_fc = $mesAnioData['mes_fc'];
+				$anio_fc = $mesAnioData['anio_fc'];
+			}
 
-				// --- INICIO: Lógica para importe_1 (total_importe como string, importe_1 como decimal 2) ---
-				$total_importe_asysa_raw = trim($a->document->inference->pages[0]->prediction->total_importe->values[0]->content);
-				
-				// CAMBIO AQUÍ: Eliminar solo comas, manteniendo el punto decimal.
-				// Si el valor viene "28,261.52", esto lo convierte en "28261.52".
-				// Si el valor viene "28261.52", esto lo mantiene como "28261.52".
-				$total_importe_asysa_cleaned = str_replace(',', '', $total_importe_asysa_raw); 
-				
-				$importe_1_asysa_formatted = '0.00';
-				if (is_numeric($total_importe_asysa_cleaned)) {
-					$importe_1_asysa_formatted = number_format((float)$total_importe_asysa_cleaned, 2, '.', '');
-				}
-				// --- FIN: Lógica para importe_1 ---
+			// --- Construcción del array final ---
+			$dataUpdate = array(
+				'nro_cuenta'          => $nro_cuenta,
+				'nro_medidor'         => $nro_medidor,
+				'nro_factura'         => $nro_factura,
+				'periodo_del_consumo' => $periodo_del_consumo,
+				'fecha_emision'       => $fecha_emision,
+				'vencimiento_del_pago'=> $vencimiento_del_pago,
+				'total_importe'       => $total_importe_clean,    // Valor limpio con punto decimal
+				'importe_1'           => $importe_1_formatted,    // Valor final formateado
+				'total_vencido'       => $total_vencido_clean,
+				'monto_subsidio'      => isset($fields->monto_subsidio->content) ? trim($fields->monto_subsidio->content) : 'N/A',
+				'consumo'             => $consumo,
+				'mes_fc'              => $mes_fc,
+				'anio_fc'             => $anio_fc,
+			);
 
-				$dataUpdate = array(
-					'nro_cuenta'         => trim($a->document->inference->pages[0]->prediction->nro_cuenta->values[0]->content),
-					'nro_medidor'        => trim($medidor),
-					'nro_factura'        => trim($a->document->inference->pages[0]->prediction->nro_factura->values[0]->content),
-					'periodo_del_consumo' => trim($periodo_del_consumo),
-					'fecha_emision'      => trim($fecha_emision),
-					'vencimiento_del_pago' => trim($vencimiento_del_pago),
-					'total_importe'      => $total_importe_asysa_cleaned, // Se usa el string limpio aquí, ahora con el punto
-					'importe_1'          => $importe_1_asysa_formatted,   // Agregado y formateado a decimal 2
-					'total_vencido'      => trim($a->document->inference->pages[0]->prediction->total_vencido->values[0]->content),
-					'monto_subsidio'     => trim($monto_subsidio),
-					'consumo'            => trim($consumo),
-					'mes_fc'             => $mesAnioData['mes_fc'],
-					'anio_fc'            => $mesAnioData['anio_fc'],
-				);
-				break;
-			
+			// --- Debug opcional ---
+			log_message('debug', 'Datos procesados para Azure - ASYSA: ' . json_encode($dataUpdate));
+
+			break;
+
 					
 					case 2: // NATURGY 4399
 

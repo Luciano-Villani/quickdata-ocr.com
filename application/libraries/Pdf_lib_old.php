@@ -17,66 +17,26 @@ class Pdf_lib
     {
         //    die('DebugPHPMailer class is loaded.');
     }
+    function test($full_path, $destino)
+    {
 
+        $pdf = new Fpdi();
 
-    function split_pdf_first_two_pages($full_path, $destino)
-{
-    // Cargar librerías necesarias
-    $pdf = new Fpdi();
+        $pageCount = $pdf->setSourceFile($full_path);
 
-    // Cantidad total de páginas en el PDF original
-    $pageCount = $pdf->setSourceFile($full_path);
+        // for($pageNro =1 ;$pageNro <= $pageCount;$pageNro++){
 
-    // Crear nuevo PDF que contendrá solo las dos primeras páginas
-    $newPdf = new Fpdi();
+        $pdfd = new Fpdi2();
 
-    // Procesar página 1
-    if ($pageCount >= 1) {
-        $newPdf->AddPage();
-        $template = $newPdf->importPage(1);
-        $newPdf->useTemplate($template, 0, 0);
-    }
-
-    // Procesar página 2 (solo si existe)
-    if ($pageCount >= 2) {
-        $newPdf->AddPage();
-        $template = $newPdf->importPage(2);
-        $newPdf->useTemplate($template, 0, 0);
-    }
-
-    // Guardar el archivo resultante con las dos primeras páginas
-    $newPdf->Output('F', $destino);
-
-    return $destino; // Retorna la ruta del archivo generado
-}
-   function test($full_path, $destino)
-{
-    // Crear una instancia de FPDI
-    $pdf = new Fpdi();
-
-    // Cargar el archivo original
-    $pageCount = $pdf->setSourceFile($full_path);
-
-    // Agregar la página 1
-    if ($pageCount >= 1) {
         $pdf->AddPage();
-        $template = $pdf->importPage(1); // Importar página 1
+        $template = $pdf->importPage(1);
         $pdf->useTemplate($template, 0, 0);
+        $pdf->Output("F", $destino);
+        // }
+
+        // $pdf->Output();
+        return;
     }
-
-    // Agregar la página 2 (si existe)
-    if ($pageCount >= 2) {
-        $pdf->AddPage();
-        $template = $pdf->importPage(2); // Importar página 2
-        $pdf->useTemplate($template, 0, 0);
-    }
-
-    // Guardar el PDF final con las dos primeras páginas
-    $pdf->Output('F', $destino);
-
-    return $destino; // Retornar la ruta del archivo generado
-}
-
 
     function test2($full_path, $destino)
     {
