@@ -403,72 +403,107 @@ class Lotes extends backend_controller
 							$dataUpdate = array(); 
 						}
 						break;
+					case 7: // TELECENTRO 3959
 
-					case 7: // TELECENTRO 3959 (Azure)
+						// Aseguramos que $prediction sea un alias para la ruta larga
+						$prediction = $a->document->inference->pages[0]->prediction;
 
-				// Verificamos que existan datos en el JSON
-				if (isset($a[0]->fields)) {
-					$fields = $a[0]->fields;
+						// Helper function to safely get content or default value
+						// IMPORTANTE: Si esta función ya está definida como un método de clase
+						// (ej: public function safe_get_content(...)), DEBES ELIMINAR esta definición
+						// y usar '$this->safe_get_content(...)' en su lugar.
+						$safe_get_content = function($prediction_obj, $field_name, $default_value = 'S/D') {
+							if (isset($prediction_obj->$field_name) &&
+								isset($prediction_obj->$field_name->values) &&
+								is_array($prediction_obj->$field_name->values) &&
+								isset($prediction_obj->$field_name->values[0]) &&
+								isset($prediction_obj->$field_name->values[0]->content)) {
+									return trim($prediction_obj->$field_name->values[0]->content);
+								}
+							return $default_value;
+						};
 
-					// Extraemos los campos principales
-					$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
-					$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
-					$nro_cuenta = isset($fields->nro_cuenta->valueString) ? trim($fields->nro_cuenta->valueString) : 'S/D';
-					$nro_factura = isset($fields->nro_factura->valueString) ? trim($fields->nro_factura->valueString) : 'S/D';
-					$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'S/D';
+						// Extraemos fecha_emision usando safe_get_content
+						$fecha_emision_raw = $safe_get_content($prediction, 'fecha_emision');
 
-					// --- Lógica para total_importe e importe_1 ---
-					// Azure ya provee el valor numérico en `valueNumber`.
-					$total_importe_float = isset($fields->total_importe->valueNumber) ? $fields->total_importe->valueNumber : 0.00;
-					
-					// Formateamos el importe a 2 decimales con punto como separador.
-					$total_importe_formatted = number_format($total_importe_float, 2, '.', '');
-					$importe_1 = $total_importe_formatted;
-					// --- FIN: Lógica para total_importe e importe_1 ---
+						// Extraemos vencimiento_del_pago usando safe_get_content
+						$vencimiento_del_pago_raw = $safe_get_content($prediction, 'vencimiento_del_pago');
 
-					// --- Lógica para mes_fc y anio_fc ---
-					$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision);
-					// --- FIN: Lógica para mes_fc y anio_fc ---
+						// Extracción y concatenación para periodo_del_consumo
+						$periodo_del_consumo_raw = '';
+						if (isset($prediction->periodo_del_consumo->values) && is_array($prediction->periodo_del_consumo->values)) {
+							foreach ($prediction->periodo_del_consumo->values as $value_obj) {
+								if (isset($value_obj->content)) {
+									$periodo_del_consumo_raw .= ' ' . $value_obj->content;
+								}
+							}
+						}
+						$periodo_del_consumo = trim($periodo_del_consumo_raw);
 
-					// Asignación de valores a dataUpdate
-					$dataUpdate = array(
-						'nro_cuenta' => $nro_cuenta,
-						'fecha_emision' => $fecha_emision,
-						'total_importe' => $total_importe_formatted,
-						'importe_1' => $importe_1,
-						'nro_factura' => $nro_factura,
-						'periodo_del_consumo' => str_replace(':', '', $periodo_del_consumo),
-						'vencimiento_del_pago' => $vencimiento_del_pago,
-						'nro_medidor' => 'N/A',
-						'total_vencido' => 'S/D',
-						'consumo' => 'Tel/Int Pyme corp.',
-						'mes_fc' => $mesAnioData['mes_fc'],
-						'anio_fc' => $mesAnioData['anio_fc'],
-					);
 
-					// Lógica de "No Leído" para nro_factura
-					if (empty($dataUpdate['nro_factura']) || strlen($dataUpdate['nro_factura']) < 4) {
-						$dataUpdate['nro_factura'] = 'No Leído';
-					}
-				} else {
-					// Manejar el caso en que no haya datos en el JSON
-					$dataUpdate = array(
-						'nro_cuenta' => 'S/D',
-						'nro_factura' => 'S/D',
-						'fecha_emision' => 'S/D',
-						'vencimiento_del_pago' => 'S/D',
-						'periodo_del_consumo' => 'S/D',
-						'total_importe' => '0.00',
-						'importe_1' => '0.00',
-						'nro_medidor' => 'N/A',
-						'total_vencido' => 'S/D',
-						'consumo' => 'S/D',
-						'mes_fc' => 'S/D',
-						'anio_fc' => 'S/D',
-					);
-				}
+						// Extracción y concatenación para numero_de_factura (CON LA LÓGICA DE "No Leído" APLICADA)
+						$numero_de_factura_raw = '';
+						if (isset($prediction->numero_de_factura->values) && is_array($prediction->numero_de_factura->values)) {
+							foreach ($prediction->numero_de_factura->values as $value_obj) {
+								if (isset($value_obj->content)) {
+									$numero_de_factura_raw .= $value_obj->content;
+								}
+							}
+						}
+						$numero_de_factura = trim($numero_de_factura_raw);
 
-				break;
+						// --- Lógica para asignar "No Leído" si no se extrajo la factura o es insignificante ---
+						// Verifica si la cadena está vacía O si tiene menos de 4 caracteres
+						if (empty($numero_de_factura) || strlen($numero_de_factura) < 4) {
+							$numero_de_factura = 'No Leído';
+						}
+						// --- FIN de la lógica "No Leído" ---
+
+
+						// --- Lógica para mes_fc y anio_fc ---
+						// Utilizamos la fecha_emision ya extraída y validada
+						$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);
+						// --- FIN: Lógica para mes_fc y anio_fc ---
+
+
+						// --- INICIO: Lógica para total_importe y importe_1 (AJUSTADA PARA "197.33" DESDE EL OCR DE TELECENTRO) ---
+						// 1. Extraemos el total_importe como string del JSON (valor "crudo")
+						$total_importe_json_string = $safe_get_content($prediction, 'total_importe', '0.00');
+
+						// 2. Limpiamos el string para que sea un número flotante interpretable por PHP.
+						//    Si el OCR ya nos da "197.33" con el punto como separador decimal,
+						//    solo necesitamos eliminar cualquier posible coma que podría interpretarse como separador de miles o decimal.
+						$temp_importe_string = str_replace(',', '', $total_importe_json_string); // Solo quita las comas si las hay
+
+						// 3. Convertir a flotante. PHP es lo suficientemente inteligente para convertir "197.33" a 197.33.
+						$total_importe_float = floatval($temp_importe_string);
+
+						// 4. Formatear el importe final a dos decimales con punto como separador.
+						//    Esto asegura que siempre esté en el formato "XX.YY" para la base de datos o uso posterior.
+						$total_importe_formatted = number_format($total_importe_float, 2, '.', '');
+
+						// 'importe_1' será el mismo valor que 'total_importe' para este caso.
+						$importe_1_formatted_decimal = $total_importe_formatted;
+						// --- FIN: Lógica para total_importe y importe_1 ---
+
+
+						// UNICO Y FINAL $dataUpdate para el case 7
+						$dataUpdate = array(
+							'nro_cuenta' => $safe_get_content($prediction, 'nro_cuenta'),
+							'fecha_emision' => $fecha_emision_raw,
+							'total_importe' => $total_importe_formatted, // Usa el valor ya limpio y formateado (ej. "197.33")
+							'importe_1' => $importe_1_formatted_decimal,     // Asignación de importe_1
+							'nro_factura' => $numero_de_factura, // Usa el valor ya validado ("No Leído" o el número)
+							'periodo_del_consumo' => str_replace(':', '', $periodo_del_consumo),
+							'vencimiento_del_pago' => $vencimiento_del_pago_raw,
+							'nro_medidor' => trim('N/A'),
+							'total_vencido' => trim('S/D'),
+							'consumo' => 'Tel/Int Pyme corp.',
+							'mes_fc' => $mesAnioData['mes_fc'],
+							'anio_fc' => $mesAnioData['anio_fc'],
+						);
+
+						break;
 			case 8: //3480 TELECOM INTERNET - DIGITAL
 
 					// Extracción inicial de nro_cuenta (como lo tenías)
