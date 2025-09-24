@@ -240,63 +240,76 @@ class Lotes extends backend_controller
 				break;
 
 
-							case 4: //3857 EDENOR 
+							case 4: //3857 EDENOR
 
-				// Asumimos que $a es el array que contiene el objeto principal.
-				// Accedemos al primer elemento del array, que contiene los campos.
-				$fields = $a[0]->fields; // ¡Corrección aquí!
+    // Verificar si el JSON de Azure tiene el campo 'fields' antes de procesar.
+    if (isset($a[0]->fields)) {
+        $fields = $a[0]->fields;
 
-				// Helper function to safely get content or default value
-				$safe_get_content = function($fields, $field_name, $default_value = 'S/D') {
-					if (isset($fields->$field_name) && isset($fields->$field_name->content)) {
-						return trim($fields->$field_name->content);
-					}
-					return $default_value;
-				};
-				
-				// --- INICIO: Manejo de total_importe y importe_1 ---
-				$total_importe_json_string = $safe_get_content($fields, 'total_importe', '0,00');
-				$total_importe_cleaned_string = str_replace('.', '', $total_importe_json_string);
-				$total_importe_cleaned_string = str_replace(',', '.', $total_importe_cleaned_string);
-				
-				$importe_1_formatted_decimal = '0.00';
-				if (is_numeric($total_importe_cleaned_string)) {
-					$importe_1_formatted_decimal = number_format((float)$total_importe_cleaned_string, 2, '.', '');
-				}
-				// --- FIN: Manejo de total_importe y importe_1 ---
+        // Extraer y limpiar cada campo con validación `isset()`
+        $nro_cuenta_raw = isset($fields->nro_cuenta->content) ? trim($fields->nro_cuenta->content) : 'S/D';
+        $nro_cuenta_limpio = str_replace(' ', '', $nro_cuenta_raw);
 
-				// Extracción y concatenación para periodo_del_consumo
-				$periodo_del_consumo = $safe_get_content($fields, 'periodo_del_consumo');
+        $nro_medidor = isset($fields->nro_medidor->content) ? trim($fields->nro_medidor->content) : 'N/A';
+        $nro_factura = isset($fields->nro_de_factura->valueString) ? trim($fields->nro_de_factura->valueString) : 'S/D';
 
-				$medidor = $safe_get_content($fields, 'nro_medidor', 'N/A');
+        // Fechas con `valueDate`
+        $fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+        $vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+        $proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'S/D';
 
-				// Lógica para obtener mes_fc y anio_fc
-				$fecha_emision_raw = $safe_get_content($fields, 'fecha_emision');
-				$mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);
+        $periodo_del_consumo = isset($fields->periodo_del_consumo->content) ? trim($fields->periodo_del_consumo->content) : 'S/D';
+        $consumo = isset($fields->consumo->content) ? trim($fields->consumo->content) : 'S/D';
+        $total_vencido = isset($fields->total_vencido->content) ? trim($fields->total_vencido->content) : 'S/D';
 
-				// Extracción del nuevo campo proximo_vencimiento
-				$proximo_vencimiento_raw = $safe_get_content($fields, 'proximo_vencimiento');
+        // Lógica para total_importe e importe_1, adaptada para el formato de Edenor
+        $total_importe_json_string = isset($fields->total_importe->content) ? trim($fields->total_importe->content) : '0,00';
+        $total_importe_cleaned_string = str_replace('.', '', $total_importe_json_string); // Elimina puntos
+        $total_importe_cleaned_string = str_replace(',', '.', $total_importe_cleaned_string); // Reemplaza coma por punto
 
-				// Extraer y limpiar el nro_cuenta para eliminar espacios
-				$nro_cuenta_raw = $safe_get_content($fields, 'nro_cuenta');
-				$nro_cuenta_limpio = str_replace(' ', '', $nro_cuenta_raw);
+        $total_importe = '0.00';
+        if (is_numeric($total_importe_cleaned_string)) {
+            $total_importe = number_format((float)$total_importe_cleaned_string, 2, '.', '');
+        }
+        $importe_1 = $total_importe; // Se usa el mismo valor formateado para importe_1
 
-				$dataUpdate = array(
-					'nro_cuenta'           => $nro_cuenta_limpio, // Usar la variable limpia
-					'nro_medidor'          => $medidor,
-					'nro_factura'          => $safe_get_content($fields, 'nro_de_factura'),
-					'periodo_del_consumo'  => $periodo_del_consumo,
-					'fecha_emision'        => $fecha_emision_raw,
-					'vencimiento_del_pago' => $safe_get_content($fields, 'vencimiento_del_pago'),
-					'proximo_vencimiento'  => $proximo_vencimiento_raw,
-					'total_importe'        => $total_importe_cleaned_string,
-					'importe_1'            => $importe_1_formatted_decimal,
-					'consumo'              => $safe_get_content($fields, 'consumo'),
-					'total_vencido'        => $safe_get_content($fields, 'total_vencido'),
-					'mes_fc'               => $mesAnioData['mes_fc'],
-					'anio_fc'              => $mesAnioData['anio_fc'],
-				);
-				break;
+        // Lógica para mes_fc y anio_fc
+        $mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision);
+
+        $dataUpdate = array(
+            'nro_cuenta'           => $nro_cuenta_limpio,
+            'nro_medidor'          => $nro_medidor,
+            'nro_factura'          => $nro_factura,
+            'periodo_del_consumo'  => $periodo_del_consumo,
+            'fecha_emision'        => $fecha_emision,
+            'vencimiento_del_pago' => $vencimiento_del_pago,
+            'proximo_vencimiento'  => $proximo_vencimiento,
+            'total_importe'        => $total_importe,
+            'importe_1'            => $importe_1,
+            'consumo'              => $consumo,
+            'total_vencido'        => $total_vencido,
+            'mes_fc'               => $mesAnioData['mes_fc'],
+            'anio_fc'              => $mesAnioData['anio_fc'],
+        );
+    } else {
+        // Bloque else para valores por defecto si no se encuentran los campos
+        $dataUpdate = array(
+            'nro_cuenta'           => 'S/D',
+            'nro_medidor'          => 'N/A',
+            'nro_factura'          => 'S/D',
+            'periodo_del_consumo'  => 'S/D',
+            'fecha_emision'        => 'S/D',
+            'vencimiento_del_pago' => 'S/D',
+            'proximo_vencimiento'  => 'S/D',
+            'total_importe'        => '0.00',
+            'importe_1'            => '0.00',
+            'consumo'              => 'S/D',
+            'total_vencido'        => 'S/D',
+            'mes_fc'               => 'S/D',
+            'anio_fc'              => 'S/D',
+        );
+    }
+    break;
 
 				case 5: //3480 PERSONAL
 
