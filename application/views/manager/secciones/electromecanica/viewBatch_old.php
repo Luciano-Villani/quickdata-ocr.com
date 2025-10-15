@@ -31,13 +31,13 @@
 					<th>Cuenta</th>
 					<th>Medidor</th>
 					<th>Nro de factura</th>
-					<th>Período</th>
-					<th>Fecha emisión</th>
+					<th>Pedríodo</th>
+					<th>Fecha emision</th>
 					<th>Vencimiento</th>
 					<th>Total importe</th>
 					<th>Total vencido</th>
 					<th>Consumo</th>
-					<th>Index</th>
+					<th>index</th>
 					<th>codigo prov</th>
 					<th>Acciones</th>
 			</tr>
