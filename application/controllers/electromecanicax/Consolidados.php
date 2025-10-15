@@ -750,7 +750,48 @@ public function guardar_comentario_en_consolidados() {
         $this->load->view('editar_comentario', $data);
     }
     
-   
+   public function obtener_lista_seguimiento_canon_ajax()
+{
+    if ($this->input->is_ajax_request()) {
+        
+        $registros = $this->Electromecanica_model->get_seguimiento_proveedores_canon_list(); 
+        
+        // 🌟 Revertimos a cargar la vista y obtener el HTML
+        $html_listado = $this->load->view(
+            'manager/etiquetas/lista_seguimiento_ajax', // <-- ¡Tu ruta corregida!
+            ['registros' => $registros], 
+            TRUE // Retorna el contenido como string
+        );
+
+        // Devolvemos el HTML generado bajo la clave 'html'
+        echo json_encode(['status' => 'success', 'html' => $html_listado]);
+        
+    } else {
+        show_404();
+    }
+}// En Consolidados.php
+
+/**
+ * Devuelve el conteo de seguimiento para el contexto de Electromecánica (canon).
+ * 
+ */
+public function get_seguimiento_canon_count_ajax()
+{
+    if (!$this->input->is_ajax_request()) {
+        show_404();
+    }
+    
+    // ⚠️ Asegúrate de cargar el modelo correcto
+    $this->load->model('electromecanicax/electromecanica_model'); 
+
+    // Llama a la función de conteo en el modelo de Electromecánica
+    $conteo = $this->electromecanica_model->get_seguimiento_proveedores_canon_count(); 
+    
+    // Devuelve el conteo en formato JSON
+    echo json_encode(['count' => $conteo]);
+    exit();
+
+}
     
     
     

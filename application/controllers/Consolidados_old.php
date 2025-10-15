@@ -22,7 +22,6 @@ class Consolidados extends backend_controller
 			$this->data['select_dependencias'] = $this->Manager_model->obtener_contenido_select('_dependencias', 'SELECCIONE DEPENDENCIA', 'dependencia', 'id ASC');
 			$this->data['select_proyectos'] = $this->Manager_model->obtener_contenido_select('_proyectos', 'SELECCIONE PROYECTO', 'descripcion', 'id ASC');
 
-			// $this->output->enable_profiler(TRUE);
 		}
 
 	}
@@ -55,31 +54,22 @@ class Consolidados extends backend_controller
 	public function list_dt($tipo = null, $tabla = null, $search = '')
 	{
 
-		// $data=array();
 		if ($this->input->is_ajax_request()) {
 
 			$data = $row = array();
 			$memData = $this->Manager_model->getRows($_POST);
 
-// echo $this->db->last_query();
-// die();
+			$request = $_REQUEST;
+			$consulta =  $this->db->last_query();
 
+
+			// echo '<pre>';
+			// var_dump( $memData ); 
+			// echo '</pre>';
+			// die();
 			foreach ($memData as $r) {
 
-				// $file = $this->Manager_model->getWhere('_datos_api','id='.$r->id_lectura_api);
-				// $a=json_decode($file->dato_api);
-				// $totalIndices = count($a->document->inference->pages[0]->prediction->fecha_emision->values);
-				// $fecha_emision = '';
-				// for ($paso = 0; $paso < $totalIndices; $paso++) {
-				// 	$fecha_emision .= '' . trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
-				// }
-				// echo '<pre>';
-				// var_dump(fecha_es($fecha_emision,'Y-m-d')); 
-				// echo '</pre>';
-				// die();
-
 				$indexador = $this->Manager_model->getWhere('_indexaciones', 'nro_cuenta="'. $r->nro_cuenta . '"');
-				//$r->expediente = $indexador->expediente;
 
 				$accionesVer = '<a title="ver archivo" href="/Admin/Lecturas/Views/' . $r->id_lectura_api . '"  class=" "><i class="icon-eye4" title="ver archivo"></i> </a> ';
 				$accionesDelete = '<span class="borrar_dato acciones" data-lote="' . $r->lote . '" data-file="' . $r->nombre_archivo . '"><a title="Borrar lote" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar Datos"></i> </a> </span>';
@@ -101,6 +91,13 @@ class Consolidados extends backend_controller
 					$r->id_interno_proyecto = '';
 				}
 
+				if($r->acuerdo_pago == ''){
+					$acuerdo = 'SIN ACUERDO';
+					}else{
+
+						$acuerdo = $r->acuerdo_pago;
+					}
+	
 				$data[] = array(
 					strtoupper($r->periodo_contable),
 					$r->proveedora,
@@ -113,12 +110,12 @@ class Consolidados extends backend_controller
 					$r->dependencia,
 					$r->dependencia_direccion,
 					$r->tipo_pago,
+					$acuerdo,
 					$r->nro_cuenta,
 					$r->nro_factura,
 					$r->periodo_del_consumo,
 					fecha_es($r->fecha_vencimiento,'d-m-a', false),
 					fecha_es($r->preventivas,'d-m-a', false),
-					// $r->preventivas,
 					$r->importe,
 					$accionesVer . $accionesDelete
 				);
@@ -128,6 +125,8 @@ class Consolidados extends backend_controller
 				"recordsTotal" => $this->Manager_model->countAll(),
 				"recordsFiltered" => $this->Manager_model->countFiltered($_POST),
 				"data" => $data,
+				"consulta" => $consulta,
+				"mirequest" => $request,
 			);
 			// Output to JSON format
 			echo json_encode($output);
@@ -141,8 +140,6 @@ class Consolidados extends backend_controller
 		);
 
 		$script = array(
-			base_url('assets/manager/js/plugins/daterange-picker/moment.min.js'),
-			base_url('assets/manager/js/plugins/daterange-picker/daterangepicker.js'),
 			base_url('assets/manager/js/secciones/' . strtolower($this->router->fetch_class()) . '/' . $this->router->fetch_method() . '.js'),
 		);
 

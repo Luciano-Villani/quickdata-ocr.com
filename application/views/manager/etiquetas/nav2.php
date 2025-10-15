@@ -45,6 +45,35 @@ $area= 'Proveedores';
 		<button class="tab-button btn-secondary" id="toggleVisibility"></button>
 
 		<ul class="navbar-nav">
+            
+           <li class="nav-item dropdown ml-3 mr-2" id="nav-item-proveedores-seguimiento"> 
+    
+    <a href="#" class="navbar-nav-link dropdown-toggle legitRipple text-white" data-toggle="dropdown" id="dropdown_seguimiento_proveedores">
+        <i class="icon-alarm text-white"></i> 
+        
+        <?php 
+            // Inicializamos la variable $conteo_seguimiento (será 0 al cargar)
+            $conteo_seguimiento = isset($conteo_proveedores_seguimiento) ? (int)$conteo_proveedores_seguimiento : 0;
+        ?>
+        
+        <span id="badge-seguimiento-proveedores" class="badge bg-danger badge-pill ml-auto ml-md-0" 
+              style="<?= ($conteo_seguimiento > 0) ? '' : 'display: none;' ?>">
+            <?= $conteo_seguimiento ?>
+        </span>
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350" id="lista-seguimiento-proveedores">
+        <div class="dropdown-content-header">
+            <h6 class="font-weight-semibold mb-0">Proveedores en Seguimiento</h6>
+            <a href="#" class="text-default" onclick="cargarListaSeguimientoProveedores(); return false;" title="Recargar lista">
+                <i class="icon-sync"></i>
+            </a>
+        </div>
+        <div id="seguimiento-content-proveedores" class="dropdown-content-body dropdown-scrollable">
+            <div class="p-3 text-center text-muted">Haga clic para cargar la lista.</div>
+        </div>
+    </div>
+</li>
 			
 			<li class="nav-item dropdown dropdown-user">
 				<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" style="color: #ffffff" data-toggle="dropdown">
@@ -242,6 +271,65 @@ $area= 'Proveedores';
     var class_act = '<?= $class_act ?>';
     var method_act = '<?= $method_act ?>';
 
+    // -------------------------------------------------------------
+// SCRIPT AJAX para cargar la lista de seguimiento
+// -------------------------------------------------------------
+function cargarListaSeguimientoProveedores() {
+    var contentDiv = $('#seguimiento-content-proveedores');
+    
+    // 💡 DETERMINAR LA URL DE LA LISTA SEGÚN EL MODO
+    var currentUrl = window.location.href.toLowerCase();
+    var isCanonMode = currentUrl.indexOf('/electromecanica/') !== -1;
+    
+    var listUrl;
+    if (isCanonMode) {
+        // URL para Electromecánica (canon)
+        listUrl = '<?= base_url('Electromecanica/Consolidados/obtener_lista_seguimiento_canon_ajax') ?>'; 
+    } else {
+        // URL para Proveedores (default)
+        listUrl = '<?= base_url('Consolidados/obtener_lista_seguimiento_ajax') ?>';
+    }
+
+    // Mostrar un loader mientras carga
+    contentDiv.html('<div class="p-3 text-center text-muted"><i class="icon-spinner2 spinner mr-2"></i> Cargando cuentas...</div>');
+
+    $.ajax({
+        // 💡 USAR LA URL DINÁMICA
+        url: listUrl, 
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                contentDiv.html(response.html);
+            } else {
+                contentDiv.html('<div class="p-3 text-center text-danger">Error al cargar los datos.</div>');
+            }
+        },
+        error: function() {
+            contentDiv.html('<div class="p-3 text-center text-danger">Error de conexión con el servidor.</div>');
+        }
+    });
+}
+        function getSeguimientoUrl() {
+    // 1. Obtiene la URL actual y la convierte a minúsculas para una comparación segura
+    var currentUrl = window.location.href.toLowerCase();
+    
+    // 2. Define la URL del controlador AJAX de Proveedores (default)
+    // Controlador: application/controllers/Consolidados.php
+    var defaultUrl = '<?php echo base_url("Admin/Consolidados/get_seguimiento_count_ajax"); ?>';
+    
+    // 3. Define la URL del controlador AJAX de Electromecánica
+    // Controlador: application/controllers/Electromecanica/Consolidados.php
+    var canonUrl   = '<?php echo base_url("Electromecanica/Consolidados/get_seguimiento_canon_count_ajax"); ?>';
+    
+    // 4. Verifica el modo: Si la URL contiene '/electromecanica/'
+    if (currentUrl.indexOf('/electromecanica/') !== -1) {
+        return canonUrl;
+    } else {
+        return defaultUrl;
+    }
+}
+
     
 	$(document).ready(function() {
         // Obtener el valor de localStorage
@@ -254,12 +342,16 @@ $area= 'Proveedores';
         } else {
             mostrandoElectromecanica = JSON.parse(mostrandoElectromecanica);
         }
+        
 
         // Función para actualizar la visibilidad, estilos y URLs
         function actualizarVisibilidad() {
             var toggleButton = $('#toggleVisibility');
             var areaBadge = $('#areaBadge');
             var links = $('.nav-item-menu a'); // Seleccionar todos los enlaces del menú
+
+            // 🌟 NUEVO: Elemento del ícono de seguimiento de proveedores 🌟
+            var seguimientoProveedoresItem = $('#nav-item-proveedores-seguimiento'); 
 
             // Cambiar el texto del botón y el color del badge
             if (mostrandoElectromecanica) {
@@ -305,6 +397,14 @@ $area= 'Proveedores';
         // Inicializar visibilidad al cargar la página
         actualizarVisibilidad();
 
+        // 🌟 NUEVO: Manejar clic en el botón de seguimiento de proveedores (para cargar AJAX) 🌟
+        $('#dropdown_seguimiento_proveedores').on('click', function() {
+            // Cargar la lista solo si el contenido es el mensaje inicial
+            if ($('#seguimiento-content-proveedores').text().includes('Haga clic para cargar la lista')) {
+                cargarListaSeguimientoProveedores();
+            }
+        });
+
         // Manejar clic en el botón
         $('#toggleVisibility').click(function() {
             mostrandoElectromecanica = !mostrandoElectromecanica;
@@ -334,6 +434,51 @@ $area= 'Proveedores';
             }
             // Actualiza el estado de la UI si el usuario accede a una ruta fija
         }
+        // Script de actualización AJAX CORREGIDO
+
+    
+    // La URL apunta a tu método en el controlador Consolidados
+    // ----------------------------------------------------------------------------------
+    // 🌟 INICIALIZACIÓN DEL CONTEO DE SEGUIMIENTO (DUAL MODE) 🌟
+    // ----------------------------------------------------------------------------------
+    
+    // 1. Obtiene la URL correcta llamando a la función que revisa el modo
+    var url_conteo = getSeguimientoUrl(); 
+    var $badge = $('#badge-seguimiento-proveedores');
+    
+    // 2. LLAMADA AJAX PARA OBTENER EL CONTEO
+    $.ajax({
+        url: url_conteo, // 💡 USA LA URL DINÁMICA
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if(response.count !== undefined) {
+                var count = parseInt(response.count);
+                
+                // 3. Actualiza y muestra/oculta el badge
+                $badge.text(count);
+                if (count > 0) {
+                    $badge.show(); 
+                } else {
+                    $badge.hide();
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error al obtener el conteo de seguimiento:", error);
+            $badge.hide(); 
+        }
+    });
+
+    // ----------------------------------------------------------------------------------
+    // MANEJO DE EVENTOS
+    // ----------------------------------------------------------------------------------
+    
+    // Manejar clic en el botón desplegable (llama a la función que ya modificamos)
+    $('#dropdown_seguimiento_proveedores').on('click', function() {
+        // Llama a la función que ahora es dinámica
+        cargarListaSeguimientoProveedores(); 
+    });
     });
 </script>
 

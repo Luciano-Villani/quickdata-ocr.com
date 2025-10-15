@@ -105,6 +105,16 @@ $route['Electromecanica/Consolidados/list_dt_canon'] = 'electromecanicax/Consoli
 $route['Electromecanica/Consolidadoss/checkApiUrl'] = 'electromecanicax/Consolidados/checkApiUrl';
 $route['Electromecanica/Consolidados/delete'] = 'electromecanicax/Electromecanica/delete';
 $route['Electromecanica/Consolidados/edit'] = 'electromecanicax/Electromecanica/get_edit';
+$route['Electromecanica/Consolidados/obtener_datos_grafico'] = 'electromecanicax/Consolidados/obtener_datos_grafico';
+$route['Electromecanica/Consolidados/ver/(:num)'] = 'electromecanicax/Consolidados/ver_consolidados/$1';
+$route['Electromecanica/Consolidados/guardar_comentario_en_consolidados'] = 'electromecanicax/Consolidados/guardar_comentario_en_consolidados';
+
+
+
+$route['Electromecanica/Consolidados/probar_contar_registros_por_mes'] = 'electromecanicax/Consolidados/probar_contar_registros_por_mes';
+
+
+
 
 
 // ELECTROMECANICA

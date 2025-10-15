@@ -394,6 +394,20 @@ class Electromecanica_model extends CI_Model
                 if (!empty($postData['p_registrada']) && $postData['p_registrada'] === 'true') {
                     $this->db->where('_consolidados_canon.p_registrada', 0.00); // Filtrar valores de consumo igual a 0.00
                 }
+                if (!empty($postData['comentarios']) && $postData['comentarios'] === 'true') {
+                    $this->db->group_start(); // Iniciar un grupo para aislar la condición
+                    $this->db->where('comentarios IS NOT NULL'); // Asegurarse de que no es NULL
+                    $this->db->where('TRIM(comentarios) !=', ''); // Asegurarse de que no está vacío
+                    $this->db->group_end(); // Cerrar el grupo
+                }
+                // Filtro de cuentas únicas activado
+                if (!empty($postData['nro_cuenta']) && $postData['nro_cuenta'] === 'true') {
+                    // Agrupar por nro_cuenta
+                    $this->db->group_by('nro_cuenta');
+                    
+                    // Verificar que la cuenta solo aparece en un mes
+                    $this->db->having('COUNT(DISTINCT mes_fc) = 1');  // Esto asegura que la cuenta aparece solo en un mes
+                }
 
             
                 
@@ -543,102 +557,103 @@ class Electromecanica_model extends CI_Model
                 $my_order = array('_lotes_canon.id' => 'desc');
                 break;
 
-            case '_indexaciones_canon':
+                case '_indexaciones_canon':
 
-                // $this->db->from($_POST['table']);
-
-                $this->db->select(
-                    '_indexaciones_canon.*
-                    ,_secretarias.secretaria as nombre_secretaria,
-                    _dependencias_canon.dependencia as nombre_dependencia,
-                    _proveedores_canon.nombre as nom_proveedor,
-                    _programas.descripcion as descr_programa,
-                    _proyectos.id as id_proyecto,
-                    _programas.id_interno as prog_id_interno,
-                    _proyectos.id_interno as proy_id_interno,
-                    _proyectos.descripcion as descr_proyecto,
-                    '
-                );
-
-                $this->db->join('_secretarias', '_secretarias.id = _indexaciones_canon.id_secretaria', 'rigth', true);
-                $this->db->join('_proveedores_canon', '_proveedores_canon.id = _indexaciones_canon.id_proveedor', '');
-                $this->db->join('_dependencias_canon', '_dependencias_canon.id = _indexaciones_canon.id_dependencia', 'left');
-                $this->db->join('_programas', ' _indexaciones_canon.id_programa = _programas.id', '');
-                $this->db->join('_proyectos', '_indexaciones_canon.id_proyecto = _proyectos.id', '');
-
-                $my_column_order = array(
-                    '',
-                    '_indexaciones_canon.id',
-                    '_proveedores_canon.nombre',
-                    '',
-                    '_secretarias.secretaria',
-                    '_dependencias_canon.dependencia',
-                    '_indexaciones_canon.expediente',
-                    '_programas.descripcion',
-                    '_proyectos.descripcion'
-                );
-
-                $my_column_search = array(
-                    '_proveedores_canon.nombre',
-                    '_indexaciones_canon.nro_cuenta',
-                    '_secretarias.secretaria',
-                    '_dependencias_canon.dependencia',
-                    '_programas.descripcion',
-                    'UPPER(_proyectos.descripcion)',
-                    '_indexaciones_canon.expediente',
-                );
-                if (isset($postData['data_search'])){
-                
-                    if ($postData['data_search'] != 'false' && (isset($postData['data_search']) && $postData['data_search'] != '')) {
-                        
+                    // $this->db->from($_POST['table']);
+    
+                    $this->db->select(
+                        '_indexaciones_canon.*
+                        ,_secretarias.secretaria as nombre_secretaria,
+                        _dependencias_canon.dependencia as nombre_dependencia,
+                        _proveedores_canon.nombre as nom_proveedor,
+                        _programas.descripcion as descr_programa,
+                        _proyectos.id as id_proyecto,
+                        _programas.id_interno as prog_id_interno,
+                        _proyectos.id_interno as proy_id_interno,
+                        _proyectos.descripcion as descr_proyecto,
+                        '
+                    );
+    
+                    $this->db->join('_secretarias', '_secretarias.id = _indexaciones_canon.id_secretaria', 'rigth', true);
+                    $this->db->join('_proveedores_canon', '_proveedores_canon.id = _indexaciones_canon.id_proveedor', '');
+                    $this->db->join('_dependencias_canon', '_dependencias_canon.id = _indexaciones_canon.id_dependencia', 'left');
+                    $this->db->join('_programas', ' _indexaciones_canon.id_programa = _programas.id', '');
+                    $this->db->join('_proyectos', '_indexaciones_canon.id_proyecto = _proyectos.id', '');
+    
+                    $my_column_order = array(
+                        '',
+                        '_indexaciones_canon.id',
+                        '_proveedores_canon.nombre',
+                        '',
+                        '_secretarias.secretaria',
+                        '_dependencias_canon.dependencia',
+                        '_indexaciones_canon.expediente',
+                        '_programas.descripcion',
+                        '_proyectos.descripcion'
+                    );
+    
+                    $my_column_search = array(
+                        '_proveedores_canon.nombre',
+                        '_indexaciones_canon.nro_cuenta',
+                        '_secretarias.secretaria',
+                        '_dependencias_canon.dependencia',
+                        '_programas.descripcion',
+                        'UPPER(_proyectos.descripcion)',
+                        '_indexaciones_canon.expediente',
+                    );
+                    if (isset($postData['data_search'])){
+                    
+                        if ($postData['data_search'] != 'false' && (isset($postData['data_search']) && $postData['data_search'] != '')) {
+                            
+                            $this->db->group_start();
+                            
+                            $this->db->where("_indexaciones_canon.nro_cuenta= '" . $postData['data_search'] . "'");
+                            
+                            $this->db->group_end();
+                        }
+                        }
+                    $this->order = array(
+                        '_indexaciones_canon.id' => 'desc'
+                    );
+    
+                    break;
+            }
+    
+            $i = 0;
+    
+    
+            foreach ($my_column_search as $item) {
+    
+                if (isset($postData['search']['value']) &&  $postData['search']['value'] != '') {
+                    // first loop
+                    if ($i === 0) {
+                        // open bracket
                         $this->db->group_start();
-                        
-                        $this->db->where("_indexaciones_canon.nro_cuenta= '" . $postData['data_search'] . "'");
-                        
+                        $this->db->like($item, $postData['search']['value']);
+                    } else {
+                        $this->db->or_like($item, $postData['search']['value']);
+                    }
+    
+                    // last loop
+                    if (count($my_column_search) - 1 == $i) {
+                        // close bracket
                         $this->db->group_end();
                     }
-                    }
-                $this->order = array(
-                    '_indexaciones_canon.id' => 'desc'
-                );
-
-                break;
-        }
-
-        $i = 0;
-
-
-        foreach ($my_column_search as $item) {
-
-            if (isset($postData['search']['value']) &&  $postData['search']['value'] != '') {
-                // first loop
-                if ($i === 0) {
-                    // open bracket
-                    $this->db->group_start();
-                    $this->db->like($item, $postData['search']['value']);
-                } else {
-                    $this->db->or_like($item, $postData['search']['value']);
                 }
-
-                // last loop
-                if (count($my_column_search) - 1 == $i) {
-                    // close bracket
-                    $this->db->group_end();
-                }
+                $i++;
             }
-            $i++;
+            if (isset($postData['order'])) {
+                $this->db->order_by($my_column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
+            } else if (isset($this->order)) {
+    
+                $order = $this->order;
+                $this->db->order_by(key($order), $order[key($order)]);
+            }
+    
+            // $this->db->from($_POST['table']);
+            $this->db->from($_POST['table']);
         }
-        if (isset($postData['order'])) {
-            $this->db->order_by($my_column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
-        } else if (isset($this->order)) {
-
-            $order = $this->order;
-            $this->db->order_by(key($order), $order[key($order)]);
-        }
-
-        // $this->db->from($_POST['table']);
-        $this->db->from($_POST['table']);
-    }
+        
     public function countAll()
     {
         $this->db->from($_POST['table']);
@@ -1104,21 +1119,87 @@ class Electromecanica_model extends CI_Model
 		$this->db->from('_datos_api_canon');
 		return  $this->db->count_all_results();
 	}
-    public function contar_registros_por_proveedor_canon() {
+    public function contar_registros_por_proveedor_canon($filtros = null)
+    {
         $this->db->select('id_proveedor, COUNT(*) as cantidad');
+        
+        // Filtros: proveedor, meses y año
+        if (isset($filtros['proveedor']) && !empty($filtros['proveedor'])) {
+            $this->db->where_in('id_proveedor', $filtros['proveedor']);
+        }
+        if (isset($filtros['meses']) && !empty($filtros['meses'])) {
+            $this->db->where_in('mes_fc', $filtros['meses']);
+        }
+        if (isset($filtros['anio']) && !empty($filtros['anio'])) {
+            $this->db->where('anio_fc', $filtros['anio']);
+        }
+    
         $this->db->group_by('id_proveedor');
         $query = $this->db->get('_consolidados_canon');
         return $query->result();
     }
     
-	public function contar_registros_por_mes()
-    {
-        $this->db->select('mes, COUNT(*) as cantidad');
-        $this->db->from('_consolidados_canon'); // Reemplaza con el nombre de la tabla correcta
-        $this->db->group_by('mes');
-        $this->db->order_by('mes', 'ASC');
-        $query = $this->db->get();
+    
+    
+    
+	public function contar_registros_por_mes($filtros = null)
+{
+    try {
+        // Configuración de la consulta
+        $this->db->select('mes_fc as mes, COUNT(*) as cantidad');
+        $this->db->from('_consolidados_canon');
         
+        // Filtros: meses, proveedores y año
+        if (isset($filtros['meses']) && !empty($filtros['meses'])) {
+            $this->db->where_in('mes_fc', $filtros['meses']);
+        }
+        if (isset($filtros['proveedor']) && !empty($filtros['proveedor'])) {
+            $this->db->where_in('id_proveedor', $filtros['proveedor']);
+        }
+        if (isset($filtros['anio']) && !empty($filtros['anio'])) {
+            $this->db->where('anio_fc', $filtros['anio']);
+        }
+
+        $this->db->group_by('mes_fc');
+        $this->db->order_by('mes_fc', 'ASC');
+
+        // Ejecutar la consulta
+        $query = $this->db->get();
+
+        // Verificar resultados
+        if (!$query) {
+            return []; // Retorna un array vacío si hay un error
+        }
+
         return $query->result();
+
+    } catch (Exception $e) {
+        // Capturar y registrar excepciones
+        return []; // Retorna un array vacío en caso de error
     }
+}
+public function guardar_comentarios($data) {
+    // Asegúrate de que '_consolidados_canon' sea el nombre correcto de la tabla
+    $this->db->where('id', $data['consolidado_id']); // El ID del consolidado
+    $this->db->update('_consolidados_canon', [
+        'comentarios' => $data['comentarios'],
+        'seguimiento' => $data['seguimiento']  // Guardamos el estado de seguimiento
+    ]);
+    
+    // Verifica si la actualización fue exitosa
+    return $this->db->affected_rows() > 0;
+}
+
+public function get_comentario_por_id($id) {
+    // Obtener el comentario y seguimiento por ID
+    $this->db->where('id', $id);
+    $query = $this->db->get('_consolidados_canon');  // Tabla donde están los comentarios
+
+    // Si existe el registro, retornar los resultados
+    if ($query->num_rows() > 0) {
+        return $query->row();  // Devuelve una sola fila
+    }
+
+    return false;  // Si no existe el comentario
+}
 }

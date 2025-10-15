@@ -12,6 +12,20 @@ $route['Admin/dashboard'] = 'manager/dashboard';
 $route['Admin/Consolidados'] = 'Consolidados/listados';
 $route['Consolidados/list_dt/(:any)/(:any)/(:any)'] = 'Consolidados/list_dt/$1/$2/$3';
 
+// Ruta para guardar SÓLO el seguimiento de un consolidado (factura de Proveedores)
+$route['Consolidados/guardar_seguimiento'] = 'Consolidados/guardar_seguimiento';
+// Ruta para la vista de edición/detalle de Proveedores
+$route['Admin/Consolidados/ver/(:num)'] = 'Consolidados/ver/$1';
+
+// -------------------------------------------------------------
+// RUTAS AJAX FALTANTES para el conteo de seguimiento (NECESARIO)
+// -------------------------------------------------------------
+$route['Admin/Consolidados/get_seguimiento_count_ajax'] = 'Consolidados/get_seguimiento_count_ajax';
+$route['Admin/Consolidados/obtener_lista_seguimiento_ajax'] = 'Consolidados/obtener_lista_seguimiento_ajax';
+// -------------------------------------------------------------
+
+
+
 //LOTE
 
 $route['Admin/Lotes/viewBatch/(:any)'] = 'Lotes/viewBatch/$1';
@@ -102,17 +116,24 @@ $route['Electromecanica/Proveedores/edit'] = 'electromecanicax/Electromecanica/g
 // CONSOLIDADOS - ELECTROMECANICA
 $route['Electromecanica/Consolidados'] = 'electromecanicax/Consolidados/listados';
 $route['Electromecanica/Consolidados/list_dt_canon'] = 'electromecanicax/Consolidados/list_dt_canon';
-$route['Electromecanica/Consolidadoss/checkApiUrl'] = 'electromecanicax/Consolidados/checkApiUrl';
+$route['Electromecanica/Consolidados/checkApiUrl'] = 'electromecanicax/Consolidados/checkApiUrl';
 $route['Electromecanica/Consolidados/delete'] = 'electromecanicax/Electromecanica/delete';
 $route['Electromecanica/Consolidados/edit'] = 'electromecanicax/Electromecanica/get_edit';
 $route['Electromecanica/Consolidados/obtener_datos_grafico'] = 'electromecanicax/Consolidados/obtener_datos_grafico';
 $route['Electromecanica/Consolidados/ver/(:num)'] = 'electromecanicax/Consolidados/ver_consolidados/$1';
 $route['Electromecanica/Consolidados/guardar_comentario_en_consolidados'] = 'electromecanicax/Consolidados/guardar_comentario_en_consolidados';
 
-
-
 $route['Electromecanica/Consolidados/probar_contar_registros_por_mes'] = 'electromecanicax/Consolidados/probar_contar_registros_por_mes';
+$route['Chart/Electromecanica'] = 'Dasboard/Proveedores';
+$route['Electromecanica/dashboard'] = 'electromecanicax/Manager/dashboard';
 
+// application/config/routes.php
+
+// RUTA PARA LA FUNCIÓN DE LISTA (La que está dando 404)
+$route['Electromecanica/Consolidados/obtener_lista_seguimiento_canon_ajax'] = 'electromecanicax/Consolidados/obtener_lista_seguimiento_canon_ajax';
+
+// RUTA PARA LA FUNCIÓN DE CONTEO (También debe existir, aunque ya estaba)
+$route['Electromecanica/Consolidados/get_seguimiento_canon_count_ajax'] = 'electromecanicax/Consolidados/get_seguimiento_canon_count_ajax';
 
 
 
