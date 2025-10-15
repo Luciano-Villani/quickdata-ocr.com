@@ -749,27 +749,40 @@ public function guardar_comentario_en_consolidados() {
     
         $this->load->view('editar_comentario', $data);
     }
+
     
-   public function obtener_lista_seguimiento_canon_ajax()
+  public function obtener_lista_seguimiento_canon_ajax()
 {
     if ($this->input->is_ajax_request()) {
         
+        // Cargar el modelo si no está cargado en el constructor
+        // $this->load->model('electromecanicax/Electromecanica_model');
+
         $registros = $this->Electromecanica_model->get_seguimiento_proveedores_canon_list(); 
         
-        // 🌟 Revertimos a cargar la vista y obtener el HTML
+        // 1. 💡 Definir la URL base para Electromecánica
+        $base_url_ver = 'Electromecanica/Consolidados/ver/'; 
+        
+        // 2. 💡 Pasar la URL base a la vista
+        $data = [
+            'registros' => $registros,
+            'base_url_ver' => $base_url_ver 
+        ];
+
         $html_listado = $this->load->view(
-            'manager/etiquetas/lista_seguimiento_ajax', // <-- ¡Tu ruta corregida!
-            ['registros' => $registros], 
-            TRUE // Retorna el contenido como string
+            'manager/etiquetas/lista_seguimiento_ajax', 
+            $data, // Usar el nuevo array $data
+            TRUE 
         );
 
-        // Devolvemos el HTML generado bajo la clave 'html'
         echo json_encode(['status' => 'success', 'html' => $html_listado]);
         
     } else {
         show_404();
     }
-}// En Consolidados.php
+}
+
+// En Consolidados.php
 
 /**
  * Devuelve el conteo de seguimiento para el contexto de Electromecánica (canon).

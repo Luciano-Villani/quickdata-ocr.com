@@ -393,12 +393,22 @@ public function obtener_lista_seguimiento_ajax()
 {
     if ($this->input->is_ajax_request()) {
         
+        // Asumiendo que $this->Consolidados_model ya está cargado
         $registros = $this->Consolidados_model->get_seguimiento_proveedores_list(); 
         
-        // 🌟 Revertimos a cargar la vista y obtener el HTML
+        // 1. 💡 Definir la URL base para el módulo Proveedores
+        $base_url_ver = 'Admin/Consolidados/ver/'; 
+        
+        // 2. 💡 Pasar la URL base junto con los registros a la vista
+        $data = [
+            'registros' => $registros,
+            'base_url_ver' => $base_url_ver 
+        ];
+
+        // Cargar la vista con el array $data
         $html_listado = $this->load->view(
-            'manager/etiquetas/lista_seguimiento_ajax', // <-- ¡Tu ruta corregida!
-            ['registros' => $registros], 
+            'manager/etiquetas/lista_seguimiento_ajax', 
+            $data, // Usar el nuevo array $data
             TRUE // Retorna el contenido como string
         );
 
