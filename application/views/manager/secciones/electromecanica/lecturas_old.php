@@ -19,8 +19,14 @@
 			</style>
 		
 
+<?php
+$dysplay = 'd-none'; 
+if (!$this->ion_auth->is_electro()){
+	$dysplay = '';
 
-		<div class="card-header header-elements-inline">
+} 
+?>
+		<div class="card-header header-elements-inline <?= $dysplay?>">
 			<button type="button" data-toggle="collapse" data-target="#collapseExample" class="btn btn-agregar mb-1 bg-buton-blue btn-labeled btn-labeled-right"><b><i class="icon-plus3"></i>
 				</b>Agregar Nuevo Lote </button>
 			<div class="collapse" id="collapseExample">
@@ -28,21 +34,23 @@
 					<div class="row">
 
 					<div class="col-md-4">
-    <div class="form-group form-group-feedback form-group-feedback-right">
-        <select name="id_proveedor" id="id_proveedor" class="select2 form-control custom-select">
-            <?php foreach ($select_proveedores as $id => $proveedor): ?>
-                <?php if (is_array($proveedor)): ?>
-                    <option value="<?= $id ?>" data-procesar-por="<?= $proveedor['procesar_por'] ?>">
-                        <?= $proveedor['nombre'] ?>
-                    </option>
-                <?php else: ?>
-                    <option value="<?= $id ?>"><?= $proveedor ?></option>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </select>
-        <?php echo form_error('id_proveedor', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
-    </div>
-</div>
+					<div class="form-group form-group-feedback form-group-feedback-right  ">
+
+					<?php
+					$js = array(
+						'id' => 'id_proveedor',
+						'class' => ' select2 form-control custom-select ',
+					);
+
+
+
+					?>
+
+					<?= form_dropdown('id_proveedor', $select_proveedores, set_value('id_proveedor', @$id_proveedor), $js); ?>
+					<?php echo form_error('id_proveedor', '<div class="invalid-feedback" style="display:block;">', "</div>"); ?>
+
+					</div>				
+				</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<input type="text" class="form-control  " readonly="readonly" placeholder="Código de Proveedor" id="codeproveedor" value="">
@@ -76,8 +84,9 @@
 
 	</div>
 <?php } ?>
+
 <div class="card">
-	<h5 class="card-title bg-titulo text-center text-dark"> Lista de Lotes</h5>
+	<h5 class="card-title bg-titulo text-center text-dark"> Lista de Lotes Electromecánica</h5>
 
 
 	<table class="table-bordered table-hover datatable-highlight datatable-ajax" style="width: 100%">

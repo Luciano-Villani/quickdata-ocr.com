@@ -85,10 +85,10 @@
 				<th>Proveedor</th>
 				<th>Código</th>
 				<th>Fecha</th>
-				<th>Files</th>
+				<th>Facturas</th>
 				<th>Errores</th>
 				<th>Consolidado</th>
-				<th>usuario</th>
+				<th>Usuario</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
