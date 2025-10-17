@@ -5,16 +5,6 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 	$retorno = "/Admin";
 }
 
-// $file = $this->Manager_model->getWhere('_datos_api','id='.$result->id);
-// $a=json_decode($file->dato_api);
-// $totalIndices = count($a->document->inference->pages[0]->prediction->fecha_emision->values);
-// $fecha_emision = '';
-// for ($paso = 0; $paso < $totalIndices; $paso++) {
-//     $fecha_emision .= '' . trim($a->document->inference->pages[0]->prediction->fecha_emision->values[$paso]->content);
-// }
-// echo '<pre>';
-// var_dump(fecha_es($fecha_emision,'Y-m-d')); 
-// echo '</pre>';
 
 ?>
 

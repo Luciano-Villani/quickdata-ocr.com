@@ -162,70 +162,7 @@ function initDatatable(search = false, type = 0) {
           targets: 6,
         },
       ],
-      // columnDefs: [
-      //   {
-      //     targets: [0, 1, 2],
-      //     visible: false,
-      //   },
-
-      //   {
-      //     targets: [14, 15, 16, 17, 18],
-      //     //			className: 'dt-body-right',
-      //     bSortable: false,
-      //   },
-      //   // { className: "dt-center dt-nowrap", targets: [] },
-      //   { targets: ["_all"], className: "dt-left dt-nowrap" },
-
-      //   {
-      //     targets: [0, 1, 2],
-      //     visible: false,
-      //   },
-      //   {targets: ["_all"], visible: true} ,
-      //   {
-      //     targets: ['_aññ'],
-      //     render: function (data, type, full, meta) {
-      //       console.log('prog');
-      //       console.log('render 4')
-      //       console.log(data)
-      //       return data + " a(" + full[1] + ")";
-      //     },
-      //     targets: [8],
-      //     render: function (data, type, full, meta) {
-      //       // console.log('full');
-      //       // console.log(full);
-      //       punto = ".";
-      //       if (full[2] == "") {
-
-      //         punto = "";
-      //       }else{
-      //         punto = + full[2]
-      //       }
-      //       return "PROG "+data+full[2];
-      //     },
-      //     targets: [9],
-      //     render: function (data, type, full, meta) {
-      //       console.log('progs');
-
-      //       punto = "";
-      //       if (full[8] != "") {
-
-      //         punto = "."+full[8];
-      //       }else{
-
-      //         punto = '';
-      //       }
-      //       return +data+punto;
-      //     },
-      //   },
-
-      //   {
-      //     targets: [14, 15, 16, 17, 18],
-      //     //			className: 'dt-body-right',
-      //     bSortable: false,
-      //   },
-      //   { className: "dt-center dt-nowrap", targets: [] },
-      //   { targets: ["_all"], className: "dt-left dt-nowrap" },
-      // ],
+      
       language: {
         url: "/assets/manager/js/plugins/tables/translate/spanish.json",
       },
@@ -519,21 +456,57 @@ $(document).ready(function () {
       },
     });
   });
-  // Evento de selección de fila al hacer clic
-  $('.datatable-ajax tbody').on('click', 'tr', function () {
-    // Remueve la clase 'selected' de cualquier fila previamente seleccionada
-    $('.datatable-ajax tbody tr.selected').removeClass('selected');
-    // Añade la clase 'selected' a la fila clickeada
-    $(this).addClass('selected');
-  });
+  
+  // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+// CÓDIGO FINAL CORREGIDO: SIMULACIÓN DE DOBLE CLIC (SOLUCIÓN DEFINITIVA)
+// ----------------------------------------------------------------------
 
-  // Evento de doble clic en la fila para redirigir a la acción 'ver archivo'
-  $('.datatable-ajax tbody').on('dblclick', 'tr', function () {
-    // Busca el enlace de "ver archivo" en la fila
-    var $link = $(this).find('a[title="ver archivo"]');
-    if ($link.length) {
-      // Abre el enlace en una nueva pestaña
-      window.open($link.attr('href'), '_blank');
+// Variables para gestionar el temporizador y el conteo de clics
+var timer = 0;
+var clickCount = 0; 
+var clickDelay = 250; 
+
+// 1. Limpieza Agresiva: Anulamos CUALQUIER manejador existente.
+$('.datatable-ajax tbody').off('click', 'tr');
+$('.datatable-ajax tbody').off('dblclick', 'tr'); 
+
+// 2. Manejador ÚNICO de CLIC (simula la lógica de simple y doble)
+$('.datatable-ajax tbody').on('click', 'tr', function (e) {
+    
+    var self = this;
+    clickCount++; 
+
+    if (clickCount === 1) {
+        timer = setTimeout(function() {
+            // LÓGICA DE CLIC SIMPLE (Selección)
+            $(self).closest('.datatable-ajax').find('tbody tr.selected').removeClass('selected');
+            $(self).addClass('selected');
+            
+            console.log('Evento: Clic Simple (Selección)');
+            clickCount = 0; 
+        }, clickDelay);
+
+    } else if (clickCount === 2) {
+        // LÓGICA DE DOBLE CLIC (Redirección)
+        
+        clearTimeout(timer); 
+        
+        // 🚨 CAMBIO CRÍTICO: Búsqueda del enlace principal con la URL de redirección
+        // Buscamos el enlace <a> que tiene la URL de "Ver detalles y seguimiento".
+        var $link = $(self).find('a[title="Ver detalles y seguimiento"]'); 
+        
+        if ($link.length) {
+            var url = $link.attr('href');
+            window.open(url, '_blank');
+            console.log('Evento: Doble Clic SIMULADO (Redirección) a URL:', url);
+        } else {
+            console.error('Doble Clic: No se encontró el enlace principal para redirección.');
+        }
+
+        clickCount = 0;
     }
-  });
+});
+
 });

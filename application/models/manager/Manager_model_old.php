@@ -16,6 +16,7 @@ class Manager_model extends CI_Model
     public function getRows($postData)
     {
 
+       
         $this->_get_datatables_query($postData);
 
 
@@ -471,17 +472,18 @@ class Manager_model extends CI_Model
 
     public function obtener_contenido_select($tabla, $defTxt = 'SELECCIONAR', $campo = NULL, $orden = 'id DESC', $title = true)
     {
+        // Seleccionar todos los campos, incluyendo procesar_por si existe
         $query = $this->db->select('*')
             ->order_by($orden)
             ->get($tabla);
-
+    
         if ($query->result() > 0) {
-
+    
             $my_array = array();
             if ($title) {
                 $my_array[0] = strtoupper($defTxt);
             }
-
+    
             foreach ($query->result_array() as $data) {
                 switch ($tabla) {
                     case "_programas":
@@ -501,10 +503,10 @@ class Manager_model extends CI_Model
                         $my_array[$data['id']] = strtoupper($data[$campo]);
                 }
             }
-
+    
             return $my_array;
         }
-
+    
         return FALSE;
     }
 
@@ -594,9 +596,85 @@ class Manager_model extends CI_Model
             return false;
         }
     }
-
     public function delete()
     {
+
+        try {
+
+
+            if ($_REQUEST['deletefile'] == 'true') {
+
+
+               
+                $file = $this->get_data('_datos_api', intval($_REQUEST['id']));
+
+                if (is_file($file->nombre_archivo)) {
+                    if (unlink($file->nombre_archivo)) {
+
+                        $this->db->where('id', $file->id);
+                        $this->db->delete('_datos_api');
+                    }
+                } else {
+                    $this->db->where('id', $file->id);
+                    $this->db->delete('_datos_api');
+                }
+
+                $totalFiles = $this->Lotes_model->countFiles($file->code_lote);
+
+                if ($totalFiles > 0) {
+                    $this->db->set('cant', $totalFiles);
+                    $this->db->where('id', $file->id_lote);
+                    $this->db->update('_lotes');
+                } else {
+                    $this->db->where('id', $file->id_lote);
+                    $this->db->delete('_lotes');
+                }
+            } else {
+
+                $file = $this->get_data('_datos_api', intval($_REQUEST['id']));
+               
+                $this->db->where('id', $file->id);
+                $this->db->delete('_datos_api');
+
+                $totalFiles = $this->Lotes_model->countFiles($file->code_lote);
+
+                if ($totalFiles > 0) {
+                    $this->db->set('cant', $totalFiles);
+                    $this->db->where('id', $file->id_lote);
+                    $this->db->update('_lotes');
+                } else {
+                    $this->db->where('id', $file->id_lote);
+                    $this->db->delete('_lotes');
+                }
+            }
+            $response = array(
+                'mensaje' => 'Datos borrados',
+                'title' => str_replace('_', '', $_REQUEST['tabla']),
+                'status' => 'success',
+            );
+        } catch (Exception $e) {
+            $response = array(
+                'mensaje' => 'Error: ' . $e->getMessage(),
+                'title' => str_replace('_', '', $_REQUEST['tabla']),
+                'status' => 'error',
+            );
+        }
+
+        // $this->db->where($_REQUEST['campo'], $_REQUEST['id']);
+        // if ($this->db->delete($_REQUEST['tabla'])) {
+        //     $response = array(
+        //         'mensaje' => 'Datos borrados',
+        //         'title' => str_replace('_', '', $_REQUEST['tabla']),
+        //         'status' => 'success',
+        //     );
+        // };
+        echo json_encode($response);
+        exit();
+    }
+    public function delete_OLD()
+    {
+
+
 
         try {
 

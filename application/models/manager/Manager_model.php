@@ -117,7 +117,7 @@ class Manager_model extends CI_Model
                     CONCAT(_consolidados. jurisdiccion," ",_consolidados.id_programa ) as sumajuris,
                     _consolidados.id as id_consolidado,
                     UPPER(_consolidados.secretaria), UPPER(_consolidados.acuerdo_pago),
-                    _consolidados.proveedor,_consolidados.*, 
+                    _consolidados.proveedor,_consolidados.seguimiento,_consolidados.comentarios,_consolidados.*, 
                  ',
                 );
 
@@ -596,21 +596,31 @@ class Manager_model extends CI_Model
             return false;
         }
     }
+
     public function delete()
-    {
+{
+    // Cargar el modelo de Lecturas para acceder a la función de recálculo
+    // (Asegúrate de que 'Lecturas_model' es el nombre correcto de tu modelo)
+    $this->load->model('Lecturas_model'); 
 
-        try {
+    try {
+        $id_archivo = intval($_REQUEST['id']);
+        $delete_file_flag = ($_REQUEST['deletefile'] == 'true');
 
+        // 1. Obtener los datos del archivo ANTES de borrarlo
+        $file = $this->get_data('_datos_api', $id_archivo);
 
-            if ($_REQUEST['deletefile'] == 'true') {
-
-
-               
-                $file = $this->get_data('_datos_api', intval($_REQUEST['id']));
-
+        // Si $file existe, guardamos su id_lote para el mantenimiento
+        $id_lote = $file ? $file->id_lote : null;
+        $code_lote = $file ? $file->code_lote : null;
+        
+        // Bloque de eliminación de _datos_api
+        if ($file) {
+            
+            if ($delete_file_flag) {
+                // Lógica para borrar el archivo físico y el registro de la DB
                 if (is_file($file->nombre_archivo)) {
                     if (unlink($file->nombre_archivo)) {
-
                         $this->db->where('id', $file->id);
                         $this->db->delete('_datos_api');
                     }
@@ -618,59 +628,58 @@ class Manager_model extends CI_Model
                     $this->db->where('id', $file->id);
                     $this->db->delete('_datos_api');
                 }
-
-                $totalFiles = $this->Lotes_model->countFiles($file->code_lote);
-
-                if ($totalFiles > 0) {
-                    $this->db->set('cant', $totalFiles);
-                    $this->db->where('id', $file->id_lote);
-                    $this->db->update('_lotes');
-                } else {
-                    $this->db->where('id', $file->id_lote);
-                    $this->db->delete('_lotes');
-                }
             } else {
-
-                $file = $this->get_data('_datos_api', intval($_REQUEST['id']));
-               
+                // Lógica solo para borrar el registro de la DB
                 $this->db->where('id', $file->id);
                 $this->db->delete('_datos_api');
-
-                $totalFiles = $this->Lotes_model->countFiles($file->code_lote);
-
-                if ($totalFiles > 0) {
-                    $this->db->set('cant', $totalFiles);
-                    $this->db->where('id', $file->id_lote);
-                    $this->db->update('_lotes');
-                } else {
-                    $this->db->where('id', $file->id_lote);
-                    $this->db->delete('_lotes');
-                }
             }
-            $response = array(
-                'mensaje' => 'Datos borrados',
-                'title' => str_replace('_', '', $_REQUEST['tabla']),
-                'status' => 'success',
-            );
-        } catch (Exception $e) {
-            $response = array(
-                'mensaje' => 'Error: ' . $e->getMessage(),
-                'title' => str_replace('_', '', $_REQUEST['tabla']),
-                'status' => 'error',
-            );
+
+            // 2. Recalcular el total de archivos que quedan en el lote
+            $totalFiles = $this->Lotes_model->countFiles($code_lote);
+
+            if ($totalFiles > 0) {
+                // A. El lote sigue existiendo: Actualizar _lotes y _lotes_resumen
+                
+                // Actualizar la tabla _lotes.cant
+                $this->db->set('cant', $totalFiles);
+                $this->db->where('id', $id_lote);
+                $this->db->update('_lotes');
+                
+                // --------------------------------------------------------
+                // MANTENIMIENTO: Llamada a la función de recálculo del resumen
+                $this->Lecturas_model->actualizar_resumen_lote($id_lote);
+                // --------------------------------------------------------
+
+            } else {
+                // B. El lote está vacío: Eliminar el lote completo y su resumen
+                
+                // Eliminar de _lotes
+                $this->db->where('id', $id_lote);
+                $this->db->delete('_lotes');
+                
+                // Limpieza de _lotes_resumen (esencial para la consistencia)
+                $this->db->where('id_lote', $id_lote);
+                $this->db->delete('_lotes_resumen');
+            }
         }
 
-        // $this->db->where($_REQUEST['campo'], $_REQUEST['id']);
-        // if ($this->db->delete($_REQUEST['tabla'])) {
-        //     $response = array(
-        //         'mensaje' => 'Datos borrados',
-        //         'title' => str_replace('_', '', $_REQUEST['tabla']),
-        //         'status' => 'success',
-        //     );
-        // };
-        echo json_encode($response);
-        exit();
+        $response = array(
+            'mensaje' => 'Datos borrados',
+            'title' => str_replace('_', '', $_REQUEST['tabla']),
+            'status' => 'success',
+        );
+        
+    } catch (Exception $e) {
+        $response = array(
+            'mensaje' => 'Error: ' . $e->getMessage(),
+            'title' => str_replace('_', '', $_REQUEST['tabla']),
+            'status' => 'error',
+        );
     }
+
+    echo json_encode($response);
+    exit();
+}
     public function delete_OLD()
     {
 
@@ -732,32 +741,7 @@ class Manager_model extends CI_Model
 
 
 
-        // echo '<pre>';
-        // var_dump( $file ); 
-        // echo '</pre>';
-        // die();
-        // $total = 0;
-        // foreach ($file as $data) {
-        // 	if (is_file($data->nombre_archivo)) {
-        // 		if (unlink($data->nombre_archivo)) {
-        // 			$total++;
-        // 			$this->db->where('nombre_archivo', $data->nombre_archivo);
-        // 			$this->db->delete('_datos_api');
-        // 		}
-        // 	} else {
-        // 		$this->db->where('nombre_archivo', $data->nombre_archivo);
-        // 		$this->db->delete('_datos_api');
-        // 		// die('no');
-        // 	}
-        // }
-        // $this->db->where('code', $_REQUEST['code']);
-        // $this->db->delete('_lotes');
-        // $response = array(
-        // 	'total' => $total,
-        // 	'status' => 'success'
-        // );
-        // echo json_encode($response);
-
+        
 
 
         $this->db->where($_REQUEST['campo'], $_REQUEST['id']);
@@ -771,4 +755,7 @@ class Manager_model extends CI_Model
         echo json_encode($response);
         exit();
     }
+
+
+   
 }

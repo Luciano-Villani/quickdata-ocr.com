@@ -85,7 +85,6 @@
 			<tr>
 			<th><input type="checkbox" id="selectAllPost" class="select-checkbox" data-tabla="dataTable_publicaciones"></th>
 				<th>Proveedor</th>
-				<th>Código</th>
 				<th>Fecha</th>
 				<th>Facturas</th>
 				<th>Sin Index</th>

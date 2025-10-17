@@ -330,7 +330,7 @@ class Lotes_model extends CI_Model
 		echo json_encode($resulta);
 	}
 
-	public function crearLote_old()
+	public function crearLote()
 	{
 
 		$data['user_add'] = $this->user->id;
@@ -358,6 +358,11 @@ class Lotes_model extends CI_Model
 			$totalFiles =  $this->db->count_all_results();
 
 
+			// echo $this->db->last_query();
+// echo '<pre>';
+// var_dump( $totalFiles ); 
+// echo '</pre>';
+// die();
 			$this->db->set('cant',$totalFiles );
 			$this->db->where('code', $_POST['code_lote']);
 			$this->db->update('_lotes');
@@ -371,77 +376,4 @@ class Lotes_model extends CI_Model
 			var_dump($e->getMessage());
 		}
 	}
-	public function crearLote()
-{
-    $data['user_add'] = $this->user->id;
-    $data['id_proveedor'] = $_POST['id_proveedor'];
-    // El valor de $_POST['cant'] no parece usarse en la BD, lo ignoramos por ahora.
-    // $data['cant'] = $_POST['cant'];
-    $data['code'] = $_POST['code_lote'];
-
-    try {
-        $query = $this->db->get_where('_lotes', array('code' => $_POST['code_lote']));
-        $currLote = $query->result();
-        $id_lote = null;
-
-        if ($currLote) {
-            // Lote ya existe, obtenemos su ID
-            $id_lote = $currLote[0]->id;
-        } else {
-            // Lote NO existe, lo insertamos
-            $this->db->insert('_lotes', $data);
-            $id_lote = $this->db->insert_id();
-            $query = $this->db->get_where('_lotes', array('id' => $id_lote));
-            $currLote = $query->result();
-        }
-
-        // 1. Contar archivos actuales en _datos_api
-        $this->db->where('code_lote', $_POST['code_lote']);
-        $this->db->from('_datos_api ');
-        $totalFiles = $this->db->count_all_results();
-
-        // 2. Actualizar el campo 'cant' en _lotes (Lógica existente)
-        $this->db->set('cant', $totalFiles);
-        $this->db->where('code', $_POST['code_lote']);
-        $this->db->update('_lotes');
-
-        // --------------------------------------------------------
-        // 3. MANTENIMIENTO: Insertar/Actualizar _lotes_resumen (Inicialización/Recálculo)
-        // Usamos la inserción con duplicado para cubrir los dos casos:
-        // a) Lote nuevo: Inserta con totalFiles y el mismo valor para sin_indexar (ya que no hay indexaciones aún).
-        // b) Lote existente: Actualiza total_archivos (en caso de que se suban más).
-
-        if ($id_lote) {
-            $this->db->query("
-                INSERT INTO _lotes_resumen (id_lote, total_archivos, archivos_sin_indexar)
-                VALUES (?, ?, ?)
-                ON DUPLICATE KEY UPDATE 
-                    total_archivos = VALUES(total_archivos),
-                    -- Mantenemos archivos_sin_indexar igual al total al inicio, 
-                    -- pero solo si el registro es nuevo. Si ya existe, NO lo tocamos aquí.
-                    -- Mejor usar la función de recálculo completa.
-                    archivos_sin_indexar = IF(total_archivos = 0, VALUES(total_archivos), archivos_sin_indexar)",
-                [
-                    $id_lote, 
-                    $totalFiles, 
-                    $totalFiles // Se asume que totalFiles = archivos_sin_indexar en este punto.
-                ]
-            );
-            
-            /* * Opción más limpia:
-            * Llamar a tu función de recálculo completa para garantizar precisión
-            * $this->load->model('Lecturas_model');
-            * $this->Lecturas_model->actualizar_resumen_lote($id_lote); 
-            */
-        }
-        // --------------------------------------------------------
-
-        $query = $this->db->get_where('_lotes', array('code' => $_POST['code_lote']));
-        $currLote = $query->result();
-
-        return $currLote;
-    } catch (Exception $e) {
-        var_dump($e->getMessage());
-    }
-}
 }
