@@ -206,7 +206,7 @@
 					<th>Vencimiento</th>
 					<th>Pasar a Prev.</th>
 					<th>Importe factura</th>
-					<th></th>
+					<th>Acc.</th>
 				</tr>
 			</thead>
 			<!--<tfoot>

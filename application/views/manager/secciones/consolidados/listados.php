@@ -1,23 +1,3 @@
-<!-- 
-<div class="card">
-<div class="panel">
-		<div class="panel-heading">
-			<h5 class="panel-title">Multiple files desde su carpeta</h5>
-		</div>
-
-		<div class="panel-body">
-
-			<p class="text-semibold">Multiple file upload example:</p>
-			<form action="suber" class="dropzone dz-clickable" id="file-multiple">
-				<div class="dz-default dz-message"><span>Drop files  <span>or CLICK</span></span></div>
-				<div class="fallback">
-					<input name="file" type="file" multiple />
-				</div>
-			</form>
-		</div>
-	</div>
-
-</div> -->
 <style>
 	.my-class-section {
 		color: #000;
@@ -48,7 +28,13 @@
 		width: 1300px !important;
 		margin-left: -92px!important;
 
+
 	}
+	/* SOLO dejamos el CSS para select2 si es NECESARIO, ajustado a la columna: */
+.select2.select2-container {
+    /* Permitir que el ancho sea controlado por la columna de Bootstrap */
+    width: 100% !important; 
+}
 	
 </style>
 
@@ -139,12 +125,16 @@
 					<input type="checkbox"  class="radio"  value="1" name="totalizador"  id="totalizador"/>
 					<span data-popup="tooltip" style="color: lightgray">Totales Agrupados Juris/Prog</span>
 				</label>
+					
+
 			</div>
 			<div class="col-2">
 				<button id="applyfilter" type="button" class="btn mb-1 btn-outline-dark btn-sm" style="width: 160px";><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
 				<button id="resetfilter" type="button" class="btn mb-1 btn-outline-dark btn-sm"style="width: 160px";><b><i class="icon-reset"></i></b>Eliminar Filtros</button>
-				<button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm"style="width: 160px";><b><i class="icon-file-excel"></i></b> DESCARGAR</button>
-			</div>			
+				<!--<button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm"style="width: 160px";><b><i class="icon-file-excel"></i></b> DESCARGAR</button> -->
+				<button id="descarga-principal" type="button" class="btn mb-1 btn-outline-dark btn-sm" style="width: 160px";><b><i class="icon-file-download"></i></b>Descargar Reporte</button>
+			</div>		
+
 			
 					
 			

@@ -175,4 +175,84 @@ class Consolidados_model extends CI_Model
 			var_dump($e->getMessage());
 		}
 	}
+
+
+	public function guardar_comentarios($data) {
+    // La tabla de Proveedores es: _consolidados
+     $this->db->where('id', $data['id_registro']); // <-- Usa esta clave
+    $this->db->update('_consolidados', [ // <-- TABLA CORREGIDA
+        'comentarios' => $data['comentarios'],
+        'seguimiento' => $data['seguimiento'] // Guardamos el estado de seguimiento
+    ]);
+    
+    // Verifica si la actualización fue exitosa
+    return $this->db->affected_rows() > 0;
+}
+
+// -------------------------------------------------------------------------
+// 2. Replicar la función de OBTENCIÓN (get_comentario_por_id)
+// -------------------------------------------------------------------------
+/**
+ * Obtiene los datos del consolidado (incluyendo comentario y seguimiento) por ID.
+ * @param int $id El ID del registro en _consolidados.
+ * @return object|bool El registro si se encuentra, False en caso contrario.
+ */
+public function get_comentario_por_id($id) {
+    // Obtener el comentario y seguimiento por ID
+    $this->db->where('id', $id);
+    $query = $this->db->get('_consolidados'); // <-- TABLA CORREGIDA
+
+    // Si existe el registro, retornar los resultados
+    if ($query->num_rows() > 0) {
+        return $query->row(); // Devuelve una sola fila
+    }
+
+    return false; // Si no existe el registro
+}
+// application/models/manager/Consolidados_model.php
+
+/**
+ * Cuenta y recupera los registros de Proveedores que están "En Seguimiento" (seguimiento = 1).
+ * @param bool $count_only Si es TRUE, devuelve solo el conteo. Si es FALSE, devuelve los registros.
+ * @return mixed Conteo (int) o array de objetos (registros).
+ */
+
+
+// application/models/manager/Consolidados_model.php
+
+// application/models/manager/Consolidados_model.php
+
+public function get_seguimiento_proveedores_list()
+{
+    // 1. SELECT y ORDER BY
+    $this->db->select('id, nro_cuenta, proveedor'); 
+    $this->db->order_by('id', 'DESC');
+    
+    // 2. CONDICIONES DE FILTRO
+    // Replicamos la condición que probamos y que SÍ FUNCIONÓ en tu base de datos:
+    $this->db->where('seguimiento', 1);
+    $this->db->where("comentarios IS NOT NULL AND TRIM(comentarios) <> ''", NULL, FALSE);
+    
+    // 3. EJECUTAR la consulta (similar a tu get_comentario_por_id)
+    $query = $this->db->get('_consolidados'); 
+    
+    // 4. Devolver los resultados, incluso si son 0
+    return $query->result(); 
+}
+
+/**
+ * Obtiene el número de registros de Proveedores en seguimiento.
+ * Esta función es llamada por el controlador principal (para el conteo del globo).
+ * @return int Conteo de registros.
+ */
+public function get_seguimiento_proveedores_count()
+{
+    // 1. CONDICIONES DE FILTRO (son las mismas que arriba)
+    $this->db->where('seguimiento', 1);
+    $this->db->where("comentarios IS NOT NULL AND TRIM(comentarios) <> ''", NULL, FALSE);
+    
+    // 2. Ejecutar el conteo
+    return $this->db->count_all_results('_consolidados'); 
+}
+
 }

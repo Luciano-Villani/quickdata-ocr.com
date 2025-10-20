@@ -439,7 +439,103 @@ public function get_seguimiento_count_ajax()
     echo json_encode(['count' => $conteo]);
     exit();
 }
+public function descargar_pdfs()
+{
+    // Asegúrate de que la clase ZipArchive esté habilitada en tu PHP.ini
+    if (!class_exists('ZipArchive')) {
+        die("Error: La extensión ZipArchive de PHP no está habilitada.");
+    }
+    
+    // 1. Recolectar y limpiar los filtros (Usando CodeIgniter Input)
+    $id_proveedor = $this->input->get('id_proveedor', TRUE);
+    $tipo_pago = $this->input->get('tipo_pago'); // Array de textos (ej. ['Contado', 'Crédito'])
+    $periodo_contable = $this->input->get('periodo_contable', TRUE);
+    $fecha_rango = $this->input->get('fecha', TRUE);
 
+    // 2. Procesar Rango de Fechas (Si se usa daterange)
+    $fechas = null;
+    if ($fecha_rango) {
+        $partes = explode(' - ', $fecha_rango);
+        if (count($partes) === 2) {
+            // 🚨 IMPORTANTE: Necesitas una función para convertir 'DD/MM/YYYY' a 'YYYY-MM-DD'
+            // Si usas CodeIgniter 3 o 4, puedes tener un helper o usar Carbon/DateTime.
+            // Aquí asumo una función ficticia: $this->format_date_to_db()
+            $fechas = [
+                $this->format_date_to_db($partes[0]), 
+                $this->format_date_to_db($partes[1])
+            ];
+        }
+    }
+
+    // 3. Obtener las RUTAS DE ARCHIVOS del Modelo
+    // DEBES ADAPTAR ESTE MÉTODO EN TU MODELO para que reciba los filtros y retorne un array/lista de objetos/filas
+    // que contengan la columna con la RUTA DEL PDF.
+    $filtros_db = [
+        'id_proveedor' => $id_proveedor,
+        'tipo_pago' => $tipo_pago,
+        'periodo_contable' => $periodo_contable,
+        'fechas' => $fechas
+    ];
+    
+    // Llama al modelo (necesitarás crear este método si no existe)
+    $archivos_db = $this->Consolidados_model->get_archivos_por_filtros($filtros_db);
+
+    if (empty($archivos_db)) {
+        // Alerta si no hay archivos y cierra la ventana de descarga
+        die("<script>alert('No se encontraron archivos PDF para los filtros aplicados.'); window.close();</script>");
+    }
+
+    // 4. Crear el Archivo ZIP
+    $zip = new ZipArchive();
+    $zip_filename = 'Reporte_Consolidados_PDFs_' . date('Ymd_His') . '.zip';
+    $zip_path = sys_get_temp_dir() . '/' . $zip_filename; // Usa el directorio temporal del sistema
+
+    if ($zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
+        die("No se pudo crear el archivo ZIP temporal.");
+    }
+
+    $file_count = 0;
+    // 🚨 AJUSTA ESTA RUTA BASE 🚨: Debe ser la ruta ABSOLUTA de tu servidor a la carpeta de PDFs.
+    $base_upload_path = FCPATH . '';
+
+    foreach ($archivos_db as $registro) {
+        // La columna ahora se llama 'nombre_archivo'
+        $ruta_relativa = $registro->nombre_archivo;
+        
+        // La ruta absoluta se forma uniendo la base con la ruta relativa
+        $ruta_absoluta = $base_upload_path . $ruta_relativa;
+        
+        // Verifica si el archivo existe antes de agregarlo
+               
+        if (file_exists($ruta_absoluta)) {
+            // Agrega el archivo al ZIP con un nombre limpio (solo el basename)
+            $nombre_archivo = basename($ruta_absoluta);
+            $zip->addFile($ruta_absoluta, $nombre_archivo);
+            $file_count++;
+        } else {
+            // Opcional: Loggear o ignorar los archivos no encontrados
+        }
+    }
+
+    $zip->close();
+    
+    // 5. Forzar la Descarga
+    if ($file_count > 0 && file_exists($zip_path)) {
+        header('Content-Type: application/zip');
+        header('Content-Disposition: attachment; filename="' . $zip_filename . '"');
+        header('Content-Length: ' . filesize($zip_path));
+        // Headers para forzar la descarga y evitar problemas de caché
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        readfile($zip_path);
+        
+        // Limpiar el archivo temporal
+        unlink($zip_path);
+        exit;
+    } else {
+        die("<script>alert('No se encontró ningún archivo para descargar. Verifique las rutas o permisos.'); window.close();</script>");
+    }
+}
 }
 
 ?>

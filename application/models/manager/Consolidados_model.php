@@ -255,4 +255,49 @@ public function get_seguimiento_proveedores_count()
     return $this->db->count_all_results('_consolidados'); 
 }
 
+public function get_archivos_por_filtros($filtros)
+{
+    // Usamos la tabla '_consolidados' y seleccionamos la columna 'nombre_archivo'
+    $this->db->select('t1.id, t1.nombre_archivo, t1.periodo_contable, t1.id_proveedor');
+    $this->db->from('_consolidados t1'); 
+
+    // --- Aplicación de Filtros ---
+
+    // 1. FILTRO: Proveedor (IDs)
+    if (!empty($filtros['id_proveedor'])) {
+        $this->db->where_in('t1.id_proveedor', $filtros['id_proveedor']);
+    }
+
+    // 2. FILTRO: Tipo de Pago (Textos)
+    if (!empty($filtros['tipo_pago'])) {
+        // Asumiendo que '_consolidados' tiene una columna para el nombre del Tipo de Pago
+        $this->db->where_in('t1.tipo_pago', $filtros['tipo_pago']); 
+    }
+
+    // 3. FILTRO: Período Contable 
+    if (!empty($filtros['periodo_contable'])) {
+        $this->db->where_in('t1.periodo_contable', $filtros['periodo_contable']);
+    }
+
+    // 4. FILTRO: Rango de Fechas
+    if (!empty($filtros['fechas'])) {
+        $fecha_inicio = $filtros['fechas'][0];
+        $fecha_fin = $filtros['fechas'][1];
+        // Asumiendo que la columna de fecha es 'fecha_consolidacion'
+        $this->db->where("t1.fecha_consolidacion BETWEEN '{$fecha_inicio}' AND '{$fecha_fin}'");
+    }
+
+    // --- Restricción de Archivos ---
+
+    // CRÍTICO: Solo seleccionar los registros que realmente tienen una ruta de archivo.
+    $this->db->where('t1.nombre_archivo IS NOT NULL');
+    $this->db->where('t1.nombre_archivo !=', '');
+
+    $query = $this->db->get();
+    return $query->result(); 
+}
+
+  
+
+
 }

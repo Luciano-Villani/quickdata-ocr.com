@@ -219,294 +219,357 @@ function initDatatable(search = false, type = 0) {
 
 $(document).ready(function () {
 
-  $('input[name="daterange2"]').daterangepicker({
-    // autoUpdateInput: false,
-    showDropdowns: true,
-    locale:{
-      applyLabel: "Aplicar",
-      cancelLabel: "Cancelar",
-      format: "DD/MM/YYYY",
-      customRangeLabel: "Búsqueda avanzada",
-    },
-    ranges: {
-        'Hoy': [moment(), moment()],
-        'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Ultimos 7 días': [moment().subtract(6, 'days'), moment()],
-        'Ultimos 30 días': [moment().subtract(29, 'days'), moment()],
-        'Este mes': [moment().startOf('month'), moment().endOf('month')],
-        'Mes pasado': [moment().subtract(1, 'month').startOf('month'), 
-        moment().subtract(1, 'month').endOf('month')
-      ]
-    },
+    $('input[name="daterange2"]').daterangepicker({
+        // autoUpdateInput: false,
+        showDropdowns: true,
+        locale:{
+            applyLabel: "Aplicar",
+            cancelLabel: "Cancelar",
+            format: "DD/MM/YYYY",
+            customRangeLabel: "Búsqueda avanzada",
+        },
+        ranges: {
+            'Hoy': [moment(), moment()],
+            'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Ultimos 7 días': [moment().subtract(6, 'days'), moment()],
+            'Ultimos 30 días': [moment().subtract(29, 'days'), moment()],
+            'Este mes': [moment().startOf('month'), moment().endOf('month')],
+            'Mes pasado': [moment().subtract(1, 'month').startOf('month'), 
+            moment().subtract(1, 'month').endOf('month')
+            ]
+        },
 
-}, function(start, end, label) {
-  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-});
-  var range = $('input[name="daterange2d"]').daterangepicker(
-    {
-      "showDropdowns": true,
-      // startDate: "-1m",
-      // endDate: "+1m",
-      showCustomRangeLabel:true,
-      locale: {
-        format: "DD/MM/YYYY",
-        customRangeLabel: "Búsqueda avanzada",
-      },
-      ranges: {
-        Hoy: [moment(), moment()],
-        Ayer: [moment().subtract(1, "days"), moment().subtract(1, "days")],
-        "Últinmos 7 Días": [moment().subtract(6, "days"), moment()],
-        "Últinmos 30 Días": [moment().subtract(29, "days"), moment()],
-        "Este Mes": [moment().startOf("month"), moment().endOf("month")],
-        "Mes Pasado": [
-          moment().subtract(1, "month").startOf("month"),
-          moment().subtract(1, "month").endOf("month"),
-        ],
-      },
-      // opens: 'left'
-    },
-    function (start, end, label) {
-      // $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-
-      if (validarSeleccionFecha()) {
-        var tipo_fecha = $('input[name="tipo_fecha"]:checked').val();
-
-        var strSearchvar = new Array();
-        strSearchvar =
-          start.format("YYYY-MM-DD") + "@" + end.format("YYYY-MM-DD");
-
-        //envio parametro true para que se selecciones todas los resultados
-        var parametrosUrl =
-          "?tipo_fecha=" +
-          tipo_fecha +
-          "&filtro=1&buscarFechas=" +
-          strSearchvar;
-
-        // initDatatable(strSearchvar, 1);
-        // $('#consolidados_dt').DataTable().search('<searchstring>');
-      }
-    }
-  );
-  range.on("cancel.daterangepicker", function () {});
-  range.on("load.daterangepicker", function () {});
-  var drp = $('input[name="daterange2"]').data("daterangepicker");
-  // var start = moment().subtract(29, 'days');
-  // var end = moment();
-
-  // console.log(drp.startDate.format('DD-MM-YYYY'));
-  // console.log(drp.endDate.format('DD-MM-YYYY'));
-  initDatatable();
-  var base_url = $("body").data("base_url");
-
-  $("body").on("click", "#resetfilter", function (e) {
-    e.preventDefault();
-    $("#tipo-fecha").prop('checked',false);
-    $("#id_proveedor").val("").trigger("change");
-    $("#id_tipo_pago").val("").trigger("change");
-    $("#periodo_contable").val("").trigger("change");
-
-    $('#daterange2').data('daterangepicker').setEndDate(new Date);
-    $('#daterange2').data('daterangepicker').setStartDate(new Date);
-
-    // $("#id_tipo_pago").prop("selectedIndex", 0);
-    initDatatable();
-  });
-
-  $("body").on("click", "#applyfilter", function (e) {
-    e.preventDefault();
-
-    // if (
-    //   $("#id_proveedor").val().length === 0 &&
-    //   $("#id_tipo_pago").val().length === 0 &&
-    //   $("#periodo_contable").val().length === 0
-    // ) {
-    //   $.confirm({
-    //     icon: "icon-alert",
-    //     title: "Criterios de filtrado",
-    //     content: "Seleccione opciones de filtrado",
-    //     buttons: {
-    //       cancel: {
-    //         text: "Aceptar",
-    //         btnClass: "btn-prymary",
-    //         action: function () {
-    //           return;
-    //         },
-    //       },
-    //     },
-    //   });
-
-    //   return false;
-    // }
-    initDatatable(false, 4);
-  });
-
-  $("body").on("click", "#descarga-exell", function (e) {
-    e.preventDefault();
-    $("body .buttons-excel").trigger("click");
-  });
-
-  $("body").on("change", "select#selectperiodo", function (e) {
-    e.preventDefault();
-    if ($(this).val() == "0") {
-      initDatatable();
-      return;
-    }
-    initDatatable($('select[id="selectperiodo"] option:selected').text(), 4);
-  });
-
-  document.querySelectorAll("a.toggle-vis").forEach((el) => {
-    el.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      let columnIdx = e.target.getAttribute("data-column");
-      let column = table.column(columnIdx);
-
-      // Toggle the visibility
-      column.visible(!column.visible());
+    }, function(start, end, label) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     });
-  });
-
-  function validarSeleccionFecha() {
-    var accesorios = document.querySelectorAll(
-      'input[name="tipo_fecha"]:checked'
-    );
-    if (accesorios.length <= 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Debe seleccionar un tipo de Fecha!",
-      });
-      return false;
-    }
-    return true;
-  }
-
-  function filterData(tableParams) {
-    $("#consolidados_dt").DataTable().destroy();
-    $("#consolidados_dt")
-      .DataTable({
-        ajax: {
-          data: {
-            table: "_consolidados",
-            date_search: tableParams,
-            search: { value: "" },
-            draw: 1,
-            start: 1,
-            length: 10,
-          },
-          url: base_url + "Consolidados/list_dt",
-
-          type: "POST",
+    var range = $('input[name="daterange2d"]').daterangepicker(
+        {
+            "showDropdowns": true,
+            // startDate: "-1m",
+            // endDate: "+1m",
+            showCustomRangeLabel:true,
+            locale: {
+                format: "DD/MM/YYYY",
+                customRangeLabel: "Búsqueda avanzada",
+            },
+            ranges: {
+                Hoy: [moment(), moment()],
+                Ayer: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Últinmos 7 Días": [moment().subtract(6, "days"), moment()],
+                "Últinmos 30 Días": [moment().subtract(29, "days"), moment()],
+                "Este Mes": [moment().startOf("month"), moment().endOf("month")],
+                "Mes Pasado": [
+                    moment().subtract(1, "month").startOf("month"),
+                    moment().subtract(1, "month").endOf("month"),
+                ],
+            },
+            // opens: 'left'
         },
-      })
-      .ajax.reload();
-  }
+        function (start, end, label) {
+            // $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 
-  function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if (new Date().getTime() - start > milliseconds) {
-        break;
-      }
-    }
-  }
-  $("body").on("click", "span.borrar_dato", function (e) {
-    e.preventDefault();
+            if (validarSeleccionFecha()) {
+                var tipo_fecha = $('input[name="tipo_fecha"]:checked').val();
 
-    var dato = new FormData();
-    var file = $(this).data("file");
-    var lote = $(this).data("lote");
-    dato.append("file", file);
-    dato.append("lote", lote);
-    $.confirm({
-      autoClose: "cancel|10000",
-      title: "Eliminar Datos y archivos",
-      content: "Confirma eliminar datos del archivo : " + file + "  ?",
-      buttons: {
-        confirm: {
-          text: "Borrar",
-          btnClass: "btn-blue",
-          action: function () {
-            $.ajax({
-              type: "POST",
-              contentType: false,
-              dataType: "json",
-              data: dato,
-              processData: false,
-              cache: false,
-              beforeSend: function () {},
-              url: $("body").data("base_url") + "Consolidados/delete",
-              success: function (result) {
-                // initDatatable();
-           
-                $("body #applyfilter").trigger('click');
-          
-              },
-              error: function (xhr, errmsg, err) {
-                console.log(xhr.status + ": " + xhr.responseText);
-              },
-            });
-          },
-        },
-        cancel: {
-          text: "Cancelar",
-          btnClass: "btn-red",
-          action: function () {},
-        },
-      },
-    });
-  });
-  
-  // ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
-// CÓDIGO FINAL CORREGIDO: SIMULACIÓN DE DOBLE CLIC (SOLUCIÓN DEFINITIVA)
-// ----------------------------------------------------------------------
+                var strSearchvar = new Array();
+                strSearchvar =
+                    start.format("YYYY-MM-DD") + "@" + end.format("YYYY-MM-DD");
 
-// Variables para gestionar el temporizador y el conteo de clics
-var timer = 0;
-var clickCount = 0; 
-var clickDelay = 250; 
+                //envio parametro true para que se selecciones todas los resultados
+                var parametrosUrl =
+                    "?tipo_fecha=" +
+                    tipo_fecha +
+                    "&filtro=1&buscarFechas=" +
+                    strSearchvar;
 
-// 1. Limpieza Agresiva: Anulamos CUALQUIER manejador existente.
-$('.datatable-ajax tbody').off('click', 'tr');
-$('.datatable-ajax tbody').off('dblclick', 'tr'); 
-
-// 2. Manejador ÚNICO de CLIC (simula la lógica de simple y doble)
-$('.datatable-ajax tbody').on('click', 'tr', function (e) {
-    
-    var self = this;
-    clickCount++; 
-
-    if (clickCount === 1) {
-        timer = setTimeout(function() {
-            // LÓGICA DE CLIC SIMPLE (Selección)
-            $(self).closest('.datatable-ajax').find('tbody tr.selected').removeClass('selected');
-            $(self).addClass('selected');
-            
-            console.log('Evento: Clic Simple (Selección)');
-            clickCount = 0; 
-        }, clickDelay);
-
-    } else if (clickCount === 2) {
-        // LÓGICA DE DOBLE CLIC (Redirección)
-        
-        clearTimeout(timer); 
-        
-        // 🚨 CAMBIO CRÍTICO: Búsqueda del enlace principal con la URL de redirección
-        // Buscamos el enlace <a> que tiene la URL de "Ver detalles y seguimiento".
-        var $link = $(self).find('a[title="Ver detalles y seguimiento"]'); 
-        
-        if ($link.length) {
-            var url = $link.attr('href');
-            window.open(url, '_blank');
-            console.log('Evento: Doble Clic SIMULADO (Redirección) a URL:', url);
-        } else {
-            console.error('Doble Clic: No se encontró el enlace principal para redirección.');
+                // initDatatable(strSearchvar, 1);
+                // $('#consolidados_dt').DataTable().search('<searchstring>');
+            }
         }
+    );
+    range.on("cancel.daterangepicker", function () {});
+    range.on("load.daterangepicker", function () {});
+    var drp = $('input[name="daterange2"]').data("daterangepicker");
+    // var start = moment().subtract(29, 'days');
+    // var end = moment();
 
-        clickCount = 0;
-    }
+    // console.log(drp.startDate.format('DD-MM-YYYY'));
+    // console.log(drp.endDate.format('DD-MM-YYYY'));
+    initDatatable();
+    var base_url = $("body").data("base_url");
+
+    $("body").on("click", "#resetfilter", function (e) {
+        e.preventDefault();
+        $("#tipo-fecha").prop('checked',false);
+        $("#id_proveedor").val("").trigger("change");
+        $("#id_tipo_pago").val("").trigger("change");
+        $("#periodo_contable").val("").trigger("change");
+
+        $('#daterange2').data('daterangepicker').setEndDate(new Date);
+        $('#daterange2').data('daterangepicker').setStartDate(new Date);
+
+        // $("#id_tipo_pago").prop("selectedIndex", 0);
+        initDatatable();
+    });
+
+    $("body").on("click", "#applyfilter", function (e) {
+        e.preventDefault();
+
+        
+        initDatatable(false, 4);
+    });
+
+    $("body").on("click", "#descarga-exell", function (e) {
+        e.preventDefault();
+        $("body .buttons-excel").trigger("click");
+    });
+    
+    // *******************************************************************
+// 🚨 NUEVO MANEJADOR ÚNICO: #descarga-principal
+// *******************************************************************
+$("body").on("click", "#descarga-principal", function (e) {
+    e.preventDefault();
+
+    // 1. Pregunta al usuario
+    $.confirm({
+        autoClose: 'cancel|10000',
+        title: 'Opciones de Descarga',
+        content: '¿Desea incluir los archivos PDF en la descarga del reporte?',
+        buttons: {
+            // Opción SI: Descargar Excel + PDFs (ZIP)
+            si: {
+                text: 'Sí, Descargar ZIP (Excel + PDFs)',
+                btnClass: 'btn-blue',
+                action: function () {
+                    // 1a. Disparar descarga de Excel
+                    $("body .buttons-excel").trigger("click"); 
+                    console.log('Descarga de Excel iniciada.');
+
+                    // 1b. Obtener y ejecutar la lógica de descarga de PDFs (la lógica anterior de #descarga-pdfs)
+                    
+                    var prove = $("#id_proveedor").val();
+                    var tipo_pago_ids = $("#id_tipo_pago").val();
+                    var periodo_contable = $("#periodo_contable").val();
+                    var fecha = null;
+
+                    if ($("#tipo-fecha").is(":checked")) {
+                        fecha = $("#daterange2").val(); 
+                    }
+
+                    var params = {};
+                    if (prove && prove.length > 0) {
+                        params.id_proveedor = prove;
+                    }
+                    if (tipo_pago_ids && tipo_pago_ids.length > 0) {
+                        var $select = $("#id_tipo_pago");
+                        var tipo_pago_text = [];
+                        tipo_pago_ids.forEach(function (valor) {
+                            tipo_pago_text.push($select.find("option[value=" + valor + "]").text());
+                        });
+                        params.tipo_pago = tipo_pago_text; 
+                    }
+                    if (periodo_contable && periodo_contable.length > 0) {
+                        params.periodo_contable = periodo_contable;
+                    }
+                    if (fecha) { 
+                        params.fecha = fecha;
+                    }
+                    
+                    var base_url = $("body").data("base_url");
+                    // Ajusta la ruta si es necesario (ej. 'Admin/Consolidados/descargar_pdfs')
+                    var controller_method = 'Consolidados/descargar_pdfs'; 
+                    var url = base_url + controller_method + '?' + $.param(params);
+
+                    window.open(url, '_blank');
+                    console.log('Descarga de PDFs (ZIP) iniciada con filtros:', params);
+                }
+            },
+            // Opción NO: Descargar solo Excel
+            no: {
+                text: 'No, solo Descargar Excel',
+                btnClass: 'btn-green',
+                action: function () {
+                    // Solo dispara la descarga del archivo Excel
+                    $("body .buttons-excel").trigger("click");
+                    console.log('Solo Descarga de Excel iniciada.');
+                }
+            },
+            cancel: {
+                text: 'Cancelar',
+                btnClass: 'btn-red',
+                action: function () {
+                    // No hace nada
+                    console.log('Descarga cancelada por el usuario.');
+                }
+            }
+        }
+    });
 });
+    // ======================================================================
+    
+
+    $("body").on("change", "select#selectperiodo", function (e) {
+        e.preventDefault();
+        if ($(this).val() == "0") {
+            initDatatable();
+            return;
+        }
+        initDatatable($('select[id="selectperiodo"] option:selected').text(), 4);
+    });
+
+    document.querySelectorAll("a.toggle-vis").forEach((el) => {
+        el.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            let columnIdx = e.target.getAttribute("data-column");
+            let column = table.column(columnIdx);
+
+            // Toggle the visibility
+            column.visible(!column.visible());
+        });
+    });
+
+    function validarSeleccionFecha() {
+        var accesorios = document.querySelectorAll(
+            'input[name="tipo_fecha"]:checked'
+        );
+        if (accesorios.length <= 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Debe seleccionar un tipo de Fecha!",
+            });
+            return false;
+        }
+        return true;
+    }
+
+    function filterData(tableParams) {
+        $("#consolidados_dt").DataTable().destroy();
+        $("#consolidados_dt")
+            .DataTable({
+                ajax: {
+                    data: {
+                        table: "_consolidados",
+                        date_search: tableParams,
+                        search: { value: "" },
+                        draw: 1,
+                        start: 1,
+                        length: 10,
+                    },
+                    url: base_url + "Consolidados/list_dt",
+
+                    type: "POST",
+                },
+            })
+            .ajax.reload();
+    }
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if (new Date().getTime() - start > milliseconds) {
+                break;
+            }
+        }
+    }
+    $("body").on("click", "span.borrar_dato", function (e) {
+        e.preventDefault();
+
+        var dato = new FormData();
+        var file = $(this).data("file");
+        var lote = $(this).data("lote");
+        dato.append("file", file);
+        dato.append("lote", lote);
+        $.confirm({
+            autoClose: "cancel|10000",
+            title: "Eliminar Datos y archivos",
+            content: "Confirma eliminar datos del archivo : " + file + "  ?",
+            buttons: {
+                confirm: {
+                    text: "Borrar",
+                    btnClass: "btn-blue",
+                    action: function () {
+                        $.ajax({
+                            type: "POST",
+                            contentType: false,
+                            dataType: "json",
+                            data: dato,
+                            processData: false,
+                            cache: false,
+                            beforeSend: function () {},
+                            url: $("body").data("base_url") + "Consolidados/delete",
+                            success: function (result) {
+                                // initDatatable();
+                            
+                                $("body #applyfilter").trigger('click');
+                            
+                            },
+                            error: function (xhr, errmsg, err) {
+                                console.log(xhr.status + ": " + xhr.responseText);
+                            },
+                        });
+                    },
+                },
+                cancel: {
+                    text: "Cancelar",
+                    btnClass: "btn-red",
+                    action: function () {},
+                },
+            },
+        });
+    });
+    
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+    // CÓDIGO FINAL CORREGIDO: SIMULACIÓN DE DOBLE CLIC (SOLUCIÓN DEFINITIVA)
+    // ----------------------------------------------------------------------
+
+    // Variables para gestionar el temporizador y el conteo de clics
+    var timer = 0;
+    var clickCount = 0; 
+    var clickDelay = 250; 
+
+    // 1. Limpieza Agresiva: Anulamos CUALQUIER manejador existente.
+    $('.datatable-ajax tbody').off('click', 'tr');
+    $('.datatable-ajax tbody').off('dblclick', 'tr'); 
+
+    // 2. Manejador ÚNICO de CLIC (simula la lógica de simple y doble)
+    $('.datatable-ajax tbody').on('click', 'tr', function (e) {
+        
+        var self = this;
+        clickCount++; 
+
+        if (clickCount === 1) {
+            timer = setTimeout(function() {
+                // LÓGICA DE CLIC SIMPLE (Selección)
+                $(self).closest('.datatable-ajax').find('tbody tr.selected').removeClass('selected');
+                $(self).addClass('selected');
+                
+                console.log('Evento: Clic Simple (Selección)');
+                clickCount = 0; 
+            }, clickDelay);
+
+        } else if (clickCount === 2) {
+            // LÓGICA DE DOBLE CLIC (Redirección)
+            
+            clearTimeout(timer); 
+            
+            // 🚨 CAMBIO CRÍTICO: Búsqueda del enlace principal con la URL de redirección
+            var $link = $(self).find('a[title="Ver detalles y seguimiento"]'); 
+            
+            if ($link.length) {
+                var url = $link.attr('href');
+                window.open(url, '_blank');
+                console.log('Evento: Doble Clic SIMULADO (Redirección) a URL:', url);
+            } else {
+                console.error('Doble Clic: No se encontró el enlace principal para redirección.');
+            }
+
+            clickCount = 0;
+        }
+        
+    });
 
 });
