@@ -330,7 +330,33 @@ $(document).ready(function () {
 $("body").on("click", "#descarga-principal", function (e) {
     e.preventDefault();
 
-    // 1. Pregunta al usuario
+    // 1. Recolección y Validación de Parámetros
+    var prove = $("#id_proveedor").val();
+    var tipo_pago_ids = $("#id_tipo_pago").val();
+    var periodo_contable = $("#periodo_contable").val();
+    var fecha_checked = $("#tipo-fecha").is(":checked");
+    
+    // Comprueba si AL MENOS UN filtro tiene datos
+    var is_filtered = (
+        (prove && prove.length > 0) ||
+        (tipo_pago_ids && tipo_pago_ids.length > 0) ||
+        (periodo_contable && periodo_contable.length > 0) ||
+        (fecha_checked) 
+    );
+    
+    if (!is_filtered) {
+        // Bloquear si no hay filtros aplicados
+        Swal.fire({
+            icon: 'warning',
+            title: 'Filtro Requerido',
+            text: 'Para descargar reportes o archivos, debe aplicar al menos un filtro (Proveedor, Tipo de Pago, Período o Rango de Fechas).',
+            confirmButtonText: 'Entendido'
+        });
+        return; // Detiene la ejecución si no hay filtros
+    }
+
+
+    // 2. Si hay filtros, inicia la pregunta de descarga
     $.confirm({
         autoClose: 'cancel|10000',
         title: 'Opciones de Descarga',
@@ -347,15 +373,9 @@ $("body").on("click", "#descarga-principal", function (e) {
 
                     // 1b. Obtener y ejecutar la lógica de descarga de PDFs (la lógica anterior de #descarga-pdfs)
                     
-                    var prove = $("#id_proveedor").val();
-                    var tipo_pago_ids = $("#id_tipo_pago").val();
-                    var periodo_contable = $("#periodo_contable").val();
-                    var fecha = null;
-
-                    if ($("#tipo-fecha").is(":checked")) {
-                        fecha = $("#daterange2").val(); 
-                    }
-
+                    // La fecha solo se usa si el checkbox estaba marcado (validado en 'is_filtered')
+                    var fecha = fecha_checked ? $("#daterange2").val() : null;
+                    
                     var params = {};
                     if (prove && prove.length > 0) {
                         params.id_proveedor = prove;

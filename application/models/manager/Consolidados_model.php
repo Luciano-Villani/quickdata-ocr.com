@@ -281,11 +281,21 @@ public function get_archivos_por_filtros($filtros)
 
     // 4. FILTRO: Rango de Fechas
     if (!empty($filtros['fechas'])) {
-        $fecha_inicio = $filtros['fechas'][0];
-        $fecha_fin = $filtros['fechas'][1];
-        // Asumiendo que la columna de fecha es 'fecha_consolidacion'
-        $this->db->where("t1.fecha_consolidacion BETWEEN '{$fecha_inicio}' AND '{$fecha_fin}'");
-    }
+		
+		$fecha_inicio = $filtros['fechas'][0]; // Formato: YYYY-MM-DD
+		$fecha_fin_dia = $filtros['fechas'][1]; // Formato: YYYY-MM-DD
+
+        // 🚨 AJUSTE CRÍTICO PARA DATETIME 🚨
+        // Extendemos el rango de la fecha final hasta el último segundo del día.
+        $fecha_inicio_db = $fecha_inicio . ' 00:00:00';
+        $fecha_fin_db = $fecha_fin_dia . ' 23:59:59';
+        
+		// Usamos el nombre de la columna corregido
+
+		$this->db->where("t1.fecha_consolidado BETWEEN '{$fecha_inicio_db}' AND '{$fecha_fin_db}'");
+	
+	}
+
 
     // --- Restricción de Archivos ---
 
@@ -293,10 +303,37 @@ public function get_archivos_por_filtros($filtros)
     $this->db->where('t1.nombre_archivo IS NOT NULL');
     $this->db->where('t1.nombre_archivo !=', '');
 
+	// 🚨 RESTRICCIÓN DE LÍMITE DE 500 ARCHIVOS 🚨
+    $this->db->limit(500);
+
     $query = $this->db->get();
     return $query->result(); 
 }
+// En Consolidados_model.php
+public function get_periodos_ordenados()
+{
+    $this->db->select('periodo_contable'); 
+    $this->db->from('_consolidados');
+    
+    // Agrupa por el nombre del período (Ej: 'OCTUBRE 2025')
+    $this->db->group_by('periodo_contable'); 
+    
+    // CRÍTICO: Ordena por la fecha real (la más reciente)
+    $this->db->order_by('MAX(fecha_consolidado)', 'DESC'); 
+    
+    $query = $this->db->get();
+    $results = $query->result(); // Obtener array de objetos
 
+    $periodos_formateados = [];
+
+    // Formatear los resultados a un array asociativo simple
+    // La clave (valor) y el valor (texto) son la misma columna: 'periodo_contable'
+    foreach ($results as $row) {
+        $periodos_formateados[$row->periodo_contable] = $row->periodo_contable;
+    }
+
+    return $periodos_formateados;
+}
   
 
 

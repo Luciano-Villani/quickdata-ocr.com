@@ -182,8 +182,8 @@ class Consolidados extends backend_controller
 		;
 		$this->data['select_proveedores'] = $this->Manager_model->obtener_contenido_select('_proveedores', '', 'nombre', 'id ASC', false);
 		$this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', '', 'tip_nombre', 'tip_id ASC', false);
-		$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', '', 'periodo_contable', 'periodo_contable DESC', false);
-
+		//$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', '', 'periodo_contable', 'periodo_contable DESC', false);
+        $this->data['select_periodo_contable'] = $this->Consolidados_model->get_periodos_ordenados();
 
 		if ($_SERVER['REQUEST_METHOD'] === "POST") {
 			$this->form_validation->set_rules('id_proyecto', 'ID Proyecto', 'trim|in_select[0]');
@@ -441,8 +441,10 @@ public function get_seguimiento_count_ajax()
 }
 public function descargar_pdfs()
 {
-    // Asegúrate de que la clase ZipArchive esté habilitada en tu PHP.ini
+    // Asegúrate de que la clase ZipArchive esté habilitada
     if (!class_exists('ZipArchive')) {
+        // En CodeIgniter, loggear es mejor que un simple die()
+        log_message('error', "La extensión ZipArchive de PHP no está habilitada.");
         die("Error: La extensión ZipArchive de PHP no está habilitada.");
     }
     
@@ -452,79 +454,82 @@ public function descargar_pdfs()
     $periodo_contable = $this->input->get('periodo_contable', TRUE);
     $fecha_rango = $this->input->get('fecha', TRUE);
 
-    // 2. Procesar Rango de Fechas (Si se usa daterange)
+    // 2. Procesar Rango de Fechas (DD/MM/YYYY a YYYY-MM-DD)
     $fechas = null;
     if ($fecha_rango) {
         $partes = explode(' - ', $fecha_rango);
         if (count($partes) === 2) {
-            // 🚨 IMPORTANTE: Necesitas una función para convertir 'DD/MM/YYYY' a 'YYYY-MM-DD'
-            // Si usas CodeIgniter 3 o 4, puedes tener un helper o usar Carbon/DateTime.
-            // Aquí asumo una función ficticia: $this->format_date_to_db()
+            // Utilizamos la función de ayuda para la conversión
             $fechas = [
-                $this->format_date_to_db($partes[0]), 
-                $this->format_date_to_db($partes[1])
+                $this->_format_date_to_db($partes[0]), 
+                $this->_format_date_to_db($partes[1])
             ];
         }
     }
 
     // 3. Obtener las RUTAS DE ARCHIVOS del Modelo
-    // DEBES ADAPTAR ESTE MÉTODO EN TU MODELO para que reciba los filtros y retorne un array/lista de objetos/filas
-    // que contengan la columna con la RUTA DEL PDF.
     $filtros_db = [
-        'id_proveedor' => $id_proveedor,
+        // Convertimos a array si es un solo valor para que where_in funcione correctamente
+        'id_proveedor' => is_string($id_proveedor) ? [$id_proveedor] : $id_proveedor, 
         'tipo_pago' => $tipo_pago,
-        'periodo_contable' => $periodo_contable,
+        'periodo_contable' => is_string($periodo_contable) ? [$periodo_contable] : $periodo_contable,
         'fechas' => $fechas
     ];
     
-    // Llama al modelo (necesitarás crear este método si no existe)
+    // Llama al modelo (get_archivos_por_filtros ya tiene el límite de 500)
     $archivos_db = $this->Consolidados_model->get_archivos_por_filtros($filtros_db);
 
+    $archivos_encontrados = count($archivos_db);
+    
+    // 🚨 4. LÓGICA DE CONTROL DE LÍMITE (Feedback Interno)
+    if ($archivos_encontrados >= 500) {
+        // Loggear si se alcanzó el límite. El usuario no lo verá, pero el administrador sí.
+        log_message('warning', "Descarga de PDFs truncada a {$archivos_encontrados} archivos. Se alcanzó el límite de 500 registros.");
+    }
+    // FIN LÓGICA DE CONTROL DE LÍMITE
+
     if (empty($archivos_db)) {
-        // Alerta si no hay archivos y cierra la ventana de descarga
         die("<script>alert('No se encontraron archivos PDF para los filtros aplicados.'); window.close();</script>");
     }
 
-    // 4. Crear el Archivo ZIP
+    // 5. Crear el Archivo ZIP
     $zip = new ZipArchive();
     $zip_filename = 'Reporte_Consolidados_PDFs_' . date('Ymd_His') . '.zip';
-    $zip_path = sys_get_temp_dir() . '/' . $zip_filename; // Usa el directorio temporal del sistema
+    $zip_path = sys_get_temp_dir() . '/' . $zip_filename; 
 
     if ($zip->open($zip_path, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
         die("No se pudo crear el archivo ZIP temporal.");
     }
 
     $file_count = 0;
-    // 🚨 AJUSTA ESTA RUTA BASE 🚨: Debe ser la ruta ABSOLUTA de tu servidor a la carpeta de PDFs.
-    $base_upload_path = FCPATH . '';
+    // 🚨 RUTA BASE (Ajustada para que no tenga doble barra si FCPATH ya termina en /) 🚨
+    // FCPATH ya apunta a la raíz de tu proyecto (public_html o similar)
+    $base_upload_path = FCPATH;
 
     foreach ($archivos_db as $registro) {
-        // La columna ahora se llama 'nombre_archivo'
+        // La columna 'nombre_archivo' debería contener la ruta relativa (ej: 'uploads/pdfs/doc.pdf')
         $ruta_relativa = $registro->nombre_archivo;
         
-        // La ruta absoluta se forma uniendo la base con la ruta relativa
         $ruta_absoluta = $base_upload_path . $ruta_relativa;
         
-        // Verifica si el archivo existe antes de agregarlo
-               
         if (file_exists($ruta_absoluta)) {
-            // Agrega el archivo al ZIP con un nombre limpio (solo el basename)
             $nombre_archivo = basename($ruta_absoluta);
+            // El segundo parámetro es el nombre que tendrá el archivo DENTRO del ZIP
             $zip->addFile($ruta_absoluta, $nombre_archivo);
             $file_count++;
         } else {
-            // Opcional: Loggear o ignorar los archivos no encontrados
+            // Loggear el archivo que no se encontró para diagnóstico futuro
+            log_message('error', "PDF no encontrado en la ruta: {$ruta_absoluta}");
         }
     }
 
     $zip->close();
     
-    // 5. Forzar la Descarga
+    // 6. Forzar la Descarga
     if ($file_count > 0 && file_exists($zip_path)) {
         header('Content-Type: application/zip');
         header('Content-Disposition: attachment; filename="' . $zip_filename . '"');
         header('Content-Length: ' . filesize($zip_path));
-        // Headers para forzar la descarga y evitar problemas de caché
         header('Pragma: no-cache');
         header('Expires: 0');
         readfile($zip_path);
@@ -535,6 +540,20 @@ public function descargar_pdfs()
     } else {
         die("<script>alert('No se encontró ningún archivo para descargar. Verifique las rutas o permisos.'); window.close();</script>");
     }
+}
+
+/**
+ * Función auxiliar para convertir la fecha del frontend (DD/MM/YYYY) al formato DB (YYYY-MM-DD).
+ * Puedes mover esta función a un helper si lo usas en otros lugares.
+ * @param string $date La fecha en formato DD/MM/YYYY.
+ * @return string La fecha en formato YYYY-MM-DD.
+ */
+private function _format_date_to_db($date)
+{
+    // Usamos DateTime::createFromFormat para manejar el formato de entrada
+    $dt = DateTime::createFromFormat('d/m/Y', $date);
+    // Retornamos el formato de base de datos o la cadena original si falla.
+    return $dt ? $dt->format('Y-m-d') : $date;
 }
 }
 

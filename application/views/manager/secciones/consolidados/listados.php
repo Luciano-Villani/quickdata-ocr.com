@@ -35,8 +35,18 @@
     /* Permitir que el ancho sea controlado por la columna de Bootstrap */
     width: 100% !important; 
 }
+swal2-popup {
+    background: #ffffff !important;
+}
 	
 </style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
 
 <div class="card tablas" style="margin-top: -15px">
 <h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes </h5>
