@@ -667,24 +667,7 @@ class Lotes extends backend_controller
 $data_proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $id_proveedor . '"');
 $dataUpdate['unidad_medida'] = $data_proveedor->unidad_medida;
 
-// Verificar la estructura de fecha_emision en el JSON
-//if (isset($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content)) {
-   // Formato antiguo
-  //  $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->values[0]->content);
-//} elseif (isset($a->document->inference->pages[0]->prediction->fecha_emision->valueDate)) {
-    // Formato nuevo (Naturgy V2, etc.)
-//    $fecha_emision = trim($a->document->inference->pages[0]->prediction->fecha_emision->valueDate);
-//} else {
-    // Si no se encuentra el dato, registrar error y asignar "S/D"
- //   log_message('error', "Error: No se encontró fecha_emision en la respuesta de la API. ID Proveedor: $id_proveedor");
- //   $fecha_emision = 'S/D';
-//}
 
-// Convertir la fecha a mes y año
-//$dataUpdate['mes_fc'] = fecha_es($fecha_emision, 'm');
-//$dataUpdate['anio_fc'] = fecha_es($fecha_emision, 'Y');
-//$dataUpdate['mes_fc'] = fecha_es(trim($fecha_emision), 'm');
-//$dataUpdate['anio_fc'] = fecha_es(trim($fecha_emision), 'Y');
 
 // Guardar en la base de datos
 $this->db->where('id', $mires[0]->id);
@@ -759,54 +742,69 @@ $this->db->update('_datos_api', $dataUpdate);
 	}
 
 	public function leerApi()
-	{
+{
+    $file = str_replace(base_url(), '', $_POST['file']);
 
-		$file = str_replace(base_url(), '', $_POST['file']);
+    // Obtener datos del proveedor incluyendo el campo 'procesar_por'
+    $proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $_POST['id_proveedor'] . '"');
 
-		// Obtener datos del proveedor incluyendo el campo 'procesar_por'
-		$proveedor = $this->Manager_model->getwhere('_proveedores', 'id="' . $_POST['id_proveedor'] . '"');
+    // Asegurar de que 'procesar_por' exista si no usar 'local' como valor predeterminado
+    $procesar_por = isset($proveedor->procesar_por) ? $proveedor->procesar_por : 'local';
 
-		// Asegurar de que 'procesar_por' exista si no usar 'local' como valor predeterminado
-		$procesar_por = isset($proveedor->procesar_por) ? $proveedor->procesar_por : 'local';
+    $request = array(
+        'full_path' => $_POST['file']
+    );
 
+    // Realizar la llamada a apiRest con el valor de 'procesar_por'
+    $dataApi = apiRest($request, $proveedor->urlapi, $procesar_por);
 
-		$request = array(
-			'full_path' => $_POST['file']
-		);
+    // Actualizar los datos de la API en la tabla '_datos_api'
+    $updateData = array(
+        'dato_api' => json_encode($dataApi),
+    );
 
-		// Realizar la llamada a apiRest con el valor de 'procesar_por'
-		$dataApi = apiRest($request, $proveedor->urlapi, $procesar_por);
+    // Actualizar la base de datos en función del archivo temporal
+    $this->db->where("nombre_archivo_temp", $_POST['file']);
+    $this->db->update('_datos_api', $updateData);
 
-		// Actualizar los datos de la API en la tabla '_datos_api'
-		$updateData = array(
-			'dato_api' => json_encode($dataApi),
-		);
+    // Llamar a otra función (suponiendo que realiza procesamiento adicional, ej: extracción de nro_cuenta)
+    $this->getDato($_POST['file'], $proveedor->id);
+    
+    // --------------------------------------------------------
+    // INICIO MANTENIMIENTO: Recálculo de _lotes_resumen
+    // 1. Obtener el ID del lote asociado a este archivo recién procesado.
+    $file_data = $this->db->select('id_lote')
+                          ->get_where('_datos_api', ['nombre_archivo_temp' => $_POST['file']])
+                          ->row();
+    $id_lote = $file_data ? $file_data->id_lote : null;
 
-		// Actualizar la base de datos en función del archivo temporal
-		$this->db->where("nombre_archivo_temp", $_POST['file']);
-		$this->db->update('_datos_api', $updateData);
+    // 2. Llamar a la función de recálculo en Lecturas_model (si se encontró el ID)
+    if ($id_lote) {
+        // Asegurar que el modelo esté cargado (si no lo está globalmente)
+        $this->load->model('Lecturas_model'); 
+        
+        // Ejecutar el recálculo
+        $this->Lecturas_model->actualizar_resumen_lote($id_lote);
+    }
+    // FIN MANTENIMIENTO
+    // --------------------------------------------------------
 
-		// Llamar a otra función (suponiendo que realiza procesamiento adicional)
-		$this->getDato($_POST['file'], $proveedor->id);
+    // Si el archivo ya ha sido procesado, eliminarlo del servidor
+    if (is_file($_POST['file'])) {
+        unlink($_POST['file']);
+    }
 
-		// Si el archivo ya ha sido procesado, eliminarlo del servidor
-		if (is_file($_POST['file'])) {
-			unlink($_POST['file']);
-		}
+    // Preparar la respuesta final para la solicitud
+    $response = array(
+        'mensaje' => $_POST['file'],
+        'title' => 'LOTES521',
+        'status' => 'success',
+    );
 
-		// Preparar la respuesta final para la solicitud
-		$response = array(
-			'mensaje' => $_POST['file'],
-			'title' => 'LOTES521',
-			'status' => 'success',
-		);
-
-		// Enviar la respuesta en formato JSON y finalizar la ejecución
-		echo json_encode($response);
-		exit();
-	}
-
-
+    // Enviar la respuesta en formato JSON y finalizar la ejecución
+    echo json_encode($response);
+    exit();
+}
 
 
 	public function upload($id = null)
@@ -1055,94 +1053,32 @@ $this->db->update('_datos_api', $dataUpdate);
 
 
 
-	public function lotes_dt($id = null)
-	{
+	// En tu controlador (donde estaba la función que me pasaste)
 
-		if ($this->input->is_ajax_request()) {
+public function lotes_dt($id_proveedor = null) 
+{
+    if ($this->input->is_ajax_request()) {
+        
+        // Llama a la nueva función del modelo que devuelve todo el array listo
+        $result_array = $this->Lecturas_model->get_lotes_data($id_proveedor);
 
-			$memData = $this->Manager_model->getRows($_POST);
+        // Opcional: Esto ayuda a que el diagnóstico esté al inicio, aunque el modelo ya lo incluye
+        $diagnostico = $result_array['diagnostico'];
+        unset($result_array['diagnostico']);
 
-
-			// echo $this->db->last_query();
-			// die();
-			$i = $_POST['start'];
-
-			$data = [];
-			$estado = '<span class="acciones"><i class="text-success icon-check2 "></i></span>';
-			foreach ($memData as $r) {
-
-
-				$classTextMerge = 'text-danger';
-
-
-				$disableMerge = '';
-				$classMerge = '';
-				$archivos = $this->Lotes_model->getBatchFiles($r->code);
-				$classTextMerge = 'text-success';
-				$error = 0;
-
-
-				foreach ($archivos as $dato) {
-
-
-					if (!$this->Manager_model->get_indexacion('_indexaciones', $dato->nro_cuenta)) {
-
-						$error++;
-					}
-				}
-				$classMerge = 'mergelote';
-				if ($error > 0) {
-					$classTextMerge = 'text-warning';
-
-
-					$disableMerge = ' disabled="disabled ';
-					$classMerge = 'mergelote';
-				}
-
-				$consolidado = '<span class="acciones"><i class="text-danger icon-cross2 "></i></span>';
-				if ($r->consolidado == 1) {
-					$consolidado = '<span class="acciones"><i class="text-warnin icon-check2 "></i></span>';
-					$classTextMerge = 'text-info';
-					// $consolidado = 'OK';
-				}
-
-
-				$i++;
-				$accionesVer = '<span class="acciones"><a title="ver archivo" href="/Admin/Lotes/viewBatch/' . $r->code . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
-
-
-				$accionesMerge = '<span data-consolidado="' . $r->consolidado . '"  data-errores="' . $error . '" data-code="' . $r->code . '" data-id_lote="' . $r->id_lote . '" class="' . $classMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $classTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
-				$accionesEdit = '<span data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="d-none editar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Editar lote" href="#"  class=""><i class=" text-warningr  icon-pencil4 " title="Editar Lote"></i> </a> </span>';
-				$accionesDelete = '<span data-id_lote="' . $r->id_lote . '" data-code="' . $r->code . '"class="borrar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Borrar lote" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar Lote"></i> </a> </span>';
-				$proveedor = $this->proveedores_model->get_proveedor($r->id_proveedor);
-				// $user = $this->ion_auth->user($r->user_add)->row();
-
-				$data[] = array(
-					'<input id="' . $r->id_lote . '" class="checkbox" type="checkbox">',
-					$r->nombre,
-					$r->codigo,
-					fecha_es($r->fecha_add, 'd/m/a', false),
-					count($archivos),
-					$error,
-					// $estado,
-					$consolidado,
-					$r->last_name . ' ' . $r->first_name,
-					$accionesVer . $accionesMerge . $accionesEdit . $accionesDelete,
-					$r->id
-				);
-			}
-
-			$output = array(
-				"draw" => $_POST['draw'],
-				"recordsTotal" => $this->Manager_model->countAll(),
-				"recordsFiltered" => $this->Manager_model->countFiltered($_POST),
-				"data" => $data,
-			);
-
-			// Output to JSON format
-			echo json_encode($output);
-		}
-	}
+        $final_result = [
+            "draw" => $result_array['draw'],
+            "recordsTotal" => $result_array['recordsTotal'],
+            "recordsFiltered" => $result_array['recordsFiltered'],
+            "diagnostico" => $diagnostico, // Aseguramos que esté aquí
+            "data" => $result_array['data']
+        ];
+        
+        // Output to JSON format
+        header('Content-Type: application/json');
+        echo json_encode($final_result);
+    }
+}
 	public function deletefile()
 	{
 		$this->Manager_model->delete();

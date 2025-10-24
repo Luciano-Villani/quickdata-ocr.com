@@ -412,6 +412,61 @@ class Lotes extends backend_controller
 						}
 						break;
 
+
+					case 12: // telmex - Azure
+
+						// Verificamos que existan datos en el JSON en la ruta de Azure
+						if (isset($a[0]->fields)) {
+							$fields = $a[0]->fields;
+
+							// Extraemos cada campo necesario, validando y formateando
+							$nro_cuenta = isset($fields->nro_cuenta->valueString) ? trim($fields->nro_cuenta->valueString) : 'N/A';
+							$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'N/A';
+							$consumo = isset($fields->consumo->valueNumber) ? number_format($fields->consumo->valueNumber, 2, '.', '') : '0.00';
+							$numero_de_factura = isset($fields->numero_de_factura->valueString) ? trim($fields->numero_de_factura->valueString) : 'N/A';
+							$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'N/A';
+							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'N/A';
+							$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'N/A';
+							$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
+							$total_vencido = '0.00'; // Este campo no está en el JSON de ejemplo, por lo tanto, lo dejamos en 0.00
+
+							// Asignamos el total_importe como importe_1, como lo tenías antes
+							$importe_1 = $total_importe;
+
+							// Extraemos mes y año de la fecha de emisión
+							$mes_fc = '0';
+							$anio_fc = '0';
+							if ($fecha_emision !== 'N/A') {
+								$fecha_objeto = new DateTime($fecha_emision);
+								$mes_fc = $fecha_objeto->format('m');
+								$anio_fc = $fecha_objeto->format('Y');
+							}
+
+							$dataUpdate = array(
+								'periodo_del_consumo' => $periodo_del_consumo,
+								'nro_cuenta' => $nro_cuenta,
+								'nro_medidor' => 'N/A', // No está en el JSON, lo dejamos como N/A
+								'nro_factura' => $numero_de_factura,
+								'fecha_emision' => $fecha_emision,
+								'vencimiento_del_pago' => $vencimiento_del_pago,
+								'proximo_vencimiento' => $proximo_vencimiento,
+								'total_vencido' => $total_vencido,
+								'total_importe' => $total_importe,
+								'importe_1' => $importe_1,
+								'consumo' => $consumo,
+								'mes_fc' => $mes_fc,
+								'anio_fc' => $anio_fc,
+								// Agrega otros campos que no estén en el JSON, si es necesario, con valores por defecto
+							);
+							
+						} else {
+							// Manejar el caso en el que no haya datos en la respuesta de Azure
+							$dataUpdate = array(); 
+						}
+						break;
+
+
+
 					case 7: // TELECENTRO 3959 (Azure)
 
 				// Verificamos que existan datos en el JSON
