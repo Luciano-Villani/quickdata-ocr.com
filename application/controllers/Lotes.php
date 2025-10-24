@@ -415,55 +415,91 @@ class Lotes extends backend_controller
 
 					case 12: // telmex - Azure
 
-						// Verificamos que existan datos en el JSON en la ruta de Azure
-						if (isset($a[0]->fields)) {
-							$fields = $a[0]->fields;
+    // Definimos una función local para obtener el periodo en formato "Mes Año" en ESPAÑOL
+    $get_periodo_textual = function($date_str) {
+        if (empty($date_str) || $date_str === 'N/A') {
+            return 'N/A';
+        }
+        
+        try {
+            $fecha_objeto = new DateTime($date_str);
+            $mes_num = $fecha_objeto->format('m');
+            $anio = $fecha_objeto->format('Y');
 
-							// Extraemos cada campo necesario, validando y formateando
-							$nro_cuenta = isset($fields->nro_cuenta->valueString) ? trim($fields->nro_cuenta->valueString) : 'N/A';
-							$periodo_del_consumo = isset($fields->periodo_del_consumo->valueString) ? trim($fields->periodo_del_consumo->valueString) : 'N/A';
-							$consumo = isset($fields->consumo->valueNumber) ? number_format($fields->consumo->valueNumber, 2, '.', '') : '0.00';
-							$numero_de_factura = isset($fields->numero_de_factura->valueString) ? trim($fields->numero_de_factura->valueString) : 'N/A';
-							$fecha_emision = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'N/A';
-							$vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'N/A';
-							$proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'N/A';
-							$total_importe = isset($fields->total_importe->valueNumber) ? number_format($fields->total_importe->valueNumber, 2, '.', '') : '0.00';
-							$total_vencido = '0.00'; // Este campo no está en el JSON de ejemplo, por lo tanto, lo dejamos en 0.00
+            // Mapeo para asegurar el nombre del mes en español
+            $month_map = [
+                '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
+                '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
+                '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
+            ];
 
-							// Asignamos el total_importe como importe_1, como lo tenías antes
-							$importe_1 = $total_importe;
+            $mes_nombre = isset($month_map[$mes_num]) ? $month_map[$mes_num] : 'Mes Desconocido';
 
-							// Extraemos mes y año de la fecha de emisión
-							$mes_fc = '0';
-							$anio_fc = '0';
-							if ($fecha_emision !== 'N/A') {
-								$fecha_objeto = new DateTime($fecha_emision);
-								$mes_fc = $fecha_objeto->format('m');
-								$anio_fc = $fecha_objeto->format('Y');
-							}
+            return $mes_nombre . ' ' . $anio; // Ejemplo: Octubre 2025
 
-							$dataUpdate = array(
-								'periodo_del_consumo' => $periodo_del_consumo,
-								'nro_cuenta' => $nro_cuenta,
-								'nro_medidor' => 'N/A', // No está en el JSON, lo dejamos como N/A
-								'nro_factura' => $numero_de_factura,
-								'fecha_emision' => $fecha_emision,
-								'vencimiento_del_pago' => $vencimiento_del_pago,
-								'proximo_vencimiento' => $proximo_vencimiento,
-								'total_vencido' => $total_vencido,
-								'total_importe' => $total_importe,
-								'importe_1' => $importe_1,
-								'consumo' => $consumo,
-								'mes_fc' => $mes_fc,
-								'anio_fc' => $anio_fc,
-								// Agrega otros campos que no estén en el JSON, si es necesario, con valores por defecto
-							);
-							
-						} else {
-							// Manejar el caso en el que no haya datos en la respuesta de Azure
-							$dataUpdate = array(); 
-						}
-						break;
+        } catch (Exception $e) {
+            return 'N/A';
+        }
+    };
+
+    // Verificamos que existan datos en el JSON en la ruta de Azure
+    if (isset($a[0]->fields)) {
+        $fields = $a[0]->fields;
+
+        // 1. Extracción de Fechas (usaremos 'valueDate' de Azure, que es YYYY-MM-DD)
+        $fecha_emision_raw = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'N/A';
+        $vencimiento_del_pago = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'N/A';
+        $proximo_vencimiento = isset($fields->proximo_vencimiento->valueDate) ? trim($fields->proximo_vencimiento->valueDate) : 'N/A';
+
+        // 2. Cálculo del Periodo y las Variables de Fecha (Mes/Año)
+        // **AQUÍ SE USA LA FUNCIÓN CON LA TRADUCCIÓN GARANTIZADA**
+        $periodo_del_consumo = $get_periodo_textual($fecha_emision_raw);
+
+        $mes_fc = '0';
+        $anio_fc = '0';
+        if ($fecha_emision_raw !== 'N/A') {
+            try {
+                $fecha_objeto = new DateTime($fecha_emision_raw);
+                $mes_fc = $fecha_objeto->format('m');
+                $anio_fc = $fecha_objeto->format('Y');
+            } catch (Exception $e) { /* Se quedan con '0' */ }
+        }
+
+        // 3. Extracción del resto de campos
+        $nro_cuenta = isset($fields->nro_cuenta->valueString) ? trim($fields->nro_cuenta->valueString) : 'N/A';
+        $numero_de_factura = isset($fields->numero_de_factura->valueString) ? trim($fields->numero_de_factura->valueString) : 'N/A';
+        
+        // Formateo de importes
+        $consumo_float = isset($fields->consumo->valueNumber) ? $fields->consumo->valueNumber : 0.00;
+        $total_importe_float = isset($fields->total_importe->valueNumber) ? $fields->total_importe->valueNumber : 0.00;
+        
+        $consumo = number_format($consumo_float, 2, '.', '');
+        $total_importe = number_format($total_importe_float, 2, '.', '');
+        $total_vencido = '0.00';
+        $importe_1 = $total_importe; // Asignamos el total_importe como importe_1
+
+        // 4. Construcción del Array de Actualización
+        $dataUpdate = array(
+            'periodo_del_consumo' => $periodo_del_consumo,
+            'nro_cuenta' => $nro_cuenta,
+            'nro_medidor' => 'N/A',
+            'nro_factura' => $numero_de_factura,
+            'fecha_emision' => $fecha_emision_raw,
+            'vencimiento_del_pago' => $vencimiento_del_pago,
+            'proximo_vencimiento' => $proximo_vencimiento,
+            'total_vencido' => $total_vencido,
+            'total_importe' => $total_importe,
+            'importe_1' => $importe_1,
+            'consumo' => $consumo,
+            'mes_fc' => $mes_fc,
+            'anio_fc' => $anio_fc,
+        );
+        
+    } else {
+        // Manejar el caso en el que no haya datos en la respuesta de Azure
+        $dataUpdate = array(); 
+    }
+    break;
 
 
 
@@ -715,6 +751,73 @@ class Lotes extends backend_controller
 						'total_vencido' => trim('S/D'),
 					);
 					break;
+
+					case 23: // TELECOM Digital Datos (Azure)
+
+    // Verifica que el JSON de Azure contenga datos en el array principal.
+    if (isset($a[0]->fields)) {
+        $fields = $a[0]->fields;
+
+        // Extrae los campos principales. Usa el operador ternario para mayor seguridad.
+        $nro_cuenta_raw = isset($fields->nro_cuenta->valueString) ? trim($fields->nro_cuenta->valueString) : 'S/D';
+        $nro_de_factura = isset($fields->nro_de_factura->valueString) ? trim($fields->nro_de_factura->valueString) : 'S/D';
+        $periodo_del_consumo_raw = isset($fields->priodo_del_consumo->valueString) ? trim($fields->priodo_del_consumo->valueString) : 'S/D';
+        $fecha_emision_raw = isset($fields->fecha_emision->valueDate) ? trim($fields->fecha_emision->valueDate) : 'S/D';
+        $vencimiento_del_pago_raw = isset($fields->vencimiento_del_pago->valueDate) ? trim($fields->vencimiento_del_pago->valueDate) : 'S/D';
+        $detalle_de_servicio = isset($fields->detalle_de_servicio->valueString) ? trim($fields->detalle_de_servicio->valueString) : 'S/D';
+
+        // --- INICIO: Lógica para nro_cuenta (Corregida y Simplificada) ---
+        // Tu JSON de ejemplo ya trae un formato "169539: 20342". Podemos limpiarlo directamente.
+        $nro_cuenta = str_replace(': ', ':', $nro_cuenta_raw);
+        // Ejemplo: "169539: 20342" -> "16953920342"
+        // Si el formato es estricto, puedes seguir usando la regex, pero esta es más simple.
+        // --- FIN: Lógica para nro_cuenta ---
+
+        // --- INICIO: Lógica para total_importe y importe_1 ---
+        $total_importe_float = isset($fields->total_importe->valueNumber) ? $fields->total_importe->valueNumber : 0.00;
+        $total_importe_formatted = number_format($total_importe_float, 2, '.', '');
+        $importe_1 = $total_importe_formatted;
+        // --- FIN: Lógica para total_importe y importe_1 ---
+
+        // --- INICIO: Lógica para mes_fc y anio_fc ---
+        $mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);
+        // --- FIN: Lógica para mes_fc y anio_fc ---
+
+        // Asignación de valores al array de actualización
+        $dataUpdate = array(
+            'nro_cuenta'          => $nro_cuenta,
+            'nro_medidor'         => 'N/A',
+            'nro_factura'         => $nro_de_factura,
+            'periodo_del_consumo' => $periodo_del_consumo_raw,
+            'fecha_emision'       => $fecha_emision_raw,
+            'vencimiento_del_pago' => $vencimiento_del_pago_raw,
+            'total_importe'       => $total_importe_formatted,
+            'importe_1'           => $importe_1,
+            'consumo'             => $detalle_de_servicio,
+            'total_vencido'       => 'S/D',
+            'mes_fc'              => $mesAnioData['mes_fc'],
+            'anio_fc'             => $mesAnioData['anio_fc'],
+        );
+
+    } else {
+        // Maneja el caso de que no haya datos válidos.
+        $dataUpdate = array(
+            'nro_cuenta'          => 'S/D',
+            'nro_factura'         => 'S/D',
+            'fecha_emision'       => 'S/D',
+            'vencimiento_del_pago' => 'S/D',
+            'periodo_del_consumo' => 'S/D',
+            'total_importe'       => '0.00',
+            'importe_1'           => '0.00',
+            'nro_medidor'         => 'N/A',
+            'total_vencido'       => 'S/D',
+            'consumo'             => 'S/D',
+            'mes_fc'              => 'S/D',
+            'anio_fc'             => 'S/D',
+        );
+    }
+    
+    break;
 			}
 
 
