@@ -112,143 +112,204 @@ class Indexaciones extends backend_controller
 	}
 
 	public function delete()
-	{
+{
+    // El ID del registro a eliminar se espera en $_REQUEST['id']
+    $id_indexacion = $_REQUEST['id']; 
+    
+    // 1. 🔑 OBTENER el nro_cuenta ANTES DE BORRAR el indexador 🔑
+    //    Este paso es CRUCIAL para saber qué lotes recalcular.
+    $registro_indexador = $this->db->select('nro_cuenta')
+                                   ->get_where('_indexaciones', ['id' => $id_indexacion])
+                                   ->row();
+    $nro_cuenta_afectado = $registro_indexador ? $registro_indexador->nro_cuenta : null;
 
-		try {
+    try {
+        
+        // 2. EJECUTAR la eliminación del indexador
+        $this->db->where('id', $id_indexacion);
+        // Se asume que $_REQUEST['tabla'] contiene el nombre '_indexaciones'
+        $this->db->delete($_REQUEST['tabla']); 
+        
+        
+        // 3. 🚨 INICIO MANTENIMIENTO: Recálculo de _lotes_resumen 🚨
+        if (!empty($nro_cuenta_afectado)) {
+            
+            // Obtener los IDs de lotes asociados a este nro_cuenta que NO están consolidados.
+            // Utilizamos la lógica JOIN corregida para buscar el 'consolidado = 0' en _lotes.
+            $this->db->select('t1.id_lote')
+                     ->from('_datos_api t1')
+                     ->join('_lotes t2', 't1.id_lote = t2.id', 'inner')
+                     ->where('t1.nro_cuenta', $nro_cuenta_afectado)
+                     ->where('t2.consolidado', 0) 
+                     ->distinct();
 
-			$this->db->where('id', $_REQUEST['id']);
-			$this->db->delete($_REQUEST['tabla']);
+            $lotes_a_recalcular = $this->db->get()->result(); 
+            
+            // Iterar y ejecutar el mantenimiento solo si se encontraron lotes
+            if ($lotes_a_recalcular) {
+                 // Cargar el modelo con la ruta correcta (confirmada en el paso anterior)
+                 $this->load->model('manager/Lecturas_model');
+                 foreach ($lotes_a_recalcular as $lote) {
+                     $this->Lecturas_model->actualizar_resumen_lote($lote->id_lote);
+                 }
+            }
+        }
+        // --------------------------------------------------------
+        // FIN MANTENIMIENTO
 
-			$response = array(
-				'mensaje' => 'Datos borrados',
-				'title' => str_replace('_', '', $_REQUEST['tabla']),
-				'status' => 'success',
-			);
-		} catch (Exception $e) {
-			$response = array(
-				'mensaje' => 'Error: ' . $e->getMessage(),
-				'title' => str_replace('_', '', $_REQUEST['tabla']),
-				'status' => 'error',
-			);
-		}
+        $response = array(
+            'mensaje' => 'Datos borrados',
+            'title' => str_replace('_', '', $_REQUEST['tabla']),
+            'status' => 'success',
+        );
+    } catch (Exception $e) {
+        $response = array(
+            'mensaje' => 'Error: ' . $e->getMessage(),
+            'title' => str_replace('_', '', $_REQUEST['tabla']),
+            'status' => 'error',
+        );
+    }
 
-		echo json_encode($response);
-		exit();
-	}
+    echo json_encode($response);
+    exit();
+}
 
 	public function listados($id = NULL)
-	{
+{
 
-		$this->data['collapse'] = 'collapse';
-		$script = array(
-			base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
-			base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
-			base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
-		);
-		$this->data['css_common'] = $this->css_common;
-		$this->data['css'] = '';
+    $this->data['collapse'] = 'collapse';
+    $script = array(
+        base_url('assets/manager/js/plugins/tables/datatables/datatables.js'),
+        base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
+        base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
+    );
+    $this->data['css_common'] = $this->css_common;
+    $this->data['css'] = '';
 
-		$this->data['script_common'] = $this->script_common;
-		$this->data['script'] = $script;
+    $this->data['script_common'] = $this->script_common;
+    $this->data['script'] = $script;
 
-
-
-
-		$this->data['programas_id_interno'] = $this->Programas_model->getIdInterno();
-		$newdata = [];
-		$pasada = 1;
-		foreach ($this->data['programas_id_interno'] as $data) {
-			$newdata[$data['id']]['id'] = $data['id'];
-			$newdata[$data['id']]['id_interno'] = $data['id_interno'];
-			$pasada++;
-		};
-		$this->data['programas_id_interno'] = $newdata;
+    $this->data['programas_id_interno'] = $this->Programas_model->getIdInterno();
+    $newdata = [];
+    $pasada = 1;
+    foreach ($this->data['programas_id_interno'] as $data) {
+        $newdata[$data['id']]['id'] = $data['id'];
+        $newdata[$data['id']]['id_interno'] = $data['id_interno'];
+        $pasada++;
+    };
+    $this->data['programas_id_interno'] = $newdata;
 
 
-		if ($id && $id != NULL) {
+    if ($id && $id != NULL) {
 
-			$this->BtnText = 'Editar';
-			$editData = $this->Manager_model->get_data('_indexaciones', $id);
+        $this->BtnText = 'Editar';
+        $editData = $this->Manager_model->get_data('_indexaciones', $id);
 
-			// $program = $this->Manager_model->getWhere('_programas', "id_secretaria = " . $editData->id_secretaria . " AND id_interno=" . $editData->id_programa);
-			$program = 0;
-			if ($program = $this->Manager_model->getWhere('_programas', "id_secretaria = " . $editData->id_secretaria . " AND id_interno=" . $editData->id_programa)) {
+        // $program = $this->Manager_model->getWhere('_programas', "id_secretaria = " . $editData->id_secretaria . " AND id_interno=" . $editData->id_programa);
+        $program = 0;
+        if ($program = $this->Manager_model->getWhere('_programas', "id_secretaria = " . $editData->id_secretaria . " AND id_interno=" . $editData->id_programa)) {
 
-				$program = $program->id;
-			};
-
-
-			$this->data['indexador'] = $editData;
-			$this->data['id_proveedor'] = $editData->id_proveedor;
-			$this->data['nro_cuenta'] = $editData->nro_cuenta;
-			$this->data['id_secretaria'] = $editData->id_secretaria;
-			$this->data['id_dependencia'] = $editData->id_dependencia;
-			$this->data['id_indexacion'] = $id;
-			$this->data['id_programa'] = $editData->id_programa;
-			$this->data['id_proyecto'] = $editData->id_proyecto;
-			$this->data['tipo_pago'] = $editData->tipo_pago;
-			$this->data['seleccion_programa'] = $program;
-		}
-
-		if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $program = $program->id;
+        };
 
 
-			$this->form_validation->set_rules('id_secretaria', 'Secretaria', 'trim|in_select[0]');
-			$this->form_validation->set_rules('id_proveedor', 'Proveedor', 'trim|in_select[0]');
-			if (!isset($_REQUEST['id_indexacion']) && $_REQUEST['id_indexacion'] == NULL) {
-				$this->form_validation->set_rules('nro_cuenta', 'Nro de cuenta', 'trim|required|callback_check_nro_cuenta');
-			}
-			$this->form_validation->set_rules('expediente', 'Expediente', 'trim|required');
-			$this->form_validation->set_rules('tipo_pago', 'Tipo de pago', 'trim|required|in_select[0]');
+        $this->data['indexador'] = $editData;
+        $this->data['id_proveedor'] = $editData->id_proveedor;
+        $this->data['nro_cuenta'] = $editData->nro_cuenta;
+        $this->data['id_secretaria'] = $editData->id_secretaria;
+        $this->data['id_dependencia'] = $editData->id_dependencia;
+        $this->data['id_indexacion'] = $id;
+        $this->data['id_programa'] = $editData->id_programa;
+        $this->data['id_proyecto'] = $editData->id_proyecto;
+        $this->data['tipo_pago'] = $editData->tipo_pago;
+        $this->data['seleccion_programa'] = $program;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
 
-			// $this->form_validation->set_rules('id_dependencia', 'Dependencia', '');
-			// $this->form_validation->set_rules('id_programa', 'ID Programa', 'trim|in_select[0]');
-			// $this->form_validation->set_rules('id_interno', 'ID interno', 'trim|required');
-			
-			if ($this->form_validation->run() != FALSE) {
+        $this->form_validation->set_rules('id_secretaria', 'Secretaria', 'trim|in_select[0]');
+        $this->form_validation->set_rules('id_proveedor', 'Proveedor', 'trim|in_select[0]');
+        if (!isset($_REQUEST['id_indexacion']) && $_REQUEST['id_indexacion'] == NULL) {
+            $this->form_validation->set_rules('nro_cuenta', 'Nro de cuenta', 'trim|required|callback_check_nro_cuenta');
+        }
+        $this->form_validation->set_rules('expediente', 'Expediente', 'trim|required');
+        $this->form_validation->set_rules('tipo_pago', 'Tipo de pago', 'trim|required|in_select[0]');
 
 
-				if (isset($_REQUEST['id_indexacion']) && $_REQUEST['id_indexacion'] != NULL) {
-					$indexacion = $_POST["id_indexacion"];
-					unset($_REQUEST["id_indexacion"]);
+        if ($this->form_validation->run() != FALSE) {
 
-					$grabar_datos_array = array(
-						'seccion' => 'Actualización datos ' . $this->router->fetch_class(),
-						'mensaje' => 'Datos Actualizados ',
-						'estado' => 'success',
-						'status' => 'success',
-					);
-					$this->session->set_userdata('save_data', $grabar_datos_array);
-					$_REQUEST['user_mod'] = $this->user->id;
-					$this->db->update($this->data['tabla'], $_REQUEST, array('id' => $indexacion));
-				} else {
+            // 🔑 1. OBTENER el nro_cuenta afectado ANTES de la redirección
+            $nro_cuenta_afectado = $this->input->post('nro_cuenta');
 
-					unset($_REQUEST["id_indexacion"]);
+            if (isset($_REQUEST['id_indexacion']) && $_REQUEST['id_indexacion'] != NULL) {
+                // Lógica de EDICIÓN
+                $indexacion = $_POST["id_indexacion"];
+                unset($_REQUEST["id_indexacion"]);
 
-					$this->Manager_model->grabar_datos($this->data['tabla'], $_REQUEST);
-					
-					$grabar_datos_array = array(
-						'seccion' => 'Alta nuevas ' . $this->router->fetch_class(),
-						'mensaje' => 'Datos Grabados ',
-						'estado' => 'success',
-						'status' => 'success',
-					);
-					$this->session->set_userdata('save_data', $grabar_datos_array);
-				}
+                $grabar_datos_array = array(
+                    'seccion' => 'Actualización datos ' . $this->router->fetch_class(),
+                    'mensaje' => 'Datos Actualizados ',
+                    'estado' => 'success',
+                    'status' => 'success',
+                );
+                $this->session->set_userdata('save_data', $grabar_datos_array);
+                $_REQUEST['user_mod'] = $this->user->id;
+                $this->db->update($this->data['tabla'], $_REQUEST, array('id' => $indexacion));
+            } else {
+                // Lógica de ALTA
+                unset($_REQUEST["id_indexacion"]);
 
-				redirect(base_url('Admin/Indexaciones'));
-				// $this->BtnText = 'Agregar';
-			}
-			$this->data['collapse'] = '';
-		}
-		$this->data['content'] = $this->load->view('manager/secciones/indexaciones/' . $this->router->fetch_method(), $this->data, TRUE);
-		// $this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', 'Seleccionar Tipo Pago','tip_nombre','tip_id' );
+                $this->Manager_model->grabar_datos($this->data['tabla'], $_REQUEST);
+                
+                $grabar_datos_array = array(
+                    'seccion' => 'Alta nuevas ' . $this->router->fetch_class(),
+                    'mensaje' => 'Datos Grabados ',
+                    'estado' => 'success',
+                    'status' => 'success',
+                );
+                $this->session->set_userdata('save_data', $grabar_datos_array);
+            }
+            
+            // --------------------------------------------------------
+            // 🚨 INICIO MANTENIMIENTO: Recálculo de _lotes_resumen 🚨
+            // --------------------------------------------------------
+            if (!empty($nro_cuenta_afectado)) {
+                
+                // 2. Obtener los IDs de lotes asociados a este nro_cuenta que NO están consolidados
+                //    Se usa JOIN para verificar la columna 'consolidado' en la tabla '_lotes'.
+                $this->db->select('t1.id_lote')
+                         ->from('_datos_api t1')
+                         ->join('_lotes t2', 't1.id_lote = t2.id', 'inner')
+                         ->where('t1.nro_cuenta', $nro_cuenta_afectado)
+                         ->where('t2.consolidado', 0) // Filtro contra la tabla de lotes
+                         ->distinct();
 
-		$this->load->view('manager/head', $this->data);
-		$this->load->view('manager/index', $this->data);
-		$this->load->view('manager/footer', $this->data);
-	}
+                $lotes_a_recalcular = $this->db->get()->result(); // Ejecutar la consulta
+                
+                // 3. Iterar y ejecutar el mantenimiento solo si se encontraron lotes
+                if ($lotes_a_recalcular) {
+                     // Cargamos el modelo que contiene la función de mantenimiento (si no está cargado globalmente)
+                     $this->load->model('manager/Lecturas_model'); 
+                     foreach ($lotes_a_recalcular as $lote) {
+                          $this->Lecturas_model->actualizar_resumen_lote($lote->id_lote);
+                     }
+                }
+            }
+            // --------------------------------------------------------
+            // FIN MANTENIMIENTO
+
+            redirect(base_url('Admin/Indexaciones'));
+        }
+        $this->data['collapse'] = '';
+    }
+    $this->data['content'] = $this->load->view('manager/secciones/indexaciones/' . $this->router->fetch_method(), $this->data, TRUE);
+    // $this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', 'Seleccionar Tipo Pago','tip_nombre','tip_id' );
+
+    $this->load->view('manager/head', $this->data);
+    $this->load->view('manager/index', $this->data);
+    $this->load->view('manager/footer', $this->data);
+}
 
 	public function agregar($id = NULL)
 	{

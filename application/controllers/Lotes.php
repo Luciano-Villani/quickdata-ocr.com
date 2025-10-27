@@ -774,10 +774,28 @@ class Lotes extends backend_controller
         // --- FIN: Lógica para nro_cuenta ---
 
         // --- INICIO: Lógica para total_importe y importe_1 ---
-        $total_importe_float = isset($fields->total_importe->valueNumber) ? $fields->total_importe->valueNumber : 0.00;
-        $total_importe_formatted = number_format($total_importe_float, 2, '.', '');
-        $importe_1 = $total_importe_formatted;
-        // --- FIN: Lógica para total_importe y importe_1 ---
+$total_importe_float = 0.00;
+$total_importe_formatted = '0.00';
+
+// 1. Verificar si existe la propiedad 'content' y obtener el valor string
+if (isset($fields->total_importe->content)) {
+    $content_string = $fields->total_importe->content;
+    
+    // 2. Limpiar el string: Reemplazar el separador de miles (punto) por vacío
+    // y luego reemplazar el separador decimal (coma) por un punto.
+    // Esto convierte "757.405,55" a "757405.55"
+    $cleaned_string = str_replace('.', '', $content_string);
+    $cleaned_string = str_replace(',', '.', $cleaned_string);
+    
+    // 3. Convertir el string limpio a float
+    $total_importe_float = (float)$cleaned_string;
+}
+
+// 4. Formatear el número para guardarlo con 2 decimales y punto como separador
+$total_importe_formatted = number_format($total_importe_float, 2, '.', '');
+
+$importe_1 = $total_importe_formatted;
+// --- FIN: Lógica para total_importe y importe_1 ---
 
         // --- INICIO: Lógica para mes_fc y anio_fc ---
         $mesAnioData = $this->getMesAnioDesdeFecha($fecha_emision_raw);

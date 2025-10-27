@@ -341,23 +341,40 @@ public function get_lotes_data($id_proveedor = null)
 
 public function actualizar_resumen_lote($id_lote) 
 {
-    // Consulta que recalcula el total de archivos y el total sin indexar para un lote específico
+    // 1. Recalcula el total de archivos, el total sin indexar y el total de archivos consolidados.
     $resumen_data = $this->db->query("
         SELECT 
             COUNT(t2.id) AS total_archivos,
-            -- El nro_cuenta de _datos_api (t2) es 'sin indexar' si no tiene coincidencia en _indexaciones (t3)
-            SUM(CASE WHEN t3.id IS NULL THEN 1 ELSE 0 END) AS archivos_sin_indexar 
+            -- Archivos sin indexar (nro_cuenta de t2 no tiene coincidencia en t3)
+            SUM(CASE WHEN t3.id IS NULL THEN 1 ELSE 0 END) AS archivos_sin_indexar,
+            -- Archivos PENDIENTES de consolidar (t2.consolidado = 0)
+            SUM(CASE WHEN t2.consolidado = 0 THEN 1 ELSE 0 END) AS archivos_pendientes_consolidar
         FROM _datos_api t2 
         LEFT JOIN _indexaciones t3 ON t3.nro_cuenta = t2.nro_cuenta
         WHERE t2.id_lote = ?", [$id_lote])->row_array();
 
-    // Actualizar la tabla de resumen
+    // 2. Determinar el estado de consolidación del LOTE
+    $archivos_pendientes_consolidar = (int)$resumen_data['archivos_pendientes_consolidar'];
+    $estado_consolidacion_lote = 0; // Por defecto: No consolidado
+    
+    // Si la cuenta de archivos pendientes de consolidar es CERO, el lote completo está consolidado.
+    if ($archivos_pendientes_consolidar == 0) {
+        $estado_consolidacion_lote = 1; 
+    }
+
+    // 3. Actualizar la tabla de resumen (_lotes_resumen)
     $this->db->where('id_lote', $id_lote)->update('_lotes_resumen', [
         'total_archivos' => (int)$resumen_data['total_archivos'],
         'archivos_sin_indexar' => (int)$resumen_data['archivos_sin_indexar']
+        // Nota: No actualizamos el campo de pendientes aquí si no existe en _lotes_resumen
     ]);
     
-    // Si la actualización no afectó ninguna fila (lote eliminado, por ejemplo), se puede considerar una inserción si es necesario, 
-    // pero para este caso el UPDATE es suficiente porque el registro ya se creó en cerrarLote().
+    // 4. Actualizar el estado 'consolidado' en la tabla principal del LOTE (_lotes)
+    // ESTA ES LA ACCIÓN CLAVE que corrige el error de lógica
+    $this->db->where('id', $id_lote)->update('_lotes', [
+        'consolidado' => $estado_consolidacion_lote
+    ]);
+    
+    // El comentario sobre la inserción es válido: el UPDATE es suficiente aquí.
 }
 }

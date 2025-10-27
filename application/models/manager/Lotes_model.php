@@ -246,89 +246,159 @@ class Lotes_model extends CI_Model
 		echo json_encode($resultx);
 		exit();
 	}
+
 	public function lotes_dt()
-	{
+{
+    // CÓDIGO ACTUAL (QUITAR EL DEBUG)
+    /*
+    echo '<pre>';
+    var_dump($_REQUEST);
+    echo '</pre>';
+    die();
+    */
+    
+    $datos = [];
+
+    if ($_REQUEST['id_proveedor']) {
+        $columns = array(
+            0 => 'id',
+            1 => 'fecha_add',
+        );
+        $where = "";
+        
+        // Asumiendo que $_REQUEST['table'] es '_lotes'
+        $tableName = $_REQUEST['table']; 
+
+        $totalRecordsSql = "SELECT count(*) as total FROM " . $tableName . " " . $where;
+        $total = $this->db->query($totalRecordsSql);
+
+        if (!empty($_REQUEST['search']['value'])) {
+            $where .= " WHERE ( code LIKE '" . $_REQUEST['search']['value'] . "%' ";
+            $where .= " OR user_add LIKE '" . $_REQUEST['search']['value'] . "%' )"; 
+            // ⚠️ Nota: Revisé tu AND y lo moví fuera del OR por seguridad. Ajusta si es necesario.
+            if (strpos($where, 'WHERE') === false) {
+                 $where .= " WHERE ";
+            } else {
+                 $where .= " AND ";
+            }
+            $where .= " id_proveedor = '" . $_REQUEST['id_proveedor'] . "'";
+        } else {
+             $where .= " WHERE id_proveedor = '" . $_REQUEST['id_proveedor'] . "'";
+        }
 
 
-		echo '<pre>';
-		var_dump($_REQUEST);
-		echo '</pre>';
-		die();
+        // ------------------------------------------------------------------------------------------------
+        // ✅ CÓDIGO CORREGIDO: SELECCIÓN CON DATOS DE RESUMEN Y CONSOLIDADOS
+        // ------------------------------------------------------------------------------------------------
+        $sql = "
+            SELECT 
+                t1.*, 
+                t2.total_archivos,
+                t1.consolidado AS lote_consolidado_flag,
+                (
+                    SELECT COUNT(id) 
+                    FROM _datos_api 
+                    WHERE id_lote = t1.id 
+                    AND consolidado = 1
+                ) AS consolidados_lote,
+                _proveedores.nombre as proveedor
+            FROM " . $tableName . " t1 
+            LEFT JOIN _lotes_resumen t2 ON t1.id = t2.id_lote
+            JOIN _proveedores ON _proveedores.id = t1.id_proveedor
+            " . $where . "
+            ORDER BY " . $columns[$_REQUEST['order'][0]['column']] . " " . $_REQUEST['order'][0]['dir'] . " 
+            LIMIT " . $_REQUEST['start'] . " ," . $_REQUEST['length'];
+        // ------------------------------------------------------------------------------------------------
 
-		$datos = [];
-
-
-		if ($_REQUEST['id_proveedor']) {
-			$columns = array(
-				0 => 'id',
-				1 => 'fecha_add',
-			);
-			$where = "";
-
-			$totalRecordsSql = "SELECT count(*) as total FROM " . $_REQUEST['table'] . " " . $where;
-
-			$total = $this->db->query($totalRecordsSql);
-
-			if (!empty($_REQUEST['search']['value'])) {
-				$where .= " WHERE  ( code LIKE '" . $_REQUEST['search']['value'] . "%' ";
-				$where .= " OR user_add LIKE '" . $_REQUEST['search']['value'] . "%' ";
-				$where .= " AND id_proveedor = '" . $_REQUEST['id_proveedor'] . " )";
-			}
-
-
-			$sql = "SELECT " . $_REQUEST['table'] . ". *, _proveedores.nombre as proveedor";
-			$sql .= " FROM " . $_REQUEST['table'] . " $where";
-
-			$sql .= " JOIN _proveedores ON _proveedores.id = " . $_REQUEST['table'] . ".id_proveedor";
-			$sql .= " ORDER BY " . $columns[$_REQUEST['order'][0]['column']] . "   " . $_REQUEST['order'][0]['dir'] . "  LIMIT " . $_REQUEST['start'] . " ," . $_REQUEST['length'];
+        $query = $this->db->query($sql);
+    } else {
+        $query = $this->db->select("*")->get($_REQUEST['table']);
+        // ⚠️ NOTA: Si esta sección es para "todos los proveedores" también debe unirse a _lotes_resumen.
+        // Si no se usa, ignora.
+    }
 
 
-			$query = $this->db->query($sql);
-		} else {
-			$query = $this->db->select("*")->get($_REQUEST['table']);
-		}
+    // El resto de la función es donde se usan los datos
 
+    foreach ($query->result() as $r) {
 
-		foreach ($query->result() as $r) {
+        $user = $this->ion_auth->user($r->user_add)->row();
+        
+        // ------------------------------------------------------------------
+        // ✅ NUEVA LÓGICA DE LA COLUMNA CONSOLIDADO (ÍNDICE 6 EN TU ARRAY)
+        // ------------------------------------------------------------------
+        
+        $total = (int)$r->total_archivos;
+        $consolidados = (int)$r->consolidados_lote; 
+        $consolidado_flag = (int)$r->lote_consolidado_flag; // Estado final de _lotes
+        
+        $clase_texto = 'text-warning'; 
+        $contenido_columna = "{$total} | {$consolidados}";
+        $title_accion = "Pendiente: {$consolidados} de {$total}";
 
-			$user = $this->ion_auth->user($r->user_add)->row();
+        if ($total == 0) {
+            $contenido_columna = '0 | 0';
+            $clase_texto = 'text-muted';
+            $title_accion = 'Sin archivos';
+        } else if ($consolidado_flag == 1) {
+            // Lote 100% Consolidado (Bandera Final)
+            $contenido_columna = '<i class="icon-checkmark3"></i>'; // Mostrar Tilde (V)
+            $clase_texto = 'text-success'; 
+            $title_accion = "Lote 100% Consolidado";
+        } else if ($consolidados > 0) {
+            // Consolidación en progreso (Ej: 20|05)
+            $clase_texto = 'text-info';
+            $title_accion = "Consolidación en progreso";
+        } else {
+            // Ninguno consolidado aún (Ej: 20|00, antes la 'X')
+            $clase_texto = 'text-danger';
+        }
 
+        $columna_consolidado = '
+            <span 
+                data-code="' . $r->code . '" 
+                class="' . $clase_texto . ' consolidar-accion"
+                title="' . $title_accion . '"
+            >
+                <a href="javascript:void(0)" class="btn-consolidar-lote">
+                    ' . $contenido_columna . '
+                </a>
+            </span>';
+            
+        // ------------------------------------------------------------------
 
+        // ... (El resto del código de acciones no cambia, solo su uso)
+        $iniAcciones = '<div class="list-icons"><div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="icon-menu9"></i></a><div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(22px, 19px, 0px);">';
+        $accView = '<a href="/Admin/Lotes/viewBatch/' . $r->id . '" class="dropdown-item"><i class=" icon-zoomin3"></i>Ver Lote</a>';
+        $accConsolidar = '<a href="/Admin/Lotes/Consolidar/' . $r->id . '" class="dropdown-item"><i class="icon-folder-plus2"></i>Consolidar</a>';
+        $finAcciones = '</div></div></div>';
+        $accionesVer = '<a title="ver archivo" href="/Admin/Lotes/viewBatch/' . $r->id . '"  class=" "><i class="icon-eye4" title="ver"></i> </a> ';
+        $acciones = $iniAcciones . $accView . $accConsolidar . $finAcciones;
+        
+        $datos[] = array(
+            $r->id,
+            $r->id_proveedor,
+            $r->code,
+            fecha_es($r->fecha_add, "d/m/a", true),
+            $r->indexado,
+            // ⚠️ AQUÍ DEBE IR EL CONTADOR. Asumo que es el ÍNDICE 5 (el campo 'status' original es el 5to dato)
+            $columna_consolidado, 
+            $r->status, // Si esta columna era la 6, puede que debas moverla/revisarla.
+            $this->countFiles($r->code),
+            $user->username,
+            $accionesVer
+        );
+    }
 
-			$iniAcciones = '<div class="list-icons"><div class="dropdown"><a href="#" class="list-icons-item" data-toggle="dropdown" aria-expanded="false"><i class="icon-menu9"></i></a><div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(22px, 19px, 0px);">';
+    $resulta = array(
+        "draw" => intval($_REQUEST['draw']),
+        "recordsTotal" => $total->result()[0]->total,
+        "recordsFiltered" => $total->result()[0]->total,
+        "data" => $datos
+    );
 
-
-			$accView = '<a href="/Admin/Lotes/viewBatch/' . $r->id . '" class="dropdown-item"><i class=" icon-zoomin3"></i>Ver Lote</a>';
-			$accConsolidar = '<a href="/Admin/Lotes/Consolidar/' . $r->id . '" class="dropdown-item"><i class="icon-folder-plus2"></i>Consolidar</a>';
-			$finAcciones = '</div></div></div>';
-
-			$accionesVer = '<a title="ver archivo" href="/Admin/Lotes/viewBatch/' . $r->id . '"  class=" "><i class="icon-eye4" title="ver"></i> </a> ';
-
-			$acciones = $iniAcciones . $accView . $accConsolidar . $finAcciones;
-			$datos[] = array(
-				$r->id,
-				$r->id_proveedor,
-				$r->code,
-				fecha_es($r->fecha_add, "d/m/a", true),
-				$r->indexado,
-				$r->status,
-				$this->countFiles($r->code),
-				$user->username,
-				$accionesVer
-			);
-		}
-
-
-		$resulta = array(
-			"draw" => intval($_REQUEST['draw']),
-			"recordsTotal" => $total->result()[0]->total,
-			"recordsFiltered" => $total->result()[0]->total,
-			"data" => $datos
-		);
-
-
-		echo json_encode($resulta);
-	}
+    echo json_encode($resulta);
+}
 
 	public function crearLote_old()
 	{
