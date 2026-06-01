@@ -1,4 +1,26 @@
 <!-- Main navbar -->
+<style>
+    .mvl-topbar-icon {
+        position: relative;
+        min-width: 42px;
+        justify-content: center;
+    }
+    .mvl-topbar-icon .badge {
+        position: absolute;
+        top: 4px;
+        right: 2px;
+        font-size: 10px;
+    }
+    .mvl-alert-pulse i {
+        animation: mvlAlertPulse 1s infinite;
+        color: #ff5252 !important;
+    }
+    @keyframes mvlAlertPulse {
+        0% { transform: scale(1); text-shadow: 0 0 0 rgba(255,82,82,.35); }
+        50% { transform: scale(1.16); text-shadow: 0 0 9px rgba(255,82,82,.95); }
+        100% { transform: scale(1); text-shadow: 0 0 0 rgba(255,82,82,.35); }
+    }
+</style>
 <div class="navbar navbar-expand-md navbar-ligth">
 	<div class="navbar-brand">
 		<a href="<?= base_url() ?>" class="d-inline-block">
@@ -37,6 +59,50 @@
 		<span class="btn bg-success ml-md-3 mr-md-auto"> <?= strtoupper($grupos)?></span>
 
 		<ul class="navbar-nav">
+            <li class="nav-item dropdown ml-1 mr-2" id="nav-item-alertas-vencimientos">
+                <a href="#" class="navbar-nav-link dropdown-toggle legitRipple text-white mvl-topbar-icon" data-toggle="dropdown" id="dropdown_alertas_vencimientos" title="Alertas de vencimiento">
+                    <i class="icon-bell2 text-white"></i>
+                    <span id="badge-alertas-vencimientos" class="badge bg-danger badge-pill" style="display:none">0</span>
+                    <script>
+                        (function () {
+                            try {
+                                var modulo = window.location.pathname.indexOf('/Electromecanica') === 0 ? 'electromecanica' : 'proveedores';
+                                var raw = sessionStorage.getItem('mvl_alertas_vencimientos_cache_' + modulo);
+                                if (!raw) {
+                                    return;
+                                }
+
+                                var cache = JSON.parse(raw);
+                                if (!cache || Date.now() - cache.timestamp > 300000) {
+                                    return;
+                                }
+
+                                var total = parseInt(cache.total || 0, 10);
+                                var badge = document.getElementById('badge-alertas-vencimientos');
+                                if (!badge) {
+                                    return;
+                                }
+
+                                badge.textContent = total;
+                                badge.style.display = total > 0 ? 'block' : 'none';
+                            } catch (e) {}
+                        }());
+                    </script>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350" id="lista-alertas-vencimientos">
+                    <div class="dropdown-content-header">
+                        <h6 class="font-weight-semibold mb-0">Alertas de vencimiento</h6>
+                        <a href="#" class="text-default" id="marcar_alertas_vistas" title="Marcar como visto">
+                            <i class="icon-eye"></i>
+                        </a>
+                    </div>
+                    <div class="dropdown-content-body dropdown-scrollable">
+                        <div id="alertas-vencimientos-content" class="p-3 text-center text-muted">
+                            <i class="icon-spinner2 spinner mr-2"></i> Cargando alertas...
+                        </div>
+                    </div>
+                </div>
+            </li>
 			
 			<li class="nav-item dropdown dropdown-user">
 				<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" style="color: #ffffff" data-toggle="dropdown">
@@ -58,6 +124,13 @@
 	</div>
 </div>
 <!-- /main navbar -->
+
+<script>
+    window.MVL_ALERTAS_CONFIG = {
+        proveedoresUrl: '<?= base_url('Alertas/vencimientos_topbar/proveedores') ?>',
+        electroUrl: '<?= base_url('Alertas/vencimientos_topbar/electromecanica') ?>'
+    };
+</script>
 
 
 
@@ -133,6 +206,12 @@
 							<span>
 								Datos leídos OCR
 							</span>
+						</a>
+					</li>
+					<li class="nav-item nav-item-menu " data-seccion="vencimientos">
+						<a href="/Electromecanica/Vencimientos" class="nav-link ">
+							<i class="icon-calendar" data-seccion="datos"></i>
+							<span>Calendario de vencimientos</span>
 						</a>
 					</li>
 					<li class="nav-item-header">

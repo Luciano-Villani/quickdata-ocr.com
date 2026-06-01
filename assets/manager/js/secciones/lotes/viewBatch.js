@@ -3,6 +3,16 @@
 $(document).ready(function () {
 
   var base_url = $("body").data("base_url");
+  var filtroLote = new URLSearchParams(window.location.search).get("filtro") || "";
+
+  function activarFiltroLote(filtro) {
+    $(".btn-filtro-lote").removeClass("btn-primary").addClass("btn-light");
+    $(".btn-filtro-lote").filter(function () {
+      return ($(this).attr("data-filtro") || "") === filtro;
+    }).removeClass("btn-light").addClass("btn-primary");
+  }
+
+  activarFiltroLote(filtroLote);
 
   var mytable =   $(".datatable-ajax").dataTable({
     select: true,
@@ -10,7 +20,7 @@ $(document).ready(function () {
       'style': 'multi',
       'selector': 'td:first-child'
     },
-    dom: 'Blfrtip',
+    dom: "<'row mx-0 align-items-center'<'col-md-4'B><'col-md-3'l><'col-md-5'f>>rtip",
     buttons: [
       'colvis'
   ],
@@ -24,7 +34,7 @@ $(document).ready(function () {
 
     order: [[1, 'desc']],
     columnDefs: [
-      {visible:false,targets:[13]},
+      {visible:false,targets:[14]},
       {
         'targets': 0,
         'visible':false,
@@ -51,12 +61,16 @@ $(document).ready(function () {
     paging: true,
     scrollCollapse: true,
     scrollX: true,
-    scrollY: 600,
+    scrollY: "62vh",
     processing: true,
     serverSide: true,
     responsive: false,
     ajax: {
-      data: { table: "_datos_api", id_lote:$("body").data("data_lote") },
+      data: function (d) {
+        d.table = "_datos_api";
+        d.id_lote = $("body").data("data_lote");
+        d.filtro = filtroLote;
+      },
       url: "/Admin/Lotes/viewBatch/"+$("body").data("data_lote"),
       type: "POST",
       error: function (jqXHR, textStatus, errorThrown) {
@@ -68,10 +82,18 @@ $(document).ready(function () {
       console.log('createrow');
       // console.log(data);      // console.log(row);
       // return;
-      $(row).attr("id", data[13]);
-      $(row).find("td:eq(0)").attr("id", data[13]);
+      $(row).attr("id", data[14]);
+      $(row).find("td:eq(0)").attr("id", data[14]);
     },
     initComplete: function () {
+      $(".dataTables_scrollBody").css("max-height", "none");
+      var scrollBody = $(".dataTables_scrollBody");
+      scrollBody.off("wheel.dtHorizontal").on("wheel.dtHorizontal", function (e) {
+        if (Math.abs(e.originalEvent.deltaY) > Math.abs(e.originalEvent.deltaX)) {
+          this.scrollLeft += e.originalEvent.deltaY;
+          e.preventDefault();
+        }
+      });
       this.api()
         .columns()
         .every(function () {
@@ -97,6 +119,7 @@ $(document).ready(function () {
         
     },
   });
+
   // $(".datatable-ajax").DataTable().columns.adjust().draw();
   // $(".datatable-ajax").DataTable().responsive.recalc();
 
@@ -133,7 +156,24 @@ $(document).ready(function () {
           },
         },
       });
-    }else if ($(this).data("consolidado") != '0') {
+    } else if (parseInt($(this).data("error-lectura"), 10) > 0) {
+      $.confirm({
+        title: "CONSOLIDAR ARCHIVO",
+        content:
+          "El archivo: <strong> " +
+          file +
+          " </strong> posee errores de lectura. Corregi los datos antes de consolidar.",
+        buttons: {
+          cancel: {
+            text: "Cancelar",
+            btnClass: "btn-red",
+            action: function () {
+              return;
+            },
+          },
+        },
+      });
+    } else if ($(this).data("consolidado") != '0') {
       $.confirm({
         title: "CONSOLIDAR ARCHIVO",
         content:
@@ -485,8 +525,3 @@ $(document).ready(function () {
     }
   });
 }); 
-
-
-
-
-

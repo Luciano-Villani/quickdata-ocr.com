@@ -166,6 +166,25 @@
 
 						</div>
 					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<select id="periodicidad_meses" name="periodicidad_meses" class="form-control">
+								<option value="1" <?= (int) @$periodicidad_meses === 1 ? 'selected' : '' ?>>Mensual</option>
+								<option value="2" <?= (int) @$periodicidad_meses === 2 ? 'selected' : '' ?>>Bimestral</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="number" min="1" class="form-control" id="dias_alerta" name="dias_alerta" placeholder="Dias alerta" value="<?= (int) @$dias_alerta ?: 7 ?>">
+						</div>
+					</div>
+					<div class="col-md-2 pt-2">
+						<label>
+							<input type="checkbox" id="control_vencimiento" name="control_vencimiento" value="1" <?= !isset($control_vencimiento) || (int) $control_vencimiento === 1 ? 'checked' : '' ?>>
+							Controlar vencimiento
+						</label>
+					</div>
 				</div>
 
 				<div class="row col-md-2">
@@ -200,6 +219,8 @@
 				<th>Programa</th>
 				<th>Proyecto</th>
 				<th>Dependencia</th>
+				<th>Periodicidad</th>
+				<th>Control venc.</th>
 				<th></th>
 			</tr>
 		</thead>

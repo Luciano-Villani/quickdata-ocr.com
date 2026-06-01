@@ -32,7 +32,7 @@ class Lecturas extends backend_controller
 
     // 0. Cargar el modelo Lecturas_model si aún no está cargado
     // (Asegúrate de que este paso sea correcto según la configuración de CodeIgniter)
-    $this->load->model('Lecturas_model'); 
+    $this->load->model('manager/Lecturas_model'); 
 
     // 1. Actualización tabla _lotes (Lógica existente)
     $data = array(
@@ -513,7 +513,7 @@ public function copy($id = 0)
             // MANTENIMIENTO: Recalcular resumen completo del lote
             if ($this->db->trans_status() !== FALSE && $id_lote) {
                 // Llamamos al recálculo después de la inserción/actualización exitosa
-                $this->load->model('Lecturas_model'); 
+                $this->load->model('manager/Lecturas_model'); 
                 $this->Lecturas_model->actualizar_resumen_lote($id_lote);
             }
             // --------------------------------------------------------
@@ -624,7 +624,7 @@ public function copy($id = 0)
                 
                 // 2. Ejecutar recálculo si la actualización fue exitosa
                 if ($id_lote) {
-                    $this->load->model('Lecturas_model'); 
+                    $this->load->model('manager/Lecturas_model'); 
                     $this->Lecturas_model->actualizar_resumen_lote($id_lote);
                 }
                 
@@ -844,7 +844,7 @@ protected function parseDate($dateString)
                 // MANTENIMIENTO: Recalcular resumen completo del lote
                 if ($id_lote) {
                     // La función de recálculo se encuentra en Lecturas_model
-                    $this->load->model('Lecturas_model'); 
+                    $this->load->model('manager/Lecturas_model'); 
                     $this->Lecturas_model->actualizar_resumen_lote($id_lote);
                 }
                 // --------------------------------------------------------
@@ -1252,5 +1252,4 @@ public function obtener_lecturas_dt()
 }
 
 }
-
 

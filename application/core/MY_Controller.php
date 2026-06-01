@@ -31,6 +31,7 @@ class MY_controller extends CI_Controller
 			$_POST['search']['value'] = strtoupper($_POST['search']['value']);
 
 		}
+		
 
 
 		$this->css_common = array(
@@ -79,6 +80,7 @@ class MY_controller extends CI_Controller
 			base_url('assets/manager/js/plugins/dropzone.min.js'),
 			base_url('assets/manager/js/app.js'),
 			base_url('assets/manager/js/confirm.js'),
+			base_url('assets/manager/js/secciones/alertas/topbar.js'),
 			// base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
 
 		);

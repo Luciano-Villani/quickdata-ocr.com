@@ -577,8 +577,8 @@ class Electromecanica_model extends CI_Model
                 $this->db->join('_secretarias', '_secretarias.id = _indexaciones_canon.id_secretaria', 'rigth', true);
                 $this->db->join('_proveedores_canon', '_proveedores_canon.id = _indexaciones_canon.id_proveedor', '');
                 $this->db->join('_dependencias_canon', '_dependencias_canon.id = _indexaciones_canon.id_dependencia', 'left');
-                $this->db->join('_programas', ' _indexaciones_canon.id_programa = _programas.id', '');
-                $this->db->join('_proyectos', '_indexaciones_canon.id_proyecto = _proyectos.id', '');
+                $this->db->join('_programas', ' _indexaciones_canon.id_programa = _programas.id', 'left');
+                $this->db->join('_proyectos', '_indexaciones_canon.id_proyecto = _proyectos.id', 'left');
 
                 $my_column_order = array(
                     '',

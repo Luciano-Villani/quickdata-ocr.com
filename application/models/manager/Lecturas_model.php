@@ -235,15 +235,16 @@ public function get_lotes_data($id_proveedor = null)
     }
 
     // Definición de columnas para ORDER
-    $columns = array(
-    0 => 't1.id',                 // 0. Checkbox/ID (Oculto)
-    1 => 'p.nombre',              // 1. Proveedor
-    2 => 't1.fecha_add',          // 2. Fecha (ANTES ERA 't1.code', ahora es 't1.fecha_add')
-    3 => 'r.total_archivos',      // 3. Facturas
-    4 => 'r.archivos_sin_indexar',// 4. Sin Index
-    5 => 't1.consolidado',        // 5. Consolidado
-    6 => 'u.username',            // 6. Usuario
-    7 => 't1.id',                 // 7. Acciones (Último índice)
+$columns = array(
+    0 => 't1.id',
+    1 => 'p.nombre',
+    2 => 't1.fecha_add',
+    3 => 'r.total_archivos',
+    4 => 'r.archivos_sin_indexar',
+    5 => 'r.archivos_error_lectura',
+    6 => 't1.consolidado',
+    7 => 'u.username',
+    8 => 't1.id',
 );
     
     // --- 2. CONSULTA TOTAL (RecordsTotal) ---
@@ -260,7 +261,8 @@ public function get_lotes_data($id_proveedor = null)
                 p.nombre as proveedor, 
                 CONCAT(u.first_name, ' ', u.last_name) as username_add,
                 r.total_archivos as cant,               
-                r.archivos_sin_indexar as sin_indexar  
+                r.archivos_sin_indexar as sin_indexar,
+                r.archivos_error_lectura as error_lectura
             ";
     
     $sql .= " FROM {$table_lotes} t1";
@@ -308,18 +310,25 @@ public function get_lotes_data($id_proveedor = null)
         $checkbox = '<input id="' . $r->id . '" class="checkbox" type="checkbox">';
         // Los valores $r->cant y $r->sin_indexar vienen de la tabla de resumen
         $sin_indexado = (int)$r->sin_indexar; 
+        $error_lectura = (int)$r->error_lectura;
+        $sin_index_badge = $sin_indexado > 0
+            ? '<a href="/Admin/Lotes/viewBatch/' . $r->code . '?filtro=sin_index" class="badge badge-danger" title="Ver lecturas sin indexacion">' . $sin_indexado . '</a>'
+            : '<span class="badge badge-success">0</span>';
+        $error_lectura_badge = $error_lectura > 0
+            ? '<a href="/Admin/Lotes/viewBatch/' . $r->code . '?filtro=errores" class="badge badge-danger" title="Ver lecturas con errores">' . $error_lectura . '</a>'
+            : '<span class="badge badge-success">0</span>';
         $consolidado_status = $r->consolidado ? 
             '<span class="acciones"><i class="text-warnin icon-check2 "></i></span>' : 
             '<span class="acciones"><i class="text-danger icon-cross2 "></i></span>';
 
         $acciones_full = '<span class="acciones"><a title="ver archivo" href="/Admin/Lotes/viewBatch/' . $r->code . '" class=""><i class="icon-eye4" title="ver"></i></a></span>' .
-                         '<span data-consolidado="' . $r->consolidado . '" data-errores="' . $r->sin_indexar . '" data-code="' . $r->code . '" data-id_lote="' . $r->id . '" class="mergelote"><a title="Consolidar" href="#"><i class="text-info icon-merge " title="Consolidar"></i></a></span>' .
+                         '<span data-consolidado="' . $r->consolidado . '" data-errores="' . $sin_indexado . '" data-error-lectura="' . $error_lectura . '" data-code="' . $r->code . '" data-id_lote="' . $r->id . '" class="mergelote"><a title="Consolidar" href="#"><i class="text-info icon-merge " title="Consolidar"></i></a></span>' .
                          '<span data-id_lote="' . $r->id . '" data-code="' . $r->code . '" class="d-none editar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Editar lote" href="#"><i class=" text-warningr icon-pencil4 " title="Editar Lote"></i></a></span>' .
                          '<span data-id_lote="' . $r->id . '" data-code="' . $r->code . '" class="borrar_lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Borrar lote" href="#"><i class=" text-danger icon-trash " title="Borrar Lote"></i></a></span>';
         
         $datos[] = array(
             $checkbox, $r->proveedor, fecha_es($r->fecha_add, "d/m/a"), 
-            (int)$r->cant, $sin_indexado, $consolidado_status, $r->username_add, $acciones_full
+            (int)$r->cant, $sin_index_badge, $error_lectura_badge, $consolidado_status, $r->username_add, $acciones_full
         );
     }
     
@@ -347,6 +356,7 @@ public function actualizar_resumen_lote($id_lote)
             COUNT(t2.id) AS total_archivos,
             -- Archivos sin indexar (nro_cuenta de t2 no tiene coincidencia en t3)
             SUM(CASE WHEN t3.id IS NULL THEN 1 ELSE 0 END) AS archivos_sin_indexar,
+            SUM(" . $this->sql_error_lectura_case('t2') . ") AS archivos_error_lectura,
             -- Archivos PENDIENTES de consolidar (t2.consolidado = 0)
             SUM(CASE WHEN t2.consolidado = 0 THEN 1 ELSE 0 END) AS archivos_pendientes_consolidar
         FROM _datos_api t2 
@@ -365,8 +375,8 @@ public function actualizar_resumen_lote($id_lote)
     // 3. Actualizar la tabla de resumen (_lotes_resumen)
     $this->db->where('id_lote', $id_lote)->update('_lotes_resumen', [
         'total_archivos' => (int)$resumen_data['total_archivos'],
-        'archivos_sin_indexar' => (int)$resumen_data['archivos_sin_indexar']
-        // Nota: No actualizamos el campo de pendientes aquí si no existe en _lotes_resumen
+        'archivos_sin_indexar' => (int)$resumen_data['archivos_sin_indexar'],
+        'archivos_error_lectura' => (int)$resumen_data['archivos_error_lectura']
     ]);
     
     // 4. Actualizar el estado 'consolidado' en la tabla principal del LOTE (_lotes)
@@ -377,4 +387,78 @@ public function actualizar_resumen_lote($id_lote)
     
     // El comentario sobre la inserción es válido: el UPDATE es suficiente aquí.
 }
+
+    public function sql_error_lectura_case($alias = '')
+    {
+        $prefix = $alias ? $alias . '.' : '';
+
+        return "CASE
+            WHEN {$prefix}nro_cuenta IS NULL OR TRIM({$prefix}nro_cuenta) IN ('', 'S/D', 'SD', '-', 'error de lectura')
+                OR {$prefix}nro_factura IS NULL OR TRIM({$prefix}nro_factura) IN ('', 'S/D', 'SD', '-', 'error de lectura')
+                OR {$prefix}periodo_del_consumo IS NULL OR TRIM({$prefix}periodo_del_consumo) IN ('', 'S/D', 'SD', '-', 'error de lectura')
+                OR {$prefix}fecha_emision IS NULL OR TRIM({$prefix}fecha_emision) IN ('', 'S/D', 'SD', '-', '0000-00-00', 'error de lectura')
+                OR {$prefix}vencimiento_del_pago IS NULL OR TRIM({$prefix}vencimiento_del_pago) IN ('', 'S/D', 'SD', '-', '0000-00-00', 'error de lectura')
+                OR {$prefix}total_importe IS NULL OR TRIM({$prefix}total_importe) IN ('', 'S/D', 'SD', '-', 'error de lectura')
+                OR TRIM({$prefix}total_importe) NOT REGEXP '^-?[0-9]+([,.][0-9]+)?$'
+                OR CAST(REPLACE(TRIM({$prefix}total_importe), ',', '.') AS DECIMAL(18,2)) <= 0
+            THEN 1
+            ELSE 0
+        END";
+    }
+
+    public function errores_lectura($lectura)
+    {
+        $errores = [];
+
+        if ($this->valor_vacio($lectura->nro_cuenta)) {
+            $errores[] = 'Sin cuenta';
+        }
+        if ($this->valor_vacio($lectura->nro_factura)) {
+            $errores[] = 'Sin factura';
+        }
+        if ($this->valor_vacio($lectura->periodo_del_consumo)) {
+            $errores[] = 'Sin periodo';
+        }
+        if ($this->fecha_invalida($lectura->fecha_emision)) {
+            $errores[] = 'Sin fecha emision';
+        }
+        if ($this->fecha_invalida($lectura->vencimiento_del_pago)) {
+            $errores[] = 'Sin vencimiento';
+        }
+        if ($this->importe_invalido($lectura->total_importe)) {
+            $errores[] = 'Sin importe';
+        }
+
+        return $errores;
+    }
+
+    public function tiene_error_lectura($lectura)
+    {
+        return count($this->errores_lectura($lectura)) > 0;
+    }
+
+    private function valor_vacio($valor)
+    {
+        $valor = trim((string)$valor);
+        return $valor === '' || in_array(strtoupper($valor), ['S/D', 'SD', '-', 'ERROR DE LECTURA'], true);
+    }
+
+    private function fecha_invalida($valor)
+    {
+        if ($this->valor_vacio($valor) || trim((string)$valor) === '0000-00-00') {
+            return true;
+        }
+
+        return strtotime($valor) === false;
+    }
+
+    private function importe_invalido($valor)
+    {
+        if ($this->valor_vacio($valor)) {
+            return true;
+        }
+
+        $normalizado = str_replace(',', '.', trim((string)$valor));
+        return !is_numeric($normalizado) || (float)$normalizado <= 0;
+    }
 }

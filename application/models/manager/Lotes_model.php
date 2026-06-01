@@ -8,14 +8,31 @@ class Lotes_model extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->model('manager/Lecturas_model');
 		// Set table name
 		$this->table = '_lotes';
 		// Set orderable column fields
 		$this->column_order = array('_proveedores.codigo','_proveedores.nombre', '_lotes.fecha_add','','','_lotes.consolidado','_lotes.user_add');
 		$this->column_search = array( '_proveedores.codigo','_proveedores.nombre', '_lotes.consolidado','_lotes.user_add', '_lotes.fecha_add');
 		
-		$this->files_column_search = array('nro_factura', 'nro_cuenta','nro_medidor', 'user_add');
-		$this->files_column_order = array( 'nro_factura','nro_cuenta','nro_medidor', 'user_add');
+		$this->files_column_search = array('_datos_api.nro_factura', '_datos_api.nro_cuenta','_datos_api.nro_medidor', '_datos_api.user_add');
+		$this->files_column_order = array(
+			'_datos_api.id',
+			'_datos_api.nro_cuenta',
+			'_datos_api.nro_medidor',
+			'_datos_api.nro_factura',
+			'_datos_api.periodo_del_consumo',
+			'_datos_api.fecha_emision',
+			'_datos_api.vencimiento_del_pago',
+			'_datos_api.total_importe',
+			'_datos_api.total_vencido',
+			'_datos_api.consumo',
+			'_datos_api.nro_cuenta',
+			'_datos_api.nombre_archivo',
+			'_datos_api.id',
+			'_datos_api.id',
+			'_datos_api.id',
+		);
 		$this->order = array('id' => 'desc');
 	}
 
@@ -48,7 +65,10 @@ class Lotes_model extends CI_Model
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
-	public function countAllFiles(){
+	public function countAllFiles($codeLote = null){
+        if ($codeLote !== null) {
+            $this->db->where('code_lote', $codeLote);
+        }
         $this->db->from('_datos_api');
         return $this->db->count_all_results();
     }
@@ -70,9 +90,17 @@ class Lotes_model extends CI_Model
 
 	private function _get_datatables_files_query($postData){
 
-		$postData['code_lote']=1;
+        $postData['code_lote']=1;
+        $this->db->select('_datos_api.*');
         $this->db->from('_datos_api');
         $this->db->where('code_lote',$postData['id_lote']);
+        if (!empty($postData['filtro']) && $postData['filtro'] === 'sin_index') {
+            $this->db->join('_indexaciones idx', 'idx.nro_cuenta = _datos_api.nro_cuenta', 'left');
+            $this->db->where('idx.id IS NULL', null, false);
+        }
+        if (!empty($postData['filtro']) && $postData['filtro'] === 'errores') {
+            $this->db->where('(' . $this->Lecturas_model->sql_error_lectura_case('_datos_api') . ') = 1', null, false);
+        }
  
         $i = 0;
         // loop searchable columns 
@@ -104,7 +132,10 @@ class Lotes_model extends CI_Model
         }
          
         if(isset($postData['order'])){
-            $this->db->order_by($this->files_column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
+            $order_index = (int)$postData['order']['0']['column'];
+            $order_column = isset($this->files_column_order[$order_index]) ? $this->files_column_order[$order_index] : '_datos_api.id';
+            $order_dir = strtolower($postData['order']['0']['dir']) === 'asc' ? 'asc' : 'desc';
+            $this->db->order_by($order_column, $order_dir);
         }else if(isset($this->order)){
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);

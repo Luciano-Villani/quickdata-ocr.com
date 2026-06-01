@@ -294,6 +294,9 @@ function newexportaction(e, dt, button, config) {
             $("input[name='nro_cuenta']").removeAttr('disabled');
             $("input[name='id_indexacion']").val(result.data.id);
             $("select#tipo_pago").val(result.data.tipo_pago).trigger('change');
+            $("#periodicidad_meses").val(result.data.periodicidad_meses || 1);
+            $("#dias_alerta").val(result.data.dias_alerta || 7);
+            $("#control_vencimiento").prop("checked", String(result.data.control_vencimiento) !== "0");
             $("select#select_secretaria").val(result.data.id_secretaria).trigger('change');
             
             
@@ -372,7 +375,7 @@ function newexportaction(e, dt, button, config) {
             targets: [0,1,3],
             visible: false,
           },
-          { width: "", orderable: false, targets: [7] },
+          { width: "", orderable: false, targets: [11] },
           {
             targets: [2],
             render: function (data, type, full, meta) {

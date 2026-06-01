@@ -85,22 +85,26 @@ function initDatatable(search = false, type = 0) {
   var prove = false;
   var tipo_pago = false;
   var periodo_contable = false;
+  var expediente = false;
 
   // desde los filtros 4
   if (type == 4) {
     prove = $("#id_proveedor").val();
     tipo_pago = $("#id_tipo_pago").val();
     periodo_contable = $("#periodo_contable").val();
+    expediente = $("#id_expediente").val();
 
     if ($("#tipo-fecha").is(":checked")) {
       var fecha = $("#daterange2").val();
     }
-        var $select = $("#id_tipo_pago");
+    var $select = $("#id_tipo_pago");
     var value = $select.val();
     var data = [];
-    value.forEach(function (valor, indice, array) {
-      data[indice] = $select.find("option[value=" + valor + "]").text();
-    });
+    if (value && value.length) {
+      value.forEach(function (valor, indice, array) {
+        data[indice] = $select.find("option[value=" + valor + "]").text();
+      });
+    }
   }
 
   $("#consolidados_dt").DataTable().destroy();
@@ -144,7 +148,7 @@ function initDatatable(search = false, type = 0) {
       ],
       columnDefs: [
         {
-          targets: [6],
+          targets: [6, 16],
           visible: false,
         },
         {
@@ -180,6 +184,7 @@ function initDatatable(search = false, type = 0) {
           id_proveedor: prove,
           tipo_pago: data,
           periodo_contable: periodo_contable,
+          expediente: expediente,
           fecha: fecha,
         },
         url: "/Consolidados/list_dt",
@@ -215,6 +220,190 @@ function initDatatable(search = false, type = 0) {
           });
       },
     });
+}
+
+var modoReporteActual = "consolidados";
+var actualizandoFiltrosReporteFinal = false;
+
+function escapeHtml(value) {
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function formatMoney(value) {
+  var number = parseFloat(value || 0);
+  return number.toLocaleString("es-AR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+function obtenerFiltrosReporteFinal() {
+  var tipoPagoIds = $("#id_tipo_pago").val();
+  var tipoPagoTextos = [];
+
+  if (tipoPagoIds && tipoPagoIds.length) {
+    var $select = $("#id_tipo_pago");
+    tipoPagoIds.forEach(function (valor) {
+      tipoPagoTextos.push($select.find("option[value=" + valor + "]").text());
+    });
+  }
+
+  return {
+    id_proveedor: $("#id_proveedor").val() || [],
+    tipo_pago: tipoPagoTextos,
+    periodo_contable: $("#periodo_contable").val() || [],
+    expediente: $("#id_expediente").val() || [],
+    fecha: $("#tipo-fecha").is(":checked") ? $("#daterange2").val() : "",
+  };
+}
+
+function syncSelectOptions($select, opciones) {
+  var selected = $select.val() || [];
+  var validValues = {};
+  var html = "";
+
+  opciones.forEach(function (opcion) {
+    validValues[String(opcion.id)] = true;
+    html += '<option value="' + escapeHtml(opcion.id) + '">' + escapeHtml(opcion.text) + "</option>";
+  });
+
+  $select.html(html);
+  selected = selected.filter(function (value) {
+    return validValues[String(value)];
+  });
+  $select.val(selected).trigger("change.select2");
+}
+
+function seleccionarPeriodoActualSiCorresponde() {
+  var periodoActual = window.REPORTE_FINAL_PERIODO_ACTUAL || "";
+  var $periodo = $("#periodo_contable");
+
+  if (!periodoActual || ($periodo.val() && $periodo.val().length)) {
+    return;
+  }
+
+  if ($periodo.find('option[value="' + periodoActual.replace(/"/g, '\\"') + '"]').length) {
+    $periodo.val([periodoActual]).trigger("change.select2");
+  }
+}
+
+function actualizarOpcionesReporteFinal(callback) {
+  if (actualizandoFiltrosReporteFinal) {
+    if (callback) {
+      callback();
+    }
+    return;
+  }
+
+  actualizandoFiltrosReporteFinal = true;
+  $.ajax({
+    url: "/Consolidados/reporte_final_opciones",
+    type: "POST",
+    dataType: "json",
+    data: obtenerFiltrosReporteFinal(),
+    success: function (response) {
+      if (response && response.status === "success" && response.opciones) {
+        syncSelectOptions($("#id_tipo_pago"), response.opciones.tipo_pago || []);
+        syncSelectOptions($("#periodo_contable"), response.opciones.periodo_contable || []);
+        syncSelectOptions($("#id_expediente"), response.opciones.expediente || []);
+      }
+    },
+    complete: function () {
+      actualizandoFiltrosReporteFinal = false;
+      seleccionarPeriodoActualSiCorresponde();
+      if (callback) {
+        callback();
+      }
+    },
+  });
+}
+
+function renderReporteFinal(response) {
+  var $tbody = $("#reporte_final_preview tbody");
+  var filas = response.filas || [];
+
+  $("#reporte-final-titulo").text(response.titulo || "REPORTE FINAL");
+  $("#reporte-final-resumen").text(
+    (response.cantidad || 0) + " facturas - Total: $" + formatMoney(response.total || 0)
+  );
+
+  if (!filas.length) {
+    $tbody.html('<tr><td colspan="13" class="text-center text-muted">No hay registros para los filtros aplicados.</td></tr>');
+    return;
+  }
+
+  var html = "";
+  filas.forEach(function (fila) {
+    if (fila.tipo === "detalle") {
+      html += "<tr>" +
+        "<td>" + escapeHtml(fila.proveedor) + "</td>" +
+        "<td>" + escapeHtml(fila.expediente) + "</td>" +
+        "<td>" + escapeHtml(fila.secretaria) + "</td>" +
+        "<td>" + escapeHtml(fila.dependencia) + "</td>" +
+        "<td>" + escapeHtml(fila.jurisdiccion) + "</td>" +
+        "<td>" + escapeHtml(fila.programa) + "</td>" +
+        "<td>" + escapeHtml(fila.objeto) + "</td>" +
+        "<td>" + escapeHtml(fila.tipo_pago) + "</td>" +
+        "<td>" + escapeHtml(fila.nro_cuenta) + "</td>" +
+        "<td>" + escapeHtml(fila.nro_factura) + "</td>" +
+        "<td>" + escapeHtml(fila.periodo) + "</td>" +
+        "<td>" + escapeHtml(fila.vencimiento) + "</td>" +
+        '<td class="importe">' + formatMoney(fila.importe) + "</td>" +
+      "</tr>";
+    } else if (fila.tipo === "subtotal_programa") {
+      html += '<tr class="fila-subtotal"><td colspan="5"></td><td>' + escapeHtml(fila.programa) + '</td><td colspan="6"></td><td class="importe">' + formatMoney(fila.importe) + "</td></tr>";
+    } else {
+      html += '<tr class="fila-subtotal"><td colspan="4"></td><td>' + escapeHtml(fila.jurisdiccion) + '</td><td colspan="7"></td><td class="importe">' + formatMoney(fila.importe) + "</td></tr>";
+    }
+  });
+
+  $tbody.html(html);
+}
+
+function cargarReporteFinal() {
+  $("#reporte_final_preview tbody").html('<tr><td colspan="13" class="text-center text-muted">Generando vista previa...</td></tr>');
+
+  $.ajax({
+    url: "/Consolidados/reporte_final_preview",
+    type: "POST",
+    dataType: "json",
+    data: obtenerFiltrosReporteFinal(),
+    success: function (response) {
+      if (!response || response.status !== "success") {
+        $("#reporte_final_preview tbody").html('<tr><td colspan="13" class="text-center text-danger">No se pudo generar el reporte.</td></tr>');
+        return;
+      }
+      renderReporteFinal(response);
+    },
+    error: function () {
+      $("#reporte_final_preview tbody").html('<tr><td colspan="13" class="text-center text-danger">Error de conexion al generar el reporte.</td></tr>');
+    },
+  });
+}
+
+function setModoReporte(modo) {
+  modoReporteActual = modo;
+  $(".modo-reporte-btn").removeClass("active btn-primary").addClass("btn-outline-primary");
+  $('.modo-reporte-btn[data-modo="' + modo + '"]').addClass("active btn-primary").removeClass("btn-outline-primary");
+
+  if (modo === "reporte_final") {
+    $("#vista-consolidada-card").addClass("d-none");
+    $("#reporte-final-card").removeClass("d-none");
+    $("#descarga-principal").addClass("d-none");
+    $("#modo-reporte-ayuda").text("Vista previa del Excel agrupado por jurisdiccion y programa.");
+    seleccionarPeriodoActualSiCorresponde();
+    actualizarOpcionesReporteFinal(cargarReporteFinal);
+  } else {
+    $("#vista-consolidada-card").removeClass("d-none");
+    $("#reporte-final-card").addClass("d-none");
+    $("#descarga-principal").removeClass("d-none");
+    $("#modo-reporte-ayuda").text("Vista operativa con descarga normal y opcion de PDFs.");
+  }
 }
 
 $(document).ready(function () {
@@ -304,19 +493,45 @@ $(document).ready(function () {
         $("#id_proveedor").val("").trigger("change");
         $("#id_tipo_pago").val("").trigger("change");
         $("#periodo_contable").val("").trigger("change");
+        $("#id_expediente").val("").trigger("change");
 
         $('#daterange2').data('daterangepicker').setEndDate(new Date);
         $('#daterange2').data('daterangepicker').setStartDate(new Date);
 
         // $("#id_tipo_pago").prop("selectedIndex", 0);
-        initDatatable();
+        if (modoReporteActual === "reporte_final") {
+            seleccionarPeriodoActualSiCorresponde();
+            actualizarOpcionesReporteFinal(cargarReporteFinal);
+        } else {
+            initDatatable();
+        }
     });
 
     $("body").on("click", "#applyfilter", function (e) {
         e.preventDefault();
 
-        
-        initDatatable(false, 4);
+        if (modoReporteActual === "reporte_final") {
+            actualizarOpcionesReporteFinal(cargarReporteFinal);
+        } else {
+            initDatatable(false, 4);
+        }
+    });
+
+    $("body").on("click", ".modo-reporte-btn", function (e) {
+        e.preventDefault();
+        setModoReporte($(this).data("modo"));
+    });
+
+    $("body").on("change", "#id_proveedor, #id_tipo_pago, #periodo_contable, #id_expediente, #tipo-fecha, #daterange2", function () {
+        if (modoReporteActual === "reporte_final" && !actualizandoFiltrosReporteFinal) {
+            actualizarOpcionesReporteFinal();
+        }
+    });
+
+    $("body").on("click", "#descargar-reporte-final", function (e) {
+        e.preventDefault();
+        var params = obtenerFiltrosReporteFinal();
+        window.open("/Consolidados/descargar_reporte_final?" + $.param(params), "_blank");
     });
 
     $("body").on("click", "#descarga-exell", function (e) {
@@ -334,6 +549,7 @@ $("body").on("click", "#descarga-principal", function (e) {
     var prove = $("#id_proveedor").val();
     var tipo_pago_ids = $("#id_tipo_pago").val();
     var periodo_contable = $("#periodo_contable").val();
+    var expediente = $("#id_expediente").val();
     var fecha_checked = $("#tipo-fecha").is(":checked");
     
     // Comprueba si AL MENOS UN filtro tiene datos
@@ -341,6 +557,7 @@ $("body").on("click", "#descarga-principal", function (e) {
         (prove && prove.length > 0) ||
         (tipo_pago_ids && tipo_pago_ids.length > 0) ||
         (periodo_contable && periodo_contable.length > 0) ||
+        (expediente && expediente.length > 0) ||
         (fecha_checked) 
     );
     
@@ -390,6 +607,9 @@ $("body").on("click", "#descarga-principal", function (e) {
                     }
                     if (periodo_contable && periodo_contable.length > 0) {
                         params.periodo_contable = periodo_contable;
+                    }
+                    if (expediente && expediente.length > 0) {
+                        params.expediente = expediente;
                     }
                     if (fecha) { 
                         params.fecha = fecha;

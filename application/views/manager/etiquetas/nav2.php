@@ -2,6 +2,111 @@
         #areaBadge, #toggleVisibility {
             transition: none; /* Desactiva transiciones para pruebas */
         }
+        .mvl-topbar-icon {
+            position: relative;
+            min-width: 42px;
+            justify-content: center;
+        }
+        .mvl-topbar-icon .badge {
+            position: absolute;
+            top: 4px;
+            right: 2px;
+            font-size: 10px;
+        }
+        .mvl-alert-pulse i {
+            animation: mvlAlertPulse 1s infinite;
+            color: #ff5252 !important;
+        }
+        @keyframes mvlAlertPulse {
+            0% { transform: scale(1); text-shadow: 0 0 0 rgba(255,82,82,.35); }
+            50% { transform: scale(1.16); text-shadow: 0 0 9px rgba(255,82,82,.95); }
+            100% { transform: scale(1); text-shadow: 0 0 0 rgba(255,82,82,.35); }
+        }
+        .mvl-sidebar-area {
+            display: block;
+            margin: 0 1rem .55rem;
+            padding: .45rem .65rem;
+            border-radius: .35rem;
+            font-size: 13px;
+            text-align: center;
+        }
+        .mvl-sidebar-section > .nav-link {
+            margin: .15rem .55rem;
+            border-radius: .35rem;
+            font-weight: 700;
+            letter-spacing: .01em;
+            color: rgba(255,255,255,.92);
+            background: rgba(255,255,255,.055);
+        }
+        .mvl-sidebar-section > .nav-link:hover,
+        .mvl-sidebar-section.nav-item-open > .nav-link {
+            background: rgba(255,255,255,.12);
+            color: #fff;
+        }
+        .mvl-sidebar-section .nav-group-sub {
+            margin: .15rem .55rem .45rem;
+            border-left: 2px solid rgba(255,255,255,.12);
+        }
+        .mvl-sidebar-section .nav-group-sub .nav-link {
+            padding-top: .55rem;
+            padding-bottom: .55rem;
+        }
+        .mvl-sidebar-section .nav-group-sub .nav-link span {
+            white-space: normal;
+            line-height: 1.2;
+        }
+        .nav-sidebar .nav-item-header.mvl-sidebar-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .6rem;
+            margin: .2rem .55rem;
+            padding: .72rem .9rem;
+            border-radius: .45rem;
+            cursor: pointer;
+            background: rgba(255,255,255,.055);
+            color: rgba(255,255,255,.92);
+            font-weight: 700;
+            min-height: 42px;
+            transition: background .15s ease, color .15s ease;
+        }
+        .nav-sidebar .nav-item-header.mvl-sidebar-toggle > div {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 1;
+            font-size: .78rem;
+            letter-spacing: .025em;
+        }
+        .nav-sidebar .nav-item-header.mvl-sidebar-toggle:hover,
+        .nav-sidebar .nav-item-header.mvl-sidebar-toggle.mvl-sidebar-open {
+            background: rgba(255,255,255,.12);
+            color: #fff;
+        }
+        .nav-sidebar .nav-item-header.mvl-sidebar-toggle > i {
+            display: none;
+        }
+        .nav-sidebar .nav-item-header.mvl-sidebar-toggle::after {
+            content: "";
+            width: .48rem;
+            height: .48rem;
+            flex: 0 0 auto;
+            border-right: 2px solid rgba(255,255,255,.72);
+            border-bottom: 2px solid rgba(255,255,255,.72);
+            transform: rotate(-45deg);
+            transition: transform .15s ease, border-color .15s ease;
+        }
+        .nav-sidebar .nav-item-header.mvl-sidebar-toggle.mvl-sidebar-open::after {
+            transform: rotate(45deg);
+            border-color: #fff;
+        }
+        .nav-sidebar .nav-item-header.mvl-sidebar-toggle + .nav-item-menu {
+            margin-top: .15rem;
+        }
+        .nav-sidebar .nav-item-menu.mvl-sidebar-collapsed {
+            display: none;
+        }
     </style>
 
 <!-- Main navbar -->
@@ -33,7 +138,12 @@
 		</ul>
 		<?php
 $grupos= '';
-$area= 'Proveedores';
+$is_electro_route = strpos($_SERVER['REQUEST_URI'], '/Electromecanica') === 0;
+$area= $is_electro_route ? 'Electromecanica' : 'Proveedores';
+$toggle_text = $is_electro_route ? 'Ir a Proveedores' : 'Ir a Electromecanica';
+$toggle_class = $is_electro_route ? 'bg-success' : 'bg-primary';
+$nav_user_first = (isset($this->user) && is_object($this->user) && isset($this->user->first_name)) ? $this->user->first_name : '';
+$nav_user_last = (isset($this->user) && is_object($this->user) && isset($this->user->last_name)) ? $this->user->last_name : '';
 
 		foreach($this->ion_auth->get_users_groups()->result() as $grupo){
 			$grupos .= $grupo->description;  
@@ -42,7 +152,7 @@ $area= 'Proveedores';
 		?>
 
 		<span class="badge bg-success ml-md-3 mr-md-auto">MVL Online <?= $grupos?></span>
-		<button class="tab-button btn-secondary" id="toggleVisibility"></button>
+		<button class="tab-button <?= $toggle_class ?>" id="toggleVisibility"><?= $toggle_text ?></button>
 
 		<ul class="navbar-nav">
             
@@ -60,6 +170,26 @@ $area= 'Proveedores';
               style="<?= ($conteo_seguimiento > 0) ? '' : 'display: none;' ?>">
             <?= $conteo_seguimiento ?>
         </span>
+        <script>
+            (function () {
+                try {
+                    var modulo = window.location.pathname.indexOf('/Electromecanica') === 0 ? 'electromecanica' : 'proveedores';
+                    var raw = sessionStorage.getItem('mvl_seguimiento_count_' + modulo);
+                    if (raw === null) {
+                        return;
+                    }
+
+                    var total = parseInt(raw || 0, 10);
+                    var badge = document.getElementById('badge-seguimiento-proveedores');
+                    if (!badge) {
+                        return;
+                    }
+
+                    badge.textContent = total;
+                    badge.style.display = total > 0 ? '' : 'none';
+                } catch (e) {}
+            }());
+        </script>
     </a>
 
     <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350" id="lista-seguimiento-proveedores">
@@ -74,13 +204,58 @@ $area= 'Proveedores';
         </div>
     </div>
 </li>
+
+            <li class="nav-item dropdown ml-1 mr-2" id="nav-item-alertas-vencimientos">
+                <a href="#" class="navbar-nav-link dropdown-toggle legitRipple text-white mvl-topbar-icon" data-toggle="dropdown" id="dropdown_alertas_vencimientos" title="Alertas de vencimiento">
+                    <i class="icon-bell2 text-white"></i>
+                    <span id="badge-alertas-vencimientos" class="badge bg-danger badge-pill" style="display:none">0</span>
+                    <script>
+                        (function () {
+                            try {
+                                var modulo = window.location.pathname.indexOf('/Electromecanica') === 0 ? 'electromecanica' : 'proveedores';
+                                var raw = sessionStorage.getItem('mvl_alertas_vencimientos_cache_' + modulo);
+                                if (!raw) {
+                                    return;
+                                }
+
+                                var cache = JSON.parse(raw);
+                                if (!cache || Date.now() - cache.timestamp > 300000) {
+                                    return;
+                                }
+
+                                var total = parseInt(cache.total || 0, 10);
+                                var badge = document.getElementById('badge-alertas-vencimientos');
+                                if (!badge) {
+                                    return;
+                                }
+
+                                badge.textContent = total;
+                                badge.style.display = total > 0 ? 'block' : 'none';
+                            } catch (e) {}
+                        }());
+                    </script>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350" id="lista-alertas-vencimientos">
+                    <div class="dropdown-content-header">
+                        <h6 class="font-weight-semibold mb-0">Alertas de vencimiento</h6>
+                        <a href="#" class="text-default" id="marcar_alertas_vistas" title="Marcar como visto">
+                            <i class="icon-eye"></i>
+                        </a>
+                    </div>
+                    <div class="dropdown-content-body dropdown-scrollable">
+                        <div id="alertas-vencimientos-content" class="p-3 text-center text-muted">
+                            <i class="icon-spinner2 spinner mr-2"></i> Cargando alertas...
+                        </div>
+                    </div>
+                </div>
+            </li>
 			
 			<li class="nav-item dropdown dropdown-user">
 				<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" style="color: #ffffff" data-toggle="dropdown">
 					<img src="<?= base_url('assets/manager/images/users/icon-1.png') ?>" class="rounded-circle mr-2"
 						height="34" alt="">
 					<span style="color: #fbe9e7">
-						<?= $this->user->first_name; ?>
+						<?= $nav_user_first; ?>
 					</span>
 				</a>
 
@@ -138,7 +313,7 @@ $area= 'Proveedores';
 						</div>
 
 						<div class="media-body">
-							<div class="media-title font-weight-semibold"><?= $this->user->first_name.', '.$this->user->last_name; ?> </div>
+							<div class="media-title font-weight-semibold"><?= trim($nav_user_first . ', ' . $nav_user_last, ', '); ?> </div>
 							<div class="font-size-xs opacity-10 font-weight-semibold"> Municipio de V. López</div>
 							
 						</div>
@@ -153,7 +328,7 @@ $area= 'Proveedores';
 			<!-- Main navigation -->
 			<div class="card card-sidebar-mobile">
     <ul class="nav nav-sidebar" data-nav-type="accordion">
-        <span class="badge bg-success" style="font-size: 15px;" id="areaBadge"><?= $area ?></span>
+        <span class="badge bg-success mvl-sidebar-area" id="areaBadge"><?= $area ?></span>
         <!-- Layout -->
 
         <li class="nav-item-header">
@@ -171,6 +346,13 @@ $area= 'Proveedores';
             <a href="/Admin/Lecturas" class="nav-link" data-url="/Admin/Lecturas">
                 <i class="icon-upload" data-seccion="datos"></i>
                 <span>Datos leídos OCR</span>
+            </a>
+        </li>
+
+        <li class="nav-item nav-item-menu" data-seccion="vencimientos">
+            <a href="/Admin/Vencimientos" class="nav-link" data-url="/Admin/Vencimientos">
+                <i class="icon-calendar" data-seccion="datos"></i>
+                <span>Calendario de vencimientos</span>
             </a>
         </li>
 
@@ -270,6 +452,10 @@ $area= 'Proveedores';
    <script>
     var class_act = '<?= $class_act ?>';
     var method_act = '<?= $method_act ?>';
+    window.MVL_ALERTAS_CONFIG = {
+        proveedoresUrl: '<?= base_url('Alertas/vencimientos_topbar/proveedores') ?>',
+        electroUrl: '<?= base_url('Alertas/vencimientos_topbar/electromecanica') ?>'
+    };
 
     // -------------------------------------------------------------
 // SCRIPT AJAX para cargar la lista de seguimiento
@@ -333,15 +519,62 @@ function cargarListaSeguimientoProveedores() {
     
 	$(document).ready(function() {
         // Obtener el valor de localStorage
-        var mostrandoElectromecanica = localStorage.getItem('mostrandoElectromecanica');
+        var mostrandoElectromecanica = window.location.pathname.indexOf('/Electromecanica') === 0;
+        localStorage.setItem('mostrandoElectromecanica', mostrandoElectromecanica);
 
-        // Si es null (primer acceso), por defecto es Proveedores
-        if (mostrandoElectromecanica === null) {
-            mostrandoElectromecanica = false;
-            localStorage.setItem('mostrandoElectromecanica', mostrandoElectromecanica);
-        } else {
-            mostrandoElectromecanica = JSON.parse(mostrandoElectromecanica);
+        function inicializarMenuLateral() {
+            var currentPath = window.location.pathname.toLowerCase();
+            var grupos = [];
+            var grupoActual = null;
+
+            $('.nav-sidebar > li, .nav-sidebar > span').each(function() {
+                var $item = $(this);
+
+                if ($item.hasClass('nav-item-header')) {
+                    grupoActual = {
+                        header: $item,
+                        items: [],
+                        key: $.trim($item.text()).toLowerCase()
+                    };
+                    grupos.push(grupoActual);
+                    $item.addClass('mvl-sidebar-toggle');
+                    return;
+                }
+
+                if (grupoActual && $item.hasClass('nav-item-menu')) {
+                    grupoActual.items.push($item);
+                }
+            });
+
+            function abrirGrupo(grupo, abrir) {
+                grupo.header.toggleClass('mvl-sidebar-open', abrir);
+                $.each(grupo.items, function(_, $item) {
+                    $item.toggleClass('mvl-sidebar-collapsed', !abrir);
+                });
+            }
+
+            $.each(grupos, function(_, grupo) {
+                var esDatos = grupo.key.indexOf('datos') !== -1;
+                var contieneRutaActual = false;
+
+                $.each(grupo.items, function(_, $item) {
+                    var $link = $item.find('a.nav-link');
+                    var href = String($link.attr('href') || '').toLowerCase();
+                    $link.removeClass('active');
+                    if (href && currentPath.indexOf(href) === 0) {
+                        contieneRutaActual = true;
+                        $link.addClass('active');
+                    }
+                });
+
+                abrirGrupo(grupo, esDatos || contieneRutaActual);
+
+                grupo.header.off('click.mvlSidebar').on('click.mvlSidebar', function() {
+                    abrirGrupo(grupo, !grupo.header.hasClass('mvl-sidebar-open'));
+                });
+            });
         }
+
         
 
         // Función para actualizar la visibilidad, estilos y URLs
@@ -355,11 +588,11 @@ function cargarListaSeguimientoProveedores() {
 
             // Cambiar el texto del botón y el color del badge
             if (mostrandoElectromecanica) {
-                areaBadge.text('Electromecánica').removeClass('bg-success').addClass('bg-primary');
+                areaBadge.text('Electromecanica').removeClass('bg-success').addClass('bg-primary');
                 toggleButton.text('Ir a Proveedores').removeClass('bg-primary').addClass('bg-success');
             } else {
                 areaBadge.text('Proveedores').removeClass('bg-primary').addClass('bg-success');
-                toggleButton.text('Ir a Electromecánica').removeClass('bg-success').addClass('bg-primary');
+                toggleButton.text('Ir a Electromecanica').removeClass('bg-success').addClass('bg-primary');
             }
 
             // Actualizar URLs dinámicas
@@ -374,6 +607,9 @@ function cargarListaSeguimientoProveedores() {
                         break;
                     case 'lecturas':
                         $this.attr('href', mostrandoElectromecanica ? baseUrl.replace('/Admin/Lecturas', '/Electromecanica/Lecturas') : baseUrl.replace('/Electromecanica/Lecturas', '/Admin/Lecturas'));
+                        break;
+                    case 'vencimientos':
+                        $this.attr('href', mostrandoElectromecanica ? baseUrl.replace('/Admin/Vencimientos', '/Electromecanica/Vencimientos') : baseUrl.replace('/Electromecanica/Vencimientos', '/Admin/Vencimientos'));
                         break;
                     case 'indexaciones':
                         $this.attr('href', mostrandoElectromecanica ? baseUrl.replace('/Admin/Indexaciones', '/Electromecanica/Indexaciones') : baseUrl.replace('/Electromecanica/Indexaciones', '/Admin/Indexaciones'));
@@ -396,6 +632,7 @@ function cargarListaSeguimientoProveedores() {
 
         // Inicializar visibilidad al cargar la página
         actualizarVisibilidad();
+        inicializarMenuLateral();
 
         // 🌟 NUEVO: Manejar clic en el botón de seguimiento de proveedores (para cargar AJAX) 🌟
         $('#dropdown_seguimiento_proveedores').on('click', function() {
@@ -445,6 +682,18 @@ function cargarListaSeguimientoProveedores() {
     // 1. Obtiene la URL correcta llamando a la función que revisa el modo
     var url_conteo = getSeguimientoUrl(); 
     var $badge = $('#badge-seguimiento-proveedores');
+    var seguimientoCacheKey = 'mvl_seguimiento_count_' + (mostrandoElectromecanica ? 'electromecanica' : 'proveedores');
+    var seguimientoCache = sessionStorage.getItem(seguimientoCacheKey);
+
+    if (seguimientoCache !== null) {
+        var cachedCount = parseInt(seguimientoCache);
+        $badge.text(cachedCount);
+        if (cachedCount > 0) {
+            $badge.show();
+        } else {
+            $badge.hide();
+        }
+    }
     
     // 2. LLAMADA AJAX PARA OBTENER EL CONTEO
     $.ajax({
@@ -454,6 +703,7 @@ function cargarListaSeguimientoProveedores() {
         success: function(response) {
             if(response.count !== undefined) {
                 var count = parseInt(response.count);
+                sessionStorage.setItem(seguimientoCacheKey, count);
                 
                 // 3. Actualiza y muestra/oculta el badge
                 $badge.text(count);
@@ -481,9 +731,3 @@ function cargarListaSeguimientoProveedores() {
     });
     });
 </script>
-
-
-
-
-
-

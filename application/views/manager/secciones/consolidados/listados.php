@@ -49,9 +49,16 @@ swal2-popup {
 
 
 <div class="card tablas" style="margin-top: -15px">
-<h5 class="card-title bg-titulo text-center text-dark"> Filtros y Descarga de Reportes </h5>
+<h5 class="card-title bg-titulo text-center text-dark"> Filtros y Reportes </h5>
 
 	<div class="card-header" style="margin-top: -20px";>
+        <div class="mb-2">
+            <div class="btn-group" role="group" aria-label="Modo de vista">
+                <button type="button" class="btn btn-sm btn-primary modo-reporte-btn active" id="modo-vista-consolidada" data-modo="consolidados">Vista consolidada</button>
+                <button type="button" class="btn btn-sm btn-outline-primary modo-reporte-btn" id="modo-reporte-final" data-modo="reporte_final">Vista liquidación</button>
+            </div>
+            <small class="text-muted ml-2" id="modo-reporte-ayuda">Vista operativa con descarga normal y opcion de PDFs.</small>
+        </div>
 		<div class="row">
 		<label class="col-2" for="id_proveedor">
 
@@ -121,6 +128,26 @@ swal2-popup {
 				</script>
 				
 			</label>
+            <label class="col-md-2" for="id_expediente">
+                <?php
+                $js = array(
+                    'id' => 'id_expediente',
+                    'class' => '',
+                    'multiple' => "multiple",
+                );
+                ?>
+                <?= form_dropdown('id_expediente', $select_expedientes, '', $js); ?>
+
+                <script>
+                    $('#id_expediente').select2({
+                        placeholder: 'EXPEDIENTE',
+                        minimumResultsForSearch: "-1",
+                        width: '100%',
+                        closeOnSelect: false,
+                        selectionCssClass: '',
+                    })
+                </script>
+            </label>
 			<div class="col-2 ">
 				<label class="">
 					<input type="checkbox"  class="radio"  value="1" name="tipo_fecha"  id="tipo-fecha" />
@@ -129,14 +156,6 @@ swal2-popup {
 				<div class="col" style = "margin: -10px";>
 					<input type="text" name="daterange2" id="daterange2" class="form-control ">
 				</div>
-			</div>
-			<div class="col-2 ">
-				<label class="">
-					<input type="checkbox"  class="radio"  value="1" name="totalizador"  id="totalizador"/>
-					<span data-popup="tooltip" style="color: lightgray">Totales Agrupados Juris/Prog</span>
-				</label>
-					
-
 			</div>
 			<div class="col-2">
 				<button id="applyfilter" type="button" class="btn mb-1 btn-outline-dark btn-sm" style="width: 160px";><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
@@ -177,8 +196,48 @@ swal2-popup {
     /* width: 1200px !important; */
        
     }
+    #reporte_final_preview thead th,
+    #reporte_final_preview .fila-subtotal {
+        background: #fce4d6;
+        font-weight: 600;
+    }
+    #reporte_final_preview td,
+    #reporte_final_preview th {
+        white-space: normal;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 1.25;
+    }
+    #reporte_final_preview {
+        table-layout: fixed;
+        min-width: 1420px;
+    }
+    #reporte_final_preview .importe {
+        text-align: right;
+    }
+    #reporte_final_preview th:nth-child(1), #reporte_final_preview td:nth-child(1) { width: 150px; }
+    #reporte_final_preview th:nth-child(2), #reporte_final_preview td:nth-child(2) { width: 115px; }
+    #reporte_final_preview th:nth-child(3), #reporte_final_preview td:nth-child(3) { width: 145px; }
+    #reporte_final_preview th:nth-child(4), #reporte_final_preview td:nth-child(4) { width: 145px; }
+    #reporte_final_preview th:nth-child(5), #reporte_final_preview td:nth-child(5) { width: 125px; }
+    #reporte_final_preview th:nth-child(6), #reporte_final_preview td:nth-child(6) { width: 100px; }
+    #reporte_final_preview th:nth-child(7), #reporte_final_preview td:nth-child(7) { width: 105px; }
+    #reporte_final_preview th:nth-child(8), #reporte_final_preview td:nth-child(8) { width: 105px; }
+    #reporte_final_preview th:nth-child(9), #reporte_final_preview td:nth-child(9) { width: 110px; }
+    #reporte_final_preview th:nth-child(10), #reporte_final_preview td:nth-child(10) { width: 120px; }
+    #reporte_final_preview th:nth-child(11), #reporte_final_preview td:nth-child(11) { width: 125px; }
+    #reporte_final_preview th:nth-child(12), #reporte_final_preview td:nth-child(12) { width: 110px; }
+    #reporte_final_preview th:nth-child(13), #reporte_final_preview td:nth-child(13) { width: 135px; }
+    #reporte-final-titulo {
+        display: block;
+        background: #f4b183;
+        color: #000;
+        font-size: 1.2rem;
+        padding: 6px 10px;
+        letter-spacing: .3px;
+    }
 </style>
-<div class="card tablas" style="margin-top: -15px">
+<div class="card tablas" id="vista-consolidada-card" style="margin-top: -15px">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas</h5>
 <div class="card-header" style="margin-top: -15px">
 <div id="consulta"></div>
@@ -202,7 +261,7 @@ swal2-popup {
 					<th>Acuerdo</th>
 					<th>Nro cuenta</th>
 					<th>Nro factura</th>
-					<th>Período</th>
+					<th>Período Consumo</th>
 					<th>Vencimiento</th>
 					<th>Pasar a Prev.</th>
 					<th>Importe factura</th>
@@ -240,7 +299,48 @@ swal2-popup {
 	</div>
 </div>
 
-<script>
+<div class="card tablas d-none" id="reporte-final-card" style="margin-top: -15px">
+<h5 class="card-title bg-titulo text-center text-dark"> Reportes final </h5>
+<div class="card-header" style="margin-top: -15px">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <div>
+            <strong id="reporte-final-titulo">Aplique filtros para generar la vista previa.</strong>
+            <div class="text-muted" id="reporte-final-resumen"></div>
+        </div>
+        <button id="descargar-reporte-final" type="button" class="btn btn-success btn-sm">
+            <b><i class="icon-file-excel"></i></b> Descargar Excel
+        </button>
+    </div>
+    <div class="table-responsive" style="max-height: 520px;">
+        <table id="reporte_final_preview" class="table table-bordered table-hover table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Proveedor</th>
+                    <th>Expediente</th>
+                    <th>Secretaria</th>
+                    <th>Dependencia</th>
+                    <th>Juridiccion</th>
+                    <th>Programa</th>
+                    <th>O del gasto</th>
+                    <th>Tipo Pago</th>
+                    <th>Nro cuenta</th>
+                    <th>Nro factura</th>
+                    <th>Periodo</th>
+                    <th>Vencimiento</th>
+                    <th>Importe factura</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="13" class="text-center text-muted">Sin datos para mostrar.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
 
+<script>
+window.REPORTE_FINAL_PERIODO_ACTUAL = '<?= strtoupper(fecha_es(date("Y-m-d"), 'F a', false)) ?>';
 
 </script>

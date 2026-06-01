@@ -42,6 +42,8 @@ $route['Admin/Lecturas/lotes_dt/(:any)'] = 'Lecturas/lotes_dt/$1';
 $route['Admin/Lecturas/Views/(:any)'] = 'Lecturas/views/$1';
 $route['Admin/Lecturas/Copy/(:any)'] = 'Lecturas/copy/$1';
 $route['Admin/Lecturas/indexaciones_dt'] = 'Lecturas/indexaciones_dt';
+$route['Admin/Vencimientos'] = 'Vencimientos/index/proveedores';
+$route['Alertas/vencimientos_topbar/(:any)'] = 'Alertas/vencimientos_topbar/$1';
 
 
 $route['Admin/Secretarias'] = 'secretarias/listados';
@@ -76,6 +78,22 @@ $route['Admin/usuarios/agregar'] = 'usuarios/agregar';
 $route['Usuarios/profiles/'] = 'Usuarios/profiles';
 $route['Uploader/index'] = 'Uploader';
 
+//Dashboard
+$route['Admin/Dashboard'] = 'Dashboard/index';
+$route['Admin/Dashboard/programas'] = 'Dashboard/get_programas_by_jurisdiccion';
+// Nueva ruta para Proyectos (AJAX)
+$route['Admin/Dashboard/proyectos'] = 'Dashboard/get_proyectos_by_programa';
+$route['Admin/Dashboard/dependencias_secretaria'] = 'Dashboard/get_dependencias_by_secretaria';
+$route['Admin/Dashboard/proveedores_general'] = 'Dashboard/get_gastos_vista_proveedores';
+// Nueva ruta para Nivel 2 de Proveedores
+$route['Admin/Dashboard/jurisdicciones_by_proveedor'] = 'Dashboard/get_jurisdicciones_by_proveedor';
+
+$route['dashboard2'] = 'Dashboard/dashboard2';
+$route['Dashboard/kpis']['post'] = 'Dashboard/kpis';
+$route['Dashboard/get_facturas_by_dependencia'] = 'Dashboard/get_facturas_by_dependencia';
+$route['Dashboard/get_cobertura_cuentas'] = 'Dashboard/get_cobertura_cuentas';
+$route['Dashboard/get_cuentas_faltantes'] = 'Dashboard/get_cuentas_faltantes_detalle';
+$route['Dashboard/get_faltantes_drilldown'] = 'Dashboard/get_faltantes_drilldown_data';
 
 
 // ELECTROMECANICA
@@ -95,6 +113,7 @@ $route['Electromecanica/Lecturas/viewBatch/?(:any)?'] = 'electromecanicax/Lectur
 $route['Electromecanica/Lecturas/Views/?(:any)?'] = 'electromecanicax/Lecturas/views/$1';
 $route['Electromecanica/Lecturas/leerApi'] = 'electromecanicax/Lecturas/leerApi';
 $route['Electromecanica/Lecturas/Consolidar'] = 'electromecanicax/Lecturas/Consolidar';
+$route['Electromecanica/Vencimientos'] = 'Vencimientos/index/electromecanica';
 
 $route['Electromecanica/Indexaciones'] = 'electromecanicax/Indexaciones';
 $route['Electromecanica/Indexaciones/list_dt'] = 'electromecanicax/Indexaciones/list_dt';

@@ -184,6 +184,7 @@ class Consolidados extends backend_controller
 		$this->data['select_tipo_pago'] = $this->Manager_model->obtener_contenido_select('_tipo_pago', '', 'tip_nombre', 'tip_id ASC', false);
 		//$this->data['select_periodo_contable'] = $this->Manager_model->obtener_contenido_select('_consolidados', '', 'periodo_contable', 'periodo_contable DESC', false);
         $this->data['select_periodo_contable'] = $this->Consolidados_model->get_periodos_ordenados();
+        $this->data['select_expedientes'] = $this->Consolidados_model->get_expedientes_ordenados();
 
 		if ($_SERVER['REQUEST_METHOD'] === "POST") {
 			$this->form_validation->set_rules('id_proyecto', 'ID Proyecto', 'trim|in_select[0]');
@@ -452,6 +453,7 @@ public function descargar_pdfs()
     $id_proveedor = $this->input->get('id_proveedor', TRUE);
     $tipo_pago = $this->input->get('tipo_pago'); // Array de textos (ej. ['Contado', 'Crédito'])
     $periodo_contable = $this->input->get('periodo_contable', TRUE);
+    $expediente = $this->input->get('expediente', TRUE);
     $fecha_rango = $this->input->get('fecha', TRUE);
 
     // 2. Procesar Rango de Fechas (DD/MM/YYYY a YYYY-MM-DD)
@@ -473,6 +475,7 @@ public function descargar_pdfs()
         'id_proveedor' => is_string($id_proveedor) ? [$id_proveedor] : $id_proveedor, 
         'tipo_pago' => $tipo_pago,
         'periodo_contable' => is_string($periodo_contable) ? [$periodo_contable] : $periodo_contable,
+        'expediente' => is_string($expediente) ? [$expediente] : $expediente,
         'fechas' => $fechas
     ];
     
@@ -548,6 +551,475 @@ public function descargar_pdfs()
  * @param string $date La fecha en formato DD/MM/YYYY.
  * @return string La fecha en formato YYYY-MM-DD.
  */
+public function reporte_final_preview()
+{
+    if (!$this->input->is_ajax_request()) {
+        show_404();
+        return;
+    }
+
+    $filtros = $this->_get_reporte_final_filtros('post');
+    $reporte = $this->Consolidados_model->get_reporte_final($filtros);
+
+    echo json_encode(array(
+        'status' => 'success',
+        'titulo' => $this->_titulo_reporte_final($reporte['filas']),
+        'cantidad' => $reporte['cantidad'],
+        'total' => $reporte['total'],
+        'filas' => $reporte['filas'],
+    ));
+    exit;
+}
+
+public function reporte_final_opciones()
+{
+    if (!$this->input->is_ajax_request()) {
+        show_404();
+        return;
+    }
+
+    $filtros = $this->_get_reporte_final_filtros('post');
+    echo json_encode(array(
+        'status' => 'success',
+        'opciones' => $this->Consolidados_model->get_reporte_final_opciones($filtros),
+    ));
+    exit;
+}
+
+public function descargar_reporte_final()
+{
+    $filtros = $this->_get_reporte_final_filtros('get');
+    $reporte = $this->Consolidados_model->get_reporte_final($filtros);
+
+    if (empty($reporte['filas'])) {
+        die("<script>alert('No se encontraron registros para los filtros aplicados.'); window.close();</script>");
+    }
+
+    $filename = $this->_filename_reporte_final($reporte['filas'], $filtros);
+    $xlsx = $this->_xlsx_reporte_final($reporte['filas']);
+
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    header('Content-Length: ' . strlen($xlsx));
+
+    echo $xlsx;
+    exit;
+}
+
+private function _get_reporte_final_filtros($method = 'post')
+{
+    $input = $method === 'get' ? 'get' : 'post';
+    $idProveedor = $this->input->{$input}('id_proveedor');
+    $tipoPago = $this->input->{$input}('tipo_pago');
+    $periodoContable = $this->input->{$input}('periodo_contable');
+    $expediente = $this->input->{$input}('expediente');
+    $fechaRango = $this->input->{$input}('fecha');
+
+    $fechas = null;
+    if ($fechaRango) {
+        $partes = explode(' - ', $fechaRango);
+        if (count($partes) === 2) {
+            $fechas = array(
+                $this->_format_date_to_db($partes[0]),
+                $this->_format_date_to_db($partes[1]),
+            );
+        }
+    }
+
+    return array(
+        'id_proveedor' => $this->_normalizar_array_filtro($idProveedor),
+        'tipo_pago' => $this->_normalizar_array_filtro($tipoPago),
+        'periodo_contable' => $this->_normalizar_array_filtro($periodoContable),
+        'expediente' => $this->_normalizar_array_filtro($expediente),
+        'fechas' => $fechas,
+    );
+}
+
+private function _normalizar_array_filtro($valor)
+{
+    if (empty($valor) || $valor === 'false') {
+        return array();
+    }
+
+    return is_array($valor) ? array_filter($valor, 'strlen') : array($valor);
+}
+
+private function _titulo_reporte_final($filas)
+{
+    foreach ($filas as $fila) {
+        if ($fila['tipo'] === 'detalle') {
+            return 'EXPEDIENTE: ' . $fila['expediente'] . '                    ' . $fila['proveedor'] . '                    ' . $fila['tipo_pago'];
+        }
+    }
+
+    return 'REPORTE FINAL';
+}
+
+private function _html_reporte_final($filas, $titulo)
+{
+    $tituloPartes = $this->_titulo_reporte_final_partes($filas);
+    $headers = array(
+        'Proveedor', 'Expediente', 'Secretaria', 'Dependencia', 'Juridiccion',
+        'Programa', 'O del gasto', 'Tipo Pago', 'Nro cuenta', 'Nro factura',
+        'Periodo', 'Vencimiento', 'Importe factura'
+    );
+
+    $html = '<html><head><meta charset="UTF-8"><style>
+        table { border-collapse: collapse; font-family: Calibri, Arial, sans-serif; font-size: 11pt; table-layout: fixed; }
+        td, th { border: 1px solid #000; padding: 5px; text-align: center; vertical-align: middle; mso-number-format:"\@"; white-space: normal; }
+        .titulo { background: #f4b183; font-family: "Arial Black", Arial, sans-serif; font-size: 18pt; font-weight: bold; }
+        .titulo-left { text-align: left; }
+        .titulo-center { text-align: center; }
+        .titulo-right { text-align: right; }
+        .header { background: #fce4d6; font-weight: bold; }
+        .subtotal { background: #fce4d6; font-weight: bold; }
+        .importe { mso-number-format:"$ #,##0.00"; text-align: right; }
+    </style></head><body><table>';
+
+    $html .= '<colgroup>
+        <col style="width:150px"><col style="width:115px"><col style="width:145px"><col style="width:145px">
+        <col style="width:125px"><col style="width:100px"><col style="width:105px"><col style="width:105px">
+        <col style="width:110px"><col style="width:120px"><col style="width:125px"><col style="width:110px"><col style="width:135px">
+    </colgroup>';
+    $html .= '<tr><td class="titulo titulo-left" colspan="4">' . html_escape($tituloPartes['expediente']) . '</td><td class="titulo titulo-center" colspan="5">' . html_escape($tituloPartes['proveedor']) . '</td><td class="titulo titulo-right" colspan="4">' . html_escape($tituloPartes['tipo_pago']) . '</td></tr>';
+    $html .= '<tr>';
+    foreach ($headers as $header) {
+        $html .= '<th class="header">' . html_escape($header) . '</th>';
+    }
+    $html .= '</tr>';
+
+    foreach ($filas as $fila) {
+        if ($fila['tipo'] === 'detalle') {
+            $html .= '<tr>';
+            $html .= $this->_td_excel($fila['proveedor']);
+            $html .= $this->_td_excel($fila['expediente']);
+            $html .= $this->_td_excel($fila['secretaria']);
+            $html .= $this->_td_excel($fila['dependencia']);
+            $html .= $this->_td_excel($fila['jurisdiccion']);
+            $html .= $this->_td_excel($fila['programa']);
+            $html .= $this->_td_excel($fila['objeto']);
+            $html .= $this->_td_excel($fila['tipo_pago']);
+            $html .= $this->_td_excel($fila['nro_cuenta']);
+            $html .= $this->_td_excel($fila['nro_factura']);
+            $html .= $this->_td_excel($fila['periodo']);
+            $html .= $this->_td_excel($fila['vencimiento']);
+            $html .= '<td class="importe">' . number_format((float) $fila['importe'], 2, '.', '') . '</td>';
+            $html .= '</tr>';
+        } elseif ($fila['tipo'] === 'subtotal_programa') {
+            $html .= '<tr class="subtotal"><td colspan="5"></td><td>' . html_escape($fila['programa']) . '</td><td colspan="6"></td><td class="importe">' . number_format((float) $fila['importe'], 2, '.', '') . '</td></tr>';
+        } elseif ($fila['tipo'] === 'subtotal_jurisdiccion' || $fila['tipo'] === 'total_general') {
+            $html .= '<tr class="subtotal"><td colspan="4"></td><td>' . html_escape($fila['jurisdiccion']) . '</td><td colspan="7"></td><td class="importe">' . number_format((float) $fila['importe'], 2, '.', '') . '</td></tr>';
+        }
+    }
+
+    $html .= '</table></body></html>';
+    return $html;
+}
+
+private function _td_excel($valor)
+{
+    return '<td>' . html_escape($valor) . '</td>';
+}
+
+private function _xlsx_reporte_final($filas)
+{
+    if (!class_exists('ZipArchive')) {
+        die("<script>alert('El servidor no tiene habilitada la extension ZIP para generar XLSX.'); window.close();</script>");
+    }
+
+    $tmp = tempnam(sys_get_temp_dir(), 'mvl_reporte_');
+    $zip = new ZipArchive();
+
+    if ($zip->open($tmp, ZipArchive::OVERWRITE) !== TRUE) {
+        die("<script>alert('No se pudo generar el archivo XLSX temporal.'); window.close();</script>");
+    }
+
+    $zip->addFromString('[Content_Types].xml', $this->_xlsx_content_types_xml());
+    $zip->addFromString('_rels/.rels', $this->_xlsx_root_rels_xml());
+    $zip->addFromString('xl/workbook.xml', $this->_xlsx_workbook_xml());
+    $zip->addFromString('xl/_rels/workbook.xml.rels', $this->_xlsx_workbook_rels_xml());
+    $zip->addFromString('xl/styles.xml', $this->_xlsx_styles_xml());
+    $zip->addFromString('xl/worksheets/sheet1.xml', $this->_xlsx_sheet_xml($filas));
+    $zip->close();
+
+    $contenido = file_get_contents($tmp);
+    unlink($tmp);
+
+    return $contenido;
+}
+
+private function _xlsx_sheet_xml($filas)
+{
+    $tituloPartes = $this->_titulo_reporte_final_partes($filas);
+    $headers = array(
+        'Proveedor', 'Expediente', 'Secretaría', 'Dependencia', 'Jurisdicción',
+        'Programa', 'O del gasto', 'Tipo Pago', 'Nro cuenta', 'Nro factura',
+        'Período', 'Vencimiento', 'Importe factura'
+    );
+    $cols = array(15, 13, 16, 15, 13, 13, 12, 12, 13, 13, 13, 13, 16);
+
+    $rows = array();
+    $mergeCells = array('A1:D1', 'E1:I1', 'J1:M1');
+    $rowIndex = 1;
+
+    $rows[] = '<row r="1" ht="28" customHeight="1">'
+        . $this->_xlsx_cell('A', $rowIndex, $tituloPartes['expediente'], 1)
+        . $this->_xlsx_cell('E', $rowIndex, $tituloPartes['proveedor'], 1)
+        . $this->_xlsx_cell('J', $rowIndex, $tituloPartes['tipo_pago'], 1)
+        . '</row>';
+
+    $rowIndex++;
+    $headerCells = '';
+    foreach ($headers as $i => $header) {
+        $headerCells .= $this->_xlsx_cell($this->_xlsx_col($i + 1), $rowIndex, $header, 2);
+    }
+    $rows[] = '<row r="2" ht="34" customHeight="1">' . $headerCells . '</row>';
+
+    foreach ($filas as $fila) {
+        $rowIndex++;
+
+        if ($fila['tipo'] === 'detalle') {
+            $valores = array(
+                $fila['proveedor'], $fila['expediente'], $fila['secretaria'], $fila['dependencia'],
+                $fila['jurisdiccion'], $fila['programa'], $fila['objeto'], $fila['tipo_pago'],
+                $this->_xlsx_wrap_codigo($fila['nro_cuenta']), $this->_xlsx_wrap_codigo($fila['nro_factura']),
+                $fila['periodo'], $fila['vencimiento'], (float) $fila['importe']
+            );
+            $cells = '';
+            foreach ($valores as $i => $valor) {
+                $style = $i === 12 ? 4 : 3;
+                $cells .= $this->_xlsx_cell($this->_xlsx_col($i + 1), $rowIndex, $valor, $style, $i === 12);
+            }
+            $rows[] = '<row r="' . $rowIndex . '" ht="55" customHeight="1">' . $cells . '</row>';
+        } elseif ($fila['tipo'] === 'subtotal_programa') {
+            $cells = '';
+            for ($i = 1; $i <= 13; $i++) {
+                $valor = '';
+                $style = $i === 13 ? 6 : 5;
+                $numeric = false;
+                if ($i === 6) {
+                    $valor = $fila['programa'];
+                } elseif ($i === 13) {
+                    $valor = (float) $fila['importe'];
+                    $numeric = true;
+                }
+                $cells .= $this->_xlsx_cell($this->_xlsx_col($i), $rowIndex, $valor, $style, $numeric);
+            }
+            $rows[] = '<row r="' . $rowIndex . '" ht="21" customHeight="1">' . $cells . '</row>';
+        } elseif ($fila['tipo'] === 'subtotal_jurisdiccion' || $fila['tipo'] === 'total_general') {
+            $cells = '';
+            for ($i = 1; $i <= 13; $i++) {
+                $valor = '';
+                $style = $i === 13 ? 6 : 5;
+                $numeric = false;
+                if ($i === 5) {
+                    $valor = $fila['jurisdiccion'];
+                } elseif ($i === 13) {
+                    $valor = (float) $fila['importe'];
+                    $numeric = true;
+                }
+                $cells .= $this->_xlsx_cell($this->_xlsx_col($i), $rowIndex, $valor, $style, $numeric);
+            }
+            $rows[] = '<row r="' . $rowIndex . '" ht="45" customHeight="1">' . $cells . '</row>';
+        }
+    }
+
+    $colsXml = '<cols>';
+    foreach ($cols as $i => $width) {
+        $col = $i + 1;
+        $colsXml .= '<col min="' . $col . '" max="' . $col . '" width="' . $width . '" customWidth="1"/>';
+    }
+    $colsXml .= '</cols>';
+
+    $mergeXml = '<mergeCells count="' . count($mergeCells) . '">';
+    foreach ($mergeCells as $merge) {
+        $mergeXml .= '<mergeCell ref="' . $merge . '"/>';
+    }
+    $mergeXml .= '</mergeCells>';
+
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
+        . '<sheetViews><sheetView workbookViewId="0"><pane ySplit="2" topLeftCell="A3" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>'
+        . $colsXml
+        . '<sheetData>' . implode('', $rows) . '</sheetData>'
+        . $mergeXml
+        . '</worksheet>';
+}
+
+private function _xlsx_cell($col, $row, $valor, $style, $numeric = false)
+{
+    $ref = $col . $row;
+    if ($numeric) {
+        return '<c r="' . $ref . '" s="' . $style . '"><v>' . $valor . '</v></c>';
+    }
+
+    return '<c r="' . $ref . '" s="' . $style . '" t="inlineStr"><is><t xml:space="preserve">' . $this->_xlsx_xml($valor) . '</t></is></c>';
+}
+
+private function _xlsx_wrap_codigo($valor)
+{
+    $valor = (string) $valor;
+    if (strpos($valor, ':') !== false) {
+        return str_replace(':', ':' . "\n", $valor);
+    }
+    if (strpos($valor, '-') !== false && strlen($valor) > 9) {
+        return preg_replace('/-/', "-\n", $valor, 1);
+    }
+    return $valor;
+}
+
+private function _xlsx_col($numero)
+{
+    $col = '';
+    while ($numero > 0) {
+        $mod = ($numero - 1) % 26;
+        $col = chr(65 + $mod) . $col;
+        $numero = (int) (($numero - $mod) / 26);
+    }
+    return $col;
+}
+
+private function _xlsx_xml($valor)
+{
+    return htmlspecialchars((string) $valor, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+}
+
+private function _xlsx_content_types_xml()
+{
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+        . '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+        . '<Default Extension="xml" ContentType="application/xml"/>'
+        . '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'
+        . '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'
+        . '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'
+        . '</Types>';
+}
+
+private function _xlsx_root_rels_xml()
+{
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        . '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>'
+        . '</Relationships>';
+}
+
+private function _xlsx_workbook_xml()
+{
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
+        . '<sheets><sheet name="Liquidacion" sheetId="1" r:id="rId1"/></sheets>'
+        . '</workbook>';
+}
+
+private function _xlsx_workbook_rels_xml()
+{
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+        . '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>'
+        . '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>'
+        . '</Relationships>';
+}
+
+private function _xlsx_styles_xml()
+{
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        . '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+        . '<numFmts count="1"><numFmt numFmtId="164" formatCode="&quot;$&quot; #,##0.00"/></numFmts>'
+        . '<fonts count="3">'
+        . '<font><sz val="11"/><name val="Calibri"/></font>'
+        . '<font><b/><sz val="18"/><name val="Arial Black"/></font>'
+        . '<font><b/><sz val="11"/><name val="Calibri"/></font>'
+        . '</fonts>'
+        . '<fills count="4">'
+        . '<fill><patternFill patternType="none"/></fill>'
+        . '<fill><patternFill patternType="gray125"/></fill>'
+        . '<fill><patternFill patternType="solid"><fgColor rgb="FFF4B183"/><bgColor indexed="64"/></patternFill></fill>'
+        . '<fill><patternFill patternType="solid"><fgColor rgb="FFFCE4D6"/><bgColor indexed="64"/></patternFill></fill>'
+        . '</fills>'
+        . '<borders count="2">'
+        . '<border><left/><right/><top/><bottom/><diagonal/></border>'
+        . '<border><left style="thin"><color rgb="FF000000"/></left><right style="thin"><color rgb="FF000000"/></right><top style="thin"><color rgb="FF000000"/></top><bottom style="thin"><color rgb="FF000000"/></bottom><diagonal/></border>'
+        . '</borders>'
+        . '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'
+        . '<cellXfs count="7">'
+        . '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>'
+        . '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf>'
+        . '<xf numFmtId="0" fontId="2" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>'
+        . '<xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>'
+        . '<xf numFmtId="164" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1" applyAlignment="1"><alignment horizontal="right" vertical="center"/></xf>'
+        . '<xf numFmtId="0" fontId="2" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>'
+        . '<xf numFmtId="164" fontId="2" fillId="3" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="right" vertical="center"/></xf>'
+        . '</cellXfs>'
+        . '<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>'
+        . '</styleSheet>';
+}
+
+private function _titulo_reporte_final_partes($filas)
+{
+    foreach ($filas as $fila) {
+        if ($fila['tipo'] === 'detalle') {
+            $proveedor = preg_replace('/\s*\([^)]*\)\s*$/', '', $fila['proveedor']);
+            return array(
+                'expediente' => 'EXPEDIENTE: ' . $fila['expediente'],
+                'proveedor' => $proveedor,
+                'tipo_pago' => $fila['tipo_pago'],
+            );
+        }
+    }
+
+    return array(
+        'expediente' => 'REPORTE FINAL',
+        'proveedor' => '',
+        'tipo_pago' => '',
+    );
+}
+
+private function _filename_reporte_final($filas, $filtros)
+{
+    $expediente = 'REPORTE';
+    $proveedor = 'FINAL';
+
+    foreach ($filas as $fila) {
+        if ($fila['tipo'] === 'detalle') {
+            $expediente = $fila['expediente'];
+            $proveedor = preg_replace('/\s*\([^)]*\)\s*$/', '', $fila['proveedor']);
+            break;
+        }
+    }
+
+    $periodos = isset($filtros['periodo_contable']) ? $filtros['periodo_contable'] : array();
+    $periodo = count($periodos) === 1 ? reset($periodos) : 'VARIOS_PERIODOS';
+
+    $expedienteSlug = $this->_slug_reporte_final_filename($expediente, true);
+    $proveedorSlug = $this->_slug_reporte_final_filename($proveedor, false);
+    $periodoSlug = $this->_slug_reporte_final_filename($periodo, false);
+
+    return $expedienteSlug . $proveedorSlug . '_' . $periodoSlug . '.xlsx';
+}
+
+private function _slug_reporte_final_filename($valor, $preservarGuion = false)
+{
+    $valor = trim((string) $valor);
+    $convertido = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $valor);
+    if ($convertido !== false) {
+        $valor = $convertido;
+    }
+
+    if ($preservarGuion) {
+        $valor = str_replace(array('/', '\\'), '-', $valor);
+    }
+
+    $valor = strtoupper($valor);
+    $patron = $preservarGuion ? '/[^A-Z0-9-]+/' : '/[^A-Z0-9]+/';
+    $valor = preg_replace($patron, '_', $valor);
+    $valor = trim($valor, '_-');
+
+    return $valor !== '' ? $valor : 'REPORTE';
+}
+
 private function _format_date_to_db($date)
 {
     // Usamos DateTime::createFromFormat para manejar el formato de entrada

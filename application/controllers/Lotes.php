@@ -22,26 +22,30 @@ class Lotes extends backend_controller
 		}
 	}
 
-	public function getDato($file = '', $id_proveedor = '')
+	public function getDato($file = '', $id_proveedor = '', $id_dato_api = null)
 	{
 
 		if ($this->input->is_ajax_request()) {
 			$file = $_REQUEST['file'];
 			$id_proveedor = $_REQUEST['id_proveedor'];
+			$id_dato_api = isset($_REQUEST['id_dato_api']) ? $_REQUEST['id_dato_api'] : $id_dato_api;
 		}
 
-		$query = "SELECT id, dato_api FROM _datos_api WHERE nombre_archivo_temp = '" . $file . "'";
-		$valor = $file;
-		$filename = $file;
-
-
-		$valor_escapado = $valor;
-
-		$resultado = $this->db->query($query, array($valor_escapado));
+		$this->db->select('id, dato_api');
+		$this->db->from('_datos_api');
+		if (!empty($id_dato_api)) {
+			$this->db->where('id', (int) $id_dato_api);
+		} else {
+			$this->db->where('nombre_archivo_temp', $file);
+			$this->db->where('id_proveedor', $id_proveedor);
+			$this->db->order_by('id', 'DESC');
+			$this->db->limit(1);
+		}
+		$resultado = $this->db->get();
 		$mires = $resultado->result();
 
 
-		if ($resultado) {
+		if ($resultado && !empty($mires)) {
 
 			$a = json_decode($mires[0]->dato_api);
 
@@ -917,6 +921,37 @@ $this->db->update('_datos_api', $dataUpdate);
 		exit();
 	}
 
+	private function _get_archivo_api_actual($file, $id_proveedor)
+	{
+		$this->db->select('id, id_lote, code_lote');
+		$this->db->from('_datos_api');
+		$this->db->where('nombre_archivo_temp', $file);
+		$this->db->where('id_proveedor', $id_proveedor);
+		$this->db->order_by('id', 'DESC');
+		$this->db->limit(1);
+		return $this->db->get()->row();
+	}
+
+	private function _actualizar_cantidad_lote($id_lote, $code_lote)
+	{
+		$this->db->where('id_lote', $id_lote);
+		$total = $this->db->count_all_results('_datos_api');
+
+		$this->db->where('id', $id_lote);
+		$this->db->update('_lotes', array('cant' => $total));
+
+		if ($this->db->field_exists('total_archivos', '_lotes_resumen')) {
+			$this->db->query("
+				INSERT INTO _lotes_resumen (id_lote, total_archivos, archivos_sin_indexar, archivos_error_lectura)
+				VALUES (?, ?, ?, 0)
+				ON DUPLICATE KEY UPDATE total_archivos = VALUES(total_archivos)",
+				array($id_lote, $total, $total)
+			);
+		}
+
+		return $total;
+	}
+
 	public function leerApi()
 {
     $file = str_replace(base_url(), '', $_POST['file']);
@@ -934,30 +969,41 @@ $this->db->update('_datos_api', $dataUpdate);
     // Realizar la llamada a apiRest con el valor de 'procesar_por'
     $dataApi = apiRest($request, $proveedor->urlapi, $procesar_por);
 
+    $archivoApi = $this->_get_archivo_api_actual($_POST['file'], $proveedor->id);
+    if (!$archivoApi) {
+        $response = array(
+            'mensaje' => 'No se encontro el archivo pendiente para procesar: ' . $_POST['file'],
+            'title' => 'Consulta API',
+            'status' => 'error',
+        );
+        echo json_encode($response);
+        exit();
+    }
+
     // Actualizar los datos de la API en la tabla '_datos_api'
     $updateData = array(
         'dato_api' => json_encode($dataApi),
     );
 
     // Actualizar la base de datos en función del archivo temporal
-    $this->db->where("nombre_archivo_temp", $_POST['file']);
+    $this->db->where('id', $archivoApi->id);
     $this->db->update('_datos_api', $updateData);
 
     // Llamar a otra función (suponiendo que realiza procesamiento adicional, ej: extracción de nro_cuenta)
-    $this->getDato($_POST['file'], $proveedor->id);
+    $this->getDato($_POST['file'], $proveedor->id, $archivoApi->id);
     
     // --------------------------------------------------------
     // INICIO MANTENIMIENTO: Recálculo de _lotes_resumen
     // 1. Obtener el ID del lote asociado a este archivo recién procesado.
     $file_data = $this->db->select('id_lote')
-                          ->get_where('_datos_api', ['nombre_archivo_temp' => $_POST['file']])
+                          ->get_where('_datos_api', ['id' => $archivoApi->id])
                           ->row();
     $id_lote = $file_data ? $file_data->id_lote : null;
 
     // 2. Llamar a la función de recálculo en Lecturas_model (si se encontró el ID)
     if ($id_lote) {
         // Asegurar que el modelo esté cargado (si no lo está globalmente)
-        $this->load->model('Lecturas_model'); 
+        $this->load->model('manager/Lecturas_model');
         
         // Ejecutar el recálculo
         $this->Lecturas_model->actualizar_resumen_lote($id_lote);
@@ -1077,6 +1123,7 @@ $this->db->update('_datos_api', $dataUpdate);
 
 					if ($this->Manager_model->grabar_datos("_datos_api", $saveData)) {
 
+						$this->_actualizar_cantidad_lote($lote[0]->id, $lote[0]->code);
 
 						$response = array(
 							'mensaje' => 'Archivo: ' . $filename . ' Lote: ' . $lote[0]->code,
@@ -1133,7 +1180,7 @@ $this->db->update('_datos_api', $dataUpdate);
 				//			base_url('assets/manager/js/plugins/tables/datatables/datatables.min.js'),
 				//			base_url('assets/manager/js/plugins/tables/datatables/datatables_advanced.js'),
 				base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
-				base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js'),
+				base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/' . $this->router->fetch_method() . '.js?ver=' . time()),
 				// base_url('assets/manager/js/secciones/' . $this->router->fetch_class() . '/datatable.js'),
 			);
 
@@ -1296,10 +1343,21 @@ public function lotes_dt($id_proveedor = null)
 				if ($r->consolidado == 1) {
 					$iconTextMerge = 'text-defautl';
 				}
+				$errores_lectura = $this->Lecturas_model->errores_lectura($r);
+				$validacion = '<span class="badge badge-success">OK</span>';
+				if (!empty($errores_lectura)) {
+					$validacion = '';
+					foreach ($errores_lectura as $error_lectura) {
+						$validacion .= '<span class="badge badge-danger mr-1">' . $error_lectura . '</span>';
+					}
+				}
+				if ($indexador === '0') {
+					$validacion .= ' <span class="badge badge-warning">Sin index</span>';
+				}
 
 				$accionesVer = '<span class="acciones"><a  title="ver archivo" href="/Admin/Lecturas/Views/' . $r->id . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
 				$accionesCopy = '<span class="acciones"><a data-copy="' . $archivo[3] . '" title="copiar archivo" href="/Admin/Lecturas/Copy/' . $r->id . '"  class=""><i class="icon-copy" title="Copiar archivo"></i> </a></span> ';
-				$accionesMerge = '<span data-file="' . $archivo[3] . '" data-consolidado="' . $r->consolidado . '"  data-indexador="' . $indexador . '" data-code="' . $r->code_lote . '" data-id_file="' . $r->id . '" class="' . $classAccionMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $iconTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
+				$accionesMerge = '<span data-file="' . $archivo[3] . '" data-consolidado="' . $r->consolidado . '" data-error-lectura="' . count($errores_lectura) . '"  data-indexador="' . $indexador . '" data-code="' . $r->code_lote . '" data-id_file="' . $r->id . '" class="' . $classAccionMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $iconTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
 				$accionesReload = '<span data-id_proveedor="' . $r->id_proveedor . '"data-file="' . $r->nombre_archivo_temp . '"data-id_lote="' . $r->id . '" data-code="' . $r->code_lote . '"class="reload-lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
 				$accionesDelete = '<span data-tabla="_datos_api" data-id_file="' . $r->id . '" class="borrar-file acciones" ><a title="Borrar file" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 
@@ -1318,6 +1376,7 @@ public function lotes_dt($id_proveedor = null)
 					$r->consumo,
 					$indexador,
 					$archivo[3],
+					$validacion,
 					$accionesVer . $accionesCopy . $accionesMerge . $accionesDelete,
 					$r->id
 				);
@@ -1326,7 +1385,7 @@ public function lotes_dt($id_proveedor = null)
 
 			$output = array(
 				"draw" => $_POST['draw'],
-				"recordsTotal" => $this->Lotes_model->countAllFiles(),
+				"recordsTotal" => $this->Lotes_model->countAllFiles($_POST['id_lote']),
 				"recordsFiltered" => $this->Lotes_model->countFilteredFiles($_POST),
 				"data" => $data,
 			);

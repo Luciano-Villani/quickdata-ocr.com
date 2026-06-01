@@ -199,6 +199,14 @@ class Manager_model extends CI_Model
                     }
                     $this->db->group_end();
                 }
+
+                if ((isset($postData['expediente']) && $postData['expediente'] != 'false' &&  $postData['expediente'] != '')) {
+                    $this->db->group_start();
+                    foreach ($postData['expediente'] as $expediente) {
+                        $this->db->or_where('_consolidados.expediente', $expediente);
+                    }
+                    $this->db->group_end();
+                }
                 
                 if ((isset($postData['fecha']) && $postData['fecha'] != 'false' &&  $postData['fecha'] != '')) {
                     $dates = explode('-', $postData['fecha']);

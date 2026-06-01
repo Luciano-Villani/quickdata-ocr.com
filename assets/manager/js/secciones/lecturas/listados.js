@@ -12,7 +12,7 @@ function dt() {
     order: [[0, "desc"]],
     columnDefs: [
       { className: "dt-center", targets: "_all" },
-      { className: "dt-nowrap", targets: [7] },
+      { className: "dt-nowrap", targets: [8] },
       {
         targets: 0,
         visible: false,
@@ -25,7 +25,8 @@ function dt() {
         // },
       },
       // { width: "1%", visible: false, targets: [0] },
-      { width: "1%", orderable: false, targets: [0, 3, 4] },
+      { width: "1%", orderable: false, targets: [0, 3, 4, 5] },
+      
     ],
     processing: true,
     serverSide: true,
@@ -271,6 +272,7 @@ $(document).ready(function () {
   $("body").on("click", "span.mergelote", function (e) {
     var code = $(this).data("code");
     var consolidado = $(this).data("consolidado");
+    var erroresLectura = parseInt($(this).data("error-lectura"), 10) || 0;
     e.preventDefault();
 
     if ($(this).data("errores") != 0) {
@@ -280,6 +282,25 @@ $(document).ready(function () {
           "El lote: <strong> " +
           code +
           " </strong> posee errores de indexación",
+        buttons: {
+          cancel: {
+            text: "Cancelar",
+            btnClass: "btn-red",
+            action: function () {
+              return;
+            },
+          },
+        },
+      });
+    } else if (erroresLectura > 0) {
+      $.confirm({
+        title: "CONSOLIDAR LOTE",
+        content:
+          "El lote: <strong> " +
+          code +
+          " </strong> posee " +
+          erroresLectura +
+          " lectura(s) con datos criticos faltantes. Revisalas antes de consolidar.",
         buttons: {
           cancel: {
             text: "Cancelar",

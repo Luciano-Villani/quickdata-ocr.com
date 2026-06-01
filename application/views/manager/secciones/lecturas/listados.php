@@ -88,6 +88,7 @@
 				<th>Fecha</th>
 				<th>Facturas</th>
 				<th>Sin Index</th>
+				<th>Errores lectura</th>
 				<th>Consolidado</th>
 				<th>Usuario</th>
 				<th>Acciones</th>

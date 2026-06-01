@@ -53,6 +53,41 @@ class Consolidados_model extends CI_Model
         }
     }
 
+    if ($id_lote && empty($_REQUEST['id_file'])) {
+        $this->Lecturas_model->actualizar_resumen_lote($id_lote);
+        $resumen_lote = $this->db->get_where('_lotes_resumen', ['id_lote' => $id_lote])->row();
+
+        if ($resumen_lote && (int)$resumen_lote->archivos_sin_indexar > 0) {
+            echo json_encode([
+                'status' => 'error',
+                'estado' => 'error',
+                'title' => 'CONSOLIDAR LOTE',
+                'mensaje' => 'El lote posee lecturas sin indexacion. Revisalas antes de consolidar.'
+            ]);
+            die();
+        }
+
+        if ($resumen_lote && (int)$resumen_lote->archivos_error_lectura > 0) {
+            echo json_encode([
+                'status' => 'error',
+                'estado' => 'error',
+                'title' => 'CONSOLIDAR LOTE',
+                'mensaje' => 'El lote posee lecturas con datos criticos faltantes. Revisalas antes de consolidar.'
+            ]);
+            die();
+        }
+    }
+
+    if (!empty($_REQUEST['id_file']) && !empty($files[0]) && $this->Lecturas_model->tiene_error_lectura($files[0])) {
+        echo json_encode([
+            'status' => 'error',
+            'estado' => 'error',
+            'title' => 'CONSOLIDAR ARCHIVO',
+            'mensaje' => 'La lectura posee datos criticos faltantes. Corregila antes de consolidar.'
+        ]);
+        die();
+    }
+
     try {
         $error = true;
         foreach ($files as $file) {
@@ -308,6 +343,10 @@ public function get_archivos_por_filtros($filtros)
         $this->db->where_in('t1.periodo_contable', $filtros['periodo_contable']);
     }
 
+    if (!empty($filtros['expediente'])) {
+        $this->db->where_in('t1.expediente', $filtros['expediente']);
+    }
+
     // 4. FILTRO: Rango de Fechas
     if (!empty($filtros['fechas'])) {
 		
@@ -337,6 +376,300 @@ public function get_archivos_por_filtros($filtros)
 
     $query = $this->db->get();
     return $query->result(); 
+}
+
+public function get_expedientes_ordenados()
+{
+    $this->db->select('expediente');
+    $this->db->from('_consolidados');
+    $this->db->where("expediente IS NOT NULL AND TRIM(expediente) <> ''", NULL, FALSE);
+    $this->db->group_by('expediente');
+    $this->db->order_by('MAX(fecha_consolidado)', 'DESC');
+
+    $query = $this->db->get();
+    $expedientes = array();
+
+    foreach ($query->result() as $row) {
+        $expedientes[$row->expediente] = strtoupper($row->expediente);
+    }
+
+    return $expedientes;
+}
+
+public function get_reporte_final($filtros)
+{
+    $this->db->select(
+        'id, proveedor, codigo_proveedor, expediente, secretaria, dependencia,
+        jurisdiccion, id_interno_programa, id_interno_proyecto, objeto,
+        tipo_pago, nro_cuenta, nro_factura, periodo_del_consumo,
+        fecha_vencimiento, importe, importe_1, periodo_contable'
+    );
+    $this->db->from('_consolidados');
+    $this->aplicar_filtros_reporte_final($filtros);
+    $this->db->order_by('expediente', 'ASC');
+    $this->db->order_by('proveedor', 'ASC');
+    $this->db->order_by('tipo_pago', 'ASC');
+    $this->db->order_by('jurisdiccion', 'ASC');
+    $this->db->order_by('CAST(id_interno_programa AS UNSIGNED)', 'ASC', FALSE);
+    $this->db->order_by('CAST(id_interno_proyecto AS UNSIGNED)', 'ASC', FALSE);
+    $this->db->order_by('dependencia', 'ASC');
+    $this->db->order_by('nro_cuenta', 'ASC');
+
+    $query = $this->db->get();
+    $registros = $query->result();
+
+    return $this->armar_filas_reporte_final($registros);
+}
+
+public function get_reporte_final_opciones($filtros)
+{
+    return array(
+        'tipo_pago' => $this->opciones_tipo_pago_reporte($filtros),
+        'periodo_contable' => $this->opciones_distintas_reporte('periodo_contable', $filtros, 'periodo_contable'),
+        'expediente' => $this->opciones_distintas_reporte('expediente', $filtros, 'expediente'),
+    );
+}
+
+private function opciones_tipo_pago_reporte($filtros)
+{
+    $this->db->select('C.tipo_pago, TP.tip_id');
+    $this->db->from('_consolidados C');
+    $this->db->join('_tipo_pago TP', 'TP.tip_nombre = C.tipo_pago', 'left');
+    $this->aplicar_filtros_reporte_final_alias($filtros, 'C', 'tipo_pago');
+    $this->db->where("C.tipo_pago IS NOT NULL AND TRIM(C.tipo_pago) <> ''", NULL, FALSE);
+    $this->db->group_by('C.tipo_pago, TP.tip_id');
+    $this->db->order_by('C.tipo_pago', 'ASC');
+
+    $query = $this->db->get();
+    $opciones = array();
+
+    foreach ($query->result() as $row) {
+        $opciones[] = array(
+            'id' => $row->tip_id ? (string) $row->tip_id : $row->tipo_pago,
+            'text' => strtoupper($row->tipo_pago),
+        );
+    }
+
+    return $opciones;
+}
+
+private function opciones_distintas_reporte($campo, $filtros, $excluir)
+{
+    $this->db->select('C.' . $campo . ' AS valor');
+    $this->db->from('_consolidados C');
+    $this->aplicar_filtros_reporte_final_alias($filtros, 'C', $excluir);
+    $this->db->where("C.{$campo} IS NOT NULL AND TRIM(C.{$campo}) <> ''", NULL, FALSE);
+    $this->db->group_by('C.' . $campo);
+    $this->db->order_by('MAX(C.fecha_consolidado)', 'DESC');
+
+    $query = $this->db->get();
+    $opciones = array();
+
+    foreach ($query->result() as $row) {
+        $opciones[] = array(
+            'id' => $row->valor,
+            'text' => strtoupper($row->valor),
+        );
+    }
+
+    return $opciones;
+}
+
+private function aplicar_filtros_reporte_final($filtros)
+{
+    if (!empty($filtros['id_proveedor'])) {
+        $this->db->where_in('id_proveedor', $filtros['id_proveedor']);
+    }
+
+    if (!empty($filtros['tipo_pago'])) {
+        $this->db->where_in('tipo_pago', $filtros['tipo_pago']);
+    }
+
+    if (!empty($filtros['periodo_contable'])) {
+        $this->db->where_in('periodo_contable', $filtros['periodo_contable']);
+    }
+
+    if (!empty($filtros['expediente'])) {
+        $this->db->where_in('expediente', $filtros['expediente']);
+    }
+
+    if (!empty($filtros['fechas']) && count($filtros['fechas']) === 2) {
+        $fechaInicio = $this->db->escape($filtros['fechas'][0] . ' 00:00:00');
+        $fechaFin = $this->db->escape($filtros['fechas'][1] . ' 23:59:59');
+        $this->db->where("fecha_consolidado BETWEEN {$fechaInicio} AND {$fechaFin}", NULL, FALSE);
+    }
+}
+
+private function aplicar_filtros_reporte_final_alias($filtros, $alias, $excluir = '')
+{
+    $prefix = $alias . '.';
+
+    if ($excluir !== 'id_proveedor' && !empty($filtros['id_proveedor'])) {
+        $this->db->where_in($prefix . 'id_proveedor', $filtros['id_proveedor']);
+    }
+
+    if ($excluir !== 'tipo_pago' && !empty($filtros['tipo_pago'])) {
+        $this->db->where_in($prefix . 'tipo_pago', $filtros['tipo_pago']);
+    }
+
+    if ($excluir !== 'periodo_contable' && !empty($filtros['periodo_contable'])) {
+        $this->db->where_in($prefix . 'periodo_contable', $filtros['periodo_contable']);
+    }
+
+    if ($excluir !== 'expediente' && !empty($filtros['expediente'])) {
+        $this->db->where_in($prefix . 'expediente', $filtros['expediente']);
+    }
+
+    if (!empty($filtros['fechas']) && count($filtros['fechas']) === 2) {
+        $fechaInicio = $this->db->escape($filtros['fechas'][0] . ' 00:00:00');
+        $fechaFin = $this->db->escape($filtros['fechas'][1] . ' 23:59:59');
+        $this->db->where($prefix . "fecha_consolidado BETWEEN {$fechaInicio} AND {$fechaFin}", NULL, FALSE);
+    }
+}
+
+private function armar_filas_reporte_final($registros)
+{
+    $filas = array();
+    $programaActual = null;
+    $codigoProgramaActual = null;
+    $jurisdiccionActual = null;
+    $programaInicio = 0;
+    $jurisdiccionInicio = 0;
+    $subtotalPrograma = 0;
+    $subtotalJurisdiccion = 0;
+    $totalGeneral = 0;
+    $cantidadDetalle = 0;
+
+    foreach ($registros as $registro) {
+        $codigoPrograma = $this->codigo_programa_reporte($registro);
+        $jurisdiccion = (string) $registro->jurisdiccion;
+        $programaKey = $jurisdiccion . '|' . $codigoPrograma;
+
+        if ($programaActual !== null && $programaKey !== $programaActual) {
+            $filas[] = $this->fila_subtotal_programa($codigoProgramaActual, $subtotalPrograma, $programaInicio, count($filas));
+            $subtotalPrograma = 0;
+            $programaInicio = count($filas);
+        }
+
+        if ($jurisdiccionActual !== null && $jurisdiccion !== $jurisdiccionActual) {
+            $filas[] = $this->fila_subtotal_jurisdiccion($jurisdiccionActual, $subtotalJurisdiccion, $jurisdiccionInicio, count($filas));
+            $subtotalJurisdiccion = 0;
+            $jurisdiccionInicio = count($filas);
+            $programaInicio = count($filas);
+        }
+
+        if ($programaActual === null || $programaKey !== $programaActual) {
+            $programaActual = $programaKey;
+            $codigoProgramaActual = $codigoPrograma;
+        }
+        if ($jurisdiccionActual === null || $jurisdiccion !== $jurisdiccionActual) {
+            $jurisdiccionActual = $jurisdiccion;
+        }
+
+        $importe = $this->importe_reporte($registro);
+        $subtotalPrograma += $importe;
+        $subtotalJurisdiccion += $importe;
+        $totalGeneral += $importe;
+        $cantidadDetalle++;
+
+        $filas[] = array(
+            'tipo' => 'detalle',
+            'proveedor' => $registro->proveedor . ' (' . $registro->codigo_proveedor . ')',
+            'expediente' => $registro->expediente,
+            'secretaria' => $registro->secretaria,
+            'dependencia' => $registro->dependencia,
+            'jurisdiccion' => $jurisdiccion,
+            'programa' => $codigoPrograma,
+            'objeto' => $registro->objeto,
+            'tipo_pago' => $registro->tipo_pago,
+            'nro_cuenta' => $registro->nro_cuenta,
+            'nro_factura' => $registro->nro_factura,
+            'periodo' => $registro->periodo_del_consumo,
+            'vencimiento' => $this->fecha_reporte($registro->fecha_vencimiento),
+            'importe' => $importe,
+        );
+    }
+
+    if ($programaActual !== null) {
+        $filas[] = $this->fila_subtotal_programa($codigoProgramaActual, $subtotalPrograma, $programaInicio, count($filas));
+    }
+
+    if ($jurisdiccionActual !== null) {
+        $filas[] = $this->fila_subtotal_jurisdiccion($jurisdiccionActual, $subtotalJurisdiccion, $jurisdiccionInicio, count($filas));
+    }
+
+    if ($cantidadDetalle > 0) {
+        $filas[] = array(
+            'tipo' => 'total_general',
+            'jurisdiccion' => 'TOTAL GENERAL',
+            'importe' => $totalGeneral,
+            'formula_inicio' => 3,
+            'formula_fin' => max(3, count($filas) + 1),
+        );
+    }
+
+    return array(
+        'filas' => $filas,
+        'total' => $totalGeneral,
+        'cantidad' => $cantidadDetalle,
+    );
+}
+
+private function fila_subtotal_programa($codigoPrograma, $subtotal, $inicio, $fin)
+{
+    return array(
+        'tipo' => 'subtotal_programa',
+        'programa' => 'Total ' . $codigoPrograma,
+        'importe' => $subtotal,
+        'formula_inicio' => $inicio + 3,
+        'formula_fin' => $fin + 2,
+    );
+}
+
+private function fila_subtotal_jurisdiccion($jurisdiccion, $subtotal, $inicio, $fin)
+{
+    return array(
+        'tipo' => 'subtotal_jurisdiccion',
+        'jurisdiccion' => 'Total ' . $jurisdiccion,
+        'importe' => $subtotal,
+        'formula_inicio' => $inicio + 3,
+        'formula_fin' => $fin + 2,
+    );
+}
+
+private function codigo_programa_reporte($registro)
+{
+    $programa = trim((string) $registro->id_interno_programa);
+    $proyecto = trim((string) $registro->id_interno_proyecto);
+
+    if ($programa !== '' && strlen($programa) === 1) {
+        $programa = '0' . $programa;
+    }
+
+    if ($proyecto !== '' && $proyecto !== '0') {
+        $programa .= '.' . (strlen($proyecto) === 1 ? '0' . $proyecto : $proyecto);
+    }
+
+    return $programa;
+}
+
+private function importe_reporte($registro)
+{
+    if ($registro->importe_1 !== null && $registro->importe_1 !== '') {
+        return (float) $registro->importe_1;
+    }
+
+    return (float) str_replace(',', '.', $registro->importe);
+}
+
+private function fecha_reporte($valor)
+{
+    if (empty($valor) || $valor === '0000-00-00' || $valor === '0000-00-00 00:00:00') {
+        return '';
+    }
+
+    $timestamp = strtotime($valor);
+    return $timestamp ? date('d-m-Y', $timestamp) : $valor;
 }
 // En Consolidados_model.php
 public function get_periodos_ordenados()

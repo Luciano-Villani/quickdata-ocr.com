@@ -97,6 +97,8 @@ class Indexaciones extends backend_controller
 					$r->prog_id_interno. "  " . $r->descr_programa,
 					$r->proy_id_interno . "  " . $r->descr_proyecto,
 					$r->nombre_dependencia,
+					((int) $r->periodicidad_meses === 2 ? 'BIMESTRAL' : 'MENSUAL'),
+					((int) $r->control_vencimiento === 1 ? '<span class="badge badge-success">SI</span>' : '<span class="badge badge-secondary">NO</span>'),
 					$acciones,
 				);
 			}
@@ -167,6 +169,9 @@ class Indexaciones extends backend_controller
 			$pasada++;
 		};
 		$this->data['programas_id_interno'] = $newdata;
+		$this->data['periodicidad_meses'] = 1;
+		$this->data['control_vencimiento'] = 1;
+		$this->data['dias_alerta'] = 7;
 
 		if ($id && $id != NULL) {
 
@@ -188,11 +193,15 @@ class Indexaciones extends backend_controller
 			$this->data['id_programa'] = $editData->id_programa;
 			$this->data['id_proyecto'] = $editData->id_proyecto;
 			$this->data['tipo_pago'] = $editData->tipo_pago;
+			$this->data['periodicidad_meses'] = $editData->periodicidad_meses;
+			$this->data['control_vencimiento'] = $editData->control_vencimiento;
+			$this->data['dias_alerta'] = $editData->dias_alerta;
 			$this->data['seleccion_programa'] = $program;
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
+			$_REQUEST['control_vencimiento'] = $this->input->post('control_vencimiento') ? 1 : 0;
 
 			$this->form_validation->set_rules('id_secretaria', 'Secretaria', 'trim|in_select[0]');
 			$this->form_validation->set_rules('id_proveedor', 'Proveedor', 'trim|in_select[0]');
@@ -201,6 +210,8 @@ class Indexaciones extends backend_controller
 			}
 			$this->form_validation->set_rules('expediente', 'Expediente', 'trim|required');
 			$this->form_validation->set_rules('tipo_pago', 'Tipo de pago', 'trim|required|in_select[0]');
+			$this->form_validation->set_rules('periodicidad_meses', 'Periodicidad', 'trim|required|in_list[1,2]');
+			$this->form_validation->set_rules('dias_alerta', 'Dias de alerta', 'trim|required|integer|greater_than[0]');
 
 
 			// $this->form_validation->set_rules('id_dependencia', 'Dependencia', '');
