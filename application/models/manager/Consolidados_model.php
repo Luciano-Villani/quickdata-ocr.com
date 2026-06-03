@@ -78,7 +78,7 @@ class Consolidados_model extends CI_Model
         }
     }
 
-    if (!empty($_REQUEST['id_file']) && !empty($files[0]) && $this->Lecturas_model->tiene_error_lectura($files[0])) {
+    if (!empty($_REQUEST['id_file']) && !empty($files[0]) && $this->Lecturas_model->tiene_error_lectura_bloqueante($files[0])) {
         echo json_encode([
             'status' => 'error',
             'estado' => 'error',

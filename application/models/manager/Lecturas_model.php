@@ -400,7 +400,11 @@ public function actualizar_resumen_lote($id_lote)
                 OR {$prefix}vencimiento_del_pago IS NULL OR TRIM({$prefix}vencimiento_del_pago) IN ('', 'S/D', 'SD', '-', '0000-00-00', 'error de lectura')
                 OR {$prefix}total_importe IS NULL OR TRIM({$prefix}total_importe) IN ('', 'S/D', 'SD', '-', 'error de lectura')
                 OR TRIM({$prefix}total_importe) NOT REGEXP '^-?[0-9]+([,.][0-9]+)?$'
-                OR CAST(REPLACE(TRIM({$prefix}total_importe), ',', '.') AS DECIMAL(18,2)) <= 0
+                OR CAST(REPLACE(TRIM({$prefix}total_importe), ',', '.') AS DECIMAL(18,2)) < 0
+                OR (
+                    CAST(REPLACE(TRIM({$prefix}total_importe), ',', '.') AS DECIMAL(18,2)) = 0
+                    AND COALESCE({$prefix}consolidado, 0) = 0
+                )
             THEN 1
             ELSE 0
         END";
@@ -425,8 +429,10 @@ public function actualizar_resumen_lote($id_lote)
         if ($this->fecha_invalida($lectura->vencimiento_del_pago)) {
             $errores[] = 'Sin vencimiento';
         }
-        if ($this->importe_invalido($lectura->total_importe)) {
+        if ($this->importe_vacio_o_invalido($lectura->total_importe)) {
             $errores[] = 'Sin importe';
+        } elseif ($this->importe_cero($lectura->total_importe)) {
+            $errores[] = 'Importe 0.00';
         }
 
         return $errores;
@@ -435,6 +441,19 @@ public function actualizar_resumen_lote($id_lote)
     public function tiene_error_lectura($lectura)
     {
         return count($this->errores_lectura($lectura)) > 0;
+    }
+
+    public function errores_lectura_bloqueantes($lectura)
+    {
+        $errores = $this->errores_lectura($lectura);
+        return array_values(array_filter($errores, function ($error) {
+            return $error !== 'Importe 0.00';
+        }));
+    }
+
+    public function tiene_error_lectura_bloqueante($lectura)
+    {
+        return count($this->errores_lectura_bloqueantes($lectura)) > 0;
     }
 
     private function valor_vacio($valor)
@@ -452,13 +471,19 @@ public function actualizar_resumen_lote($id_lote)
         return strtotime($valor) === false;
     }
 
-    private function importe_invalido($valor)
+    private function importe_vacio_o_invalido($valor)
     {
         if ($this->valor_vacio($valor)) {
             return true;
         }
 
         $normalizado = str_replace(',', '.', trim((string)$valor));
-        return !is_numeric($normalizado) || (float)$normalizado <= 0;
+        return !is_numeric($normalizado) || (float)$normalizado < 0;
+    }
+
+    private function importe_cero($valor)
+    {
+        $normalizado = str_replace(',', '.', trim((string)$valor));
+        return is_numeric($normalizado) && (float)$normalizado == 0.0;
     }
 }

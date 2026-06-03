@@ -16,6 +16,7 @@ class Lotes extends backend_controller
 		if (!$this->ion_auth->logged_in()) {
 			redirect('Login');
 		} else {
+			$this->bloquear_financiero('No tiene permisos para operar lotes OCR.');
 
 			$this->load->model('manager/Lecturas_model');
 			$this->load->model('manager/Uploader_model');
@@ -1344,11 +1345,14 @@ public function lotes_dt($id_proveedor = null)
 					$iconTextMerge = 'text-defautl';
 				}
 				$errores_lectura = $this->Lecturas_model->errores_lectura($r);
+				$errores_bloqueantes = $this->Lecturas_model->errores_lectura_bloqueantes($r);
+				$importe_cero = in_array('Importe 0.00', $errores_lectura, true) ? 1 : 0;
 				$validacion = '<span class="badge badge-success">OK</span>';
 				if (!empty($errores_lectura)) {
 					$validacion = '';
 					foreach ($errores_lectura as $error_lectura) {
-						$validacion .= '<span class="badge badge-danger mr-1">' . $error_lectura . '</span>';
+						$badge_class = ($error_lectura === 'Importe 0.00') ? 'badge-warning' : 'badge-danger';
+						$validacion .= '<span class="badge ' . $badge_class . ' mr-1">' . $error_lectura . '</span>';
 					}
 				}
 				if ($indexador === '0') {
@@ -1357,7 +1361,7 @@ public function lotes_dt($id_proveedor = null)
 
 				$accionesVer = '<span class="acciones"><a  title="ver archivo" href="/Admin/Lecturas/Views/' . $r->id . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
 				$accionesCopy = '<span class="acciones"><a data-copy="' . $archivo[3] . '" title="copiar archivo" href="/Admin/Lecturas/Copy/' . $r->id . '"  class=""><i class="icon-copy" title="Copiar archivo"></i> </a></span> ';
-				$accionesMerge = '<span data-file="' . $archivo[3] . '" data-consolidado="' . $r->consolidado . '" data-error-lectura="' . count($errores_lectura) . '"  data-indexador="' . $indexador . '" data-code="' . $r->code_lote . '" data-id_file="' . $r->id . '" class="' . $classAccionMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $iconTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
+				$accionesMerge = '<span data-file="' . $archivo[3] . '" data-consolidado="' . $r->consolidado . '" data-error-lectura="' . count($errores_lectura) . '" data-error-bloqueante="' . count($errores_bloqueantes) . '" data-importe-cero="' . $importe_cero . '"  data-indexador="' . $indexador . '" data-code="' . $r->code_lote . '" data-id_file="' . $r->id . '" class="' . $classAccionMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $iconTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
 				$accionesReload = '<span data-id_proveedor="' . $r->id_proveedor . '"data-file="' . $r->nombre_archivo_temp . '"data-id_lote="' . $r->id . '" data-code="' . $r->code_lote . '"class="reload-lote acciones" data-consolidado="' . $r->consolidado . '"><a title="Recargar datos API" href="#"  class=""><i class=" text-warningr  fa fa-download" title="Reload"></i> </a> </span>';
 				$accionesDelete = '<span data-tabla="_datos_api" data-id_file="' . $r->id . '" class="borrar-file acciones" ><a title="Borrar file" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 

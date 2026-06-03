@@ -110,7 +110,50 @@ $(document).ready(function () {
   });
   $("body").on("click", "span.mergefile", function (e) {
     var file = $(this).data("file");
+    var $btn = $(this);
     e.preventDefault();
+
+    function consolidarArchivo(content, autoClose) {
+      var dato = new FormData();
+      dato.append("code_lote", $btn.data("code"));
+      dato.append("id_file", $btn.data("id_file"));
+      $.confirm({
+        autoClose: autoClose ? "cancel|10000" : false,
+        title: "CONSOLIDAR ARCHIVO",
+        content: content,
+        buttons: {
+          confirm: {
+            text: "Confirmar",
+            btnClass: "btn-blue",
+            action: function () {
+              $.ajax({
+                type: "POST",
+                contentType: false,
+                dataType: "json",
+                data: dato,
+                processData: false,
+                cache: false,
+                beforeSend: function () {},
+                url: $("body").data("base_url") + "Lecturas/Consolidar",
+                success: function (result) {
+                  console.log("result");
+                  console.log(result);
+                  $(".datatable-ajax").DataTable().ajax.reload(null, false);
+                },
+                error: function (xhr, errmsg, err) {
+                  console.log(xhr.status + ": " + xhr.responseText);
+                },
+              });
+            },
+          },
+          cancel: {
+            text: "Cancelar",
+            btnClass: "btn-red",
+            action: function () {},
+          },
+        },
+      });
+    }
 
     if ($(this).data("indexador") == '0') {
       $.confirm({
@@ -119,6 +162,23 @@ $(document).ready(function () {
           "El archivo: <strong> " +
           file +
           " </strong> No posee indexación",
+        buttons: {
+          cancel: {
+            text: "Cancelar",
+            btnClass: "btn-red",
+            action: function () {
+              return;
+            },
+          },
+        },
+      });
+    } else if (parseInt($(this).data("error-bloqueante"), 10) > 0) {
+      $.confirm({
+        title: "CONSOLIDAR ARCHIVO",
+        content:
+          "El archivo: <strong> " +
+          file +
+          " </strong> posee errores de lectura. Corregi los datos antes de consolidar.",
         buttons: {
           cancel: {
             text: "Cancelar",
@@ -146,6 +206,13 @@ $(document).ready(function () {
           },
         },
       });
+    } else if (parseInt($(this).data("importe-cero"), 10) === 1) {
+      consolidarArchivo(
+        "El archivo: <strong> " +
+          file +
+          " </strong> tiene importe <strong>0.00</strong>.<br><br>Esta intentando consolidar una factura con importe 0.00. Desea proceder?",
+        false
+      );
     } else {
       var dato = new FormData();
       dato.append("code_lote", $(this).data("code"));
@@ -464,7 +531,6 @@ $(document).ready(function () {
 		}
 	});
 }); 
-
 
 
 
