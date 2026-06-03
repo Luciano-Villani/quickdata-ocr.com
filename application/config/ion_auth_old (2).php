@@ -131,7 +131,6 @@ $config['admin_email']                = "admin@example.com"; // Admin Email, adm
 $config['members_group']              = 'members';           // Default group, use name
 $config['admin_group']                = 'admin';             // Default administrators group, use name
 $config['super_group']                = 'super';             // Default administrators group, use name
-$config['financiero_group']           = 'financiero';        // Finance/reporting group, use name
 $config['marketing_group']            = 'marketing';             // Default administrators group, use name
 $config['ventas_group']               = 'ventas';             // Default administrators group, use name
 $config['identity']                   = 'username';             

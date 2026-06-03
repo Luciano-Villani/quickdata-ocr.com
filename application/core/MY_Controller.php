@@ -130,6 +130,25 @@ class backend_controller extends MY_Controller
 			$this->user->groups = $this->ion_auth->get_users_groups($this->user->id)->result();
 		}
 	}
+
+	protected function is_financiero_only()
+	{
+		return $this->ion_auth->is_financiero() && !$this->ion_auth->is_admin() && !$this->ion_auth->is_super();
+	}
+
+	protected function bloquear_financiero($mensaje = 'No tiene permisos para operar esta seccion.')
+	{
+		if ($this->is_financiero_only()) {
+			show_error($mensaje, 403);
+		}
+	}
+
+	protected function requerir_super($mensaje = 'No tiene permisos para administrar esta seccion.')
+	{
+		if (!$this->ion_auth->is_super()) {
+			show_error($mensaje, 403);
+		}
+	}
 }
 
 class front_controller extends CI_Controller

@@ -495,6 +495,15 @@ class Ion_auth
 
 		return $this->ion_auth_model->in_group($members_group, $id);
 	}	
+
+	public function is_financiero($id = FALSE)
+	{
+		$this->ion_auth_model->trigger_events('is_financiero');
+
+		$financiero_group = $this->config->item('financiero_group', 'ion_auth');
+
+		return $this->ion_auth_model->in_group($financiero_group, $id);
+	}
 	
 	public function is_electro($id = FALSE)
 	{
