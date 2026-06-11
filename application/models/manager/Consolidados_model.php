@@ -343,8 +343,8 @@ public function get_archivos_por_filtros($filtros)
         $this->db->where_in('t1.periodo_contable', $filtros['periodo_contable']);
     }
 
-    if (!empty($filtros['expediente'])) {
-        $this->db->where_in('t1.expediente', $filtros['expediente']);
+    if (!empty($filtros['id_secretaria'])) {
+        $this->db->where_in('t1.id_secretaria', $filtros['id_secretaria']);
     }
 
     // 4. FILTRO: Rango de Fechas
@@ -426,7 +426,7 @@ public function get_reporte_final_opciones($filtros)
     return array(
         'tipo_pago' => $this->opciones_tipo_pago_reporte($filtros),
         'periodo_contable' => $this->opciones_distintas_reporte('periodo_contable', $filtros, 'periodo_contable'),
-        'expediente' => $this->opciones_distintas_reporte('expediente', $filtros, 'expediente'),
+        'secretaria' => $this->opciones_secretarias_reporte($filtros),
     );
 }
 
@@ -447,6 +447,29 @@ private function opciones_tipo_pago_reporte($filtros)
         $opciones[] = array(
             'id' => $row->tip_id ? (string) $row->tip_id : $row->tipo_pago,
             'text' => strtoupper($row->tipo_pago),
+        );
+    }
+
+    return $opciones;
+}
+
+private function opciones_secretarias_reporte($filtros)
+{
+    $this->db->select('C.id_secretaria, C.secretaria');
+    $this->db->from('_consolidados C');
+    $this->aplicar_filtros_reporte_final_alias($filtros, 'C', 'id_secretaria');
+    $this->db->where("C.id_secretaria IS NOT NULL AND C.id_secretaria <> ''", NULL, FALSE);
+    $this->db->where("C.secretaria IS NOT NULL AND TRIM(C.secretaria) <> ''", NULL, FALSE);
+    $this->db->group_by('C.id_secretaria, C.secretaria');
+    $this->db->order_by('C.secretaria', 'ASC');
+
+    $query = $this->db->get();
+    $opciones = array();
+
+    foreach ($query->result() as $row) {
+        $opciones[] = array(
+            'id' => (string) $row->id_secretaria,
+            'text' => strtoupper($row->secretaria),
         );
     }
 
@@ -489,8 +512,8 @@ private function aplicar_filtros_reporte_final($filtros)
         $this->db->where_in('periodo_contable', $filtros['periodo_contable']);
     }
 
-    if (!empty($filtros['expediente'])) {
-        $this->db->where_in('expediente', $filtros['expediente']);
+    if (!empty($filtros['id_secretaria'])) {
+        $this->db->where_in('id_secretaria', $filtros['id_secretaria']);
     }
 
     if (!empty($filtros['fechas']) && count($filtros['fechas']) === 2) {
@@ -516,8 +539,8 @@ private function aplicar_filtros_reporte_final_alias($filtros, $alias, $excluir 
         $this->db->where_in($prefix . 'periodo_contable', $filtros['periodo_contable']);
     }
 
-    if ($excluir !== 'expediente' && !empty($filtros['expediente'])) {
-        $this->db->where_in($prefix . 'expediente', $filtros['expediente']);
+    if ($excluir !== 'id_secretaria' && !empty($filtros['id_secretaria'])) {
+        $this->db->where_in($prefix . 'id_secretaria', $filtros['id_secretaria']);
     }
 
     if (!empty($filtros['fechas']) && count($filtros['fechas']) === 2) {

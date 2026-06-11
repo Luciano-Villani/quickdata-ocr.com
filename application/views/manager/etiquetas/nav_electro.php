@@ -5,6 +5,54 @@
         min-width: 42px;
         justify-content: center;
     }
+    .mvl-module-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
+        margin-left: 1rem;
+        margin-right: auto;
+        padding: 3px;
+        border: 1px solid rgba(255,255,255,.18);
+        border-radius: .42rem;
+        background: rgba(255,255,255,.08);
+        box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+    }
+    .mvl-module-tab {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 128px;
+        min-height: 32px;
+        padding: .38rem .9rem;
+        border-radius: .32rem;
+        color: rgba(255,255,255,.78);
+        font-size: .72rem;
+        font-weight: 800;
+        letter-spacing: .035em;
+        text-transform: uppercase;
+        transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+    .mvl-module-tab:hover {
+        color: #fff;
+        background: rgba(255,255,255,.12);
+        text-decoration: none;
+    }
+    .mvl-module-tab.active {
+        color: #fff;
+        background: #075cf7;
+        box-shadow: 0 8px 18px rgba(0,0,0,.18);
+    }
+    .mvl-module-tab.disabled {
+        opacity: .45;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    .mvl-role-badge {
+        margin-left: .75rem;
+        margin-right: .75rem;
+        font-size: .68rem;
+        opacity: .95;
+    }
     .mvl-topbar-icon .badge {
         position: absolute;
         top: 4px;
@@ -49,6 +97,7 @@
 		</ul>
 		<?php
         $grupos= '';
+        $nav_can_switch_modules = $this->ion_auth->is_super() || $this->ion_auth->is_admin();
 
 		foreach($this->ion_auth->get_users_groups()->result() as $grupo){
 			$grupos .= $grupo->description;  
@@ -56,7 +105,14 @@
 		
 		?>
 
-		<span class="btn bg-success ml-md-3 mr-md-auto"> <?= strtoupper($grupos)?></span>
+        <div class="mvl-module-switch" aria-label="Selector de modulo">
+            <?php if ($nav_can_switch_modules) { ?>
+                <a href="/Admin/Consolidados" class="mvl-module-tab" data-module="proveedores">Proveedores</a>
+            <?php } else { ?>
+                <span class="mvl-module-tab disabled">Proveedores</span>
+            <?php } ?>
+            <a href="/Electromecanica/Consolidados" class="mvl-module-tab active" data-module="electromecanica">Electromec&aacute;nica</a>
+        </div>
 
 		<ul class="navbar-nav">
             <li class="nav-item dropdown ml-1 mr-2" id="nav-item-alertas-vencimientos">

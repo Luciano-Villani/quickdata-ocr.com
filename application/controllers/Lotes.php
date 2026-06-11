@@ -944,13 +944,135 @@ $this->db->update('_datos_api', $dataUpdate);
 		if ($this->db->field_exists('total_archivos', '_lotes_resumen')) {
 			$this->db->query("
 				INSERT INTO _lotes_resumen (id_lote, total_archivos, archivos_sin_indexar, archivos_error_lectura)
-				VALUES (?, ?, ?, 0)
-				ON DUPLICATE KEY UPDATE total_archivos = VALUES(total_archivos)",
-				array($id_lote, $total, $total)
+				VALUES (?, ?, ?, ?)
+				ON DUPLICATE KEY UPDATE
+					total_archivos = VALUES(total_archivos),
+					archivos_sin_indexar = VALUES(archivos_sin_indexar),
+					archivos_error_lectura = VALUES(archivos_error_lectura)",
+				array($id_lote, $total, $total, $total)
 			);
 		}
 
 		return $total;
+	}
+
+	private function _resolver_id_lote_por_code($code_lote)
+	{
+		if (!$code_lote) {
+			return null;
+		}
+
+		$lote = $this->db
+			->select('id')
+			->where('code', $code_lote)
+			->limit(1)
+			->get('_lotes')
+			->row();
+
+		if ($lote) {
+			return (int) $lote->id;
+		}
+
+		$archivo = $this->db
+			->select('id_lote')
+			->where('code_lote', $code_lote)
+			->order_by('id', 'DESC')
+			->limit(1)
+			->get('_datos_api')
+			->row();
+
+		return $archivo ? (int) $archivo->id_lote : null;
+	}
+
+	private function _recalcular_resumen_lote_por_code($code_lote)
+	{
+		$id_lote = $this->_resolver_id_lote_por_code($code_lote);
+		if (!$id_lote) {
+			return null;
+		}
+
+		$this->load->model('manager/Lecturas_model');
+		$this->Lecturas_model->actualizar_resumen_lote($id_lote);
+
+		return $id_lote;
+	}
+
+	public function validar_lote()
+	{
+		if (!$this->input->is_ajax_request()) {
+			show_404();
+		}
+
+		$code_lote = $this->input->post('code_lote');
+		$id_lote = $this->_recalcular_resumen_lote_por_code($code_lote);
+
+		if (!$id_lote) {
+			echo json_encode(array(
+				'status' => 'error',
+				'mensaje' => 'No se pudo identificar el lote para validar.',
+			));
+			exit();
+		}
+
+		$this->load->model('manager/Lecturas_model');
+		$error_lectura_sql = $this->Lecturas_model->sql_error_lectura_case('d');
+
+		$resumen = $this->db->query("
+			SELECT
+				COUNT(d.id) AS total_archivos,
+				SUM(CASE
+					WHEN d.dato_api IS NULL
+						OR TRIM(d.dato_api) = ''
+						OR LOWER(TRIM(d.dato_api)) IN ('null', '[]', '{}')
+					THEN 1 ELSE 0
+				END) AS archivos_sin_respuesta_api,
+				SUM(CASE
+					WHEN d.nro_cuenta IS NULL
+						OR TRIM(d.nro_cuenta) IN ('', 'S/D', 'SD', '-', 'error de lectura')
+						OR NOT EXISTS (
+							SELECT 1
+							FROM _indexaciones i
+							WHERE i.nro_cuenta = d.nro_cuenta
+						)
+					THEN 1 ELSE 0
+				END) AS archivos_sin_indexar,
+				SUM({$error_lectura_sql}) AS archivos_error_lectura,
+				SUM(CASE WHEN COALESCE(d.consolidado, 0) = 1 THEN 1 ELSE 0 END) AS archivos_consolidados
+			FROM _datos_api d
+			WHERE d.id_lote = ?
+		", array($id_lote))->row();
+
+		$total = (int) $resumen->total_archivos;
+		$sin_respuesta_api = (int) $resumen->archivos_sin_respuesta_api;
+		$sin_indexar = (int) $resumen->archivos_sin_indexar;
+		$error_lectura = (int) $resumen->archivos_error_lectura;
+		$consolidados = (int) $resumen->archivos_consolidados;
+
+		$estado = 'ok';
+		if ($total === 0) {
+			$estado = 'vacio';
+		} elseif ($sin_respuesta_api > 0) {
+			$estado = 'incompleto';
+		} elseif ($sin_indexar > 0 || $error_lectura > 0) {
+			$estado = 'observaciones';
+		}
+
+		echo json_encode(array(
+			'status' => 'success',
+			'estado' => $estado,
+			'id_lote' => $id_lote,
+			'code_lote' => $code_lote,
+			'total_archivos' => $total,
+			'archivos_procesados_api' => max(0, $total - $sin_respuesta_api),
+			'archivos_sin_respuesta_api' => $sin_respuesta_api,
+			'archivos_sin_indexar' => $sin_indexar,
+			'archivos_error_lectura' => $error_lectura,
+			'archivos_consolidados' => $consolidados,
+			'url_lote' => site_url('Admin/Lotes/viewBatch/' . $code_lote),
+			'url_errores' => site_url('Admin/Lotes/viewBatch/' . $code_lote) . '?filtro=errores',
+			'url_sin_index' => site_url('Admin/Lotes/viewBatch/' . $code_lote) . '?filtro=sin_index',
+		));
+		exit();
 	}
 
 	public function leerApi()
@@ -1313,6 +1435,7 @@ public function lotes_dt($id_proveedor = null)
 		$data = array();
 
 		$this->lote = $id;
+		$id_lote_resuelto = $this->_recalcular_resumen_lote_por_code($id);
 
 		if ($this->input->is_ajax_request()) {
 			// $data = $row = array();

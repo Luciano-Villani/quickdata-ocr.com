@@ -65,6 +65,12 @@ $route['Admin/Obras'] = 'Obras/listados';
 $route['Admin/Obras/editar/(:any)'] = 'Obras/listados/$1';
 
 $route['Admin/Indexaciones/editar/(:any)'] = 'Indexaciones/listados/$1';
+$route['Admin/Indexaciones/migrar'] = 'Indexaciones/migrar';
+$route['Admin/Indexaciones/buscar_migracion'] = 'Indexaciones/buscar_migracion';
+$route['Admin/Indexaciones/opciones_migracion'] = 'Indexaciones/opciones_migracion';
+$route['Admin/Indexaciones/guardar_migracion'] = 'Indexaciones/guardar_migracion';
+$route['Admin/Indexaciones/historial_migracion'] = 'Indexaciones/historial_migracion';
+$route['Admin/Indexaciones/revertir_migracion'] = 'Indexaciones/revertir_migracion';
 $route['Admin/Indexaciones'] = 'Indexaciones/listados';
 
 
@@ -80,6 +86,17 @@ $route['Uploader/index'] = 'Uploader';
 
 //Dashboard
 $route['Admin/Dashboard'] = 'Dashboard/index';
+$route['Admin/DashboardFinanciero'] = 'Dashboard_financiero/index';
+$route['Admin/DashboardFinanciero/api/filtros'] = 'Dashboard_financiero/api_filtros';
+$route['Admin/DashboardFinanciero/api/resumen'] = 'Dashboard_financiero/api_resumen';
+$route['Admin/DashboardFinanciero/api/evolucion'] = 'Dashboard_financiero/api_evolucion';
+$route['Admin/DashboardFinanciero/api/ranking'] = 'Dashboard_financiero/api_ranking';
+$route['Admin/DashboardFinanciero/api/drilldown'] = 'Dashboard_financiero/api_drilldown';
+$route['Admin/DashboardFinanciero/api/consumos'] = 'Dashboard_financiero/api_consumos';
+$route['Admin/DashboardFinanciero/api/crecimiento'] = 'Dashboard_financiero/api_crecimiento';
+$route['Admin/DashboardFinanciero/api/pareto'] = 'Dashboard_financiero/api_pareto';
+$route['Admin/DashboardFinanciero/api/forecast'] = 'Dashboard_financiero/api_forecast';
+$route['Admin/DashboardFinanciero/api/servicios'] = 'Dashboard_financiero/api_servicios';
 $route['Admin/Dashboard/programas'] = 'Dashboard/get_programas_by_jurisdiccion';
 // Nueva ruta para Proyectos (AJAX)
 $route['Admin/Dashboard/proyectos'] = 'Dashboard/get_proyectos_by_programa';

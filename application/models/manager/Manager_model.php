@@ -200,6 +200,14 @@ class Manager_model extends CI_Model
                     $this->db->group_end();
                 }
 
+                if ((isset($postData['id_secretaria'])) && $postData['id_secretaria'] != 'false' && (isset($postData['id_secretaria']) && $postData['id_secretaria'] != '')) {
+                    $this->db->group_start();
+                    foreach ($postData['id_secretaria'] as $secretaria) {
+                        $this->db->or_where('_consolidados.id_secretaria', $secretaria);
+                    }
+                    $this->db->group_end();
+                }
+
                 if ((isset($postData['expediente']) && $postData['expediente'] != 'false' &&  $postData['expediente'] != '')) {
                     $this->db->group_start();
                     foreach ($postData['expediente'] as $expediente) {

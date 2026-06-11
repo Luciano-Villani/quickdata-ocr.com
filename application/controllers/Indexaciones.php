@@ -10,6 +10,7 @@ class Indexaciones extends backend_controller
 		if (!$this->ion_auth->logged_in()) {
 			redirect('Login');
 		} else {
+			$this->bloquear_financiero('No tiene permisos para administrar indexadores.');
 			$this->load->model('Ion_auth_model');
 			$this->load->model('manager/Usuarios_model');
 			$this->load->model('manager/Secretarias_model');
@@ -57,6 +58,490 @@ class Indexaciones extends backend_controller
 			exit();
 		}
 	}
+
+    public function migrar()
+    {
+        $script = array(
+            base_url('assets/manager/js/plugins/forms/selects/select2.min.js'),
+            base_url('assets/manager/js/secciones/indexaciones/migrar.js'),
+        );
+
+        $this->data['css_common'] = $this->css_common;
+        $this->data['css'] = '';
+        $this->data['script_common'] = $this->script_common;
+        $this->data['script'] = $script;
+        $this->data['select_secretarias'] = $this->Manager_model->obtener_contenido_select('_secretarias', 'SELECCIONE SECRETARÍA', 'secretaria', 'secretaria ASC');
+        $this->data['content'] = $this->load->view('manager/secciones/indexaciones/migrar', $this->data, TRUE);
+
+        $this->load->view('manager/head', $this->data);
+        $this->load->view('manager/index', $this->data);
+        $this->load->view('manager/footer', $this->data);
+    }
+
+    public function buscar_migracion()
+    {
+        if (!$this->input->is_ajax_request()) {
+            show_404();
+        }
+
+        $nroCuenta = trim((string) $this->input->post('nro_cuenta', TRUE));
+        if ($nroCuenta === '') {
+            return $this->_json_migracion(array(
+                'status' => 'error',
+                'mensaje' => 'Ingrese un número de cuenta.',
+            ));
+        }
+
+        $indexacion = $this->_get_indexacion_migracion_por_cuenta($nroCuenta);
+        if (!$indexacion) {
+            return $this->_json_migracion(array(
+                'status' => 'error',
+                'mensaje' => 'No se encontró una indexación activa para esa cuenta.',
+            ));
+        }
+
+        $cuentasDependencia = array();
+        if (!empty($indexacion->id_dependencia)) {
+            $cuentasDependencia = $this->_get_cuentas_dependencia_migracion($indexacion->id_dependencia);
+        }
+
+        return $this->_json_migracion(array(
+            'status' => 'success',
+            'data' => array(
+                'indexacion' => $indexacion,
+                'cuentas_dependencia' => $cuentasDependencia,
+                'total_cuentas_dependencia' => count($cuentasDependencia),
+            ),
+        ));
+    }
+
+    public function opciones_migracion()
+    {
+        if (!$this->input->is_ajax_request()) {
+            show_404();
+        }
+
+        $idSecretaria = (int) $this->input->post('id_secretaria');
+        $idPrograma = (int) $this->input->post('id_programa');
+
+        $programas = array();
+        $dependencias = array();
+        $proyectos = array();
+
+        if ($idSecretaria > 0) {
+            $programas = $this->db
+                ->select('id, id_interno, descripcion')
+                ->where('id_secretaria', $idSecretaria)
+                ->order_by('id_interno ASC, descripcion ASC')
+                ->get('_programas')
+                ->result();
+
+            $dependencias = $this->db
+                ->select('id, dependencia, direccion')
+                ->where('id_secretaria', $idSecretaria)
+                ->order_by('dependencia ASC')
+                ->get('_dependencias')
+                ->result();
+        }
+
+        if ($idPrograma > 0) {
+            $proyectos = $this->db
+                ->select('id, id_interno, descripcion')
+                ->where('id_programa', $idPrograma)
+                ->order_by('id_interno ASC, descripcion ASC')
+                ->get('_proyectos')
+                ->result();
+        }
+
+        return $this->_json_migracion(array(
+            'status' => 'success',
+            'data' => array(
+                'programas' => $programas,
+                'dependencias' => $dependencias,
+                'proyectos' => $proyectos,
+            ),
+        ));
+    }
+
+    public function guardar_migracion()
+    {
+        if (!$this->input->is_ajax_request()) {
+            show_404();
+        }
+
+        $idIndexacion = (int) $this->input->post('id_indexacion');
+        $alcance = $this->input->post('alcance', TRUE) === 'dependencia' ? 'dependencia' : 'cuenta';
+        $idSecretariaNueva = (int) $this->input->post('id_secretaria');
+        $idProgramaNuevo = (int) $this->input->post('id_programa');
+        $idProyectoNuevo = (int) $this->input->post('id_proyecto');
+        $idDependenciaNueva = (int) $this->input->post('id_dependencia');
+        $moverDependencia = (int) $this->input->post('mover_dependencia') === 1 ? 1 : 0;
+        $observacion = trim((string) $this->input->post('observacion', TRUE));
+
+        $origen = $this->_get_indexacion_migracion_por_id($idIndexacion);
+        if (!$origen) {
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'La indexación de origen no existe.'));
+        }
+
+        $validacion = $this->_validar_destino_migracion($idSecretariaNueva, $idProgramaNuevo, $idProyectoNuevo, $idDependenciaNueva, $moverDependencia, $origen);
+        if ($validacion['status'] !== 'success') {
+            return $this->_json_migracion($validacion);
+        }
+
+        if ($moverDependencia) {
+            $idDependenciaNueva = (int) $origen->id_dependencia;
+            $alcance = 'dependencia';
+        }
+
+        $afectadas = $alcance === 'dependencia'
+            ? $this->_get_indexaciones_por_dependencia_migracion($origen->id_dependencia)
+            : array($origen);
+
+        if (empty($afectadas)) {
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'No hay cuentas para migrar.'));
+        }
+
+        $idsRecalculo = array();
+        $grupoMigracion = date('YmdHis') . '-' . $this->user->id . '-' . substr(md5(uniqid('', true)), 0, 8);
+        $this->db->trans_begin();
+
+        if ($moverDependencia && (int) $origen->id_dependencia > 0) {
+            $this->db->where('id', $origen->id_dependencia);
+            $this->db->update('_dependencias', array('id_secretaria' => $idSecretariaNueva));
+        }
+
+        foreach ($afectadas as $actual) {
+            $idsRecalculo[] = $actual->nro_cuenta;
+
+            $audit = array(
+                'id_indexacion' => $actual->id,
+                'alcance' => $alcance,
+                'nro_cuenta' => $actual->nro_cuenta,
+                'id_proveedor' => $actual->id_proveedor,
+                'id_secretaria_anterior' => $actual->id_secretaria,
+                'id_programa_anterior' => $actual->id_programa,
+                'id_proyecto_anterior' => $actual->id_proyecto,
+                'id_dependencia_anterior' => $actual->id_dependencia,
+                'id_secretaria_nueva' => $idSecretariaNueva,
+                'id_programa_nuevo' => $idProgramaNuevo,
+                'id_proyecto_nuevo' => $idProyectoNuevo,
+                'id_dependencia_nueva' => $idDependenciaNueva,
+                'mover_dependencia' => $moverDependencia,
+                'expediente_anterior' => $actual->expediente,
+                'tipo_pago_anterior' => $actual->tipo_pago,
+                'observacion' => $observacion,
+                'grupo_migracion' => $grupoMigracion,
+                'user_add' => $this->user->id,
+            );
+            $this->db->insert('_indexaciones_migraciones', $audit);
+
+            $this->db->where('id', $actual->id);
+            $this->db->update('_indexaciones', array(
+                'id_secretaria' => $idSecretariaNueva,
+                'id_programa' => $idProgramaNuevo,
+                'id_proyecto' => $idProyectoNuevo,
+                'id_dependencia' => $idDependenciaNueva,
+                'user_mod' => $this->user->id,
+                'fecha_mod' => date('Y-m-d H:i:s'),
+            ));
+        }
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'No se pudo guardar la migración.'));
+        }
+
+        $this->db->trans_commit();
+        $this->_recalcular_lotes_por_cuentas_migradas(array_unique($idsRecalculo));
+
+        return $this->_json_migracion(array(
+            'status' => 'success',
+            'mensaje' => 'Migración guardada correctamente.',
+            'data' => array('cuentas_afectadas' => count($afectadas)),
+        ));
+    }
+
+    public function historial_migracion()
+    {
+        if (!$this->input->is_ajax_request()) {
+            show_404();
+        }
+
+        $nroCuenta = trim((string) $this->input->post('nro_cuenta', TRUE));
+        $idIndexacion = (int) $this->input->post('id_indexacion');
+
+        if ($nroCuenta === '' && $idIndexacion <= 0) {
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'Seleccione una cuenta para ver el historial.'));
+        }
+
+        if (!$this->db->table_exists('_indexaciones_migraciones')) {
+            return $this->_json_migracion(array('status' => 'success', 'data' => array('historial' => array())));
+        }
+
+        $this->db
+            ->select('
+                m.*,
+                sant.secretaria AS secretaria_anterior_nombre,
+                snue.secretaria AS secretaria_nueva_nombre,
+                pant.id_interno AS programa_anterior_codigo,
+                pant.descripcion AS programa_anterior_nombre,
+                pnue.id_interno AS programa_nuevo_codigo,
+                pnue.descripcion AS programa_nuevo_nombre,
+                pray.id_interno AS proyecto_anterior_codigo,
+                pray.descripcion AS proyecto_anterior_nombre,
+                prny.id_interno AS proyecto_nuevo_codigo,
+                prny.descripcion AS proyecto_nuevo_nombre,
+                dant.dependencia AS dependencia_anterior_nombre,
+                dnue.dependencia AS dependencia_nueva_nombre,
+                p.nombre AS proveedor_nombre
+            ')
+            ->from('_indexaciones_migraciones m')
+            ->join('_proveedores p', 'p.id = m.id_proveedor', 'left')
+            ->join('_secretarias sant', 'sant.id = m.id_secretaria_anterior', 'left')
+            ->join('_secretarias snue', 'snue.id = m.id_secretaria_nueva', 'left')
+            ->join('_programas pant', 'pant.id = m.id_programa_anterior', 'left')
+            ->join('_programas pnue', 'pnue.id = m.id_programa_nuevo', 'left')
+            ->join('_proyectos pray', 'pray.id = m.id_proyecto_anterior', 'left')
+            ->join('_proyectos prny', 'prny.id = m.id_proyecto_nuevo', 'left')
+            ->join('_dependencias dant', 'dant.id = m.id_dependencia_anterior', 'left')
+            ->join('_dependencias dnue', 'dnue.id = m.id_dependencia_nueva', 'left');
+
+        if ($idIndexacion > 0) {
+            $this->db->where('m.id_indexacion', $idIndexacion);
+        } else {
+            $this->db->where('m.nro_cuenta', $nroCuenta);
+        }
+
+        $historial = $this->db
+            ->order_by('m.fecha_add DESC, m.id DESC')
+            ->limit(50)
+            ->get()
+            ->result();
+
+        return $this->_json_migracion(array('status' => 'success', 'data' => array('historial' => $historial)));
+    }
+
+    public function revertir_migracion()
+    {
+        if (!$this->input->is_ajax_request()) {
+            show_404();
+        }
+
+        $idMigracion = (int) $this->input->post('id_migracion');
+        $observacion = trim((string) $this->input->post('observacion', TRUE));
+
+        if ($idMigracion <= 0) {
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'MigraciÃ³n invÃ¡lida.'));
+        }
+
+        $migracion = $this->db->where('id', $idMigracion)->get('_indexaciones_migraciones')->row();
+        if (!$migracion) {
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'No se encontrÃ³ la migraciÃ³n.'));
+        }
+        if ((int) $migracion->revertida === 1) {
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'Esta migraciÃ³n ya fue revertida.'));
+        }
+
+        if (!empty($migracion->grupo_migracion)) {
+            $migraciones = $this->db
+                ->where('grupo_migracion', $migracion->grupo_migracion)
+                ->where('revertida', 0)
+                ->get('_indexaciones_migraciones')
+                ->result();
+        } else {
+            $migraciones = array($migracion);
+        }
+
+        if (empty($migraciones)) {
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'No hay movimientos pendientes para revertir.'));
+        }
+
+        foreach ($migraciones as $mov) {
+            $actual = $this->db->where('id', $mov->id_indexacion)->get('_indexaciones')->row();
+            if (!$actual) {
+                return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'No se puede revertir: una cuenta migrada ya no existe.'));
+            }
+
+            if ((int) $actual->id_secretaria !== (int) $mov->id_secretaria_nueva
+                || (int) $actual->id_programa !== (int) $mov->id_programa_nuevo
+                || (int) $actual->id_proyecto !== (int) $mov->id_proyecto_nuevo
+                || (int) $actual->id_dependencia !== (int) $mov->id_dependencia_nueva) {
+                return $this->_json_migracion(array(
+                    'status' => 'error',
+                    'mensaje' => 'No se puede revertir porque una cuenta ya tuvo cambios posteriores. Revise el historial antes de continuar.',
+                ));
+            }
+        }
+
+        $cuentasRecalculo = array();
+        $this->db->trans_begin();
+
+        foreach ($migraciones as $mov) {
+            $cuentasRecalculo[] = $mov->nro_cuenta;
+
+            $this->db->where('id', $mov->id_indexacion);
+            $this->db->update('_indexaciones', array(
+                'id_secretaria' => $mov->id_secretaria_anterior,
+                'id_programa' => $mov->id_programa_anterior,
+                'id_proyecto' => $mov->id_proyecto_anterior,
+                'id_dependencia' => $mov->id_dependencia_anterior,
+                'user_mod' => $this->user->id,
+                'fecha_mod' => date('Y-m-d H:i:s'),
+            ));
+        }
+
+        if ((int) $migracion->mover_dependencia === 1 && (int) $migracion->id_dependencia_anterior > 0) {
+            $this->db->where('id', $migracion->id_dependencia_anterior);
+            $this->db->update('_dependencias', array('id_secretaria' => $migracion->id_secretaria_anterior));
+        }
+
+        $idsMigraciones = array_map(function ($item) {
+            return (int) $item->id;
+        }, $migraciones);
+
+        $this->db->where_in('id', $idsMigraciones);
+        $this->db->update('_indexaciones_migraciones', array(
+            'revertida' => 1,
+            'fecha_reversion' => date('Y-m-d H:i:s'),
+            'user_reversion' => $this->user->id,
+            'observacion_reversion' => $observacion,
+        ));
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return $this->_json_migracion(array('status' => 'error', 'mensaje' => 'No se pudo revertir la migraciÃ³n.'));
+        }
+
+        $this->db->trans_commit();
+        $this->_recalcular_lotes_por_cuentas_migradas(array_unique($cuentasRecalculo));
+
+        return $this->_json_migracion(array(
+            'status' => 'success',
+            'mensaje' => 'MigraciÃ³n revertida correctamente.',
+            'data' => array('cuentas_afectadas' => count($migraciones)),
+        ));
+    }
+
+    private function _get_indexacion_migracion_por_cuenta($nroCuenta)
+    {
+        $this->db->where('_indexaciones.nro_cuenta', $nroCuenta);
+        $this->db->limit(1);
+        return $this->_query_indexacion_migracion()->row();
+    }
+
+    private function _get_indexacion_migracion_por_id($idIndexacion)
+    {
+        $this->db->where('_indexaciones.id', $idIndexacion);
+        $this->db->limit(1);
+        return $this->_query_indexacion_migracion()->row();
+    }
+
+    private function _get_indexaciones_por_dependencia_migracion($idDependencia)
+    {
+        if ((int) $idDependencia <= 0) {
+            return array();
+        }
+        $this->db->where('_indexaciones.id_dependencia', $idDependencia);
+        return $this->_query_indexacion_migracion()->result();
+    }
+
+    private function _query_indexacion_migracion()
+    {
+        return $this->db
+            ->select('
+                _indexaciones.*,
+                _proveedores.nombre AS proveedor_nombre,
+                _secretarias.secretaria AS secretaria_nombre,
+                _programas.id_interno AS programa_codigo,
+                _programas.descripcion AS programa_nombre,
+                _proyectos.id_interno AS proyecto_codigo,
+                _proyectos.descripcion AS proyecto_nombre,
+                _dependencias.dependencia AS dependencia_nombre,
+                _dependencias.direccion AS dependencia_direccion,
+                _tipo_pago.tip_nombre AS tipo_pago_nombre
+            ')
+            ->from('_indexaciones')
+            ->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor', 'left')
+            ->join('_secretarias', '_secretarias.id = _indexaciones.id_secretaria', 'left')
+            ->join('_programas', '_programas.id = _indexaciones.id_programa', 'left')
+            ->join('_proyectos', '_proyectos.id = _indexaciones.id_proyecto', 'left')
+            ->join('_dependencias', '_dependencias.id = _indexaciones.id_dependencia', 'left')
+            ->join('_tipo_pago', '_tipo_pago.tip_id = _indexaciones.tipo_pago', 'left')
+            ->get();
+    }
+
+    private function _get_cuentas_dependencia_migracion($idDependencia)
+    {
+        return $this->db
+            ->select('_indexaciones.id, _indexaciones.nro_cuenta, _proveedores.nombre AS proveedor_nombre')
+            ->from('_indexaciones')
+            ->join('_proveedores', '_proveedores.id = _indexaciones.id_proveedor', 'left')
+            ->where('_indexaciones.id_dependencia', $idDependencia)
+            ->order_by('_proveedores.nombre ASC, _indexaciones.nro_cuenta ASC')
+            ->get()
+            ->result();
+    }
+
+    private function _validar_destino_migracion($idSecretaria, $idPrograma, $idProyecto, $idDependencia, $moverDependencia, $origen)
+    {
+        if ($idSecretaria <= 0 || !$this->Manager_model->get_data('_secretarias', $idSecretaria)) {
+            return array('status' => 'error', 'mensaje' => 'Seleccione una secretaría destino válida.');
+        }
+
+        $programa = $this->db->where('id', $idPrograma)->where('id_secretaria', $idSecretaria)->get('_programas')->row();
+        if (!$programa) {
+            return array('status' => 'error', 'mensaje' => 'Seleccione un programa válido para la secretaría destino.');
+        }
+
+        if ($idProyecto > 0) {
+            $proyecto = $this->db->where('id', $idProyecto)->where('id_programa', $idPrograma)->where('id_secretaria', $idSecretaria)->get('_proyectos')->row();
+            if (!$proyecto) {
+                return array('status' => 'error', 'mensaje' => 'Seleccione un proyecto válido para el programa destino.');
+            }
+        }
+
+        if ($moverDependencia) {
+            if ((int) $origen->id_dependencia <= 0) {
+                return array('status' => 'error', 'mensaje' => 'La cuenta actual no tiene dependencia para mover.');
+            }
+            return array('status' => 'success');
+        }
+
+        $dependencia = $this->db->where('id', $idDependencia)->where('id_secretaria', $idSecretaria)->get('_dependencias')->row();
+        if (!$dependencia) {
+            return array('status' => 'error', 'mensaje' => 'Seleccione una dependencia válida para la secretaría destino.');
+        }
+
+        return array('status' => 'success');
+    }
+
+    private function _recalcular_lotes_por_cuentas_migradas($cuentas)
+    {
+        if (empty($cuentas)) {
+            return;
+        }
+
+        $this->load->model('manager/Lecturas_model');
+        $this->db->select('t1.id_lote')
+            ->from('_datos_api t1')
+            ->join('_lotes t2', 't1.id_lote = t2.id', 'inner')
+            ->where_in('t1.nro_cuenta', $cuentas)
+            ->where('t2.consolidado', 0)
+            ->distinct();
+
+        $lotes = $this->db->get()->result();
+        foreach ($lotes as $lote) {
+            $this->Lecturas_model->actualizar_resumen_lote($lote->id_lote);
+        }
+    }
+
+    private function _json_migracion($payload)
+    {
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($payload));
+    }
+
 	public function list_dt($id = null)
 	{
 

@@ -453,7 +453,7 @@ public function descargar_pdfs()
     $id_proveedor = $this->input->get('id_proveedor', TRUE);
     $tipo_pago = $this->input->get('tipo_pago'); // Array de textos (ej. ['Contado', 'Crédito'])
     $periodo_contable = $this->input->get('periodo_contable', TRUE);
-    $expediente = $this->input->get('expediente', TRUE);
+    $id_secretaria = $this->input->get('id_secretaria', TRUE);
     $fecha_rango = $this->input->get('fecha', TRUE);
 
     // 2. Procesar Rango de Fechas (DD/MM/YYYY a YYYY-MM-DD)
@@ -475,7 +475,7 @@ public function descargar_pdfs()
         'id_proveedor' => is_string($id_proveedor) ? [$id_proveedor] : $id_proveedor, 
         'tipo_pago' => $tipo_pago,
         'periodo_contable' => is_string($periodo_contable) ? [$periodo_contable] : $periodo_contable,
-        'expediente' => is_string($expediente) ? [$expediente] : $expediente,
+        'id_secretaria' => is_string($id_secretaria) ? [$id_secretaria] : $id_secretaria,
         'fechas' => $fechas
     ];
     
@@ -614,7 +614,7 @@ private function _get_reporte_final_filtros($method = 'post')
     $idProveedor = $this->input->{$input}('id_proveedor');
     $tipoPago = $this->input->{$input}('tipo_pago');
     $periodoContable = $this->input->{$input}('periodo_contable');
-    $expediente = $this->input->{$input}('expediente');
+    $idSecretaria = $this->input->{$input}('id_secretaria');
     $fechaRango = $this->input->{$input}('fecha');
 
     $fechas = null;
@@ -632,7 +632,7 @@ private function _get_reporte_final_filtros($method = 'post')
         'id_proveedor' => $this->_normalizar_array_filtro($idProveedor),
         'tipo_pago' => $this->_normalizar_array_filtro($tipoPago),
         'periodo_contable' => $this->_normalizar_array_filtro($periodoContable),
-        'expediente' => $this->_normalizar_array_filtro($expediente),
+        'id_secretaria' => $this->_normalizar_array_filtro($idSecretaria),
         'fechas' => $fechas,
     );
 }

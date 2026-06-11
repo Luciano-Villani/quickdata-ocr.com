@@ -354,13 +354,22 @@ public function actualizar_resumen_lote($id_lote)
     $resumen_data = $this->db->query("
         SELECT 
             COUNT(t2.id) AS total_archivos,
-            -- Archivos sin indexar (nro_cuenta de t2 no tiene coincidencia en t3)
-            SUM(CASE WHEN t3.id IS NULL THEN 1 ELSE 0 END) AS archivos_sin_indexar,
+            -- Archivos sin indexar: cuenta vacia/invalida o sin coincidencia en indexadores.
+            SUM(CASE
+                WHEN t2.nro_cuenta IS NULL
+                    OR TRIM(t2.nro_cuenta) IN ('', 'S/D', 'SD', '-', 'error de lectura')
+                    OR NOT EXISTS (
+                        SELECT 1
+                        FROM _indexaciones ix
+                        WHERE ix.nro_cuenta = t2.nro_cuenta
+                        LIMIT 1
+                    )
+                THEN 1 ELSE 0
+            END) AS archivos_sin_indexar,
             SUM(" . $this->sql_error_lectura_case('t2') . ") AS archivos_error_lectura,
             -- Archivos PENDIENTES de consolidar (t2.consolidado = 0)
             SUM(CASE WHEN t2.consolidado = 0 THEN 1 ELSE 0 END) AS archivos_pendientes_consolidar
         FROM _datos_api t2 
-        LEFT JOIN _indexaciones t3 ON t3.nro_cuenta = t2.nro_cuenta
         WHERE t2.id_lote = ?", [$id_lote])->row_array();
 
     // 2. Determinar el estado de consolidación del LOTE
@@ -372,12 +381,21 @@ public function actualizar_resumen_lote($id_lote)
         $estado_consolidacion_lote = 1; 
     }
 
-    // 3. Actualizar la tabla de resumen (_lotes_resumen)
-    $this->db->where('id_lote', $id_lote)->update('_lotes_resumen', [
-        'total_archivos' => (int)$resumen_data['total_archivos'],
-        'archivos_sin_indexar' => (int)$resumen_data['archivos_sin_indexar'],
-        'archivos_error_lectura' => (int)$resumen_data['archivos_error_lectura']
-    ]);
+    // 3. Crear/actualizar la tabla de resumen (_lotes_resumen)
+    $this->db->query("
+        INSERT INTO _lotes_resumen (id_lote, total_archivos, archivos_sin_indexar, archivos_error_lectura)
+        VALUES (?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+            total_archivos = VALUES(total_archivos),
+            archivos_sin_indexar = VALUES(archivos_sin_indexar),
+            archivos_error_lectura = VALUES(archivos_error_lectura)",
+        array(
+            (int)$id_lote,
+            (int)$resumen_data['total_archivos'],
+            (int)$resumen_data['archivos_sin_indexar'],
+            (int)$resumen_data['archivos_error_lectura']
+        )
+    );
     
     // 4. Actualizar el estado 'consolidado' en la tabla principal del LOTE (_lotes)
     // ESTA ES LA ACCIÓN CLAVE que corrige el error de lógica

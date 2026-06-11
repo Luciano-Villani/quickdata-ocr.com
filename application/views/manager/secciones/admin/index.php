@@ -168,13 +168,13 @@
 		$('#id_proveedors, #periodo_contables, #id_secretarias, #id_proyectos').select2({
 			placeholder: 'Seleccione una opción',
 			width: '100%',
-			closeOnSelect: true
+			closeOnSelect: true;
 		});
 
 		// Inicializar Select2 y deshabilitar id_programa por defecto
 		$('#id_programas').select2({
-			placeholder: 'Seleccione un programa',
-			width: '100%'
+			placeholder: 'Seleccione un programa',http://mvl.local/Admin/Consolidados
+			width: '100%',
 		}).prop('disabled', true);
 
 		// Habilitar id_programa basado en la selección de id_secretaria
@@ -684,9 +684,9 @@
 						}],
 						yAxis: [{
 							type: 'value',
-							min: 0,        // Establece un valor mínimo
-							max: max,     // Establece un valor máximo (puedes ajustarlo según tus datos)
-							interval: 10000000
+							//min: 0,        // Establece un valor mínimo
+							//max: max,     // Establece un valor máximo (puedes ajustarlo según tus datos)
+							//interval: 10000000
 
 						}],
 						series: settings.json.finales

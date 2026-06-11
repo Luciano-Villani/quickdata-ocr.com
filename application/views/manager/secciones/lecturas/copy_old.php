@@ -87,16 +87,13 @@ if ($result) {
      </h5>
     </div>
 	
-	
 
 
 		<?php
-		
 
 		?>
 
 		<?php echo form_open(base_url('Lecturas/copy'), array('id' => 'form-lineas')); ?>
-		
 
 		<div class="row card-header">
 			
@@ -274,52 +271,53 @@ if ($result) {
 					
 				},
 
-	submitHandler: function(form, e) {
-    e.preventDefault();
+				submitHandler: function(form, e) {
+    e.preventDefault(); // Evitar el envío del formulario
+
     var formData = $(form).serialize();
     var URL = $(form).attr("action");
-
-    // Guarda el contenido actual del contenedor de líneas en una variable
-    var originalContent = $("div#multilinea").html();
-
-    // Muestra el spinner de carga
-    $("div#multilinea").html('<img src="http://www.drogbaster.it/loading/loading25.gif">').css({
-        'text-align': 'center'
-    });
 
     $.ajax({
         url: URL,
         type: "POST",
         data: formData,
         dataType: "json",
-        success: function(response) {
-            console.log('Respuesta del servidor:', response);
+        success: function(data) {
+            console.log('data');
+            console.log(data);
 
-            if (response.status === 'success') {
-                // Si la operación fue exitosa, actualiza el contenido con el nuevo HTML
+            $("div#multilinea").html('<img src="http://www.drogbaster.it/loading/loading25.gif">');
+            $("div#multilinea").css({
+                'text-align': 'center'
+            });
+
+            setTimeout(function() {
                 $("div#multilinea").css({'text-align': ''});
-                $("div#multilinea").html(response.html);
-				// <<<<< AQUI DEBES AGREGAR LA LINEA PARA ACTUALIZAR EL TOTAL FACTURADO >>>>>
-                $('h3.panel-title').text('Total facturado: $ ' + response.totalFactura);
+                $("div#multilinea").html(data.html);
 
-                // Limpia los campos del formulario
+                // Limpiar los campos del formulario
                 $(form).find("input[type=text], input[type=number], textarea").val('');
                 $(form).find("select").prop('selectedIndex', 0);
-            } else if (response.status === 'error') {
-                // Si el servidor detecta un error, restaura el contenido original
-                // y muestra la alerta.
-                $("div#multilinea").css({'text-align': ''});
-                $("div#multilinea").html(originalContent);
-                alert(response.message);
-            }
+            }, 1000);
+
+            setTimeout(function() {
+                $("#indexaciones_dt").DataTable().ajax.reload();
+                console.log('jojo');
+            }, 3000);
         },
-        error: function(xhr, textStatus, errorThrown) {
-            // Maneja errores de comunicación del servidor
-            // Restaura el contenido original y muestra la alerta.
-            $("div#multilinea").html(originalContent).css({'text-align': ''});
-            alert("Ocurrió un error al procesar la solicitud: " + textStatus);
-            console.error(xhr.responseText);
+        error: function(err) {
+            console.log(err);
         }
+    }).done(function(data, textStatus, jqXHR) {
+        if (data == "yes") {
+            $("#ajax-form-msg1").html('<div class="alert alert-success">' + data + '</div>');
+            $("#form-content").modal('show');
+            $(".contact-form").slideUp();
+        } else {
+            $("#ajax-form-msg1").html(data);
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        $("#ajax-form-msg1").html('<div class="alert alert-danger">AJAX Request Failed<br /> textStatus = ' + textStatus + ', errorThrown = ' + errorThrown + '</div>');
     });
 }
 
@@ -403,9 +401,6 @@ if ($result) {
 				});
 			});
 		});
-		
-   
-
 	</script>
 
 	<!-- 

@@ -1,11 +1,54 @@
 <style>
-        #areaBadge, #toggleVisibility {
+        #areaBadge {
             transition: none; /* Desactiva transiciones para pruebas */
         }
         .mvl-topbar-icon {
             position: relative;
             min-width: 42px;
             justify-content: center;
+        }
+        .mvl-module-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
+            margin-left: 1rem;
+            margin-right: auto;
+            padding: 3px;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: .42rem;
+            background: rgba(255,255,255,.08);
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+        }
+        .mvl-module-tab {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 128px;
+            min-height: 32px;
+            padding: .38rem .9rem;
+            border-radius: .32rem;
+            color: rgba(255,255,255,.78);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .035em;
+            text-transform: uppercase;
+            transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+        }
+        .mvl-module-tab:hover {
+            color: #fff;
+            background: rgba(255,255,255,.12);
+            text-decoration: none;
+        }
+        .mvl-module-tab.active {
+            color: #fff;
+            background: #075cf7;
+            box-shadow: 0 8px 18px rgba(0,0,0,.18);
+        }
+        .mvl-role-badge {
+            margin-left: .75rem;
+            margin-right: .75rem;
+            font-size: .68rem;
+            opacity: .95;
         }
         .mvl-topbar-icon .badge {
             position: absolute;
@@ -22,14 +65,7 @@
             50% { transform: scale(1.16); text-shadow: 0 0 9px rgba(255,82,82,.95); }
             100% { transform: scale(1); text-shadow: 0 0 0 rgba(255,82,82,.35); }
         }
-        .mvl-sidebar-area {
-            display: block;
-            margin: 0 1rem .55rem;
-            padding: .45rem .65rem;
-            border-radius: .35rem;
-            font-size: 13px;
-            text-align: center;
-        }
+        .mvl-sidebar-area { display: none; }
         .mvl-sidebar-section > .nav-link {
             margin: .15rem .55rem;
             border-radius: .35rem;
@@ -140,10 +176,10 @@
 $grupos= '';
 $is_electro_route = strpos($_SERVER['REQUEST_URI'], '/Electromecanica') === 0;
 $area= $is_electro_route ? 'Electromecanica' : 'Proveedores';
-$toggle_text = $is_electro_route ? 'Ir a Proveedores' : 'Ir a Electromecanica';
-$toggle_class = $is_electro_route ? 'bg-success' : 'bg-primary';
 $nav_user_first = (isset($this->user) && is_object($this->user) && isset($this->user->first_name)) ? $this->user->first_name : '';
 $nav_user_last = (isset($this->user) && is_object($this->user) && isset($this->user->last_name)) ? $this->user->last_name : '';
+$nav_is_financiero = $this->ion_auth->is_financiero() && !$this->ion_auth->is_admin() && !$this->ion_auth->is_super();
+$nav_show_dashboard_financiero = $this->ion_auth->is_super() || $nav_is_financiero;
 
 		foreach($this->ion_auth->get_users_groups()->result() as $grupo){
 			$grupos .= $grupo->description;  
@@ -151,8 +187,14 @@ $nav_user_last = (isset($this->user) && is_object($this->user) && isset($this->u
 		
 		?>
 
-		<span class="badge bg-success ml-md-3 mr-md-auto">MVL Online <?= $grupos?></span>
-		<button class="tab-button <?= $toggle_class ?>" id="toggleVisibility"><?= $toggle_text ?></button>
+        <?php if (!$nav_is_financiero) { ?>
+        <div class="mvl-module-switch" id="mvlModuleSwitch" aria-label="Selector de modulo">
+            <a href="/Admin/Consolidados" class="mvl-module-tab <?= !$is_electro_route ? 'active' : '' ?>" data-module="proveedores">Proveedores</a>
+            <a href="/Electromecanica/Consolidados" class="mvl-module-tab <?= $is_electro_route ? 'active' : '' ?>" data-module="electromecanica">Electromec&aacute;nica</a>
+        </div>
+        <?php } else { ?>
+        <span class="badge bg-primary mvl-role-badge mr-md-auto">Finanzas</span>
+        <?php } ?>
 
 		<ul class="navbar-nav">
             
@@ -342,68 +384,77 @@ $nav_user_last = (isset($this->user) && is_object($this->user) && isset($this->u
             </a>
         </li>
 
-        <li class="nav-item nav-item-menu" data-seccion="lecturas">
+        <?php if ($nav_show_dashboard_financiero) { ?>
+        <li class="nav-item nav-item-menu">
+            <a href="/Admin/DashboardFinanciero" class="nav-link" data-url="/Admin/DashboardFinanciero">
+                <i class="icon-stats-growth" data-seccion="datos"></i>
+                <span>Dashboard Financiero</span>
+            </a>
+        </li>
+        <?php } ?>
+
+        <li class="nav-item nav-item-menu" data-seccion="lecturas" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <a href="/Admin/Lecturas" class="nav-link" data-url="/Admin/Lecturas">
                 <i class="icon-upload" data-seccion="datos"></i>
                 <span>Datos leídos OCR</span>
             </a>
         </li>
 
-        <li class="nav-item nav-item-menu" data-seccion="vencimientos">
+        <li class="nav-item nav-item-menu" data-seccion="vencimientos" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <a href="/Admin/Vencimientos" class="nav-link" data-url="/Admin/Vencimientos">
                 <i class="icon-calendar" data-seccion="datos"></i>
                 <span>Calendario de vencimientos</span>
             </a>
         </li>
 
-        <li class="nav-item-header">
+        <li class="nav-item-header" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <div class="text-uppercase font-size-xs line-height-xs">Estructura programática</div> <i class="icon-menu" title="Estructura programática"></i>
         </li>
 
-        <li class="nav-item nav-item-menu">
+        <li class="nav-item nav-item-menu" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <a href="/Admin/Secretarias" class="nav-link" data-url="/Admin/Secretarias">
                 <i class="icon-office" data-seccion="datos"></i>
                 <span>Secretarias</span>
             </a>
         </li>
 
-        <li class="nav-item nav-item-menu">
+        <li class="nav-item nav-item-menu" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <a href="/Admin/Programas" class="nav-link" data-url="/Admin/Programas">
                 <i class="icon-newspaper" data-seccion="datos"></i>
                 <span>Programas</span>
             </a>
         </li>
 
-        <li class="nav-item nav-item-menu">
+        <li class="nav-item nav-item-menu" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <a href="/Admin/Proyectos" class="nav-link" data-url="/Admin/Proyectos">
                 <i class="icon-pen" data-seccion="datos"></i>
                 <span>Proyectos</span>
             </a>
         </li>
 
-        <li class="nav-item nav-item-menu" data-seccion="dependencias">
+        <li class="nav-item nav-item-menu" data-seccion="dependencias" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <a href="/Admin/Dependencias" class="nav-link" data-url="/Admin/Dependencias">
                 <i class="icon-store" data-seccion="datos"></i>
                 <span>Dependencias</span>
             </a>
         </li>
 
-        <li class="nav-item-header">
+        <li class="nav-item-header" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <div class="text-uppercase font-size-xs line-height-xs">RELACIONES</div> <i class="icon-menu" title="RELACIONES"></i>
         </li>
         
-        <li class="nav-item nav-item-menu" data-seccion="indexaciones">
+        <li class="nav-item nav-item-menu" data-seccion="indexaciones" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <a href="/Admin/Indexaciones" class="nav-link" data-url="/Admin/Indexaciones">
                 <i class="icon-database" data-seccion="datos"></i>
                 <span>Indexadores</span>
             </a>
         </li>
         
-        <li class="nav-item-header">
+        <li class="nav-item-header" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <div class="text-uppercase font-size-xs line-height-xs">Proveedores</div> <i class="icon-menu" title="Proveedores"></i>
         </li>
         
-        <li class="nav-item nav-item-menu" data-seccion="proveedores">
+        <li class="nav-item nav-item-menu" data-seccion="proveedores" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <a href="/Admin/Proveedores" class="nav-link" data-url="/Admin/Proveedores">
                 <i class="icon-certificate" data-seccion="datos"></i>
                 <span>Lista de Proveedores</span>
@@ -579,7 +630,6 @@ function cargarListaSeguimientoProveedores() {
 
         // Función para actualizar la visibilidad, estilos y URLs
         function actualizarVisibilidad() {
-            var toggleButton = $('#toggleVisibility');
             var areaBadge = $('#areaBadge');
             var links = $('.nav-item-menu a'); // Seleccionar todos los enlaces del menú
 
@@ -589,10 +639,12 @@ function cargarListaSeguimientoProveedores() {
             // Cambiar el texto del botón y el color del badge
             if (mostrandoElectromecanica) {
                 areaBadge.text('Electromecanica').removeClass('bg-success').addClass('bg-primary');
-                toggleButton.text('Ir a Proveedores').removeClass('bg-primary').addClass('bg-success');
+                $('.mvl-module-tab').removeClass('active');
+                $('.mvl-module-tab[data-module="electromecanica"]').addClass('active');
             } else {
                 areaBadge.text('Proveedores').removeClass('bg-primary').addClass('bg-success');
-                toggleButton.text('Ir a Electromecanica').removeClass('bg-success').addClass('bg-primary');
+                $('.mvl-module-tab').removeClass('active');
+                $('.mvl-module-tab[data-module="proveedores"]').addClass('active');
             }
 
             // Actualizar URLs dinámicas
@@ -642,15 +694,12 @@ function cargarListaSeguimientoProveedores() {
             }
         });
 
-        // Manejar clic en el botón
-        $('#toggleVisibility').click(function() {
-            mostrandoElectromecanica = !mostrandoElectromecanica;
+        $('.mvl-module-tab').click(function(e) {
+            e.preventDefault();
+            var modulo = $(this).data('module');
+            mostrandoElectromecanica = modulo === 'electromecanica';
             localStorage.setItem('mostrandoElectromecanica', mostrandoElectromecanica);
-            actualizarVisibilidad();
-
-            // Redirigir según la vista actual
-            var redirectionUrl = mostrandoElectromecanica ? '/Electromecanica/Consolidados' : '/Admin/Consolidados';
-            window.location.replace(redirectionUrl);
+            window.location.href = $(this).attr('href');
         });
 
         // Manejar clic en el enlace del menú

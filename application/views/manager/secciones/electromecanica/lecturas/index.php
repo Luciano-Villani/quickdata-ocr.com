@@ -185,7 +185,7 @@
                 <th>Files</th>
                 <th>Errores</th>
                 <th>Consolidado</th>
-                <th>usuario</th>
+                <th>Usuario</th>
                 <th>Acciones</th>
             </tr>
         </thead>

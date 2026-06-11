@@ -514,18 +514,20 @@ class Lotes_model extends CI_Model
 
         if ($id_lote) {
             $this->db->query("
-                INSERT INTO _lotes_resumen (id_lote, total_archivos, archivos_sin_indexar)
-                VALUES (?, ?, ?)
+                INSERT INTO _lotes_resumen (id_lote, total_archivos, archivos_sin_indexar, archivos_error_lectura)
+                VALUES (?, ?, ?, ?)
                 ON DUPLICATE KEY UPDATE 
                     total_archivos = VALUES(total_archivos),
                     -- Mantenemos archivos_sin_indexar igual al total al inicio, 
                     -- pero solo si el registro es nuevo. Si ya existe, NO lo tocamos aquí.
                     -- Mejor usar la función de recálculo completa.
-                    archivos_sin_indexar = IF(total_archivos = 0, VALUES(total_archivos), archivos_sin_indexar)",
+                    archivos_sin_indexar = VALUES(archivos_sin_indexar),
+                    archivos_error_lectura = VALUES(archivos_error_lectura)",
                 [
                     $id_lote, 
                     $totalFiles, 
-                    $totalFiles // Se asume que totalFiles = archivos_sin_indexar en este punto.
+                    $totalFiles, // Se asume que totalFiles = archivos_sin_indexar en este punto.
+                    $totalFiles
                 ]
             );
             

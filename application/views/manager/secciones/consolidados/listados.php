@@ -48,19 +48,27 @@ swal2-popup {
 
 
 
-<div class="card tablas" style="margin-top: -15px">
-<h5 class="card-title bg-titulo text-center text-dark"> Filtros y Reportes </h5>
+<div class="card tablas filtros-consolidados-card">
 
-	<div class="card-header" style="margin-top: -20px";>
-        <div class="mb-2">
+	<div class="card-header filtros-consolidados-header">
+        <div class="filtros-consolidados-top">
+            <div>
+                <h4 class="filtros-consolidados-title">Facturas Consolidadas</h4>
+            </div>
+            <button id="toggle-filtros-consolidados" type="button" class="btn btn-link btn-sm filtros-consolidados-toggle" aria-expanded="true">
+                <i class="icon-arrow-up12"></i> Ocultar filtros
+            </button>
+        </div>
+        <div class="filtros-consolidados-tabs">
             <div class="btn-group" role="group" aria-label="Modo de vista">
                 <button type="button" class="btn btn-sm btn-primary modo-reporte-btn active" id="modo-vista-consolidada" data-modo="consolidados">Vista consolidada</button>
                 <button type="button" class="btn btn-sm btn-outline-primary modo-reporte-btn" id="modo-reporte-final" data-modo="reporte_final">Vista liquidación</button>
             </div>
-            <small class="text-muted ml-2" id="modo-reporte-ayuda">Vista operativa con descarga normal y opcion de PDFs.</small>
         </div>
-		<div class="row">
-		<label class="col-2" for="id_proveedor">
+        <div id="filtros-consolidados-body">
+		<div class="filtros-consolidados-grid">
+		<label class="filtro-consolidado-control" for="id_proveedor">
+            <span>Proveedor</span>
 
 		<?php
 				$js = array(
@@ -75,7 +83,7 @@ swal2-popup {
 
 <script>
 	$('#id_proveedor').select2({
-		placeholder: 'PROVEEDORES',
+		placeholder: 'Todos',
 		minimumResultsForSearch: "-1",
 		width: '100%',
 		closeOnSelect: false,
@@ -84,7 +92,30 @@ swal2-popup {
 </script>
 </label>
 		
-			<label class="col-2" for="id_tipo_pago">
+            <label class="filtro-consolidado-control" for="id_secretaria">
+                <span>Secretaria</span>
+                <?php
+                $js = array(
+                    'id' => 'id_secretaria',
+                    'class' => '',
+                    'multiple' => "multiple",
+                );
+                ?>
+                <?= form_dropdown('id_secretaria', $select_secretarias, '', $js); ?>
+
+                <script>
+                    $('#id_secretaria').select2({
+                        placeholder: 'Todas',
+                        minimumResultsForSearch: "-1",
+                        width: '100%',
+                        closeOnSelect: false,
+                        selectionCssClass: '',
+                    })
+                </script>
+            </label>
+
+			<label class="filtro-consolidado-control" for="id_tipo_pago">
+                <span>Tipo de pago</span>
 				<?php
 				$js = array(
 					'id' => 'id_tipo_pago',
@@ -96,7 +127,7 @@ swal2-popup {
 
 				<script>
 					$('#id_tipo_pago').select2({
-						placeholder: 'TIPO DE PAGO',
+						placeholder: 'Todos',
 						minimumResultsForSearch: "-1",
 						width: '100%',
 						closeOnSelect: false,
@@ -105,7 +136,8 @@ swal2-popup {
 					})
 				</script>
 			</label>
-			<label class="col-md-2" for="periodo_contable">
+			<label class="filtro-consolidado-control" for="periodo_contable">
+                <span>Periodo contable</span>
 				<?php
 				$js = array(
 					'id' => 'periodo_contable',
@@ -117,7 +149,7 @@ swal2-popup {
 
 				<script>
 					$('#periodo_contable').select2({
-						placeholder: 'PERIODO CONTABLE',
+						placeholder: 'Todos',
       					tags: true,
 						minimumResultsForSearch: "-1",
 						width: '100%',
@@ -128,7 +160,7 @@ swal2-popup {
 				</script>
 				
 			</label>
-            <label class="col-md-2" for="id_expediente">
+            <label class="d-none" for="id_expediente">
                 <?php
                 $js = array(
                     'id' => 'id_expediente',
@@ -148,36 +180,197 @@ swal2-popup {
                     })
                 </script>
             </label>
-			<div class="col-2 ">
-				<label class="">
+			<div class="filtro-consolidado-control filtro-consolidado-fecha">
+				<label class="filtro-consolidado-check">
 					<input type="checkbox"  class="radio"  value="1" name="tipo_fecha"  id="tipo-fecha" />
 					<span data-popup="tooltip">Fecha de Consolidación</span>
 				</label>
-				<div class="col" style = "margin: -10px";>
-					<input type="text" name="daterange2" id="daterange2" class="form-control ">
-				</div>
+				<input type="text" name="daterange2" id="daterange2" class="form-control form-control-sm">
 			</div>
-			<div class="col-2">
-				<button id="applyfilter" type="button" class="btn mb-1 btn-outline-dark btn-sm" style="width: 160px";><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
-				<button id="resetfilter" type="button" class="btn mb-1 btn-outline-dark btn-sm"style="width: 160px";><b><i class="icon-reset"></i></b>Eliminar Filtros</button>
+			<div class="filtros-consolidados-actions">
+				<button id="applyfilter" type="button" class="d-none"><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
+                <button id="descarga-principal" type="button" class="btn btn-outline-primary btn-sm filtros-consolidados-download"><b><i class="icon-file-download"></i></b> Descargar reporte</button>
+				<button id="resetfilter" type="button" class="btn btn-link btn-sm filtros-consolidados-clear"><b><i class="icon-reset"></i></b> Limpiar filtros</button>
 				<!--<button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm"style="width: 160px";><b><i class="icon-file-excel"></i></b> DESCARGAR</button> -->
-				<button id="descarga-principal" type="button" class="btn mb-1 btn-outline-dark btn-sm" style="width: 160px";><b><i class="icon-file-download"></i></b>Descargar Reporte</button>
 			</div>		
 
 			
 					
 			
 		</div>
+        <div class="filtros-activos" id="filtros-activos"></div>
+        </div>
 
 		
 		
 	</div>
 </div>
 <style>
+    .filtros-consolidados-card {
+        margin-top: -15px;
+        border: 1px solid #dfe8f5;
+        border-radius: 6px;
+        box-shadow: 0 8px 20px rgba(10, 31, 68, .04);
+    }
+    .filtros-consolidados-header {
+        position: relative;
+        padding: 10px 18px 10px;
+        background: #fff;
+    }
+    .filtros-consolidados-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 34px;
+        margin-bottom: 8px;
+    }
+    .filtros-consolidados-title {
+        margin: 0;
+        color: #0b1f4d;
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+    .filtros-consolidados-subtitle {
+        display: block;
+        color: #7a8495;
+        font-size: .78rem;
+    }
+    .filtros-consolidados-tabs {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: flex-end;
+        border-bottom: 1px solid #dbe4f1;
+        margin: 0;
+        z-index: 2;
+    }
+    .filtros-consolidados-tabs .modo-reporte-btn {
+        border-radius: 0;
+        border-width: 0 0 2px 0;
+        background: transparent;
+        color: #0b4fc7;
+        padding: 6px 16px;
+        box-shadow: none;
+    }
+    .filtros-consolidados-tabs .modo-reporte-btn.btn-primary,
+    .filtros-consolidados-tabs .modo-reporte-btn.active {
+        background: #f5f9ff !important;
+        color: #075cf7 !important;
+        border-bottom-color: #075cf7;
+        font-weight: 700;
+    }
+    .filtros-consolidados-tabs .modo-reporte-btn.btn-outline-primary {
+        border-bottom-color: transparent;
+    }
+    .filtros-consolidados-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1.15fr auto;
+        gap: 10px;
+        align-items: end;
+    }
+    .filtro-consolidado-control {
+        display: block;
+        margin: 0;
+        min-width: 0;
+    }
+    .filtro-consolidado-control > span,
+    .filtro-consolidado-check span {
+        display: block;
+        margin-bottom: 3px;
+        color: #53638c;
+        font-size: .68rem;
+        font-weight: 700;
+    }
+    .filtro-consolidado-control .select2-container .select2-selection--multiple {
+        min-height: 34px;
+        border-color: #d7dfeb;
+        border-radius: 4px;
+    }
+    .filtro-consolidado-control .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        margin-top: 4px;
+        font-size: .72rem;
+    }
+    .filtro-consolidado-fecha .form-control {
+        height: 34px;
+        font-size: .82rem;
+    }
+    .filtro-consolidado-check {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0 0 3px;
+    }
+    .filtro-consolidado-check span {
+        margin: 0;
+    }
+    .filtros-consolidados-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        min-width: 280px;
+        padding-bottom: 1px;
+    }
+    .filtros-consolidados-download {
+        min-width: 150px;
+        white-space: nowrap;
+    }
+    .filtros-consolidados-clear {
+        color: #075cf7;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+    .filtros-consolidados-toggle {
+        color: #53638c;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        padding-right: 18px;
+    }
+    .filtros-consolidados-card.filtros-colapsados #filtros-consolidados-body {
+        display: none;
+    }
+    .filtros-consolidados-card.filtros-colapsados {
+        margin-bottom: 8px;
+    }
+    .filtros-activos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        min-height: 0;
+        margin-top: 8px;
+    }
+    .filtro-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: #eef4ff;
+        color: #0b1f4d;
+        font-size: .72rem;
+        font-weight: 600;
+    }
+    @media (max-width: 1400px) {
+        .filtros-consolidados-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .filtros-consolidados-actions {
+            justify-content: flex-start;
+        }
+    }
 	#consolidados_dt_filter,
 	#consolidados_dt_length {
 		/* float: left; */
 	}
+
+    #consolidados_dt_filter {
+        padding-right: 18px;
+    }
 
 	.dataTables_filter input{
 		text-transform: uppercase;
