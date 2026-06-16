@@ -406,12 +406,12 @@ public function get_reporte_final($filtros)
     );
     $this->db->from('_consolidados');
     $this->aplicar_filtros_reporte_final($filtros);
-    $this->db->order_by('expediente', 'ASC');
     $this->db->order_by('proveedor', 'ASC');
     $this->db->order_by('tipo_pago', 'ASC');
     $this->db->order_by('jurisdiccion', 'ASC');
     $this->db->order_by('CAST(id_interno_programa AS UNSIGNED)', 'ASC', FALSE);
     $this->db->order_by('CAST(id_interno_proyecto AS UNSIGNED)', 'ASC', FALSE);
+    $this->db->order_by('expediente', 'ASC');
     $this->db->order_by('dependencia', 'ASC');
     $this->db->order_by('nro_cuenta', 'ASC');
 
