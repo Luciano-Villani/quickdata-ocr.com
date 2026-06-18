@@ -423,9 +423,38 @@ public function actualizar_resumen_lote($id_lote)
                     CAST(REPLACE(TRIM({$prefix}total_importe), ',', '.') AS DECIMAL(18,2)) = 0
                     AND COALESCE({$prefix}consolidado, 0) = 0
                 )
+                OR " . $this->sql_duplicado_lectura_condition($alias) . "
             THEN 1
             ELSE 0
         END";
+    }
+
+    private function sql_duplicado_lectura_condition($alias = '')
+    {
+        $prefix = $alias ? $alias . '.' : '';
+
+        return "(
+            {$prefix}id IS NOT NULL
+            AND {$prefix}id_lote IS NOT NULL
+            AND COALESCE({$prefix}consolidado, 0) = 0
+            AND {$prefix}nro_cuenta IS NOT NULL
+            AND {$prefix}nro_factura IS NOT NULL
+            AND UPPER(TRIM({$prefix}nro_cuenta)) NOT IN ('', 'S/D', 'SD', '-', 'ERROR DE LECTURA')
+            AND UPPER(TRIM({$prefix}nro_factura)) NOT IN ('', 'S/D', 'SD', '-', 'ERROR DE LECTURA')
+            AND EXISTS (
+                SELECT 1
+                FROM _datos_api ddup
+                INNER JOIN _lotes ldup ON ldup.id = ddup.id_lote
+                INNER JOIN _lotes lcur ON lcur.id = {$prefix}id_lote
+                WHERE ddup.id < {$prefix}id
+                    AND ldup.id_proveedor = lcur.id_proveedor
+                    AND ddup.nro_cuenta IS NOT NULL
+                    AND ddup.nro_factura IS NOT NULL
+                    AND UPPER(REPLACE(TRIM(ddup.nro_cuenta), ' ', '')) = UPPER(REPLACE(TRIM({$prefix}nro_cuenta), ' ', ''))
+                    AND UPPER(REPLACE(TRIM(ddup.nro_factura), ' ', '')) = UPPER(REPLACE(TRIM({$prefix}nro_factura), ' ', ''))
+                LIMIT 1
+            )
+        )";
     }
 
     public function errores_lectura($lectura)
@@ -437,6 +466,9 @@ public function actualizar_resumen_lote($id_lote)
         }
         if ($this->valor_vacio($lectura->nro_factura)) {
             $errores[] = 'Sin factura';
+        }
+        if ($this->lectura_duplicada($lectura)) {
+            $errores[] = 'Duplicada';
         }
         if ($this->valor_vacio($lectura->periodo_del_consumo)) {
             $errores[] = 'Sin periodo';
@@ -503,5 +535,54 @@ public function actualizar_resumen_lote($id_lote)
     {
         $normalizado = str_replace(',', '.', trim((string)$valor));
         return is_numeric($normalizado) && (float)$normalizado == 0.0;
+    }
+
+    private function lectura_duplicada($lectura)
+    {
+        if (empty($lectura) || empty($lectura->id) || empty($lectura->id_lote)) {
+            return false;
+        }
+
+        if (isset($lectura->consolidado) && (int)$lectura->consolidado === 1) {
+            return false;
+        }
+
+        if ($this->valor_vacio($lectura->nro_cuenta) || $this->valor_vacio($lectura->nro_factura)) {
+            return false;
+        }
+
+        $lote = $this->db
+            ->select('id_proveedor')
+            ->where('id', (int)$lectura->id_lote)
+            ->limit(1)
+            ->get('_lotes')
+            ->row();
+
+        if (!$lote) {
+            return false;
+        }
+
+        $duplicado = $this->db->query("
+            SELECT ddup.id
+            FROM _datos_api ddup
+            INNER JOIN _lotes ldup ON ldup.id = ddup.id_lote
+            WHERE ddup.id < ?
+                AND ldup.id_proveedor = ?
+                AND UPPER(REPLACE(TRIM(ddup.nro_cuenta), ' ', '')) = ?
+                AND UPPER(REPLACE(TRIM(ddup.nro_factura), ' ', '')) = ?
+            LIMIT 1
+        ", [
+            (int)$lectura->id,
+            (int)$lote->id_proveedor,
+            $this->normalizar_clave_duplicado($lectura->nro_cuenta),
+            $this->normalizar_clave_duplicado($lectura->nro_factura)
+        ])->row();
+
+        return (bool)$duplicado;
+    }
+
+    private function normalizar_clave_duplicado($valor)
+    {
+        return strtoupper(str_replace(' ', '', trim((string)$valor)));
     }
 }

@@ -72,7 +72,7 @@ class Consolidados_model extends CI_Model
                 'status' => 'error',
                 'estado' => 'error',
                 'title' => 'CONSOLIDAR LOTE',
-                'mensaje' => 'El lote posee lecturas con datos criticos faltantes. Revisalas antes de consolidar.'
+                'mensaje' => 'El lote posee lecturas con datos criticos faltantes o duplicados. Revisalas antes de consolidar.'
             ]);
             die();
         }
@@ -83,7 +83,7 @@ class Consolidados_model extends CI_Model
             'status' => 'error',
             'estado' => 'error',
             'title' => 'CONSOLIDAR ARCHIVO',
-            'mensaje' => 'La lectura posee datos criticos faltantes. Corregila antes de consolidar.'
+            'mensaje' => 'La lectura posee datos criticos faltantes o esta duplicada. Corregila antes de consolidar.'
         ]);
         die();
     }
