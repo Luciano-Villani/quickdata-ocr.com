@@ -29,24 +29,65 @@ class Consolidados extends backend_controller
 
 	public function delete()
 	{
-		$this->db->where('nombre_archivo', $_REQUEST['file']);
-		$this->db->delete('_consolidados');
+		$archivo = isset($_REQUEST['file']) ? trim($_REQUEST['file']) : '';
+		$codigo_lote = isset($_REQUEST['lote']) ? trim($_REQUEST['lote']) : '';
 
-		$data = array(
-			'consolidado' =>0
-		);
+		if ($archivo === '' || $codigo_lote === '') {
+			echo json_encode([
+				'mensaje' => 'Faltan datos para identificar la lectura consolidada',
+				'title' => 'Error',
+				'status' => 'error',
+			]);
+			exit();
+		}
 
-		$this->db->where('nombre_archivo', $_REQUEST['file']);
-		$this->db->update('_datos_api', $data);
+		$lote = $this->db->select('id')->from('_lotes')->where('code', $codigo_lote)->get()->row();
+		if (!$lote) {
+			echo json_encode([
+				'mensaje' => 'No se encontro el lote indicado',
+				'title' => 'Error',
+				'status' => 'error',
+			]);
+			exit();
+		}
 
-		$this->db->where('code', $_REQUEST['lote']);
-		$this->db->update('_lotes', $data);
+		$lecturas = $this->db->select('id')
+			->from('_datos_api')
+			->where('id_lote', (int) $lote->id)
+			->where('nombre_archivo', $archivo)
+			->get()->result();
 
-		$response = array(
-			'mensaje' => 'Datos borrados',
-			'title' => '_consolidados',
-			'status' => 'success',
-		);
+		if (!$lecturas) {
+			echo json_encode([
+				'mensaje' => 'No se encontro la lectura dentro del lote',
+				'title' => 'Error',
+				'status' => 'error',
+			]);
+			exit();
+		}
+
+		$ids_lectura = array_map(function ($lectura) {
+			return (int) $lectura->id;
+		}, $lecturas);
+
+		$this->load->model('manager/Lecturas_model');
+		$this->db->trans_start();
+		$this->db->where_in('id_lectura_api', $ids_lectura)->delete('_consolidados');
+		$this->db->where_in('id', $ids_lectura)->update('_datos_api', [
+			'consolidado' => 0,
+			'user_consolidado' => null,
+			'fecha_consolidado' => null,
+		]);
+		$this->Lecturas_model->actualizar_resumen_lote((int) $lote->id);
+		$this->db->trans_complete();
+
+		$response = [
+			'mensaje' => $this->db->trans_status() === false
+				? 'No se pudo eliminar el consolidado'
+				: 'Consolidado eliminado y lote actualizado',
+			'title' => $this->db->trans_status() === false ? 'Error' : '_consolidados',
+			'status' => $this->db->trans_status() === false ? 'error' : 'success',
+		];
 
 		echo json_encode($response);
 		exit();

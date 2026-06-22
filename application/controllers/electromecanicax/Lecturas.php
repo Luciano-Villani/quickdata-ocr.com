@@ -59,7 +59,10 @@ class Lecturas extends backend_controller
 				}
 
 				if ($this->db->update('_datos_api_canon', $_REQUEST, array('id' => $_POST['id']))) {
-
+					$lectura_actualizada = $this->Electromecanica_model->get_data('_datos_api_canon', (int) $id);
+					if ($lectura_actualizada && $lectura_actualizada->id_lote) {
+						$this->Electromecanica_model->actualizar_resumen_lote_canon((int) $lectura_actualizada->id_lote);
+					}
 
 					redirect('Electromecanica/Lecturas/Views/' . $id);
 				};
@@ -315,19 +318,15 @@ class Lecturas extends backend_controller
 
 				$disableMerge = '';
 				$classMerge = '';
-				$archivos = $this->Electromecanica_model->getBatchFiles($r->code);
+				$total_archivos = (int) $r->total_archivos;
+				$sin_indexar = (int) $r->archivos_sin_indexar;
+				$error_lectura = (int) $r->archivos_error_lectura;
+				$sin_respuesta_api = (int) $r->archivos_sin_respuesta_api;
+				$consolidadas = (int) $r->archivos_consolidados;
+				$pendientes = (int) $r->archivos_pendientes;
 
 				$classTextMerge = 'text-success';
-				$error = 0;
-
-
-				foreach ($archivos as $dato) {
-
-					if (!$this->Electromecanica_model->get_indexacion('_indexaciones_canon', $dato->nro_cuenta)) {
-
-						$error++;
-					}
-				}
+				$error = $sin_indexar + $error_lectura;
 				$classMerge = 'mergelote';
 				if ($error > 0) {
 					$classTextMerge = 'text-warning';
@@ -355,26 +354,26 @@ class Lecturas extends backend_controller
 				$accionesEdit = '';
 				$accionesDelete = '';
 			}
-				$proveedor = $this->proveedores_model->get_proveedor($r->id_proveedor);
-				// $user = $this->ion_auth->user($r->user_add)->row();
-
-				$dato_campo_api = '<i class=" text-success  fa fa-check-square-o" title="OK"></i> ';
-				$dato_url_error = $this->electromecanica->get_dato_api_blanco($r->id_lote);
-
-
-				if (count($dato_url_error) > 0) {
-					$dato_campo_api = count($dato_url_error);
-				}
+				$sin_index_badge = $sin_indexar > 0
+					? '<a href="/Electromecanica/Lecturas/viewBatch/' . $r->code . '?filtro=sin_index" class="badge badge-danger">' . $sin_indexar . '</a>'
+					: '<span class="badge badge-success">0</span>';
+				$error_badge = $error_lectura > 0
+					? '<a href="/Electromecanica/Lecturas/viewBatch/' . $r->code . '?filtro=errores" class="badge badge-danger">' . $error_lectura . '</a>'
+					: '<span class="badge badge-success">0</span>';
+				$progreso_contenido = $pendientes > 0
+					? '<a href="/Electromecanica/Lecturas/viewBatch/' . $r->code . '?filtro=pendientes" class="badge badge-warning" title="' . $pendientes . ' pendientes">' . $consolidadas . ' de ' . $total_archivos . '</a> <i class="text-danger icon-cross2" title="Faltan ' . $pendientes . '"></i>'
+					: '<span class="badge badge-success">' . $consolidadas . ' de ' . $total_archivos . '</span> <i class="text-success icon-check2" title="Lote completo"></i>';
+				$progreso = '<span class="fac-consolidadas-estado">' . $progreso_contenido . '</span>';
 
 				$data[] = array(
 					'<input id="' . $r->id_lote . '" class="checkbox" type="checkbox">',
 					$r->nombre,
 					$r->codigo,
 					fecha_es($r->fecha_add, 'd/m/a', false),
-					count($archivos) . ' | ' . $dato_campo_api,
-					$error,
-					// $estado,
-					$consolidado,
+					$total_archivos,
+					$sin_index_badge,
+					$error_badge,
+					$progreso,
 					$r->last_name . ' ' . $r->first_name,
 					$accionesVer . $accionesMerge . $accionesEdit . $accionesDelete,
 					$r->id_lote
@@ -392,11 +391,79 @@ class Lecturas extends backend_controller
 			echo json_encode($output);
 		}
 	}
+
+	public function validar_lote()
+	{
+		if (!$this->input->is_ajax_request()) {
+			show_404();
+		}
+
+		$code_lote = trim((string) $this->input->post('code_lote'));
+		$lote = $this->db->select('id')
+			->from('_lotes_canon')
+			->where('code', $code_lote)
+			->limit(1)
+			->get()->row();
+
+		if (!$lote) {
+			echo json_encode([
+				'status' => 'error',
+				'mensaje' => 'No se pudo identificar el lote para validar.',
+			]);
+			exit();
+		}
+
+		$this->Electromecanica_model->actualizar_resumen_lote_canon((int) $lote->id);
+		$resumen = $this->db->get_where('_lotes_resumen_canon', [
+			'id_lote' => (int) $lote->id,
+		])->row();
+
+		if (!$resumen) {
+			echo json_encode([
+				'status' => 'error',
+				'mensaje' => 'No se pudo generar el resumen del lote.',
+			]);
+			exit();
+		}
+
+		$total = (int) $resumen->total_archivos;
+		$sin_respuesta_api = (int) $resumen->archivos_sin_respuesta_api;
+		$sin_indexar = (int) $resumen->archivos_sin_indexar;
+		$error_lectura = (int) $resumen->archivos_error_lectura;
+
+		$estado = 'ok';
+		if ($total === 0) {
+			$estado = 'vacio';
+		} elseif ($sin_respuesta_api > 0) {
+			$estado = 'incompleto';
+		} elseif ($sin_indexar > 0 || $error_lectura > 0) {
+			$estado = 'observaciones';
+		}
+
+		echo json_encode([
+			'status' => 'success',
+			'estado' => $estado,
+			'id_lote' => (int) $lote->id,
+			'code_lote' => $code_lote,
+			'total_archivos' => $total,
+			'archivos_procesados_api' => max(0, $total - $sin_respuesta_api),
+			'archivos_sin_respuesta_api' => $sin_respuesta_api,
+			'archivos_sin_indexar' => $sin_indexar,
+			'archivos_error_lectura' => $error_lectura,
+			'archivos_consolidados' => (int) $resumen->archivos_consolidados,
+			'archivos_pendientes' => (int) $resumen->archivos_pendientes,
+			'url_lote' => site_url('Electromecanica/Lecturas/viewBatch/' . $code_lote),
+			'url_errores' => site_url('Electromecanica/Lecturas/viewBatch/' . $code_lote) . '?filtro=errores',
+			'url_sin_index' => site_url('Electromecanica/Lecturas/viewBatch/' . $code_lote) . '?filtro=sin_index',
+		]);
+		exit();
+	}
 	public function index()
 	{
 
 		$script = array(
 			base_url('assets/manager/js/secciones/electromecanica/' . strtolower($this->router->fetch_class()) . '.js'),
+			base_url('assets/manager/js/secciones/electromecanica/lote-validacion.js'),
 		);
 
 		$this->data['script'] = $script;
@@ -426,6 +493,9 @@ class Lecturas extends backend_controller
 			foreach ($files as $r) {
 				$classAccionMerge = 'mergefile';
 				$archivo = explode('/', $r->nombre_archivo);
+				$errores_lectura = $this->Electromecanica_model->errores_lectura_canon($r);
+				$errores_bloqueantes = $this->Electromecanica_model->errores_lectura_canon_bloqueantes($r);
+				$importe_cero = (float) $r->total_importe === 0.0 ? 1 : 0;
 
 				if ($indexador = $this->Electromecanica_model->getWhere('_indexaciones_canon', 'nro_cuenta="' . $r->nro_cuenta . '"')) {
 					$indexador = $indexador->id;
@@ -446,7 +516,7 @@ class Lecturas extends backend_controller
 				}
 
 				$accionesVer = '<span class="acciones"><a title="ver archivo" href="/Electromecanica/Lecturas/Views/' . $r->id . '"  class=""><i class="icon-eye4" title="ver"></i> </a></span> ';
-				$accionesMerge = '<span data-file="' . $archivo[3] . '" data-consolidado="' . $r->consolidado . '"  data-indexador="' . $indexador . '" data-code="' . $r->code_lote . '" data-id_file="' . $r->id . '" class="' . $classAccionMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $iconTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
+				$accionesMerge = '<span data-file="' . $archivo[3] . '" data-consolidado="' . $r->consolidado . '" data-error-bloqueante="' . count($errores_bloqueantes) . '" data-importe-cero="' . $importe_cero . '" data-indexador="' . $indexador . '" data-code="' . $r->code_lote . '" data-id_file="' . $r->id . '" class="' . $classAccionMerge . '"><a ' . $disableMerge . ' title="ver archivo" href="#"  class=""><i class="' . $iconTextMerge . ' icon-merge " title="Consolidar"></i> </a></span> ';
 				// Removed the $accionesReload variable
 				$accionesDelete = '<span data-tabla="_datos_api_canon" data-id_file="' . $r->id . '" class="borrar-file acciones" ><a title="Borrar file" href="#"  class=""><i class=" text-danger icon-trash " title="Borrar "></i> </a> </span>';
 
@@ -455,6 +525,12 @@ class Lecturas extends backend_controller
 					$accionesMerge = '';
 					$accionesDelete = '';
 				}
+				$validacion = empty($errores_lectura)
+					? '<span class="badge badge-success">OK</span>'
+					: implode(' ', array_map(function ($error) {
+						return '<span class="badge badge-danger">' . html_escape($error) . '</span>';
+					}, $errores_lectura));
+
 				$data[] = array(
 
 					$r->nro_cuenta,
@@ -468,6 +544,7 @@ class Lecturas extends backend_controller
 					$r->consumo,
 					$indexador,
 					$archivo[3],
+					$validacion,
 					$accionesVer . $accionesMerge . $accionesDelete,
 					$r->id
 				);
@@ -534,9 +611,7 @@ class Lecturas extends backend_controller
 				$totalFiles = $this->Electromecanica_model->countFilesCanon($file->code_lote);
 
 				if ($totalFiles > 0) {
-					$this->db->set('cant', $totalFiles);
-					$this->db->where('id', $file->id_lote);
-					$this->db->update('_lotes_canon');
+					$this->Electromecanica_model->actualizar_resumen_lote_canon((int) $file->id_lote);
 				} else {
 					$this->db->where('id', $file->id_lote);
 					$this->db->delete('_lotes_canon');
@@ -548,9 +623,7 @@ class Lecturas extends backend_controller
 				$totalFiles = $this->Electromecanica_model->countFilesCanon($file->code_lote);
 
 				if ($totalFiles > 0) {
-					$this->db->set('cant', $totalFiles);
-					$this->db->where('id', $file->id_lote);
-					$this->db->update('_lotes_canon');
+					$this->Electromecanica_model->actualizar_resumen_lote_canon((int) $file->id_lote);
 				} else {
 					$this->db->where('id', $file->id_lote);
 					$this->db->delete('_lotes_canon');
@@ -1378,6 +1451,9 @@ class Lecturas extends backend_controller
 			
 			$this->db->where('id', $mires[0]->id);
 			$this->db->update('_datos_api_canon', $dataUpdate);
+			if (!empty($mires[0]->id_lote)) {
+				$this->Electromecanica_model->actualizar_resumen_lote_canon((int) $mires[0]->id_lote);
+			}
 		} else {
 			die('error leyendo datos api en base');
 		}

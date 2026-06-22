@@ -242,7 +242,7 @@ $columns = array(
     3 => 'r.total_archivos',
     4 => 'r.archivos_sin_indexar',
     5 => 'r.archivos_error_lectura',
-    6 => 't1.consolidado',
+    6 => 'r.archivos_consolidados',
     7 => 'u.username',
     8 => 't1.id',
 );
@@ -262,7 +262,9 @@ $columns = array(
                 CONCAT(u.first_name, ' ', u.last_name) as username_add,
                 r.total_archivos as cant,               
                 r.archivos_sin_indexar as sin_indexar,
-                r.archivos_error_lectura as error_lectura
+                r.archivos_error_lectura as error_lectura,
+                r.archivos_consolidados,
+                r.archivos_pendientes
             ";
     
     $sql .= " FROM {$table_lotes} t1";
@@ -317,9 +319,13 @@ $columns = array(
         $error_lectura_badge = $error_lectura > 0
             ? '<a href="/Admin/Lotes/viewBatch/' . $r->code . '?filtro=errores" class="badge badge-danger" title="Ver lecturas con errores">' . $error_lectura . '</a>'
             : '<span class="badge badge-success">0</span>';
-        $consolidado_status = $r->consolidado ? 
-            '<span class="acciones"><i class="text-warnin icon-check2 "></i></span>' : 
-            '<span class="acciones"><i class="text-danger icon-cross2 "></i></span>';
+        $total_archivos = (int) $r->cant;
+        $consolidadas = (int) $r->archivos_consolidados;
+        $pendientes = (int) $r->archivos_pendientes;
+        $progreso_contenido = $pendientes > 0
+            ? '<a href="/Admin/Lotes/viewBatch/' . $r->code . '?filtro=pendientes" class="badge badge-warning" title="' . $pendientes . ' pendientes">' . $consolidadas . ' de ' . $total_archivos . '</a> <i class="text-danger icon-cross2" title="Faltan ' . $pendientes . '"></i>'
+            : '<span class="badge badge-success">' . $consolidadas . ' de ' . $total_archivos . '</span> <i class="text-success icon-check2" title="Lote completo"></i>';
+        $consolidado_status = '<span class="fac-consolidadas-estado">' . $progreso_contenido . '</span>';
 
         $acciones_full = '<span class="acciones"><a title="ver archivo" href="/Admin/Lotes/viewBatch/' . $r->code . '" class=""><i class="icon-eye4" title="ver"></i></a></span>' .
                          '<span data-consolidado="' . $r->consolidado . '" data-errores="' . $sin_indexado . '" data-error-lectura="' . $error_lectura . '" data-code="' . $r->code . '" data-id_lote="' . $r->id . '" class="mergelote"><a title="Consolidar" href="#"><i class="text-info icon-merge " title="Consolidar"></i></a></span>' .
@@ -328,7 +334,7 @@ $columns = array(
         
         $datos[] = array(
             $checkbox, $r->proveedor, fecha_es($r->fecha_add, "d/m/a"), 
-            (int)$r->cant, $sin_index_badge, $error_lectura_badge, $consolidado_status, $r->username_add, $acciones_full
+            $total_archivos, $sin_index_badge, $error_lectura_badge, $consolidado_status, $r->username_add, $acciones_full
         );
     }
     
@@ -367,8 +373,9 @@ public function actualizar_resumen_lote($id_lote)
                 THEN 1 ELSE 0
             END) AS archivos_sin_indexar,
             SUM(" . $this->sql_error_lectura_case('t2') . ") AS archivos_error_lectura,
+            SUM(CASE WHEN COALESCE(t2.consolidado, 0) = 1 THEN 1 ELSE 0 END) AS archivos_consolidados,
             -- Archivos PENDIENTES de consolidar (t2.consolidado = 0)
-            SUM(CASE WHEN t2.consolidado = 0 THEN 1 ELSE 0 END) AS archivos_pendientes_consolidar
+            SUM(CASE WHEN COALESCE(t2.consolidado, 0) = 0 THEN 1 ELSE 0 END) AS archivos_pendientes_consolidar
         FROM _datos_api t2 
         WHERE t2.id_lote = ?", [$id_lote])->row_array();
 
@@ -377,23 +384,28 @@ public function actualizar_resumen_lote($id_lote)
     $estado_consolidacion_lote = 0; // Por defecto: No consolidado
     
     // Si la cuenta de archivos pendientes de consolidar es CERO, el lote completo está consolidado.
-    if ($archivos_pendientes_consolidar == 0) {
+    if ((int)$resumen_data['total_archivos'] > 0 && $archivos_pendientes_consolidar == 0) {
         $estado_consolidacion_lote = 1; 
     }
 
     // 3. Crear/actualizar la tabla de resumen (_lotes_resumen)
     $this->db->query("
-        INSERT INTO _lotes_resumen (id_lote, total_archivos, archivos_sin_indexar, archivos_error_lectura)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO _lotes_resumen
+            (id_lote, total_archivos, archivos_sin_indexar, archivos_error_lectura, archivos_consolidados, archivos_pendientes)
+        VALUES (?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
             total_archivos = VALUES(total_archivos),
             archivos_sin_indexar = VALUES(archivos_sin_indexar),
-            archivos_error_lectura = VALUES(archivos_error_lectura)",
+            archivos_error_lectura = VALUES(archivos_error_lectura),
+            archivos_consolidados = VALUES(archivos_consolidados),
+            archivos_pendientes = VALUES(archivos_pendientes)",
         array(
             (int)$id_lote,
             (int)$resumen_data['total_archivos'],
             (int)$resumen_data['archivos_sin_indexar'],
-            (int)$resumen_data['archivos_error_lectura']
+            (int)$resumen_data['archivos_error_lectura'],
+            (int)$resumen_data['archivos_consolidados'],
+            $archivos_pendientes_consolidar
         )
     );
     

@@ -97,6 +97,8 @@ $route['Admin/DashboardFinanciero/api/crecimiento'] = 'Dashboard_financiero/api_
 $route['Admin/DashboardFinanciero/api/pareto'] = 'Dashboard_financiero/api_pareto';
 $route['Admin/DashboardFinanciero/api/forecast'] = 'Dashboard_financiero/api_forecast';
 $route['Admin/DashboardFinanciero/api/servicios'] = 'Dashboard_financiero/api_servicios';
+$route['Admin/DashboardFinanciero/api/comparativo'] = 'Dashboard_financiero/api_comparativo';
+$route['Admin/DashboardFinanciero/api/eficiencia'] = 'Dashboard_financiero/api_eficiencia';
 $route['Admin/Dashboard/programas'] = 'Dashboard/get_programas_by_jurisdiccion';
 // Nueva ruta para Proyectos (AJAX)
 $route['Admin/Dashboard/proyectos'] = 'Dashboard/get_proyectos_by_programa';
@@ -129,6 +131,7 @@ $route['Electromecanica/Lecturas/indexaciones_cuenta'] = 'electromecanicax/Lectu
 $route['Electromecanica/Lecturas/viewBatch/?(:any)?'] = 'electromecanicax/Lecturas/viewBatch/$1';
 $route['Electromecanica/Lecturas/Views/?(:any)?'] = 'electromecanicax/Lecturas/views/$1';
 $route['Electromecanica/Lecturas/leerApi'] = 'electromecanicax/Lecturas/leerApi';
+$route['Electromecanica/Lecturas/validar_lote'] = 'electromecanicax/Lecturas/validar_lote';
 $route['Electromecanica/Lecturas/Consolidar'] = 'electromecanicax/Lecturas/Consolidar';
 $route['Electromecanica/Vencimientos'] = 'Vencimientos/index/electromecanica';
 

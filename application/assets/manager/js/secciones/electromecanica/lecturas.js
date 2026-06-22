@@ -13,7 +13,7 @@ function dt() {
     order: [[0, "desc"]],
     columnDefs: [
       { className: "dt-center", targets: "_all" },
-      { className: "dt-nowrap", targets: [7] },
+      { className: "dt-nowrap", targets: [8] },
       {
         targets: 0,
         visible: false,
@@ -27,7 +27,7 @@ function dt() {
         // },
       },
       // { width: "1%", visible: false, targets: [0] },
-      { width: "1%", orderable: false, targets: [0, 3, 4] },
+      { width: "1%", orderable: false, targets: [0, 4, 5, 6, 7, 9] },
     ],
     processing: true,
     serverSide: true,

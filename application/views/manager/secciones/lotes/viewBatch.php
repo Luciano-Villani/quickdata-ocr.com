@@ -68,6 +68,7 @@
 			<a href="<?= current_url() ?>" class="btn btn-light btn-filtro-lote" data-filtro="">Todas</a>
 			<a href="<?= current_url() ?>?filtro=sin_index" class="btn btn-light btn-filtro-lote" data-filtro="sin_index">Sin Index</a>
 			<a href="<?= current_url() ?>?filtro=errores" class="btn btn-light btn-filtro-lote" data-filtro="errores">Errores de lectura</a>
+			<a href="<?= current_url() ?>?filtro=pendientes" class="btn btn-light btn-filtro-lote" data-filtro="pendientes">Pendientes</a>
 		</div>
 	</div>
 	<table class="datatable-ajax display table-bordered table-hover datatable-highlight no-footer  " style="width: auto">

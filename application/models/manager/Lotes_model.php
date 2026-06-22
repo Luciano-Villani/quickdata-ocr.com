@@ -101,6 +101,9 @@ class Lotes_model extends CI_Model
         if (!empty($postData['filtro']) && $postData['filtro'] === 'errores') {
             $this->db->where('(' . $this->Lecturas_model->sql_error_lectura_case('_datos_api') . ') = 1', null, false);
         }
+        if (!empty($postData['filtro']) && $postData['filtro'] === 'pendientes') {
+            $this->db->where('COALESCE(_datos_api.consolidado, 0) = 0', null, false);
+        }
  
         $i = 0;
         // loop searchable columns 

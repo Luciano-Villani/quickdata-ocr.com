@@ -120,9 +120,13 @@ class Indexaciones extends backend_controller
 	{
 
 		try {
+			$indexacion_eliminada = $this->Electromecanica_model->get_data('_indexaciones_canon', (int) $_REQUEST['id']);
 
 			$this->db->where('id', $_REQUEST['id']);
 			$this->db->delete($_REQUEST['tabla']);
+			if ($indexacion_eliminada) {
+				$this->Electromecanica_model->actualizar_resumenes_por_cuenta_canon($indexacion_eliminada->nro_cuenta);
+			}
 
 			$response = array(
 				'mensaje' => 'Datos borrados',
@@ -306,6 +310,7 @@ class Indexaciones extends backend_controller
 			);
 
 			$this->Proyectos_model->grabar_datos("_indexaciones_canon", $_POST);
+			$this->Electromecanica_model->actualizar_resumenes_por_cuenta_canon($this->input->post('nro_cuenta'));
 			redirect(base_url('Electromecanica/Indexaciones'));
 		}
 	}

@@ -15,6 +15,17 @@
       padding: 10px; /* Opcional: agrega padding al contenedor */
       margin-bottom: 10px; /* Opcional: agrega margen en la parte inferior */
     }
+ .fac-consolidadas-col {
+      width: 130px;
+      min-width: 130px;
+    }
+ .fac-consolidadas-estado {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
 </style>
 
 
@@ -86,8 +97,9 @@
 				<th>Código</th>
 				<th>Fecha</th>
 				<th>Facturas</th>
-				<th>Errores</th>
-				<th>Consolidado</th>
+				<th>Sin Index</th>
+				<th>Errores lectura</th>
+				<th class="fac-consolidadas-col">Fac.<br>Consolidadas</th>
 				<th>Usuario</th>
 				<th>Acciones</th>
 			</tr>

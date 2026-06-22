@@ -86,41 +86,72 @@ class Electromecanica extends backend_controller
 
 
 	public function delete()
-{
-    // Verificar si 'file' y 'lote' están presentes en la solicitud
-    if (isset($_REQUEST['file']) && isset($_REQUEST['lote'])) {
-        // Eliminar el registro de la tabla _consolidados_canon
-        $this->db->where('nombre_archivo', $_REQUEST['file']);
-        $this->db->delete('_consolidados_canon');
+    {
+        $archivo = isset($_REQUEST['file']) ? trim($_REQUEST['file']) : '';
+        $codigo_lote = isset($_REQUEST['lote']) ? trim($_REQUEST['lote']) : '';
 
-        // Actualizar el campo consolidado a 0 en la tabla _datos_api_canon
-        $data = array('consolidado' => 0);
+        if ($archivo === '' || $codigo_lote === '') {
+            echo json_encode([
+                'mensaje' => 'Faltan datos para identificar la lectura consolidada',
+                'title' => 'Error',
+                'status' => 'error',
+            ]);
+            exit();
+        }
 
-        $this->db->where('nombre_archivo', $_REQUEST['file']);
-        $this->db->update('_datos_api_canon', $data);
+        $lote = $this->db->select('id')
+            ->from('_lotes_canon')
+            ->where('code', $codigo_lote)
+            ->get()->row();
 
-        // Actualizar el campo consolidado a 0 en la tabla _lotes_canon
-        $this->db->where('code', $_REQUEST['lote']);
-        $this->db->update('_lotes_canon', $data);
+        if (!$lote) {
+            echo json_encode([
+                'mensaje' => 'No se encontro el lote indicado',
+                'title' => 'Error',
+                'status' => 'error',
+            ]);
+            exit();
+        }
 
-        $response = array(
-            'mensaje' => 'Datos borrados',
-            'title' => '_consolidados_canon',
-            'status' => 'success',
-        );
-    } else {
-        // Si los parámetros no están presentes, devolver un error
-        $response = array(
-            'mensaje' => 'Faltan parámetros en la solicitud',
-            'title' => 'Error',
-            'status' => 'error',
-        );
-    }
+        $lecturas = $this->db->select('id')
+            ->from('_datos_api_canon')
+            ->where('id_lote', (int) $lote->id)
+            ->where('nombre_archivo', $archivo)
+            ->get()->result();
 
-    // Devolver la respuesta como JSON
-    echo json_encode($response);
-    exit();
-}
+        if (!$lecturas) {
+            echo json_encode([
+                'mensaje' => 'No se encontro la lectura dentro del lote',
+                'title' => 'Error',
+                'status' => 'error',
+            ]);
+            exit();
+        }
+
+        $ids_lectura = array_map(function ($lectura) {
+            return (int) $lectura->id;
+        }, $lecturas);
+
+        $this->db->trans_start();
+        $this->db->where_in('id_lectura_api', $ids_lectura)->delete('_consolidados_canon');
+        $this->db->where_in('id', $ids_lectura)->update('_datos_api_canon', [
+            'consolidado' => 0,
+            'user_consolidado' => null,
+            'fecha_consolidado' => null,
+        ]);
+        $this->electromecanica->actualizar_resumen_lote_canon((int) $lote->id);
+        $this->db->trans_complete();
+
+        echo json_encode([
+            'mensaje' => $this->db->trans_status() === false
+                ? 'No se pudo eliminar el consolidado'
+                : 'Consolidado eliminado y lote actualizado',
+            'title' => $this->db->trans_status() === false ? 'Error' : '_consolidados_canon',
+            'status' => $this->db->trans_status() === false ? 'error' : 'success',
+        ]);
+        exit();
+
+	}
 	
 
 	public function index()

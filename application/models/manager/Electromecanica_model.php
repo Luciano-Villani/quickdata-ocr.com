@@ -98,7 +98,7 @@ class Electromecanica_model extends CI_Model
     public function getBatchFiles($codeLote)
     {
         $this->db->select('_datos_api_canon.*,_datos_api_canon.id as id_file');
-        $this->db->like('code_lote', $codeLote);
+        $this->db->where('code_lote', $codeLote);
         $this->db->from('_datos_api_canon');
         return  $this->db->get()->result();
     }
@@ -132,15 +132,42 @@ class Electromecanica_model extends CI_Model
                 if(isset($_POST['id_lote'])){
                     $this->db->where('code_lote',$postData['id_lote']);
                 }
+				if (!empty($postData['filtro'])) {
+					if ($postData['filtro'] === 'pendientes') {
+						$this->db->where('COALESCE(_datos_api_canon.consolidado, 0) = 0', null, false);
+					} elseif ($postData['filtro'] === 'sin_index') {
+						$this->db->where("(_datos_api_canon.nro_cuenta IS NULL
+							OR UPPER(TRIM(_datos_api_canon.nro_cuenta)) IN ('', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA')
+							OR NOT EXISTS (SELECT 1 FROM _indexaciones_canon i
+								WHERE UPPER(REPLACE(TRIM(i.nro_cuenta), ' ', '')) = UPPER(REPLACE(TRIM(_datos_api_canon.nro_cuenta), ' ', ''))))", null, false);
+					} elseif ($postData['filtro'] === 'errores') {
+						$this->db->where('COALESCE(_datos_api_canon.consolidado, 0) = 0', null, false);
+						$this->db->where('(' . $this->sql_error_lectura_canon_condition('_datos_api_canon') . ')', null, false);
+					}
+				}
                 $this->db->select('*');
 
                 $my_column_order = array(
-                    '_datos_api_canon.id',
                     '_datos_api_canon.nro_cuenta',
-                    '_datos_api_canon.code_lote',
+					'_datos_api_canon.nro_medidor',
+					'_datos_api_canon.nro_factura',
+					'_datos_api_canon.periodo_del_consumo',
+					'_datos_api_canon.fecha_emision',
+					'_datos_api_canon.vencimiento_del_pago',
+					'_datos_api_canon.total_importe',
+					'_datos_api_canon.total_vencido',
+					'_datos_api_canon.consumo',
+					'',
+					'_datos_api_canon.id_proveedor',
+					'',
+					'',
+					'_datos_api_canon.id',
                 );
                 $my_column_search = array(
                     '_datos_api_canon.nro_cuenta',
+					'_datos_api_canon.nro_factura',
+					'_datos_api_canon.nro_medidor',
+					'_datos_api_canon.nombre_archivo',
                     '_datos_api_canon.id',
                     '_datos_api_canon.code_lote',
 
@@ -528,30 +555,35 @@ class Electromecanica_model extends CI_Model
                      _proveedores_canon.nombre,
                      _proveedores_canon.codigo as codigo,
                      users.*,
-                    _datos_api_canon.nro_cuenta'
+                     COALESCE(_lotes_resumen_canon.total_archivos, 0) as total_archivos,
+                     COALESCE(_lotes_resumen_canon.archivos_sin_indexar, 0) as archivos_sin_indexar,
+                     COALESCE(_lotes_resumen_canon.archivos_error_lectura, 0) as archivos_error_lectura,
+                     COALESCE(_lotes_resumen_canon.archivos_sin_respuesta_api, 0) as archivos_sin_respuesta_api,
+                     COALESCE(_lotes_resumen_canon.archivos_consolidados, 0) as archivos_consolidados,
+                     COALESCE(_lotes_resumen_canon.archivos_pendientes, 0) as archivos_pendientes'
                 );
                 $this->db->join('_proveedores_canon', '_proveedores_canon.id = _lotes_canon.id_proveedor', '');
                 $this->db->join('users', 'users.id = _lotes_canon.user_add', '');
-                $this->db->join('_datos_api_canon', '_datos_api_canon.code_lote = _lotes_canon.code', 'RIGHT', false);
-                $this->db->group_by('_lotes_canon.id', 'desc');
+                $this->db->join('_lotes_resumen_canon', '_lotes_resumen_canon.id_lote = _lotes_canon.id', 'LEFT');
                 $my_column_order = array(
                     '_lotes_canon.id',
-                    '_proveedores_canon.codigo',
                     '_proveedores_canon.nombre',
+                    '_proveedores_canon.codigo',
                     '_lotes_canon.fecha_add',
                     '',
                     '',
+                    '',
                     '_lotes_canon.consolidado',
-                    '_lotes_canon.user_add'
+                    '_lotes_canon.user_add',
+                    '',
+                    '_lotes_canon.id'
                 );
                 $my_column_search = array(
                     '_proveedores_canon.codigo',
                     '_proveedores_canon.nombre',
                     '_lotes_canon.consolidado',
                     '_lotes_canon.user_add',
-                    '_datos_api_canon.nro_cuenta',
-                    '_datos_api_canon.nro_factura',
-                    '_datos_api_canon.nro_medidor',
+                    '_lotes_canon.code',
                     '_lotes_canon.fecha_add'
                 );
                 $my_order = array('_lotes_canon.id' => 'desc');
@@ -720,7 +752,13 @@ class Electromecanica_model extends CI_Model
         }
 
         try {
-            $this->db->insert($tabla, $data);
+            if (!$this->db->insert($tabla, $data)) {
+                return false;
+            }
+
+			if ($tabla === '_datos_api_canon' && !empty($data['id_lote'])) {
+				$this->actualizar_resumen_lote_canon((int) $data['id_lote']);
+			}
 
             return true;
         } catch (Exception $e) {
@@ -906,7 +944,162 @@ class Electromecanica_model extends CI_Model
         }
     }
 
-    
+    public function actualizar_resumen_lote_canon($id_lote, $user_id = null)
+    {
+        $id_lote = (int) $id_lote;
+        if ($id_lote <= 0) {
+            return false;
+        }
+
+        $duplicado = $this->sql_duplicado_canon_condition('d');
+        $resumen = $this->db->query("SELECT
+                COUNT(d.id) AS total_archivos,
+                SUM(CASE WHEN d.id IS NOT NULL AND (
+                    d.nro_cuenta IS NULL
+                    OR UPPER(TRIM(d.nro_cuenta)) IN ('', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA')
+                    OR NOT EXISTS (
+                        SELECT 1 FROM _indexaciones_canon i
+                        WHERE UPPER(REPLACE(TRIM(i.nro_cuenta), ' ', '')) = UPPER(REPLACE(TRIM(d.nro_cuenta), ' ', ''))
+                        LIMIT 1
+                    )
+                ) THEN 1 ELSE 0 END) AS archivos_sin_indexar,
+                SUM(CASE WHEN d.id IS NOT NULL AND COALESCE(d.consolidado, 0) = 0 AND (
+                    d.nro_cuenta IS NULL OR UPPER(TRIM(d.nro_cuenta)) IN ('', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA')
+                    OR d.nro_factura IS NULL OR UPPER(TRIM(d.nro_factura)) IN ('', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA')
+                    OR d.periodo_del_consumo IS NULL OR UPPER(TRIM(d.periodo_del_consumo)) IN ('', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA')
+                    OR d.fecha_emision IS NULL OR UPPER(TRIM(d.fecha_emision)) IN ('', 'S/D', 'SD', 'N/A', '-', '0000-00-00', 'ERROR DE LECTURA')
+                    OR d.vencimiento_del_pago IS NULL OR UPPER(TRIM(d.vencimiento_del_pago)) IN ('', 'S/D', 'SD', 'N/A', '-', '0000-00-00', 'ERROR DE LECTURA')
+                    OR d.total_importe IS NULL OR d.total_importe <= 0
+                    OR {$duplicado}
+                ) THEN 1 ELSE 0 END) AS archivos_error_lectura,
+                SUM(CASE WHEN d.id IS NOT NULL AND (d.dato_api IS NULL OR TRIM(d.dato_api) = '') THEN 1 ELSE 0 END) AS archivos_sin_respuesta_api,
+                SUM(CASE WHEN d.id IS NOT NULL AND COALESCE(d.consolidado, 0) = 1 THEN 1 ELSE 0 END) AS archivos_consolidados,
+                SUM(CASE WHEN d.id IS NOT NULL AND COALESCE(d.consolidado, 0) = 0 THEN 1 ELSE 0 END) AS archivos_pendientes
+            FROM _datos_api_canon d
+            WHERE d.id_lote = ?", [$id_lote])->row_array();
+
+        if (!$resumen) {
+            return false;
+        }
+
+        $this->db->query("INSERT INTO _lotes_resumen_canon
+                (id_lote, total_archivos, archivos_sin_indexar, archivos_error_lectura,
+                 archivos_sin_respuesta_api, archivos_consolidados, archivos_pendientes)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE
+                total_archivos = VALUES(total_archivos),
+                archivos_sin_indexar = VALUES(archivos_sin_indexar),
+                archivos_error_lectura = VALUES(archivos_error_lectura),
+                archivos_sin_respuesta_api = VALUES(archivos_sin_respuesta_api),
+                archivos_consolidados = VALUES(archivos_consolidados),
+                archivos_pendientes = VALUES(archivos_pendientes)", [
+            $id_lote,
+            (int) $resumen['total_archivos'],
+            (int) $resumen['archivos_sin_indexar'],
+            (int) $resumen['archivos_error_lectura'],
+            (int) $resumen['archivos_sin_respuesta_api'],
+            (int) $resumen['archivos_consolidados'],
+            (int) $resumen['archivos_pendientes'],
+        ]);
+
+        $cerrado = (int) $resumen['total_archivos'] > 0 && (int) $resumen['archivos_pendientes'] === 0;
+        $lote_data = [
+            'cant' => (int) $resumen['total_archivos'],
+            'consolidado' => $cerrado ? 1 : 0,
+        ];
+        if ($cerrado && $user_id) {
+            $lote_data['fecha_consolidado'] = date('Y-m-d H:i:s');
+            $lote_data['user_consolidado'] = (int) $user_id;
+        } elseif (!$cerrado) {
+            $lote_data['fecha_consolidado'] = null;
+            $lote_data['user_consolidado'] = null;
+        }
+        $this->db->where('id', $id_lote)->update('_lotes_canon', $lote_data);
+
+        return $resumen;
+    }
+
+    public function actualizar_resumenes_por_cuenta_canon($nro_cuenta)
+    {
+        $lotes = $this->db->select('DISTINCT id_lote', false)
+            ->from('_datos_api_canon')
+            ->where('nro_cuenta', $nro_cuenta)
+            ->where('id_lote IS NOT NULL', null, false)
+            ->get()->result();
+
+        foreach ($lotes as $lote) {
+            $this->actualizar_resumen_lote_canon((int) $lote->id_lote);
+        }
+    }
+
+    private function sql_duplicado_canon_condition($alias = '')
+    {
+        $prefix = $alias ? $alias . '.' : '';
+        return "EXISTS (
+            SELECT 1 FROM _datos_api_canon dup
+            WHERE dup.id < {$prefix}id
+              AND dup.id_proveedor = {$prefix}id_proveedor
+              AND UPPER(REPLACE(TRIM(dup.nro_cuenta), ' ', '')) = UPPER(REPLACE(TRIM({$prefix}nro_cuenta), ' ', ''))
+              AND UPPER(REPLACE(TRIM(dup.nro_factura), ' ', '')) = UPPER(REPLACE(TRIM({$prefix}nro_factura), ' ', ''))
+            LIMIT 1
+        )";
+    }
+
+    private function sql_error_lectura_canon_condition($alias = '')
+    {
+        $prefix = $alias ? $alias . '.' : '';
+        return "{$prefix}nro_cuenta IS NULL OR UPPER(TRIM({$prefix}nro_cuenta)) IN ('', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA')
+            OR {$prefix}nro_factura IS NULL OR UPPER(TRIM({$prefix}nro_factura)) IN ('', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA')
+            OR {$prefix}periodo_del_consumo IS NULL OR UPPER(TRIM({$prefix}periodo_del_consumo)) IN ('', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA')
+            OR {$prefix}fecha_emision IS NULL OR UPPER(TRIM({$prefix}fecha_emision)) IN ('', 'S/D', 'SD', 'N/A', '-', '0000-00-00', 'ERROR DE LECTURA')
+            OR {$prefix}vencimiento_del_pago IS NULL OR UPPER(TRIM({$prefix}vencimiento_del_pago)) IN ('', 'S/D', 'SD', 'N/A', '-', '0000-00-00', 'ERROR DE LECTURA')
+            OR {$prefix}total_importe IS NULL OR {$prefix}total_importe <= 0
+            OR " . $this->sql_duplicado_canon_condition($alias);
+    }
+
+    public function errores_lectura_canon($lectura)
+    {
+        $errores = [];
+        $vacio = function ($valor) {
+            return $valor === null || in_array(strtoupper(trim((string) $valor)), ['', 'S/D', 'SD', 'N/A', '-', 'ERROR DE LECTURA'], true);
+        };
+
+        if ($vacio($lectura->nro_cuenta)) $errores[] = 'Sin cuenta';
+        if ($vacio($lectura->nro_factura)) $errores[] = 'Sin factura';
+        if ($vacio($lectura->periodo_del_consumo)) $errores[] = 'Sin periodo';
+        if ($vacio($lectura->fecha_emision) || $lectura->fecha_emision === '0000-00-00') $errores[] = 'Sin fecha emision';
+        if ($vacio($lectura->vencimiento_del_pago) || $lectura->vencimiento_del_pago === '0000-00-00') $errores[] = 'Sin vencimiento';
+        if ($lectura->total_importe === null || (float) $lectura->total_importe < 0) {
+            $errores[] = 'Sin importe';
+        } elseif ((float) $lectura->total_importe === 0.0 && !(int) $lectura->consolidado) {
+            $errores[] = 'Importe 0.00';
+        }
+
+        if (!$vacio($lectura->nro_cuenta) && !$vacio($lectura->nro_factura) && !(int) $lectura->consolidado) {
+            $duplicado = $this->db->from('_datos_api_canon')
+                ->where('id <', (int) $lectura->id)
+                ->where('id_proveedor', (int) $lectura->id_proveedor)
+                ->where("UPPER(REPLACE(TRIM(nro_cuenta), ' ', '')) = " . $this->db->escape(strtoupper(str_replace(' ', '', trim($lectura->nro_cuenta)))), null, false)
+                ->where("UPPER(REPLACE(TRIM(nro_factura), ' ', '')) = " . $this->db->escape(strtoupper(str_replace(' ', '', trim($lectura->nro_factura)))), null, false)
+                ->limit(1)->count_all_results() > 0;
+            if ($duplicado) $errores[] = 'Factura duplicada';
+        }
+
+        return $errores;
+    }
+
+    public function tiene_error_lectura_canon($lectura)
+    {
+        return count($this->errores_lectura_canon($lectura)) > 0;
+    }
+
+    public function errores_lectura_canon_bloqueantes($lectura)
+    {
+        return array_values(array_filter($this->errores_lectura_canon($lectura), function ($error) {
+            return $error !== 'Importe 0.00';
+        }));
+    }
+
     public function consolidar_datos()
 {
 	if (isset($_REQUEST['id_file']) && $_POST['id_file'] != null) {
@@ -916,12 +1109,67 @@ class Electromecanica_model extends CI_Model
 		$files = $this->Electromecanica_model->getBatchFiles($_POST['code_lote']);
 	}
 
+	if (empty($files) || empty($files[0])) {
+		return [
+			'status' => 'error',
+			'estado' => 'error',
+			'title' => 'CONSOLIDACIONES',
+			'mensaje' => 'No se encontraron lecturas para procesar.'
+		];
+	}
+
+	$id_lote = (int) $files[0]->id_lote;
+	$resumen = $this->actualizar_resumen_lote_canon($id_lote);
+	$es_individual = !empty($_POST['id_file']);
+
+	if (!$es_individual && $resumen && ((int) $resumen['archivos_sin_indexar'] > 0 || (int) $resumen['archivos_error_lectura'] > 0)) {
+		return [
+			'status' => 'error',
+			'estado' => 'error',
+			'title' => 'CONSOLIDAR LOTE',
+			'mensaje' => 'El lote tiene lecturas sin indexar o con datos criticos. Corregilas antes de consolidar.'
+		];
+	}
+
+	if ($es_individual && count($this->errores_lectura_canon_bloqueantes($files[0])) > 0) {
+		return [
+			'status' => 'error',
+			'estado' => 'error',
+			'title' => 'CONSOLIDAR ARCHIVO',
+			'mensaje' => 'La lectura tiene datos criticos, importe cero o esta duplicada. Corregila antes de consolidar.'
+		];
+	}
+
+	if ($es_individual && (float) $files[0]->total_importe === 0.0 && empty($_POST['permitir_importe_cero'])) {
+		return [
+			'status' => 'confirmacion',
+			'estado' => 'warning',
+			'title' => 'CONFIRMAR IMPORTE 0.00',
+			'mensaje' => 'Esta intentando consolidar una factura con importe 0.00.'
+		];
+	}
+
+	$files = array_values(array_filter($files, function ($file) {
+		return $file && (int) $file->consolidado === 0;
+	}));
+
+	if (empty($files)) {
+		$this->actualizar_resumen_lote_canon($id_lote, $this->user->id);
+		return [
+			'status' => 'info',
+			'estado' => 'info',
+			'title' => 'CONSOLIDACIONES',
+			'mensaje' => 'No hay lecturas pendientes en el lote.'
+		];
+	}
+
+	$this->db->trans_begin();
 	try {
-		$error = true;
+		$procesadas = 0;
 		foreach ($files as $file) {
 
 			if (checkConsolidarCanon($file->id)) {
-				$error = false;
+				$procesadas++;
 
 				// Definir variables y obtener datos adicionales
 				$dependencia = '';
@@ -1063,37 +1311,50 @@ class Electromecanica_model extends CI_Model
 
 				);
 
-				$this->Electromecanica_model->grabar_datos('_consolidados_canon', $dataBatch);
+				if (!$this->db->insert('_consolidados_canon', $dataBatch)) {
+					$error_db = $this->db->error();
+					throw new RuntimeException('No se pudo crear el consolidado: ' . $error_db['message']);
+				}
 
 				$data = array(
 					'consolidado' => 1,
 					'user_consolidado' => $this->user->id,
 					'fecha_consolidado' => $this->fecha_now,
 				);
-				$this->db->update('_datos_api_canon', $data, array('id' => $file->id));
-				$this->db->update('_lotes_canon', $data, array('code' => $_POST['code_lote']));
+				if (!$this->db->update('_datos_api_canon', $data, array('id' => $file->id))) {
+					$error_db = $this->db->error();
+					throw new RuntimeException('No se pudo actualizar la lectura: ' . $error_db['message']);
+				}
 
-			} else {
-				$error = true;
 			}
 		}
-		if($error){
-			$response = array(
-				'estado' => 'error',
-				'title' => 'CONSOLIDACIONES',
-				'mensaje' => 'Archivos anteriormente Consolidados'
-			);
-			echo json_encode($response);die();
-		}else{
-			$response = array(
-				'status' => 'succes',
-				'title' => 'CONSOLIDACIONES',
-				'mensaje' => 'Archivo Consolidado'
-			);
-			echo json_encode($response);die();
+
+		if ($this->db->trans_status() === false) {
+			throw new RuntimeException('La base de datos rechazo una operacion del lote.');
 		}
-	} catch (Exception $e) {
-		die('error');
+
+		$this->actualizar_resumen_lote_canon($id_lote, $this->user->id);
+		$this->db->trans_commit();
+		$resumen_final = $this->db->get_where('_lotes_resumen_canon', ['id_lote' => $id_lote])->row();
+
+		return [
+			'status' => 'success',
+			'estado' => 'success',
+			'title' => 'CONSOLIDACIONES',
+			'mensaje' => $procesadas . ' lectura(s) consolidadas. Pendientes: ' . (int) $resumen_final->archivos_pendientes,
+			'procesadas' => $procesadas,
+			'pendientes' => (int) $resumen_final->archivos_pendientes
+		];
+	} catch (Throwable $e) {
+		$this->db->trans_rollback();
+		$this->actualizar_resumen_lote_canon($id_lote);
+		log_message('error', 'Error consolidando lote canon ' . $_POST['code_lote'] . ': ' . $e->getMessage());
+		return [
+			'status' => 'error',
+			'estado' => 'error',
+			'title' => 'ERROR DE CONSOLIDACION',
+			'mensaje' => 'No se consolido ninguna lectura. ' . $e->getMessage()
+		];
 	}
 }
 

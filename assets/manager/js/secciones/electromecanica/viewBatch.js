@@ -1,75 +1,100 @@
 $(document).ready(function () {
-
   var base_url = $("body").data("base_url");
+  var currentFilter = new URLSearchParams(window.location.search).get("filtro") || "";
 
+  $(".batch-filter-buttons [data-filter]").removeClass("btn-primary active").addClass("btn-light");
+  $(".batch-filter-buttons [data-filter='" + currentFilter + "']")
+    .removeClass("btn-light").addClass("btn-primary active");
+
+  // Inicializar DataTable
   var mytable = $(".datatable-ajax").DataTable({
-     select: {
-      'style': 'multi',
-      'selector': 'tr' // Ajusta el selector si es necesario
-    },
-    dom: 'Blfrtip',
+    dom: "<'row mx-0 align-items-center'<'col-md-4'B><'col-md-3'l><'col-md-5'f>>rtip",
     buttons: [
-      'colvis'
+      'colvis' // Botón para visualizar columnas
     ],
-    pageLength: 10,
+    pageLength: 10, // Número de registros por página
     language: {
       select: {
-        rows: " %d Registros seleccionados",
+        rows: " %d Registros seleccionados", // Mensaje de selección
       },
-      url: base_url + "assets/manager/js/plugins/tables/translate/spanish.json",
+      url: base_url + "assets/manager/js/plugins/tables/translate/spanish.json", // URL para traducciones
     },
-    order: [[1, 'desc']],
+    order: [[1, 'desc']], // Orden inicial de la tabla
     columnDefs: [
-      { visible: false, targets: [12] }, // Ajusta el índice si se corre
+      { visible: false, targets: [13] },
       {
-        'targets': 0,
-        'orderable': false,
+        targets: [9, 11, 12, 13],
+        orderable: false,
       }
     ],
     fixedHeader: {
-      header: true,
+      header: true, // Fijar cabecera
     },
-    autoWidth: false,
-    paging: true,
-    scrollCollapse: true,
-    scrollX: true,
-    scrollY: 600,
-    processing: true,
-    serverSide: true,
-    responsive: false,
+    autoWidth: false, // Desactivar ajuste automático
+    paging: true, // Activar paginación
+    scrollCollapse: true, // Permitir colapso de scroll
+    scrollX: true, // Scroll horizontal
+    scrollY: "62vh",
+    processing: true, // Mostrar mensaje de procesamiento
+    serverSide: true, // Habilitar procesamiento del lado del servidor
+    responsive: false, // Desactivar responsividad
     ajax: {
-      data: { table: "_datos_api_canon", id_lote: $("body").data("data_lote") },
       url: "/Electromecanica/Lecturas/viewBatch/" + $("body").data("data_lote"),
       type: "POST",
+      data: function (data) {
+        data.table = "_datos_api_canon";
+        data.id_lote = $("body").data("data_lote");
+        data.filtro = currentFilter;
+      },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert(jqXHR.status + textStatus + errorThrown);
+        alert(jqXHR.status + ": " + textStatus + ": " + errorThrown); // Mensaje de error
       },
     },
     createdRow: function (row, data, dataIndex) {
-      // agrego el atributo id al td 0
-      console.log('createrow');
-      // console.log(data);      // console.log(row);
-      // return;
-      $(row).attr("id", data[12]); // Ajusta el índice del ID
-      $(row).find("td:eq(0)").attr("id", data[12]); // Ajusta el índice del ID
+      // Asignar el ID a la fila y al primer TD
+      $(row).attr("id", data[13]);
+      $(row).find("td:eq(0)").attr("id", data[13]);
     },
     initComplete: function () {
-      this.api()
-        .columns()
-        .every(function () {
-          
-        });
+      $(".dataTables_scrollBody").css("max-height", "none");
+      var scrollBody = $(".dataTables_scrollBody");
+      scrollBody.off("wheel.dtHorizontal").on("wheel.dtHorizontal", function (e) {
+        if (Math.abs(e.originalEvent.deltaY) > Math.abs(e.originalEvent.deltaX)) {
+          this.scrollLeft += e.originalEvent.deltaY;
+          e.preventDefault();
+        }
+      });
     },
   });
 
- 
+  $("body").on("click", ".batch-filter-buttons [data-filter]", function () {
+    currentFilter = $(this).data("filter") || "";
+    $(".batch-filter-buttons [data-filter]").removeClass("btn-primary active").addClass("btn-light");
+    $(this).removeClass("btn-light").addClass("btn-primary active");
+    mytable.ajax.reload();
+  });
+
+  // Personalizar el buscador si es necesario
+  $('#search-input').on('keyup', function () {
+    mytable.search($(this).val()).draw();
+  });
+
 
   
   $("body").on("click", "span.mergefile", function (e) {
     var file = $(this).data("file");
+    var importeCero = parseInt($(this).data("importe-cero"), 10) === 1;
     e.preventDefault();
 
-    if ($(this).data("indexador") == '0') {
+    if (parseInt($(this).data("error-bloqueante"), 10) > 0) {
+      $.confirm({
+        title: "CONSOLIDAR ARCHIVO",
+        content: "La lectura posee datos criticos faltantes o esta duplicada. Corregila antes de consolidar.",
+        buttons: {
+          cancel: { text: "Cerrar", btnClass: "btn-red" }
+        }
+      });
+    } else if ($(this).data("indexador") == '0') {
       $.confirm({
         title: "CONSOLIDAR ARCHIVO",
         content:
@@ -107,10 +132,15 @@ $(document).ready(function () {
       var dato = new FormData();
       dato.append("code_lote", $(this).data("code"));
       dato.append("id_file", $(this).data("id_file"));
+      if (importeCero) {
+        dato.append("permitir_importe_cero", "1");
+      }
       $.confirm({
         autoClose: "cancel|10000",
-        title: "CONSOLIDAR ARCHIVO",
-        content: "Confirma la Consolidación ???",
+        title: importeCero ? "CONFIRMAR IMPORTE 0.00" : "CONSOLIDAR ARCHIVO",
+        content: importeCero
+          ? "Esta intentando consolidar una factura con importe 0.00. ¿Desea continuar?"
+          : "¿Confirma la consolidación?",
         buttons: {
           confirm: {
             text: "Confirmar",
@@ -371,8 +401,6 @@ $(document).ready(function () {
 		}
 	});
 }); 
-
-
 
 
 

@@ -135,6 +135,22 @@ class Dashboard_financiero extends backend_controller
         ));
     }
 
+    public function api_comparativo()
+    {
+        $this->json_response(array(
+            'status' => 'success',
+            'data' => $this->dashboard_financiero->get_comparativo($this->api_filtros_input()),
+        ));
+    }
+
+    public function api_eficiencia()
+    {
+        $this->json_response(array(
+            'status' => 'success',
+            'data' => $this->dashboard_financiero->get_eficiencia_energetica($this->api_filtros_input()),
+        ));
+    }
+
     private function api_filtros_input()
     {
         return array(
@@ -142,6 +158,12 @@ class Dashboard_financiero extends backend_controller
             'mes' => $this->input->get('mes', true),
             'mes_desde' => $this->input->get('mes_desde', true),
             'mes_hasta' => $this->input->get('mes_hasta', true),
+            'periodo_a_anio' => $this->input->get('periodo_a_anio', true),
+            'periodo_a_mes_desde' => $this->input->get('periodo_a_mes_desde', true),
+            'periodo_a_mes_hasta' => $this->input->get('periodo_a_mes_hasta', true),
+            'periodo_b_anio' => $this->input->get('periodo_b_anio', true),
+            'periodo_b_mes_desde' => $this->input->get('periodo_b_mes_desde', true),
+            'periodo_b_mes_hasta' => $this->input->get('periodo_b_mes_hasta', true),
             'origen' => $this->input->get('origen', true),
             'proveedor' => $this->input->get('proveedor', true),
             'id_proveedor' => $this->input->get('id_proveedor', true),
@@ -149,6 +171,13 @@ class Dashboard_financiero extends backend_controller
             'programa' => $this->input->get('programa', true),
             'proyecto' => $this->input->get('proyecto', true),
             'dependencia' => $this->input->get('dependencia', true),
+            'cuenta' => $this->input->get('cuenta', true),
+            'medidor' => $this->input->get('medidor', true),
+            'modo' => $this->input->get('modo', true),
+            'ventana' => $this->input->get('ventana', true),
+            'problema' => $this->input->get('problema', true),
+            'tarifa' => $this->input->get('tarifa', true),
+            'segmento' => $this->input->get('segmento', true),
             'objeto' => $this->input->get('objeto', true),
             'unidad_medida' => $this->input->get('unidad_medida', true),
         );

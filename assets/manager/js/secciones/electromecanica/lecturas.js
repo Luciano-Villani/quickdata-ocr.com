@@ -13,7 +13,7 @@ function dt() {
     order: [[0, "desc"]],
     columnDefs: [
       { className: "dt-center", targets: "_all" },
-      { className: "dt-nowrap", targets: [7] },
+      { className: "dt-nowrap", targets: [8] },
       {
         targets: 0,
         visible: false,
@@ -27,7 +27,7 @@ function dt() {
         // },
       },
       // { width: "1%", visible: false, targets: [0] },
-      { width: "1%", orderable: false, targets: [0, 3, 4] },
+      { width: "1%", orderable: false, targets: [0, 4, 5, 6, 7, 9] },
     ],
     processing: true,
     serverSide: true,
@@ -60,6 +60,25 @@ function dt() {
         .every(function () {});
     },
   });
+  // Evento de selección de fila al hacer clic
+  $('.datatable-ajax tbody').on('click', 'tr', function () {
+    // Remueve la clase 'selected' de cualquier fila previamente seleccionada
+    $('.datatable-ajax tbody tr.selected').removeClass('selected');
+    // Añade la clase 'selected' a la fila clickeada
+    $(this).addClass('selected');
+  });
+
+  // Evento de doble clic en la fila para redirigir a la acción 'ver archivo'
+  $('.datatable-ajax tbody').on('dblclick', 'tr', function () {
+    // Busca el enlace de "ver archivo" en la fila
+    var $link = $(this).find('a[title="ver archivo"]');
+    if ($link.length) {
+      // Abre el enlace en una nueva pestaña
+      window.open($link.attr('href'), '_blank');
+    }
+  });
+
+  
 }
 
 function checkFile(file) {
@@ -200,14 +219,11 @@ $(document).ready(function () {
            },
          });
        }, 0);
+       
      });
    
 
-
-
-
-
-
+  
 
 
 

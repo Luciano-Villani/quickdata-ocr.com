@@ -315,6 +315,19 @@
 
 	</div>
 <?php } ?>
+<style>
+	.fac-consolidadas-col {
+		width: 130px;
+		min-width: 130px;
+	}
+	.fac-consolidadas-estado {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		white-space: nowrap;
+	}
+</style>
 <div class="card">
 	<h5 class="card-title bg-titulo text-center text-dark"> Lista de Lotes</h5>
 
@@ -328,7 +341,7 @@
 				<th>Facturas</th>
 				<th>Sin Index</th>
 				<th>Errores lectura</th>
-				<th>Consolidado</th>
+				<th class="fac-consolidadas-col">Fac.<br>Consolidadas</th>
 				<th>Usuario</th>
 				<th>Acciones</th>
 			</tr>
