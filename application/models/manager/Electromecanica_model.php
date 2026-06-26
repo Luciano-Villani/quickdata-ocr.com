@@ -784,8 +784,11 @@ class Electromecanica_model extends CI_Model
         $this->db->from($tabla);
         $this->db->where('anio_fc IS NOT NULL'); // Asegurarte de que no sean nulos
         $this->db->where('anio_fc !=', ''); // Asegurarte de que no estén vacíos
+        $this->db->where('anio_fc REGEXP', '^[0-9]{4}$');
+        $this->db->where('CAST(anio_fc AS UNSIGNED) >=', 2020);
+        $this->db->where('CAST(anio_fc AS UNSIGNED) <=', (int) date('Y') + 1);
         $this->db->group_by('anio_fc'); // Agrupar por el campo anio_fc
-        $this->db->order_by('anio_fc', 'ASC'); // Ordenar por el año
+        $this->db->order_by('CAST(anio_fc AS UNSIGNED)', 'DESC'); // Ordenar por el año
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
