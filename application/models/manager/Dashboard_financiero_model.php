@@ -632,35 +632,28 @@ class Dashboard_financiero_model extends CI_Model
 
         $ahorro = $this->db->query("
             SELECT
-                COALESCE(SUM(ahorro_estimado), 0) AS ahorro_potencial,
-                COUNT(*) AS contratos_con_oportunidad
-            FROM (
-                SELECT
-                    clave_medidor,
-                    COUNT(DISTINCT CONCAT(anio_fc, '-', LPAD(mes_fc, 2, '0'))) AS meses,
-                    MAX(p_contratada) AS potencia_contratada,
-                    MAX(p_registrada) AS pico_registrado,
-                    SUM(cargo_pot_contratada) AS cargo_contratado,
-                    CASE
-                        WHEN COUNT(DISTINCT CONCAT(anio_fc, '-', LPAD(mes_fc, 2, '0'))) >= 6
-                            AND MAX(p_contratada) > 0
-                            AND MAX(p_registrada) > 0
-                            AND (MAX(p_registrada) / MAX(p_contratada)) < 0.60
-                            AND (MAX(p_registrada) * 1.15) < MAX(p_contratada)
-                        THEN SUM(cargo_pot_contratada)
-                            * (MAX(p_contratada) - (MAX(p_registrada) * 1.15))
-                            / MAX(p_contratada)
-                        ELSE 0
-                    END AS ahorro_estimado
-                FROM ({$universo}) E
-                {$where}
-                    AND segmento = 'Edificios y dependencias'
-                GROUP BY clave_medidor
-            ) O
-            WHERE ahorro_estimado > 0
+                COALESCE(SUM({$perdida_sql}), 0) AS sobrecosto_corregible_periodo,
+                COUNT(DISTINCT CONCAT(anio_fc, '-', LPAD(mes_fc, 2, '0'))) AS meses_con_datos,
+                MAX(mes_fc) AS ultimo_mes_con_datos,
+                COUNT(DISTINCT CASE
+                    WHEN {$perdida_sql} > 0
+                    THEN clave_medidor
+                END) AS medidores_con_oportunidad
+            FROM ({$universo}) E
+            {$where}
         ")->row_array();
-        $kpis['ahorro_potencial'] = (float) ($ahorro['ahorro_potencial'] ?? 0);
-        $kpis['contratos_con_oportunidad'] = (int) ($ahorro['contratos_con_oportunidad'] ?? 0);
+        $sobrecosto_corregible = (float) ($ahorro['sobrecosto_corregible_periodo'] ?? 0);
+        $meses_con_datos = max(1, (int) ($ahorro['meses_con_datos'] ?? 0));
+        $ultimo_mes_con_datos = max(1, min(12, (int) ($ahorro['ultimo_mes_con_datos'] ?? $filtros['mes_hasta'])));
+        $meses_restantes = max(0, 12 - $ultimo_mes_con_datos);
+        $ahorro_promedio_mensual = $sobrecosto_corregible / $meses_con_datos;
+
+        $kpis['sobrecosto_corregible_periodo'] = $sobrecosto_corregible;
+        $kpis['ahorro_promedio_mensual'] = $ahorro_promedio_mensual;
+        $kpis['ahorro_meses_proyectados'] = $meses_restantes;
+        $kpis['ahorro_potencial'] = $ahorro_promedio_mensual * $meses_restantes;
+        $kpis['ahorro_potencial_anualizado'] = $ahorro_promedio_mensual * 12;
+        $kpis['contratos_con_oportunidad'] = (int) ($ahorro['medidores_con_oportunidad'] ?? 0);
 
         $evolucion = $this->db->query("
             SELECT
@@ -731,6 +724,36 @@ class Dashboard_financiero_model extends CI_Model
                 + (float) ($composicion_costo['potencia_excedida'] ?? 0)
                 + (float) ($composicion_costo['tgfi'] ?? 0)) / (float) $composicion_costo['importe_total']) * 100
             : null;
+
+        $composicion_dependencias = $this->db->query("
+            SELECT
+                dependencia,
+                SUM(importe) AS importe_total,
+                SUM(cargo_fijo) AS cargo_fijo,
+                SUM(cargo_pot_contratada) AS potencia_contratada,
+                SUM(cargo_pot_adquirida) AS potencia_adquirida,
+                SUM(cargo_pot_excd + cargo_exc) AS potencia_excedida,
+                SUM(cargo_variable) AS energia_variable,
+                SUM(recargo_tgfi) AS tgfi
+            FROM ({$universo}) E
+            {$where}
+                AND segmento = 'Edificios y dependencias'
+            GROUP BY dependencia
+            HAVING importe_total > 0
+            ORDER BY importe_total DESC
+            LIMIT 12
+        ")->result_array();
+
+        foreach ($composicion_dependencias as &$dep_composicion) {
+            $componentes_dep = (float) ($dep_composicion['cargo_fijo'] ?? 0)
+                + (float) ($dep_composicion['potencia_contratada'] ?? 0)
+                + (float) ($dep_composicion['potencia_adquirida'] ?? 0)
+                + (float) ($dep_composicion['potencia_excedida'] ?? 0)
+                + (float) ($dep_composicion['energia_variable'] ?? 0)
+                + (float) ($dep_composicion['tgfi'] ?? 0);
+            $dep_composicion['otros_impuestos'] = max(0, (float) ($dep_composicion['importe_total'] ?? 0) - $componentes_dep);
+        }
+        unset($dep_composicion);
 
         $top_dependencias = $this->db->query("
             SELECT
@@ -907,6 +930,7 @@ class Dashboard_financiero_model extends CI_Model
             'evolucion' => $evolucion,
             'evolucion_operativa' => $evolucion_operativa,
             'composicion_costo' => $composicion_costo,
+            'composicion_dependencias' => $composicion_dependencias,
             'top_dependencias' => $top_dependencias,
             'top_medidores' => $top_medidores,
             'operativa' => $operativa,

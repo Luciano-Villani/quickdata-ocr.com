@@ -189,6 +189,7 @@ swal2-popup {
 			</div>
 			<div class="filtros-consolidados-actions">
 				<button id="applyfilter" type="button" class="d-none"><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
+                <button id="toggle-base-completa" type="button" class="btn btn-outline-secondary btn-sm filtros-consolidados-fullbase" data-base-completa="0"><b><i class="icon-database"></i></b> Mostrar datos historicos</button>
                 <button id="descarga-principal" type="button" class="btn btn-outline-primary btn-sm filtros-consolidados-download"><b><i class="icon-file-download"></i></b> Descargar reporte</button>
 				<button id="resetfilter" type="button" class="btn btn-link btn-sm filtros-consolidados-clear"><b><i class="icon-reset"></i></b> Limpiar filtros</button>
 				<!--<button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm"style="width: 160px";><b><i class="icon-file-excel"></i></b> DESCARGAR</button> -->
@@ -311,8 +312,12 @@ swal2-popup {
         align-items: center;
         justify-content: flex-end;
         gap: 8px;
-        min-width: 280px;
+        min-width: 470px;
         padding-bottom: 1px;
+    }
+    .filtros-consolidados-fullbase {
+        min-width: 175px;
+        white-space: nowrap;
     }
     .filtros-consolidados-download {
         min-width: 150px;
@@ -355,6 +360,10 @@ swal2-popup {
         font-size: .72rem;
         font-weight: 600;
     }
+    .filtro-chip-vista {
+        margin-left: 10px;
+        vertical-align: middle;
+    }
     @media (max-width: 1400px) {
         .filtros-consolidados-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -363,10 +372,37 @@ swal2-popup {
             justify-content: flex-start;
         }
     }
-	#consolidados_dt_filter,
+    #consolidados_dt_filter,
 	#consolidados_dt_length {
 		/* float: left; */
 	}
+
+    #vista-consolidada-card .card-title {
+        margin-bottom: 0;
+        padding: 4px 0;
+        line-height: 1.15;
+    }
+
+    #vista-consolidada-card .card-header {
+        margin-top: 0 !important;
+        padding: 7px 14px 0;
+    }
+
+    #vista-consolidada-card .dataTables_wrapper .dt-buttons,
+    #vista-consolidada-card .dataTables_wrapper .dataTables_length,
+    #vista-consolidada-card .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 6px;
+    }
+
+    #vista-consolidada-card .dataTables_scroll {
+        clear: both;
+    }
+
+    #consolidados_dt_length {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
 
     #consolidados_dt_filter {
         padding-right: 18px;

@@ -50,9 +50,22 @@
 	}
 	.indexaciones-page .dataTables_filter {
 		padding-right: 14px;
+		margin: 10px 0 12px;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	.indexaciones-page .dataTables_filter label {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 0;
+		white-space: nowrap;
 	}
 	.indexaciones-page .dataTables_filter input {
 		min-width: 260px;
+		margin-left: 0;
+		padding-right: 34px;
 	}
 	.indexaciones-page .dt-buttons {
 		margin-left: 14px;
@@ -72,7 +85,7 @@
 						<i class="icon-shuffle"></i> Migrar cuenta
 					</a>
 					<?php if ($this->BtnText == "Agregar") { ?>
-						<button type="button" data-toggle="collapse" data-target="#formulario1" class="btn btn-primary">
+						<button type="button" id="btn_agregar_indexacion" data-toggle="collapse" data-target="#formulario1" class="btn btn-primary">
 							<i class="icon-plus3"></i> Agregar indexacion
 						</button>
 					<?php } ?>
@@ -230,8 +243,8 @@
 
 				<div class="form-actions d-flex justify-content-end">
 					<a href="<?= base_url('Admin/Indexaciones') ?>" class="btn btn-light mr-2">Cancelar</a>
-					<button type="submit" class="<?= $this->BtnText ?> btn btn-primary">
-						<i class="icon-floppy-disk"></i> <?= $this->BtnText ?> indexacion
+					<button type="submit" id="submit_indexacion" class="<?= $this->BtnText ?> btn btn-primary">
+						<i class="icon-floppy-disk"></i> <?= $this->BtnText == 'Editar' ? 'Guardar cambios' : 'Agregar indexacion' ?>
 					</button>
 				</div>
 				<?= form_close(); ?>

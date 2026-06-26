@@ -153,6 +153,37 @@
     opacity: 1;
 }
 
+.filtro-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #eef4ff;
+    color: #0b1f4d;
+    font-size: .72rem;
+    font-weight: 600;
+}
+.filtro-chip-vista {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.electro-historical-toggle {
+    min-width: 175px;
+    white-space: nowrap;
+}
+.electro-filter-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+}
+.electro-filter-actions-main {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
 	
 
 </style>
@@ -279,9 +310,14 @@
                 </div>
 
                 <div class="col-2">
-                    <button id="applyfilter" type="button" class="btn btn-outline-dark btn-sm" title="Aplicar filtros"><b><i class="icon-filter3"></i></b></button>
-                    <button id="resetfilter" type="button" class="btn btn-outline-dark btn-sm" title="Eliminar filtros"><b><i class="icon-reset"></i></b></button>
-                    <button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm" title="Descargar reporte"><b><i class="icon-file-excel"></i></b></button>
+                    <div class="electro-filter-actions">
+                        <div class="electro-filter-actions-main">
+                            <button id="applyfilter" type="button" class="btn btn-outline-dark btn-sm" title="Aplicar filtros"><b><i class="icon-filter3"></i></b></button>
+                            <button id="resetfilter" type="button" class="btn btn-outline-dark btn-sm" title="Eliminar filtros"><b><i class="icon-reset"></i></b></button>
+                            <button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm" title="Descargar reporte"><b><i class="icon-file-excel"></i></b></button>
+                        </div>
+                        <button id="toggle-base-completa" type="button" class="btn btn-outline-secondary btn-sm electro-historical-toggle" data-base-completa="0"><b><i class="icon-database"></i></b> Mostrar datos historicos</button>
+                    </div>
                 </div>
 
             </div>
@@ -295,6 +331,29 @@
 	#consolidados_dt_length {
 		/* float: left; */
 	}
+
+    #electro-consolidada-card .card-title {
+        margin-bottom: 0;
+        padding: 4px 0;
+        line-height: 1.15;
+    }
+
+    #electro-consolidada-card .card-header {
+        margin-top: 0 !important;
+        padding: 7px 14px 0;
+    }
+
+    #electro-consolidada-card .dataTables_wrapper .dt-buttons,
+    #electro-consolidada-card .dataTables_wrapper .dataTables_length,
+    #electro-consolidada-card .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 6px;
+    }
+
+    #consolidados_dt_length {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
 
 	.dataTables_filter input{
 		text-transform: uppercase;
@@ -314,7 +373,7 @@
        
     }
 </style>
-<div class="card tablas" style="margin-top: -15px">
+<div class="card tablas" id="electro-consolidada-card" style="margin-top: -15px">
 <h5 class="card-title bg-titulo text-center text-dark"> Facturas Consolidadas Electromecánica</h5>
 
 <div id="loading-spinner" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">

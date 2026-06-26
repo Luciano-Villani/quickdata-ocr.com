@@ -444,6 +444,8 @@ class Electromecanica_model extends CI_Model
                         $dates = explode('-', $postData['fecha']);
                 
                         $this->db->where("_consolidados_canon.fecha_consolidado >= '" . fecha_es(trim(str_replace('/', '-', $dates[0])), "Y-m-d", false) . " 00:00:01'  AND _consolidados_canon.fecha_consolidado <= '" . fecha_es(trim(str_replace('/', '-', $dates[1])), "Y-m-d", false) . " 23:59:59'");
+                    } elseif (!isset($postData['limitar_ultimos_12']) || (int) $postData['limitar_ultimos_12'] === 1) {
+                        $this->db->where("_consolidados_canon.fecha_consolidado >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)", null, false);
                     }
                     break;
                 

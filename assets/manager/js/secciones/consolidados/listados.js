@@ -86,6 +86,8 @@ function initDatatable(search = false, type = 0) {
   var tipo_pago = false;
   var periodo_contable = false;
   var secretaria = false;
+  var limitarUltimos12 = $("#toggle-base-completa").data("base-completa") !== 1;
+  var tableHeight = Math.min(Math.max($(window).height() - $("#consolidados_dt").offset().top - 95, 240), 320);
 
   // desde los filtros 4
   if (type == 4) {
@@ -120,12 +122,12 @@ function initDatatable(search = false, type = 0) {
       dom: "Blfrtip",
       scrollX: true,
       scrollCollapse: true,
-      scrollY: 300,
+      scrollY: tableHeight + "px",
 
       // paging: false,
       lengthMenu: [
-        [10, 25, 50, 100, -1],
-        [10, 25, 50, 100, "All"],
+        [10, 25, 50, 100],
+        [10, 25, 50, 100],
       ],
       pageLength: 25,
       // order: [1, "desc"],
@@ -186,6 +188,7 @@ function initDatatable(search = false, type = 0) {
           periodo_contable: periodo_contable,
           id_secretaria: secretaria,
           fecha: fecha,
+          limitar_ultimos_12: limitarUltimos12 ? 1 : 0,
         },
         url: "/Consolidados/list_dt",
         type: "POST",
@@ -195,6 +198,7 @@ function initDatatable(search = false, type = 0) {
       },
 
       initComplete: function () {
+        insertarChipVistaEnHeaderDt();
         this.api()
 
           .columns([4]) // This is the hidden jurisdiction column index
@@ -322,6 +326,7 @@ function actualizarChipsFiltros() {
     agregarChip(chips, "Fecha consolidacion", [$("#daterange2").val()]);
   }
   $("#filtros-activos").html(chips.join(""));
+  actualizarChipVistaDt();
 }
 
 function aplicarFiltrosConsolidadosDebounced() {
@@ -450,6 +455,41 @@ function setModoReporte(modo) {
   }
 }
 
+function actualizarBotonBaseCompleta() {
+  var baseCompleta = $("#toggle-base-completa").data("base-completa") === 1;
+  $("#toggle-base-completa")
+    .attr("data-base-completa", baseCompleta ? "1" : "0")
+    .toggleClass("btn-outline-secondary", !baseCompleta)
+    .toggleClass("btn-secondary", baseCompleta)
+    .html(
+      baseCompleta
+        ? '<b><i class="icon-database"></i></b> Usar ultimos 12 meses'
+        : '<b><i class="icon-database"></i></b> Mostrar datos historicos'
+    );
+  actualizarChipVistaDt();
+}
+
+function textoChipVistaDt() {
+  return $("#toggle-base-completa").data("base-completa") === 1
+    ? "Vista: base completa"
+    : "Vista: ultimos 12 meses";
+}
+
+function insertarChipVistaEnHeaderDt() {
+  var $length = $("#consolidados_dt_length");
+  if (!$length.length) {
+    return;
+  }
+  if (!$length.find("#dt-vista-base-chip").length) {
+    $length.append('<span id="dt-vista-base-chip" class="filtro-chip filtro-chip-vista"></span>');
+  }
+  actualizarChipVistaDt();
+}
+
+function actualizarChipVistaDt() {
+  $("#dt-vista-base-chip").text(textoChipVistaDt());
+}
+
 $(document).ready(function () {
 
     $('input[name="daterange2"]').daterangepicker({
@@ -528,6 +568,8 @@ $(document).ready(function () {
 
     // console.log(drp.startDate.format('DD-MM-YYYY'));
     // console.log(drp.endDate.format('DD-MM-YYYY'));
+    actualizarBotonBaseCompleta();
+    actualizarChipsFiltros();
     initDatatable();
     var base_url = $("body").data("base_url");
 
@@ -538,6 +580,8 @@ $(document).ready(function () {
         $("#id_secretaria").val("").trigger("change");
         $("#id_tipo_pago").val("").trigger("change");
         $("#periodo_contable").val("").trigger("change");
+        $("#toggle-base-completa").data("base-completa", 0);
+        actualizarBotonBaseCompleta();
 
         $('#daterange2').data('daterangepicker').setEndDate(new Date);
         $('#daterange2').data('daterangepicker').setStartDate(new Date);
@@ -550,6 +594,17 @@ $(document).ready(function () {
             initDatatable();
         }
         actualizarChipsFiltros();
+    });
+
+    $("body").on("click", "#toggle-base-completa", function (e) {
+        e.preventDefault();
+        var baseCompleta = $(this).data("base-completa") === 1;
+        $(this).data("base-completa", baseCompleta ? 0 : 1);
+        actualizarBotonBaseCompleta();
+        actualizarChipsFiltros();
+        if (modoReporteActual === "consolidados") {
+            initDatatable(false, 4);
+        }
     });
 
     $("body").on("click", "#applyfilter", function (e) {

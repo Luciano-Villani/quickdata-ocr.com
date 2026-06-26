@@ -41,6 +41,41 @@ function newexportaction(e, dt, button, config) {
 
 
 
+function textoChipVistaDt() {
+  return $("#toggle-base-completa").data("base-completa") === 1
+    ? "Vista: base completa"
+    : "Vista: ultimos 12 meses";
+}
+
+function insertarChipVistaEnHeaderDt() {
+  var $length = $("#consolidados_dt_length");
+  if (!$length.length) {
+    return;
+  }
+  if (!$length.find("#dt-vista-base-chip").length) {
+    $length.append('<span id="dt-vista-base-chip" class="filtro-chip filtro-chip-vista"></span>');
+  }
+  actualizarChipVistaDt();
+}
+
+function actualizarChipVistaDt() {
+  $("#dt-vista-base-chip").text(textoChipVistaDt());
+}
+
+function actualizarBotonBaseCompleta() {
+  var baseCompleta = $("#toggle-base-completa").data("base-completa") === 1;
+  $("#toggle-base-completa")
+    .attr("data-base-completa", baseCompleta ? "1" : "0")
+    .toggleClass("btn-outline-secondary", !baseCompleta)
+    .toggleClass("btn-secondary", baseCompleta)
+    .html(
+      baseCompleta
+        ? '<b><i class="icon-database"></i></b> Usar ultimos 12 meses'
+        : '<b><i class="icon-database"></i></b> Mostrar datos historicos'
+    );
+  actualizarChipVistaDt();
+}
+
 function initDatatable(search = false, type = 0) {
   var prove = $("#id_proveedor").val() || [];
   var fecha = $("#tipo-fecha").is(":checked") ? $("#daterange2").val() : false;
@@ -52,13 +87,14 @@ function initDatatable(search = false, type = 0) {
   var const3Filter = $('#const3_filter').is(':checked');
 
   var tgfiFilter = $('#tgfi_filter').is(':checked');
+  var limitarUltimos12 = $("#toggle-base-completa").data("base-completa") !== 1;
   var cuentasUnicasFilter = $('#cuentas_unicas_filter').is(':checked') ? 'true' : 'false'; // Usamos strings 'true' y 'false' en lugar de booleanos
   var comentariosFilter = $('#comentarios_filter').is(':checked'); // Será un booleano
   // Console log para ver todos los filtros seleccionados antes de enviarlos
   
 
   // Calcula la altura disponible dinámicamente
-  let tableHeight = Math.min($(window).height() - $('#consolidados_dt').offset().top - 50, 450);
+  let tableHeight = Math.min(Math.max($(window).height() - $('#consolidados_dt').offset().top - 85, 240), 450);
 
   $("#consolidados_dt").DataTable().destroy();
 
@@ -71,8 +107,8 @@ function initDatatable(search = false, type = 0) {
       scrollCollapse: true,
       scrollY: tableHeight + "px",
       lengthMenu: [
-          [10, 25, 50, 100, -1],
-          [10, 25, 50, 100, "All"],
+          [10, 25, 50, 100],
+          [10, 25, 50, 100],
       ],
       pageLength: 50,
       buttons: [
@@ -341,7 +377,8 @@ function initDatatable(search = false, type = 0) {
 
               tg_fi: tgfiFilter,
               nro_cuenta: cuentasUnicasFilter, // Agregamos el filtro de nro_cuenta aquí
-              comentarios: comentariosFilter 
+              comentarios: comentariosFilter,
+              limitar_ultimos_12: limitarUltimos12 ? 1 : 0
           },
           url: "/Electromecanica/Consolidados/list_dt_canon",
           type: "POST",
@@ -357,6 +394,9 @@ function initDatatable(search = false, type = 0) {
             // Devuelve los datos para el DataTable
             return json.data;
         }
+    },
+    initComplete: function () {
+      insertarChipVistaEnHeaderDt();
     },
 });
      
@@ -686,6 +726,7 @@ $(document).ready(function () {
   range.on("load.daterangepicker", function () {});
   
   var drp = $('input[name="daterange2"]').data("daterangepicker");
+  actualizarBotonBaseCompleta();
   initDatatable();
   
   var base_url = $("body").data("base_url");
@@ -708,6 +749,8 @@ $(document).ready(function () {
     $("#tgfi_filter").prop('checked', false);  // Restablecer el checkbox de Tg Fi
     $('#comentarios_filter').prop('checked', false); // Restablecer  
     $('#cuentas_unicas_filter').prop('checked', false); // Restablecer  
+    $("#toggle-base-completa").data("base-completa", 0);
+    actualizarBotonBaseCompleta();
 
 
 
@@ -723,6 +766,14 @@ $(document).ready(function () {
     initDatatable(false, 4);
     
 });
+
+  $("body").on("click", "#toggle-base-completa", function (e) {
+    e.preventDefault();
+    var baseCompleta = $(this).data("base-completa") === 1;
+    $(this).data("base-completa", baseCompleta ? 0 : 1);
+    actualizarBotonBaseCompleta();
+    initDatatable(false, 4);
+  });
   
   $("body").on("click", "#descarga-exell", function (e) {
     e.preventDefault();
