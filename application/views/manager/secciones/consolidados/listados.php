@@ -512,6 +512,17 @@ swal2-popup {
         line-height: 1;
         font-weight: 700;
     }
+    .reporte-final-quitar-col {
+        width: 46px;
+        min-width: 46px;
+        max-width: 46px;
+        text-align: center;
+        white-space: nowrap;
+    }
+    .reporte-final-quitar-col i {
+        color: #dc3545;
+        font-size: 16px;
+    }
     #reporte-final-titulo {
         display: block;
         background: #f4b183;
@@ -608,7 +619,9 @@ swal2-popup {
         <table id="reporte_final_preview" class="table table-bordered table-hover table-sm mb-0">
             <thead>
                 <tr>
-                    <th>Quitar</th>
+                    <th class="reporte-final-quitar-col" title="Quitar filas excluidas de la liquidacion">
+                        <i class="icon-bin"></i>
+                    </th>
                     <th>Proveedor</th>
                     <th>Expediente</th>
                     <th>Secretaria</th>
