@@ -543,7 +543,7 @@ function actualizarBotonBaseCompleta() {
     .html(
       baseCompleta
         ? '<b><i class="icon-database"></i></b> Usar ultimos 12 meses'
-        : '<b><i class="icon-database"></i></b> Mostrar datos historicos'
+        : '<b><i class="icon-database"></i></b> Datos historicos'
     );
   actualizarChipVistaDt();
 }

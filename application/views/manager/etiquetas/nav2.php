@@ -407,6 +407,13 @@ $nav_show_dashboard_financiero = $this->ion_auth->is_super() || $nav_is_financie
             </a>
         </li>
 
+        <li class="nav-item nav-item-menu" data-seccion="auditoria-edenor" <?= ($nav_is_financiero || !$is_electro_route) ? 'style="display:none"' : '' ?>>
+            <a href="/Electromecanica/AuditoriaEdenor" class="nav-link" data-url="/Electromecanica/AuditoriaEdenor">
+                <i class="icon-clipboard3" data-seccion="datos"></i>
+                <span>Auditoria Datos Edenor</span>
+            </a>
+        </li>
+
         <li class="nav-item-header" <?= $nav_is_financiero ? 'style="display:none"' : '' ?>>
             <div class="text-uppercase font-size-xs line-height-xs">Estructura programática</div> <i class="icon-menu" title="Estructura programática"></i>
         </li>

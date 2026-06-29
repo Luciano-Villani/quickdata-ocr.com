@@ -86,6 +86,7 @@ function initDatatable(search = false, type = 0) {
   var tipo_pago = false;
   var periodo_contable = false;
   var secretaria = false;
+  var programa_proyecto = false;
   var limitarUltimos12 = $("#toggle-base-completa").data("base-completa") !== 1;
   var tableHeight = Math.min(Math.max($(window).height() - $("#consolidados_dt").offset().top - 95, 240), 320);
 
@@ -95,6 +96,7 @@ function initDatatable(search = false, type = 0) {
     tipo_pago = $("#id_tipo_pago").val();
     periodo_contable = $("#periodo_contable").val();
     secretaria = $("#id_secretaria").val();
+    programa_proyecto = $("#programa_proyecto").val();
 
     if ($("#tipo-fecha").is(":checked")) {
       var fecha = $("#daterange2").val();
@@ -187,6 +189,7 @@ function initDatatable(search = false, type = 0) {
           tipo_pago: data,
           periodo_contable: periodo_contable,
           id_secretaria: secretaria,
+          programa_proyecto: programa_proyecto,
           fecha: fecha,
           limitar_ultimos_12: limitarUltimos12 ? 1 : 0,
         },
@@ -228,7 +231,10 @@ function initDatatable(search = false, type = 0) {
 
 var modoReporteActual = "consolidados";
 var actualizandoFiltrosReporteFinal = false;
+var actualizandoProgramaProyecto = false;
 var filtrosConsolidadosTimer = null;
+var reporteFinalExcluidos = [];
+var reporteFinalAutoseleccionarPeriodo = true;
 
 function escapeHtml(value) {
   return String(value == null ? "" : value)
@@ -263,8 +269,92 @@ function obtenerFiltrosReporteFinal() {
     tipo_pago: tipoPagoTextos,
     periodo_contable: $("#periodo_contable").val() || [],
     id_secretaria: $("#id_secretaria").val() || [],
+    programa_proyecto: $("#programa_proyecto").val() || [],
     fecha: $("#tipo-fecha").is(":checked") ? $("#daterange2").val() : "",
+    excluir_ids: reporteFinalExcluidos,
+    desagrupar_cuentas: $("#reporte-final-desagrupar").is(":checked") ? 1 : 0,
   };
+}
+
+function resetExclusionesReporteFinal() {
+  reporteFinalExcluidos = [];
+}
+
+function debeDesagruparAutomaticamente() {
+  var proveedores = textosSeleccionados($("#id_proveedor")).map(function (texto) {
+    return texto.toUpperCase();
+  });
+  var pagos = textosSeleccionados($("#id_tipo_pago")).map(function (texto) {
+    return texto.toUpperCase();
+  });
+
+  if (!proveedores.length || !pagos.length || pagos.indexOf("OP") === -1) {
+    return false;
+  }
+
+  return proveedores.every(function (proveedor) {
+    return proveedor.indexOf("AYSA") !== -1 ||
+      proveedor.indexOf("NATURGY") !== -1 ||
+      proveedor.indexOf("EDENOR") !== -1;
+  });
+}
+
+function actualizarDesagruparAutomatico() {
+  var auto = modoReporteActual === "reporte_final" && debeDesagruparAutomaticamente();
+  var $check = $("#reporte-final-desagrupar");
+  if (auto && !$check.is(":checked")) {
+    $check.prop("checked", true);
+  }
+  $("#reporte-final-desagrupar-hint").toggleClass("d-none", !auto);
+}
+
+function actualizarEstadoProgramaProyecto() {
+  var habilitado = ($("#id_secretaria").val() || []).length > 0;
+  var $programa = $("#programa_proyecto");
+
+  $programa.prop("disabled", !habilitado);
+
+  if (!habilitado) {
+    $programa.val([]).trigger("change.select2");
+  }
+}
+
+function actualizarOpcionesProgramaProyecto(callback) {
+  if (actualizandoProgramaProyecto) {
+    if (callback) {
+      callback();
+    }
+    return;
+  }
+
+  if (($("#id_secretaria").val() || []).length === 0) {
+    syncSelectOptions($("#programa_proyecto"), []);
+    actualizarEstadoProgramaProyecto();
+    if (callback) {
+      callback();
+    }
+    return;
+  }
+
+  actualizandoProgramaProyecto = true;
+  $.ajax({
+    url: "/Consolidados/reporte_final_opciones",
+    type: "POST",
+    dataType: "json",
+    data: obtenerFiltrosReporteFinal(),
+    success: function (response) {
+      if (response && response.status === "success" && response.opciones) {
+        syncSelectOptions($("#programa_proyecto"), response.opciones.programa_proyecto || []);
+      }
+    },
+    complete: function () {
+      actualizandoProgramaProyecto = false;
+      actualizarEstadoProgramaProyecto();
+      if (callback) {
+        callback();
+      }
+    },
+  });
 }
 
 function syncSelectOptions($select, opciones) {
@@ -288,13 +378,25 @@ function seleccionarPeriodoActualSiCorresponde() {
   var periodoActual = window.REPORTE_FINAL_PERIODO_ACTUAL || "";
   var $periodo = $("#periodo_contable");
 
+  if (!reporteFinalAutoseleccionarPeriodo) {
+    return;
+  }
+
   if (!periodoActual || ($periodo.val() && $periodo.val().length)) {
     return;
   }
 
   if ($periodo.find('option[value="' + periodoActual.replace(/"/g, '\\"') + '"]').length) {
     $periodo.val([periodoActual]).trigger("change.select2");
+    reporteFinalAutoseleccionarPeriodo = false;
   }
+}
+
+function normalizarSeleccionUnicaReporteFinal($select, valor) {
+  if (modoReporteActual !== "reporte_final" || !valor) {
+    return;
+  }
+  $select.val([String(valor)]).trigger("change");
 }
 
 function textosSeleccionados($select) {
@@ -322,8 +424,12 @@ function actualizarChipsFiltros() {
   agregarChip(chips, "Secretaria", textosSeleccionados($("#id_secretaria")));
   agregarChip(chips, "Tipo de pago", textosSeleccionados($("#id_tipo_pago")));
   agregarChip(chips, "Periodo", textosSeleccionados($("#periodo_contable")));
+  agregarChip(chips, "Programa.Proyecto", textosSeleccionados($("#programa_proyecto")));
   if ($("#tipo-fecha").is(":checked")) {
     agregarChip(chips, "Fecha consolidacion", [$("#daterange2").val()]);
+  }
+  if (modoReporteActual === "reporte_final" && $("#reporte-final-desagrupar").is(":checked")) {
+    agregarChip(chips, "Liquidacion", ["Desagrupar cuentas"]);
   }
   $("#filtros-activos").html(chips.join(""));
   actualizarChipVistaDt();
@@ -335,10 +441,14 @@ function aplicarFiltrosConsolidadosDebounced() {
   filtrosConsolidadosTimer = setTimeout(function () {
     if (modoReporteActual === "reporte_final") {
       if (!actualizandoFiltrosReporteFinal) {
+        resetExclusionesReporteFinal();
+        actualizarDesagruparAutomatico();
         actualizarOpcionesReporteFinal(cargarReporteFinal);
       }
     } else {
-      initDatatable(false, 4);
+      actualizarOpcionesProgramaProyecto(function () {
+        initDatatable(false, 4);
+      });
     }
   }, 250);
 }
@@ -362,11 +472,13 @@ function actualizarOpcionesReporteFinal(callback) {
         syncSelectOptions($("#id_tipo_pago"), response.opciones.tipo_pago || []);
         syncSelectOptions($("#periodo_contable"), response.opciones.periodo_contable || []);
         syncSelectOptions($("#id_secretaria"), response.opciones.secretaria || []);
+        syncSelectOptions($("#programa_proyecto"), response.opciones.programa_proyecto || []);
       }
     },
     complete: function () {
       actualizandoFiltrosReporteFinal = false;
       seleccionarPeriodoActualSiCorresponde();
+      actualizarEstadoProgramaProyecto();
       if (callback) {
         callback();
       }
@@ -384,14 +496,15 @@ function renderReporteFinal(response) {
   );
 
   if (!filas.length) {
-    $tbody.html('<tr><td colspan="13" class="text-center text-muted">No hay registros para los filtros aplicados.</td></tr>');
+    $tbody.html('<tr><td colspan="14" class="text-center text-muted">No hay registros para los filtros aplicados.</td></tr>');
     return;
   }
 
   var html = "";
   filas.forEach(function (fila) {
     if (fila.tipo === "detalle") {
-      html += "<tr>" +
+      html += '<tr data-id="' + escapeHtml(fila.id) + '">' +
+        '<td><button type="button" class="btn btn-outline-danger btn-sm reporte-final-excluir" data-id="' + escapeHtml(fila.id) + '" title="Excluir de la liquidacion">-</button></td>' +
         "<td>" + escapeHtml(fila.proveedor) + "</td>" +
         "<td>" + escapeHtml(fila.expediente) + "</td>" +
         "<td>" + escapeHtml(fila.secretaria) + "</td>" +
@@ -407,9 +520,9 @@ function renderReporteFinal(response) {
         '<td class="importe">' + formatMoney(fila.importe) + "</td>" +
       "</tr>";
     } else if (fila.tipo === "subtotal_programa") {
-      html += '<tr class="fila-subtotal"><td colspan="5"></td><td>' + escapeHtml(fila.programa) + '</td><td colspan="6"></td><td class="importe">' + formatMoney(fila.importe) + "</td></tr>";
+      html += '<tr class="fila-subtotal"><td colspan="6"></td><td>' + escapeHtml(fila.programa) + '</td><td colspan="6"></td><td class="importe">' + formatMoney(fila.importe) + "</td></tr>";
     } else {
-      html += '<tr class="fila-subtotal"><td colspan="4"></td><td>' + escapeHtml(fila.jurisdiccion) + '</td><td colspan="7"></td><td class="importe">' + formatMoney(fila.importe) + "</td></tr>";
+      html += '<tr class="fila-subtotal"><td colspan="5"></td><td>' + escapeHtml(fila.jurisdiccion) + '</td><td colspan="7"></td><td class="importe">' + formatMoney(fila.importe) + "</td></tr>";
     }
   });
 
@@ -417,7 +530,8 @@ function renderReporteFinal(response) {
 }
 
 function cargarReporteFinal() {
-  $("#reporte_final_preview tbody").html('<tr><td colspan="13" class="text-center text-muted">Generando vista previa...</td></tr>');
+  actualizarChipsFiltros();
+  $("#reporte_final_preview tbody").html('<tr><td colspan="14" class="text-center text-muted">Generando vista previa...</td></tr>');
 
   $.ajax({
     url: "/Consolidados/reporte_final_preview",
@@ -426,13 +540,13 @@ function cargarReporteFinal() {
     data: obtenerFiltrosReporteFinal(),
     success: function (response) {
       if (!response || response.status !== "success") {
-        $("#reporte_final_preview tbody").html('<tr><td colspan="13" class="text-center text-danger">No se pudo generar el reporte.</td></tr>');
+        $("#reporte_final_preview tbody").html('<tr><td colspan="14" class="text-center text-danger">No se pudo generar el reporte.</td></tr>');
         return;
       }
       renderReporteFinal(response);
     },
     error: function () {
-      $("#reporte_final_preview tbody").html('<tr><td colspan="13" class="text-center text-danger">Error de conexion al generar el reporte.</td></tr>');
+      $("#reporte_final_preview tbody").html('<tr><td colspan="14" class="text-center text-danger">Error de conexion al generar el reporte.</td></tr>');
     },
   });
 }
@@ -441,17 +555,25 @@ function setModoReporte(modo) {
   modoReporteActual = modo;
   $(".modo-reporte-btn").removeClass("active btn-primary").addClass("btn-outline-primary");
   $('.modo-reporte-btn[data-modo="' + modo + '"]').addClass("active btn-primary").removeClass("btn-outline-primary");
+  $(".filtros-consolidados-card").toggleClass("modo-reporte-final", modo === "reporte_final");
 
   if (modo === "reporte_final") {
     $("#vista-consolidada-card").addClass("d-none");
     $("#reporte-final-card").removeClass("d-none");
     $("#descarga-principal").addClass("d-none");
+    $("#toggle-base-completa").addClass("d-none");
+    reporteFinalAutoseleccionarPeriodo = true;
     seleccionarPeriodoActualSiCorresponde();
+    resetExclusionesReporteFinal();
+    actualizarDesagruparAutomatico();
+    actualizarEstadoProgramaProyecto();
     actualizarOpcionesReporteFinal(cargarReporteFinal);
   } else {
     $("#vista-consolidada-card").removeClass("d-none");
     $("#reporte-final-card").addClass("d-none");
     $("#descarga-principal").removeClass("d-none");
+    $("#toggle-base-completa").removeClass("d-none");
+    actualizarEstadoProgramaProyecto();
   }
 }
 
@@ -464,7 +586,7 @@ function actualizarBotonBaseCompleta() {
     .html(
       baseCompleta
         ? '<b><i class="icon-database"></i></b> Usar ultimos 12 meses'
-        : '<b><i class="icon-database"></i></b> Mostrar datos historicos'
+        : '<b><i class="icon-database"></i></b> Datos historicos'
     );
   actualizarChipVistaDt();
 }
@@ -569,15 +691,19 @@ $(document).ready(function () {
     // console.log(drp.startDate.format('DD-MM-YYYY'));
     // console.log(drp.endDate.format('DD-MM-YYYY'));
     actualizarBotonBaseCompleta();
+    actualizarEstadoProgramaProyecto();
     actualizarChipsFiltros();
     initDatatable();
     var base_url = $("body").data("base_url");
 
     $("body").on("click", "#resetfilter", function (e) {
         e.preventDefault();
+        resetExclusionesReporteFinal();
+        reporteFinalAutoseleccionarPeriodo = true;
         $("#tipo-fecha").prop('checked',false);
         $("#id_proveedor").val("").trigger("change");
         $("#id_secretaria").val("").trigger("change");
+        $("#programa_proyecto").val("").trigger("change");
         $("#id_tipo_pago").val("").trigger("change");
         $("#periodo_contable").val("").trigger("change");
         $("#toggle-base-completa").data("base-completa", 0);
@@ -589,6 +715,8 @@ $(document).ready(function () {
         // $("#id_tipo_pago").prop("selectedIndex", 0);
         if (modoReporteActual === "reporte_final") {
             seleccionarPeriodoActualSiCorresponde();
+            actualizarDesagruparAutomatico();
+            actualizarEstadoProgramaProyecto();
             actualizarOpcionesReporteFinal(cargarReporteFinal);
         } else {
             initDatatable();
@@ -611,6 +739,8 @@ $(document).ready(function () {
         e.preventDefault();
 
         if (modoReporteActual === "reporte_final") {
+            resetExclusionesReporteFinal();
+            actualizarDesagruparAutomatico();
             actualizarOpcionesReporteFinal(cargarReporteFinal);
         } else {
             initDatatable(false, 4);
@@ -632,8 +762,38 @@ $(document).ready(function () {
             .html(colapsado ? '<i class="icon-arrow-down12"></i> Mostrar filtros' : '<i class="icon-arrow-up12"></i> Ocultar filtros');
     });
 
-    $("body").on("change", "#id_proveedor, #id_secretaria, #id_tipo_pago, #periodo_contable, #tipo-fecha, #daterange2", function () {
+    $("body").on("change", "#id_proveedor, #id_secretaria, #programa_proyecto, #id_tipo_pago, #periodo_contable, #tipo-fecha, #daterange2", function () {
+        if (this.id === "id_secretaria") {
+            $("#programa_proyecto").val([]).trigger("change.select2");
+            actualizarEstadoProgramaProyecto();
+        }
         aplicarFiltrosConsolidadosDebounced();
+    });
+
+    $("body").on("select2:select", "#id_tipo_pago, #periodo_contable", function (e) {
+        if (this.id === "periodo_contable") {
+            reporteFinalAutoseleccionarPeriodo = false;
+        }
+        normalizarSeleccionUnicaReporteFinal($(this), e.params && e.params.data ? e.params.data.id : "");
+    });
+
+    $("body").on("select2:unselect select2:clear", "#periodo_contable", function () {
+        if (modoReporteActual === "reporte_final") {
+            reporteFinalAutoseleccionarPeriodo = false;
+        }
+    });
+
+    $("body").on("change", "#reporte-final-desagrupar", function () {
+        cargarReporteFinal();
+    });
+
+    $("body").on("click", ".reporte-final-excluir", function (e) {
+        e.preventDefault();
+        var id = String($(this).data("id"));
+        if (id && reporteFinalExcluidos.indexOf(id) === -1) {
+            reporteFinalExcluidos.push(id);
+        }
+        cargarReporteFinal();
     });
 
     $("body").on("click", "#descargar-reporte-final", function (e) {
