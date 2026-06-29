@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+﻿import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
 const MONTHS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 const MONTH_OPTIONS = [
-  { value: '', label: 'Año completo' },
+  { value: '', label: 'Anio completo' },
   { value: '1', label: 'Enero' },
   { value: '2', label: 'Febrero' },
   { value: '3', label: 'Marzo' },
@@ -23,9 +23,9 @@ const PERIOD_MONTH_OPTIONS = MONTH_OPTIONS.filter((item) => item.value);
 
 const TABS = [
   { id: 'finanzas', label: 'Finanzas' },
-  { id: 'comparativo', label: 'Análisis comparativo' },
+  { id: 'comparativo', label: 'Analisis comparativo' },
   { id: 'consumos', label: 'Consumos' },
-  { id: 'eficiencia', label: 'Eficiencia energética' },
+  { id: 'eficiencia', label: 'Eficiencia energetica' },
 ];
 
 const COLORS = ['#075cf7', '#20a8f7', '#6f35d3', '#28b979', '#ffa51f', '#ff7d1e', '#9aa9bd'];
@@ -520,9 +520,16 @@ function App() {
 
   const changeEfficiencyView = (nextView) => {
     const modo = nextView === 'operativa' ? 'operativa' : 'financiera';
+    const operationalReset = nextView === 'operativa'
+      ? {
+          anio: initialEfficiencyFilters.anio,
+          mes_desde: initialEfficiencyFilters.mes_desde,
+          mes_hasta: initialEfficiencyFilters.mes_hasta,
+        }
+      : {};
     setEfficiencyView(nextView);
-    setEfficiencyDraft((current) => ({ ...current, modo, problema: '' }));
-    setEfficiencyFilters((current) => ({ ...current, modo, problema: '' }));
+    setEfficiencyDraft((current) => ({ ...current, ...operationalReset, modo, problema: '' }));
+    setEfficiencyFilters((current) => ({ ...current, ...operationalReset, modo, problema: '' }));
   };
 
   return (
@@ -676,7 +683,7 @@ function Finanzas({ data, loading, error, filters, options, onFilter, clearFilte
         {filters.mes ? (
           <>
             <Kpi icon="$" title="Gasto mes seleccionado" value={moneyCompact(actual.total)} delta={variationPercent(compYtd.anio_anterior)} subtitle={periodCompareLabel} color="blue" />
-            <Kpi icon="+" title="Variación interanual del mes" value={pct(variationPercent(compYtd.anio_anterior))} subtitle={periodCompareLabel} color="green" />
+            <Kpi icon="+" title="Variacion interanual del mes" value={pct(variationPercent(compYtd.anio_anterior))} subtitle={periodCompareLabel} color="green" />
             <Kpi icon="#" title="Facturas del mes" value={numberCompact(actual.facturas)} subtitle={periodLabel} color="blue" />
             <Kpi icon="#" title="Promedio por factura" value={moneyCompact(actual.promedio)} subtitle={periodLabel} color="purple" />
             <Kpi icon="#" title="Top secretaria del mes" value={topSecretaria?.nombre || '-'} subtitle={`${moneyCompact(topSecretaria?.total)} - ${pct(topSecretariaPct)}`} color="blue" />
@@ -686,7 +693,7 @@ function Finanzas({ data, loading, error, filters, options, onFilter, clearFilte
           <>
             <Kpi icon="$" title="Gasto total acumulado (YTD)" value={moneyCompact(actual.total)} delta={variationPercent(compYtd.anio_anterior)} subtitle={ytdSubtitle} color="blue" />
             <Kpi icon="#" title="Gasto ultimo mes cerrado" value={moneyCompact(periodo.total)} delta={periodDelta} subtitle={periodCompareLabel} color="blue" />
-            <Kpi icon="+" title="Variación interanual (YTD)" value={pct(variationPercent(compYtd.anio_anterior))} subtitle={`${ytdRangeLabel(corteMes, filters.anio)} vs. ${ytdRangeLabel(corteMes, Number(filters.anio) - 1)}`} color="green" />
+            <Kpi icon="+" title="Variacion interanual (YTD)" value={pct(variationPercent(compYtd.anio_anterior))} subtitle={`${ytdRangeLabel(corteMes, filters.anio)} vs. ${ytdRangeLabel(corteMes, Number(filters.anio) - 1)}`} color="green" />
             <Kpi icon="#" title="Promedio mensual YTD" value={moneyCompact(promedioMensualYtd)} subtitle={ytdRangeLabel(corteMes, filters.anio)} color="purple" />
             <Kpi icon="#" title="Top secretaria (YTD)" value={topSecretaria?.nombre || '-'} subtitle={`${moneyCompact(topSecretaria?.total)} - ${pct(topSecretariaPct)}`} color="blue" />
             <Kpi icon="o" title="Top proveedor (YTD)" value={topProveedor?.nombre || '-'} subtitle={`${moneyCompact(topProveedor?.total)} - ${pct(topProveedorPct)}`} color="purple" />
@@ -695,7 +702,7 @@ function Finanzas({ data, loading, error, filters, options, onFilter, clearFilte
       </section>
 
       <section className="qdf-grid qdf-grid-middle">
-        <Panel title="Evolución mensual del gasto" subtitle="Millones de pesos">
+        <Panel title="Evolucion mensual del gasto" subtitle="Millones de pesos">
           <LineChart actual={data?.evolucion?.actual || []} previous={data?.evolucion?.anterior || []} year={Number(filters.anio)} />
         </Panel>
         <Panel title={`Distribucion del gasto ${scopeLabel}`} subtitle="Por Secretaria">
@@ -723,7 +730,7 @@ function Finanzas({ data, loading, error, filters, options, onFilter, clearFilte
       </section>
 
       <footer className="qdf-footer-note">
-        <span>i</span> Los datos se actualizan desde facturas consolidadas de Proveedores y Electromecánica.
+        <span>i</span> Los datos se actualizan desde facturas consolidadas de Proveedores y Electromecanica.
       </footer>
     </section>
   );
@@ -773,8 +780,8 @@ function ComparativoV2({ data, loading, error, filters, appliedFilters, options,
     <section className={classNames('qdf-page qdf-comparativo-page', loading && 'is-loading')}>
       <div className="qdf-title-row qdf-comparativo-title">
         <div>
-          <h1>Análisis Comparativo</h1>
-          <span>Análisis y evolución del gasto</span>
+          <h1>Analisis Comparativo</h1>
+          <span>Analisis y evolucion del gasto</span>
         </div>
         <button type="button" className="qdf-export-button">Exportar</button>
       </div>
@@ -792,10 +799,10 @@ function ComparativoV2({ data, loading, error, filters, appliedFilters, options,
       <section className="qdf-compare-kpis">
         <Kpi icon="$" title={`Gasto ${labelA}`} value={moneyCompact(totalA)} subtitle={`${numberCompact(kpiA.facturas)} facturas`} color="blue" />
         <Kpi icon="$" title={`Gasto ${labelB}`} value={moneyCompact(totalB)} subtitle={`${numberCompact(kpiB.facturas)} facturas`} color="green" />
-        <Kpi icon="+" title="Diferencia $" value={moneyCompact(diff)} delta={diffPct} subtitle={diff >= 0 ? 'Aumento' : 'Disminución'} color="purple" />
+        <Kpi icon="+" title="Diferencia $" value={moneyCompact(diff)} delta={diffPct} subtitle={diff >= 0 ? 'Aumento' : 'Disminucion'} color="purple" />
         <Kpi icon="%" title="Diferencia %" value={pct(diffPct)} delta={diffPct} subtitle={`${labelB} vs ${labelA}`} color="purple" />
         <Kpi icon="doc" title="Facturas A vs B" value={`${numberCompact(facturasA)} / ${numberCompact(facturasB)}`} delta={facturasPct} subtitle={pct(facturasPct)} color="blue" />
-        <Kpi icon="bar" title="Principal variación" value={mainVariation?.nombre || '-'} subtitle={`${moneyCompact(mainVariation?.delta)} (${pct(mainVariation?.porcentaje)})`} color="orange" />
+        <Kpi icon="bar" title="Principal variacion" value={mainVariation?.nombre || '-'} subtitle={`${moneyCompact(mainVariation?.delta)} (${pct(mainVariation?.porcentaje)})`} color="orange" />
       </section>
 
       <div className="qdf-compare-layout">
@@ -811,7 +818,7 @@ function ComparativoV2({ data, loading, error, filters, appliedFilters, options,
           </div>
 
           <section className="qdf-compare-main-grid">
-            <Panel title="Evolución mensual del gasto" subtitle="Millones de pesos">
+            <Panel title="Evolucion mensual del gasto" subtitle="Millones de pesos">
               <PeriodEvolutionPanel periodos={periodos} labelA={labelA} labelB={labelB} />
             </Panel>
             <Panel title="Impacto por proveedor" subtitle={`${labelA} vs ${labelB}`}>
@@ -846,13 +853,13 @@ function CompareFilterBar({ filters, options, onFilter, clearFilters }) {
     <div className="qdf-compare-filter-card qdf-compare-filter-card-v2">
       <div className="qdf-period-box">
         <strong>Periodo A</strong>
-        <SelectMini label="Año" value={filters.periodo_a_anio || filters.anio} options={yearOptions} onChange={(v) => onFilter('periodo_a_anio', v)} />
+        <SelectMini label="Anio" value={filters.periodo_a_anio || filters.anio} options={yearOptions} onChange={(v) => onFilter('periodo_a_anio', v)} />
         <SelectMini label="Desde" value={filters.periodo_a_mes_desde} options={monthFromOptions} onChange={(v) => onFilter('periodo_a_mes_desde', v)} />
         <SelectMini label="Hasta" value={filters.periodo_a_mes_hasta} options={monthToOptions} onChange={(v) => onFilter('periodo_a_mes_hasta', v)} />
       </div>
       <div className="qdf-period-box secondary">
         <strong>Periodo B</strong>
-        <SelectMini label="Año" value={filters.periodo_b_anio || String(Number(filters.anio) - 1)} options={yearOptions} onChange={(v) => onFilter('periodo_b_anio', v)} />
+        <SelectMini label="Anio" value={filters.periodo_b_anio || String(Number(filters.anio) - 1)} options={yearOptions} onChange={(v) => onFilter('periodo_b_anio', v)} />
         <SelectMini label="Desde" value={filters.periodo_b_mes_desde} options={monthFromOptions} onChange={(v) => onFilter('periodo_b_mes_desde', v)} />
         <SelectMini label="Hasta" value={filters.periodo_b_mes_hasta} options={monthToOptions} onChange={(v) => onFilter('periodo_b_mes_hasta', v)} />
       </div>
@@ -883,13 +890,13 @@ function CompareFilterBarDeferred({ filters, appliedFilters, options, onFilter, 
     <div className="qdf-compare-filter-card qdf-compare-filter-card-v2">
       <div className="qdf-period-box">
         <strong>Periodo A</strong>
-        <SelectMini label="Año" value={filters.periodo_a_anio || filters.anio} options={yearOptions} onChange={(v) => onFilter('periodo_a_anio', v)} />
+        <SelectMini label="Anio" value={filters.periodo_a_anio || filters.anio} options={yearOptions} onChange={(v) => onFilter('periodo_a_anio', v)} />
         <SelectMini label="Desde" value={filters.periodo_a_mes_desde} options={monthFromOptionsA} onChange={(v) => onFilter('periodo_a_mes_desde', v)} />
         <SelectMini label="Hasta" value={filters.periodo_a_mes_hasta} options={monthToOptionsA} onChange={(v) => onFilter('periodo_a_mes_hasta', v)} />
       </div>
       <div className="qdf-period-box secondary">
         <strong>Periodo B</strong>
-        <SelectMini label="Año" value={filters.periodo_b_anio || String(Number(filters.anio) - 1)} options={yearOptions} onChange={(v) => onFilter('periodo_b_anio', v)} />
+        <SelectMini label="Anio" value={filters.periodo_b_anio || String(Number(filters.anio) - 1)} options={yearOptions} onChange={(v) => onFilter('periodo_b_anio', v)} />
         <SelectMini label="Desde" value={filters.periodo_b_mes_desde} options={monthFromOptionsB} onChange={(v) => onFilter('periodo_b_mes_desde', v)} />
         <SelectMini label="Hasta" value={filters.periodo_b_mes_hasta} options={monthToOptionsB} onChange={(v) => onFilter('periodo_b_mes_hasta', v)} />
       </div>
@@ -967,7 +974,7 @@ function buildCompareInsights({ diff, diffPct, mainVariation, proveedores, label
     },
     mainVariation && {
       icon: 'bar',
-      text: `${mainVariation.nombre} explica ${pct(variationShare)} de la variación principal.`,
+      text: `${mainVariation.nombre} explica ${pct(variationShare)} de la variacion principal.`,
     },
     topProveedor && {
       icon: 'dot',
@@ -1002,7 +1009,7 @@ function AnalysisRoute({ filters, activeLevel, onSelect }) {
 
   return (
     <div className="qdf-rail-card">
-      <h3>Ruta de análisis</h3>
+      <h3>Ruta de analisis</h3>
       <div className="qdf-route">
         {steps.map((step, index) => (
           <button type="button" className={classNames('qdf-route-step', activeLevel === step.key && 'active', step.value && 'selected', !step.available && 'locked')} key={step.key} onClick={() => resetFrom(step.key)} disabled={!step.available}>
@@ -1016,7 +1023,7 @@ function AnalysisRoute({ filters, activeLevel, onSelect }) {
 }
 
 function CompareModes() {
-  const modes = ['Evolución mensual', 'Tabla comparativa', 'Variación %', 'Variación $'];
+  const modes = ['Evolucion mensual', 'Tabla comparativa', 'Variacion %', 'Variacion $'];
   return (
     <div className="qdf-rail-card">
       <h3>Comparar por</h3>
@@ -1071,8 +1078,8 @@ function Comparativo({ data, loading, error, filters, options, onFilter, clearFi
     <section className={classNames('qdf-page', loading && 'is-loading')}>
       <div className="qdf-title-row">
         <div>
-          <h1>Análisis Comparativo</h1>
-          <span>Evolución y variaciones del gasto municipal</span>
+          <h1>Analisis Comparativo</h1>
+          <span>Evolucion y variaciones del gasto municipal</span>
         </div>
         <FilterStrip filters={filters} options={options} onFilter={onFilter} clearFilters={clearFilters} />
       </div>
@@ -1088,13 +1095,13 @@ function Comparativo({ data, loading, error, filters, options, onFilter, clearFi
             color={year === currentYear ? 'purple' : 'blue'}
           />
         ))}
-        <Kpi icon="+" title={`Variación ${currentYear} vs ${currentYear - 1}`} value={pct(diffPct)} delta={diffPct} subtitle={moneyCompact(diff)} color="green" />
+        <Kpi icon="+" title={`Variacion ${currentYear} vs ${currentYear - 1}`} value={pct(diffPct)} delta={diffPct} subtitle={moneyCompact(diff)} color="green" />
         <Kpi icon="#" title="Facturas comparadas" value={numberCompact(current.facturas)} subtitle={alcance} color="blue" />
         <Kpi icon="o" title="Top proveedor" value={topProveedor?.nombre || '-'} subtitle={moneyCompact(topProveedor?.total_actual)} color="purple" />
       </section>
 
       <section className="qdf-grid qdf-grid-middle">
-        <Panel title="Evolución mensual comparada" subtitle="Millones de pesos">
+        <Panel title="Evolucion mensual comparada" subtitle="Millones de pesos">
           <MultiYearChart series={comparativo.evolucion || {}} years={anios} />
         </Panel>
         <Panel title="Distribucion comparativa" subtitle="Secretarias principales">
@@ -1131,7 +1138,7 @@ function Comparativo({ data, loading, error, filters, options, onFilter, clearFi
       </section>
 
       <footer className="qdf-footer-note">
-        <span>i</span> El comparativo usa el mismo corte de periodo para todos los años.
+        <span>i</span> El comparativo usa el mismo corte de periodo para todos los anios.
       </footer>
     </section>
   );
@@ -1478,7 +1485,7 @@ function CompareHighlight({ total, previousTotal, topSecretaria, topProveedor, d
       <div className="qdf-compare-main">
         <small>Total {year}</small>
         <strong>{moneyCompact(total)}</strong>
-        <span className={Number(diffPct || 0) >= 0 ? 'up' : 'down'}>{diffText} {pct(Math.abs(Number(diffPct || 0)))} vs. año anterior</span>
+        <span className={Number(diffPct || 0) >= 0 ? 'up' : 'down'}>{diffText} {pct(Math.abs(Number(diffPct || 0)))} vs. anio anterior</span>
       </div>
       <div className="qdf-compare-cards">
         <div>
@@ -1494,7 +1501,7 @@ function CompareHighlight({ total, previousTotal, topSecretaria, topProveedor, d
         <div>
           <small>Base comparada</small>
           <strong>{moneyCompact(previousTotal)}</strong>
-          <span>Año anterior</span>
+          <span>Anio anterior</span>
         </div>
       </div>
     </div>
@@ -1640,7 +1647,7 @@ function InvoicesCompareTable({ rows, labelA, labelB }) {
             <th>Proveedor</th>
             <th>Cuenta</th>
             <th>Consumo</th>
-            <th>Mes/Año</th>
+            <th>Mes/Anio</th>
             <th>Vencimiento</th>
             <th>Consolidada</th>
             <th>Importe</th>
@@ -1681,7 +1688,7 @@ function CompareTable({ rows, years, firstColumn }) {
         <tr>
           <th>{firstColumn}</th>
           {years.map((year) => <th key={year}>{year}</th>)}
-          <th>Variación</th>
+          <th>Variacion</th>
         </tr>
       </thead>
       <tbody>
@@ -1735,7 +1742,7 @@ function IncreaseRanking({ rows }) {
 
 function CompareInsights({ total, previousTotal, topSecretaria, topProveedor, diffPct }) {
   const insights = [
-    `El gasto comparado ${Number(diffPct || 0) >= 0 ? 'sube' : 'baja'} ${pct(Math.abs(Number(diffPct || 0)))} contra el mismo alcance del año anterior.`,
+    `El gasto comparado ${Number(diffPct || 0) >= 0 ? 'sube' : 'baja'} ${pct(Math.abs(Number(diffPct || 0)))} contra el mismo alcance del anio anterior.`,
     `${topSecretaria?.nombre || 'La principal secretaria'} lidera el gasto del periodo con ${moneyCompact(topSecretaria?.total_actual)}.`,
     `${topProveedor?.nombre || 'El principal proveedor'} explica ${moneyCompact(topProveedor?.total_actual)} del periodo seleccionado.`,
     `La base anterior fue ${moneyCompact(previousTotal)} contra ${moneyCompact(total)} actual.`,
@@ -1779,7 +1786,7 @@ function FilterStrip({ filters, options, onFilter, clearFilters }) {
   return (
     <div className="qdf-filter-strip">
       <SelectMini label="Periodo" value={filters.mes} options={MONTH_OPTIONS.map((item) => ({ ...item, label: item.value ? item.label : 'YTD' }))} onChange={(v) => onFilter('mes', v)} />
-      <SelectMini label="Año" value={filters.anio} options={options.anios} onChange={(v) => onFilter('anio', v)} />
+      <SelectMini label="Anio" value={filters.anio} options={options.anios} onChange={(v) => onFilter('anio', v)} />
       <SelectMini label="Secretaria" value={filters.secretaria} options={formatOptions(options.secretarias, 'secretaria')} onChange={(v) => onFilter('secretaria', v)} />
       <SelectMini label="Proveedor" value={filters.proveedor} options={options.proveedores} onChange={(v) => onFilter('proveedor', v)} />
       <SelectMini label="Dependencia" value={filters.dependencia} options={formatOptions(options.dependencias, 'dependencia')} onChange={(v) => onFilter('dependencia', v)} />
@@ -1811,7 +1818,7 @@ function financeBottomPanels({ filters, anio, scopeLabel, total, secretarias, de
     return [
       { key: 'proveedores-dependencia', title: 'Proveedores de la dependencia', subtitle, rows: proveedores, totalGeneral: total, numbered: false },
       { key: 'objetos-dependencia', title: 'Objeto del gasto', subtitle, rows: objetos, totalGeneral: total, numbered: false },
-      { key: 'evolucion-dependencia', title: 'Gasto mensual', subtitle: `Año ${anio}`, rows: evolucion, totalGeneral: total, type: 'monthly' },
+      { key: 'evolucion-dependencia', title: 'Gasto mensual', subtitle: `Anio ${anio}`, rows: evolucion, totalGeneral: total, type: 'monthly' },
     ];
   }
 
@@ -1819,7 +1826,7 @@ function financeBottomPanels({ filters, anio, scopeLabel, total, secretarias, de
     return [
       { key: 'dependencias-cruce', title: 'Dependencias del cruce', subtitle, rows: dependencias, totalGeneral: total, numbered: true },
       { key: 'objetos-cruce', title: 'Objeto del gasto', subtitle, rows: objetos, totalGeneral: total, numbered: false },
-      { key: 'evolucion-cruce', title: 'Gasto mensual', subtitle: `Año ${anio}`, rows: evolucion, totalGeneral: total, type: 'monthly' },
+      { key: 'evolucion-cruce', title: 'Gasto mensual', subtitle: `Anio ${anio}`, rows: evolucion, totalGeneral: total, type: 'monthly' },
     ];
   }
 
@@ -2403,7 +2410,7 @@ function FinanceTable({ rows, firstColumn, numbered }) {
           <th>{firstColumn}</th>
           <th>Gasto</th>
           <th>% del total</th>
-          <th>Variación</th>
+          <th>Variacion</th>
           <th>Tendencia</th>
         </tr>
       </thead>
@@ -2439,7 +2446,7 @@ function Sparkline({ seed }) {
 
 function Insights({ topSecretaria, topProveedor, topSecretariaPct, topProveedorPct, concentrationPct, yoy }) {
   const insights = [
-    { icon: '+', color: 'blue', text: `El gasto total acumulado ${Number(yoy || 0) >= 0 ? 'crecio' : 'bajo'} ${pct(Math.abs(Number(yoy || 0)))} vs. el mismo periodo del año anterior.` },
+    { icon: '+', color: 'blue', text: `El gasto total acumulado ${Number(yoy || 0) >= 0 ? 'crecio' : 'bajo'} ${pct(Math.abs(Number(yoy || 0)))} vs. el mismo periodo del anio anterior.` },
     { icon: 'o', color: 'green', text: `${topSecretaria?.nombre || 'La principal secretaria'} concentra ${pct(topSecretariaPct)} del gasto municipal.` },
     { icon: 'o', color: 'purple', text: `${topProveedor?.nombre || 'El principal proveedor'} representa ${pct(topProveedorPct)} del gasto acumulado.` },
     { icon: '#', color: 'orange', text: `5 dependencias concentran el ${pct(concentrationPct)} del gasto total filtrado.` },
@@ -2502,12 +2509,12 @@ function EficienciaEnergetica({ data, loading, error, filters, appliedFilters, o
         {view === 'operativa' ? (
           <>
             <div className="qdf-efficiency-cutoff"><span>Corte operativo</span><strong>{operationalPeriodLabel}</strong><small>ultima condicion conocida</small></div>
-            <SelectMini label="Tendencia" value={safeFilters.ventana} options={[{ value: '12', label: 'Ultimos 12 meses' }, { value: '24', label: 'Ultimos 2 años' }, { value: '36', label: 'Ultimos 2 años + actual' }]} onChange={(v) => onFilter('ventana', v)} />
+            <SelectMini label="Tendencia" value={safeFilters.ventana} options={[{ value: '12', label: 'Ultimos 12 meses' }, { value: '24', label: 'Ultimos 2 anios' }, { value: '36', label: 'Ultimos 2 anios + actual' }]} onChange={(v) => onFilter('ventana', v)} />
             <SelectMini label="Tipo de problema" value={safeFilters.problema} options={[{ value: '', label: 'Todos los problemas' }, { value: 'potencia', label: 'Potencia excedida' }, { value: 'cosfi', label: 'CosFi critico' }, { value: 'tgfi', label: 'TGFI aplicado' }, { value: 'sobredimensionado', label: 'Contrato sobredimensionado' }]} onChange={(v) => onFilter('problema', v)} />
           </>
         ) : (
           <>
-            <SelectMini label="Año" value={safeFilters.anio} options={years || []} onChange={(v) => onFilter('anio', v)} />
+            <SelectMini label="Anio" value={safeFilters.anio} options={years || []} onChange={(v) => onFilter('anio', v)} />
             <SelectMini label="Desde" value={safeFilters.mes_desde} options={PERIOD_MONTH_OPTIONS} onChange={(v) => onFilter('mes_desde', v)} />
             <SelectMini label="Hasta" value={safeFilters.mes_hasta} options={PERIOD_MONTH_OPTIONS} onChange={(v) => onFilter('mes_hasta', v)} />
           </>
@@ -2537,48 +2544,60 @@ function EfficiencyFinancialView({ data, kpis, periodLabel }) {
       ? current.filter((item) => item !== name)
       : current.length < 3 ? [...current, name] : [...current.slice(1), name]);
   };
+  const evolution = data.evolucion || [];
+  const lastMonth = evolution.length ? evolution[evolution.length - 1] : null;
+  const lastMonthLabel = lastMonth ? `${monthName(lastMonth.mes)} ${lastMonth.anio}` : periodLabel;
+  const tgfiTotal = Number(kpis?.penalidad_tgfi || 0);
+  const potenciaTotal = Number(kpis?.exceso_potencia_t3 || 0) + Number(kpis?.exceso_potencia_t2 || 0);
+  const generationKwh = Number(data?.generacion?.kpis?.energia_inyectada || 0);
+  const generationAccounts = Number(data?.generacion?.kpis?.cuentas_generadoras || 0);
+  const totalElectric = Number(kpis?.importe_total || 0);
+  const savingsShare = totalElectric > 0 && Number(kpis?.ahorro_potencial || 0) > 0
+    ? Number(kpis.ahorro_potencial) / totalElectric * 100
+    : null;
+
   return (
     <>
       <section className="qdf-efficiency-kpi-story" aria-label="Resumen financiero de eficiencia energetica">
         <EfficiencyKpiGroup title="Perdidas reales" hint="ya pagadas" tone="loss">
-          <EfficiencyStoryKpi icon="$" title="Perdido en el periodo" period="Ene - Jun 2026" value="$ 27,4 M" caption="TGFI + Potencia excedida" description="Dinero efectivamente pagado por penalizaciones y excesos de potencia durante el periodo seleccionado." />
-          <EfficiencyStoryKpi icon="▣" title="Perdido ultimo mes" period="Junio 2026" value="$ 4,2 M" caption="TGFI + Potencia excedida" description="Impacto economico detectado en la ultima factura procesada." />
-          <EfficiencyStoryKpi icon="ϟ" title="TGFI acumulado" period="Ene - Jun 2026" value="$ 2,5 M" caption="Recargo por bajo factor" description="Recargo TGFI acumulado por bajo factor de potencia." accent="purple" />
-          <EfficiencyStoryKpi icon="◴" title="Potencia excedida" period="Ene - Jun 2026" value="$ 24,8 M" caption="Cargo por excedentes" description="Costo acumulado por exceder la potencia contratada." accent="orange" />
+          <EfficiencyStoryKpi icon="$" title="Perdido en el periodo" period={periodLabel} value={moneyCompact(kpis?.impacto_identificado)} caption="TGFI + Potencia excedida" description="Dinero efectivamente pagado por penalizaciones y excesos de potencia durante el periodo seleccionado." />
+          <EfficiencyStoryKpi icon="#" title="Perdido ultimo mes" period={lastMonthLabel} value={moneyCompact(lastMonth?.impacto_identificado)} caption="TGFI + Potencia excedida" description="Impacto economico detectado en la ultima factura procesada." />
+          <EfficiencyStoryKpi icon="TG" title="TGFI acumulado" period={periodLabel} value={moneyCompact(tgfiTotal)} caption="Recargo por bajo factor" description="Recargo TGFI acumulado por bajo factor de potencia." accent="purple" />
+          <EfficiencyStoryKpi icon="kW" title="Potencia excedida" period={periodLabel} value={moneyCompact(potenciaTotal)} caption="Cargo por excedentes" description="Costo acumulado por exceder la potencia contratada." accent="orange" />
         </EfficiencyKpiGroup>
 
         <EfficiencyKpiGroup title="Oportunidades de ahorro" hint="aun recuperables" tone="saving">
-          <EfficiencyStoryKpi icon="↗" title="Ahorro potencial anual" period="estimado" value="$ 94,5 M" caption="Si se corrigen las oportunidades" description="Estimado segun contratos y consumos historicos." action="Ver metodologia" />
-          <EfficiencyStoryKpi icon="▦" title="Contratos optimizables" period="Utilizacion < 60%" value="43" caption="Cuentas con potencial" description="Cuentas con potencial de reduccion de potencia contratada." />
-          <EfficiencyStoryKpi icon="▥" title="Dependencias prioritarias" period="Mayor impacto economico" value="17" caption="Prioridad de intervencion" description="Dependencias con mayor impacto economico y prioridad de intervencion." />
-          <EfficiencyStoryKpi icon="⌕" title="Generacion distribuida" period="Energia inyectada" value="16.085 kWh" caption="4 dependencias generadoras" description="Energia inyectada a la red por dependencias municipales." />
+          <EfficiencyStoryKpi icon="+" title="Ahorro potencial" period={`${numberCompact(kpis?.ahorro_meses_proyectados)} meses restantes`} value={moneyCompact(kpis?.ahorro_potencial)} caption={`Promedio mensual: ${moneyCompact(kpis?.ahorro_promedio_mensual)}`} description="Proyeccion del sobrecosto corregible ya detectado para el resto del anio." action="Ver metodologia" />
+          <EfficiencyStoryKpi icon="#" title="Medidores optimizables" period="Sobrecosto corregible" value={numberCompact(kpis?.contratos_con_oportunidad)} caption="Con oportunidad" description="Medidores con TGFI o potencia excedida que podrian evitar sobrecostos futuros." />
+          <EfficiencyStoryKpi icon="!" title="Dependencias prioritarias" period="Mayor impacto economico" value={numberCompact(kpis?.dependencias_criticas)} caption="Prioridad de intervencion" description="Dependencias con mayor impacto economico y prioridad de intervencion." />
+          <EfficiencyStoryKpi icon="kWh" title="Generacion distribuida" period="Energia inyectada" value={`${numberCompact(generationKwh)} kWh`} caption={`${numberCompact(generationAccounts)} cuentas generadoras`} description="Energia inyectada a la red por dependencias municipales." />
         </EfficiencyKpiGroup>
       </section>
 
       <section className="qdf-efficiency-mock-row-two">
-        <EfficiencyMockPanel title="¿Donde se pierde dinero?" titleHint="perdidas reales" subtitle="Composicion de las perdidas reales en el periodo (Ene - Jun 2026)">
-          <EfficiencyMockLossBreakdown />
+        <EfficiencyMockPanel title="Donde se pierde dinero" titleHint="perdidas reales" subtitle={`Composicion de las perdidas reales en el periodo (${periodLabel})`}>
+          <EfficiencyMockLossBreakdown kpis={kpis} />
         </EfficiencyMockPanel>
         <EfficiencyMockPanel title="Consumo vs costo unitario" subtitle="Permite distinguir si el aumento del gasto responde a consumo o tarifa.">
-          <EfficiencyMockConsumptionCost />
+          <EfficiencyMockConsumptionCost rows={evolution} />
         </EfficiencyMockPanel>
         <EfficiencyMockPanel title="Composicion del costo electrico" titleHint="del gasto total" subtitle="Participacion de cada concepto en el gasto total del periodo.">
-          <EfficiencyMockCostComposition selected={costDependencies} onToggle={toggleCostDependency} />
+          <EfficiencyMockCostComposition data={data} selected={costDependencies} onToggle={toggleCostDependency} />
         </EfficiencyMockPanel>
       </section>
 
       <section className="qdf-efficiency-mock-row-three">
-        <EfficiencyMockPanel title="Top dependencias por impacto economico" titleHint="perdidas reales" subtitle="Ordenado por perdidas reales en el periodo (Ene - Jun 2026)">
-          <EfficiencyMockDependencies selected={costDependencies} onSelect={toggleCostDependency} />
+        <EfficiencyMockPanel title="Top dependencias por impacto economico" titleHint="perdidas reales" subtitle={`Ordenado por perdidas reales en el periodo (${periodLabel})`}>
+          <EfficiencyMockDependencies rows={data.top_dependencias || []} selected={costDependencies} onSelect={toggleCostDependency} />
         </EfficiencyMockPanel>
-        <EfficiencyMockPanel title="Evolucion de perdidas reales" subtitle="Millones de $ acumulados por mes (Ene - Jun 2026)">
-          <EfficiencyMockLossEvolution />
+        <EfficiencyMockPanel title="Evolucion de perdidas reales" subtitle={`Millones de $ por mes (${periodLabel})`}>
+          <EfficiencyMockLossEvolution rows={evolution} />
         </EfficiencyMockPanel>
-        <EfficiencyMockPanel title="¿De donde sale el ahorro potencial?" subtitle="Desglose del ahorro potencial anual estimado.">
-          <EfficiencyMockSavingsOrigin />
+        <EfficiencyMockPanel title="De donde sale el ahorro potencial" subtitle="Desglose del ahorro potencial anual estimado.">
+          <EfficiencyMockSavingsOrigin kpis={kpis} />
         </EfficiencyMockPanel>
       </section>
-      <EfficiencyMockInfoRow />
+      <EfficiencyMockInfoRow kpis={kpis} savingsShare={savingsShare} />
     </>
   );
 }
@@ -2613,42 +2632,61 @@ function EfficiencyMockPanel({ title, titleHint, subtitle, children }) {
   );
 }
 
-function EfficiencyMockLossBreakdown() {
-  const rows = [
-    { label: 'Potencia excedida', value: '$ 24,8 M', share: 74, color: '#e51e2a' },
-    { label: 'TGFI', value: '$ 2,5 M', share: 15, color: '#7545bd' },
-    { label: 'Otros cargos identificados', value: '$ 1,6 M', share: 11, color: '#56647a' },
-  ];
+function efficiencyLossRows(kpis) {
+  const potencia = Number(kpis?.exceso_potencia_t3 || 0) + Number(kpis?.exceso_potencia_t2 || 0);
+  const tgfi = Number(kpis?.penalidad_tgfi || 0);
+  const total = Math.max(0, Number(kpis?.impacto_identificado || 0));
+  const other = Math.max(0, total - potencia - tgfi);
+  return [
+    { label: 'Potencia excedida', value: potencia, color: '#e51e2a' },
+    { label: 'TGFI', value: tgfi, color: '#7545bd' },
+    { label: 'Otros cargos identificados', value: other, color: '#56647a' },
+  ].filter((row) => row.value > 0 || total === 0);
+}
+
+function EfficiencyMockLossBreakdown({ kpis }) {
+  const rows = efficiencyLossRows(kpis);
+  const total = rows.reduce((sum, row) => sum + Number(row.value || 0), 0);
+  const max = Math.max(1, ...rows.map((row) => Number(row.value || 0)));
+  const axisMax = Math.max(1, Math.ceil(max / 1000000 / 10) * 10 * 1000000);
   return (
     <div className="qdf-mock-loss-chart">
       <div className="qdf-mock-loss-grid">
-        {rows.map((row) => <div key={row.label}><strong>{row.label}</strong><span><i style={{ width: `${row.share}%`, background: row.color }} /></span><b>{row.value}</b><em>{row.share}%</em></div>)}
+        {rows.map((row) => {
+          const share = total > 0 ? Number(row.value || 0) / total * 100 : 0;
+          return <div key={row.label}><strong>{row.label}</strong><span><i style={{ width: `${Math.max(2, Number(row.value || 0) / axisMax * 100)}%`, background: row.color }} /></span><b>{moneyCompact(row.value)}</b><em>{pct(share)}</em></div>;
+        })}
       </div>
-      <footer><span>0</span><span>10 M</span><span>20 M</span><span>30 M</span><small>Millones de $</small></footer>
+      <footer><span>0</span><span>{moneyCompact(axisMax * .33).replace('$ ', '')}</span><span>{moneyCompact(axisMax * .66).replace('$ ', '')}</span><span>{moneyCompact(axisMax).replace('$ ', '')}</span><small>Millones de $</small></footer>
     </div>
   );
 }
 
-function EfficiencyMockConsumptionCost() {
-  const months = ["Ene '26", "Feb '26", "Mar '26", "Abr '26", "May '26", "Jun '26"];
-  const consumption = [36, 32, 30, 38, 39, 44];
-  const cost = [61, 54, 53, 60, 61, 76];
-  const chartX = (index) => 55 + index * 51;
-  const consumptionY = (value) => 142 - value / 50 * 105;
-  const costY = (value) => 142 - value / 150 * 105;
+function EfficiencyMockConsumptionCost({ rows }) {
+  const clean = (rows || []).map((row) => ({
+    label: `${MONTHS[Number(row.mes) - 1] || ''} '${String(row.anio || '').slice(-2)}`,
+    consumo: Number(row.consumo_kwh || 0),
+    costo: Number(row.costo_unitario || 0),
+  })).filter((row) => row.label.trim());
+  if (!clean.length) return <div className="qdf-empty-mini">Sin consumos validos para el periodo.</div>;
+  const maxConsumption = Math.max(1, ...clean.map((row) => row.consumo));
+  const maxCost = Math.max(1, ...clean.map((row) => row.costo));
+  const chartX = (index) => 55 + (clean.length <= 1 ? 0 : index * (255 / (clean.length - 1)));
+  const consumptionY = (value) => 142 - value / maxConsumption * 105;
+  const costY = (value) => 142 - value / maxCost * 105;
   const points = (values, mapper) => values.map((value, index) => `${chartX(index)},${mapper(value)}`).join(' ');
   return (
     <div className="qdf-mock-dual-line">
       <div className="qdf-mock-chart-legend"><span className="blue">Consumo (kWh)</span><span className="green">Costo unitario ($/kWh)</span></div>
-      <svg viewBox="0 0 350 180" role="img" aria-label="Grafico mock de consumo y costo unitario">
-        {[37, 63, 89, 115, 142].map((y, index) => <line key={y} x1="45" y1={y} x2="315" y2={y} className="grid" />)}
-        <polyline points={points(consumption, consumptionY)} className="consumption-line" />
-        <polyline points={points(cost, costY)} className="cost-line" />
-        {consumption.map((value, index) => <circle key={`c-${index}`} cx={chartX(index)} cy={consumptionY(value)} r="2.7" className="consumption-dot" />)}
-        {cost.map((value, index) => <circle key={`u-${index}`} cx={chartX(index)} cy={costY(value)} r="2.7" className="cost-dot" />)}
-        {[0, 10, 20, 30, 40, 50].map((value, index) => <text key={value} x="39" y={146 - index * 21} textAnchor="end">{value}{index === 5 ? ' M' : ''}</text>)}
-        {[0, 30, 60, 90, 120, 150].map((value, index) => <text key={value} x="321" y={146 - index * 21}>{value}</text>)}
-        {months.map((month, index) => <text key={month} x={chartX(index)} y="163" textAnchor="middle">{month}</text>)}
+      <svg viewBox="0 0 350 180" role="img" aria-label="Consumo y costo unitario">
+        {[37, 63, 89, 115, 142].map((y) => <line key={y} x1="45" y1={y} x2="315" y2={y} className="grid" />)}
+        <polyline points={points(clean.map((row) => row.consumo), consumptionY)} className="consumption-line" />
+        <polyline points={points(clean.map((row) => row.costo), costY)} className="cost-line" />
+        {clean.map((row, index) => <circle key={`c-${index}`} cx={chartX(index)} cy={consumptionY(row.consumo)} r="2.7" className="consumption-dot" />)}
+        {clean.map((row, index) => <circle key={`u-${index}`} cx={chartX(index)} cy={costY(row.costo)} r="2.7" className="cost-dot" />)}
+        {[0, .25, .5, .75, 1].map((ratio) => <text key={ratio} x="39" y={142 - ratio * 105 + 3} textAnchor="end">{numberCompact(maxConsumption * ratio)}</text>)}
+        {[0, .25, .5, .75, 1].map((ratio) => <text key={ratio} x="321" y={142 - ratio * 105 + 3}>{numberCompact(maxCost * ratio)}</text>)}
+        {clean.map((row, index) => <text key={row.label} x={chartX(index)} y="163" textAnchor="middle">{row.label}</text>)}
         <text x="10" y="93" transform="rotate(-90 10 93)" className="axis-title">kWh</text>
         <text x="344" y="93" transform="rotate(90 344 93)" className="axis-title">$/kWh</text>
       </svg>
@@ -2656,108 +2694,122 @@ function EfficiencyMockConsumptionCost() {
   );
 }
 
-const MOCK_COST_DEPENDENCIES = {
-  'Hospital Municipal': [52, 20, 15, 6, 4, 3],
-  'Concejo Deliberante': [46, 22, 18, 7, 4, 3],
-  'Polideportivo Municipal': [49, 24, 14, 6, 4, 3],
-  'Centro Ambiental': [61, 18, 10, 4, 5, 2],
-  'Univers. de Vicente Lopez': [56, 21, 12, 5, 4, 2],
-};
+function compositionValues(source) {
+  const energia = Number(source?.energia_variable || 0);
+  const potenciaContratada = Number(source?.potencia_contratada || 0) + Number(source?.potencia_adquirida || 0) + Number(source?.cargo_fijo || 0);
+  const potenciaExcedida = Number(source?.potencia_excedida || 0);
+  const tgfi = Number(source?.tgfi || 0);
+  const impuestos = Number(source?.otros_impuestos || 0);
+  return [energia, potenciaContratada, potenciaExcedida, tgfi, impuestos, 0];
+}
 
-function EfficiencyMockCostComposition({ selected, onToggle }) {
+function compositionPercentages(values) {
+  const total = values.reduce((sum, value) => sum + Number(value || 0), 0);
+  if (total <= 0) return [0, 0, 0, 0, 0, 0];
+  return values.map((value) => Number(value || 0) / total * 100);
+}
+
+function EfficiencyMockCostComposition({ data, selected, onToggle }) {
   const colors = ['#0759c7', '#10a4ae', '#ef2d34', '#7344bd', '#f4a000', '#5c6068'];
   const labels = ['Energia', 'Potencia contratada', 'Potencia excedida', 'TGFI', 'Impuestos', 'Otros'];
-  const municipality = { name: 'Municipio total', values: [57, 21, 12, 5, 3, 2], benchmark: true };
-  const rows = [municipality, ...(selected || []).map((name) => ({ name, values: MOCK_COST_DEPENDENCIES[name] }))].filter((row) => row.values);
-  const available = Object.keys(MOCK_COST_DEPENDENCIES).filter((name) => !(selected || []).includes(name));
+  const dependencies = data?.composicion_dependencias || [];
+  const selectedRows = (selected || []).map((name) => dependencies.find((row) => row.dependencia === name)).filter(Boolean);
+  const municipality = { name: 'Municipio total', values: compositionPercentages(compositionValues(data?.composicion_costo || {})), benchmark: true };
+  const rows = [municipality, ...selectedRows.map((row) => ({ name: formatDimensionName(row.dependencia, 'dependencia'), values: compositionPercentages(compositionValues(row)) }))];
+  const available = dependencies.filter((row) => !(selected || []).includes(row.dependencia));
   return (
     <div className="qdf-mock-composition">
       <div className="qdf-mock-composition-control">
-        <select value="" onChange={(event) => event.target.value && onToggle(event.target.value)} disabled={(selected || []).length >= 3}>
+        <select value="" onChange={(event) => event.target.value && onToggle(event.target.value)} disabled={(selected || []).length >= 3 || !available.length}>
           <option value="">{(selected || []).length >= 3 ? 'Maximo 3 dependencias' : 'Agregar dependencia para comparar'}</option>
-          {available.map((name) => <option key={name} value={name}>{name}</option>)}
+          {available.map((row) => <option key={row.dependencia} value={row.dependencia}>{formatDimensionName(row.dependencia, 'dependencia')}</option>)}
         </select>
-        <div>{(selected || []).map((name) => <button key={name} type="button" onClick={() => onToggle(name)} title={`Quitar ${name}`}>{limitText(name, 19)} ×</button>)}</div>
+        <div>{(selected || []).map((name) => <button key={name} type="button" onClick={() => onToggle(name)} title={`Quitar ${formatDimensionName(name, 'dependencia')}`}>{limitText(formatDimensionName(name, 'dependencia'), 19)} x</button>)}</div>
       </div>
       <div className="qdf-mock-composition-legend">{labels.map((label, index) => <span key={label}><i style={{ background: colors[index] }} />{label}</span>)}</div>
-      <div className="qdf-mock-composition-bars">{rows.map((row) => <div key={row.name} className={row.benchmark ? 'benchmark' : ''}><strong>{row.name}</strong><span>{row.values.map((value, index) => <i key={`${row.name}-${index}`} style={{ width: `${value}%`, background: colors[index] }}>{value}%</i>)}</span></div>)}</div>
+      <div className="qdf-mock-composition-bars">{rows.map((row) => <div key={row.name} className={row.benchmark ? 'benchmark' : ''}><strong>{row.name}</strong><span>{row.values.map((value, index) => <i key={`${row.name}-${index}`} style={{ width: `${Math.max(value > 0 ? 2 : 0, value)}%`, background: colors[index] }}>{value >= 3 ? pct(value) : ''}</i>)}</span></div>)}</div>
       <footer>{[0, 20, 40, 60, 80, 100].map((value) => <span key={value}>{value}%</span>)}</footer>
     </div>
   );
 }
 
-function EfficiencyMockDependencies({ selected, onSelect }) {
-  const rows = [
-    ['Hospital Municipal', '$ 4,52 M', 100, '#e51e2a'],
-    ['Concejo Deliberante', '$ 3,11 M', 69, '#f06a12'],
-    ['Polideportivo Municipal', '$ 2,67 M', 59, '#f4a000'],
-    ['Centro Ambiental', '$ 2,10 M', 46, '#26a85b'],
-    ['Univers. de Vicente Lopez', '$ 1,78 M', 39, '#159cd1'],
-  ];
+function EfficiencyMockDependencies({ rows, selected, onSelect }) {
+  const clean = (rows || []).slice(0, 5);
+  const max = Math.max(1, ...clean.map((row) => Number(row.impacto_identificado || 0)));
   return (
     <div className="qdf-mock-dependencies">
       <header><span>#</span><span>Dependencia</span><span>Perdida total</span></header>
-      {rows.map((row, index) => <button type="button" className={(selected || []).includes(row[0]) ? 'selected' : ''} key={row[0]} onClick={() => onSelect(row[0])} title={`Comparar composicion de ${row[0]}`}><i>{index + 1}</i><strong>{row[0]}</strong><span><i style={{ width: `${row[2]}%`, background: row[3] }} /></span><b>{row[1]}</b></button>)}
-      <footer><span>0</span><span>1 M</span><span>2 M</span><span>3 M</span><span>4 M</span><span>5 M</span><small>Millones de $</small></footer>
+      {clean.map((row, index) => {
+        const name = row.dependencia || 'SIN DEPENDENCIA';
+        return <button type="button" className={(selected || []).includes(name) ? 'selected' : ''} key={name} onClick={() => onSelect(name)} title={`Comparar composicion de ${formatDimensionName(name, 'dependencia')}`}><i>{index + 1}</i><strong>{formatDimensionName(name, 'dependencia')}</strong><span><i style={{ width: `${Math.max(3, Number(row.impacto_identificado || 0) / max * 100)}%`, background: COLORS[index % COLORS.length] }} /></span><b>{moneyCompact(row.impacto_identificado)}</b></button>;
+      })}
+      {!clean.length && <div className="qdf-empty-mini">Sin dependencias con impacto identificado.</div>}
+      <footer><span>0</span><span>{moneyCompact(max * .25).replace('$ ', '')}</span><span>{moneyCompact(max * .5).replace('$ ', '')}</span><span>{moneyCompact(max * .75).replace('$ ', '')}</span><span>{moneyCompact(max).replace('$ ', '')}</span><small>Millones de $</small></footer>
     </div>
   );
 }
 
-function EfficiencyMockLossEvolution() {
-  const rows = [
-    { month: "Ene '26", power: 7, tgfi: 4, other: 3 },
-    { month: "Feb '26", power: 12, tgfi: 7, other: 4 },
-    { month: "Mar '26", power: 13, tgfi: 9, other: 6 },
-    { month: "Abr '26", power: 17, tgfi: 11, other: 7 },
-    { month: "May '26", power: 19, tgfi: 14, other: 7 },
-    { month: "Jun '26", power: 22, tgfi: 17, other: 8 },
-  ];
-  const max = 50;
+function EfficiencyMockLossEvolution({ rows }) {
+  const clean = (rows || []).map((row) => ({
+    month: `${MONTHS[Number(row.mes) - 1] || ''} '${String(row.anio || '').slice(-2)}`,
+    power: Number(row.exceso_potencia || 0),
+    tgfi: Number(row.penalidad_tgfi || 0),
+    other: Math.max(0, Number(row.impacto_identificado || 0) - Number(row.exceso_potencia || 0) - Number(row.penalidad_tgfi || 0)),
+  })).filter((row) => row.month.trim());
+  const max = Math.max(1, ...clean.map((row) => row.power + row.tgfi + row.other));
+  if (!clean.length) return <div className="qdf-empty-mini">Sin perdidas tecnicas para el periodo.</div>;
   return (
     <div className="qdf-mock-loss-evolution">
       <div className="qdf-mock-loss-evolution-legend"><span className="power">Potencia excedida</span><span className="tgfi">TGFI</span><span className="other">Otros</span></div>
       <div className="qdf-mock-loss-evolution-chart">
-        <aside><span>40 M</span><span>30 M</span><span>20 M</span><span>10 M</span><span>0</span><small>Millones de $</small></aside>
-        <section>{rows.map((row) => <div key={row.month}><span title={`${row.month}: ${row.power + row.tgfi + row.other} M`}><i className="other" style={{ height: `${row.other / max * 100}%` }} /><i className="tgfi" style={{ height: `${row.tgfi / max * 100}%` }} /><i className="power" style={{ height: `${row.power / max * 100}%` }} /></span><strong>{row.month}</strong></div>)}</section>
+        <aside><span>{moneyCompact(max).replace('$ ', '')}</span><span>{moneyCompact(max * .75).replace('$ ', '')}</span><span>{moneyCompact(max * .5).replace('$ ', '')}</span><span>{moneyCompact(max * .25).replace('$ ', '')}</span><span>0</span><small>Millones de $</small></aside>
+        <section>{clean.map((row) => <div key={row.month}><span title={`${row.month}: ${moneyCompact(row.power + row.tgfi + row.other)}`}><i className="other" style={{ height: `${row.other / max * 100}%` }} /><i className="tgfi" style={{ height: `${row.tgfi / max * 100}%` }} /><i className="power" style={{ height: `${row.power / max * 100}%` }} /></span><strong>{row.month}</strong></div>)}</section>
       </div>
     </div>
   );
 }
 
-function EfficiencyMockSavingsOrigin() {
+function EfficiencyMockSavingsOrigin({ kpis }) {
+  const projected = Number(kpis?.ahorro_potencial || 0);
+  const monthly = Number(kpis?.ahorro_promedio_mensual || 0);
+  const paid = Number(kpis?.sobrecosto_corregible_periodo || 0);
+  const total = projected;
+  const rows = [
+    { id: 'idle', label: 'Proyeccion resto del anio', value: projected },
+    { id: 'tgfi', label: 'Promedio mensual base', value: monthly },
+    { id: 'rate', label: 'Sobrecosto ya pagado', value: paid },
+  ].filter((row) => row.value > 0 || total === 0);
   return (
     <div className="qdf-mock-savings-origin">
-      <div className="qdf-mock-savings-donut"><div><strong>$ 94,5 M</strong><span>Ahorro potencial<br />anual (estimado)</span></div></div>
+      <div className="qdf-mock-savings-donut"><div><strong>{moneyCompact(total)}</strong><span>Ahorro potencial<br />resto del anio</span></div></div>
       <div className="qdf-mock-savings-detail">
         <ul>
-          <li><i className="idle" /><span>Capacidad ociosa</span><b>65%</b><em>$ 61,0 M</em></li>
-          <li><i className="tgfi" /><span>TGFI corregible</span><b>20%</b><em>$ 18,0 M</em></li>
-          <li><i className="rate" /><span>Optimizacion tarifaria</span><b>15%</b><em>$ 15,5 M</em></li>
+          {rows.map((row) => <li key={row.id}><i className={row.id} /><span>{row.label}</span><b>{row.id === 'idle' ? `${numberCompact(kpis?.ahorro_meses_proyectados)} meses` : row.id === 'tgfi' ? 'base' : 'periodo'}</b><em>{moneyCompact(row.value)}</em></li>)}
         </ul>
-        <p>El ahorro potencial esta estimado sobre el promedio de los ultimos 12 meses de consumos y contratos vigentes.</p>
+        <p>El ahorro potencial proyecta el promedio mensual del sobrecosto corregible por los meses restantes del anio.</p>
       </div>
     </div>
   );
 }
 
-function EfficiencyMockInfoRow() {
+function EfficiencyMockInfoRow({ kpis, savingsShare }) {
   return (
     <section className="qdf-efficiency-info-row">
       <article className="loss">
         <i>$</i>
-        <div><h3>Como leer estos numeros</h3><p><strong>Perdidas reales:</strong> dinero ya pagado en el periodo.<br /><strong>Ahorro potencial:</strong> dinero que se puede recuperar si se implementan las acciones recomendadas.</p></div>
+        <div><h3>Como leer estos numeros</h3><p><strong>Perdidas reales:</strong> dinero ya pagado en el periodo.<br /><strong>Ahorro potencial:</strong> sobrecosto futuro evitable si se corrigen las causas detectadas.</p></div>
       </article>
       <article className="saving">
-        <i>◎</i>
-        <div><h3>Equivalencia economica</h3><p>El ahorro potencial de <strong>$94,5 M</strong> equivale a <strong>18%</strong> del gasto electrico anual proyectado del Municipio.</p></div>
+        <i>%</i>
+        <div><h3>Equivalencia economica</h3><p>El ahorro potencial de <strong>{moneyCompact(kpis?.ahorro_potencial)}</strong>{savingsShare !== null && <> equivale a <strong>{pct(savingsShare)}</strong> del gasto electrico del periodo.</>}</p></div>
       </article>
       <article className="method">
-        <i>▦</i>
-        <div><h3>Metodologia del ahorro</h3><p>Incluye capacidad ociosa por potencia, correccion de TGFI, optimizacion tarifaria y otras oportunidades identificadas. Calculo basado en contratos y consumos historicos.</p></div>
+        <i>#</i>
+        <div><h3>Metodologia del ahorro</h3><p>Promedio mensual de TGFI y potencia excedida detectados, multiplicado por los meses restantes del anio. No recupera importes ya pagados.</p></div>
       </article>
       <article className="data">
-        <i>▤</i>
-        <div><h3>Datos del analisis</h3><ul><li>Facturas analizadas: <strong>1.248</strong></li><li>Tarifas: <strong>T1, T2, T3-BT, T3-S, MT</strong></li><li>Medidores analizados: <strong>333</strong></li><li>Distribuidora: <strong>Edenor</strong></li></ul></div>
+        <i>i</i>
+        <div><h3>Datos del analisis</h3><ul><li>Facturas analizadas: <strong>{numberCompact(kpis?.facturas)}</strong></li><li>Medidores analizados: <strong>{numberCompact(kpis?.medidores)}</strong></li><li>Medidores observados: <strong>{numberCompact(kpis?.medidores_observados)}</strong></li><li>Distribuidora: <strong>Edenor</strong></li></ul></div>
       </article>
     </section>
   );
@@ -2780,12 +2832,12 @@ function EfficiencyOperationalView({ data, kpis, periodLabel, problem }) {
 function EfficiencyOperationalMockKpis({ kpis, periodLabel }) {
   const total = Number(kpis?.medidores || 0);
   const cards = [
-    { icon: '▤', title: 'Medidores analizados', value: numberCompact(total), subtitle: `corte ${periodLabel}`, tone: 'blue' },
-    { icon: '▣', title: 'Medidores observados', value: numberCompact(kpis?.medidores_observados), subtitle: `sobre ${numberCompact(total)} analizados`, tone: 'orange' },
-    { icon: '∿', title: 'CosFi critico', value: numberCompact(kpis?.medidores_cosfi_critico), subtitle: 'factor de potencia < 0,85', tone: 'purple' },
+    { icon: '#', title: 'Medidores analizados', value: numberCompact(total), subtitle: `corte ${periodLabel}`, tone: 'blue' },
+    { icon: '!', title: 'Medidores observados', value: numberCompact(kpis?.medidores_observados), subtitle: `sobre ${numberCompact(total)} analizados`, tone: 'orange' },
+    { icon: 'cos', title: 'CosFi critico', value: numberCompact(kpis?.medidores_cosfi_critico), subtitle: 'factor de potencia < 0,85', tone: 'purple' },
     { icon: 'TG', title: 'Medidores con TGFI', value: numberCompact(kpis?.medidores_con_tgfi), subtitle: 'con recargo por bajo factor', tone: 'amber' },
-    { icon: 'ϟ', title: 'Potencia excedida', value: numberCompact(kpis?.medidores_potencia_excedida), subtitle: 'requieren revision contractual', tone: 'red' },
-    { icon: '◴', title: 'Contratos sobredimensionados', value: numberCompact(kpis?.contratos_sobredimensionados), subtitle: 'utilizacion < 60%', tone: 'green' },
+    { icon: 'kW', title: 'Potencia excedida', value: numberCompact(kpis?.medidores_potencia_excedida), subtitle: 'requieren revision contractual', tone: 'red' },
+    { icon: '%', title: 'Contratos sobredimensionados', value: numberCompact(kpis?.contratos_sobredimensionados), subtitle: 'utilizacion < 60%', tone: 'green' },
   ];
   return (
     <section className="qdf-operational-mock-kpis">
@@ -2799,7 +2851,7 @@ function EfficiencyOperationalMockKpi({ icon, title, value, subtitle, tone }) {
     <article className={`qdf-operational-mock-kpi ${tone}`}>
       <i>{icon}</i>
       <div><h3>{title}</h3><strong>{value}</strong><p>{subtitle}</p></div>
-      <button type="button">Ver detalle <span>→</span></button>
+      <button type="button">Ver detalle <span>-&gt;</span></button>
     </article>
   );
 }
@@ -2844,7 +2896,7 @@ function EfficiencyOperationalProblemDistribution({ rows, total }) {
     <div className="qdf-operational-problem-distribution">
       <div className="qdf-operational-problem-donut" style={{ background }}><div><strong>{numberCompact(count)}</strong><span>Total medidores<br />con problemas</span></div></div>
       <ul>{items.map((item) => <li key={item.problema}><i style={{ background: item.color }} /><span>{item.problema}</span><b>{pct(item.share)} ({numberCompact(item.medidores)})</b></li>)}</ul>
-      <button type="button">Ver detalle →</button>
+      <button type="button">Ver detalle -&gt;</button>
     </div>
   );
 }
@@ -2856,7 +2908,7 @@ function EfficiencyOperationalImpactBars({ rows }) {
     <div className="qdf-operational-impact-bars">
       <div>{(rows || []).map((row) => <div key={row.problema}><strong>{row.problema}</strong><span><i style={{ width: `${Math.max(2, Number(row.impacto || 0) / max * 100)}%`, background: operationalProblemColor(row.problema) }} /></span><b>{moneyCompact(row.impacto)} ({pct(total > 0 ? Number(row.impacto || 0) / total * 100 : 0)})</b></div>)}</div>
       <footer><span>$ 0</span><span>{moneyCompact(max * .25)}</span><span>{moneyCompact(max * .5)}</span><span>{moneyCompact(max * .75)}</span><span>{moneyCompact(max)}</span><small>Impacto anual estimado</small></footer>
-      <button type="button">Ver detalle →</button>
+      <button type="button">Ver detalle -&gt;</button>
     </div>
   );
 }
@@ -2888,7 +2940,7 @@ function EfficiencyOperationalIncidentTrend({ rows, problem }) {
         {series.map((item) => <g key={item.year} className="qdf-operational-trend-series"><polyline style={{ stroke: item.color }} points={item.points.map((point) => `${x(point.month)},${y(point.value)}`).join(' ')} />{item.points.map((point) => <circle key={`${item.year}-${point.month}`} style={{ fill: item.color }} cx={x(point.month)} cy={y(point.value)} r="3" />)}</g>)}
         {MONTHS.map((month, index) => <text key={month} x={x(index + 1)} y="157" textAnchor="middle">{month}</text>)}
       </svg>
-      <button type="button">Ver detalle →</button>
+      <button type="button">Ver detalle -&gt;</button>
     </div>
   );
 }
@@ -2910,22 +2962,22 @@ function EfficiencyOperationalMockActionPlan({ rows }) {
   return (
     <section className="qdf-operational-action-plan">
       <header>
-        <div><h2>Plan de accion operativo <small>ⓘ</small></h2><p>Ordenado por prioridad y mayor impacto economico estimado.</p></div>
+        <div><h2>Plan de accion operativo <small>i</small></h2><p>Ordenado por prioridad y mayor impacto economico estimado.</p></div>
         <div className="qdf-operational-action-filters">
           <label>Filtrar por problema<select value={problem} onChange={(event) => { setProblem(event.target.value); setPage(1); }}><option value="">Todos</option>{[...new Set((rows || []).map((row) => row.problema_principal))].map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
           <label>Filtrar por prioridad<select value={priority} onChange={(event) => { setPriority(event.target.value); setPage(1); }}><option value="">Todas</option><option value="Alta">Alta</option><option value="Media">Media</option><option value="Baja">Baja</option></select></label>
-          <label className="search"><span>⌕</span><input type="search" value={search} onChange={(event) => { setSearch(event.target.value); setPage(1); }} placeholder="Buscar..." /></label>
-          <button type="button" title="Configurar columnas">▥</button>
+          <label className="search"><span>?</span><input type="search" value={search} onChange={(event) => { setSearch(event.target.value); setPage(1); }} placeholder="Buscar..." /></label>
+          <button type="button" title="Configurar columnas">Cols</button>
         </div>
       </header>
       <div className="qdf-operational-action-table-wrap">
         <table>
           <thead><tr><th>Prioridad</th><th>Dependencia</th><th>Cuenta</th><th>Medidor</th><th>Tarifa</th><th>Problema detectado</th><th>Accion sugerida</th><th>Impacto anual estimado</th><th>Estado</th><th /></tr></thead>
-          <tbody>{visibleRows.map((row) => <tr key={`${row.nro_cuenta}-${row.nro_medidor}`}><td><span className={`priority ${row.prioridad.toLowerCase()}`}><i />{row.prioridad}</span></td><td><strong>{row.dependencia}</strong></td><td>{row.nro_cuenta}</td><td>{row.nro_medidor}</td><td>{row.tipo_de_tarifa}</td><td><strong>{row.problema_principal}</strong> <small>({row.detalle_problema})</small></td><td>{row.accion_sugerida}</td><td><strong>{moneyCompact(row.impacto_anual_estimado)}</strong></td><td><span className="status detected">{row.estado}</span></td><td><button type="button" title="Mas acciones">•••</button></td></tr>)}</tbody>
+          <tbody>{visibleRows.map((row) => <tr key={`${row.nro_cuenta}-${row.nro_medidor}`}><td><span className={`priority ${row.prioridad.toLowerCase()}`}><i />{row.prioridad}</span></td><td><strong>{row.dependencia}</strong></td><td>{row.nro_cuenta}</td><td>{row.nro_medidor}</td><td>{row.tipo_de_tarifa}</td><td><strong>{row.problema_principal}</strong> <small>({row.detalle_problema})</small></td><td>{row.accion_sugerida}</td><td><strong>{moneyCompact(row.impacto_anual_estimado)}</strong></td><td><span className="status detected">{row.estado}</span></td><td><button type="button" title="Mas acciones">...</button></td></tr>)}</tbody>
         </table>
         {!filtered.length && <div className="qdf-empty-mini">No hay acciones que coincidan con los filtros.</div>}
       </div>
-      <footer><span>Mostrando {filtered.length ? ((currentPage - 1) * pageSize) + 1 : 0} a {Math.min(currentPage * pageSize, filtered.length)} de {filtered.length} resultados</span><nav><button type="button" disabled={currentPage <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>‹</button>{pageButtons.map((value) => <button type="button" key={value} className={value === currentPage ? 'active' : ''} onClick={() => setPage(value)}>{value}</button>)}{pageCount > 5 && <span>… {pageCount}</span>}<button type="button" disabled={currentPage >= pageCount} onClick={() => setPage((value) => Math.min(pageCount, value + 1))}>›</button></nav></footer>
+      <footer><span>Mostrando {filtered.length ? ((currentPage - 1) * pageSize) + 1 : 0} a {Math.min(currentPage * pageSize, filtered.length)} de {filtered.length} resultados</span><nav><button type="button" disabled={currentPage <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>&lt;</button>{pageButtons.map((value) => <button type="button" key={value} className={value === currentPage ? 'active' : ''} onClick={() => setPage(value)}>{value}</button>)}{pageCount > 5 && <span>... {pageCount}</span>}<button type="button" disabled={currentPage >= pageCount} onClick={() => setPage((value) => Math.min(pageCount, value + 1))}>&gt;</button></nav></footer>
     </section>
   );
 }
@@ -2952,20 +3004,20 @@ function EfficiencyOperationalMockRankings({ data }) {
 }
 
 function OperationalRankingCard({ title, action, children }) {
-  return <article className="qdf-operational-ranking-card"><h2>{title} <small>ⓘ</small></h2>{children}<button type="button">{action} →</button></article>;
+  return <article className="qdf-operational-ranking-card"><h2>{title} <small>i</small></h2>{children}<button type="button">{action} -&gt;</button></article>;
 }
 
 function EfficiencyOperationalMockFooter({ kpis }) {
   const items = [
-    { icon: 'ϟ', title: 'Potencia excedida', text: 'La potencia registrada supera la contratada. Genera cargos adicionales.', tone: 'red' },
-    { icon: '∿', title: 'CosFi critico', text: 'Factor de potencia inferior a 0,85. Genera recargo TGFI en la factura.', tone: 'purple' },
-    { icon: '◴', title: 'Contrato sobredimensionado', text: 'La potencia contratada es muy superior a la utilizada. Hay oportunidad de ahorro.', tone: 'green' },
+    { icon: 'kW', title: 'Potencia excedida', text: 'La potencia registrada supera la contratada. Genera cargos adicionales.', tone: 'red' },
+    { icon: 'cos', title: 'CosFi critico', text: 'Factor de potencia inferior a 0,85. Genera recargo TGFI en la factura.', tone: 'purple' },
+    { icon: '%', title: 'Contrato sobredimensionado', text: 'La potencia contratada es muy superior a la utilizada. Hay oportunidad de ahorro.', tone: 'green' },
     { icon: 'TG', title: 'TGFI aplicado', text: 'La factura incluye un recargo economico asociado al bajo factor de potencia.', tone: 'amber' },
   ];
   return (
     <section className="qdf-operational-mock-footer">
       <article className="interpretation"><h2>Como interpretar los problemas</h2><div>{items.map((item) => <div key={item.title} className={item.tone}><i>{item.icon}</i><span><strong>{item.title}</strong><p>{item.text}</p></span></div>)}</div></article>
-      <article className="methodology"><i>ⓘ</i><div><h2>Metodologia</h2><p>Se analizaron {numberCompact(kpis?.medidores)} medidores y se detectaron {numberCompact(kpis?.medidores_observados)} con incidencias. Los impactos economicos estan anualizados sobre los ultimos 12 meses.</p></div></article>
+      <article className="methodology"><i>i</i><div><h2>Metodologia</h2><p>Se analizaron {numberCompact(kpis?.medidores)} medidores y se detectaron {numberCompact(kpis?.medidores_observados)} con incidencias. Los impactos economicos estan anualizados sobre los ultimos 12 meses.</p></div></article>
     </section>
   );
 }
@@ -2983,7 +3035,7 @@ function EfficiencyGenerationView({ data }) {
       <section className="qdf-kpis qdf-efficiency-kpis qdf-generation-kpis">
         <Kpi icon="kWh" title="Energia inyectada" value={`${numberCompact(kpis.energia_inyectada)} kWh`} subtitle={period} color="green" />
         <Kpi icon="#" title="Cuentas generadoras" value={numberCompact(kpis.cuentas_generadoras)} subtitle={`${numberCompact(kpis.registros)} registros`} color="blue" />
-        <Kpi icon="↑" title="Principal generador" value={`${numberCompact(principal.energia_inyectada)} kWh`} subtitle={limitText(principal.dependencia || 'Sin datos', 34)} color="purple" />
+        <Kpi icon="+" title="Principal generador" value={`${numberCompact(principal.energia_inyectada)} kWh`} subtitle={limitText(principal.dependencia || 'Sin datos', 34)} color="purple" />
       </section>
       <section className="qdf-efficiency-main-grid">
         <Panel title="Evolucion de energia inyectada" subtitle={period}>
@@ -3066,7 +3118,7 @@ function EfficiencyEvolutionChart({ rows }) {
           <strong>{MONTHS[row.mes - 1]}</strong>
           <div><i style={{ height: `${Math.max(4, row.impacto / max * 100)}%` }} /></div>
           <span>{moneyCompact(row.impacto)}</span>
-          <small>TGFI {moneyCompact(row.tgfi)} · Potencia {moneyCompact(row.exceso)}</small>
+          <small>TGFI {moneyCompact(row.tgfi)} - Potencia {moneyCompact(row.exceso)}</small>
         </div>
       ))}
     </div>
@@ -3154,7 +3206,7 @@ function EfficiencyOperationalTable({ rows, periodLabel }) {
   return (
     <>
       <div className="qdf-operational-toolbar">
-        <div><strong>{filteredRows.length}</strong><span>acciones · {periodLabel}</span></div>
+        <div><strong>{filteredRows.length}</strong><span>acciones - {periodLabel}</span></div>
         <input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Buscar dependencia, cuenta o medidor" />
         <select value={priorityFilter} onChange={(event) => setPriorityFilter(event.target.value)}>
           <option value="">Todas las prioridades</option><option value="Alta">Alta</option><option value="Media">Media</option><option value="Baja">Baja</option><option value="Revisar">Revisar</option>
@@ -3206,5 +3258,7 @@ function ComingSoon({ activeTab }) {
 }
 
 createRoot(document.getElementById('dashboard-financiero-root')).render(<App />);
+
+
 
 

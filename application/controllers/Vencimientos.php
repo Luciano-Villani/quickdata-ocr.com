@@ -17,8 +17,18 @@ class Vencimientos extends backend_controller
             redirect('Electromecanica/Vencimientos');
         }
 
+        $anio = (int) $this->input->get('anio');
+        $mes = (int) $this->input->get('mes');
+        $anioActual = (int) date('Y');
+        if ($anio < 2020 || $anio > $anioActual + 2) {
+            $anio = null;
+        }
+        if ($mes < 1 || $mes > 12) {
+            $mes = null;
+        }
+
         $this->data['modulo'] = $modulo;
-        $this->data['calendario'] = $this->vencimientos->get_calendario($modulo);
+        $this->data['calendario'] = $this->vencimientos->get_calendario($modulo, $anio, $mes);
         $this->data['titulo_pagina'] = $modulo === 'electromecanica'
             ? 'Calendario de vencimientos - Electromecanica'
             : 'Calendario de vencimientos - Proveedores';

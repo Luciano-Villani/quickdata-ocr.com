@@ -85,22 +85,28 @@ function initDatatable(search = false, type = 0) {
   var prove = false;
   var tipo_pago = false;
   var periodo_contable = false;
+  var secretaria = false;
+  var limitarUltimos12 = $("#toggle-base-completa").data("base-completa") !== 1;
+  var tableHeight = Math.min(Math.max($(window).height() - $("#consolidados_dt").offset().top - 95, 240), 320);
 
   // desde los filtros 4
   if (type == 4) {
     prove = $("#id_proveedor").val();
     tipo_pago = $("#id_tipo_pago").val();
     periodo_contable = $("#periodo_contable").val();
+    secretaria = $("#id_secretaria").val();
 
     if ($("#tipo-fecha").is(":checked")) {
       var fecha = $("#daterange2").val();
     }
-        var $select = $("#id_tipo_pago");
+    var $select = $("#id_tipo_pago");
     var value = $select.val();
     var data = [];
-    value.forEach(function (valor, indice, array) {
-      data[indice] = $select.find("option[value=" + valor + "]").text();
-    });
+    if (value && value.length) {
+      value.forEach(function (valor, indice, array) {
+        data[indice] = $select.find("option[value=" + valor + "]").text();
+      });
+    }
   }
 
   $("#consolidados_dt").DataTable().destroy();
@@ -116,12 +122,12 @@ function initDatatable(search = false, type = 0) {
       dom: "Blfrtip",
       scrollX: true,
       scrollCollapse: true,
-      scrollY: 300,
+      scrollY: tableHeight + "px",
 
       // paging: false,
       lengthMenu: [
-        [10, 25, 50, 100, -1],
-        [10, 25, 50, 100, "All"],
+        [10, 25, 50, 100],
+        [10, 25, 50, 100],
       ],
       pageLength: 25,
       // order: [1, "desc"],
@@ -144,7 +150,7 @@ function initDatatable(search = false, type = 0) {
       ],
       columnDefs: [
         {
-          targets: [6],
+          targets: [6, 16],
           visible: false,
         },
         {
@@ -162,70 +168,7 @@ function initDatatable(search = false, type = 0) {
           targets: 6,
         },
       ],
-      // columnDefs: [
-      //   {
-      //     targets: [0, 1, 2],
-      //     visible: false,
-      //   },
-
-      //   {
-      //     targets: [14, 15, 16, 17, 18],
-      //     //			className: 'dt-body-right',
-      //     bSortable: false,
-      //   },
-      //   // { className: "dt-center dt-nowrap", targets: [] },
-      //   { targets: ["_all"], className: "dt-left dt-nowrap" },
-
-      //   {
-      //     targets: [0, 1, 2],
-      //     visible: false,
-      //   },
-      //   {targets: ["_all"], visible: true} ,
-      //   {
-      //     targets: ['_aññ'],
-      //     render: function (data, type, full, meta) {
-      //       console.log('prog');
-      //       console.log('render 4')
-      //       console.log(data)
-      //       return data + " a(" + full[1] + ")";
-      //     },
-      //     targets: [8],
-      //     render: function (data, type, full, meta) {
-      //       // console.log('full');
-      //       // console.log(full);
-      //       punto = ".";
-      //       if (full[2] == "") {
-
-      //         punto = "";
-      //       }else{
-      //         punto = + full[2]
-      //       }
-      //       return "PROG "+data+full[2];
-      //     },
-      //     targets: [9],
-      //     render: function (data, type, full, meta) {
-      //       console.log('progs');
-
-      //       punto = "";
-      //       if (full[8] != "") {
-
-      //         punto = "."+full[8];
-      //       }else{
-
-      //         punto = '';
-      //       }
-      //       return +data+punto;
-      //     },
-      //   },
-
-      //   {
-      //     targets: [14, 15, 16, 17, 18],
-      //     //			className: 'dt-body-right',
-      //     bSortable: false,
-      //   },
-      //   { className: "dt-center dt-nowrap", targets: [] },
-      //   { targets: ["_all"], className: "dt-left dt-nowrap" },
-      // ],
+      
       language: {
         url: "/assets/manager/js/plugins/tables/translate/spanish.json",
       },
@@ -243,7 +186,9 @@ function initDatatable(search = false, type = 0) {
           id_proveedor: prove,
           tipo_pago: data,
           periodo_contable: periodo_contable,
+          id_secretaria: secretaria,
           fecha: fecha,
+          limitar_ultimos_12: limitarUltimos12 ? 1 : 0,
         },
         url: "/Consolidados/list_dt",
         type: "POST",
@@ -253,6 +198,7 @@ function initDatatable(search = false, type = 0) {
       },
 
       initComplete: function () {
+        insertarChipVistaEnHeaderDt();
         this.api()
 
           .columns([4]) // This is the hidden jurisdiction column index
@@ -280,243 +226,815 @@ function initDatatable(search = false, type = 0) {
     });
 }
 
+var modoReporteActual = "consolidados";
+var actualizandoFiltrosReporteFinal = false;
+var filtrosConsolidadosTimer = null;
+var reporteFinalExcluidos = [];
+var reporteFinalAutoseleccionarPeriodo = true;
+
+function escapeHtml(value) {
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function formatMoney(value) {
+  var number = parseFloat(value || 0);
+  return number.toLocaleString("es-AR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+function obtenerFiltrosReporteFinal() {
+  var tipoPagoIds = $("#id_tipo_pago").val();
+  var tipoPagoTextos = [];
+
+  if (tipoPagoIds && tipoPagoIds.length) {
+    var $select = $("#id_tipo_pago");
+    tipoPagoIds.forEach(function (valor) {
+      tipoPagoTextos.push($select.find("option[value=" + valor + "]").text());
+    });
+  }
+
+  return {
+    id_proveedor: $("#id_proveedor").val() || [],
+    tipo_pago: tipoPagoTextos,
+    periodo_contable: $("#periodo_contable").val() || [],
+    id_secretaria: $("#id_secretaria").val() || [],
+    programa_proyecto: $("#programa_proyecto").val() || [],
+    fecha: $("#tipo-fecha").is(":checked") ? $("#daterange2").val() : "",
+    excluir_ids: reporteFinalExcluidos,
+    desagrupar_cuentas: $("#reporte-final-desagrupar").is(":checked") ? 1 : 0,
+  };
+}
+
+function resetExclusionesReporteFinal() {
+  reporteFinalExcluidos = [];
+}
+
+function debeDesagruparAutomaticamente() {
+  var proveedores = textosSeleccionados($("#id_proveedor")).map(function (texto) {
+    return texto.toUpperCase();
+  });
+  var pagos = textosSeleccionados($("#id_tipo_pago")).map(function (texto) {
+    return texto.toUpperCase();
+  });
+
+  if (!proveedores.length || !pagos.length || pagos.indexOf("OP") === -1) {
+    return false;
+  }
+
+  return proveedores.every(function (proveedor) {
+    return proveedor.indexOf("AYSA") !== -1 ||
+      proveedor.indexOf("NATURGY") !== -1 ||
+      proveedor.indexOf("EDENOR") !== -1;
+  });
+}
+
+function actualizarDesagruparAutomatico() {
+  var auto = modoReporteActual === "reporte_final" && debeDesagruparAutomaticamente();
+  var $check = $("#reporte-final-desagrupar");
+  if (auto && !$check.is(":checked")) {
+    $check.prop("checked", true);
+  }
+  $("#reporte-final-desagrupar-hint").toggleClass("d-none", !auto);
+}
+
+function actualizarEstadoProgramaProyecto() {
+  var habilitado = modoReporteActual === "reporte_final" && ($("#id_secretaria").val() || []).length > 0;
+  var $programa = $("#programa_proyecto");
+
+  $(".reporte-final-only").toggleClass("d-none", modoReporteActual !== "reporte_final");
+  $programa.prop("disabled", !habilitado);
+
+  if (!habilitado) {
+    $programa.val([]).trigger("change.select2");
+  }
+}
+
+function syncSelectOptions($select, opciones) {
+  var selected = $select.val() || [];
+  var validValues = {};
+  var html = "";
+
+  opciones.forEach(function (opcion) {
+    validValues[String(opcion.id)] = true;
+    html += '<option value="' + escapeHtml(opcion.id) + '">' + escapeHtml(opcion.text) + "</option>";
+  });
+
+  $select.html(html);
+  selected = selected.filter(function (value) {
+    return validValues[String(value)];
+  });
+  $select.val(selected).trigger("change.select2");
+}
+
+function seleccionarPeriodoActualSiCorresponde() {
+  var periodoActual = window.REPORTE_FINAL_PERIODO_ACTUAL || "";
+  var $periodo = $("#periodo_contable");
+
+  if (!reporteFinalAutoseleccionarPeriodo) {
+    return;
+  }
+
+  if (!periodoActual || ($periodo.val() && $periodo.val().length)) {
+    return;
+  }
+
+  if ($periodo.find('option[value="' + periodoActual.replace(/"/g, '\\"') + '"]').length) {
+    $periodo.val([periodoActual]).trigger("change.select2");
+    reporteFinalAutoseleccionarPeriodo = false;
+  }
+}
+
+function normalizarSeleccionUnicaReporteFinal($select, valor) {
+  if (modoReporteActual !== "reporte_final" || !valor) {
+    return;
+  }
+  $select.val([String(valor)]).trigger("change");
+}
+
+function textosSeleccionados($select) {
+  var textos = [];
+  ($select.val() || []).forEach(function (valor) {
+    var texto = $select.find('option[value="' + String(valor).replace(/"/g, '\\"') + '"]').text();
+    if (texto) {
+      textos.push(texto.trim());
+    }
+  });
+  return textos;
+}
+
+function agregarChip(chips, etiqueta, valores) {
+  if (!valores || !valores.length) {
+    return;
+  }
+  var texto = valores.length > 1 ? valores.length + " seleccionados" : valores[0];
+  chips.push('<span class="filtro-chip">' + escapeHtml(etiqueta) + ': ' + escapeHtml(texto) + '</span>');
+}
+
+function actualizarChipsFiltros() {
+  var chips = [];
+  agregarChip(chips, "Proveedor", textosSeleccionados($("#id_proveedor")));
+  agregarChip(chips, "Secretaria", textosSeleccionados($("#id_secretaria")));
+  agregarChip(chips, "Tipo de pago", textosSeleccionados($("#id_tipo_pago")));
+  agregarChip(chips, "Periodo", textosSeleccionados($("#periodo_contable")));
+  agregarChip(chips, "Programa.Proyecto", textosSeleccionados($("#programa_proyecto")));
+  if ($("#tipo-fecha").is(":checked")) {
+    agregarChip(chips, "Fecha consolidacion", [$("#daterange2").val()]);
+  }
+  if (modoReporteActual === "reporte_final" && $("#reporte-final-desagrupar").is(":checked")) {
+    agregarChip(chips, "Liquidacion", ["Desagrupar cuentas"]);
+  }
+  $("#filtros-activos").html(chips.join(""));
+  actualizarChipVistaDt();
+}
+
+function aplicarFiltrosConsolidadosDebounced() {
+  actualizarChipsFiltros();
+  clearTimeout(filtrosConsolidadosTimer);
+  filtrosConsolidadosTimer = setTimeout(function () {
+    if (modoReporteActual === "reporte_final") {
+      if (!actualizandoFiltrosReporteFinal) {
+        resetExclusionesReporteFinal();
+        actualizarDesagruparAutomatico();
+        actualizarOpcionesReporteFinal(cargarReporteFinal);
+      }
+    } else {
+      initDatatable(false, 4);
+    }
+  }, 250);
+}
+
+function actualizarOpcionesReporteFinal(callback) {
+  if (actualizandoFiltrosReporteFinal) {
+    if (callback) {
+      callback();
+    }
+    return;
+  }
+
+  actualizandoFiltrosReporteFinal = true;
+  $.ajax({
+    url: "/Consolidados/reporte_final_opciones",
+    type: "POST",
+    dataType: "json",
+    data: obtenerFiltrosReporteFinal(),
+    success: function (response) {
+      if (response && response.status === "success" && response.opciones) {
+        syncSelectOptions($("#id_tipo_pago"), response.opciones.tipo_pago || []);
+        syncSelectOptions($("#periodo_contable"), response.opciones.periodo_contable || []);
+        syncSelectOptions($("#id_secretaria"), response.opciones.secretaria || []);
+        syncSelectOptions($("#programa_proyecto"), response.opciones.programa_proyecto || []);
+      }
+    },
+    complete: function () {
+      actualizandoFiltrosReporteFinal = false;
+      seleccionarPeriodoActualSiCorresponde();
+      actualizarEstadoProgramaProyecto();
+      if (callback) {
+        callback();
+      }
+    },
+  });
+}
+
+function renderReporteFinal(response) {
+  var $tbody = $("#reporte_final_preview tbody");
+  var filas = response.filas || [];
+
+  $("#reporte-final-titulo").text(response.titulo || "REPORTE FINAL");
+  $("#reporte-final-resumen").text(
+    (response.cantidad || 0) + " facturas - Total: $" + formatMoney(response.total || 0)
+  );
+
+  if (!filas.length) {
+    $tbody.html('<tr><td colspan="14" class="text-center text-muted">No hay registros para los filtros aplicados.</td></tr>');
+    return;
+  }
+
+  var html = "";
+  filas.forEach(function (fila) {
+    if (fila.tipo === "detalle") {
+      html += '<tr data-id="' + escapeHtml(fila.id) + '">' +
+        '<td><button type="button" class="btn btn-outline-danger btn-sm reporte-final-excluir" data-id="' + escapeHtml(fila.id) + '" title="Excluir de la liquidacion">-</button></td>' +
+        "<td>" + escapeHtml(fila.proveedor) + "</td>" +
+        "<td>" + escapeHtml(fila.expediente) + "</td>" +
+        "<td>" + escapeHtml(fila.secretaria) + "</td>" +
+        "<td>" + escapeHtml(fila.dependencia) + "</td>" +
+        "<td>" + escapeHtml(fila.jurisdiccion) + "</td>" +
+        "<td>" + escapeHtml(fila.programa) + "</td>" +
+        "<td>" + escapeHtml(fila.objeto) + "</td>" +
+        "<td>" + escapeHtml(fila.tipo_pago) + "</td>" +
+        "<td>" + escapeHtml(fila.nro_cuenta) + "</td>" +
+        "<td>" + escapeHtml(fila.nro_factura) + "</td>" +
+        "<td>" + escapeHtml(fila.periodo) + "</td>" +
+        "<td>" + escapeHtml(fila.vencimiento) + "</td>" +
+        '<td class="importe">' + formatMoney(fila.importe) + "</td>" +
+      "</tr>";
+    } else if (fila.tipo === "subtotal_programa") {
+      html += '<tr class="fila-subtotal"><td colspan="6"></td><td>' + escapeHtml(fila.programa) + '</td><td colspan="6"></td><td class="importe">' + formatMoney(fila.importe) + "</td></tr>";
+    } else {
+      html += '<tr class="fila-subtotal"><td colspan="5"></td><td>' + escapeHtml(fila.jurisdiccion) + '</td><td colspan="7"></td><td class="importe">' + formatMoney(fila.importe) + "</td></tr>";
+    }
+  });
+
+  $tbody.html(html);
+}
+
+function cargarReporteFinal() {
+  actualizarChipsFiltros();
+  $("#reporte_final_preview tbody").html('<tr><td colspan="14" class="text-center text-muted">Generando vista previa...</td></tr>');
+
+  $.ajax({
+    url: "/Consolidados/reporte_final_preview",
+    type: "POST",
+    dataType: "json",
+    data: obtenerFiltrosReporteFinal(),
+    success: function (response) {
+      if (!response || response.status !== "success") {
+        $("#reporte_final_preview tbody").html('<tr><td colspan="14" class="text-center text-danger">No se pudo generar el reporte.</td></tr>');
+        return;
+      }
+      renderReporteFinal(response);
+    },
+    error: function () {
+      $("#reporte_final_preview tbody").html('<tr><td colspan="14" class="text-center text-danger">Error de conexion al generar el reporte.</td></tr>');
+    },
+  });
+}
+
+function setModoReporte(modo) {
+  modoReporteActual = modo;
+  $(".modo-reporte-btn").removeClass("active btn-primary").addClass("btn-outline-primary");
+  $('.modo-reporte-btn[data-modo="' + modo + '"]').addClass("active btn-primary").removeClass("btn-outline-primary");
+  $(".filtros-consolidados-card").toggleClass("modo-reporte-final", modo === "reporte_final");
+
+  if (modo === "reporte_final") {
+    $("#vista-consolidada-card").addClass("d-none");
+    $("#reporte-final-card").removeClass("d-none");
+    $("#descarga-principal").addClass("d-none");
+    $("#toggle-base-completa").addClass("d-none");
+    reporteFinalAutoseleccionarPeriodo = true;
+    seleccionarPeriodoActualSiCorresponde();
+    resetExclusionesReporteFinal();
+    actualizarDesagruparAutomatico();
+    actualizarEstadoProgramaProyecto();
+    actualizarOpcionesReporteFinal(cargarReporteFinal);
+  } else {
+    $("#vista-consolidada-card").removeClass("d-none");
+    $("#reporte-final-card").addClass("d-none");
+    $("#descarga-principal").removeClass("d-none");
+    $("#toggle-base-completa").removeClass("d-none");
+    actualizarEstadoProgramaProyecto();
+  }
+}
+
+function actualizarBotonBaseCompleta() {
+  var baseCompleta = $("#toggle-base-completa").data("base-completa") === 1;
+  $("#toggle-base-completa")
+    .attr("data-base-completa", baseCompleta ? "1" : "0")
+    .toggleClass("btn-outline-secondary", !baseCompleta)
+    .toggleClass("btn-secondary", baseCompleta)
+    .html(
+      baseCompleta
+        ? '<b><i class="icon-database"></i></b> Usar ultimos 12 meses'
+        : '<b><i class="icon-database"></i></b> Mostrar datos historicos'
+    );
+  actualizarChipVistaDt();
+}
+
+function textoChipVistaDt() {
+  return $("#toggle-base-completa").data("base-completa") === 1
+    ? "Vista: base completa"
+    : "Vista: ultimos 12 meses";
+}
+
+function insertarChipVistaEnHeaderDt() {
+  var $length = $("#consolidados_dt_length");
+  if (!$length.length) {
+    return;
+  }
+  if (!$length.find("#dt-vista-base-chip").length) {
+    $length.append('<span id="dt-vista-base-chip" class="filtro-chip filtro-chip-vista"></span>');
+  }
+  actualizarChipVistaDt();
+}
+
+function actualizarChipVistaDt() {
+  $("#dt-vista-base-chip").text(textoChipVistaDt());
+}
+
 $(document).ready(function () {
 
-  $('input[name="daterange2"]').daterangepicker({
-    // autoUpdateInput: false,
-    showDropdowns: true,
-    locale:{
-      applyLabel: "Aplicar",
-      cancelLabel: "Cancelar",
-      format: "DD/MM/YYYY",
-      customRangeLabel: "Búsqueda avanzada",
-    },
-    ranges: {
-        'Hoy': [moment(), moment()],
-        'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Ultimos 7 días': [moment().subtract(6, 'days'), moment()],
-        'Ultimos 30 días': [moment().subtract(29, 'days'), moment()],
-        'Este mes': [moment().startOf('month'), moment().endOf('month')],
-        'Mes pasado': [moment().subtract(1, 'month').startOf('month'), 
-        moment().subtract(1, 'month').endOf('month')
-      ]
-    },
+    $('input[name="daterange2"]').daterangepicker({
+        // autoUpdateInput: false,
+        showDropdowns: true,
+        locale:{
+            applyLabel: "Aplicar",
+            cancelLabel: "Cancelar",
+            format: "DD/MM/YYYY",
+            customRangeLabel: "Búsqueda avanzada",
+        },
+        ranges: {
+            'Hoy': [moment(), moment()],
+            'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Ultimos 7 días': [moment().subtract(6, 'days'), moment()],
+            'Ultimos 30 días': [moment().subtract(29, 'days'), moment()],
+            'Este mes': [moment().startOf('month'), moment().endOf('month')],
+            'Mes pasado': [moment().subtract(1, 'month').startOf('month'), 
+            moment().subtract(1, 'month').endOf('month')
+            ]
+        },
 
-}, function(start, end, label) {
-  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-});
-  var range = $('input[name="daterange2d"]').daterangepicker(
-    {
-      "showDropdowns": true,
-      // startDate: "-1m",
-      // endDate: "+1m",
-      showCustomRangeLabel:true,
-      locale: {
-        format: "DD/MM/YYYY",
-        customRangeLabel: "Búsqueda avanzada",
-      },
-      ranges: {
-        Hoy: [moment(), moment()],
-        Ayer: [moment().subtract(1, "days"), moment().subtract(1, "days")],
-        "Últinmos 7 Días": [moment().subtract(6, "days"), moment()],
-        "Últinmos 30 Días": [moment().subtract(29, "days"), moment()],
-        "Este Mes": [moment().startOf("month"), moment().endOf("month")],
-        "Mes Pasado": [
-          moment().subtract(1, "month").startOf("month"),
-          moment().subtract(1, "month").endOf("month"),
-        ],
-      },
-      // opens: 'left'
-    },
-    function (start, end, label) {
-      // $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-
-      if (validarSeleccionFecha()) {
-        var tipo_fecha = $('input[name="tipo_fecha"]:checked').val();
-
-        var strSearchvar = new Array();
-        strSearchvar =
-          start.format("YYYY-MM-DD") + "@" + end.format("YYYY-MM-DD");
-
-        //envio parametro true para que se selecciones todas los resultados
-        var parametrosUrl =
-          "?tipo_fecha=" +
-          tipo_fecha +
-          "&filtro=1&buscarFechas=" +
-          strSearchvar;
-
-        // initDatatable(strSearchvar, 1);
-        // $('#consolidados_dt').DataTable().search('<searchstring>');
-      }
-    }
-  );
-  range.on("cancel.daterangepicker", function () {});
-  range.on("load.daterangepicker", function () {});
-  var drp = $('input[name="daterange2"]').data("daterangepicker");
-  // var start = moment().subtract(29, 'days');
-  // var end = moment();
-
-  // console.log(drp.startDate.format('DD-MM-YYYY'));
-  // console.log(drp.endDate.format('DD-MM-YYYY'));
-  initDatatable();
-  var base_url = $("body").data("base_url");
-
-  $("body").on("click", "#resetfilter", function (e) {
-    e.preventDefault();
-    $("#tipo-fecha").prop('checked',false);
-    $("#id_proveedor").val("").trigger("change");
-    $("#id_tipo_pago").val("").trigger("change");
-    $("#periodo_contable").val("").trigger("change");
-
-    $('#daterange2').data('daterangepicker').setEndDate(new Date);
-    $('#daterange2').data('daterangepicker').setStartDate(new Date);
-
-    // $("#id_tipo_pago").prop("selectedIndex", 0);
-    initDatatable();
-  });
-
-  $("body").on("click", "#applyfilter", function (e) {
-    e.preventDefault();
-
-    // if (
-    //   $("#id_proveedor").val().length === 0 &&
-    //   $("#id_tipo_pago").val().length === 0 &&
-    //   $("#periodo_contable").val().length === 0
-    // ) {
-    //   $.confirm({
-    //     icon: "icon-alert",
-    //     title: "Criterios de filtrado",
-    //     content: "Seleccione opciones de filtrado",
-    //     buttons: {
-    //       cancel: {
-    //         text: "Aceptar",
-    //         btnClass: "btn-prymary",
-    //         action: function () {
-    //           return;
-    //         },
-    //       },
-    //     },
-    //   });
-
-    //   return false;
-    // }
-    initDatatable(false, 4);
-  });
-
-  $("body").on("click", "#descarga-exell", function (e) {
-    e.preventDefault();
-    $("body .buttons-excel").trigger("click");
-  });
-
-  $("body").on("change", "select#selectperiodo", function (e) {
-    e.preventDefault();
-    if ($(this).val() == "0") {
-      initDatatable();
-      return;
-    }
-    initDatatable($('select[id="selectperiodo"] option:selected').text(), 4);
-  });
-
-  document.querySelectorAll("a.toggle-vis").forEach((el) => {
-    el.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      let columnIdx = e.target.getAttribute("data-column");
-      let column = table.column(columnIdx);
-
-      // Toggle the visibility
-      column.visible(!column.visible());
+    }, function(start, end, label) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     });
-  });
+    var range = $('input[name="daterange2d"]').daterangepicker(
+        {
+            "showDropdowns": true,
+            // startDate: "-1m",
+            // endDate: "+1m",
+            showCustomRangeLabel:true,
+            locale: {
+                format: "DD/MM/YYYY",
+                customRangeLabel: "Búsqueda avanzada",
+            },
+            ranges: {
+                Hoy: [moment(), moment()],
+                Ayer: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Últinmos 7 Días": [moment().subtract(6, "days"), moment()],
+                "Últinmos 30 Días": [moment().subtract(29, "days"), moment()],
+                "Este Mes": [moment().startOf("month"), moment().endOf("month")],
+                "Mes Pasado": [
+                    moment().subtract(1, "month").startOf("month"),
+                    moment().subtract(1, "month").endOf("month"),
+                ],
+            },
+            // opens: 'left'
+        },
+        function (start, end, label) {
+            // $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 
-  function validarSeleccionFecha() {
-    var accesorios = document.querySelectorAll(
-      'input[name="tipo_fecha"]:checked'
+            if (validarSeleccionFecha()) {
+                var tipo_fecha = $('input[name="tipo_fecha"]:checked').val();
+
+                var strSearchvar = new Array();
+                strSearchvar =
+                    start.format("YYYY-MM-DD") + "@" + end.format("YYYY-MM-DD");
+
+                //envio parametro true para que se selecciones todas los resultados
+                var parametrosUrl =
+                    "?tipo_fecha=" +
+                    tipo_fecha +
+                    "&filtro=1&buscarFechas=" +
+                    strSearchvar;
+
+                // initDatatable(strSearchvar, 1);
+                // $('#consolidados_dt').DataTable().search('<searchstring>');
+            }
+        }
     );
-    if (accesorios.length <= 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Debe seleccionar un tipo de Fecha!",
-      });
-      return false;
-    }
-    return true;
-  }
+    range.on("cancel.daterangepicker", function () {});
+    range.on("load.daterangepicker", function () {});
+    var drp = $('input[name="daterange2"]').data("daterangepicker");
+    // var start = moment().subtract(29, 'days');
+    // var end = moment();
 
-  function filterData(tableParams) {
-    $("#consolidados_dt").DataTable().destroy();
-    $("#consolidados_dt")
-      .DataTable({
-        ajax: {
-          data: {
-            table: "_consolidados",
-            date_search: tableParams,
-            search: { value: "" },
-            draw: 1,
-            start: 1,
-            length: 10,
-          },
-          url: base_url + "Consolidados/list_dt",
+    // console.log(drp.startDate.format('DD-MM-YYYY'));
+    // console.log(drp.endDate.format('DD-MM-YYYY'));
+    actualizarBotonBaseCompleta();
+    actualizarEstadoProgramaProyecto();
+    actualizarChipsFiltros();
+    initDatatable();
+    var base_url = $("body").data("base_url");
 
-          type: "POST",
-        },
-      })
-      .ajax.reload();
-  }
+    $("body").on("click", "#resetfilter", function (e) {
+        e.preventDefault();
+        resetExclusionesReporteFinal();
+        reporteFinalAutoseleccionarPeriodo = true;
+        $("#tipo-fecha").prop('checked',false);
+        $("#id_proveedor").val("").trigger("change");
+        $("#id_secretaria").val("").trigger("change");
+        $("#programa_proyecto").val("").trigger("change");
+        $("#id_tipo_pago").val("").trigger("change");
+        $("#periodo_contable").val("").trigger("change");
+        $("#toggle-base-completa").data("base-completa", 0);
+        actualizarBotonBaseCompleta();
 
-  function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if (new Date().getTime() - start > milliseconds) {
-        break;
-      }
-    }
-  }
-  $("body").on("click", "span.borrar_dato", function (e) {
+        $('#daterange2').data('daterangepicker').setEndDate(new Date);
+        $('#daterange2').data('daterangepicker').setStartDate(new Date);
+
+        // $("#id_tipo_pago").prop("selectedIndex", 0);
+        if (modoReporteActual === "reporte_final") {
+            seleccionarPeriodoActualSiCorresponde();
+            actualizarDesagruparAutomatico();
+            actualizarEstadoProgramaProyecto();
+            actualizarOpcionesReporteFinal(cargarReporteFinal);
+        } else {
+            initDatatable();
+        }
+        actualizarChipsFiltros();
+    });
+
+    $("body").on("click", "#toggle-base-completa", function (e) {
+        e.preventDefault();
+        var baseCompleta = $(this).data("base-completa") === 1;
+        $(this).data("base-completa", baseCompleta ? 0 : 1);
+        actualizarBotonBaseCompleta();
+        actualizarChipsFiltros();
+        if (modoReporteActual === "consolidados") {
+            initDatatable(false, 4);
+        }
+    });
+
+    $("body").on("click", "#applyfilter", function (e) {
+        e.preventDefault();
+
+        if (modoReporteActual === "reporte_final") {
+            resetExclusionesReporteFinal();
+            actualizarDesagruparAutomatico();
+            actualizarOpcionesReporteFinal(cargarReporteFinal);
+        } else {
+            initDatatable(false, 4);
+        }
+    });
+
+    $("body").on("click", ".modo-reporte-btn", function (e) {
+        e.preventDefault();
+        setModoReporte($(this).data("modo"));
+    });
+
+    $("body").on("click", "#toggle-filtros-consolidados", function (e) {
+        e.preventDefault();
+        var $card = $(".filtros-consolidados-card");
+        var colapsado = !$card.hasClass("filtros-colapsados");
+        $card.toggleClass("filtros-colapsados", colapsado);
+        $(this)
+            .attr("aria-expanded", colapsado ? "false" : "true")
+            .html(colapsado ? '<i class="icon-arrow-down12"></i> Mostrar filtros' : '<i class="icon-arrow-up12"></i> Ocultar filtros');
+    });
+
+    $("body").on("change", "#id_proveedor, #id_secretaria, #programa_proyecto, #id_tipo_pago, #periodo_contable, #tipo-fecha, #daterange2", function () {
+        if (this.id === "id_secretaria") {
+            $("#programa_proyecto").val([]).trigger("change.select2");
+            actualizarEstadoProgramaProyecto();
+        }
+        aplicarFiltrosConsolidadosDebounced();
+    });
+
+    $("body").on("select2:select", "#id_tipo_pago, #periodo_contable", function (e) {
+        if (this.id === "periodo_contable") {
+            reporteFinalAutoseleccionarPeriodo = false;
+        }
+        normalizarSeleccionUnicaReporteFinal($(this), e.params && e.params.data ? e.params.data.id : "");
+    });
+
+    $("body").on("select2:unselect select2:clear", "#periodo_contable", function () {
+        if (modoReporteActual === "reporte_final") {
+            reporteFinalAutoseleccionarPeriodo = false;
+        }
+    });
+
+    $("body").on("change", "#reporte-final-desagrupar", function () {
+        cargarReporteFinal();
+    });
+
+    $("body").on("click", ".reporte-final-excluir", function (e) {
+        e.preventDefault();
+        var id = String($(this).data("id"));
+        if (id && reporteFinalExcluidos.indexOf(id) === -1) {
+            reporteFinalExcluidos.push(id);
+        }
+        cargarReporteFinal();
+    });
+
+    $("body").on("click", "#descargar-reporte-final", function (e) {
+        e.preventDefault();
+        var params = obtenerFiltrosReporteFinal();
+        window.open("/Consolidados/descargar_reporte_final?" + $.param(params), "_blank");
+    });
+
+    $("body").on("click", "#descarga-exell", function (e) {
+        e.preventDefault();
+        $("body .buttons-excel").trigger("click");
+    });
+    
+    // *******************************************************************
+// 🚨 NUEVO MANEJADOR ÚNICO: #descarga-principal
+// *******************************************************************
+$("body").on("click", "#descarga-principal", function (e) {
     e.preventDefault();
 
-    var dato = new FormData();
-    var file = $(this).data("file");
-    var lote = $(this).data("lote");
-    dato.append("file", file);
-    dato.append("lote", lote);
+    // 1. Recolección y Validación de Parámetros
+    var prove = $("#id_proveedor").val();
+    var secretaria = $("#id_secretaria").val();
+    var tipo_pago_ids = $("#id_tipo_pago").val();
+    var periodo_contable = $("#periodo_contable").val();
+    var fecha_checked = $("#tipo-fecha").is(":checked");
+    
+    // Comprueba si AL MENOS UN filtro tiene datos
+    var is_filtered = (
+        (prove && prove.length > 0) ||
+        (secretaria && secretaria.length > 0) ||
+        (tipo_pago_ids && tipo_pago_ids.length > 0) ||
+        (periodo_contable && periodo_contable.length > 0) ||
+        (fecha_checked) 
+    );
+    
+    if (!is_filtered) {
+        // Bloquear si no hay filtros aplicados
+        Swal.fire({
+            icon: 'warning',
+            title: 'Filtro Requerido',
+            text: 'Para descargar reportes o archivos, debe aplicar al menos un filtro (Proveedor, Secretaria, Tipo de Pago, Periodo o Rango de Fechas).',
+            confirmButtonText: 'Entendido'
+        });
+        return; // Detiene la ejecución si no hay filtros
+    }
+
+
+    // 2. Si hay filtros, inicia la pregunta de descarga
     $.confirm({
-      autoClose: "cancel|10000",
-      title: "Eliminar Datos y archivos",
-      content: "Confirma eliminar datos del archivo : " + file + "  ?",
-      buttons: {
-        confirm: {
-          text: "Borrar",
-          btnClass: "btn-blue",
-          action: function () {
-            $.ajax({
-              type: "POST",
-              contentType: false,
-              dataType: "json",
-              data: dato,
-              processData: false,
-              cache: false,
-              beforeSend: function () {},
-              url: $("body").data("base_url") + "Consolidados/delete",
-              success: function (result) {
-                // initDatatable();
-           
-                $("body #applyfilter").trigger('click');
-          
-              },
-              error: function (xhr, errmsg, err) {
-                console.log(xhr.status + ": " + xhr.responseText);
-              },
-            });
-          },
-        },
-        cancel: {
-          text: "Cancelar",
-          btnClass: "btn-red",
-          action: function () {},
-        },
-      },
+        autoClose: 'cancel|10000',
+        title: 'Opciones de Descarga',
+        content: '¿Desea incluir los archivos PDF en la descarga del reporte?',
+        buttons: {
+            // Opción SI: Descargar Excel + PDFs (ZIP)
+            si: {
+                text: 'Sí, Descargar ZIP (Excel + PDFs)',
+                btnClass: 'btn-blue',
+                action: function () {
+                    // 1a. Disparar descarga de Excel
+                    $("body .buttons-excel").trigger("click"); 
+                    console.log('Descarga de Excel iniciada.');
+
+                    // 1b. Obtener y ejecutar la lógica de descarga de PDFs (la lógica anterior de #descarga-pdfs)
+                    
+                    // La fecha solo se usa si el checkbox estaba marcado (validado en 'is_filtered')
+                    var fecha = fecha_checked ? $("#daterange2").val() : null;
+                    
+                    var params = {};
+                    if (prove && prove.length > 0) {
+                        params.id_proveedor = prove;
+                    }
+                    if (secretaria && secretaria.length > 0) {
+                        params.id_secretaria = secretaria;
+                    }
+                    if (tipo_pago_ids && tipo_pago_ids.length > 0) {
+                        var $select = $("#id_tipo_pago");
+                        var tipo_pago_text = [];
+                        tipo_pago_ids.forEach(function (valor) {
+                            tipo_pago_text.push($select.find("option[value=" + valor + "]").text());
+                        });
+                        params.tipo_pago = tipo_pago_text; 
+                    }
+                    if (periodo_contable && periodo_contable.length > 0) {
+                        params.periodo_contable = periodo_contable;
+                    }
+                    if (fecha) { 
+                        params.fecha = fecha;
+                    }
+                    
+                    var base_url = $("body").data("base_url");
+                    // Ajusta la ruta si es necesario (ej. 'Admin/Consolidados/descargar_pdfs')
+                    var controller_method = 'Consolidados/descargar_pdfs'; 
+                    var url = base_url + controller_method + '?' + $.param(params);
+
+                    window.open(url, '_blank');
+                    console.log('Descarga de PDFs (ZIP) iniciada con filtros:', params);
+                }
+            },
+            // Opción NO: Descargar solo Excel
+            no: {
+                text: 'No, solo Descargar Excel',
+                btnClass: 'btn-green',
+                action: function () {
+                    // Solo dispara la descarga del archivo Excel
+                    $("body .buttons-excel").trigger("click");
+                    console.log('Solo Descarga de Excel iniciada.');
+                }
+            },
+            cancel: {
+                text: 'Cancelar',
+                btnClass: 'btn-red',
+                action: function () {
+                    // No hace nada
+                    console.log('Descarga cancelada por el usuario.');
+                }
+            }
+        }
     });
-  });
+});
+    // ======================================================================
+    
+
+    $("body").on("change", "select#selectperiodo", function (e) {
+        e.preventDefault();
+        if ($(this).val() == "0") {
+            initDatatable();
+            return;
+        }
+        initDatatable($('select[id="selectperiodo"] option:selected').text(), 4);
+    });
+
+    document.querySelectorAll("a.toggle-vis").forEach((el) => {
+        el.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            let columnIdx = e.target.getAttribute("data-column");
+            let column = table.column(columnIdx);
+
+            // Toggle the visibility
+            column.visible(!column.visible());
+        });
+    });
+
+    function validarSeleccionFecha() {
+        var accesorios = document.querySelectorAll(
+            'input[name="tipo_fecha"]:checked'
+        );
+        if (accesorios.length <= 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Debe seleccionar un tipo de Fecha!",
+            });
+            return false;
+        }
+        return true;
+    }
+
+    function filterData(tableParams) {
+        $("#consolidados_dt").DataTable().destroy();
+        $("#consolidados_dt")
+            .DataTable({
+                ajax: {
+                    data: {
+                        table: "_consolidados",
+                        date_search: tableParams,
+                        search: { value: "" },
+                        draw: 1,
+                        start: 1,
+                        length: 10,
+                    },
+                    url: base_url + "Consolidados/list_dt",
+
+                    type: "POST",
+                },
+            })
+            .ajax.reload();
+    }
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if (new Date().getTime() - start > milliseconds) {
+                break;
+            }
+        }
+    }
+    $("body").on("click", "span.borrar_dato", function (e) {
+        e.preventDefault();
+
+        var dato = new FormData();
+        var file = $(this).data("file");
+        var lote = $(this).data("lote");
+        dato.append("file", file);
+        dato.append("lote", lote);
+        $.confirm({
+            autoClose: "cancel|10000",
+            title: "Eliminar Datos y archivos",
+            content: "Confirma eliminar datos del archivo : " + file + "  ?",
+            buttons: {
+                confirm: {
+                    text: "Borrar",
+                    btnClass: "btn-blue",
+                    action: function () {
+                        $.ajax({
+                            type: "POST",
+                            contentType: false,
+                            dataType: "json",
+                            data: dato,
+                            processData: false,
+                            cache: false,
+                            beforeSend: function () {},
+                            url: $("body").data("base_url") + "Consolidados/delete",
+                            success: function (result) {
+                                // initDatatable();
+                            
+                                $("body #applyfilter").trigger('click');
+                            
+                            },
+                            error: function (xhr, errmsg, err) {
+                                console.log(xhr.status + ": " + xhr.responseText);
+                            },
+                        });
+                    },
+                },
+                cancel: {
+                    text: "Cancelar",
+                    btnClass: "btn-red",
+                    action: function () {},
+                },
+            },
+        });
+    });
+    
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
+    // CÓDIGO FINAL CORREGIDO: SIMULACIÓN DE DOBLE CLIC (SOLUCIÓN DEFINITIVA)
+    // ----------------------------------------------------------------------
+
+    // Variables para gestionar el temporizador y el conteo de clics
+    var timer = 0;
+    var clickCount = 0; 
+    var clickDelay = 250; 
+
+    // 1. Limpieza Agresiva: Anulamos CUALQUIER manejador existente.
+    $('.datatable-ajax tbody').off('click', 'tr');
+    $('.datatable-ajax tbody').off('dblclick', 'tr'); 
+
+    // 2. Manejador ÚNICO de CLIC (simula la lógica de simple y doble)
+    $('.datatable-ajax tbody').on('click', 'tr', function (e) {
+        
+        var self = this;
+        clickCount++; 
+
+        if (clickCount === 1) {
+            timer = setTimeout(function() {
+                // LÓGICA DE CLIC SIMPLE (Selección)
+                $(self).closest('.datatable-ajax').find('tbody tr.selected').removeClass('selected');
+                $(self).addClass('selected');
+                
+                console.log('Evento: Clic Simple (Selección)');
+                clickCount = 0; 
+            }, clickDelay);
+
+        } else if (clickCount === 2) {
+            // LÓGICA DE DOBLE CLIC (Redirección)
+            
+            clearTimeout(timer); 
+            
+            // 🚨 CAMBIO CRÍTICO: Búsqueda del enlace principal con la URL de redirección
+            var $link = $(self).find('a[title="Ver detalles y seguimiento"]'); 
+            
+            if ($link.length) {
+                var url = $link.attr('href');
+                window.open(url, '_blank');
+                console.log('Evento: Doble Clic SIMULADO (Redirección) a URL:', url);
+            } else {
+                console.error('Doble Clic: No se encontró el enlace principal para redirección.');
+            }
+
+            clickCount = 0;
+        }
+        
+    });
+
 });

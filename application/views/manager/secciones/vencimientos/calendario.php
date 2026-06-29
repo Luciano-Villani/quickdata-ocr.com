@@ -10,6 +10,12 @@ $mes = (int) $calendario['mes'];
 $nombreMes = $calendario['nombre_mes'];
 $primerDia = new DateTime(sprintf('%04d-%02d-01', $anio, $mes));
 $offset = ((int) $primerDia->format('N')) - 1;
+$mesActual = new DateTime(sprintf('%04d-%02d-01', $anio, $mes));
+$mesAnterior = clone $mesActual;
+$mesAnterior->modify('-1 month');
+$mesSiguiente = clone $mesActual;
+$mesSiguiente->modify('+1 month');
+$baseCalendarioUrl = $modulo === 'electromecanica' ? base_url('Electromecanica/Vencimientos') : base_url('Admin/Vencimientos');
 $labels = array(
     'consolidada' => array('Consolidada', 'badge-success'),
     'subida_pendiente' => array('Subida sin consolidar', 'badge-warning'),
@@ -40,12 +46,20 @@ if (!function_exists('fecha_vencimiento_ui')) {
     .issue-card { border-left: 5px solid #d32f2f; cursor: pointer; }
     .issue-card.warning { border-left-color: #fbc02d; }
     .issue-card.dark { border-left-color: #8e0000; }
+    .issue-card.previous { border-left-color: #6d4c41; }
     .issue-card .numero { font-size: 1.7rem; font-weight: 600; line-height: 1; }
     .vencimientos-dashboard .issue-card .card-body { padding: .65rem 1rem !important; }
     .vencimientos-dashboard .issues-wrapper .card-header { padding: .55rem 1rem; }
     .vencimientos-dashboard .issues-wrapper .card-body { padding: .65rem 1rem !important; }
     .calendario-card .card-header { padding: .55rem 1rem; }
     .calendario-card .card-body { padding: .75rem 1rem 1rem; }
+    .calendario-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; background: #c5d1e3; padding: 8px 10px; }
+    .calendario-head .card-title { line-height: 1.2; }
+    .calendario-nav { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .calendario-nav .btn { min-width: 118px; background: #fff; border-color: #b7c3d3; color: #42526b; }
+    .calendario-nav .btn-primary-outline,
+    .calendario-nav .btn-outline-primary { color: #0d6efd; border-color: #0d6efd; }
+    .calendario-card .leyenda-dia { padding: 10px 2px 2px; }
     .calendario-obligaciones { display: grid; grid-template-columns: repeat(7, minmax(96px, 1fr)); border: 1px solid #d9dde5; }
     .cal-dia-header { background: #c5d1e3; font-weight: 600; text-align: center; padding: 8px 6px; border-right: 1px solid #d9dde5; }
     .cal-dia { min-height: 104px; border-top: 1px solid #d9dde5; border-right: 1px solid #d9dde5; padding: 7px; cursor: pointer; transition: all .15s ease-in-out; }
@@ -156,8 +170,19 @@ if (!function_exists('fecha_vencimiento_ui')) {
 
         <div class="col-xl-8">
             <div class="card calendario-card">
-                <div class="card-header header-elements-inline">
+                <div class="card-header calendario-head">
                     <h5 class="card-title text-capitalize">Calendario de obligaciones - <?= html_escape($nombreMes) ?> <?= $anio ?></h5>
+                    <div class="calendario-nav">
+                        <a class="btn btn-sm btn-outline-secondary" href="<?= $baseCalendarioUrl ?>?anio=<?= (int) $mesAnterior->format('Y') ?>&mes=<?= (int) $mesAnterior->format('n') ?>">
+                            <i class="icon-arrow-left8"></i> Mes anterior
+                        </a>
+                        <a class="btn btn-sm btn-outline-primary" href="<?= $baseCalendarioUrl ?>">
+                            Mes actual
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href="<?= $baseCalendarioUrl ?>?anio=<?= (int) $mesSiguiente->format('Y') ?>&mes=<?= (int) $mesSiguiente->format('n') ?>">
+                            Mes siguiente <i class="icon-arrow-right8"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="leyenda-dia text-muted mb-3">
@@ -222,6 +247,7 @@ if (!function_exists('fecha_vencimiento_ui')) {
                         <option value="">Todos los estados</option>
                         <option value="vencidas">Vencidas</option>
                         <option value="vencen_7">Vencen en 7 dias</option>
+                        <option value="pendientes_anteriores">Pendientes del mes anterior</option>
                         <option value="sin_actividad">Sin actividad</option>
                         <option value="por_consolidar">Por consolidar</option>
                         <option value="sin_subir">Sin subir</option>
@@ -282,6 +308,7 @@ if (!function_exists('fecha_vencimiento_ui')) {
                         data-estado="<?= html_escape($fila['estado']) ?>"
                         data-vencida="<?= !empty($fila['vencida']) ? '1' : '0' ?>"
                         data-sin-actividad="<?= !empty($fila['sin_actividad']) ? '1' : '0' ?>"
+                        data-pendiente-anterior="<?= !empty($fila['pendiente_anterior']) ? '1' : '0' ?>"
                         data-alerta7="<?= !empty($fila['alerta_7']) ? '1' : '0' ?>"
                         data-proveedor="<?= html_escape($fila['proveedor']) ?>"
                         data-pago="<?= html_escape($fila['tipo_pago']) ?>">
@@ -290,8 +317,8 @@ if (!function_exists('fecha_vencimiento_ui')) {
                         </td>
                         <td data-order="<?= html_escape($fila['fecha_esperada']) ?>">
                             <?= fecha_vencimiento_ui($fila['fecha_esperada']) ?>
-                            <?php if (empty($fila['en_mes'])): ?>
-                                <small class="d-block text-danger">Pendiente anterior</small>
+                            <?php if (!empty($fila['pendiente_anterior'])): ?>
+                                <small class="d-block text-danger">Pendiente mes anterior</small>
                             <?php endif; ?>
                         </td>
                         <td><span class="badge <?= $label[1] ?>"><?= html_escape($label[0]) ?></span></td>

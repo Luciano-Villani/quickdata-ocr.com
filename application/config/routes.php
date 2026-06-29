@@ -134,6 +134,11 @@ $route['Electromecanica/Lecturas/leerApi'] = 'electromecanicax/Lecturas/leerApi'
 $route['Electromecanica/Lecturas/validar_lote'] = 'electromecanicax/Lecturas/validar_lote';
 $route['Electromecanica/Lecturas/Consolidar'] = 'electromecanicax/Lecturas/Consolidar';
 $route['Electromecanica/Vencimientos'] = 'Vencimientos/index/electromecanica';
+$route['Electromecanica/AuditoriaEdenor'] = 'electromecanicax/Auditoria_edenor/index';
+$route['Electromecanica/AuditoriaEdenor/importar'] = 'electromecanicax/Auditoria_edenor/importar';
+$route['Electromecanica/AuditoriaEdenor/comparar'] = 'electromecanicax/Auditoria_edenor/comparar';
+$route['Electromecanica/AuditoriaEdenor/evolutivo'] = 'electromecanicax/Auditoria_edenor/evolutivo';
+$route['Electromecanica/AuditoriaEdenor/reporte'] = 'electromecanicax/Auditoria_edenor/reporte';
 
 $route['Electromecanica/Indexaciones'] = 'electromecanicax/Indexaciones';
 $route['Electromecanica/Indexaciones/list_dt'] = 'electromecanicax/Indexaciones/list_dt';

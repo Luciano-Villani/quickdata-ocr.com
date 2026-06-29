@@ -208,6 +208,10 @@ class Manager_model extends CI_Model
                     $this->db->group_end();
                 }
 
+                if ((isset($postData['programa_proyecto'])) && $postData['programa_proyecto'] != 'false' && (isset($postData['programa_proyecto']) && $postData['programa_proyecto'] != '')) {
+                    $this->where_codigo_programa_consolidado($postData['programa_proyecto']);
+                }
+
                 if ((isset($postData['expediente']) && $postData['expediente'] != 'false' &&  $postData['expediente'] != '')) {
                     $this->db->group_start();
                     foreach ($postData['expediente'] as $expediente) {
@@ -448,6 +452,45 @@ class Manager_model extends CI_Model
         // $this->db->from($_POST['table']);
         $this->db->from($_POST['table']);
     }
+
+    private function sql_codigo_programa_consolidado()
+    {
+        return "CONCAT(
+            CASE
+                WHEN CHAR_LENGTH(TRIM(COALESCE(_consolidados.id_interno_programa, ''))) = 1
+                THEN CONCAT('0', TRIM(COALESCE(_consolidados.id_interno_programa, '')))
+                ELSE TRIM(COALESCE(_consolidados.id_interno_programa, ''))
+            END,
+            CASE
+                WHEN TRIM(COALESCE(_consolidados.id_interno_proyecto, '')) = ''
+                     OR TRIM(COALESCE(_consolidados.id_interno_proyecto, '')) = '0'
+                THEN ''
+                WHEN CHAR_LENGTH(TRIM(COALESCE(_consolidados.id_interno_proyecto, ''))) = 1
+                THEN CONCAT('.0', TRIM(COALESCE(_consolidados.id_interno_proyecto, '')))
+                ELSE CONCAT('.', TRIM(COALESCE(_consolidados.id_interno_proyecto, '')))
+            END
+        )";
+    }
+
+    private function where_codigo_programa_consolidado($valores)
+    {
+        if (!is_array($valores)) {
+            $valores = array($valores);
+        }
+
+        $codigos = array();
+        foreach ($valores as $valor) {
+            $valor = trim((string) $valor);
+            if ($valor !== '') {
+                $codigos[] = $this->db->escape($valor);
+            }
+        }
+
+        if (!empty($codigos)) {
+            $this->db->where($this->sql_codigo_programa_consolidado() . ' IN (' . implode(',', $codigos) . ')', NULL, FALSE);
+        }
+    }
+
     public function countAll()
     {
         $this->db->from($_POST['table']);

@@ -114,6 +114,20 @@ swal2-popup {
                 </script>
             </label>
 
+            <label class="filtro-consolidado-control" for="programa_proyecto">
+                <span>Programa.Proyecto</span>
+                <select id="programa_proyecto" name="programa_proyecto[]" multiple="multiple" disabled></select>
+                <script>
+                    $('#programa_proyecto').select2({
+                        placeholder: 'Seleccione secretaria',
+                        minimumResultsForSearch: "-1",
+                        width: '100%',
+                        closeOnSelect: false,
+                        selectionCssClass: '',
+                    })
+                </script>
+            </label>
+
 			<label class="filtro-consolidado-control" for="id_tipo_pago">
                 <span>Tipo de pago</span>
 				<?php
@@ -189,7 +203,7 @@ swal2-popup {
 			</div>
 			<div class="filtros-consolidados-actions">
 				<button id="applyfilter" type="button" class="d-none"><b><i class="icon-filter3"></i></b>Aplicar Filtros</button>
-                <button id="toggle-base-completa" type="button" class="btn btn-outline-secondary btn-sm filtros-consolidados-fullbase" data-base-completa="0"><b><i class="icon-database"></i></b> Mostrar datos historicos</button>
+                <button id="toggle-base-completa" type="button" class="btn btn-outline-secondary btn-sm filtros-consolidados-fullbase" data-base-completa="0"><b><i class="icon-database"></i></b> Datos historicos</button>
                 <button id="descarga-principal" type="button" class="btn btn-outline-primary btn-sm filtros-consolidados-download"><b><i class="icon-file-download"></i></b> Descargar reporte</button>
 				<button id="resetfilter" type="button" class="btn btn-link btn-sm filtros-consolidados-clear"><b><i class="icon-reset"></i></b> Limpiar filtros</button>
 				<!--<button id="descarga-exell" type="button" class="btn btn-outline-excel btn-sm"style="width: 160px";><b><i class="icon-file-excel"></i></b> DESCARGAR</button> -->
@@ -268,9 +282,12 @@ swal2-popup {
     }
     .filtros-consolidados-grid {
         display: grid;
-        grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1.15fr auto;
+        grid-template-columns: minmax(160px, 1.25fr) minmax(145px, 1fr) minmax(165px, 1.15fr) minmax(135px, .9fr) minmax(150px, 1fr) minmax(160px, 1.05fr) minmax(150px, .65fr);
         gap: 10px;
         align-items: end;
+    }
+    .filtros-consolidados-card.modo-reporte-final .filtros-consolidados-grid {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
     }
     .filtro-consolidado-control {
         display: block;
@@ -309,18 +326,25 @@ swal2-popup {
     }
     .filtros-consolidados-actions {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: flex-end;
-        gap: 8px;
-        min-width: 470px;
+        gap: 6px;
+        min-width: 0;
+        padding-right: 14px;
         padding-bottom: 1px;
     }
+    .filtros-consolidados-card.modo-reporte-final .filtros-consolidados-actions {
+        justify-content: flex-end;
+    }
     .filtros-consolidados-fullbase {
-        min-width: 175px;
+        width: 100%;
+        min-width: 0;
         white-space: nowrap;
     }
     .filtros-consolidados-download {
-        min-width: 150px;
+        width: 100%;
+        min-width: 0;
         white-space: nowrap;
     }
     .filtros-consolidados-clear {
@@ -328,6 +352,9 @@ swal2-popup {
         font-weight: 600;
         text-decoration: none;
         white-space: nowrap;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
     }
     .filtros-consolidados-toggle {
         color: #53638c;
@@ -365,7 +392,8 @@ swal2-popup {
         vertical-align: middle;
     }
     @media (max-width: 1400px) {
-        .filtros-consolidados-grid {
+        .filtros-consolidados-grid,
+        .filtros-consolidados-card.modo-reporte-final .filtros-consolidados-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
         }
         .filtros-consolidados-actions {
@@ -439,24 +467,51 @@ swal2-popup {
     }
     #reporte_final_preview {
         table-layout: fixed;
-        min-width: 1420px;
+        min-width: 1480px;
     }
     #reporte_final_preview .importe {
         text-align: right;
     }
-    #reporte_final_preview th:nth-child(1), #reporte_final_preview td:nth-child(1) { width: 150px; }
-    #reporte_final_preview th:nth-child(2), #reporte_final_preview td:nth-child(2) { width: 115px; }
-    #reporte_final_preview th:nth-child(3), #reporte_final_preview td:nth-child(3) { width: 145px; }
+    #reporte_final_preview th:nth-child(1), #reporte_final_preview td:nth-child(1) { width: 60px; }
+    #reporte_final_preview th:nth-child(2), #reporte_final_preview td:nth-child(2) { width: 150px; }
+    #reporte_final_preview th:nth-child(3), #reporte_final_preview td:nth-child(3) { width: 115px; }
     #reporte_final_preview th:nth-child(4), #reporte_final_preview td:nth-child(4) { width: 145px; }
-    #reporte_final_preview th:nth-child(5), #reporte_final_preview td:nth-child(5) { width: 125px; }
-    #reporte_final_preview th:nth-child(6), #reporte_final_preview td:nth-child(6) { width: 100px; }
-    #reporte_final_preview th:nth-child(7), #reporte_final_preview td:nth-child(7) { width: 105px; }
+    #reporte_final_preview th:nth-child(5), #reporte_final_preview td:nth-child(5) { width: 145px; }
+    #reporte_final_preview th:nth-child(6), #reporte_final_preview td:nth-child(6) { width: 125px; }
+    #reporte_final_preview th:nth-child(7), #reporte_final_preview td:nth-child(7) { width: 100px; }
     #reporte_final_preview th:nth-child(8), #reporte_final_preview td:nth-child(8) { width: 105px; }
-    #reporte_final_preview th:nth-child(9), #reporte_final_preview td:nth-child(9) { width: 110px; }
-    #reporte_final_preview th:nth-child(10), #reporte_final_preview td:nth-child(10) { width: 120px; }
-    #reporte_final_preview th:nth-child(11), #reporte_final_preview td:nth-child(11) { width: 125px; }
-    #reporte_final_preview th:nth-child(12), #reporte_final_preview td:nth-child(12) { width: 110px; }
-    #reporte_final_preview th:nth-child(13), #reporte_final_preview td:nth-child(13) { width: 135px; }
+    #reporte_final_preview th:nth-child(9), #reporte_final_preview td:nth-child(9) { width: 105px; }
+    #reporte_final_preview th:nth-child(10), #reporte_final_preview td:nth-child(10) { width: 110px; }
+    #reporte_final_preview th:nth-child(11), #reporte_final_preview td:nth-child(11) { width: 120px; }
+    #reporte_final_preview th:nth-child(12), #reporte_final_preview td:nth-child(12) { width: 125px; }
+    #reporte_final_preview th:nth-child(13), #reporte_final_preview td:nth-child(13) { width: 110px; }
+    #reporte_final_preview th:nth-child(14), #reporte_final_preview td:nth-child(14) { width: 135px; }
+    .reporte-final-opciones {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 8px;
+        font-size: .9rem;
+    }
+    .reporte-final-opciones label {
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 600;
+        color: #12365f;
+    }
+    .reporte-final-opciones .hint {
+        color: #64748b;
+        font-size: .82rem;
+    }
+    .reporte-final-excluir {
+        width: 30px;
+        height: 28px;
+        padding: 0;
+        line-height: 1;
+        font-weight: 700;
+    }
     #reporte-final-titulo {
         display: block;
         background: #f4b183;
@@ -540,10 +595,20 @@ swal2-popup {
             <b><i class="icon-file-excel"></i></b> Descargar Excel
         </button>
     </div>
+    <div class="reporte-final-opciones">
+        <label>
+            <input type="checkbox" id="reporte-final-desagrupar" value="1">
+            Desagrupar cuentas en hojas separadas
+        </label>
+        <span id="reporte-final-desagrupar-hint" class="hint d-none">
+            Se activa automáticamente para OP de AYSA, NATURGY o EDENOR.
+        </span>
+    </div>
     <div class="table-responsive" style="max-height: 520px;">
         <table id="reporte_final_preview" class="table table-bordered table-hover table-sm mb-0">
             <thead>
                 <tr>
+                    <th>Quitar</th>
                     <th>Proveedor</th>
                     <th>Expediente</th>
                     <th>Secretaria</th>
@@ -561,7 +626,7 @@ swal2-popup {
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="13" class="text-center text-muted">Sin datos para mostrar.</td>
+                    <td colspan="14" class="text-center text-muted">Sin datos para mostrar.</td>
                 </tr>
             </tbody>
         </table>

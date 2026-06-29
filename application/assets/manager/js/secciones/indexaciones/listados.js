@@ -195,11 +195,20 @@ $(document).ready(function () {
   var base_url = $("body").data("base_url");
   var action = $("body").data("data_action");
 
+  function setIndexacionSubmitMode(mode) {
+    var label = mode === "edit" ? "Guardar cambios" : "Agregar indexacion";
+    $("#submit_indexacion").html('<i class="icon-floppy-disk"></i> ' + label);
+  }
+
   disabled = 'disabled=""';
   if (action == "xxx") {
     var disabled = 'disabled="disabled"';
     $(".collapse").collapse("toggle");
   }
+
+  $("body").on("click", "#btn_agregar_indexacion", function () {
+    setIndexacionSubmitMode("add");
+  });
 
   $("body").on("change", "select#select_programa", function (e) {
     var dato = new FormData();
@@ -243,6 +252,17 @@ $(document).ready(function () {
           );
         }
 
+        var pendingProyecto = $("#form-validate-jquery").data("pendingProyecto");
+        if (pendingProyecto !== undefined && pendingProyecto !== null && pendingProyecto !== "") {
+          $("#select_proyecto").val(String(pendingProyecto)).trigger("change");
+          $("#form-validate-jquery").removeData("pendingProyecto");
+        }
+
+        if ($("#form-validate-jquery").data("loadingEditIndexacion")) {
+          $("#form-validate-jquery").removeData("loadingEditIndexacion");
+          $.unblockUI();
+        }
+
         //    					toastr.success('Registro Editado correctamente!', 'Categorías');
       },
       error: function (xhr, errmsg, err) {
@@ -270,6 +290,7 @@ $(document).ready(function () {
         $("html, body").animate({ scrollTop: 0 }, "fast");
         console.log(result);
         if (result.status == "success") {
+          setIndexacionSubmitMode("edit");
           $("div#formulario1").addClass("show");
           $("select#id_proveedor")
             .val(result.data.id_proveedor)
@@ -281,25 +302,18 @@ $(document).ready(function () {
           $("input[name='id_indexacion']").val(result.data.id);
           $("select#tipo_pago").val(result.data.tipo_pago).trigger("change");
           $("#acuerdo_pago").val(result.data.acuerdo_pago);
+          $("#periodicidad_meses").val(result.data.periodicidad_meses || 1);
+          $("#dias_alerta").val(result.data.dias_alerta || 7);
+          $("#control_vencimiento").prop("checked", String(result.data.control_vencimiento) !== "0");
+          $("#form-validate-jquery")
+            .data("pendingDependencia", result.data.id_dependencia || "")
+            .data("pendingPrograma", result.data.id_programa || "")
+            .data("pendingProyecto", result.data.id_proyecto || "")
+            .data("loadingEditIndexacion", true);
+
           $("select#select_secretaria")
             .val(result.data.id_secretaria)
             .trigger("change");
-
-          setTimeout(function () {
-            $("select#select_dependencia")
-              .val(result.data.id_dependencia)
-              .trigger("change");
-            $("select#select_programa")
-              .val(result.data.id_programa)
-              .trigger("change");
-            $("select#select_programa").removeAttr("disabled");
-          }, 1000);
-
-          setTimeout(function () {
-            $("select#select_proyecto").removeAttr("disabled");
-            $("select#select_proyecto").val(result.data.id_proyecto);
-            $.unblockUI();
-          }, 2000);
         } else {
           alertas(result);
         }
@@ -364,7 +378,7 @@ $(document).ready(function () {
           targets: [0, 1, 3],
           visible: false,
         },
-        { width: "", orderable: false, targets: [7] },
+        { width: "", orderable: false, targets: [11] },
         {
           targets: [2],
           render: function (data, type, full, meta) {
@@ -614,6 +628,22 @@ $(document).ready(function () {
               '<option selected value="">SIN PROGRAMAS</option>'
             );
             // $('#select_dependencia').attr('disabled','disabled');
+          }
+
+          var $formIndexaciones = $("#form-validate-jquery");
+          var pendingDependencia = $formIndexaciones.data("pendingDependencia");
+          var pendingPrograma = $formIndexaciones.data("pendingPrograma");
+
+          if (pendingDependencia !== undefined && pendingDependencia !== null && pendingDependencia !== "") {
+            $("#select_dependencia").val(String(pendingDependencia)).trigger("change");
+            $formIndexaciones.removeData("pendingDependencia");
+          }
+
+          if (pendingPrograma !== undefined && pendingPrograma !== null && pendingPrograma !== "") {
+            $("#select_programa").val(String(pendingPrograma)).trigger("change");
+            $formIndexaciones.removeData("pendingPrograma");
+          } else {
+            $.unblockUI();
           }
 
           //    					toastr.success('Registro Editado correctamente!', 'Categorías');

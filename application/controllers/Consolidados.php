@@ -637,7 +637,16 @@ public function descargar_reporte_final()
     }
 
     $filename = $this->_filename_reporte_final($reporte['filas'], $filtros);
-    $xlsx = $this->_xlsx_reporte_final($reporte['filas']);
+    $desagrupar = !empty($filtros['desagrupar_cuentas']);
+    if ($desagrupar) {
+        $cantidadHojas = $this->Consolidados_model->contar_cuentas_reporte_final($reporte['filas']);
+        if ($cantidadHojas > 50) {
+            die("<script>alert('La liquidacion generaria " . (int) $cantidadHojas . " hojas. Aplique mas filtros o desactive Desagrupar cuentas.'); window.close();</script>");
+        }
+        $xlsx = $this->_xlsx_reporte_final_por_cuentas($reporte['filas']);
+    } else {
+        $xlsx = $this->_xlsx_reporte_final($reporte['filas']);
+    }
 
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -656,7 +665,10 @@ private function _get_reporte_final_filtros($method = 'post')
     $tipoPago = $this->input->{$input}('tipo_pago');
     $periodoContable = $this->input->{$input}('periodo_contable');
     $idSecretaria = $this->input->{$input}('id_secretaria');
+    $programaProyecto = $this->input->{$input}('programa_proyecto');
     $fechaRango = $this->input->{$input}('fecha');
+    $excluirIds = $this->input->{$input}('excluir_ids');
+    $desagruparCuentas = $this->input->{$input}('desagrupar_cuentas');
 
     $fechas = null;
     if ($fechaRango) {
@@ -674,7 +686,10 @@ private function _get_reporte_final_filtros($method = 'post')
         'tipo_pago' => $this->_normalizar_array_filtro($tipoPago),
         'periodo_contable' => $this->_normalizar_array_filtro($periodoContable),
         'id_secretaria' => $this->_normalizar_array_filtro($idSecretaria),
+        'programa_proyecto' => $this->_normalizar_array_filtro($programaProyecto),
         'fechas' => $fechas,
+        'excluir_ids' => $this->_normalizar_ids_filtro($excluirIds),
+        'desagrupar_cuentas' => (int) $desagruparCuentas === 1,
     );
 }
 
@@ -685,6 +700,20 @@ private function _normalizar_array_filtro($valor)
     }
 
     return is_array($valor) ? array_filter($valor, 'strlen') : array($valor);
+}
+
+private function _normalizar_ids_filtro($valor)
+{
+    $valores = $this->_normalizar_array_filtro($valor);
+    $ids = array();
+    foreach ($valores as $id) {
+        $id = (int) $id;
+        if ($id > 0) {
+            $ids[] = $id;
+        }
+    }
+
+    return array_values(array_unique($ids));
 }
 
 private function _titulo_reporte_final($filas)
@@ -766,6 +795,32 @@ private function _td_excel($valor)
 
 private function _xlsx_reporte_final($filas)
 {
+    return $this->_xlsx_reporte_final_sheets(array(
+        array(
+            'name' => 'Liquidacion',
+            'filas' => $filas,
+        )
+    ));
+}
+
+private function _xlsx_reporte_final_por_cuentas($filas)
+{
+    $grupos = $this->Consolidados_model->agrupar_reporte_final_por_cuenta($filas);
+    $sheets = array();
+    $nombresUsados = array();
+
+    foreach ($grupos as $cuenta => $reporteCuenta) {
+        $sheets[] = array(
+            'name' => $this->_xlsx_sheet_name($cuenta, $nombresUsados),
+            'filas' => $reporteCuenta['filas'],
+        );
+    }
+
+    return $this->_xlsx_reporte_final_sheets($sheets);
+}
+
+private function _xlsx_reporte_final_sheets($sheets)
+{
     if (!class_exists('ZipArchive')) {
         die("<script>alert('El servidor no tiene habilitada la extension ZIP para generar XLSX.'); window.close();</script>");
     }
@@ -777,18 +832,43 @@ private function _xlsx_reporte_final($filas)
         die("<script>alert('No se pudo generar el archivo XLSX temporal.'); window.close();</script>");
     }
 
-    $zip->addFromString('[Content_Types].xml', $this->_xlsx_content_types_xml());
+    $zip->addFromString('[Content_Types].xml', $this->_xlsx_content_types_xml(count($sheets)));
     $zip->addFromString('_rels/.rels', $this->_xlsx_root_rels_xml());
-    $zip->addFromString('xl/workbook.xml', $this->_xlsx_workbook_xml());
-    $zip->addFromString('xl/_rels/workbook.xml.rels', $this->_xlsx_workbook_rels_xml());
+    $zip->addFromString('xl/workbook.xml', $this->_xlsx_workbook_xml($sheets));
+    $zip->addFromString('xl/_rels/workbook.xml.rels', $this->_xlsx_workbook_rels_xml(count($sheets)));
     $zip->addFromString('xl/styles.xml', $this->_xlsx_styles_xml());
-    $zip->addFromString('xl/worksheets/sheet1.xml', $this->_xlsx_sheet_xml($filas));
+    foreach ($sheets as $index => $sheet) {
+        $zip->addFromString('xl/worksheets/sheet' . ($index + 1) . '.xml', $this->_xlsx_sheet_xml($sheet['filas']));
+    }
     $zip->close();
 
     $contenido = file_get_contents($tmp);
     unlink($tmp);
 
     return $contenido;
+}
+
+private function _xlsx_sheet_name($valor, &$usados)
+{
+    $nombre = trim((string) $valor);
+    $nombre = preg_replace('/[\[\]\:\*\?\/\\\\]/', '-', $nombre);
+    $nombre = preg_replace('/\s+/', ' ', $nombre);
+    $nombre = trim($nombre, " '");
+    if ($nombre === '') {
+        $nombre = 'SIN CUENTA';
+    }
+
+    $base = substr($nombre, 0, 31);
+    $nombreFinal = $base;
+    $contador = 2;
+    while (isset($usados[strtolower($nombreFinal)])) {
+        $sufijo = '-' . $contador;
+        $nombreFinal = substr($base, 0, 31 - strlen($sufijo)) . $sufijo;
+        $contador++;
+    }
+
+    $usados[strtolower($nombreFinal)] = true;
+    return $nombreFinal;
 }
 
 private function _xlsx_sheet_xml($filas)
@@ -927,14 +1007,19 @@ private function _xlsx_xml($valor)
     return htmlspecialchars((string) $valor, ENT_XML1 | ENT_COMPAT, 'UTF-8');
 }
 
-private function _xlsx_content_types_xml()
+private function _xlsx_content_types_xml($cantidadSheets = 1)
 {
+    $overrides = '';
+    for ($i = 1; $i <= $cantidadSheets; $i++) {
+        $overrides .= '<Override PartName="/xl/worksheets/sheet' . $i . '.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>';
+    }
+
     return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         . '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
         . '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
         . '<Default Extension="xml" ContentType="application/xml"/>'
         . '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'
-        . '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'
+        . $overrides
         . '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'
         . '</Types>';
 }
@@ -947,20 +1032,32 @@ private function _xlsx_root_rels_xml()
         . '</Relationships>';
 }
 
-private function _xlsx_workbook_xml()
+private function _xlsx_workbook_xml($sheets)
 {
+    $sheetXml = '';
+    foreach ($sheets as $index => $sheet) {
+        $sheetId = $index + 1;
+        $sheetXml .= '<sheet name="' . $this->_xlsx_xml($sheet['name']) . '" sheetId="' . $sheetId . '" r:id="rId' . $sheetId . '"/>';
+    }
+
     return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         . '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
-        . '<sheets><sheet name="Liquidacion" sheetId="1" r:id="rId1"/></sheets>'
+        . '<sheets>' . $sheetXml . '</sheets>'
         . '</workbook>';
 }
 
-private function _xlsx_workbook_rels_xml()
+private function _xlsx_workbook_rels_xml($cantidadSheets = 1)
 {
+    $rels = '';
+    for ($i = 1; $i <= $cantidadSheets; $i++) {
+        $rels .= '<Relationship Id="rId' . $i . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet' . $i . '.xml"/>';
+    }
+    $stylesId = $cantidadSheets + 1;
+
     return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         . '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-        . '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>'
-        . '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>'
+        . $rels
+        . '<Relationship Id="rId' . $stylesId . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>'
         . '</Relationships>';
 }
 

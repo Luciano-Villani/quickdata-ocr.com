@@ -421,13 +421,102 @@ public function get_reporte_final($filtros)
     return $this->armar_filas_reporte_final($registros);
 }
 
+public function contar_cuentas_reporte_final($filas)
+{
+    $cuentas = array();
+    foreach ($filas as $fila) {
+        if (isset($fila['tipo']) && $fila['tipo'] === 'detalle') {
+            $cuenta = trim((string) $fila['nro_cuenta']);
+            if ($cuenta !== '') {
+                $cuentas[$cuenta] = true;
+            }
+        }
+    }
+
+    return count($cuentas);
+}
+
+public function agrupar_reporte_final_por_cuenta($filas)
+{
+    $grupos = array();
+    foreach ($filas as $fila) {
+        if (isset($fila['tipo']) && $fila['tipo'] === 'detalle') {
+            $cuenta = trim((string) $fila['nro_cuenta']);
+            if ($cuenta === '') {
+                $cuenta = 'SIN CUENTA';
+            }
+            if (!isset($grupos[$cuenta])) {
+                $grupos[$cuenta] = array();
+            }
+            $grupos[$cuenta][] = (object) array(
+                'id' => isset($fila['id']) ? $fila['id'] : null,
+                'proveedor' => preg_replace('/\s*\([^)]*\)\s*$/', '', $fila['proveedor']),
+                'codigo_proveedor' => '',
+                'expediente' => $fila['expediente'],
+                'secretaria' => $fila['secretaria'],
+                'dependencia' => $fila['dependencia'],
+                'jurisdiccion' => $fila['jurisdiccion'],
+                'id_interno_programa' => $this->programa_sin_proyecto_reporte($fila['programa']),
+                'id_interno_proyecto' => $this->proyecto_desde_programa_reporte($fila['programa']),
+                'objeto' => $fila['objeto'],
+                'tipo_pago' => $fila['tipo_pago'],
+                'nro_cuenta' => $fila['nro_cuenta'],
+                'nro_factura' => $fila['nro_factura'],
+                'periodo_del_consumo' => $fila['periodo'],
+                'fecha_vencimiento' => $fila['vencimiento'],
+                'importe' => $fila['importe'],
+                'importe_1' => $fila['importe'],
+                'periodo_contable' => '',
+            );
+        }
+    }
+
+    $resultado = array();
+    foreach ($grupos as $cuenta => $registros) {
+        $resultado[$cuenta] = $this->armar_filas_reporte_final($registros);
+    }
+
+    return $resultado;
+}
+
 public function get_reporte_final_opciones($filtros)
 {
     return array(
         'tipo_pago' => $this->opciones_tipo_pago_reporte($filtros),
         'periodo_contable' => $this->opciones_distintas_reporte('periodo_contable', $filtros, 'periodo_contable'),
         'secretaria' => $this->opciones_secretarias_reporte($filtros),
+        'programa_proyecto' => $this->opciones_programa_proyecto_reporte($filtros),
     );
+}
+
+private function opciones_programa_proyecto_reporte($filtros)
+{
+    if (empty($filtros['id_secretaria'])) {
+        return array();
+    }
+
+    $this->db->select('C.id_interno_programa, C.id_interno_proyecto');
+    $this->db->from('_consolidados C');
+    $this->aplicar_filtros_reporte_final_alias($filtros, 'C', 'programa_proyecto');
+    $this->db->where("C.id_interno_programa IS NOT NULL AND TRIM(C.id_interno_programa) <> ''", NULL, FALSE);
+    $this->db->group_by('C.id_interno_programa, C.id_interno_proyecto');
+    $this->db->order_by('CAST(C.id_interno_programa AS UNSIGNED)', 'ASC', FALSE);
+    $this->db->order_by('CAST(C.id_interno_proyecto AS UNSIGNED)', 'ASC', FALSE);
+
+    $query = $this->db->get();
+    $opciones = array();
+
+    foreach ($query->result() as $row) {
+        $codigo = $this->codigo_programa_reporte($row);
+        if ($codigo !== '') {
+            $opciones[] = array(
+                'id' => $codigo,
+                'text' => $codigo,
+            );
+        }
+    }
+
+    return $opciones;
 }
 
 private function opciones_tipo_pago_reporte($filtros)
@@ -516,10 +605,18 @@ private function aplicar_filtros_reporte_final($filtros)
         $this->db->where_in('id_secretaria', $filtros['id_secretaria']);
     }
 
+    if (!empty($filtros['programa_proyecto'])) {
+        $this->where_codigo_programa_reporte('', $filtros['programa_proyecto']);
+    }
+
     if (!empty($filtros['fechas']) && count($filtros['fechas']) === 2) {
         $fechaInicio = $this->db->escape($filtros['fechas'][0] . ' 00:00:00');
         $fechaFin = $this->db->escape($filtros['fechas'][1] . ' 23:59:59');
         $this->db->where("fecha_consolidado BETWEEN {$fechaInicio} AND {$fechaFin}", NULL, FALSE);
+    }
+
+    if (!empty($filtros['excluir_ids'])) {
+        $this->db->where_not_in('id', $filtros['excluir_ids']);
     }
 }
 
@@ -543,11 +640,53 @@ private function aplicar_filtros_reporte_final_alias($filtros, $alias, $excluir 
         $this->db->where_in($prefix . 'id_secretaria', $filtros['id_secretaria']);
     }
 
+    if ($excluir !== 'programa_proyecto' && !empty($filtros['programa_proyecto'])) {
+        $this->where_codigo_programa_reporte($alias, $filtros['programa_proyecto']);
+    }
+
     if (!empty($filtros['fechas']) && count($filtros['fechas']) === 2) {
         $fechaInicio = $this->db->escape($filtros['fechas'][0] . ' 00:00:00');
         $fechaFin = $this->db->escape($filtros['fechas'][1] . ' 23:59:59');
         $this->db->where($prefix . "fecha_consolidado BETWEEN {$fechaInicio} AND {$fechaFin}", NULL, FALSE);
     }
+}
+
+private function where_codigo_programa_reporte($alias, $valores)
+{
+    $codigos = array();
+    foreach ($valores as $valor) {
+        $valor = trim((string) $valor);
+        if ($valor !== '') {
+            $codigos[] = $this->db->escape($valor);
+        }
+    }
+
+    if (empty($codigos)) {
+        return;
+    }
+
+    $expr = $this->sql_codigo_programa_reporte($alias);
+    $this->db->where($expr . ' IN (' . implode(',', $codigos) . ')', NULL, FALSE);
+}
+
+private function sql_codigo_programa_reporte($alias = '')
+{
+    $prefix = $alias !== '' ? $alias . '.' : '';
+    return "CONCAT(
+        CASE
+            WHEN CHAR_LENGTH(TRIM(COALESCE({$prefix}id_interno_programa, ''))) = 1
+            THEN CONCAT('0', TRIM(COALESCE({$prefix}id_interno_programa, '')))
+            ELSE TRIM(COALESCE({$prefix}id_interno_programa, ''))
+        END,
+        CASE
+            WHEN TRIM(COALESCE({$prefix}id_interno_proyecto, '')) = ''
+                 OR TRIM(COALESCE({$prefix}id_interno_proyecto, '')) = '0'
+            THEN ''
+            WHEN CHAR_LENGTH(TRIM(COALESCE({$prefix}id_interno_proyecto, ''))) = 1
+            THEN CONCAT('.0', TRIM(COALESCE({$prefix}id_interno_proyecto, '')))
+            ELSE CONCAT('.', TRIM(COALESCE({$prefix}id_interno_proyecto, '')))
+        END
+    )";
 }
 
 private function armar_filas_reporte_final($registros)
@@ -597,7 +736,10 @@ private function armar_filas_reporte_final($registros)
 
         $filas[] = array(
             'tipo' => 'detalle',
-            'proveedor' => $registro->proveedor . ' (' . $registro->codigo_proveedor . ')',
+            'id' => $registro->id,
+            'proveedor' => $registro->codigo_proveedor !== ''
+                ? $registro->proveedor . ' (' . $registro->codigo_proveedor . ')'
+                : $registro->proveedor,
             'expediente' => $registro->expediente,
             'secretaria' => $registro->secretaria,
             'dependencia' => $registro->dependencia,
@@ -636,6 +778,18 @@ private function armar_filas_reporte_final($registros)
         'total' => $totalGeneral,
         'cantidad' => $cantidadDetalle,
     );
+}
+
+private function programa_sin_proyecto_reporte($codigo)
+{
+    $partes = explode('.', (string) $codigo);
+    return isset($partes[0]) ? $partes[0] : '';
+}
+
+private function proyecto_desde_programa_reporte($codigo)
+{
+    $partes = explode('.', (string) $codigo);
+    return isset($partes[1]) ? $partes[1] : '';
 }
 
 private function fila_subtotal_programa($codigoPrograma, $subtotal, $inicio, $fin)

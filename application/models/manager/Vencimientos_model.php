@@ -37,6 +37,9 @@ class Vencimientos_model extends CI_Model
         $inicioMes = new DateTime(sprintf('%04d-%02d-01', $anio, $mes));
         $finMes = clone $inicioMes;
         $finMes->modify('last day of this month');
+        $inicioMesAnterior = clone $inicioMes;
+        $inicioMesAnterior->modify('-1 month');
+        $claveMesAnterior = $inicioMesAnterior->format('Y-m');
         $hoy = new DateTime(date('Y-m-d'));
         $limiteAlerta = clone $hoy;
         $limiteAlerta->modify('+7 days');
@@ -60,6 +63,7 @@ class Vencimientos_model extends CI_Model
             'vencen_7' => 0,
             'vencidas' => 0,
             'sin_actividad' => 0,
+            'pendientes_anteriores' => 0,
         );
 
         foreach ($cuentas as $idIndexador => $cuenta) {
@@ -149,6 +153,9 @@ class Vencimientos_model extends CI_Model
             $enMes = !$sinActividad && $fechaEsperada->format('Y-m') === $inicioMes->format('Y-m');
             $alerta7 = $enMes && $estado !== 'consolidada' && $fechaEsperada >= $hoy && $fechaEsperada <= $limiteAlerta;
             $vencida = $enMes && in_array($estado, array('vencida_sin_subir', 'vencida_subida'), true);
+            $pendienteAnterior = !$enMes
+                && $estado !== 'consolidada'
+                && $fechaEsperada->format('Y-m') === $claveMesAnterior;
 
             if ($alerta7) {
                 $issues['vencen_7']++;
@@ -158,6 +165,9 @@ class Vencimientos_model extends CI_Model
             }
             if ($sinActividad) {
                 $issues['sin_actividad']++;
+            }
+            if ($pendienteAnterior) {
+                $issues['pendientes_anteriores']++;
             }
 
             $fila = $this->fila_base($cuenta, $modulo);
@@ -173,6 +183,7 @@ class Vencimientos_model extends CI_Model
             $fila['alerta_7'] = $alerta7;
             $fila['vencida'] = $vencida;
             $fila['sin_actividad'] = $sinActividad;
+            $fila['pendiente_anterior'] = $pendienteAnterior;
             $fila['origen'] = $origen;
             $fila['url'] = $url;
             $fila['nro_factura'] = $nroFactura;
@@ -209,6 +220,7 @@ class Vencimientos_model extends CI_Model
         $issues = $calendario['issues'];
         $vencidas = isset($issues['vencidas']) ? (int) $issues['vencidas'] : 0;
         $vencen7 = isset($issues['vencen_7']) ? (int) $issues['vencen_7'] : 0;
+        $pendientesAnteriores = isset($issues['pendientes_anteriores']) ? (int) $issues['pendientes_anteriores'] : 0;
         $base = $modulo === 'electromecanica' ? 'Electromecanica/Vencimientos' : 'Admin/Vencimientos';
 
         return array(
@@ -216,8 +228,10 @@ class Vencimientos_model extends CI_Model
             'total' => $vencidas + $vencen7,
             'vencidas' => $vencidas,
             'vencen_7' => $vencen7,
+            'pendientes_anteriores' => $pendientesAnteriores,
             'url_vencidas' => base_url($base . '?estado=vencidas'),
             'url_vencen_7' => base_url($base . '?estado=vencen_7'),
+            'url_pendientes_anteriores' => base_url($base . '?estado=pendientes_anteriores'),
             'url_calendario' => base_url($base),
             'firma' => $modulo . ':vencidas:' . $vencidas . '|vencen_7:' . $vencen7 . '|' . date('Y-m-d'),
             'actualizado' => date('d/m/Y H:i'),
