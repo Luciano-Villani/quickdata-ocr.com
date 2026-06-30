@@ -448,10 +448,11 @@ public function agrupar_reporte_final_por_cuenta($filas)
             if (!isset($grupos[$cuenta])) {
                 $grupos[$cuenta] = array();
             }
+            $proveedor = $this->partes_proveedor_reporte($fila['proveedor']);
             $grupos[$cuenta][] = (object) array(
                 'id' => isset($fila['id']) ? $fila['id'] : null,
-                'proveedor' => preg_replace('/\s*\([^)]*\)\s*$/', '', $fila['proveedor']),
-                'codigo_proveedor' => '',
+                'proveedor' => $proveedor['nombre'],
+                'codigo_proveedor' => $proveedor['codigo'],
                 'expediente' => $fila['expediente'],
                 'secretaria' => $fila['secretaria'],
                 'dependencia' => $fila['dependencia'],
@@ -737,9 +738,7 @@ private function armar_filas_reporte_final($registros)
         $filas[] = array(
             'tipo' => 'detalle',
             'id' => $registro->id,
-            'proveedor' => $registro->codigo_proveedor !== ''
-                ? $registro->proveedor . ' (' . $registro->codigo_proveedor . ')'
-                : $registro->proveedor,
+            'proveedor' => $this->formato_proveedor_reporte($registro->proveedor, $registro->codigo_proveedor),
             'expediente' => $registro->expediente,
             'secretaria' => $registro->secretaria,
             'dependencia' => $registro->dependencia,
@@ -777,6 +776,33 @@ private function armar_filas_reporte_final($registros)
         'filas' => $filas,
         'total' => $totalGeneral,
         'cantidad' => $cantidadDetalle,
+    );
+}
+
+private function formato_proveedor_reporte($nombre, $codigo)
+{
+    $partes = $this->partes_proveedor_reporte($nombre, $codigo);
+    return $partes['codigo'] !== ''
+        ? $partes['nombre'] . ' (' . $partes['codigo'] . ')'
+        : $partes['nombre'];
+}
+
+private function partes_proveedor_reporte($nombre, $codigo = '')
+{
+    $nombre = trim((string) $nombre);
+    $codigo = trim((string) $codigo);
+
+    if ($codigo === '' && preg_match('/^(.*?)\s*\(([^()]*)\)\s*$/', $nombre, $matches)) {
+        $nombre = trim($matches[1]);
+        $codigo = trim($matches[2]);
+    } elseif ($codigo !== '') {
+        $nombre = preg_replace('/\s*\([^)]*\)\s*$/', '', $nombre);
+        $nombre = trim($nombre);
+    }
+
+    return array(
+        'nombre' => $nombre,
+        'codigo' => $codigo,
     );
 }
 
